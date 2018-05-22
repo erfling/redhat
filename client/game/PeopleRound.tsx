@@ -1,7 +1,8 @@
-'use strict';
-import BaseRoundCtrl from './BaseRoundCtrl';
+import * as React from "react";
+import Round1Ctrl from "./PeopleRoundCtrl";
+import RoundModel from "../../shared/models/RoundModel";
 
-export default class Round1Ctrl extends BaseRoundCtrl
+export default class PeopleRound extends React.Component<{}, RoundModel>
 {
     //----------------------------------------------------------------------
     //
@@ -9,16 +10,18 @@ export default class Round1Ctrl extends BaseRoundCtrl
     //
     //----------------------------------------------------------------------
 
-
     
+
     //----------------------------------------------------------------------
     //
     //  Constructor
     //
     //----------------------------------------------------------------------
 
-    constructor(reactComp: React.Component<any, any>) {
-        super(reactComp);
+    constructor() {
+        super({});
+
+        this.state = new Round1Ctrl(this).dataStore;
     }
 
     //----------------------------------------------------------------------
@@ -27,7 +30,7 @@ export default class Round1Ctrl extends BaseRoundCtrl
     //
     //----------------------------------------------------------------------
 
-
+    
 
     //----------------------------------------------------------------------
     //
@@ -35,6 +38,11 @@ export default class Round1Ctrl extends BaseRoundCtrl
     //
     //----------------------------------------------------------------------
 
-
+    render() {
+        return  <div>
+                    <h1>You are in round 1.</h1>
+                    <button>Hit me</button>
+                </div>;
+    }
 
 }

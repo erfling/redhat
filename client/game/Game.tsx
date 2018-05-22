@@ -1,7 +1,7 @@
 import * as React from "react";
 import GameCtrl from "./GameCtrl";
 import GameModel from "../../shared/models/GameModel";
-import Round1 from './Round1';
+import Round1 from './PeopleRound';
 export default class Game extends React.Component<any, GameModel>
 {
     //----------------------------------------------------------------------

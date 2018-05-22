@@ -1,8 +1,7 @@
-import * as React from "react";
-import Round2Ctrl from "./Round2Ctrl";
-import RoundModel from "../../shared/models/RoundModel";
+'use strict';
+import BaseRoundCtrl from './BaseRoundCtrl';
 
-export default class Round2 extends React.Component<{}, RoundModel>
+export default class CustomerRoundCtrl extends BaseRoundCtrl
 {
     //----------------------------------------------------------------------
     //
@@ -10,7 +9,7 @@ export default class Round2 extends React.Component<{}, RoundModel>
     //
     //----------------------------------------------------------------------
 
-    
+
 
     //----------------------------------------------------------------------
     //
@@ -18,10 +17,8 @@ export default class Round2 extends React.Component<{}, RoundModel>
     //
     //----------------------------------------------------------------------
 
-    constructor() {
-        super({});
-
-        this.state = new Round2Ctrl(this).dataStore;
+    constructor(reactComp: React.Component<any, any>) {
+        super(reactComp);
     }
 
     //----------------------------------------------------------------------
@@ -30,7 +27,7 @@ export default class Round2 extends React.Component<{}, RoundModel>
     //
     //----------------------------------------------------------------------
 
-    
+
 
     //----------------------------------------------------------------------
     //
@@ -38,11 +35,6 @@ export default class Round2 extends React.Component<{}, RoundModel>
     //
     //----------------------------------------------------------------------
 
-    render() {
-        return  <div>
-                    <h1>You are in round 2.</h1>
-                    <button>With yer</button>
-                </div>;
-    }
+
 
 }

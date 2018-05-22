@@ -1,5 +1,5 @@
 import * as React from "react";
-import Round3Ctrl from "./Round3Ctrl";
+import SalesRoundCtrl from "./SalesRoundCtrl";
 import RoundModel from "../../shared/models/RoundModel";
 import * as spectacle from 'spectacle';
 const { Deck, Slide } = spectacle;
@@ -8,7 +8,7 @@ import 'jodit/build/jodit.min.css';
 import * as Semantic from 'semantic-ui-react';
 const { Button } = Semantic;
 
-export default class Round3 extends React.Component<{}, RoundModel>
+export default class SalesRound extends React.Component<{}, RoundModel>
 {
     //----------------------------------------------------------------------
     //
@@ -27,7 +27,7 @@ export default class Round3 extends React.Component<{}, RoundModel>
     constructor() {
         super({});
 
-        this.state = new Round3Ctrl(this).dataStore;
+        this.state = new SalesRoundCtrl(this).dataStore;
     }
 
     //----------------------------------------------------------------------
