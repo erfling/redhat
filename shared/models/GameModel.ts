@@ -1,6 +1,15 @@
 import FiStMa from "../FiStMa";
 
-export default class GameModel
+export interface GameShape {
+
+    Name: string;
+
+    Location: string
+
+    DatePlayed: Date;
+}
+
+export default class GameModel implements GameShape
 {
     //----------------------------------------------------------------------
     //
@@ -12,31 +21,8 @@ export default class GameModel
 
     public Location: string = "";
 
-    public Date: Date;
-
-    public Misc: Array<number> = [1,2,3];
+    public DatePlayed: Date;
 
     public RoundsFistma:FiStMa<{[key:string]: any}>;
-
-    private _Butt: string;
-
-    public set Butt(newString: string){
-        this.Misc = this.Misc.concat(this.Misc);
-        this._Butt  = newString;
-    }
-
-    public get Butt(){return this._Butt}
-
-    public DeepObj: any = {
-        depth1:{
-            depth2:{
-                depth3:{
-                    msg: "I think very deeply"
-                }
-            }
-        }
-    };
-
-    public NoInitValue:string;
     
 }

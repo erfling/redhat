@@ -1,5 +1,7 @@
 import * as express from 'express';
 import * as http from 'http';
+import * as Passport from 'passport';
+import * as PassportJWT from 'passport-jwt';
 
 const app = express();
 const port = normalizePort(443);
@@ -8,6 +10,10 @@ app.use('/', express.static("dist"));
 app.use('/assets', express.static("dist/assets"));
 app.use('/', express.static("dist"));
 app.use('*', express.static("dist"));
+
+
+
+
 const httpServer = http.createServer(app);
 httpServer.listen(port);
 httpServer
