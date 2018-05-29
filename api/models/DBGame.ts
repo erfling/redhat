@@ -1,6 +1,6 @@
 import { prop, arrayProp, Typegoose, ModelType, InstanceType, Ref, instanceMethod } from 'typegoose';
 import * as mongoose from 'mongoose';
-import {GameShape} from '../../shared/models/GameModel'
+import GameModel, {GameShape} from '../../shared/models/GameModel'
 
 //TODO: find out how to save nested teams, not just their refs. Possibly with pre method: https://github.com/szokodiakos/typegoose#pre
 export class DBGame extends Typegoose implements GameShape

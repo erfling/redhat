@@ -48,7 +48,6 @@ export default class GameCtrl extends BaseController<GameModel>
         this.dataStore.Name = "Some initial value";
         console.log("YO2:", this.dataStore.Name);
 
-       
     }
     
     //----------------------------------------------------------------------

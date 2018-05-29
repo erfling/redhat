@@ -3,8 +3,6 @@ import SalesRoundCtrl from "./SalesRoundCtrl";
 import RoundModel from "../../shared/models/RoundModel";
 import * as spectacle from 'spectacle';
 const { Deck, Slide } = spectacle;
-import JoditEditor from 'jodit-react'
-import 'jodit/build/jodit.min.css';
 import * as Semantic from 'semantic-ui-react';
 const { Button } = Semantic;
 
@@ -60,13 +58,6 @@ export default class SalesRound extends React.Component<{}, RoundModel>
                     >
                         Best shot
                     </Button>
-                    <JoditEditor
-                        content={testContent}
-                        config={{
-                            readonly: false // all options from https://xdsoft.net/jodit/doc/
-                        }}
-                        onChange={(stuff: any) => console.log(stuff)}
-                    />
                 </Slide>
                 <Slide>Hello. This is slide Two</Slide>
                 <Slide>Hello. This is slide Three</Slide>

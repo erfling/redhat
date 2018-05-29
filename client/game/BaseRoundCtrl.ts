@@ -1,6 +1,7 @@
 'use strict';
 import BaseController from '../../shared/BaseController';
 import RoundModel from '../../shared/models/RoundModel';
+import ContentBlock from '../../shared/models/ContentBlock'
 
 export default abstract class BaseRoundCtrl extends BaseController<RoundModel>
 {
@@ -9,7 +10,6 @@ export default abstract class BaseRoundCtrl extends BaseController<RoundModel>
     //  Properties
     //
     //----------------------------------------------------------------------
-
 
 
     //----------------------------------------------------------------------
@@ -27,7 +27,18 @@ export default abstract class BaseRoundCtrl extends BaseController<RoundModel>
     //  Event Handlers
     //
     //----------------------------------------------------------------------
-
+    public updateICContent(contentBlock: ContentBlock, i?: number){
+        console.log("RELEVANT CONTROLLER", this)
+        if(i != undefined && i < this.dataStore.IndividualContributorContent.length){
+            this.dataStore.IndividualContributorContent[i] = contentBlock;
+        } else {
+            this.dataStore.IndividualContributorContent = this.dataStore.IndividualContributorContent.concat(contentBlock);
+        }
+    }
+    
+    public updateLeaderContent(content: ContentBlock[]){
+        this.dataStore.LeaderContent = content;
+    }
 
 
     //----------------------------------------------------------------------
@@ -36,6 +47,6 @@ export default abstract class BaseRoundCtrl extends BaseController<RoundModel>
     //
     //----------------------------------------------------------------------
 
-
+    
 
 }

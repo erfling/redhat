@@ -15,7 +15,7 @@ module.exports = {
   devtool: 'inline-source-map',
   output: {
     path: ROOT_PATH + '/dist/assets',
-    publicPath: '/assets/',
+    publicPath: './assets/',
     filename: '[name].bundle.js'
   },
   module: {
@@ -46,7 +46,7 @@ module.exports = {
         })
       },
       {
-        test: /\.(png|jpg|jpeg|gif|woff|woff2|eot|ttf)$/,
+        test: /\.(png|jpg|jpeg|gif)$/,
         use: [
           {
             loader: 'file-loader',
@@ -55,6 +55,10 @@ module.exports = {
             }
           }
         ]
+      },
+      {
+        test: /.(woff|woff2|eot|ttf|otf)$/,
+        use: ['file-loader']
       }
      
     ],
@@ -74,23 +78,17 @@ module.exports = {
             }
           }
         ]
+      },
+      {
+        test: /.(woff|woff2|eot|ttf|otf)$/,
+        use: ['file-loader']
       }
     ]
-  },
-  devServer: {
-    contentBase: path.resolve(ROOT_PATH, '/build/client'),
-    historyApiFallback: true,
-    hot: true,
-    inline: true,
-    progress: true,
-    port: 443,
-    disableHostCheck: true
   },
   resolve: {
     extensions: ['.tsx', '.ts', '.js']
   },
   plugins: [
-    new webpack.HotModuleReplacementPlugin(),
     new HtmlwebpackPlugin({
       title: 'Shared Value Experience',
       filename: '../index.html',
@@ -98,7 +96,7 @@ module.exports = {
     }),
     new ExtractTextPlugin('style.css'),
     new webpack.DefinePlugin({
-      'process.env.NODE_ENV': '"production"'
+      'process.env.NODE_ENV': '"dev"'
     }),
   ]
 };

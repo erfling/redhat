@@ -1,4 +1,6 @@
 import FiStMa from "../FiStMa";
+import BaseModel from "./BaseModel";
+import { Type } from 'class-transformer';
 
 export interface GameShape {
 
@@ -9,8 +11,11 @@ export interface GameShape {
     DatePlayed: Date;
 }
 
-export default class GameModel implements GameShape
+export default class GameModel extends BaseModel implements GameShape
 {
+    constructor(){
+        super();
+    }
     //----------------------------------------------------------------------
     //
     //  Properties
@@ -23,6 +28,7 @@ export default class GameModel implements GameShape
 
     public DatePlayed: Date;
 
+    @Type(() => FiStMa)
     public RoundsFistma:FiStMa<{[key:string]: any}>;
     
 }

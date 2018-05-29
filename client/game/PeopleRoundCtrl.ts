@@ -19,6 +19,14 @@ export default class PeopleRoundCtrl extends BaseRoundCtrl
 
     constructor(reactComp: React.Component<any, any>) {
         super(reactComp);
+        setTimeout(() => {
+            this.updateContent([{
+                Header: "Test Header",
+                Body: "Test Body",
+                EditMode: false
+            }])
+            console.log("CONTENT UPDATED", this.dataStore);
+        },2)
     }
 
     //----------------------------------------------------------------------
@@ -26,7 +34,9 @@ export default class PeopleRoundCtrl extends BaseRoundCtrl
     //  Event Handlers
     //
     //----------------------------------------------------------------------
-
+    updateContent(newContent:any){
+        super.updateICContent(newContent, 0)
+    }
 
 
     //----------------------------------------------------------------------

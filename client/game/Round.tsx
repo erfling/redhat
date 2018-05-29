@@ -1,12 +1,13 @@
 import * as React from "react";
-import SalesRoundCtrl from "./FinanceRountCtrl";
+import PeopleRoundCtrl from "./PeopleRoundCtrl";
 import RoundModel from "../../shared/models/RoundModel";
-import * as spectacle from 'spectacle';
-const { Deck, Slide } = spectacle;
+import EditableContentBlock from '../shared-components/EditableContentBlock';
 import * as Semantic from 'semantic-ui-react';
-const { Button } = Semantic;
+const { Button, Grid, Menu, Icon } = Semantic;
+const { Row, Column } = Grid;
 
-export default class FinanceRound extends React.Component<{}, RoundModel>
+
+export default class PeopleRound extends React.Component<{}, RoundModel>
 {
     //----------------------------------------------------------------------
     //
@@ -24,8 +25,8 @@ export default class FinanceRound extends React.Component<{}, RoundModel>
 
     constructor() {
         super({});
-
-        this.state = new SalesRoundCtrl(this).dataStore;
+        
+        this.state = new PeopleRoundCtrl(this).dataStore;
     }
 
     //----------------------------------------------------------------------
@@ -43,32 +44,35 @@ export default class FinanceRound extends React.Component<{}, RoundModel>
     //----------------------------------------------------------------------
 
     render() {
-        var testContent = "Hello, there"
-        return <div>
+        return <>
 
-            <Deck
-                progress="bar"
-                transition={["slide"]}
-            >
-                <Slide bgColor="#eee">
-                    <h1>You are in round 3.</h1>
+            <Row>
+                <Column computer={12} mobile={16} tablet={16}>
+                    Round intro goes here
+                <h1>You are in round 1.</h1>
+                </Column>
+                <Column computer={1} mobile={16} tablet={16}>
                     <Button
                         color="violet"
                         basic={true}
                     >
                         Best shot
                     </Button>
-                    
-                </Slide>
-                <Slide>Hello. This is slide Two</Slide>
-                <Slide>Hello. This is slide Three</Slide>
-                <Slide>Hello. This is slide Four</Slide>
-                <Slide>Hello. This is slide Five</Slide>
-            </Deck>
-        </div>;
+                </Column>
+            </Row>
+            <Row>
+                {this.state.IndividualContributorContent && this.state.IndividualContributorContent.map((c, i) =>
+                   "butt"
+                )}
+            </Row>
+            <Row>
+                Form content goes here
+            </Row>
+            <Row>
+                Global game footer (like number of teams complete) goes here
+            </Row>
+        </>;
     }
 
 }
-/**
- *
- */
+//            <div dangerouslySetInnerHTML={{__html: testContent}}/>
