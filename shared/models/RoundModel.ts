@@ -1,7 +1,8 @@
-import ValueObj from "./ValueObj";
+import ValueObj from "../entity-of-the-state/ValueObj";
 import ContentBlock from './ContentBlock'
 import QuestionModel from "./QuestionModel";
 import { Expose, Type } from "class-transformer";
+import "reflect-metadata";
 
 export interface RoundShape {
 

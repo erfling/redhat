@@ -1,13 +1,14 @@
-import FiStMa from '../../shared/FiStMa';
-import BaseController from '../../shared/BaseController';
+import FiStMa from '../../shared/entity-of-the-state/FiStMa';
 import GameModel from '../../shared/models/GameModel';
 import PeopleRound from './PeopleRound';
 import EngineeringRound from './EngineeringRound';
 import SalesRound from './SalesRound';
 import FinanceRound from './FinanceRound';
 import CustomerRound from './CustomerRound';
+import BaseGameCtrl from '../../shared/base-sapien/client/BaseGameCtrl';
+import { Component } from 'react';
 
-export default class GameCtrl extends BaseController<GameModel>
+export default class GameCtrl extends BaseGameCtrl<GameModel>
 {
     //----------------------------------------------------------------------
     //
@@ -29,8 +30,8 @@ export default class GameCtrl extends BaseController<GameModel>
     //
     //----------------------------------------------------------------------
 
-    constructor(reactComp: React.Component<any, any>) {
-        super(new GameModel(), reactComp.forceUpdate.bind(reactComp));
+    constructor(reactComp: Component<any, any>) {
+        super( reactComp );
         var rndsFistma = this.dataStore.RoundsFistma = new FiStMa(this.rounds, this.rounds.round1);
         rndsFistma.addTransition(this.rounds.round1);
         rndsFistma.addTransition(this.rounds.round2);

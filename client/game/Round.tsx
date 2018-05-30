@@ -1,7 +1,7 @@
 import * as React from "react";
 import PeopleRoundCtrl from "./PeopleRoundCtrl";
 import RoundModel from "../../shared/models/RoundModel";
-import EditableContentBlock from '../shared-components/EditableContentBlock';
+import EditableContentBlock from '../../shared/base-sapien/client/shared-components/EditableContentBlock';
 import * as Semantic from 'semantic-ui-react';
 const { Button, Grid, Menu, Icon } = Semantic;
 const { Row, Column } = Grid;

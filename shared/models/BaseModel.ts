@@ -1,5 +1,4 @@
-import Fist from "./ValueObj";
-import FiStMa from "../FiStMa";
+import FiStMa from "../entity-of-the-state/ValueObj";
 import { Type, plainToClass } from "class-transformer";
 import "reflect-metadata";
 
@@ -20,7 +19,7 @@ export default class BaseModel
 {
     [key:string]: any;
     constructor( jsonPackage: BaseModel = null ){
-        this.PropertyFullfiller.addTransition(FullFilledStates.RAW, FullFilledStates.FULLFILLED);
+        //this.PropertyFullfiller.addTransition(FullFilledStates.RAW, FullFilledStates.FULLFILLED);
     }
 
     //----------------------------------------------------------------------
@@ -35,6 +34,6 @@ export default class BaseModel
 
     CLASS_NAME: string = "";
     
-    PropertyFullfiller: FiStMa<string[]> = new FiStMa(["RAW", "FULLFILLED"], FullFilledStates.RAW);
+    //PropertyFullfiller: FiStMa<string[]> = new FiStMa(["RAW", "FULLFILLED"], FullFilledStates.RAW);
     
 }

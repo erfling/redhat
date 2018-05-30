@@ -1,4 +1,4 @@
-import FiStMa from "../FiStMa";
+import FiStMa from "../entity-of-the-state/FiStMa";
 import BaseModel from "./BaseModel";
 import { Type } from 'class-transformer';
 

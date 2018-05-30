@@ -7,7 +7,6 @@ import { Link, Route } from "react-router-dom";
 import 'semantic-ui-css/semantic.css';
 import "./style/style.scss";
 
-
 const app = document.createElement('div');
 document.body.appendChild(app);
 ReactDOM.render(

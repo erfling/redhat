@@ -1,5 +1,5 @@
 import * as React from "react";
-import FiStMa from '../../shared/FiStMa';
+import FiStMa from '../../shared/entity-of-the-state/FiStMa';
 import GameCtrl from "../game/GameCtrl";
 
 export default class Admin extends React.Component<{GameCtrl: GameCtrl}, any>

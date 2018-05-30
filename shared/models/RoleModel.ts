@@ -1,4 +1,3 @@
-import ValueObj from "./ValueObj";
 import ContentBlock from './ContentBlock'
 import PossibleAnswer from "./PossibleAnswerModel";
 import QuestionModel from "./QuestionModel";
