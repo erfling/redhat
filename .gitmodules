@@ -1,0 +1,6 @@
+[submodule "shared/entity-of-the-state"]
+	path = shared/entity-of-the-state
+	url = https://github.com/erfling/entity-of-the-state.git
+[submodule "shared/base-sapien"]
+	path = shared/base-sapien
+	url = https://github.com/erfling/base-sapien.git
