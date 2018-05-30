@@ -21,12 +21,11 @@ export default class PeopleRoundCtrl extends BaseRoundCtrl<RoundModel>
     constructor(reactComp: React.Component<any, any>) {
         super(reactComp);
         setTimeout(() => {
-            this.updateContent([{
+            this.dataStore.IndividualContributorContent = [{
                 Header: "Test Header",
                 Body: "Test Body",
                 EditMode: false
-            }])
-            console.log("CONTENT UPDATED", this.dataStore);
+            }];
         },2)
     }
 

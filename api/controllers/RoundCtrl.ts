@@ -61,7 +61,6 @@ class RoundRouter
         console.log(ID);
         try {
             let round = await DBRoundModel.findById(ID);
-        
             if (!round) {
               res.status(400).json({ error: 'No games' });
             } else {
@@ -73,6 +72,7 @@ class RoundRouter
     }
 
     public async CreateRound(req: Request, res: Response):Promise<any> {
+        console.log(req.body);
         const round = new DBRoundModel(req.body);         
         const r = new DBRoundModel(round);
         

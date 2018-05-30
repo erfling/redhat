@@ -4,7 +4,7 @@ import * as Passport from 'passport';
 import * as PassportJWT from 'passport-jwt';
 import RoundController from './controllers/RoundCtrl'
 import * as mongoose from 'mongoose';
-
+import * as bodyParser from 'body-parser';
 const app = express();
 const port = normalizePort(443);
 
@@ -41,6 +41,8 @@ function onListening(): void {
     mongoose.connect(MONGO_URI || process.env.MONGODB_URI);
 
     const router: express.Router = express.Router();
+    app.use(bodyParser.urlencoded({ extended: true }))
+    .use(bodyParser.json());
 
     app.use('/', router)
         .use('/sapien/api/rounds', RoundController)
