@@ -1,3 +1,4 @@
+import BaseModel, {dbProp} from '../../shared/base-sapien/models/BaseModel';
 import ValueObj from "../entity-of-the-state/ValueObj";
 import ContentBlock from './ContentBlock'
 import QuestionModel from "./QuestionModel";
@@ -5,6 +6,7 @@ import { Expose, Type } from "class-transformer";
 import "reflect-metadata";
 
 export interface RoundShape {
+
 
     Name: string;
 
@@ -16,7 +18,7 @@ export interface RoundShape {
 
 }
 
-export default class RoundModel
+export default class RoundModel extends BaseModel implements RoundShape 
 {
     //----------------------------------------------------------------------
     //
@@ -24,12 +26,15 @@ export default class RoundModel
     //
     //----------------------------------------------------------------------
 
+    //public  REST_URL: string = urlFactory.getBaseUrl(RoundModel); 
+
     public Name: string = "";
 
     @Type(() => ContentBlock)
     public IndividualContributorContent: ContentBlock[] = [];
     
     @Type(() => ContentBlock)
+    @dbProp(Array(ContentBlock))
     public LeaderContent: ContentBlock[] = [];
 
     @Expose()

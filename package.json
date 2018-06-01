@@ -4,6 +4,7 @@
   "description": "Client server in one package with dev and deployment",
   "main": "index.js",
   "dependencies": {
+    "@types/axios": "^0.14.0",
     "@types/d3-shape": "^1.2.2",
     "@types/history": "^4.6.2",
     "@types/jsonwebtoken": "^7.2.5",
@@ -20,6 +21,7 @@
     "@types/socket.io": "^1.4.31",
     "@types/socket.io-client": "^1.4.32",
     "@types/spectacle": "^1.2.1",
+    "axios": "^0.18.0",
     "body-parser": "^1.18.2",
     "class-transformer": "^0.1.9",
     "compression": "^1.7.1",
