@@ -6,7 +6,7 @@ import RoundController from './controllers/RoundCtrl'
 import * as mongoose from 'mongoose';
 import * as bodyParser from 'body-parser';
 const app = express();
-const port = normalizePort(443);
+const port = normalizePort(80);
 
 const httpServer = http.createServer(app);
 httpServer.listen(port);
