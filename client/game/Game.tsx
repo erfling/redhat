@@ -14,7 +14,7 @@ export default class Game extends React.Component<any, GameModel>
     //
     //----------------------------------------------------------------------
 
-
+    controller: GameCtrl;
 
     //----------------------------------------------------------------------
     //
@@ -24,8 +24,9 @@ export default class Game extends React.Component<any, GameModel>
 
     constructor() {
         super({});
-
-        this.state = new GameCtrl(this).dataStore;
+        
+        this.controller = new GameCtrl(this)
+        this.state = this.controller.dataStore;
     }
 
     //----------------------------------------------------------------------
@@ -60,7 +61,18 @@ export default class Game extends React.Component<any, GameModel>
                 <Menu.Item
                     header>
                     Global game header
-					        </Menu.Item>
+                </Menu.Item>
+                <Menu.Item
+                    onClick={() => this.controller.goBackRound()}
+                    header>
+                    BACK
+                </Menu.Item>
+                <Menu.Item
+                    onClick={() => this.controller.advanceRound()}
+                    header>
+                    FORWARD
+                </Menu.Item>
+                
                 <Menu.Item position="right" header>
                     <Icons.IoEmail fontSize="2em"></Icons.IoEmail>
                 </Menu.Item>

@@ -7,6 +7,7 @@ import FinanceRound from './FinanceRound';
 import CustomerRound from './CustomerRound';
 import BaseGameCtrl from '../../shared/base-sapien/client/BaseGameCtrl';
 import { Component } from 'react';
+import RoundModel from '../../shared/models/RoundModel';
 
 export default class GameCtrl extends BaseGameCtrl<GameModel>
 {
@@ -59,6 +60,26 @@ export default class GameCtrl extends BaseGameCtrl<GameModel>
 
     private _onRoundEnter(fromState:React.Component<{}, any>): void {
         console.log("Entered round", this.dataStore.RoundsFistma.currentState, "from round", fromState);
+    }
+
+    public Navigate(round: RoundModel){
+        this.dataStore.RoundsFistma.goTo(round);
+    }
+    
+    /**
+     * Go to next game round
+     * 
+     */
+    public advanceRound(){
+        this.dataStore.RoundsFistma.next();
+    }
+    
+    /**
+     * Go to previous game round
+     * 
+     */
+    public goBackRound(){
+        this.dataStore.RoundsFistma.previous();
     }
 
     //----------------------------------------------------------------------

@@ -30,6 +30,8 @@ export default class RoundModel extends BaseModel implements RoundShape
 
     public Name: string = "";
 
+    public RoundIdx: number = 0;
+
     @Type(() => ContentBlock)
     public IndividualContributorContent: ContentBlock[] = [];
     
