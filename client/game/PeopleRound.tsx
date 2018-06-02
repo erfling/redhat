@@ -59,7 +59,7 @@ export default class PeopleRound extends React.Component<{}, RoundModel>
                     </Button>
                 </Column>
             </Row>
-            <Row>
+            <Grid>
                 {this.state.IndividualContributorContent && this.state.IndividualContributorContent.map((c, i) =>
                     <EditableContentBlock
                         onSaveHandler={this.controller.updateICContent.bind(this.controller)}
@@ -68,7 +68,12 @@ export default class PeopleRound extends React.Component<{}, RoundModel>
                         idx={i}
                     />
                 )}
-            </Row>
+                <Row>
+                <Button
+                    onClick={() => this.controller.addRoundContent()}
+                >Add Content</Button>
+                </Row>
+            </Grid>
             <Row>
                 Form content goes here
             </Row>

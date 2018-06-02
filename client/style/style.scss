@@ -1,4 +1,13 @@
 
+.content-block{
+
+    margin-bottom: 20px;
+
+    &.editable{
+        border: 1px dashed blue;
+    }
+}
+
 .editable{
     border: 1px dashed blue;
 }

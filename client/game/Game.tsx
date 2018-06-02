@@ -2,7 +2,7 @@ import * as React from "react";
 import GameCtrl from "./GameCtrl";
 import GameModel from "../../shared/models/GameModel";
 import Round1 from './PeopleRound';
-import { Grid, Menu, Container } from 'semantic-ui-react';
+import { Grid, Menu, Container, Button } from 'semantic-ui-react';
 const { Column, Row } = Grid;
 import * as Icons from 'react-icons/lib/io';
 
@@ -83,7 +83,7 @@ export default class Game extends React.Component<any, GameModel>
             >
 
                 <Rnd />
-
+                
                 <Row>
                     {Object.keys(this.state.RoundsFistma.states)}
                 </Row>
