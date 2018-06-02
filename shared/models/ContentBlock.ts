@@ -17,9 +17,14 @@ export default class ContentBlockModel extends BaseModel
     //  Properties
     //
     //----------------------------------------------------------------------
+
+    @dbProp(Boolean)
     EditMode: boolean = false;
+
     Header: string;
+
     Body: string;
+    
     Chart?: any;
 
     @dbProp(Date)

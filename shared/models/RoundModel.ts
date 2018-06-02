@@ -36,8 +36,11 @@ export default class RoundModel extends BaseModel implements RoundShape
     public IndividualContributorContent: ContentBlock[] = [];
     
     @Type(() => ContentBlock)
-    @dbProp(Array(ContentBlock))
+    @dbProp([ContentBlock])
     public LeaderContent: ContentBlock[] = [];
+
+    @dbProp(ContentBlock)
+    public SingleTestContentBlock: ContentBlock = null;
 
     @Expose()
     get _LeaderContent(): ContentBlock[]{

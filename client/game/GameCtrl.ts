@@ -8,6 +8,7 @@ import CustomerRound from './CustomerRound';
 import BaseGameCtrl from '../../shared/base-sapien/client/BaseGameCtrl';
 import { Component } from 'react';
 import RoundModel from '../../shared/models/RoundModel';
+import SchemaBuilder from '../../api/SchemaBuilder';
 
 export default class GameCtrl extends BaseGameCtrl<GameModel>
 {
@@ -50,6 +51,7 @@ export default class GameCtrl extends BaseGameCtrl<GameModel>
         this.dataStore.Name = "Some initial value";
         console.log("YO2:", this.dataStore.Name);
 
+        console.log("SCHEMA:", SchemaBuilder.fetchSchema(RoundModel));
     }
     
     //----------------------------------------------------------------------

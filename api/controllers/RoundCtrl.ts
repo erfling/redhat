@@ -1,6 +1,9 @@
 import { Router, Request, Response, NextFunction } from 'express';
 import * as mongoose from 'mongoose';
 import { DBRound, DBRoundModel } from '../models/DBRound';
+import SchemaBuilder from '../SchemaBuilder';
+import RoundModel from '../../shared/models/RoundModel';
+import BaseModel from '../../shared/base-sapien/models/BaseModel';
 
 class RoundRouter
 {
@@ -22,6 +25,9 @@ class RoundRouter
     constructor() {
         this.router = Router({mergeParams:true});
         this.routes();
+
+        //console.log(SchemaBuilder.buildSchema(RoundModel));
+        //console.log("SCHEMA:", getAllProps(RoundModel));
     }
 
     //----------------------------------------------------------------------
