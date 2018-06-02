@@ -1,5 +1,5 @@
 import FiStMa from "../entity-of-the-state/FiStMa";
-import BaseModel from "./BaseModel";
+import BaseModel from "../base-sapien/models/BaseModel";
 import { Type } from 'class-transformer';
 
 export interface GameShape {
