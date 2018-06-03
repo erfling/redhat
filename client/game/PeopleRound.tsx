@@ -69,9 +69,9 @@ export default class PeopleRound extends React.Component<{}, RoundModel>
                     />
                 )}
                 <Row>
-                <Button
-                    onClick={() => this.controller.addRoundContent()}
-                >Add Content</Button>
+                    <Button
+                        onClick={() => this.controller.addRoundContent()}
+                    >Add Content</Button>
                 </Row>
             </Grid>
             <Row>
