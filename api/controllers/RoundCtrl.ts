@@ -1,9 +1,9 @@
 import { Router, Request, Response, NextFunction } from 'express';
 import * as mongoose from 'mongoose';
 import { DBRound, DBRoundModel } from '../models/DBRound';
-import SchemaBuilder from '../SchemaBuilder';
 import RoundModel from '../../shared/models/RoundModel';
 import BaseModel from '../../shared/base-sapien/models/BaseModel';
+import SchemaBuilder from '../SchemaBuilder';
 
 class RoundRouter
 {
@@ -25,7 +25,7 @@ class RoundRouter
     constructor() {
         this.router = Router({mergeParams:true});
         this.routes();
-
+        
         var schObj = SchemaBuilder.fetchSchema(RoundModel);
         var monSchema = new mongoose.Schema(schObj);
         var monModel = mongoose.model("Thing", monSchema);
