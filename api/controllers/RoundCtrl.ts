@@ -26,8 +26,10 @@ class RoundRouter
         this.router = Router({mergeParams:true});
         this.routes();
 
-        //console.log(SchemaBuilder.buildSchema(RoundModel));
-        //console.log("SCHEMA:", getAllProps(RoundModel));
+        var schObj = SchemaBuilder.fetchSchema(RoundModel);
+        var monSchema = new mongoose.Schema(schObj);
+        var monModel = mongoose.model("Thing", monSchema);
+        console.log("monSchema:", monModel);
     }
 
     //----------------------------------------------------------------------

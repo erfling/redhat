@@ -22,8 +22,8 @@ export default class Game extends React.Component<any, GameModel>
     //
     //----------------------------------------------------------------------
 
-    constructor() {
-        super({});
+    constructor(props: {}) {
+        super(props);
         
         this.controller = new GameCtrl(this)
         this.state = this.controller.dataStore;

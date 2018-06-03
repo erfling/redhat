@@ -22,8 +22,8 @@ export default class SalesRound extends React.Component<{}, RoundModel>
     //
     //----------------------------------------------------------------------
 
-    constructor() {
-        super({});
+    constructor(props: {}) {
+        super(props);
 
         this.state = new SalesRoundCtrl(this).dataStore;
     }
