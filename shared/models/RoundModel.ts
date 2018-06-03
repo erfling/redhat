@@ -18,7 +18,7 @@ export interface RoundShape {
 
 }
 
-export default class RoundModel extends BaseModel implements RoundShape 
+export default class RoundModel extends BaseModel
 {
     //----------------------------------------------------------------------
     //
@@ -34,11 +34,11 @@ export default class RoundModel extends BaseModel implements RoundShape
 
     @Type(() => ContentBlock)
     public IndividualContributorContent: ContentBlock[] = [];
-    
+    /*
     @Type(() => ContentBlock)
     @dbProp([ContentBlock])
     public LeaderContent: ContentBlock[] = [];
-
+*/
     @dbProp(ContentBlock)
     public SingleTestContentBlock: ContentBlock = null;
 
