@@ -18,8 +18,8 @@ export default class Round2 extends React.Component<{}, RoundModel>
     //
     //----------------------------------------------------------------------
 
-    constructor() {
-        super({});
+    constructor(props: {}) {
+        super(props);
 
         this.state = new Round2Ctrl(this).dataStore;
     }

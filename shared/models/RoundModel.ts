@@ -40,7 +40,7 @@ export default class RoundModel extends BaseModel
     public LeaderContent: ContentBlock[] = [];
 */
     @dbProp(ContentBlock)
-    public SingleTestContentBlock: ContentBlock = null;
+    public SingleTestContentBlock: ContentBlock;
 
     @Expose()
     get _LeaderContent(): ContentBlock[]{

@@ -23,8 +23,8 @@ export default class PeopleRound extends React.Component<{}, RoundModel>
     //
     //----------------------------------------------------------------------
 
-    constructor() {
-        super({});
+    constructor(props: {}) {
+        super(props);
         
         this.state = new PeopleRoundCtrl(this).dataStore;
     }

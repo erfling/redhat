@@ -1,5 +1,4 @@
-import {Schema} from "mongoose";
-import BaseModel from "../shared/base-sapien/models/BaseModel";
+import * as Mongoose from "mongoose";
 
 export default abstract class SchemaBuilder
 {
@@ -17,9 +16,7 @@ export default abstract class SchemaBuilder
     //
     //----------------------------------------------------------------------
 
-    constructor() {
-        
-    }
+    private constructor() { } // Static class cannot be instantiated
 
     //----------------------------------------------------------------------
     //
@@ -29,38 +26,19 @@ export default abstract class SchemaBuilder
 
     public static fetchSchema(modelClass:any):any {
         modelClass = (typeof modelClass === "function") ? new modelClass() : modelClass;
-        var schemaObj:any = {};
+        var schemaObj:any;
+        var nestedSchemaObj:any;
         if (modelClass.DbSchema) {
+            schemaObj = {};
             for (var prop in modelClass) {
-                if (modelClass.DbSchema[prop]) schemaObj[prop] = modelClass.DbSchema[prop];
-            }
-        }
-        return schemaObj;
-    }
-
-    public static buildSchema(modelClass:any) {
-        modelClass = (typeof modelClass === "function") ? new modelClass() : modelClass;
-        var schemaObj:any = {};
-        for (var prop in modelClass) {
-            var type = modelClass.DbSchema && modelClass.DbSchema[prop] ? modelClass.DbSchema[prop] : (<any>modelClass[prop]).constructor;
-            if (Array.isArray(type) || type == Array) {
-                console.log("IS ARRAY", prop, type, modelClass[prop].length);
-                var arr = Array.isArray(type) ? type : modelClass[prop];
-                if (arr.length) {
-                    var arrType:any = this.getArrayType(arr);
-                    var arrTypeInt = typeof arrType === "function" ? new arrType() : arrType;
-                    if (arrTypeInt.DbSchema) arrType = arrTypeInt.DbSchema;
-                    console.log("ARRAY", prop, Object.keys(arrType), this.getArrayType(arr));
-                    schemaObj[prop] = [arrType];
-                } else {
-                    schemaObj[prop] = [];
+                if (modelClass.DbSchema[prop]) {
+                    nestedSchemaObj = this.fetchSchema(modelClass.DbSchema[prop]);
+                    schemaObj[prop] = nestedSchemaObj || modelClass.DbSchema[prop];
                 }
-            } else {
-                console.log("NOT ARRAY", prop, type, modelClass[prop]);
-                var typeInt = typeof type === "function" ? new type() : type;
-                if (typeInt.DbSchema) type = typeInt.DbSchema;
-                schemaObj[prop] = type;
             }
+        } else if (Array.isArray(modelClass) && modelClass.length) {
+            nestedSchemaObj = this.fetchSchema(this.getArrayType(modelClass));
+            if (nestedSchemaObj) schemaObj = [nestedSchemaObj];
         }
         
         return schemaObj;

@@ -50,7 +50,8 @@ export default class GameCtrl extends BaseGameCtrl<GameModel>
 
         this.dataStore.Name = "Some initial value";
         console.log("YO2:", this.dataStore.Name);
-
+        
+        console.log("RoundModel SCHEMA:", SchemaBuilder.fetchSchema(RoundModel));
     }
     
     //----------------------------------------------------------------------
