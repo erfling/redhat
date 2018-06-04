@@ -33,14 +33,12 @@ export default class RoundModel extends BaseModel
     public RoundIdx: number = 0;
 
     @Type(() => ContentBlock)
+    @dbProp([ContentBlock])
     public IndividualContributorContent: ContentBlock[] = [];
-    /*
+    
     @Type(() => ContentBlock)
     @dbProp([ContentBlock])
     public LeaderContent: ContentBlock[] = [];
-*/
-    @dbProp(ContentBlock)
-    public SingleTestContentBlock: ContentBlock;
 
     @Expose()
     get _LeaderContent(): ContentBlock[]{

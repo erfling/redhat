@@ -81,12 +81,7 @@ export default class Game extends React.Component<any, GameModel>
                 padded={true}
                 columns={16}
             >
-
                 <Rnd />
-                
-                <Row>
-                    {Object.keys(this.state.RoundsFistma.states)}
-                </Row>
             </Grid>
             <Menu
                 inverted

@@ -39,6 +39,7 @@ function onListening(): void {
 
     const MONGO_URI: string = 'mongodb://mbreeden:MUfC9ex6CWRwktBf@localhost:27017/red-hat?authSource=admin';
     mongoose.connect(MONGO_URI || process.env.MONGODB_URI);
+    mongoose.set('debug', true);
 
     const router: express.Router = express.Router();
     app.use(bodyParser.urlencoded({ extended: true }))

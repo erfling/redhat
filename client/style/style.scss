@@ -3,11 +3,7 @@
 
     margin-bottom: 20px;
 
-    &.editable{
-        border: 1px dashed blue;
+    textarea, input, .ui.input{
+        width: 100%
     }
-}
-
-.editable{
-    border: 1px dashed blue;
 }

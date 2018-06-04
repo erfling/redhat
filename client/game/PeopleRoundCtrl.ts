@@ -20,14 +20,7 @@ export default class PeopleRoundCtrl extends BaseRoundCtrl<RoundModel>
 
     constructor(reactComp: React.Component<any, any>) {
         super(reactComp);
-        //LOOK AT THIS HERE Twice
-        setTimeout(() => {
-            this.dataStore.IndividualContributorContent = [{
-                Header: "Test Header",
-                Body: "Test Body",
-                EditMode: false
-            }];
-        },2)
+        this.dataStore.Name = "PEOPLE";
     }
 
     //----------------------------------------------------------------------

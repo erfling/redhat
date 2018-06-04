@@ -20,6 +20,7 @@ export default class EngineeringRoundCtrl extends BaseRoundCtrl<RoundModel>
 
     constructor(reactComp: React.Component<any, any>) {
         super(reactComp);
+        this.dataStore.Name = "ENGINEERING";
     }
 
     //----------------------------------------------------------------------

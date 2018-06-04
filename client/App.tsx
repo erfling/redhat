@@ -9,7 +9,7 @@ export default class App extends React.Component<{}, any>
     render() {
         return  <>
             <Game/>
-            <Login/>
         </>           
     }
 }
+//            <Login/>

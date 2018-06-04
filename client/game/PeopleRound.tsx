@@ -27,6 +27,7 @@ export default class PeopleRound extends React.Component<{}, RoundModel>
 
         this.controller = new PeopleRoundCtrl(this);
         this.state = this.controller.dataStore;
+        this.controller.getContentByRound("PEOPLE");
     }
 
     //----------------------------------------------------------------------
@@ -49,21 +50,16 @@ export default class PeopleRound extends React.Component<{}, RoundModel>
             <Row>
                 <Column computer={12} mobile={16} tablet={16}>
                     Round intro goes here
-                <h1>You are in round 1.</h1>
-                </Column>
-                <Column computer={1} mobile={16} tablet={16}>
-                    <Button
-                        color="violet"
-                        basic={true}
-                    >
-                        Best shot
-                    </Button>
+                    <h1>You are in round 1.</h1>
                 </Column>
             </Row>
-            <Grid>
+            <Grid
+                padded={true}
+            >
                 {this.state.IndividualContributorContent && this.state.IndividualContributorContent.map((c, i) =>
                     <EditableContentBlock
                         onSaveHandler={this.controller.updateICContent.bind(this.controller)}
+                        onRemoveHandler={this.controller.removeRoundContent.bind(this.controller)}
                         Content={c}
                         key={i}
                         idx={i}
@@ -78,11 +74,7 @@ export default class PeopleRound extends React.Component<{}, RoundModel>
             <Row>
                 Form content goes here
             </Row>
-            <Row>
-                Global game footer (like number of teams complete) goes here
-            </Row>
         </>;
     }
 
 }
-//            <div dangerouslySetInnerHTML={{__html: testContent}}/>

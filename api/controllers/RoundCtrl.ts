@@ -5,6 +5,10 @@ import RoundModel from '../../shared/models/RoundModel';
 import BaseModel from '../../shared/base-sapien/models/BaseModel';
 import SchemaBuilder from '../SchemaBuilder';
 
+const schObj = SchemaBuilder.fetchSchema(RoundModel);
+const monSchema = new mongoose.Schema(schObj);
+export const monRoundModel = mongoose.model("round", monSchema);
+
 class RoundRouter
 {
     //----------------------------------------------------------------------
@@ -26,10 +30,8 @@ class RoundRouter
         this.router = Router({mergeParams:true});
         this.routes();
         
-        var schObj = SchemaBuilder.fetchSchema(RoundModel);
-        var monSchema = new mongoose.Schema(schObj);
-        var monModel = mongoose.model("Thing", monSchema);
-        console.log("monSchema:", monModel);
+        
+        console.log("monSchema:", monRoundModel);
     }
 
     //----------------------------------------------------------------------
@@ -65,12 +67,13 @@ class RoundRouter
     }
 
     public async GetRound(req: Request, res: Response):Promise<any> {
-        const ID = req.params.game;
+        
+        const ID = req.params.round;
         console.log(ID);
         try {
-            let round = await DBRoundModel.findById(ID);
+            let round = await DBRoundModel.findOne({Name: ID});
             if (!round) {
-              res.status(400).json({ error: 'No games' });
+              res.status(400).json({ error: 'No round' });
             } else {
               res.json(round);
             }
@@ -79,13 +82,25 @@ class RoundRouter
         }
     }
 
-    public async CreateRound(req: Request, res: Response):Promise<any> {
-        console.log(req.body);
-        const round = new DBRoundModel(req.body);         
-        const r = new DBRoundModel(round);
+    public async SaveRound(req: Request, res: Response):Promise<any> {
+        const roundToSave = req.body as RoundModel;
+        console.log(roundToSave, roundToSave.Name, roundToSave.Name.length);
+
+        const dbRoundModel = new monRoundModel(roundToSave); 
         
-        const savedRound = await r.save();
-        res.json(savedRound);
+        try{
+            if(!roundToSave.Name || !roundToSave.Name.length || !roundToSave._id) {
+                console.log("HERE")
+                var savedRound = await DBRoundModel.create(roundToSave);
+            } else {
+                var savedRound = await DBRoundModel.findOneAndUpdate({Name: roundToSave.Name}, roundToSave, {new: true})
+                console.log(savedRound);
+            }
+            res.json(savedRound);
+        }
+        catch{
+
+        }
     }
 
 
@@ -93,7 +108,7 @@ class RoundRouter
         //this.router.all("*", cors());
         this.router.get("/", this.GetRounds.bind(this));
         this.router.get("/:round", this.GetRound.bind(this));
-        this.router.post("/", this.CreateRound.bind(this));
+        this.router.post("/", this.SaveRound.bind(this));
     }
 }
 

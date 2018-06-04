@@ -18,9 +18,6 @@ export default class ContentBlockModel extends BaseModel
     //
     //----------------------------------------------------------------------
 
-    @dbProp(Boolean)
-    EditMode: boolean = false;
-
     Header: string;
 
     Body: string;
@@ -29,5 +26,8 @@ export default class ContentBlockModel extends BaseModel
 
     @dbProp(Date)
     Updated?: Date;
+
+    IsNew?: boolean = false;
+
     
 }

@@ -1,20 +1,20 @@
 import * as React from "react";
 import SalesRoundCtrl from "./SalesRoundCtrl";
 import RoundModel from "../../shared/models/RoundModel";
-import * as spectacle from 'spectacle';
-const { Deck, Slide } = spectacle;
+import EditableContentBlock from '../../shared/base-sapien/client/shared-components/EditableContentBlock';
 import * as Semantic from 'semantic-ui-react';
-const { Button } = Semantic;
+const { Button, Grid, Menu, Icon } = Semantic;
+const { Row, Column } = Grid;
 
-export default class SalesRound extends React.Component<{}, RoundModel>
+
+export default class PeopleRound extends React.Component<{}, RoundModel>
 {
     //----------------------------------------------------------------------
     //
     //  Properties
     //
     //----------------------------------------------------------------------
-
-
+    controller: SalesRoundCtrl;
 
     //----------------------------------------------------------------------
     //
@@ -25,7 +25,9 @@ export default class SalesRound extends React.Component<{}, RoundModel>
     constructor(props: {}) {
         super(props);
 
-        this.state = new SalesRoundCtrl(this).dataStore;
+        this.controller = new SalesRoundCtrl(this);
+        this.state = this.controller.dataStore;
+        this.controller.getContentByRound("SALES");
     }
 
     //----------------------------------------------------------------------
@@ -43,31 +45,36 @@ export default class SalesRound extends React.Component<{}, RoundModel>
     //----------------------------------------------------------------------
 
     render() {
-        var testContent = "Hello, there"
-        return <div>
+        return <>
 
-            <Deck
-                progress="bar"
-                transition={["slide"]}
+            <Row>
+                <Column computer={12} mobile={16} tablet={16}>
+                    Round intro goes here
+                    <h1>You are in round 1.</h1>
+                </Column>
+            </Row>
+            <Grid
+                padded={true}
             >
-                <Slide bgColor="#eee">
-                    <h1>You are in round 3.</h1>
+                {this.state.IndividualContributorContent && this.state.IndividualContributorContent.map((c, i) =>
+                    <EditableContentBlock
+                        onSaveHandler={this.controller.updateICContent.bind(this.controller)}
+                        onRemoveHandler={this.controller.removeRoundContent.bind(this.controller)}
+                        Content={c}
+                        key={i}
+                        idx={i}
+                    />
+                )}
+                <Row>
                     <Button
-                        color="violet"
-                        basic={true}
-                    >
-                        Best shot
-                    </Button>
-                </Slide>
-                <Slide>Hello. This is slide Two</Slide>
-                <Slide>Hello. This is slide Three</Slide>
-                <Slide>Hello. This is slide Four</Slide>
-                <Slide>Hello. This is slide Five</Slide>
-            </Deck>
-        </div>;
+                        onClick={() => this.controller.addRoundContent()}
+                    >Add Content</Button>
+                </Row>
+            </Grid>
+            <Row>
+                Form content goes here
+            </Row>
+        </>;
     }
 
 }
-/**
- *
- */
