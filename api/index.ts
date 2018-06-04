@@ -37,7 +37,7 @@ function onError(error: NodeJS.ErrnoException): void {
 function onListening(): void {
     console.log("LISTENING");
 
-    const MONGO_URI: string = 'mongodb://mbreeden:MUfC9ex6CWRwktBf@localhost:27017/red-hat?authSource=admin';
+    const MONGO_URI: string = 'mongodb://localhost:27017/red-hat';
     mongoose.connect(MONGO_URI || process.env.MONGODB_URI);
     mongoose.set('debug', true);
 
