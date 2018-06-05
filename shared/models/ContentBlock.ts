@@ -2,10 +2,6 @@ import BaseModel, {dbProp} from "../base-sapien/models/BaseModel";
 
 export default class ContentBlockModel extends BaseModel
 {
-
-    constructor(){
-        super();
-    }
     //----------------------------------------------------------------------
     //
     //  Properties
@@ -25,5 +21,14 @@ export default class ContentBlockModel extends BaseModel
 
     IsNew?: boolean = false;
 
-    
+    //----------------------------------------------------------------------
+    //
+    //  Constructor
+    //
+    //----------------------------------------------------------------------
+
+    constructor() {
+        super();
+    }
+
 }

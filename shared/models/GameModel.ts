@@ -1,9 +1,9 @@
+import { BaseShape } from './../base-sapien/models/BaseModel';
 import FiStMa from "../entity-of-the-state/FiStMa";
 import BaseModel from "../base-sapien/models/BaseModel";
 import { Type } from 'class-transformer';
 
-export interface GameShape {
-
+export interface GameShape extends BaseShape {
     Name: string;
 
     Location: string
@@ -13,9 +13,6 @@ export interface GameShape {
 
 export default class GameModel extends BaseModel implements GameShape
 {
-    constructor(){
-        super();
-    }
     //----------------------------------------------------------------------
     //
     //  Properties
@@ -30,5 +27,16 @@ export default class GameModel extends BaseModel implements GameShape
 
     @Type(() => FiStMa)
     public RoundsFistma:FiStMa<{[key:string]: any}>;
+
+    //----------------------------------------------------------------------
+    //
+    //  Constructor
+    //
+    //----------------------------------------------------------------------
+
+    constructor() {
+        super();
+        this.REST_URL = "games";
+    }
     
 }
