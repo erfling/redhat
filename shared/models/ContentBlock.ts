@@ -18,14 +18,16 @@ export default class ContentBlockModel extends BaseModel
     //
     //----------------------------------------------------------------------
 
+    @dbProp(String)
     Header: string;
 
+    @dbProp(String)
     Body: string;
     
     Chart?: any;
 
     @dbProp(Date)
-    Updated?: Date;
+    Updated?: Date = new Date();
 
     IsNew?: boolean = false;
 
