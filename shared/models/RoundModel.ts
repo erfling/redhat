@@ -1,3 +1,4 @@
+import { BaseShape } from './../base-sapien/models/BaseModel';
 import BaseModel, {dbProp} from '../../shared/base-sapien/models/BaseModel';
 import ValueObj from "../entity-of-the-state/ValueObj";
 import ContentBlock from './ContentBlock'
@@ -5,9 +6,8 @@ import QuestionModel from "./QuestionModel";
 import { Expose, Type } from "class-transformer";
 import "reflect-metadata";
 
-export interface RoundShape {
-
-
+export interface RoundShape extends BaseShape
+{
     Name: string;
 
     IndividualContributorContent: ContentBlock[];
@@ -52,5 +52,16 @@ export default class RoundModel extends BaseModel
 
     @Type(() => QuestionModel)
     public Questions: QuestionModel[] = [];
+
+    //----------------------------------------------------------------------
+    //
+    //  Constructor
+    //
+    //----------------------------------------------------------------------
+
+    constructor() {
+        super();
+        this.REST_URL = "rounds";
+    }
     
 }

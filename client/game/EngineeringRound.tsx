@@ -7,7 +7,7 @@ const { Button, Grid, Menu, Icon } = Semantic;
 const { Row, Column } = Grid;
 
 
-export default class PeopleRound extends React.Component<{}, RoundModel>
+export default class EngineeringRound extends React.Component<{}, RoundModel>
 {
     //----------------------------------------------------------------------
     //
