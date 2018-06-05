@@ -87,14 +87,14 @@ class RoundRouter
         const roundToSave = req.body as RoundModel;
         console.log(roundToSave, roundToSave.Name, roundToSave.Name.length);
 
-        const dbRoundModel = new monRoundModel(roundToSave); 
+        //const dbRoundModel = new monRoundModel(roundToSave); 
         
         try{
             if(!roundToSave.Name || !roundToSave.Name.length || !roundToSave._id) {
                 console.log("HERE")
-                var savedRound = await DBRoundModel.create(roundToSave);
+                var savedRound = await monRoundModel.create(roundToSave);
             } else {
-                var savedRound = await DBRoundModel.findOneAndUpdate({Name: roundToSave.Name}, roundToSave, {new: true})
+                var savedRound = await monRoundModel.findOneAndUpdate({Name: roundToSave.Name}, roundToSave, {new: true})
                 console.log(savedRound);
             }
             res.json(savedRound);
