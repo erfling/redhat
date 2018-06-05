@@ -1,14 +1,22 @@
 import * as express from 'express';
 import * as http from 'http';
-import * as Passport from 'passport';
-import * as PassportJWT from 'passport-jwt';
 import RoundController from './controllers/RoundCtrl'
 import * as mongoose from 'mongoose';
 import * as bodyParser from 'body-parser';
+import * as Passport from 'passport'
+import * as PassportJWT from 'passport-jwt';
+import * as PassportLocal from 'passport-local';
+import * as jwt from 'jsonwebtoken';
+import LoginCtrl from './controllers/LoginCtrl';
+import UserCtrl from './controllers/UserCtrl';
+import AuthUtils from './AuthUtils';
+
 const app = express();
 const port = normalizePort(80);
-
 const httpServer = http.createServer(app);
+
+
+
 httpServer.listen(port);
 httpServer
     .on('error', onError)
@@ -52,11 +60,15 @@ function onListening(): void {
     app.use(bodyParser.urlencoded({ extended: true }))
     .use(bodyParser.json());
 
+    AuthUtils.SET_UP_PASSPORT();
     app.use('/', router)
-        .use('/sapien/api/rounds', RoundController)
+        .use('/sapien/api/rounds', Passport.authenticate('jwt', {session: false}), RoundController)
+        //.use('/rounds', RoundController)
         .use('/', express.static("dist"))
         .use('/assets', express.static("dist/assets"))
         .use('/', express.static("dist"))
+        .use('/sapien/api/auth', LoginCtrl)
+        .use('/sapien/api/user', Passport.authenticate('jwt', {session: false}), UserCtrl )
 }
 
 function normalizePort(val: number|string): number|string|boolean {

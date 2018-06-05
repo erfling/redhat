@@ -17,6 +17,9 @@ export class DBRound extends Typegoose implements RoundShape
     Name: string;
 
     @prop()
+    Label: string;
+
+    @prop()
     IndividualContributorContent: ContentBlockModel[];
 
     @prop()

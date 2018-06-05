@@ -1,19 +1,8 @@
 import RoleModel from "./RoleModel";
 import { Type } from "class-transformer";
+import BaseModel, { dbProp } from "../base-sapien/models/BaseModel";
 
-export interface UserShape {
-    FirstName: String;
-    
-    LastName: string;
-
-    Email: string;
-
-    Password: string;
-
-    Role: RoleModel;
-}
-
-export default class UserModel implements UserShape
+export default class UserModel extends BaseModel
 {
     //----------------------------------------------------------------------
     //
@@ -21,12 +10,21 @@ export default class UserModel implements UserShape
     //
     //----------------------------------------------------------------------
 
+    @dbProp(String)
     public FirstName: String = "";
     
+    @dbProp(String)
     public LastName: string = "";
 
+    public Name: string = "";
+    public get _Name(){
+        return this.FirstName + " " + this.LastName;
+    }
+
+    @dbProp(String)
     public Email: string = "";
 
+    @dbProp(String)
     public Password: string = "";
 
     @Type(() => RoleModel)
