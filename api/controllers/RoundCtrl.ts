@@ -52,7 +52,7 @@ class RoundRouter
         console.log("CALLING GET ROUNDS");
         
         try {
-            let rounds = await DBRoundModel.find();
+            let rounds = await monRoundModel.find();
             if (!rounds) {
                 return res.status(400).json({ error: 'No games' });
             } else {
@@ -71,7 +71,7 @@ class RoundRouter
         const ID = req.params.round;
         console.log("TRYING TO GET ROUND WITH NAME: ", ID);
         try {
-            let round = await DBRoundModel.findOne({Name: ID});
+            let round = await monRoundModel.findOne({Name: ID});
             if (!round) {
               res.status(400).json({ error: 'No round' });
             } else {
