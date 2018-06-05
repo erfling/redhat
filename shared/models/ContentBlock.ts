@@ -27,7 +27,7 @@ export default class ContentBlockModel extends BaseModel
     Chart?: any;
 
     @dbProp(Date)
-    Updated?: Date = new Date();
+    Updated?: Date;
 
     IsNew?: boolean = false;
 
