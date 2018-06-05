@@ -49,7 +49,7 @@ class RoundRouter
     //----------------------------------------------------------------------
     
     public async GetRounds(req: Request, res: Response):Promise<DBRound[] | any> {
-        console.log("GET GAMES CALLED");
+        console.log("CALLING GET ROUNDS");
         
         try {
             let rounds = await DBRoundModel.find();
@@ -69,7 +69,7 @@ class RoundRouter
     public async GetRound(req: Request, res: Response):Promise<any> {
         
         const ID = req.params.round;
-        console.log(ID);
+        console.log("TRYING TO GET ROUND WITH NAME: ", ID);
         try {
             let round = await DBRoundModel.findOne({Name: ID});
             if (!round) {
