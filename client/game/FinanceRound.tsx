@@ -49,8 +49,7 @@ export default class PeopleRound extends React.Component<{}, RoundModel>
 
             <Row>
                 <Column computer={12} mobile={16} tablet={16}>
-                    Round intro goes here
-                    <h1>You are in round 4.</h1>
+                    <h1>ROUND 4: GROW THE COMPANY.</h1>
                 </Column>
             </Row>
             <Grid
