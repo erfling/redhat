@@ -80,6 +80,7 @@ class RoundRouter
         } catch(err) {
             ( err: any ) => res.status(500).json({ error: err });
         }
+        
     }
 
     public async SaveRound(req: Request, res: Response):Promise<any> {

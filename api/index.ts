@@ -38,8 +38,15 @@ function onListening(): void {
     console.log("LISTENING");
 
     const MONGO_URI: string = 'mongodb://localhost:27017/red-hat';
-    mongoose.connect(MONGO_URI || process.env.MONGODB_URI);
     mongoose.set('debug', true);
+
+    var connection = mongoose.connect(MONGO_URI || process.env.MONGODB_URI).then((connection) => {
+        console.log(typeof connection, connection);
+
+    }).catch((r) => {
+        console.log(r);
+    });
+
 
     const router: express.Router = express.Router();
     app.use(bodyParser.urlencoded({ extended: true }))
