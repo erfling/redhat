@@ -1,5 +1,5 @@
 import * as React from "react";
-import FinanceRountCtrl from "./FinanceRountCtrl";
+import FinanceRoundCtrl from "./FinanceRoundCtrl";
 import RoundModel from "../../shared/models/RoundModel";
 import EditableContentBlock from '../../shared/base-sapien/client/shared-components/EditableContentBlock';
 import * as Semantic from 'semantic-ui-react';
@@ -7,14 +7,15 @@ const { Button, Grid, Menu, Icon } = Semantic;
 const { Row, Column } = Grid;
 
 
-export default class PeopleRound extends React.Component<{}, RoundModel>
+export default class FinanceRound extends React.Component<{}, RoundModel>
 {
     //----------------------------------------------------------------------
     //
     //  Properties
     //
     //----------------------------------------------------------------------
-    controller: FinanceRountCtrl;
+    
+    controller: FinanceRoundCtrl;
 
     //----------------------------------------------------------------------
     //
@@ -25,7 +26,7 @@ export default class PeopleRound extends React.Component<{}, RoundModel>
     constructor(props: {}) {
         super(props);
 
-        this.controller = new FinanceRountCtrl(this);
+        this.controller = new FinanceRoundCtrl(this);
         this.state = this.controller.dataStore;
         this.controller.getContentByRound("FINANCE");
     }
