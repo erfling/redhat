@@ -30,6 +30,8 @@ export default class RoundModel extends BaseModel
 
     public Name: string = "";
 
+    public Label: string = "";
+
     public RoundIdx: number = 0;
 
     @Type(() => ContentBlock)
