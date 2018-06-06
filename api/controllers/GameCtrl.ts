@@ -1,9 +1,14 @@
 import { Router, Request, Response, NextFunction } from 'express';
 import * as mongoose from 'mongoose';
-import { DBGameModel, DBGame } from '../models/DBGame';
 import SchemaBuilder from '../SchemaBuilder';
 import BaseModel from '../../shared/base-sapien/models/BaseModel';
 import RoundModel from '../../shared/models/RoundModel';
+import GameModel from '../../shared/models/GameModel';
+
+
+const schObj = SchemaBuilder.fetchSchema(GameModel);
+const monSchema = new mongoose.Schema(schObj);
+export const monGameModel = mongoose.model("round", monSchema);
 
 class GameRouter
 {
@@ -41,11 +46,11 @@ class GameRouter
     //
     //----------------------------------------------------------------------
     
-    public async GetGames(req: Request, res: Response):Promise<DBGame[] | any> {
+    public async GetGames(req: Request, res: Response):Promise<GameModel[] | any> {
         console.log("GET GAMES CALLED");
         
         try {
-            let games = await DBGameModel.find().populate({path: "Teams"});
+            let games = await monGameModel.find().populate({path: "Teams"});
             if (!games) {
                 return res.status(400).json({ error: 'No games' });
             } else {
@@ -59,12 +64,11 @@ class GameRouter
         
     }
 
-    public async GetGame(req: Request, res: Response):Promise<any> {
+    public async GetGame(req: Request, res: Response):Promise<GameModel | any> {
         const ID = req.params.game;
         console.log(ID);
         try {
-            let game = await DBGameModel.findById(ID).populate({path: "Teams", populate: {path: "Nation"}});
-        
+            let game = await monGameModel.findById(ID)
             if (!game) {
               res.status(400).json({ error: 'No games' });
             } else {
@@ -76,12 +80,12 @@ class GameRouter
     }
 
     public async CreateGame(req: Request, res: Response):Promise<any> {
-        const game = new DBGameModel(req.body);         
-        const g = new DBGameModel(game);
+        const game = new monGameModel(req.body);         
+        const g = new monGameModel(game);
         
         const savedGame = await g.save();
 
-        const newGame = await DBGameModel.findOneAndUpdate({_id: g._id},{State: "1A"},{new:true});
+        const newGame = await monGameModel.findOneAndUpdate({_id: g._id},{State: "1A"},{new:true});
 
         res.json(newGame);
     }

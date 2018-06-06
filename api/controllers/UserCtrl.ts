@@ -5,6 +5,19 @@ import BaseModel from '../../shared/base-sapien/models/BaseModel';
 import SchemaBuilder from '../SchemaBuilder';
 
 const schObj = SchemaBuilder.fetchSchema(UserModel);
+
+/****************************************
+ * 
+ * 
+ * 
+ * IMPORTANT!!!!!! EXCLUDE PASSWORD AT SCHEMA LEVEL FROM BEING RETUNRED TO CLIENT
+ * 
+ * 
+ * 
+ ***************************************/
+schObj.Password = { type: String, select: false }
+
+
 const monSchema = new mongoose.Schema(schObj);
 export const monUserModel = mongoose.model("user", monSchema);
 

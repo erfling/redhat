@@ -68,7 +68,8 @@ function onListening(): void {
         .use('/assets', express.static("dist/assets"))
         .use('/', express.static("dist"))
         .use('/sapien/api/auth', LoginCtrl)
-        .use('/sapien/api/user', Passport.authenticate('jwt', {session: false}), UserCtrl )
+        .use('/sapien/api/user', UserCtrl )
+        // Passport.authenticate('jwt', {session: false}),
 }
 
 function normalizePort(val: number|string): number|string|boolean {

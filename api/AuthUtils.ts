@@ -4,7 +4,7 @@ import * as PassportLocal from 'passport-local';
 import * as jwt from 'jsonwebtoken';
 import { monUserModel } from './controllers/UserCtrl'
 import * as bcrypt from 'bcrypt';
-import UserModel from '../shared/models/UserModel';
+import UserModel, { RoleName } from '../shared/models/UserModel';
 import { plainToClass } from 'class-transformer';
 
 const LocagStrategy = PassportLocal.Strategy;
@@ -22,14 +22,21 @@ export default abstract class AuthUtils {
             async (Email: string, password: string, done) => {
             console.log(Email, password, "hello?")
             try {
-                const resp = await monUserModel.findOne({ Email });              
+                //include password for comparison
+                const resp = await monUserModel.findOne({ Email: "matt@sapienexperience.com" }).select("+Password");              
 
-                const user = plainToClass(UserModel, (resp.toJSON() as UserModel) || {Email: 'test@butt.butt', Name: "Joe Butt"});
-                done(null, {Email: 'test@butt.butt', Name: "Joe Butt"});
+                const user = plainToClass( UserModel, resp );
+                console.log("USER IN AUTH METHOD: ", user)
+                delete user.Password;
+
+                done(null, user);
                 /*
                 if (!user || !this.IS_VALID_PASSWORD(password, user)) {
                     done(null, false, { message: "Invalid username/password" });
                 } else {
+                    //remove the password from the user object so that there's no chance it gets sent back to the client
+                    delete user.Password;
+
                     done(null, user);
                 }
                 */
@@ -67,6 +74,15 @@ export default abstract class AuthUtils {
 
     public static IS_VALID_PASSWORD(inputPassword: string, user: UserModel): boolean {
         return bcrypt.compareSync(inputPassword, user.Password);
+    }
+
+    /**
+     * Determine whether current user has permission to access a given endpoint. Called as middleware on enpoints
+     * @param user 
+     * @param permittedRoles Defaults to lowest permission level
+     */
+    public static IS_USER_AUTHORIZED ( user: UserModel, permittedRoles: RoleName[] = [RoleName.PLAYER] ): boolean {
+        return permittedRoles.indexOf( user.Role ) != -1;
     }
 
 

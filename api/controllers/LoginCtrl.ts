@@ -62,11 +62,12 @@ class LoginCtrl
                 }
         
                 req.login(user, {session: false}, (err) => {
+                    console.log("USER AS PASSED FROM AUTH:", user)
                     if (err) {
                         res.send(err);
                     }
                     console.log(user);
-                    const token = jwt.sign(user, 'ziwagytywu');
+                    const token = jwt.sign(JSON.parse(JSON.stringify(user)), 'ziwagytywu');
         
                     return res.json({user, token});
                 });

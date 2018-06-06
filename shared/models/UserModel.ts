@@ -2,6 +2,12 @@ import RoleModel from "./RoleModel";
 import { Type } from "class-transformer";
 import BaseModel, { dbProp } from "../base-sapien/models/BaseModel";
 
+export enum RoleName {
+    ADMIN = "ADMIN",
+    FACILITATOR = "FACILITATOR",
+    PLAYER = "PLAYER"
+}
+
 export default class UserModel extends BaseModel
 {
     //----------------------------------------------------------------------
@@ -27,7 +33,6 @@ export default class UserModel extends BaseModel
     @dbProp(String)
     public Password: string = "";
 
-    @Type(() => RoleModel)
-    public Role: RoleModel = new RoleModel();
+    public Role: RoleName = RoleName.PLAYER;
     
 }

@@ -2,11 +2,8 @@ import ContentBlock from './ContentBlock'
 import PossibleAnswer from "./PossibleAnswerModel";
 import QuestionModel from "./QuestionModel";
 
-export interface RoleShape {
-    Name: "ADMIN" | "FACILITATOR" | "PLAYER"
-}
 
-export default class RoleModel implements RoleShape
+export default class RoleModel
 {
     //----------------------------------------------------------------------
     //
@@ -14,6 +11,6 @@ export default class RoleModel implements RoleShape
     //
     //----------------------------------------------------------------------
 
-    public Name: "ADMIN" | "FACILITATOR" | "PLAYER" = null;
+    public Name: string = null;
         
 }

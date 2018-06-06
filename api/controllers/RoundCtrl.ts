@@ -1,6 +1,5 @@
 import { Router, Request, Response, NextFunction } from 'express';
 import * as mongoose from 'mongoose';
-import { DBRound, DBRoundModel } from '../models/DBRound';
 import RoundModel from '../../shared/models/RoundModel';
 import BaseModel from '../../shared/base-sapien/models/BaseModel';
 import SchemaBuilder from '../SchemaBuilder';
@@ -48,7 +47,7 @@ class RoundRouter
     //
     //----------------------------------------------------------------------
     
-    public async GetRounds(req: Request, res: Response):Promise<DBRound[] | any> {
+    public async GetRounds(req: Request, res: Response):Promise<any> {
         console.log("CALLING GET ROUNDS");
         
         try {
