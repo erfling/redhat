@@ -5,6 +5,7 @@ import Round1 from './PeopleRound';
 import { Grid, Menu, Container, Button } from 'semantic-ui-react';
 const { Column, Row } = Grid;
 import * as Icons from 'react-icons/lib/io';
+import { Route, Switch } from "react-router";
 
 export default class Game extends React.Component<any, GameModel>
 {

@@ -14,6 +14,7 @@ export default class PeopleRound extends React.Component<{}, RoundModel>
     //  Properties
     //
     //----------------------------------------------------------------------
+
     controller: PeopleRoundCtrl;
 
     //----------------------------------------------------------------------

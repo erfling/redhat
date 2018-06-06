@@ -29,8 +29,7 @@ class RoundRouter
         this.router = Router({mergeParams:true});
         this.routes();
         
-        
-        console.log("monSchema:", monRoundModel);
+        //console.log("monSchema:", monRoundModel);
     }
 
     //----------------------------------------------------------------------
