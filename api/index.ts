@@ -62,8 +62,8 @@ function onListening(): void {
 
     AuthUtils.SET_UP_PASSPORT();
     app.use('/', router)
-        .use('/sapien/api/rounds', Passport.authenticate('jwt', {session: false}), RoundController)
-        //.use('/rounds', RoundController)
+        //.use('/sapien/api/rounds', Passport.authenticate('jwt', {session: false}), RoundController)
+        .use('/sapien/api/rounds', RoundController)
         .use('/', express.static("dist"))
         .use('/assets', express.static("dist/assets"))
         .use('/', express.static("dist"))
