@@ -15,8 +15,6 @@ const app = express();
 const port = normalizePort(80);
 const httpServer = http.createServer(app);
 
-
-
 httpServer.listen(port);
 httpServer
     .on('error', onError)
@@ -64,11 +62,13 @@ function onListening(): void {
     app.use('/', router)
         //.use('/sapien/api/rounds', Passport.authenticate('jwt', {session: false}), RoundController)
         .use('/sapien/api/rounds', RoundController)
-        .use('/', express.static("dist"))
-        .use('/assets', express.static("dist/assets"))
-        .use('/', express.static("dist"))
         .use('/sapien/api/auth', LoginCtrl)
         .use('/sapien/api/user', UserCtrl )
+        .use('/assets', express.static("dist/assets"))
+        .use('/', express.static("dist"))
+        .use('*', express.static("dist"))
+        .use('**', express.static("dist"))
+
         // Passport.authenticate('jwt', {session: false}),
 }
 
