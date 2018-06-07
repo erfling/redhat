@@ -2,10 +2,10 @@ import * as React from "react";
 import CustomerRoundCtrl from "./CustomerRoundCtrl";
 import RoundModel from "../../shared/models/RoundModel";
 import EditableContentBlock from '../../shared/base-sapien/client/shared-components/EditableContentBlock';
-import * as Semantic from 'semantic-ui-react/index';
+import * as Semantic from 'semantic-ui-react';
 const { Button, Grid, Menu, Icon } = Semantic;
 const { Row, Column } = Grid;
-import { withRouter, RouteComponentProps } from 'react-router-dom'
+import { withRouter, RouteComponentProps } from 'react-router-dom';
 
 
 export class CustomerRound extends React.Component<RouteComponentProps<any>, RoundModel>

@@ -2,12 +2,13 @@ import * as React from "react";
 import PeopleRoundCtrl from "./PeopleRoundCtrl";
 import RoundModel from "../../shared/models/RoundModel";
 import EditableContentBlock from '../../shared/base-sapien/client/shared-components/EditableContentBlock';
-import * as Semantic from 'semantic-ui-react/index';
+import { withRouter, RouteComponentProps } from 'react-router-dom';
+import * as Semantic from 'semantic-ui-react';
 const { Button, Grid, Menu, Icon } = Semantic;
 const { Row, Column } = Grid;
 
 
-export default class PeopleRound extends React.Component<{}, RoundModel>
+class PeopleRound extends React.Component<RouteComponentProps<any>, RoundModel>
 {
     //----------------------------------------------------------------------
     //
@@ -23,7 +24,7 @@ export default class PeopleRound extends React.Component<{}, RoundModel>
     //
     //----------------------------------------------------------------------
 
-    constructor(props: {}) {
+    constructor(props: RouteComponentProps<any>) {
         super(props);
 
         this.controller = new PeopleRoundCtrl(this);
@@ -78,3 +79,5 @@ export default class PeopleRound extends React.Component<{}, RoundModel>
     }
 
 }
+
+export default withRouter(PeopleRound);

@@ -2,7 +2,7 @@ import * as React from "react";
 import FinanceRoundCtrl from "./FinanceRoundCtrl";
 import RoundModel from "../../shared/models/RoundModel";
 import EditableContentBlock from '../../shared/base-sapien/client/shared-components/EditableContentBlock';
-import * as Semantic from 'semantic-ui-react/index';
+import * as Semantic from 'semantic-ui-react';
 const { Button, Grid, Menu, Icon } = Semantic;
 const { Row, Column } = Grid;
 
