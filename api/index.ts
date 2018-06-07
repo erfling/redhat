@@ -47,7 +47,7 @@ function onListening(): void {
 
     const MONGO_URI: string = 'mongodb://localhost:27017/red-hat';
     mongoose.set('debug', true);
-
+    
     var connection = mongoose.connect(MONGO_URI || process.env.MONGODB_URI).then((connection) => {
         console.log(typeof connection, connection);
 

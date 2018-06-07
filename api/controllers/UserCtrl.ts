@@ -1,8 +1,9 @@
 import { Router, Request, Response, NextFunction } from 'express';
 import * as mongoose from 'mongoose';
-import UserModel from '../../shared/models/UserModel';
+import UserModel, { RoleName } from '../../shared/models/UserModel';
 import BaseModel from '../../shared/base-sapien/models/BaseModel';
 import SchemaBuilder from '../SchemaBuilder';
+import Auth, {PERMISSION_LEVELS} from '../AuthUtils'; 
 
 const schObj = SchemaBuilder.fetchSchema(UserModel);
 
@@ -77,14 +78,14 @@ class RoundRouter
 
     public async GetUser(req: Request, res: Response):Promise<any> {
         
-        const ID = req.params.round;
+        const ID = req.params.id;
         console.log("TRYING TO GET ROUND WITH NAME: ", ID);
         try {
-            let round = await monUserModel.findOne({Name: ID});
-            if (!round) {
+            let user = await monUserModel.findById(ID).then((u) => u);
+            if (!user) {
               res.status(400).json({ error: 'No round' });
             } else {
-              res.json(round);
+              res.json(user);
             }
         } catch(err) {
             ( err: any ) => res.status(500).json({ error: err });
@@ -114,9 +115,22 @@ class RoundRouter
 
 
     public routes(){
-        this.router.get("/", this.GetUser.bind(this));
-        this.router.get("/:round", this.GetUsers.bind(this));
-        this.router.post("/", this.SaveUser.bind(this));
+
+        this.router.get("/", 
+            (req, res, next) => Auth.IS_USER_AUTHORIZED(req, res, next, PERMISSION_LEVELS.FACILITATOR), 
+            this.GetUsers.bind(this)
+        );
+
+        this.router.get("/:id",
+            (req, res, next) => Auth.IS_USER_AUTHORIZED(req, res, next, PERMISSION_LEVELS.PLAYER), 
+            this.GetUser.bind(this)
+        );
+
+        this.router.post("/", 
+            (req, res, next) => Auth.IS_USER_AUTHORIZED(req, res, next, PERMISSION_LEVELS.ADMIN), 
+            this.SaveUser.bind(this)
+        );
+        
     }
 }
 

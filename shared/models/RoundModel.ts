@@ -28,6 +28,7 @@ export default class RoundModel extends BaseModel
 
     //public  REST_URL: string = urlFactory.getBaseUrl(RoundModel); 
 
+    @Type(() =>String)
     public Name: string = "";
 
     public Label: string = "";

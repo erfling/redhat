@@ -5,9 +5,17 @@ import * as jwt from 'jsonwebtoken';
 import { monUserModel } from './controllers/UserCtrl'
 import * as bcrypt from 'bcrypt';
 import UserModel, { RoleName } from '../shared/models/UserModel';
-import { plainToClass } from 'class-transformer';
+import { plainToClass, plainToClassFromExist, classToPlain } from 'class-transformer';
+import { INSPECT_MAX_BYTES } from 'buffer';
+import { NextFunction } from 'express';
 
 const LocagStrategy = PassportLocal.Strategy;
+
+export const PERMISSION_LEVELS: {[index: string]: RoleName[] } = {
+    ADMIN: [RoleName.ADMIN],
+    FACILITATOR: [RoleName.ADMIN, RoleName.FACILITATOR],
+    PLAYER: [RoleName.ADMIN, RoleName.FACILITATOR, RoleName.PLAYER]
+}
 
 export default abstract class AuthUtils {
 
@@ -24,9 +32,14 @@ export default abstract class AuthUtils {
             try {
                 //include password for comparison
                 const resp = await monUserModel.findOne({ Email: "matt@sapienexperience.com" }).select("+Password");              
+                let instance = JSON.parse(JSON.stringify(resp.toJSON()));
+                console.log("USER IN AUTH METHOD: ", instance)
 
-                const user = plainToClass( UserModel, resp );
-                console.log("USER IN AUTH METHOD: ", user)
+                const user = plainToClass( UserModel, instance as UserModel );
+
+                console.log(typeof user, " | ", user.Name);
+                console.log(user);
+                console.log("USER after conversion in AUTH METHOD: ", user)
                 delete user.Password;
 
                 done(null, user);
@@ -81,8 +94,15 @@ export default abstract class AuthUtils {
      * @param user 
      * @param permittedRoles Defaults to lowest permission level
      */
-    public static IS_USER_AUTHORIZED ( user: UserModel, permittedRoles: RoleName[] = [RoleName.PLAYER] ): boolean {
-        return permittedRoles.indexOf( user.Role ) != -1;
+    public static IS_USER_AUTHORIZED ( req: any, res:any, next: NextFunction,  permittedRoles: RoleName[] = [RoleName.PLAYER] ): void {
+        console.log("REQUEST IN MIDDLEWARE:", permittedRoles);
+        if(!req.user)req.user = {Role: RoleName.PLAYER}
+        if(permittedRoles.indexOf( req.user.Role ) != -1) {
+            next();
+        } else {
+            res.send("Unauthorized")
+        }
+
     }
 
 

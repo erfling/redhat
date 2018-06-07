@@ -1,5 +1,5 @@
 import RoleModel from "./RoleModel";
-import { Type } from "class-transformer";
+import { Type, Expose } from "class-transformer";
 import BaseModel, { dbProp } from "../base-sapien/models/BaseModel";
 
 export enum RoleName {
@@ -17,22 +17,33 @@ export default class UserModel extends BaseModel
     //----------------------------------------------------------------------
 
     @dbProp(String)
-    public FirstName: String = "";
+    @Type(() =>String)
+    public FirstName: string;
     
     @dbProp(String)
-    public LastName: string = "";
+    @Type(() =>String)
+    public LastName: string;
 
-    public Name: string = "";
-    public get _Name(){
+    @Type(() =>String)
+    private _Name: string;
+    @Expose()
+    public get Name(){
         return this.FirstName + " " + this.LastName;
     }
 
-    @dbProp(String)
-    public Email: string = "";
+    //@dbProp(String)
+    @Type(() =>String)
+    public Email: string;
 
     @dbProp(String)
-    public Password: string = "";
+    @Type(() =>String)
+    public Password: string;
 
+    @dbProp(String)
+    @Type(() => String)
     public Role: RoleName = RoleName.PLAYER;
+
+    @dbProp(String)
+    public testUnitializedString: string;
     
 }
