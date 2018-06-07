@@ -5,9 +5,9 @@ import Round1 from './PeopleRound';
 import { Grid, Menu, Container, Button } from 'semantic-ui-react';
 const { Column, Row } = Grid;
 import * as Icons from 'react-icons/lib/io';
-import { Route, Switch } from "react-router";
+import { Route, Switch, RouteComponentProps, withRouter } from "react-router";
 
-export default class Game extends React.Component<any, GameModel>
+class Game extends React.Component<RouteComponentProps<any>, GameModel>
 {
     //----------------------------------------------------------------------
     //
@@ -23,11 +23,15 @@ export default class Game extends React.Component<any, GameModel>
     //
     //----------------------------------------------------------------------
 
-    constructor(props: {}) {
+    constructor(props: RouteComponentProps<any>) {
         super(props);
         
         this.controller = new GameCtrl(this)
         this.state = this.controller.dataStore;
+    }
+
+    componentWillMount() {
+        this.props.history.push("/" + this.constructor.name.toLowerCase());
     }
 
     //----------------------------------------------------------------------
@@ -103,3 +107,5 @@ export default class Game extends React.Component<any, GameModel>
     }
 
 }
+
+export default withRouter(Game);

@@ -1,6 +1,7 @@
 import * as React from "react";
+import { RouteComponentProps, withRouter } from "react-router";
 
-export default class Login extends React.Component<{}, any>
+class Login extends React.Component<RouteComponentProps<any>, any>
 {
     //----------------------------------------------------------------------
     //
@@ -16,7 +17,14 @@ export default class Login extends React.Component<{}, any>
     //
     //----------------------------------------------------------------------
 
+    constructor(props: RouteComponentProps<any>) {
+        super(props);
+        
+    }
 
+    componentWillMount() {
+        this.props.history.push("/" + this.constructor.name.toLowerCase());
+    }
 
     //----------------------------------------------------------------------
     //
@@ -37,3 +45,5 @@ export default class Login extends React.Component<{}, any>
     }
 
 }
+
+export default withRouter(Login);

@@ -8,7 +8,7 @@ const { Row, Column } = Grid;
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 
 
-export class CustomerRound extends React.Component<RouteComponentProps<any>, RoundModel>
+class CustomerRound extends React.Component<RouteComponentProps<any>, RoundModel>
 {
     //----------------------------------------------------------------------
     //
@@ -29,6 +29,10 @@ export class CustomerRound extends React.Component<RouteComponentProps<any>, Rou
         this.controller = new CustomerRoundCtrl(this);
         this.state = this.controller.dataStore;
         this.controller.getContentByRound("CUSTOMER");
+    }
+
+    componentWillMount() {
+        this.props.history.push("/game/" + this.constructor.name.toLowerCase());
     }
 
     //----------------------------------------------------------------------
@@ -79,5 +83,4 @@ export class CustomerRound extends React.Component<RouteComponentProps<any>, Rou
 
 }
 
-const RoutedCustomerRound = withRouter(CustomerRound);
-export default RoutedCustomerRound;
+export default withRouter(CustomerRound);

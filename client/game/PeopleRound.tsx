@@ -32,6 +32,10 @@ class PeopleRound extends React.Component<RouteComponentProps<any>, RoundModel>
         this.controller.getContentByRound("PEOPLE");
     }
 
+    componentWillMount() {
+        this.props.history.push("/game/" + this.constructor.name.toLowerCase());
+    }
+
     //----------------------------------------------------------------------
     //
     //  Event Handlers

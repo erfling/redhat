@@ -1,8 +1,9 @@
 import * as React from "react";
 import FiStMa from '../../shared/entity-of-the-state/FiStMa';
 import GameCtrl from "../game/GameCtrl";
+import { RouteComponentProps, withRouter } from "react-router";
 
-export default class Admin extends React.Component<{GameCtrl: GameCtrl}, any>
+class Admin extends React.Component<RouteComponentProps<any>, any>
 {
     //----------------------------------------------------------------------
     //
@@ -18,7 +19,14 @@ export default class Admin extends React.Component<{GameCtrl: GameCtrl}, any>
     //
     //----------------------------------------------------------------------
 
+    constructor(props: RouteComponentProps<any>) {
+        super(props);
+        
+    }
 
+    componentWillMount() {
+        this.props.history.push("/" + this.constructor.name.toLowerCase());
+    }
 
     //----------------------------------------------------------------------
     //
@@ -35,11 +43,9 @@ export default class Admin extends React.Component<{GameCtrl: GameCtrl}, any>
     //----------------------------------------------------------------------
 
     render() {
-        setTimeout(() => {
-            console.log(this.props.GameCtrl);
-        }, 3000);
-
         return  <h1>You are in Admin.</h1>;
     }
 
 }
+
+export default withRouter(Admin);

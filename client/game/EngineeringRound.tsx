@@ -3,11 +3,12 @@ import EngineeringRoundCtrl from "./EngineeringRoundCtrl";
 import RoundModel from "../../shared/models/RoundModel";
 import EditableContentBlock from '../../shared/base-sapien/client/shared-components/EditableContentBlock';
 import * as Semantic from 'semantic-ui-react';
+import { withRouter, RouteComponentProps } from "react-router";
 const { Button, Grid, Menu, Icon } = Semantic;
 const { Row, Column } = Grid;
 
 
-export default class EngineeringRound extends React.Component<{}, RoundModel>
+class EngineeringRound extends React.Component<RouteComponentProps<any>, RoundModel>
 {
     //----------------------------------------------------------------------
     //
@@ -22,12 +23,16 @@ export default class EngineeringRound extends React.Component<{}, RoundModel>
     //
     //----------------------------------------------------------------------
 
-    constructor(props: {}) {
+    constructor(props: RouteComponentProps<any>) {
         super(props);
 
         this.controller = new EngineeringRoundCtrl(this);
         this.state = this.controller.dataStore;
         this.controller.getContentByRound("ENGINEERING");
+    }
+
+    componentWillMount() {
+        this.props.history.push("/game/" + this.constructor.name.toLowerCase());
     }
 
     //----------------------------------------------------------------------
@@ -77,3 +82,5 @@ export default class EngineeringRound extends React.Component<{}, RoundModel>
     }
 
 }
+
+export default withRouter(EngineeringRound);

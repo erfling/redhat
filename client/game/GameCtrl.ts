@@ -4,7 +4,7 @@ import PeopleRound from './PeopleRound';
 import EngineeringRound from './EngineeringRound';
 import SalesRound from './SalesRound';
 import FinanceRound from './FinanceRound';
-import RoutedCustomerRound from './CustomerRound';
+import CustomerRound from './CustomerRound';
 import BaseGameCtrl from '../../shared/base-sapien/client/BaseGameCtrl';
 import { Component } from 'react';
 import RoundModel from '../../shared/models/RoundModel';
@@ -23,7 +23,7 @@ export default class GameCtrl extends BaseGameCtrl<GameModel>
         round2: EngineeringRound, 
         round3: SalesRound, 
         round4: FinanceRound, 
-        round5: RoutedCustomerRound
+        round5: CustomerRound
     };
 
     //----------------------------------------------------------------------
