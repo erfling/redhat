@@ -5,9 +5,10 @@ import EditableContentBlock from '../../shared/base-sapien/client/shared-compone
 import * as Semantic from 'semantic-ui-react';
 const { Button, Grid, Menu, Icon } = Semantic;
 const { Row, Column } = Grid;
+import { withRouter, RouteComponentProps } from 'react-router-dom'
 
 
-export default class CustomerRound extends React.Component<{}, RoundModel>
+export class CustomerRound extends React.Component<RouteComponentProps<any>, RoundModel>
 {
     //----------------------------------------------------------------------
     //
@@ -22,9 +23,9 @@ export default class CustomerRound extends React.Component<{}, RoundModel>
     //
     //----------------------------------------------------------------------
 
-    constructor(props: {}) {
+    constructor(props: RouteComponentProps<any>) {
         super(props);
-
+        console.log("CONSTRUCTOR OF CUSTOMER ROUND SAYS THIS ABOUT ROUTING:", this.props.location, this.props.match)
         this.controller = new CustomerRoundCtrl(this);
         this.state = this.controller.dataStore;
         this.controller.getContentByRound("CUSTOMER");
@@ -77,3 +78,6 @@ export default class CustomerRound extends React.Component<{}, RoundModel>
     }
 
 }
+
+const RoutedCustomerRound = withRouter(CustomerRound);
+export default RoutedCustomerRound;
