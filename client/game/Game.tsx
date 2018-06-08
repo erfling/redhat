@@ -6,6 +6,11 @@ import { Grid, Menu, Container, Button } from 'semantic-ui-react';
 const { Column, Row } = Grid;
 import * as Icons from 'react-icons/lib/io';
 import { Route, Switch, RouteComponentProps, withRouter } from "react-router";
+import PeopleRound from "./PeopleRound";
+import EngineeringRound from "./EngineeringRound";
+import SalesRound from "./SalesRound";
+import FinanceRound from "./FinanceRound";
+import CustomerRound from "./CustomerRound";
 
 class Game extends React.Component<RouteComponentProps<any>, GameModel>
 {
@@ -31,7 +36,8 @@ class Game extends React.Component<RouteComponentProps<any>, GameModel>
     }
 
     componentWillMount() {
-        this.props.history.push("/" + this.constructor.name.toLowerCase());
+        const Rnd = this.state.RoundsFistma.currentState;
+        this.props.history.push("/game/" + Rnd.WrappedComponent.name.toLowerCase());
     }
 
     //----------------------------------------------------------------------
@@ -86,7 +92,11 @@ class Game extends React.Component<RouteComponentProps<any>, GameModel>
                 padded={true}
                 columns={16}
             >
-                <Rnd />
+                <Switch>
+                    {this.state.RoundsFistma._stateMap.map((rnd) => {
+                        return <Route path={'/game/'+rnd.WrappedComponent.name.toLowerCase()} component={rnd} />
+                    })}
+                </Switch>
             </Grid>
             <Menu
                 inverted
