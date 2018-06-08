@@ -4,6 +4,8 @@ import UserModel, { RoleName } from '../../shared/models/UserModel';
 import BaseModel from '../../shared/base-sapien/models/BaseModel';
 import SchemaBuilder from '../SchemaBuilder';
 import Auth, {PERMISSION_LEVELS} from '../AuthUtils'; 
+import { plainToClass } from 'class-transformer';
+import EmailCtrl from './EmailCtrl';
 
 const schObj = SchemaBuilder.fetchSchema(UserModel);
 
@@ -20,6 +22,9 @@ schObj.Password = { type: String, select: false }
 
 
 const monSchema = new mongoose.Schema(schObj);
+console.log("USER SCHEMA INIT:",  schObj)
+
+
 export const monUserModel = mongoose.model("user", monSchema);
 
 class RoundRouter
@@ -95,7 +100,6 @@ class RoundRouter
 
     public async SaveUser(req: Request, res: Response):Promise<any> {
         const userToSave = req.body as UserModel;
-
         //const dbRoundModel = new monRoundModel(roundToSave); 
         
         try{
@@ -113,11 +117,36 @@ class RoundRouter
         }
     }
 
+    public async AddNewUser(req: Request, res: Response):Promise<any> {
+        const userToSave = req.body as UserModel;
+        console.log(userToSave)
+
+        //const dbRoundModel = new monRoundModel(roundToSave); 
+        
+        try{
+           
+            const savedUser = await monUserModel.create( userToSave ).then(r => r);
+            //issue temporary token
+            //const user = plainToClass(UserModel, savedUser);
+            var token = Auth.ISSUE_NEW_USER_JWT(savedUser.toObject())
+
+            EmailCtrl.SEND_EMAIL((savedUser.toObject() as UserModel).Email, token)
+
+
+            console.log(savedUser);
+            
+            res.json(savedUser);
+        }
+        catch{
+
+        }
+    }
+
 
     public routes(){
 
         this.router.get("/", 
-            (req, res, next) => Auth.IS_USER_AUTHORIZED(req, res, next, PERMISSION_LEVELS.FACILITATOR), 
+            (req, res, next) => Auth.IS_USER_AUTHORIZED(req, res, next, PERMISSION_LEVELS.FACILITATOR),
             this.GetUsers.bind(this)
         );
 
@@ -129,6 +158,11 @@ class RoundRouter
         this.router.post("/", 
             (req, res, next) => Auth.IS_USER_AUTHORIZED(req, res, next, PERMISSION_LEVELS.ADMIN), 
             this.SaveUser.bind(this)
+        );
+
+        this.router.post("/newuser", 
+            //(req, res, next) => Auth.IS_USER_AUTHORIZED(req, res, next, PERMISSION_LEVELS.ADMIN), 
+            this.AddNewUser.bind(this)
         );
         
     }

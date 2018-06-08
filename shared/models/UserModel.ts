@@ -31,7 +31,7 @@ export default class UserModel extends BaseModel
         return this.FirstName + " " + this.LastName;
     }
 
-    //@dbProp(String)
+    @dbProp(String)
     @Type(() =>String)
     public Email: string;
 
@@ -42,8 +42,5 @@ export default class UserModel extends BaseModel
     @dbProp(String)
     @Type(() => String)
     public Role: RoleName = RoleName.PLAYER;
-
-    @dbProp(String)
-    public testUnitializedString: string;
     
 }

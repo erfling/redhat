@@ -105,6 +105,11 @@ export default abstract class AuthUtils {
 
     }
 
+    public static ISSUE_NEW_USER_JWT(newUser: UserModel): any {
+        var token = jwt.sign(newUser.Email, "ziwagytywu")
+        return token;
+    }
+
 
 }
 
