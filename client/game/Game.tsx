@@ -36,7 +36,8 @@ class Game extends React.Component<RouteComponentProps<any>, GameModel>
     }
 
     componentWillMount() {
-        this.props.history.push("/" + this.constructor.name.toLowerCase());
+        const Rnd = this.state.RoundsFistma.currentState;
+        this.props.history.push("/game/" + Rnd.WrappedComponent.name.toLowerCase());
     }
 
     //----------------------------------------------------------------------
@@ -91,13 +92,10 @@ class Game extends React.Component<RouteComponentProps<any>, GameModel>
                 padded={true}
                 columns={16}
             >
-                <Rnd />
                 <Switch>
-                    <Route path="/game/peopleround" component={PeopleRound} />
-                    <Route path="/game/engineeringround" component={EngineeringRound} />
-                    <Route path="/game/salesround" component={SalesRound} />
-                    <Route path="/game/financeround" component={FinanceRound} />
-                    <Route path="/game/customerround" component={CustomerRound} />
+                    {this.state.RoundsFistma._stateMap.map((rnd) => {
+                        return <Route path={'/game/'+rnd.WrappedComponent.name.toLowerCase()} component={rnd} />
+                    })}
                 </Switch>
             </Grid>
             <Menu
