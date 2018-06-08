@@ -26,6 +26,7 @@ export default class GameCtrl extends BaseGameCtrl<GameModel>
         round5: CustomerRound
     };
 
+
     //----------------------------------------------------------------------
     //
     //  Constructor
@@ -74,6 +75,7 @@ export default class GameCtrl extends BaseGameCtrl<GameModel>
      */
     public advanceRound(){
         this.dataStore.RoundsFistma.next();
+        this.NavigateFromState();
     }
     
     /**
@@ -82,6 +84,12 @@ export default class GameCtrl extends BaseGameCtrl<GameModel>
      */
     public goBackRound(){
         this.dataStore.RoundsFistma.previous();
+        this.NavigateFromState()
+    }
+
+    public NavigateFromState(){
+        console.log(this.component)
+        this.component.props.history.push('/game/' + this.dataStore.RoundsFistma.currentState.WrappedComponent.name.toLowerCase());
     }
 
     //----------------------------------------------------------------------
