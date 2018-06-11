@@ -13,7 +13,7 @@ export default class BaseAdminCtrl extends BaseController<any>
     //
     //----------------------------------------------------------------------
 
-    
+    component: any;
 
     //----------------------------------------------------------------------
     //
@@ -24,6 +24,9 @@ export default class BaseAdminCtrl extends BaseController<any>
     constructor(reactComp: Component<any, any>) {
         super(new AdminViewModel(), reactComp.forceUpdate.bind(reactComp));
         console.log("YO1:", this.dataStore.Name, "why is this undefined?");
+        if(!localStorage || !localStorage.getItem("rhjwt")){
+            this.component.props.history.push("/login/admin");
+        }
     }
     
     //----------------------------------------------------------------------

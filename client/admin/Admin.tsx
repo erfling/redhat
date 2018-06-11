@@ -29,7 +29,11 @@ class Admin extends React.Component<RouteComponentProps<any>, any>
     }
 
     componentWillMount() {
-        this.props.history.push("/" + this.constructor.name.toLowerCase());
+        if(!localStorage || !localStorage.getItem("rhjwt")){
+            this.props.history.push("/login/admin");
+        }else {
+            this.props.history.push("/admin");
+        }
     }
 
     //----------------------------------------------------------------------

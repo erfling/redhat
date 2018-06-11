@@ -24,7 +24,6 @@ class AdminLogin extends React.Component<RouteComponentProps<any>, UserModel & {
     //----------------------------------------------------------------------
 
     constructor(props: RouteComponentProps<any>) {
-        alert("hello?")
         super(props);
         this.props.history.push("/login/admin")
         this.controller = new LoginCtrl(this)
