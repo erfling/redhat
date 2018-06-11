@@ -1,12 +1,12 @@
 import * as React from "react";
-import { RouteComponentProps, withRouter, Route } from "react-router";
-import GameLogin from './GameLogin';
-import AdminLogin from './AdminLogin';
-import FirstLogin from './FirstLogin';
+import UserModel from "../../shared/models/UserModel";
 import { Grid, Menu, Container, Button } from 'semantic-ui-react';
 const { Column, Row } = Grid;
+import * as Icons from 'react-icons/lib/io';
+import { Route, Switch, RouteComponentProps, withRouter } from "react-router";
+import LoginCtrl from './LogtinCtrl'
 
-class Login extends React.Component<RouteComponentProps<any>, any>
+class GameLogin extends React.Component<RouteComponentProps<any>, UserModel>
 {
     //----------------------------------------------------------------------
     //
@@ -14,7 +14,7 @@ class Login extends React.Component<RouteComponentProps<any>, any>
     //
     //----------------------------------------------------------------------
 
-
+    controller: LoginCtrl;
 
     //----------------------------------------------------------------------
     //
@@ -23,13 +23,12 @@ class Login extends React.Component<RouteComponentProps<any>, any>
     //----------------------------------------------------------------------
 
     constructor(props: RouteComponentProps<any>) {
-        super(props);
-
+        super(props);        
+        this.controller = new LoginCtrl(this)
+        this.state = this.controller.dataStore;
     }
 
-    componentWillMount() {
-        this.props.history.push("/" + this.constructor.name.toLowerCase());
-    }
+    componentWillMount() {}
 
     //----------------------------------------------------------------------
     //
@@ -46,22 +45,9 @@ class Login extends React.Component<RouteComponentProps<any>, any>
     //----------------------------------------------------------------------
 
     render() {
-        return <Container
-            fluid={true}
-        >
-            <Grid
-                verticalAlign="middle"
-                centered
-                padded={true}
-                columns={16}
-            >
-                <Route path="/login/game" component={GameLogin} exact />
-                <Route path="/login/join" component={FirstLogin} exact />
-                <Route path="/login/admin" component={AdminLogin} exact/>
-            </Grid>
-        </Container>;
+        return <></>
     }
 
 }
 
-export default withRouter(Login);
+export default withRouter(GameLogin);

@@ -55,7 +55,7 @@ class LoginCtrl
             Passport.authenticate('local', {session: false}, (err, user: UserModel, info) => {
                 console.log("ERROR IN AUTH METHOD", err);
                 if (err || !user) {
-                    return res.status(400).json({
+                    return res.status(401).json({
                         message: info ? info.message : 'Login failed',
                         user   : user
                     });
@@ -67,7 +67,7 @@ class LoginCtrl
                         res.send(err);
                     }
                     console.log(user);
-                    const token = jwt.sign(JSON.parse(JSON.stringify(user)), 'ziwagytywu');
+                    const token = jwt.sign(JSON.parse(JSON.stringify(user)), 'zigwagytywu');
         
                     return res.json({user, token});
                 });

@@ -1,7 +1,11 @@
 import * as React from "react";
 import FiStMa from '../../shared/entity-of-the-state/FiStMa';
 import GameCtrl from "../game/GameCtrl";
-import { RouteComponentProps, withRouter } from "react-router";
+import Game from '../game/Game';
+import { Grid, Sidebar, Menu, Icon } from 'semantic-ui-react';
+const { Row, Column } = Grid;
+import { RouteComponentProps, withRouter, } from "react-router";
+import { Route, Link } from "react-router-dom";
 
 class Admin extends React.Component<RouteComponentProps<any>, any>
 {
@@ -11,7 +15,7 @@ class Admin extends React.Component<RouteComponentProps<any>, any>
     //
     //----------------------------------------------------------------------
 
-    
+
 
     //----------------------------------------------------------------------
     //
@@ -21,7 +25,7 @@ class Admin extends React.Component<RouteComponentProps<any>, any>
 
     constructor(props: RouteComponentProps<any>) {
         super(props);
-        
+
     }
 
     componentWillMount() {
@@ -34,7 +38,7 @@ class Admin extends React.Component<RouteComponentProps<any>, any>
     //
     //----------------------------------------------------------------------
 
-    
+
 
     //----------------------------------------------------------------------
     //
@@ -43,7 +47,24 @@ class Admin extends React.Component<RouteComponentProps<any>, any>
     //----------------------------------------------------------------------
 
     render() {
-        return  <h1>You are in Admin.</h1>;
+        return <>
+            <Sidebar
+                as={Menu}
+                animation='uncover'
+                width='thin'
+                visible={true}
+                vertical
+            >
+                <Menu.Item name='home'>
+                    Manage Users
+                    </Menu.Item>
+                <Menu.Item name='home'>
+                    Manage Games
+                    </Menu.Item>
+                <Menu.Item name='home'>
+                </Menu.Item>
+            </Sidebar>
+        </>;
     }
 
 }

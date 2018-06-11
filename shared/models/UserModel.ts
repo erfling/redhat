@@ -16,6 +16,8 @@ export default class UserModel extends BaseModel
     //
     //----------------------------------------------------------------------
 
+    REST_URL: string = "users";
+
     @dbProp(String)
     @Type(() =>String)
     public FirstName: string;

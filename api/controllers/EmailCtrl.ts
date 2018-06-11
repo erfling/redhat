@@ -1,10 +1,12 @@
 import * as NodeMailer from 'nodemailer'
+import UserModel from '../../shared/models/UserModel';
 
 export default abstract class EmailCtrl {
 
     private constructor() { }
 
-    public static SEND_EMAIL(recipient: string, token: string) {
+    public static SEND_EMAIL(recipient: UserModel, token: string) {
+        console.log(recipient.Email)
         let transporter = NodeMailer.createTransport(
             {
                 service: 'gmail',
@@ -17,9 +19,9 @@ export default abstract class EmailCtrl {
 
         const mailOptions = {
             from: 'sender@email.com', // sender address
-            to: recipient, // list of receivers
+            to: recipient.Email, // list of receivers
             subject: 'Sign Up', // Subject line
-            html: '<a href="http://planetsapientestsite.com/signup?token=' + token + '">Sign up</a>'// plain text body
+            html: '<a href="http://planetsapientestsite.com/join?token=' + token + '">Sign up</a>'// plain text body
         };
 
         transporter.sendMail(mailOptions, function (err, info) {

@@ -56,11 +56,16 @@ function onListening(): void {
 
     const router: express.Router = express.Router();
     app.use(bodyParser.urlencoded({ extended: true }))
+    
+    .use((req, res, next) => {
+        //console.log("HEADERS: ", PassportJWT.ExtractJwt.fromAuthHeaderAsBearerToken(), PassportJWT.ExtractJwt.fromHeader("auth"));
+        next();
+    })
     .use(bodyParser.json());
 
     AuthUtils.SET_UP_PASSPORT();
     app.use('/', router)
-        //.use('/sapien/api/rounds', Passport.authenticate('jwt', {session: false}), RoundController)
+        .use('/sapien/api/rounds', Passport.authenticate('jwt', {session: false}), RoundController)
         .use('/sapien/api/rounds', RoundController)
         .use('/sapien/api/auth', LoginCtrl)
         .use('/sapien/api/user', UserCtrl )

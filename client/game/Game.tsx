@@ -93,8 +93,8 @@ class Game extends React.Component<RouteComponentProps<any>, GameModel>
                 columns={16}
             >
                 <Switch>
-                    {this.state.RoundsFistma._stateMap.map((rnd) => {
-                        return <Route path={'/game/'+rnd.WrappedComponent.name.toLowerCase()} component={rnd} />
+                    {this.state.RoundsFistma._stateMap.map((rnd, i) => {
+                        return <Route path={'/game/'+rnd.WrappedComponent.name.toLowerCase()} component={rnd} key={i} />
                     })}
                 </Switch>
             </Grid>

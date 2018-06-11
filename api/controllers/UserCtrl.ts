@@ -6,6 +6,7 @@ import SchemaBuilder from '../SchemaBuilder';
 import Auth, {PERMISSION_LEVELS} from '../AuthUtils'; 
 import { plainToClass } from 'class-transformer';
 import EmailCtrl from './EmailCtrl';
+import * as Passport from 'passport'
 
 const schObj = SchemaBuilder.fetchSchema(UserModel);
 
@@ -119,21 +120,17 @@ class RoundRouter
 
     public async AddNewUser(req: Request, res: Response):Promise<any> {
         const userToSave = req.body as UserModel;
-        console.log(userToSave)
-
         //const dbRoundModel = new monRoundModel(roundToSave); 
         
         try{
            
-            const savedUser = await monUserModel.create( userToSave ).then(r => r);
+            const savedUser = await monUserModel.create( userToSave ).then(r => r.toObject());
             //issue temporary token
+
             //const user = plainToClass(UserModel, savedUser);
-            var token = Auth.ISSUE_NEW_USER_JWT(savedUser.toObject())
-
-            EmailCtrl.SEND_EMAIL((savedUser.toObject() as UserModel).Email, token)
-
-
             console.log(savedUser);
+            var token = Auth.ISSUE_NEW_USER_JWT(savedUser)
+            EmailCtrl.SEND_EMAIL((savedUser as UserModel), token)
             
             res.json(savedUser);
         }
@@ -142,6 +139,26 @@ class RoundRouter
         }
     }
 
+    public async GetNewUser(req: Request, res: Response):Promise<any> {
+        console.log("HEY WE CALLED GET NEW USER", req);
+        if(req.user){
+            res.json(req.user)
+        } else {
+            res.json("NO USER FOUND")
+        }
+    }
+
+    public async SetNewUserPassword(req: Request, res: Response):Promise<any> {
+        const id = req.user._id;
+        try{
+            console.log(req.body.Password, Auth.HASH_PASSWORD(req.body.Password))
+            const newPW = Auth.HASH_PASSWORD(req.body.Password);
+            const savedUser = monUserModel.findByIdAndUpdate(id.toString(), {Password: newPW}).then(r => r);
+            res.json(savedUser);
+        }catch{
+            res.json("password not updated")
+        }
+    }
 
     public routes(){
 
@@ -150,10 +167,7 @@ class RoundRouter
             this.GetUsers.bind(this)
         );
 
-        this.router.get("/:id",
-            (req, res, next) => Auth.IS_USER_AUTHORIZED(req, res, next, PERMISSION_LEVELS.PLAYER), 
-            this.GetUser.bind(this)
-        );
+        
 
         this.router.post("/", 
             (req, res, next) => Auth.IS_USER_AUTHORIZED(req, res, next, PERMISSION_LEVELS.ADMIN), 
@@ -163,6 +177,23 @@ class RoundRouter
         this.router.post("/newuser", 
             //(req, res, next) => Auth.IS_USER_AUTHORIZED(req, res, next, PERMISSION_LEVELS.ADMIN), 
             this.AddNewUser.bind(this)
+        );
+
+        this.router.post("/usersetpassword", 
+            Passport.authenticate('jwt', {session: false}),
+            //(req, res, next) => Auth.IS_USER_AUTHORIZED(req, res, next, PERMISSION_LEVELS.ADMIN), 
+            this.SetNewUserPassword.bind(this)
+        );
+
+        this.router.get("/startfirstlogin", 
+            Passport.authenticate('jwt', {session: false}),
+            //(req, res, next) => Auth.IS_USER_AUTHORIZED(req, res, next, PERMISSION_LEVELS.ADMIN), 
+            this.GetNewUser.bind(this)
+        );
+
+        this.router.get("/:id",
+            (req, res, next) => Auth.IS_USER_AUTHORIZED(req, res, next, PERMISSION_LEVELS.PLAYER), 
+            this.GetUser.bind(this)
         );
         
     }

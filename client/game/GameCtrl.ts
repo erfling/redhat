@@ -63,6 +63,7 @@ export default class GameCtrl extends BaseGameCtrl<GameModel>
 
     private _onRoundEnter(fromState:React.Component<{}, any>): void {
         console.log("Entered round", this.dataStore.RoundsFistma.currentState, "from round", fromState);
+        this.NavigateFromState();
     }
 
     public Navigate(round: RoundModel){
@@ -75,7 +76,6 @@ export default class GameCtrl extends BaseGameCtrl<GameModel>
      */
     public advanceRound(){
         this.dataStore.RoundsFistma.next();
-        this.NavigateFromState();
     }
     
     /**
@@ -84,7 +84,6 @@ export default class GameCtrl extends BaseGameCtrl<GameModel>
      */
     public goBackRound(){
         this.dataStore.RoundsFistma.previous();
-        this.NavigateFromState()
     }
 
     public NavigateFromState(){

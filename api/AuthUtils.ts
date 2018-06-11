@@ -31,31 +31,24 @@ export default abstract class AuthUtils {
             console.log(Email, password, "hello?")
             try {
                 //include password for comparison
-                const resp = await monUserModel.findOne({ Email: "matt@sapienexperience.com" }).select("+Password");              
-                let instance = JSON.parse(JSON.stringify(resp.toJSON()));
-                console.log("USER IN AUTH METHOD: ", instance)
-
-                const user = plainToClass( UserModel, instance as UserModel );
+                const resp = await monUserModel.findOne({ Email }).select("+Password").then(r => r);              
+                const user = resp != null ? resp.toJSON() as UserModel : null;
 
                 console.log(typeof user, " | ", user.Name);
                 console.log(user);
                 console.log("USER after conversion in AUTH METHOD: ", user)
-                delete user.Password;
-
-                done(null, user);
-                /*
-                if (!user || !this.IS_VALID_PASSWORD(password, user)) {
-                    done(null, false, { message: "Invalid username/password" });
+                
+                if (!user || !user.Email || !this.IS_VALID_PASSWORD(password, user)) {
+                    done(new Error("No user found"), false, { message: "Invalid username/password" });
                 } else {
                     //remove the password from the user object so that there's no chance it gets sent back to the client
                     delete user.Password;
-
                     done(null, user);
                 }
-                */
+                
             }
             catch (err) {
-                done(null, err, { message: "Invalid username/password" });
+                done(err, null, { message: "Invalid username/password" });
             }
 
         }))
@@ -64,14 +57,15 @@ export default abstract class AuthUtils {
 
         Passport.use(new PassportJWT.Strategy({
                 jwtFromRequest: PassportJWT.ExtractJwt.fromAuthHeaderAsBearerToken(),
-                secretOrKey: 'ziwagytywu'
+                secretOrKey: 'zigwagytywu',
+                
             },
             async (jwtPayload, done) => {
+                console.log("FOUND jwtPayload: ", jwtPayload);
                 try {
-                    const resp = await monUserModel.findOne({ Email: jwtPayload.id });
-                    const user = plainToClass(UserModel, resp.toJSON() as UserModel);
-                    if (user) return done(null, user);
-                    return new Error();
+                    const resp = await monUserModel.findById(jwtPayload).then(r => r.toJSON() as UserModel);
+                    if (resp) return done(null, resp);
+                    return done("No User Found");
                 }
                 catch (err) {
                     return done(err);
@@ -86,6 +80,7 @@ export default abstract class AuthUtils {
     }
 
     public static IS_VALID_PASSWORD(inputPassword: string, user: UserModel): boolean {
+        console.log(inputPassword, user.Password);
         return bcrypt.compareSync(inputPassword, user.Password);
     }
 
@@ -106,7 +101,7 @@ export default abstract class AuthUtils {
     }
 
     public static ISSUE_NEW_USER_JWT(newUser: UserModel): any {
-        var token = jwt.sign(newUser.Email, "ziwagytywu")
+        var token = jwt.sign(newUser._id.toString(), "zigwagytywu")
         return token;
     }
 
