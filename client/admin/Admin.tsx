@@ -30,7 +30,7 @@ class Admin extends React.Component<RouteComponentProps<any>, any>
 
     componentWillMount() {
         console.log("ADMIN PROPS: ",this.props);
-        if(!localStorage || !localStorage.getItem("rhjwt") && this.props.location.pathname.indexOf("join") == -1){
+        if(!localStorage || !localStorage.getItem("rhjwt") && this.props.location.pathname.indexOf("login") == -1){
             this.props.history.push("/login/admin");
         }else {
             this.props.history.push("/admin");
