@@ -67,10 +67,10 @@ export default class LoginController extends BaseController<UserModel & {FormIsV
 
     public Login(){
         this.dataStore.FormIsSubmitting = true;
-        SapienServerCom.SaveData(this.dataStore, SapienServerCom.BASE_REST_URL + "auth").then((user:any) => {
-            console.log("returned", user)
-            Object.assign(this.dataStore, user);
-            localStorage.setItem("rhjwt", user);
+        SapienServerCom.SaveData(this.dataStore, SapienServerCom.BASE_REST_URL + "auth").then((returned:any) => {
+            console.log("returned", returned)
+            Object.assign(this.dataStore, returned.user, returned.token);
+            localStorage.setItem("rhjwt", returned.token);
             this.dataStore.FormIsSubmitting = false;
             this.component.props.history.push("/admin");
         })
