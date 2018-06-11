@@ -1,5 +1,5 @@
 import * as NodeMailer from 'nodemailer'
-import UserModel from '../../shared/models/UserModel';
+import UserModel, { RoleName } from '../../shared/models/UserModel';
 
 export default abstract class EmailCtrl {
 
@@ -21,7 +21,7 @@ export default abstract class EmailCtrl {
             from: 'sender@email.com', // sender address
             to: recipient.Email, // list of receivers
             subject: 'Sign Up', // Subject line
-            html: `<p>You've been invited to be an adminstrator. Click the link below and enter a password to join.</p><a href="http://planetsapientestsite.com/login/join?token=` + token + `">Sign up</a>`// plain text body
+            html: `<p>You've been invited to be a ` + recipient.Role == RoleName.ADMIN ? "n" : "" + ` ` + recipient.Role + `. Click the link below and enter a password to join.</p><a href="http://planetsapientestsite.com/login/join?token=` + token + `">Sign up</a>`// plain text body
         };
 
         transporter.sendMail(mailOptions, function (err, info) {
