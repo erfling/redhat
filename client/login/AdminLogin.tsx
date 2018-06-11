@@ -52,7 +52,7 @@ class AdminLogin extends React.Component<RouteComponentProps<any>, UserModel & {
         return <>
 
             <Row centered>
-                <Column computer={4} tablet={6} mobile={16}> 
+                <Column computer={6} tablet={6} mobile={16}> 
                     <Form>
                         <Form.Field>
                             <label>Email</label>
