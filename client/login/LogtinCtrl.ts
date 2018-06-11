@@ -59,6 +59,7 @@ export default class LoginController extends BaseController<UserModel & {FormIsV
     }
 
     public submitNewUserPassword(){
+        this.dataStore.FormIsSubmitting = true;
         SapienServerCom.SaveData({Password: (this.component.refs as any).PASSWORD_1.value}, SapienServerCom.BASE_REST_URL + "user/usersetpassword").then((returned:any) => {
             console.log("returned", returned)
             Object.assign(this.dataStore, returned.user, returned.token);
