@@ -62,8 +62,10 @@ class Admin extends React.Component<RouteComponentProps<any>, any>
                     Manage Games
                     </Menu.Item>
                 <Menu.Item name='home'>
+                    <Link to="/game">Edit Game Content</Link>                    
                 </Menu.Item>
             </Sidebar>
+            <Route path="/game" component={Game} />
         </>;
     }
 
