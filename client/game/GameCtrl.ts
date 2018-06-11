@@ -41,11 +41,7 @@ export default class GameCtrl extends BaseGameCtrl<GameModel>
         rndsFistma.addTransition(this.rounds.round3);
         rndsFistma.addTransition(this.rounds.round4);
         rndsFistma.addTransition(this.rounds.round5);
-        rndsFistma.addOnEnter(this.rounds.round1, this._onRoundEnter.bind(this));
-        rndsFistma.addOnEnter(this.rounds.round2, this._onRoundEnter.bind(this));
-        rndsFistma.addOnEnter(this.rounds.round3, this._onRoundEnter.bind(this));
-        rndsFistma.addOnEnter(this.rounds.round4, this._onRoundEnter.bind(this));
-        rndsFistma.addOnEnter(this.rounds.round5, this._onRoundEnter.bind(this));
+        rndsFistma.addOnEnter("*", this._onRoundEnter.bind(this));
 
         console.log("YO1:", this.dataStore.Name, "why is this undefined?");
 
