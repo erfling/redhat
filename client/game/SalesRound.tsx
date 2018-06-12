@@ -32,7 +32,7 @@ class SalesRound extends React.Component<RouteComponentProps<any>, RoundModel>
     }
 
     componentWillMount() {
-        this.props.history.push("/game/" + this.constructor.name.toLowerCase());
+        //this.props.history.push("/game/" + this.constructor.name.toLowerCase());
     }
 
     //----------------------------------------------------------------------

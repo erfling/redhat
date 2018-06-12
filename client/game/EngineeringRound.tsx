@@ -4,7 +4,7 @@ import RoundModel from "../../shared/models/RoundModel";
 import EditableContentBlock from '../../shared/base-sapien/client/shared-components/EditableContentBlock';
 import * as Semantic from 'semantic-ui-react';
 import { withRouter, RouteComponentProps } from "react-router";
-const { Button, Grid, Menu, Icon } = Semantic;
+const { Button, Grid, Menu } = Semantic;
 const { Row, Column } = Grid;
 
 
@@ -32,7 +32,7 @@ class EngineeringRound extends React.Component<RouteComponentProps<any>, RoundMo
     }
 
     componentWillMount() {
-        this.props.history.push("/game/" + this.constructor.name.toLowerCase());
+        //this.props.history.push("/game/" + this.constructor.name.toLowerCase());
     }
 
     //----------------------------------------------------------------------

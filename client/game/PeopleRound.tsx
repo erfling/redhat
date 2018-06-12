@@ -4,7 +4,7 @@ import RoundModel from "../../shared/models/RoundModel";
 import EditableContentBlock from '../../shared/base-sapien/client/shared-components/EditableContentBlock';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 import * as Semantic from 'semantic-ui-react';
-const { Button, Grid, Menu, Icon } = Semantic;
+const { Button, Grid, Menu } = Semantic;
 const { Row, Column } = Grid;
 
 
@@ -30,10 +30,6 @@ class PeopleRound extends React.Component<RouteComponentProps<any>, RoundModel>
         this.controller = new PeopleRoundCtrl(this);
         this.state = this.controller.dataStore;
         this.controller.getContentByRound("PEOPLE");
-    }
-
-    componentWillMount() {
-        this.props.history.push("/game/" + this.constructor.name.toLowerCase());
     }
 
     //----------------------------------------------------------------------

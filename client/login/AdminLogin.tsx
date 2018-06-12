@@ -3,7 +3,7 @@ import UserModel from "../../shared/models/UserModel";
 import { Grid, Menu, Container, Button, Form, Input, Message } from 'semantic-ui-react';
 const Field = { Form }
 const { Column, Row } = Grid;
-import * as Icons from 'react-icons/lib/io';
+//import * as Icons from 'react-icons/lib/io';
 import { Route, Switch, RouteComponentProps, withRouter } from "react-router";
 import LoginCtrl from './LogtinCtrl'
 
@@ -52,7 +52,7 @@ class AdminLogin extends React.Component<RouteComponentProps<any>, UserModel & {
         return <>
 
             <Row centered>
-                <Column computer={6} tablet={6} mobile={16}> 
+                <Column wide={6} computer={8} tablet={6} mobile={16}> 
                     <Form>
                         <Form.Field>
                             <label>Email</label>

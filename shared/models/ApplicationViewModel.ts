@@ -3,7 +3,7 @@ import GameModel from "./GameModel";
 import UserModel from "./UserModel";
 import FiStMa from '../entity-of-the-state/FiStMa';
 
-export default class AdminViewModel extends BaseModel{
+export default class ApplicationViewModel extends BaseModel{
 
     [index: string]: any;
 
@@ -17,6 +17,14 @@ export default class AdminViewModel extends BaseModel{
 
     Users: UserModel[];
 
+    private _CurrentUser: UserModel
+    public get CurrentUser(){
+        if(localStorage.getItem("RH_USER")){
+            return JSON.parse(localStorage.getItem("RH_USER")) as UserModel;
+        }
+        return null
+    }
+
     ComponentsFistma: FiStMa<{[key:string]: any}>;;
 
     //----------------------------------------------------------------------
@@ -27,7 +35,6 @@ export default class AdminViewModel extends BaseModel{
 
     constructor() {
         super();
-        //console.log("Look at Butt:", (<any>this).constructor.name, this.DbSchema);
     }
 
 

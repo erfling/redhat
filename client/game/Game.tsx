@@ -4,7 +4,6 @@ import GameModel from "../../shared/models/GameModel";
 import Round1 from './PeopleRound';
 import { Grid, Menu, Container, Button } from 'semantic-ui-react';
 const { Column, Row } = Grid;
-import * as Icons from 'react-icons/lib/io';
 import { Route, Switch, RouteComponentProps, withRouter } from "react-router";
 import PeopleRound from "./PeopleRound";
 import EngineeringRound from "./EngineeringRound";
@@ -37,7 +36,7 @@ class Game extends React.Component<RouteComponentProps<any>, GameModel>
 
     componentWillMount() {
         const Rnd = this.state.RoundsFistma.currentState;
-        this.props.history.push("/game/" + Rnd.WrappedComponent.name.toLowerCase());
+        //this.props.history.push("/game/" + Rnd.WrappedComponent.name.toLowerCase());
     }
 
     //----------------------------------------------------------------------
@@ -85,18 +84,14 @@ class Game extends React.Component<RouteComponentProps<any>, GameModel>
                 </Menu.Item>
                 
                 <Menu.Item position="right" header>
-                    <Icons.IoEmail fontSize="2em"></Icons.IoEmail>
                 </Menu.Item>
             </Menu>
             <Grid
                 padded={true}
                 columns={16}
             >
-                <Switch>
-                    {this.state.RoundsFistma._stateMap.map((rnd, i) => {
-                        return <Route path={'/game/'+rnd.WrappedComponent.name.toLowerCase()} component={rnd} key={i} />
-                    })}
-                </Switch>
+                <Rnd/>
+                
             </Grid>
             <Menu
                 inverted
@@ -119,3 +114,10 @@ class Game extends React.Component<RouteComponentProps<any>, GameModel>
 }
 
 export default withRouter(Game);
+/**
+ * <Switch>
+                    {this.state.RoundsFistma._stateMap.map((rnd, i) => {
+                        return <Route path={'/game/'+rnd.WrappedComponent.name.toLowerCase()} component={rnd} key={i} />
+                    })}
+                </Switch>
+ */

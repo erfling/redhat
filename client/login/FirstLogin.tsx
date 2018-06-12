@@ -3,7 +3,7 @@ import UserModel from "../../shared/models/UserModel";
 import { Grid, Menu, Container, Button, Form, Input } from 'semantic-ui-react';
 const Field = { Form }
 const { Column, Row } = Grid;
-import * as Icons from 'react-icons/lib/io';
+//import * as Icons from 'react-icons/lib/io';
 import { Route, Switch, RouteComponentProps, withRouter } from "react-router";
 import LoginCtrl from './LogtinCtrl'
 

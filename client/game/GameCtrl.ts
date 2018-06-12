@@ -35,20 +35,18 @@ export default class GameCtrl extends BaseGameCtrl<GameModel>
 
     constructor(reactComp: Component<any, any>) {
         super( reactComp );
+
+        console.log("GAME NAV INFO:", this.component.props)
+
         var rndsFistma = this.dataStore.RoundsFistma = new FiStMa(this.rounds, this.rounds.round1);
+        this.component.props.history.push("/game/" + this.dataStore.RoundsFistma.currentState.WrappedComponent.name.toLowerCase());
         rndsFistma.addTransition(this.rounds.round1);
         rndsFistma.addTransition(this.rounds.round2);
         rndsFistma.addTransition(this.rounds.round3);
         rndsFistma.addTransition(this.rounds.round4);
         rndsFistma.addTransition(this.rounds.round5);
         rndsFistma.addOnEnter("*", this._onRoundEnter.bind(this));
-
-        console.log("YO1:", this.dataStore.Name, "why is this undefined?");
-
-        this.dataStore.Name = "Some initial value";
-        console.log("YO2:", this.dataStore.Name);
         
-        console.log("RoundModel SCHEMA:", SchemaBuilder.fetchSchema(RoundModel));
     }
     
     //----------------------------------------------------------------------
@@ -60,6 +58,7 @@ export default class GameCtrl extends BaseGameCtrl<GameModel>
     private _onRoundEnter(fromState:React.Component<{}, any>): void {
         console.log("Entered round", this.dataStore.RoundsFistma.currentState, "from round", fromState);
         this.NavigateFromState();
+
     }
 
     public Navigate(round: RoundModel){
@@ -83,7 +82,7 @@ export default class GameCtrl extends BaseGameCtrl<GameModel>
     }
 
     public NavigateFromState(){
-        console.log(this.component)
+        console.log("WRAPPED COMPONENT IS: ",this.dataStore.RoundsFistma.currentState.WrappedComponent.name);
         this.component.props.history.push('/game/' + this.dataStore.RoundsFistma.currentState.WrappedComponent.name.toLowerCase());
     }
 

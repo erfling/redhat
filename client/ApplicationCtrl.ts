@@ -1,14 +1,16 @@
-import FiStMa from '../../shared/entity-of-the-state/FiStMa';
-import AdminViewModel from '../../shared/models/AdminViewModel';
-import BaseController from "../../shared/entity-of-the-state/BaseController";
-import { Component } from 'react';
-import RoundModel from '../../shared/models/RoundModel';
-import SchemaBuilder from '../../api/SchemaBuilder';
-import Game from '../game/Game';
-import Admin from './Admin';
-import BaseClientCtrl from '../../shared/base-sapien/client/BaseClientCtrl';
+import FiStMa from '../shared/entity-of-the-state/FiStMa';
+import UserModel, { RoleName } from '../shared/models/UserModel';
+import ApplicationViewModel from '../shared/models/ApplicationViewModel'
+import SapienServerCom from '../shared/base-sapien/client/SapienServerCom';
 
-export default class AdminCtrl extends BaseClientCtrl<any>
+import BaseGameCtrl from '../shared/base-sapien/client/BaseGameCtrl';
+import { Component } from 'react';
+import BaseClientCtrl from '../shared/base-sapien/client/BaseClientCtrl';
+
+import Game from './game/Game';
+import Admin from './admin/Admin'
+
+export default class ApplicationCtrl extends BaseClientCtrl<ApplicationViewModel>
 {
     //----------------------------------------------------------------------
     //
@@ -18,11 +20,12 @@ export default class AdminCtrl extends BaseClientCtrl<any>
 
     private readonly ComponentStates = {
         game: Game,
-        users: Game,
         admin: Admin
     };
 
     component: any;
+
+    private CurrentLocation: string;
 
     //----------------------------------------------------------------------
     //
@@ -31,12 +34,24 @@ export default class AdminCtrl extends BaseClientCtrl<any>
     //----------------------------------------------------------------------
 
     constructor(reactComp: Component<any, any>) {
-        super(new AdminViewModel(), reactComp);
+        super( new ApplicationViewModel(), reactComp );
+        this.component = reactComp;
 
-        var componentsFistma = this.dataStore.ComponentsFistma = new FiStMa(this.ComponentStates, this.ComponentStates.users);
-        if(!localStorage || !localStorage.getItem("rhjwt")){
-            this.component.props.history.push("/login/admin");
+        console.log(this.component.props);
+        this.CurrentLocation = this.component.props.location.pathname;
+
+
+        //default to game as current state, unless user is logged in and is an admin
+        if(this.dataStore.CurrentUser && this.dataStore.CurrentUser.Role == RoleName.ADMIN || this.UrlToComponent(this.CurrentLocation) == this.ComponentStates.admin){
+            var ComponentsFistma = this.dataStore.ComponentsFistma = new FiStMa(this.ComponentStates, this.ComponentStates.admin);
+        } else {
+            var ComponentsFistma = this.dataStore.ComponentsFistma = new FiStMa(this.ComponentStates, this.ComponentStates.game);
         }
+
+
+        console.log(this.component.props)
+
+
     }
     
     //----------------------------------------------------------------------
@@ -45,29 +60,9 @@ export default class AdminCtrl extends BaseClientCtrl<any>
     //
     //----------------------------------------------------------------------
 
-    private _onRoundEnter(fromState:React.Component<{}, any>): void {
-        console.log("Entered round", this.dataStore.RoundsFistma.currentState, "from round", fromState);
-    }
+   
 
-    public Navigate(round: RoundModel){
-        this.dataStore.RoundsFistma.goTo(round);
-    }
-    
-    /**
-     * Go to next game round
-     * 
-     */
-    public advanceRound(){
-        this.dataStore.RoundsFistma.next();
-    }
-    
-    /**
-     * Go to previous game round
-     * 
-     */
-    public goBackRound(){ 
-        this.dataStore.RoundsFistma.previous();
-    }
+
 
     //----------------------------------------------------------------------
     //
@@ -87,5 +82,6 @@ export default class AdminCtrl extends BaseClientCtrl<any>
 
         return null;
     }
+
 
 }

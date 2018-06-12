@@ -1,11 +1,11 @@
 import * as React from "react";
 import FiStMa from '../../shared/entity-of-the-state/FiStMa';
-import GameCtrl from "../game/GameCtrl";
 import Game from '../game/Game';
-import { Grid, Sidebar, Menu, Icon } from 'semantic-ui-react';
+import { Grid, Sidebar, Menu } from 'semantic-ui-react';
 const { Row, Column } = Grid;
-import { RouteComponentProps, withRouter, } from "react-router";
+import { RouteComponentProps, withRouter} from "react-router";
 import { Route, Link } from "react-router-dom";
+import AdminCtrl from './AdminCtrl';
 
 class Admin extends React.Component<RouteComponentProps<any>, any>
 {
@@ -14,6 +14,7 @@ class Admin extends React.Component<RouteComponentProps<any>, any>
     //  Properties
     //
     //----------------------------------------------------------------------
+    controller: AdminCtrl;
 
 
 
@@ -25,16 +26,19 @@ class Admin extends React.Component<RouteComponentProps<any>, any>
 
     constructor(props: RouteComponentProps<any>) {
         super(props);
-
+        this.controller = new AdminCtrl(this);
+        this.state = this.controller.dataStore;
     }
 
     componentWillMount() {
         console.log("ADMIN PROPS: ",this.props);
+        /*
         if(!localStorage || !localStorage.getItem("rhjwt") && this.props.location.pathname.indexOf("login") == -1){
             this.props.history.push("/login/admin");
         }else {
             this.props.history.push("/admin");
         }
+        */
     }
 
     //----------------------------------------------------------------------
@@ -52,6 +56,7 @@ class Admin extends React.Component<RouteComponentProps<any>, any>
     //----------------------------------------------------------------------
 
     render() {
+        const DashBoardComponent = this.state.ComponentsFistma.currentState;
         return <>
             <Sidebar
                 as={Menu}
@@ -70,7 +75,7 @@ class Admin extends React.Component<RouteComponentProps<any>, any>
                     <Link to="/game">Edit Game Content</Link>                    
                 </Menu.Item>
             </Sidebar>
-            <Route path="/game" component={Game} />
+            <DashBoardComponent/>
         </>;
     }
 

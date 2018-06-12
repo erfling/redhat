@@ -80,6 +80,7 @@ export default class LoginController extends BaseController<UserModel & {FormIsV
             console.log("returned", returned)
             Object.assign(this.dataStore, returned.user, returned.token);
             localStorage.setItem("rhjwt", returned.token);
+            localStorage.setItem("RH_USER", JSON.stringify(returned.user))
             this.dataStore.FormIsSubmitting = false;
             this.component.props.history.push("/admin");
         })
