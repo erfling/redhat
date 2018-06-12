@@ -52,6 +52,8 @@
     "passport": "^0.4.0",
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0",
+    "purify-css": "^1.2.5",
+    "purifycss-webpack": "^0.7.0",
     "react": "^16.3.2",
     "react-dom": "^16.3.2",
     "react-icons": "^2.2.7",
@@ -70,6 +72,7 @@
     "ts-loader": "^3.2.0",
     "tsx": "^1.0.0",
     "typegoose": "^5.2.1",
+    "uncss-webpack-plugin": "^0.2.0",
     "user-agent": "^1.0.4",
     "webpack": "@3.10.0",
     "webpack-dev-server": "@2.9.7"

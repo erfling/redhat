@@ -1,55 +1,75 @@
 var webpack = require('webpack');
 
 var path = require('path');  
+var glob = require('glob');  
 var HtmlwebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
+const PurifyCSSPlugin = require('purifycss-webpack');
 
 var ROOT_PATH = path.resolve(__dirname);
 
-module.exports = {  
-    entry: [
-      './client/index.tsx'
-    ],
+module.exports = {
+    entry: {
+      main:       './client/index.tsx',
+      vendor: ['react', 'lodash', 'semantic-ui-react', 'react-router-dom', 'react-router'],
+    },
     devtool: false,
     output: {
       path: ROOT_PATH +  '/dist/assets',
       publicPath: '/assets/',
       filename: '[name].bundle.js'
     },
-    module:{
-        rules: [
-          {
-            test: /\.tsx?$/,
-            use: 'ts-loader',
-            exclude: /node_modules/
-          },
-          {
-            test: /\.scss$/,
-            use: ExtractTextPlugin.extract({
-              fallback: 'style-loader',
-              use: ['css-loader', 'sass-loader']
-            })
-          },
-          {
-            test: /\.svg$/,
-            use: ExtractTextPlugin.extract({
-              use: 'svg-inline-loader'
-            })
-          },
-          {
-            test: /\.(png|jpg|jpeg|gif)$/,
-            use: [
-              {
-                loader: 'file-loader',
-                options: {
-                  limit: 5000
-                }
+    module: {
+      rules: [
+        {
+          test: /\.tsx?$/,
+          use: 'ts-loader',
+          exclude: /node_modules/
+        },
+        {
+          test: /\.scss$/,
+          use: ExtractTextPlugin.extract({
+            fallback: 'style-loader',
+            use: ['css-loader', 'sass-loader']
+          })
+        },
+        {
+          test: /\.css$/,
+          use: ExtractTextPlugin.extract({
+            fallback: 'style-loader',
+            use: [{loader: 'css-loader', options: { minimize: true }}]
+          })
+        },
+        {
+          test: /\.svg$/,
+          use: ExtractTextPlugin.extract({
+            use: 'svg-inline-loader'
+          })
+        },
+        {
+          test: /\.(png|jpg|jpeg|gif)$/,
+          use: [
+            {
+              loader: 'file-loader',
+              options: {
+                limit: 5000
               }
-            ]
-          }
-        ],
-        loaders: [
+            }
+          ]
+        },
+        {
+          test: /.(woff|woff2|eot|ttf|otf)$/,
+          use: ['file-loader']
+        }
+       
+      ],
+      loaders: [
+        {
+          test: /\.jsx?$/,
+          exclude: /node_modules/,
+          loaders: ['react-hot'],
+        },
         {
           test: /\.(png|jpg|gif)$/,
           use: [
@@ -60,6 +80,10 @@ module.exports = {
               }
             }
           ]
+        },
+        {
+          test: /.(woff|woff2|eot|ttf|otf)$/,
+          use: ['file-loader']
         }
       ]
     },
@@ -77,7 +101,12 @@ module.exports = {
         'process.env.NODE_ENV': '"production"'
       }),
       new webpack.optimize.AggressiveMergingPlugin(),//Merge chunks
-      new UglifyJSPlugin()
+      new UglifyJSPlugin(),
+      new webpack.optimize.CommonsChunkPlugin({
+        name: 'vendor'
+      })
+      
     ]
   };
   //<meta name="google-site-verification" content="LJ1jS5T5gq2RSmbjAqtxgKB01F86s7iNm5BZ0Xi91Ak" />
+  console.log(glob.sync(path.join(__dirname, 'dist/index.html')))

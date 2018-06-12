@@ -98,5 +98,8 @@ module.exports = {
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': '"dev"'
     }),
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'vendor'
+    })
   ]
 };
