@@ -42,6 +42,7 @@ export default class GameCtrl extends BaseGameCtrl<GameModel>
         rndsFistma.addTransition(this.rounds.round4);
         rndsFistma.addTransition(this.rounds.round5);
         rndsFistma.addOnEnter("*", this._onRoundEnter.bind(this));
+        rndsFistma.onInvalidTransition(this._onInvalidTrans);
 
         console.log("YO1:", this.dataStore.Name, "why is this undefined?");
 
@@ -60,6 +61,10 @@ export default class GameCtrl extends BaseGameCtrl<GameModel>
     private _onRoundEnter(fromState:React.Component<{}, any>): void {
         console.log("Entered round", this.dataStore.RoundsFistma.currentState, "from round", fromState);
         this.NavigateFromState();
+    }
+
+    private _onInvalidTrans(from:any, to:any): void {
+        console.log("_onInvalidTrans callback fired!", "from:", from, "to:", to);
     }
 
     public Navigate(round: RoundModel){
