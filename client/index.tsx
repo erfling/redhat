@@ -4,7 +4,6 @@ import { createBrowserHistory } from 'history';
 import { Router, BrowserRouter } from 'react-router-dom';
 import App from './App';
 import { Link, Route } from "react-router-dom";
-import 'semantic-ui-css/semantic.min.css';
 import "./style/style.scss";
 
 const app = document.createElement('div');
