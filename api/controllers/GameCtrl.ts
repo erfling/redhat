@@ -7,8 +7,11 @@ import GameModel from '../../shared/models/GameModel';
 
 
 const schObj = SchemaBuilder.fetchSchema(GameModel);
+schObj.Teams = [mongoose.Schema.Types.ObjectId];
 const monSchema = new mongoose.Schema(schObj);
-export const monGameModel = mongoose.model("round", monSchema);
+
+
+export const monGameModel = mongoose.model("game", monSchema);
 
 class GameRouter
 {

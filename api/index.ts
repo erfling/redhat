@@ -10,6 +10,7 @@ import * as jwt from 'jsonwebtoken';
 import LoginCtrl from './controllers/LoginCtrl';
 import UserCtrl from './controllers/UserCtrl';
 import AuthUtils from './AuthUtils';
+import GameCtrl from './controllers/GameCtrl';
 
 const app = express();
 const port = normalizePort(80);
@@ -66,7 +67,7 @@ function onListening(): void {
     AuthUtils.SET_UP_PASSPORT();
     app.use('/', router)
         .use('/sapien/api/rounds', Passport.authenticate('jwt', {session: false}), RoundController)
-        .use('/sapien/api/rounds', RoundController)
+        .use('/sapien/api/games', GameCtrl)
         .use('/sapien/api/auth', LoginCtrl)
         .use('/sapien/api/user', UserCtrl )
         .use('/assets', express.static("dist/assets"))
