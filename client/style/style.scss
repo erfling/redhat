@@ -1,4 +1,20 @@
+@import '../font/stylesheet.css';
 
+*, h1, h2, h3, h4, h5, p{
+    font-family: 'Nexa', 'Helvetica Neue', Arial, Helvetica, sans-serif;
+}
+a{
+    cursor: pointer;
+}
+.ui.inverted.menu .blue.active.item, .ui.inverted.blue.menu {
+    background-color: #0088B9;
+}
+
+.source-stream {
+    background: #CCEAF2 !important;
+    color: #0088B9;
+    padding: 10px;
+}
 .content-block{
 
     margin-bottom: 20px;
@@ -11,3 +27,27 @@
 .error{
     color: red !important;
 }
+
+/**
+SEMANTIC MOBILE FIX
+**/ 
+.ui.dimmer {
+    display: flex !important;
+}
+  
+.ui.modal {
+    margin-top: 0;
+}
+.ui.modal > .content{
+    box-sizing: border-box;
+}
+
+/**
+*
+*   CALENDAR STYLES
+*
+**/
+.suirCalendarPopup{
+    z-index: 999999999;
+}
+.suir-calendar.cell{border:none !important}.suir-calendar.week-day{border:none !important;border-bottom:1px solid rgba(34,36,38,.1) !important}.suir-calendar.time-picker-header{border-bottom:1px solid rgba(34,36,38,.1) !important}.suir-calendar.date:hover,.suir-calendar.time:hover{outline:1px solid #85b7d9;cursor:pointer}.suir-calendar.button:hover{cursor:pointer}.suir-calendar.popup{padding:0}
