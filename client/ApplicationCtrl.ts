@@ -18,14 +18,14 @@ export default class ApplicationCtrl extends BaseClientCtrl<ApplicationViewModel
     //
     //----------------------------------------------------------------------
 
-    private readonly ComponentStates = {
+    protected readonly ComponentStates = {
         game: Game,
         admin: Admin
     };
 
     component: any;
 
-    private CurrentLocation: string;
+    dataStore: ApplicationViewModel;
 
     //----------------------------------------------------------------------
     //
@@ -34,21 +34,32 @@ export default class ApplicationCtrl extends BaseClientCtrl<ApplicationViewModel
     //----------------------------------------------------------------------
 
     constructor(reactComp: Component<any, any>) {
-        super( new ApplicationViewModel(), reactComp );
+        super( null, reactComp );
         this.component = reactComp;
+        this.CurrentLocation = this.component.props.location.pathname;        
 
-        console.log(this.component.props);
-        this.CurrentLocation = this.component.props.location.pathname;
-
-
-        //default to game as current state, unless user is logged in and is an admin
-        if(this.dataStore.CurrentUser && this.dataStore.CurrentUser.Role == RoleName.ADMIN || this.UrlToComponent(this.CurrentLocation) == this.ComponentStates.admin){
-            var ComponentsFistma = this.dataStore.ComponentsFistma = new FiStMa(this.ComponentStates, this.ComponentStates.admin);
+        if(this.CurrentUser && this.CurrentUser.Role == RoleName.ADMIN || this.UrlToComponent(this.CurrentLocation) == this.ComponentStates.admin){
+            this.ComponentFistma = new FiStMa(this.ComponentStates, this.ComponentStates.admin);
         } else {
-            var ComponentsFistma = this.dataStore.ComponentsFistma = new FiStMa(this.ComponentStates, this.ComponentStates.game);
+            this.ComponentFistma =  new FiStMa(this.ComponentStates, this.ComponentStates.game);
         }
+           
+        console.log(this.component.props);
 
+        this.ComponentFistma.addTransition(this.ComponentStates.game);
+        this.ComponentFistma.addTransition(this.ComponentStates.admin);
 
+        
+        this.dataStore = Object.assign(new ApplicationViewModel(), {
+            ComponentFistma: this.ComponentFistma
+        })
+
+        var test = new UserModel();
+        test.FirstName = "Billy bob"
+        this.dataStore.Users = [
+            test
+        ]
+        //this.ComponentFistma.goTo(this.ComponentFistma.currentState)
         console.log(this.component.props)
 
 
@@ -59,8 +70,7 @@ export default class ApplicationCtrl extends BaseClientCtrl<ApplicationViewModel
     //  Event Handlers
     //
     //----------------------------------------------------------------------
-
-   
+  
 
 
 
@@ -70,18 +80,23 @@ export default class ApplicationCtrl extends BaseClientCtrl<ApplicationViewModel
     //
     //----------------------------------------------------------------------
 
-    UrlToComponent(url: string): any {
-        console.log("LOOKIN TO PARSE US SOME URLS: ",url)
-        for (var prop in this.ComponentStates){
-            console.log(prop, (this.ComponentStates as any)[prop].WrappedComponent.name);
-            if( url.toUpperCase().indexOf('/' + (this.ComponentStates as any)[prop].WrappedComponent.name.toUpperCase() + '/') != -1 ) {
-                console.log("FOUND A MATCH FOR " + (this.ComponentStates as any)[prop].WrappedComponent.name);
-                return (this.ComponentStates as any)[prop];
-            }
-        }
-
-        return null;
+    get AdminUserLoggedIn(): boolean {
+        let store: ApplicationViewModel = this.dataStore as ApplicationViewModel;
+        return ApplicationViewModel.Token && ApplicationViewModel.CurrentUser && ApplicationViewModel.CurrentUser.Role == RoleName.ADMIN;
     }
 
+    get CurrentUser(): UserModel {        
+        return ApplicationViewModel.CurrentUser;
+    }
+
+    getCurrentState(){
+        //default to game as current state, unless user is logged in and is an admin
+        if(this.dataStore.CurrentUser && this.dataStore.CurrentUser.Role == RoleName.ADMIN || this.UrlToComponent(this.CurrentLocation) == this.ComponentStates.admin){
+            this.ComponentFistma = new FiStMa(this.ComponentStates, this.ComponentStates.admin);
+        } else {
+            this.ComponentFistma =  new FiStMa(this.ComponentStates, this.ComponentStates.game);
+        }
+        return this.ComponentFistma
+    }
 
 }

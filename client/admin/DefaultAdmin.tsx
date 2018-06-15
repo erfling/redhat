@@ -1,15 +1,11 @@
 import * as React from "react";
 import FiStMa from '../../shared/entity-of-the-state/FiStMa';
-import Game from '../game/Game';
-import { Grid, Sidebar, Menu } from 'semantic-ui-react';
+import { Grid, Menu } from 'semantic-ui-react';
 const { Row, Column } = Grid;
 import { RouteComponentProps, withRouter} from "react-router";
-import { Route, Link } from "react-router-dom";
 import AdminCtrl from './AdminCtrl';
-import ICommonComponentState from '../../shared/base-sapien/client/ICommonComponentState'
-import AdminViewModel from '../../shared/models/AdminViewModel';
 
-class Admin extends React.Component<RouteComponentProps<any>, AdminViewModel & ICommonComponentState>
+class DefaultAdmin extends React.Component<RouteComponentProps<any>, any>
 {
     //----------------------------------------------------------------------
     //
@@ -32,6 +28,7 @@ class Admin extends React.Component<RouteComponentProps<any>, AdminViewModel & I
         this.state = this.controller.dataStore;
     }
 
+
     //----------------------------------------------------------------------
     //
     //  Event Handlers
@@ -45,16 +42,15 @@ class Admin extends React.Component<RouteComponentProps<any>, AdminViewModel & I
     //  Methods
     //
     //----------------------------------------------------------------------
-    
 
     render() {
         const DashBoardComponent = this.state.ComponentFistma.currentState;
-        console.log("DB COMPONENT", DashBoardComponent.WrappedComponent.name)
         return <>
-            <DashBoardComponent/>
+            {this.state.CurrentUser && <h2>Welcome, {this.state.CurrentUser.FirstName}</h2>}
+            {!this.state.CurrentUser && <h2>YO</h2>}
         </>;
     }
 
 }
 
-export default withRouter(Admin);
+export default withRouter(DefaultAdmin);

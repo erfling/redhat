@@ -54,14 +54,14 @@ class Game extends React.Component<RouteComponentProps<any>, GameModel>
     //----------------------------------------------------------------------
 
     render() {
-        const Rnd = this.state.RoundsFistma.currentState;
+        const Rnd = withRouter(this.state.RoundsFistma.currentState);
         return <Container
             fluid={true}
         >
             <Menu
                 inverted
                 fixed="top"
-                color="red"
+                color="blue"
                 borderless
                 style={{
                     flexShrink: 0, //don't allow flexbox to shrink it
@@ -95,7 +95,7 @@ class Game extends React.Component<RouteComponentProps<any>, GameModel>
             </Grid>
             <Menu
                 inverted
-                color="red"
+                color="blue"
                 fixed="bottom"
                 borderless
                 style={{

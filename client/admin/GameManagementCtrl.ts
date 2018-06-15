@@ -4,16 +4,18 @@ import ApplicationViewModel from '../../shared/models/ApplicationViewModel';
 import BaseController from "../../shared/entity-of-the-state/BaseController";
 import { Component } from 'react';
 import Game from '../game/Game';
-import GameList from './GameList';
 import Admin from './Admin';
 import DefaultAdmin from './DefaultAdmin'
 import BaseClientCtrl from '../../shared/base-sapien/client/BaseClientCtrl';
 import AdminLogin from '../login/AdminLogin'
-import GameLogin from '../login/GameLogin'
+import GameList from './GameList'
 import ApplicationCtrl from '../ApplicationCtrl'
 import { RoleName } from '../../shared/models/UserModel';
+import SapienServerCom from '../../shared/base-sapien/client/SapienServerCom';
+import ICommonComponentState from '../../shared/base-sapien/client/ICommonComponentState';
+import GameModel from '../../shared/models/GameModel';
 
-export default class AdminCtrl extends BaseClientCtrl<any>
+export default class GameManagementCtrl extends BaseClientCtrl<any>
 {
     //----------------------------------------------------------------------
     //
@@ -22,14 +24,13 @@ export default class AdminCtrl extends BaseClientCtrl<any>
     //----------------------------------------------------------------------
 
     protected readonly ComponentStates = {
-        game: GameList,
-        users: Game,
-        adminLogin: AdminLogin,
-        default: DefaultAdmin,
-        gameLogin: GameLogin
+        gameList: GameList,
+        game: Game,
+        adminLogin: AdminLogin
     };
 
 
+    dataStore: AdminViewModel & ICommonComponentState
 
     component: any;
 
@@ -42,13 +43,14 @@ export default class AdminCtrl extends BaseClientCtrl<any>
     constructor(reactComp: Component<any, any>) {
 
         super(null, reactComp);
+        this.CurrentLocation = this.component.props.location.pathname;
 
         this.component = reactComp;
         
 
         //if we don't have a user, go to admin login.
         if(!ApplicationViewModel.CurrentUser || !ApplicationViewModel.Token){
-            this.ComponentFistma = new FiStMa(this.ComponentStates, this.ComponentStates.adminLogin);
+            this.ComponentFistma = new FiStMa(this.ComponentStates, this.ComponentStates.adminLogin) as FiStMa<any>;
         } 
         //if we have a user, but not an admin, go to game login
         else if (!ApplicationViewModel.CurrentUser || ApplicationViewModel.CurrentUser.Role != RoleName.ADMIN) {
@@ -56,23 +58,22 @@ export default class AdminCtrl extends BaseClientCtrl<any>
         }
         //otherwise, go where the url tells us. If bad url, go to admin default
         else{
-            console.log("HEY YOU",this.component.props.location);
-            this.ComponentFistma = new FiStMa(this.ComponentStates, this.UrlToComponent(this.component.props.location.pathname) || this.ComponentStates.default);
+            this.ComponentFistma = new FiStMa(this.ComponentStates, this.UrlToComponent(this.component.props.location.pathname));
         }
 
-        this.ComponentFistma.addTransition(this.ComponentStates.adminLogin)
-        this.ComponentFistma.addTransition(this.ComponentStates.default)
-        this.ComponentFistma.addTransition(this.ComponentStates.game)
-        this.ComponentFistma.addTransition(this.ComponentStates.gameLogin)
-        this.ComponentFistma.addTransition(this.ComponentStates.users)
-
+        
         this.dataStore = Object.assign(new AdminViewModel(), {
-            ComponentFistma: this.ComponentFistma
+            ComponentFistma: this.ComponentFistma,
+            IsLoading: true
         })
 
-        this.component.componentDidUpdate = (prevProps, prevState, snapshot) => {
-            this.conditionallyNavigate(this.component.props.location.pathname, prevProps.location.pathname)
+        this.component.componentWillMount = () => {
+            //this.component.constructor.super(this.component.props).componentWillMount()
+            console.log("MOUNTED: ", this.component, this.component.props.location.pathname);
+            this.navigateOnClick(this.component.props.location.pathname);
+            this.getAllGames();
         }
+
     }
     
     //----------------------------------------------------------------------
@@ -85,29 +86,28 @@ export default class AdminCtrl extends BaseClientCtrl<any>
         console.log("Entered round", this.dataStore.RoundsFistma.currentState, "from round", fromState);
     }
 
-    
-    
-    /**
-     * Go to next game round
-     * 
-     */
-    public advanceRound(){
-        this.dataStore.RoundsFistma.next();
-    }
-    
-    /**
-     * Go to previous game round
-     * 
-     */
-    public goBackRound(){ 
-        this.dataStore.RoundsFistma.previous();
-    }
 
     //----------------------------------------------------------------------
     //
     //  Methods
     //
     //----------------------------------------------------------------------
- 
 
+    public getAllGames(){
+        SapienServerCom.GetData(null, null, SapienServerCom.BASE_REST_URL + "games").then(r => {
+            console.log("GAMES ARE: ",r)
+            this.dataStore.Games = r;
+            this.dataStore.IsLoading = false;
+        })
+    }
+
+    public createOrEditGame(game?: GameModel){
+        this.dataStore.ModalObject = Object.assign(new GameModel(), game) || new GameModel();
+        console.log(this.dataStore.ModalObject.DatePlayed)
+        if(!this.dataStore.ModalObject.DatePlayed) this.dataStore.ModalObject.DatePlayed = new Date();
+        console.log(this.dataStore.ModalObject.DatePlayed)
+
+        this.openModal();
+    }
+    
 }

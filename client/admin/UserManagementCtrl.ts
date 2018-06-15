@@ -1,11 +1,11 @@
 import FiStMa from '../../shared/entity-of-the-state/FiStMa';
 import UserModel from '../../shared/models/UserModel';
-import BaseGameCtrl from '../../shared/base-sapien/client/BaseGameCtrl';
 import { Component } from 'react';
 import RoundModel from '../../shared/models/RoundModel';
 import SchemaBuilder from '../../api/SchemaBuilder';
+import BaseClientCtrl from '../../shared/base-sapien/client/BaseClientCtrl';
 
-export default class UserManagementCtrl extends BaseGameCtrl<UserModel[]>
+export default class UserManagementCtrl extends BaseClientCtrl<UserModel[]>
 {
     //----------------------------------------------------------------------
     //

@@ -1,12 +1,10 @@
 import UserModel from "./UserModel";
 import { Type } from "class-transformer";
+import BaseModel, { dbProp } from "../base-sapien/models/BaseModel";
+import { ObjectID } from "bson";
 
-export interface TeamShape {
-    Players:UserModel[];
-    GameId: string;
-}
 
-export default class TeamModel implements TeamShape
+export default class TeamModel extends BaseModel
 {
     //----------------------------------------------------------------------
     //
@@ -14,6 +12,7 @@ export default class TeamModel implements TeamShape
     //
     //----------------------------------------------------------------------
 
+    @dbProp([ObjectID])
     @Type(() => UserModel)
     public Players: UserModel[];
 

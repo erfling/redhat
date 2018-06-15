@@ -6,8 +6,9 @@ const { Column, Row } = Grid;
 //import * as Icons from 'react-icons/lib/io';
 import { Route, Switch, RouteComponentProps, withRouter } from "react-router";
 import LoginCtrl from './LogtinCtrl'
+import ICommonComponentState from '../../shared/base-sapien/client/ICommonComponentState'
 
-class AdminLogin extends React.Component<RouteComponentProps<any>, UserModel & { FormIsValid?: boolean, FormIsSubmitting?: boolean }>
+class AdminLogin extends React.Component<RouteComponentProps<any>, UserModel & ICommonComponentState>
 {
     //----------------------------------------------------------------------
     //

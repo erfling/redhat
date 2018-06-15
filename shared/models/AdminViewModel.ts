@@ -2,8 +2,9 @@ import BaseModel from "../base-sapien/models/BaseModel";
 import GameModel from "./GameModel";
 import UserModel from "./UserModel";
 import FiStMa from '../entity-of-the-state/FiStMa';
+import ApplicationViewModel from './ApplicationViewModel'
 
-export default class AdminViewModel extends BaseModel{
+export default class AdminViewModel extends BaseModel {
 
     [index: string]: any;
 
@@ -17,7 +18,9 @@ export default class AdminViewModel extends BaseModel{
 
     Users: UserModel[];
 
-    ComponentsFistma: FiStMa<{[key:string]: any}>;;
+    get CurrentUser(): UserModel {
+        return ApplicationViewModel.CurrentUser;
+    }
 
     //----------------------------------------------------------------------
     //

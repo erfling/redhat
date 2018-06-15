@@ -51,7 +51,7 @@ class PeopleRound extends React.Component<RouteComponentProps<any>, RoundModel>
 
             <Row>
                 <Column computer={12} mobile={16} tablet={16}>
-                    <h1>ROUND ONE: BUILD THE TEAM</h1>
+                    <h1>Round One: Build the Team</h1>
                 </Column>
             </Row>
             <Grid

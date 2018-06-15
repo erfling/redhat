@@ -248,6 +248,10 @@
   dependencies:
     csstype "^2.2.0"
 
+"@types/seedrandom@^2.4.27":
+  version "2.4.27"
+  resolved "https://registry.yarnpkg.com/@types/seedrandom/-/seedrandom-2.4.27.tgz#9db563937dd86915f69092bc43259d2f48578e41"
+
 "@types/serve-static@*":
   version "1.13.2"
   resolved "https://registry.yarnpkg.com/@types/serve-static/-/serve-static-1.13.2.tgz#f5ac4d7a6420a99a6a45af4719f4dcd8cd907a48"
@@ -326,7 +330,7 @@ ajv-keywords@^3.1.0:
   version "3.2.0"
   resolved "https://registry.yarnpkg.com/ajv-keywords/-/ajv-keywords-3.2.0.tgz#e86b819c602cf8821ad637413698f1dec021847a"
 
-ajv@^4.11.2, ajv@^4.9.1:
+ajv@^4.11.2:
   version "4.11.8"
   resolved "https://registry.yarnpkg.com/ajv/-/ajv-4.11.8.tgz#82ffb02b29e662ae53bdc20af15947706739c536"
   dependencies:
@@ -2940,10 +2944,6 @@ handle-thing@^1.2.5:
   version "1.2.5"
   resolved "https://registry.yarnpkg.com/handle-thing/-/handle-thing-1.2.5.tgz#fd7aad726bf1a5fd16dfc29b2f7a6601d27139c4"
 
-har-schema@^1.0.5:
-  version "1.0.5"
-  resolved "https://registry.yarnpkg.com/har-schema/-/har-schema-1.0.5.tgz#d263135f43307c02c602afc8fe95970c0151369e"
-
 har-schema@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/har-schema/-/har-schema-2.0.0.tgz#a94c2224ebcac04782a0d9035521f24735b7ec92"
@@ -2956,13 +2956,6 @@ har-validator@~2.0.6:
     commander "^2.9.0"
     is-my-json-valid "^2.12.4"
     pinkie-promise "^2.0.0"
-
-har-validator@~4.2.1:
-  version "4.2.1"
-  resolved "https://registry.yarnpkg.com/har-validator/-/har-validator-4.2.1.tgz#33481d0f1bbff600dd203d75812a6a5fba002e2a"
-  dependencies:
-    ajv "^4.9.1"
-    har-schema "^1.0.5"
 
 har-validator@~5.0.3:
   version "5.0.3"
@@ -3958,18 +3951,18 @@ lcid@^1.0.0:
   dependencies:
     invert-kv "^1.0.0"
 
-less@^2.7.3:
-  version "2.7.3"
-  resolved "https://registry.yarnpkg.com/less/-/less-2.7.3.tgz#cc1260f51c900a9ec0d91fb6998139e02507b63b"
+less@^3.0.4:
+  version "3.0.4"
+  resolved "https://registry.yarnpkg.com/less/-/less-3.0.4.tgz#d27dcedbac96031c9e7b76f1da1e4b7d83760814"
   optionalDependencies:
     errno "^0.1.1"
     graceful-fs "^4.1.2"
     image-size "~0.5.0"
-    mime "^1.2.11"
+    mime "^1.4.1"
     mkdirp "^0.5.0"
     promise "^7.1.1"
-    request "2.81.0"
-    source-map "^0.5.3"
+    request "^2.83.0"
+    source-map "~0.6.0"
 
 levn@~0.3.0:
   version "0.3.0"
@@ -4291,7 +4284,7 @@ mime@1.4.1:
   version "1.4.1"
   resolved "https://registry.yarnpkg.com/mime/-/mime-1.4.1.tgz#121f9ebc49e3766f311a76e1fa1c8003c4b03aa6"
 
-mime@^1.2.11, mime@^1.5.0:
+mime@^1.4.1, mime@^1.5.0:
   version "1.6.0"
   resolved "https://registry.yarnpkg.com/mime/-/mime-1.6.0.tgz#32cd9e5c64553bd58d19a568af452acff04981b1"
 
@@ -4374,6 +4367,10 @@ mkdirp@0.5.x, "mkdirp@>=0.5 0", mkdirp@^0.5.0, mkdirp@^0.5.1, mkdirp@~0.5.0, mkd
   resolved "https://registry.yarnpkg.com/mkdirp/-/mkdirp-0.5.1.tgz#30057438eac6cf7f8c4767f38648d6697d75c903"
   dependencies:
     minimist "0.0.8"
+
+moment@^2.22.1:
+  version "2.22.2"
+  resolved "https://registry.yarnpkg.com/moment/-/moment-2.22.2.tgz#3c257f9839fc0e93ff53149632239eb90783ff66"
 
 mongodb-core@3.0.8:
   version "3.0.8"
@@ -5546,10 +5543,6 @@ qs@~6.3.0:
   version "6.3.2"
   resolved "https://registry.yarnpkg.com/qs/-/qs-6.3.2.tgz#e75bd5f6e268122a2a0e0bda630b2550c166502c"
 
-qs@~6.4.0:
-  version "6.4.0"
-  resolved "https://registry.yarnpkg.com/qs/-/qs-6.4.0.tgz#13e26d28ad6b0ffaa91312cd3bf708ed351e7233"
-
 qs@~6.5.1:
   version "6.5.2"
   resolved "https://registry.yarnpkg.com/qs/-/qs-6.5.2.tgz#cb3ae806e8740444584ef154ce8ee98d403f3e36"
@@ -6019,34 +6012,7 @@ request@2:
     tunnel-agent "^0.6.0"
     uuid "^3.1.0"
 
-request@2.81.0:
-  version "2.81.0"
-  resolved "https://registry.yarnpkg.com/request/-/request-2.81.0.tgz#c6928946a0e06c5f8d6f8a9333469ffda46298a0"
-  dependencies:
-    aws-sign2 "~0.6.0"
-    aws4 "^1.2.1"
-    caseless "~0.12.0"
-    combined-stream "~1.0.5"
-    extend "~3.0.0"
-    forever-agent "~0.6.1"
-    form-data "~2.1.1"
-    har-validator "~4.2.1"
-    hawk "~3.1.3"
-    http-signature "~1.1.0"
-    is-typedarray "~1.0.0"
-    isstream "~0.1.2"
-    json-stringify-safe "~5.0.1"
-    mime-types "~2.1.7"
-    oauth-sign "~0.8.1"
-    performance-now "^0.2.0"
-    qs "~6.4.0"
-    safe-buffer "^5.0.1"
-    stringstream "~0.0.4"
-    tough-cookie "~2.3.0"
-    tunnel-agent "^0.6.0"
-    uuid "^3.0.0"
-
-request@^2.72.0, request@^2.79.0:
+request@^2.72.0, request@^2.79.0, request@^2.83.0:
   version "2.87.0"
   resolved "https://registry.yarnpkg.com/request/-/request-2.87.0.tgz#32f00235cd08d482b4d0d68db93a829c0ed5756e"
   dependencies:
@@ -6246,6 +6212,10 @@ scss-tokenizer@^0.2.3:
     js-base64 "^2.1.8"
     source-map "^0.4.2"
 
+seedrandom@^2.4.3:
+  version "2.4.3"
+  resolved "https://registry.yarnpkg.com/seedrandom/-/seedrandom-2.4.3.tgz#2438504dad33917314bff18ac4d794f16d6aaecc"
+
 select-hose@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/select-hose/-/select-hose-2.0.0.tgz#625d8658f865af43ec962bfc376a37359a4994ca"
@@ -6260,9 +6230,24 @@ selfsigned@^1.9.1:
   dependencies:
     node-forge "0.7.5"
 
+semantic-ui-calendar-react@^0.5.0:
+  version "0.5.0"
+  resolved "https://registry.yarnpkg.com/semantic-ui-calendar-react/-/semantic-ui-calendar-react-0.5.0.tgz#069c9c986cfeb93089b8bb717b7e810c4079c4fe"
+  dependencies:
+    classnames "^2.2.5"
+    lodash "^4.17.10"
+    moment "^2.22.1"
+    prop-types "^15.6.1"
+
 semantic-ui-css@^2.3.1:
   version "2.3.1"
   resolved "https://registry.yarnpkg.com/semantic-ui-css/-/semantic-ui-css-2.3.1.tgz#a5485c640c98cce29d8ddde3eff3434566a068e0"
+  dependencies:
+    jquery x.*
+
+semantic-ui-less@^2.3.1:
+  version "2.3.1"
+  resolved "https://registry.yarnpkg.com/semantic-ui-less/-/semantic-ui-less-2.3.1.tgz#64cc7f1d1e3b5a831cfcf7655d2e2ddedb5aad8a"
   dependencies:
     jquery x.*
 
@@ -6598,7 +6583,7 @@ source-map@^0.4.2:
   dependencies:
     amdefine ">=0.0.4"
 
-source-map@^0.6.1, source-map@~0.6.1:
+source-map@^0.6.1, source-map@~0.6.0, source-map@~0.6.1:
   version "0.6.1"
   resolved "https://registry.yarnpkg.com/source-map/-/source-map-0.6.1.tgz#74722af32e9614e9c287a8d0bbde48b5e2f1a263"
 

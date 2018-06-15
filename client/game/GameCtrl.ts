@@ -9,8 +9,9 @@ import BaseGameCtrl from '../../shared/base-sapien/client/BaseGameCtrl';
 import { Component } from 'react';
 import RoundModel from '../../shared/models/RoundModel';
 import SchemaBuilder from '../../api/SchemaBuilder';
+import BaseClientCtrl from '../../shared/base-sapien/client/BaseClientCtrl';
 
-export default class GameCtrl extends BaseGameCtrl<GameModel>
+export default class GameCtrl extends BaseClientCtrl<GameModel>
 {
     //----------------------------------------------------------------------
     //
@@ -18,13 +19,15 @@ export default class GameCtrl extends BaseGameCtrl<GameModel>
     //
     //----------------------------------------------------------------------
 
-    private readonly rounds = {
+    protected readonly ComponentStates = {
         round1: PeopleRound, 
         round2: EngineeringRound, 
         round3: SalesRound, 
         round4: FinanceRound, 
         round5: CustomerRound
     };
+
+    protected ComponentFistma: FiStMa<any>
 
 
     //----------------------------------------------------------------------
@@ -38,13 +41,13 @@ export default class GameCtrl extends BaseGameCtrl<GameModel>
 
         console.log("GAME NAV INFO:", this.component.props)
 
-        var rndsFistma = this.dataStore.RoundsFistma = new FiStMa(this.rounds, this.rounds.round1);
-        this.component.props.history.push("/game/" + this.dataStore.RoundsFistma.currentState.WrappedComponent.name.toLowerCase());
-        rndsFistma.addTransition(this.rounds.round1);
-        rndsFistma.addTransition(this.rounds.round2);
-        rndsFistma.addTransition(this.rounds.round3);
-        rndsFistma.addTransition(this.rounds.round4);
-        rndsFistma.addTransition(this.rounds.round5);
+        var rndsFistma = this.dataStore.RoundsFistma = new FiStMa(this.ComponentStates, this.ComponentStates.round1);
+        //this.component.props.history.push("/game/" + this.dataStore.RoundsFistma.currentState.WrappedComponent.name.toLowerCase());
+        rndsFistma.addTransition(this.ComponentStates.round1);
+        rndsFistma.addTransition(this.ComponentStates.round2);
+        rndsFistma.addTransition(this.ComponentStates.round3);
+        rndsFistma.addTransition(this.ComponentStates.round4);
+        rndsFistma.addTransition(this.ComponentStates.round5);
         rndsFistma.addOnEnter("*", this._onRoundEnter.bind(this));
         rndsFistma.onInvalidTransition(this._onInvalidTrans);
 
@@ -52,6 +55,7 @@ export default class GameCtrl extends BaseGameCtrl<GameModel>
 
         this.dataStore.Name = "Some initial value";
         console.log("YO2:", this.dataStore.Name);
+
         
     }
     
@@ -93,7 +97,6 @@ export default class GameCtrl extends BaseGameCtrl<GameModel>
 
     public NavigateFromState(){
         console.log("WRAPPED COMPONENT IS: ",this.dataStore.RoundsFistma.currentState.WrappedComponent.name);
-        this.component.props.history.push('/game/' + this.dataStore.RoundsFistma.currentState.WrappedComponent.name.toLowerCase());
     }
 
     //----------------------------------------------------------------------

@@ -19,7 +19,7 @@ export default class LoginController extends BaseController<UserModel & {FormIsV
         
     };
 
-    private component: any;
+    component: any;
 
     public FormIsValid: boolean = false;
 
