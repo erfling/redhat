@@ -1,6 +1,6 @@
 import * as React from "react";
 import FiStMa from '../../shared/entity-of-the-state/FiStMa';
-import { Grid, Table, Modal, Button, Segment, Label, Header, Icon, Form, Input, Dropdown } from 'semantic-ui-react';
+import { Grid, Table, Modal, Button, Segment, Label, Header, Icon, Form, Input, Dropdown, Popup } from 'semantic-ui-react';
 const { Row, Column } = Grid;
 import { RouteComponentProps, withRouter } from "react-router";
 import GameManagementCtrl from './GameManagementCtrl';
@@ -54,11 +54,11 @@ class GameList extends React.Component<RouteComponentProps<any>, AdminViewModel 
         const DashBoardComponent = this.state.ComponentFistma.currentState;
         return <>
             {this.state.ModalObject &&
-                <Modal open={this.state.ModalOpen} inverted onClose={e => this.controller.closeModal()}>
-                    <Modal.Header>Create a Game</Modal.Header>
+                <Modal open={this.state.ModalOpen} basic onClose={e => this.controller.closeModal()}>
+                    <Modal.Header><Icon name="game"/>Create or Edit a Game</Modal.Header>
                     <Modal.Content>
                         <Modal.Description>
-                            <Form>
+                            <Form inverted>
                                 <Form.Field>
                                     <label>Location</label>
                                     <Input
@@ -81,6 +81,7 @@ class GameList extends React.Component<RouteComponentProps<any>, AdminViewModel 
                                         }, 1)
                                     }}
                                 >
+                                    <label>Start Date</label>
                                     <DateInput
                                         name="date"
                                         placeholder="Date"
@@ -120,6 +121,7 @@ class GameList extends React.Component<RouteComponentProps<any>, AdminViewModel 
                     </Modal.Content>
                     <Modal.Actions>
                         <Button
+                            inverted
                             color='red'
                             icon='cancel'
                             labelPosition="right"
@@ -128,6 +130,7 @@ class GameList extends React.Component<RouteComponentProps<any>, AdminViewModel 
                         >
                         </Button>
                         <Button
+                            inverted
                             color="blue"
                             icon='check'
                             labelPosition="right"
@@ -160,13 +163,13 @@ class GameList extends React.Component<RouteComponentProps<any>, AdminViewModel 
                     >
                     </Button>
             </Segment>
-            <Segment>
-                {this.state.IsLoading && <h2>Loading Games</h2>}
+            <Segment
+                loading={this.state.IsLoading}
+            >
                 <Table celled>
                     <Table.Header>
                         <Table.Row>
-                            <Table.HeaderCell>Edit</Table.HeaderCell>
-                            <Table.HeaderCell>Details</Table.HeaderCell>
+                            <Table.HeaderCell>Actions</Table.HeaderCell>
                             <Table.HeaderCell>Date</Table.HeaderCell>
                             <Table.HeaderCell>Location</Table.HeaderCell>
                             <Table.HeaderCell>Facilitator</Table.HeaderCell>
@@ -177,20 +180,28 @@ class GameList extends React.Component<RouteComponentProps<any>, AdminViewModel 
                         {this.state.Games && this.state.Games.map((g, i) =>
                             <Table.Row key={i}>
                                 <Table.Cell>
-                                    <Button
-                                        color="blue"
-                                        circular
-                                        icon='edit'
-                                        onClick={e => this.controller.createOrEditGame(g)}
-                                    ></Button>
+                                    <Popup
+                                        trigger={<Button
+                                            color="blue"
+                                            circular
+                                            icon='edit'
+                                            onClick={e => this.controller.createOrEditGame(g)}
+                                        ></Button>}
+                                        header="Edit Game"
+                                    />
+
+                                    <Popup
+                                        trigger={<Button
+                                            color="blue"
+                                            circular
+                                            icon='info'
+                                        ></Button>}
+                                        header="Game Details"
+                                        content="Add teams, players, etc."
+                                    />
+
                                 </Table.Cell>
-                                <Table.Cell>
-                                    <Button
-                                        color="blue"
-                                        circular
-                                        icon='info'
-                                    ></Button>
-                                </Table.Cell>
+                                
                                 <Table.Cell>{g.DatePlayed}</Table.Cell>
                                 <Table.Cell>{g.Location}</Table.Cell>
                                 <Table.Cell>{g.Facilitator && Object.assign(new UserModel(), g.Facilitator).Name}</Table.Cell>
