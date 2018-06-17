@@ -105,12 +105,24 @@ class RoundRouter
         
         try{
             if(!userToSave.Email || !userToSave.Email.length || !userToSave._id) {
-                console.log("HERE")
-                var savedRound = await monUserModel.create(userToSave);
+                var savedUser = await monUserModel.create(userToSave).then(r => r.toObject() as UserModel);
+
+                //invite new user to create admin password
+                if(savedUser.Role == RoleName.ADMIN){
+                    var token = Auth.ISSUE_NEW_USER_JWT(savedUser)
+                    EmailCtrl.SEND_EMAIL((savedUser), token);
+                }
+
             } else {
-                var savedUser = await monUserModel.findOneAndUpdate({Email: userToSave.Email}, userToSave, {new: true})
-                console.log(savedUser);
+                var savedUser = await monUserModel.findOneAndUpdate({Email: userToSave.Email}, userToSave, {new: true}).then(r => r.toObject() as UserModel);
+
+                //invite user who's role has changed to ADMIN to create admin password
+                if( savedUser.Role == RoleName.ADMIN && userToSave.RoleChanged ){
+                    var token = Auth.ISSUE_NEW_USER_JWT(savedUser)
+                    EmailCtrl.SEND_EMAIL((savedUser), token);
+                }
             }
+
             res.json(savedUser);
         }
         catch{
@@ -118,8 +130,7 @@ class RoundRouter
         }
     }
 
-    public async AddNewUser(req: Request, res: Response):Promise<any> {
-        const userToSave = req.body as UserModel;
+    public async AddNewUser(userToSave: UserModel):Promise<any> {
         //const dbRoundModel = new monRoundModel(roundToSave); 
         
         try{
@@ -131,8 +142,7 @@ class RoundRouter
             console.log(savedUser);
             var token = Auth.ISSUE_NEW_USER_JWT(savedUser)
             EmailCtrl.SEND_EMAIL((savedUser as UserModel), token)
-            
-            res.json(savedUser);
+            return savedUser;
         }
         catch{
 
@@ -160,22 +170,40 @@ class RoundRouter
         }
     }
 
+    public async DeleteUser(req: Request, res: Response):Promise<any> {
+        const id = req.params.userID;
+        console.log("trying to delete user with ID: ", id)
+        try{
+            const savedUser = monUserModel.findByIdAndRemove(id).then(r => r);
+            res.json("user successfully removed");
+        }catch{
+            res.json("user not removed")
+        }
+    }
+
     public routes(){
 
         this.router.get("/", 
-            (req, res, next) => Auth.IS_USER_AUTHORIZED(req, res, next, PERMISSION_LEVELS.FACILITATOR),
+            Passport.authenticate('jwt', {session: false}),
+            (req, res, next) => Auth.IS_USER_AUTHORIZED(req, res, next, PERMISSION_LEVELS.ADMIN),
             this.GetUsers.bind(this)
         );
 
-        
-
         this.router.post("/", 
+            Passport.authenticate('jwt', {session: false}),
             (req, res, next) => Auth.IS_USER_AUTHORIZED(req, res, next, PERMISSION_LEVELS.ADMIN), 
             this.SaveUser.bind(this)
         );
 
+        this.router.delete("/:userID",
+            Passport.authenticate('jwt', {session: false}),
+            (req, res, next) => Auth.IS_USER_AUTHORIZED(req, res, next, PERMISSION_LEVELS.ADMIN), 
+            this.DeleteUser.bind(this)
+        );
+
         this.router.post("/newuser", 
-            //(req, res, next) => Auth.IS_USER_AUTHORIZED(req, res, next, PERMISSION_LEVELS.ADMIN), 
+            Passport.authenticate('jwt', {session: false}),
+            (req, res, next) => Auth.IS_USER_AUTHORIZED(req, res, next, PERMISSION_LEVELS.ADMIN), 
             this.AddNewUser.bind(this)
         );
 

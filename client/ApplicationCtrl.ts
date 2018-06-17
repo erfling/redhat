@@ -9,6 +9,7 @@ import BaseClientCtrl from '../shared/base-sapien/client/BaseClientCtrl';
 
 import Game from './game/Game';
 import Admin from './admin/Admin'
+import ICommonComponentState from '../shared/base-sapien/client/ICommonComponentState';
 
 export default class ApplicationCtrl extends BaseClientCtrl<ApplicationViewModel>
 {
@@ -25,7 +26,7 @@ export default class ApplicationCtrl extends BaseClientCtrl<ApplicationViewModel
 
     component: any;
 
-    dataStore: ApplicationViewModel;
+    dataStore: ApplicationViewModel & ICommonComponentState & {ShowMenu: boolean};
 
     //----------------------------------------------------------------------
     //
@@ -51,7 +52,8 @@ export default class ApplicationCtrl extends BaseClientCtrl<ApplicationViewModel
 
         
         this.dataStore = Object.assign(new ApplicationViewModel(), {
-            ComponentFistma: this.ComponentFistma
+            ComponentFistma: this.ComponentFistma,
+            ShowMenu: false
         })
 
         var test = new UserModel();

@@ -44,5 +44,8 @@ export default class UserModel extends BaseModel
     @dbProp(String)
     @Type(() => String)
     public Role: RoleName = RoleName.PLAYER;
+
+    //Flag to indicate whether a user's role has changed. If role changes to admin, we flag so user is emailed
+    public RoleChanged: boolean = false;
     
 }

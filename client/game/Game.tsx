@@ -2,16 +2,13 @@ import * as React from "react";
 import GameCtrl from "./GameCtrl";
 import GameModel from "../../shared/models/GameModel";
 import Round1 from './PeopleRound';
-import { Grid, Menu, Container, Button } from 'semantic-ui-react';
+import { Grid, Menu, Container, Button, Segment } from 'semantic-ui-react';
 const { Column, Row } = Grid;
 import { Route, Switch, RouteComponentProps, withRouter } from "react-router";
-import PeopleRound from "./PeopleRound";
-import EngineeringRound from "./EngineeringRound";
-import SalesRound from "./SalesRound";
-import FinanceRound from "./FinanceRound";
-import CustomerRound from "./CustomerRound";
 
-class Game extends React.Component<RouteComponentProps<any>, GameModel>
+import ICommonComponentState from '../../shared/base-sapien/client/ICommonComponentState';
+
+class Game extends React.Component<RouteComponentProps<any>, GameModel & ICommonComponentState>
 {
     //----------------------------------------------------------------------
     //
@@ -54,7 +51,8 @@ class Game extends React.Component<RouteComponentProps<any>, GameModel>
     //----------------------------------------------------------------------
 
     render() {
-        const Rnd = withRouter(this.state.RoundsFistma.currentState);
+        if(this.state && this.state.ComponentFistma) {
+        const Rnd = this.state.ComponentFistma.currentState;
         return <Container
             fluid={true}
         >
@@ -109,6 +107,9 @@ class Game extends React.Component<RouteComponentProps<any>, GameModel>
 					</Menu.Item>
             </Menu>
         </Container>
+        } else {
+            return <Segment loading></Segment>
+        }
     }
 
 }

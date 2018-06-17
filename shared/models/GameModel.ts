@@ -4,16 +4,9 @@ import BaseModel from "../base-sapien/models/BaseModel";
 import TeamModel from "../models/TeamModel";
 import { Type } from 'class-transformer';
 import { ObjectID } from 'bson';
+import UserModel from './UserModel';
 
-export interface GameShape extends BaseShape {
-    Name: string;
-
-    Location: string
-
-    DatePlayed: Date;
-}
-
-export default class GameModel extends BaseModel implements GameShape
+export default class GameModel extends BaseModel
 {
     //----------------------------------------------------------------------
     //
@@ -23,9 +16,11 @@ export default class GameModel extends BaseModel implements GameShape
 
     public Name: string = "";
 
+    @dbProp(String)
     public Location: string = "";
 
-    public DatePlayed: Date;
+    @dbProp(String)
+    public DatePlayed: string = new Date().toLocaleDateString();
 
     @Type(() => TeamModel)
     @dbProp([ObjectID])
@@ -33,6 +28,10 @@ export default class GameModel extends BaseModel implements GameShape
 
     @Type(() => FiStMa)
     public RoundsFistma:FiStMa<{[key:string]: any}>;
+
+    @Type(() => UserModel)
+    @dbProp([ObjectID])
+    public Facilitator: UserModel = new UserModel()
 
     //----------------------------------------------------------------------
     //

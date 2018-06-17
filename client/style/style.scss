@@ -9,6 +9,11 @@ a{
 .ui.inverted.menu .blue.active.item, .ui.inverted.blue.menu {
     background-color: #0088B9;
 }
+.admin-header-segment{
+    .ui.header{
+        padding-top: 8px;
+    }
+}
 
 .source-stream {
     background: #CCEAF2 !important;

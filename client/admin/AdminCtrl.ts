@@ -10,6 +10,7 @@ import DefaultAdmin from './DefaultAdmin'
 import BaseClientCtrl from '../../shared/base-sapien/client/BaseClientCtrl';
 import AdminLogin from '../login/AdminLogin'
 import GameLogin from '../login/GameLogin'
+import UserList from './UserList';
 import ApplicationCtrl from '../ApplicationCtrl'
 import { RoleName } from '../../shared/models/UserModel';
 
@@ -23,7 +24,7 @@ export default class AdminCtrl extends BaseClientCtrl<any>
 
     protected readonly ComponentStates = {
         game: GameList,
-        users: Game,
+        users: UserList,
         adminLogin: AdminLogin,
         default: DefaultAdmin,
         gameLogin: GameLogin

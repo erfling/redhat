@@ -14,6 +14,7 @@ import { RoleName } from '../../shared/models/UserModel';
 import SapienServerCom from '../../shared/base-sapien/client/SapienServerCom';
 import ICommonComponentState from '../../shared/base-sapien/client/ICommonComponentState';
 import GameModel from '../../shared/models/GameModel';
+import { plainToClass, plainToClassFromExist, classToPlain } from 'class-transformer';
 
 export default class GameManagementCtrl extends BaseClientCtrl<any>
 {
@@ -72,6 +73,7 @@ export default class GameManagementCtrl extends BaseClientCtrl<any>
             console.log("MOUNTED: ", this.component, this.component.props.location.pathname);
             this.navigateOnClick(this.component.props.location.pathname);
             this.getAllGames();
+            this.getAllUsers();
         }
 
     }
@@ -94,20 +96,44 @@ export default class GameManagementCtrl extends BaseClientCtrl<any>
     //----------------------------------------------------------------------
 
     public getAllGames(){
-        SapienServerCom.GetData(null, null, SapienServerCom.BASE_REST_URL + "games").then(r => {
+        return SapienServerCom.GetData(null, null, SapienServerCom.BASE_REST_URL + "games").then(r => {
             console.log("GAMES ARE: ",r)
             this.dataStore.Games = r;
             this.dataStore.IsLoading = false;
         })
     }
 
+    public getAllUsers(){
+        return SapienServerCom.GetData(null, null, SapienServerCom.BASE_REST_URL + "user").then(r => {
+            console.log("Users ARE: ",r)
+            this.dataStore.Users = r;
+            
+            this.dataStore.IsLoading = false;
+        })
+    }
+
     public createOrEditGame(game?: GameModel){
         this.dataStore.ModalObject = Object.assign(new GameModel(), game) || new GameModel();
-        console.log(this.dataStore.ModalObject.DatePlayed)
-        if(!this.dataStore.ModalObject.DatePlayed) this.dataStore.ModalObject.DatePlayed = new Date();
+        if(!this.dataStore.ModalObject.DatePlayed) this.dataStore.ModalObject.DatePlayed = new Date().toLocaleDateString();
         console.log(this.dataStore.ModalObject.DatePlayed)
 
         this.openModal();
     }
     
+    public saveGame(game: GameModel){
+        this.dataStore.FormIsSubmitting = true;
+        SapienServerCom.SaveData(game, SapienServerCom.BASE_REST_URL + "games")
+                        .then(r => {
+                            if(game._id){
+                                this.dataStore.Games = this.dataStore.Games.map(g => {
+                                    return g._id == game._id ? Object.assign(game, r) : g
+                                })
+                            } else {
+                                console.log(r, Object.assign(new GameModel(), r))
+                                this.dataStore.Games = this.dataStore.Games.concat(Object.assign(new GameModel(), r))
+                            }
+                            this.dataStore.FormIsSubmitting = false;
+                            this.closeModal();
+                        })
+    }
 }

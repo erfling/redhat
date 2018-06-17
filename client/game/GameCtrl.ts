@@ -37,24 +37,27 @@ export default class GameCtrl extends BaseClientCtrl<GameModel>
     //----------------------------------------------------------------------
 
     constructor(reactComp: Component<any, any>) {
-        super( reactComp );
+        super( new GameModel(), reactComp );
 
         console.log("GAME NAV INFO:", this.component.props)
 
-        var rndsFistma = this.dataStore.RoundsFistma = new FiStMa(this.ComponentStates, this.ComponentStates.round1);
+        this.ComponentFistma = new FiStMa(this.ComponentStates, this.ComponentStates.round1);
         //this.component.props.history.push("/game/" + this.dataStore.RoundsFistma.currentState.WrappedComponent.name.toLowerCase());
-        rndsFistma.addTransition(this.ComponentStates.round1);
-        rndsFistma.addTransition(this.ComponentStates.round2);
-        rndsFistma.addTransition(this.ComponentStates.round3);
-        rndsFistma.addTransition(this.ComponentStates.round4);
-        rndsFistma.addTransition(this.ComponentStates.round5);
-        rndsFistma.addOnEnter("*", this._onRoundEnter.bind(this));
-        rndsFistma.onInvalidTransition(this._onInvalidTrans);
+        this.ComponentFistma.addTransition(this.ComponentStates.round1);
+        this.ComponentFistma.addTransition(this.ComponentStates.round2);
+        this.ComponentFistma.addTransition(this.ComponentStates.round3);
+        this.ComponentFistma.addTransition(this.ComponentStates.round4);
+        this.ComponentFistma.addTransition(this.ComponentStates.round5);
+        this.ComponentFistma.addOnEnter("*", this._onRoundEnter.bind(this));
+        this.ComponentFistma.onInvalidTransition(this._onInvalidTrans);
 
         console.log("YO1:", this.dataStore.Name, "why is this undefined?");
 
         this.dataStore.Name = "Some initial value";
         console.log("YO2:", this.dataStore.Name);
+        this.dataStore = Object.assign(new GameModel(), {
+            ComponentFistma: this.ComponentFistma
+        })
 
         
     }
@@ -66,7 +69,6 @@ export default class GameCtrl extends BaseClientCtrl<GameModel>
     //----------------------------------------------------------------------
 
     private _onRoundEnter(fromState:React.Component<{}, any>): void {
-        console.log("Entered round", this.dataStore.RoundsFistma.currentState, "from round", fromState);
         this.NavigateFromState();
 
     }
@@ -76,7 +78,7 @@ export default class GameCtrl extends BaseClientCtrl<GameModel>
     }
 
     public Navigate(round: RoundModel){
-        this.dataStore.RoundsFistma.goTo(round);
+        this.ComponentFistma.goTo(round);
     }
     
     /**
@@ -84,7 +86,7 @@ export default class GameCtrl extends BaseClientCtrl<GameModel>
      * 
      */
     public advanceRound(){
-        this.dataStore.RoundsFistma.next();
+        this.ComponentFistma.next();
     }
     
     /**
@@ -92,11 +94,11 @@ export default class GameCtrl extends BaseClientCtrl<GameModel>
      * 
      */
     public goBackRound(){
-        this.dataStore.RoundsFistma.previous();
+        this.ComponentFistma.previous();
     }
 
     public NavigateFromState(){
-        console.log("WRAPPED COMPONENT IS: ",this.dataStore.RoundsFistma.currentState.WrappedComponent.name);
+        console.log("WRAPPED COMPONENT IS: ",this.ComponentFistma.currentState.WrappedComponent.name);
     }
 
     //----------------------------------------------------------------------

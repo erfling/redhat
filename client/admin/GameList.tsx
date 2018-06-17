@@ -1,6 +1,6 @@
 import * as React from "react";
 import FiStMa from '../../shared/entity-of-the-state/FiStMa';
-import { Grid, Table, Modal, Button, Segment, Label, Header, Icon, Form, Input } from 'semantic-ui-react';
+import { Grid, Table, Modal, Button, Segment, Label, Header, Icon, Form, Input, Dropdown } from 'semantic-ui-react';
 const { Row, Column } = Grid;
 import { RouteComponentProps, withRouter } from "react-router";
 import GameManagementCtrl from './GameManagementCtrl';
@@ -10,6 +10,7 @@ import DecisionIcon from '-!svg-react-loader?name=Icon!../img/decisions.svg';
 import GameModel from "../../shared/models/GameModel";
 import { DateInput } from 'semantic-ui-calendar-react';
 import * as moment from 'moment';
+import UserModel, { RoleName } from "../../shared/models/UserModel";
 
 class GameList extends React.Component<RouteComponentProps<any>, AdminViewModel & ICommonComponentState>
 {
@@ -53,15 +54,15 @@ class GameList extends React.Component<RouteComponentProps<any>, AdminViewModel 
         const DashBoardComponent = this.state.ComponentFistma.currentState;
         return <>
             {this.state.ModalObject &&
-                <Modal open={this.state.ModalOpen} dimmer="blurring" onClose={e => this.controller.closeModal()}>
+                <Modal open={this.state.ModalOpen} inverted onClose={e => this.controller.closeModal()}>
                     <Modal.Header>Create a Game</Modal.Header>
                     <Modal.Content>
                         <Modal.Description>
-                            <Header>Default Profile Image</Header>
                             <Form>
                                 <Form.Field>
                                     <label>Location</label>
                                     <Input
+                                        value={(this.state.ModalObject as GameModel).Location}
                                         onChange={(e) => (this.state.ModalObject as GameModel).Location = (e.target as HTMLInputElement).value}
                                         placeholder="Location"
                                     />
@@ -80,43 +81,95 @@ class GameList extends React.Component<RouteComponentProps<any>, AdminViewModel 
                                         }, 1)
                                     }}
                                 >
-                                    
+                                    <DateInput
+                                        name="date"
+                                        placeholder="Date"
+                                        value={this.controller.dataStore.ModalObject.DatePlayed}
+                                        iconPosition="left"
+                                        dateFormat="MM/DD/YYYY"
+                                        onChange={(e, output) => {
+                                            console.log("CALLENDAR THING: ", output)
+                                            this.controller.dataStore.ModalObject.DatePlayed = output.value;
+                                        }} />
+                                </Form.Field>
+                                <Form.Field>
+                                    <label>Facilitator</label>
+                                    {this.state.Users && 
+                                        <Dropdown 
+                                            placeholder='Select Facilitator' 
+                                            fluid 
+                                            search 
+                                            selection
+                                            value={(this.state.ModalObject as GameModel).Facilitator._id}
+                                            onChange={(e, output) => {
+                                                console.log("SELECTION", output)
+                                                this.controller.dataStore.ModalObject.Facilitator._id = output.value
+                                            }}
+                                            options={this.state.Users.filter(u => u.Role == RoleName.ADMIN).map((u,i) => {
+                                                return {
+                                                    text: u.FirstName + " " + u.LastName + " (" + u.Email + ")",
+                                                    value: u._id,
+                                                    key: i
+                                                }
+                                            })} 
+                                        />
+                                    }
                                 </Form.Field>
                             </Form>
-                            <pre>{this.state && JSON.stringify(this.state.ModalObject, null, 2)}</pre>
                         </Modal.Description>
                     </Modal.Content>
                     <Modal.Actions>
-                        <Button color='black'>
-                            Nope
-                    </Button>
+                        <Button
+                            color='red'
+                            icon='cancel'
+                            labelPosition="right"
+                            content="Cancel"
+                            onClick={e => this.controller.closeModal()}
+                        >
+                        </Button>
                         <Button
                             color="blue"
-                            icon='check' 
+                            icon='check'
                             labelPosition="right"
-                            content='All Done' 
-                            onClick={e => this.controller.closeModal()}
+                            content='Save Game'
+                            loading={this.state.FormIsSubmitting}
+                            onClick={e => this.controller.saveGame(this.state.ModalObject)}
                         ></Button>
                     </Modal.Actions>
                 </Modal>
             }
-            {this.state.CurrentUser && <h2>Welcome to you, my friend {this.state.CurrentUser.FirstName}</h2>}
-            <Segment>
-                Manage Games
-                <Button color="blue"
-                    onClick={e => this.controller.createOrEditGame()}
-                >
-                    Add Game
-                </Button>
+            <Segment 
+                clearing
+                style={{paddingBottom:0}}
+            >
+                    <Header
+                        as="h1"
+                        floated="left"
+                    >
+                        <Header.Content>
+                            <Icon name="game"/>
+                            Manage Games
+                        </Header.Content>
+                    </Header>
+                    <Button color="blue"
+                        icon="plus"
+                        content="Add Game"
+                        labelPosition="right"
+                        floated='right'
+                        onClick={e => this.controller.createOrEditGame()}
+                    >
+                    </Button>
             </Segment>
             <Segment>
                 {this.state.IsLoading && <h2>Loading Games</h2>}
                 <Table celled>
                     <Table.Header>
                         <Table.Row>
-                            <Table.HeaderCell>Header</Table.HeaderCell>
-                            <Table.HeaderCell>Header</Table.HeaderCell>
-                            <Table.HeaderCell>Header</Table.HeaderCell>
+                            <Table.HeaderCell>Edit</Table.HeaderCell>
+                            <Table.HeaderCell>Details</Table.HeaderCell>
+                            <Table.HeaderCell>Date</Table.HeaderCell>
+                            <Table.HeaderCell>Location</Table.HeaderCell>
+                            <Table.HeaderCell>Facilitator</Table.HeaderCell>
                         </Table.Row>
                     </Table.Header>
 
@@ -124,10 +177,23 @@ class GameList extends React.Component<RouteComponentProps<any>, AdminViewModel 
                         {this.state.Games && this.state.Games.map((g, i) =>
                             <Table.Row key={i}>
                                 <Table.Cell>
-                                    <Label ribbon>First</Label>
+                                    <Button
+                                        color="blue"
+                                        circular
+                                        icon='edit'
+                                        onClick={e => this.controller.createOrEditGame(g)}
+                                    ></Button>
                                 </Table.Cell>
+                                <Table.Cell>
+                                    <Button
+                                        color="blue"
+                                        circular
+                                        icon='info'
+                                    ></Button>
+                                </Table.Cell>
+                                <Table.Cell>{g.DatePlayed}</Table.Cell>
                                 <Table.Cell>{g.Location}</Table.Cell>
-                                <Table.Cell>Cell</Table.Cell>
+                                <Table.Cell>{g.Facilitator && Object.assign(new UserModel(), g.Facilitator).Name}</Table.Cell>
                             </Table.Row>
                         )}
 
@@ -142,14 +208,3 @@ class GameList extends React.Component<RouteComponentProps<any>, AdminViewModel 
 }
 
 export default withRouter(GameList);
-
-/**
- * <DateInput
-                                        name="date"
-                                        placeholder="Date"
-                                        value={((this.state.ModalObject as GameModel).DatePlayed).toDateString()}
-                                        iconPosition="left"
-                                        onChange={(e, output) => { console.log("CALLENDAR THING: ", e.value, e.name, output) 
-                                            this.controller.dataStore.ModalObject.DatePlayed = new Date(output.value);
-                                        }} />
- */
