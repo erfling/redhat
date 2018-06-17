@@ -14,6 +14,8 @@ export default class GameModel extends BaseModel
     //
     //----------------------------------------------------------------------
 
+    public static REST_URL = "games"
+
     public Name: string = "";
 
     @dbProp(String)

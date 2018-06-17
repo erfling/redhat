@@ -11,6 +11,8 @@ import LoginCtrl from './controllers/LoginCtrl';
 import UserCtrl from './controllers/UserCtrl';
 import AuthUtils from './AuthUtils';
 import GameCtrl from './controllers/GameCtrl';
+import GameModel from '../shared/models/GameModel'
+import TeamCtrl from './controllers/TeamCtrl';
 
 const app = express();
 const port = normalizePort(80);
@@ -48,7 +50,7 @@ function onListening(): void {
     mongoose.set('debug', true);
     
     var connection = mongoose.connect(MONGO_URI || process.env.MONGODB_URI).then((connection) => {
-        console.log(typeof connection, connection);
+        //console.log(typeof connection, connection);
 
     }).catch((r) => {
         console.log(r);
@@ -67,8 +69,9 @@ function onListening(): void {
     AuthUtils.SET_UP_PASSPORT();
     app.use('/', router)
         .use('/sapien/api/rounds', Passport.authenticate('jwt', {session: false}), RoundController)
-        .use('/sapien/api/games', GameCtrl)
+        .use('/sapien/api/' + GameModel.REST_URL, GameCtrl)
         .use('/sapien/api/auth', LoginCtrl)
+        .use('/sapien/api/team', TeamCtrl)
         .use('/sapien/api/user', UserCtrl )
         .use('/assets', express.static("dist/assets"))
         .use('/', express.static("dist"))

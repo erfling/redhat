@@ -4,10 +4,10 @@ import SchemaBuilder from '../SchemaBuilder';
 import BaseModel from '../../shared/base-sapien/models/BaseModel';
 import RoundModel from '../../shared/models/RoundModel';
 import GameModel from '../../shared/models/GameModel';
-
+import { monTeamModel } from './TeamCtrl';
 
 const schObj = SchemaBuilder.fetchSchema(GameModel);
-schObj.Teams = {type: [mongoose.Schema.Types.ObjectId], ref: "Team"};
+schObj.Teams = {type: [mongoose.Schema.Types.ObjectId], ref: "team"};
 schObj.Facilitator = {type: mongoose.Schema.Types.ObjectId, ref: "user"}
 const monSchema = new mongoose.Schema(schObj);
 
@@ -73,7 +73,8 @@ class GameRouter
         const ID = req.params.game;
         console.log(ID);
         try {
-            let game = await monGameModel.findById(ID).populate("Facilitator", "Teams")
+            //WHY CAN"T WE CALL POPULATE ON TEAMS?
+            let game = await monGameModel.findById(ID).populate("Teams").populate("Facilitator")
             if (!game) {
               res.status(400).json({ error: 'No games' });
             } else {

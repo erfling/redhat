@@ -195,6 +195,7 @@ class GameList extends React.Component<RouteComponentProps<any>, AdminViewModel 
                                             color="blue"
                                             circular
                                             icon='info'
+                                            onClick={e => this.controller.navigateToGameDetail(g)}
                                         ></Button>}
                                         header="Game Details"
                                         content="Add teams, players, etc."

@@ -51,7 +51,6 @@ class App extends React.Component<RouteComponentProps<any>, ApplicationViewModel
                             vertical
                             inverted
                         >
-                            {ComponentFromState && ComponentFromState.WrappedComponent.name}
                             <Menu.Item>
                                 <Menu.Header>Administer</Menu.Header>
                                 <Menu.Menu>

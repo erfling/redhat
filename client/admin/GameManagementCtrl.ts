@@ -9,6 +9,7 @@ import DefaultAdmin from './DefaultAdmin'
 import BaseClientCtrl from '../../shared/base-sapien/client/BaseClientCtrl';
 import AdminLogin from '../login/AdminLogin'
 import GameList from './GameList'
+import GameDetail from './GameDetail'
 import ApplicationCtrl from '../ApplicationCtrl'
 import { RoleName } from '../../shared/models/UserModel';
 import SapienServerCom from '../../shared/base-sapien/client/SapienServerCom';
@@ -26,6 +27,7 @@ export default class GameManagementCtrl extends BaseClientCtrl<any>
 
     protected readonly ComponentStates = {
         gameList: GameList,
+        gamedetail: GameDetail,
         game: Game,
         adminLogin: AdminLogin
     };
@@ -68,12 +70,14 @@ export default class GameManagementCtrl extends BaseClientCtrl<any>
             IsLoading: true
         })
 
-        this.component.componentWillMount = () => {
-            //this.component.constructor.super(this.component.props).componentWillMount()
-            console.log("MOUNTED: ", this.component, this.component.props.location.pathname);
-            this.navigateOnClick(this.component.props.location.pathname);
-            this.getAllGames();
-            this.getAllUsers();
+        if(this.component.componentWillMount == undefined){
+            this.component.componentWillMount = () => {
+                //this.component.constructor.super(this.component.props).componentWillMount()
+                console.log("MOUNTED: ", this.component, this.component.props.location.pathname);
+                this.navigateOnClick(this.component.props.location.pathname);
+                this.getAllGames();
+                this.getAllUsers();
+            }
         }
 
     }
@@ -135,5 +139,20 @@ export default class GameManagementCtrl extends BaseClientCtrl<any>
                             this.dataStore.FormIsSubmitting = false;
                             this.closeModal();
                         })
+    }
+
+    public navigateToGameDetail(game: GameModel){
+        this.navigateOnClick("/admin/gamedetail/" + game._id)
+    }
+
+    public getGame( id: string ){
+        const game: GameModel = this.dataStore.Games.filter(g => g._id == id)[0] || new GameModel()
+        this.dataStore.IsLoading = true;
+        return SapienServerCom.GetData(null, GameModel, SapienServerCom.BASE_REST_URL + GameModel.REST_URL + "/" + id)
+                                .then(r => {
+                                    Object.assign(game, r);
+                                    this.dataStore.SelectedGame = game;
+                                    this.dataStore.IsLoading = false;
+                                })
     }
 }

@@ -16,6 +16,8 @@ export default class AdminViewModel extends BaseModel {
 
     Games: GameModel[] = [];
 
+    SelectedGame: GameModel;
+
     Users: UserModel[] = [];
 
     get CurrentUser(): UserModel {

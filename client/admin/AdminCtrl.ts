@@ -13,6 +13,7 @@ import GameLogin from '../login/GameLogin'
 import UserList from './UserList';
 import ApplicationCtrl from '../ApplicationCtrl'
 import { RoleName } from '../../shared/models/UserModel';
+import GameDetail from './GameDetail';
 
 export default class AdminCtrl extends BaseClientCtrl<any>
 {
@@ -24,6 +25,7 @@ export default class AdminCtrl extends BaseClientCtrl<any>
 
     protected readonly ComponentStates = {
         game: GameList,
+        gameDetail: GameDetail,
         users: UserList,
         adminLogin: AdminLogin,
         default: DefaultAdmin,
