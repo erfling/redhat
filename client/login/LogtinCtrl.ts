@@ -6,8 +6,9 @@ import BaseGameCtrl from '../../shared/base-sapien/client/BaseGameCtrl';
 import { Component } from 'react';
 import BaseController from '../../shared/entity-of-the-state/BaseController';
 import BaseModel from '../../shared/base-sapien/models/BaseModel';
+import BaseClientCtrl from '../../shared/base-sapien/client/BaseClientCtrl';
 
-export default class LoginController extends BaseController<UserModel & {FormIsValid: boolean, FormIsSubmitting: boolean, FormError:string;}>
+export default class LoginController extends BaseClientCtrl<UserModel & {FormIsValid: boolean, FormIsSubmitting: boolean, FormError:string;}>
 {
     //----------------------------------------------------------------------
     //
@@ -82,6 +83,7 @@ export default class LoginController extends BaseController<UserModel & {FormIsV
             localStorage.setItem("rhjwt", returned.token);
             localStorage.setItem("RH_USER", JSON.stringify(returned.user))
             this.dataStore.FormIsSubmitting = false;
+            this.navigateOnClick("/admin/userlist")
             this.component.props.history.push("/admin");
         })
         .catch((message) => {
