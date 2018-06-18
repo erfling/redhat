@@ -9,6 +9,7 @@ import BaseClientCtrl from '../shared/base-sapien/client/BaseClientCtrl';
 
 import Game from './game/Game';
 import Admin from './admin/Admin'
+import Login from './login/Login'
 import ICommonComponentState from '../shared/base-sapien/client/ICommonComponentState';
 
 export default class ApplicationCtrl extends BaseClientCtrl<ApplicationViewModel>
@@ -21,7 +22,8 @@ export default class ApplicationCtrl extends BaseClientCtrl<ApplicationViewModel
 
     protected readonly ComponentStates = {
         game: Game,
-        admin: Admin
+        admin: Admin,
+        login: Login
     };
 
     component: any;

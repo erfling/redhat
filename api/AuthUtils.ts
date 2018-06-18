@@ -57,8 +57,7 @@ export default abstract class AuthUtils {
 
         Passport.use(new PassportJWT.Strategy({
                 jwtFromRequest: PassportJWT.ExtractJwt.fromAuthHeaderAsBearerToken(),
-                secretOrKey: 'zigwagytywu',
-                
+                secretOrKey: 'zigwagytywu',                
             },
             async (jwtPayload, done) => {
                 console.log("FOUND jwtPayload: ", jwtPayload);
@@ -101,6 +100,7 @@ export default abstract class AuthUtils {
     }
 
     public static ISSUE_NEW_USER_JWT(newUser: UserModel): any {
+        console.log(newUser);
         var token = jwt.sign(newUser._id.toString(), "zigwagytywu")
         return token;
     }

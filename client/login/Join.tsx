@@ -8,7 +8,7 @@ import { Route, Switch, RouteComponentProps, withRouter } from "react-router";
 import LoginCtrl from './LogtinCtrl'
 import ICommonComponentState from '../../shared/base-sapien/client/ICommonComponentState'
 
-class FirstLogin extends React.Component<RouteComponentProps<any>, UserModel & ICommonComponentState>
+class Join extends React.Component<RouteComponentProps<any>, UserModel & ICommonComponentState>
 {
     //----------------------------------------------------------------------
     //
@@ -26,7 +26,6 @@ class FirstLogin extends React.Component<RouteComponentProps<any>, UserModel & I
 
     constructor(props: RouteComponentProps<any>) {
         super(props);
-        this.props.history.push("/login/join")
         this.controller = new LoginCtrl(this)
         this.state = this.controller.dataStore;
         const token = this._parseURLQueryStrings(this.props.location.search).token;
@@ -117,4 +116,4 @@ class FirstLogin extends React.Component<RouteComponentProps<any>, UserModel & I
 
 }
 
-export default withRouter(FirstLogin);
+export default withRouter(Join);

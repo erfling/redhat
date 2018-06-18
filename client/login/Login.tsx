@@ -1,8 +1,6 @@
 import * as React from "react";
 import { RouteComponentProps, withRouter, Route } from "react-router";
-import GameLogin from './GameLogin';
-import AdminLogin from './AdminLogin';
-import FirstLogin from './FirstLogin';
+import LoginController from './LogtinCtrl'
 import { Grid, Menu, Container, Button } from 'semantic-ui-react';
 const { Column, Row } = Grid;
 
@@ -14,6 +12,7 @@ class Login extends React.Component<RouteComponentProps<any>, any>
     //
     //----------------------------------------------------------------------
 
+    controller: any
 
 
     //----------------------------------------------------------------------
@@ -25,6 +24,8 @@ class Login extends React.Component<RouteComponentProps<any>, any>
     constructor(props: RouteComponentProps<any>) {
         super(props);
 
+        this.controller = new LoginController(this);
+        this.state = this.controller.dataStore;
     }
 
     componentWillMount() {
@@ -46,6 +47,8 @@ class Login extends React.Component<RouteComponentProps<any>, any>
     //----------------------------------------------------------------------
 
     render() {
+        if (this.state && this.state.ComponentFistma) {
+            const ComponentFromState: any = this.state.ComponentFistma.currentState
         return <Container
             fluid={true}
         >
@@ -55,11 +58,12 @@ class Login extends React.Component<RouteComponentProps<any>, any>
                 padded={true}
                 columns={16}
             >
-                <Route path="/login/game" component={GameLogin} exact />
-                <Route path="/login/join" component={FirstLogin} exact />
-                <Route path="/login/admin" component={AdminLogin} exact/>
+                <ComponentFromState/>
             </Grid>
         </Container>;
+        } else {
+            return <h1>Finding you</h1>
+        }
     }
 
 }

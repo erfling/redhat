@@ -1,13 +1,18 @@
 import FiStMa from '../../shared/entity-of-the-state/FiStMa';
 import UserModel from '../../shared/models/UserModel';
 import SapienServerCom from '../../shared/base-sapien/client/SapienServerCom';
+import GameLogin from './GameLogin'
+import AdminLogin from './AdminLogin'
+import Join from './Join'
 
 import BaseGameCtrl from '../../shared/base-sapien/client/BaseGameCtrl';
 import { Component } from 'react';
 import BaseController from '../../shared/entity-of-the-state/BaseController';
 import BaseModel from '../../shared/base-sapien/models/BaseModel';
+import ICommonComponentState from '../../shared/base-sapien/client/ICommonComponentState';
+import BaseClientCtrl from '../../shared/base-sapien/client/BaseClientCtrl';
 
-export default class LoginController extends BaseController<UserModel & {FormIsValid: boolean, FormIsSubmitting: boolean, FormError:string;}>
+export default class LoginController extends BaseClientCtrl<UserModel & ICommonComponentState>
 {
     //----------------------------------------------------------------------
     //
@@ -15,18 +20,15 @@ export default class LoginController extends BaseController<UserModel & {FormIsV
     //
     //----------------------------------------------------------------------
 
-    private readonly rounds = {
-        
-    };
-
     component: any;
 
-    public FormIsValid: boolean = false;
+    dataStore: UserModel & ICommonComponentState;
 
-    public FormIsSubmitting: boolean = false;
-
-    public FormError: string = "";
-
+    protected readonly ComponentStates = {
+        game: GameLogin,
+        admin: AdminLogin,
+        first: Join
+    };
     //----------------------------------------------------------------------
     //
     //  Constructor
@@ -34,8 +36,16 @@ export default class LoginController extends BaseController<UserModel & {FormIsV
     //----------------------------------------------------------------------
 
     constructor(reactComp: Component<any, any>) {
-        super( Object.assign(new UserModel(), {FormIsValid: false, FormIsSubmitting: false, FormError: null}), reactComp.forceUpdate.bind(reactComp) );
+        super( Object.assign(new UserModel()), reactComp);
         this.component = reactComp;
+        this.ComponentFistma = new FiStMa(this.ComponentStates, this.UrlToComponent(this.component.props.location.pathname) || this.ComponentStates.game);
+
+        this.dataStore = Object.assign(
+            this.dataStore,
+            {
+                ComponentFistma: this.ComponentFistma
+            }
+        )
     }
     
     //----------------------------------------------------------------------

@@ -26,7 +26,6 @@ class App extends React.Component<RouteComponentProps<any>, ApplicationViewModel
     //------
     constructor(props: RouteComponentProps<any>) {
         super(props);
-
         this.controller = new ApplicationCtrl(this);
         console.log("DATA STORE: ",this.controller.dataStore)
         this.state = this.controller.dataStore;

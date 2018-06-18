@@ -150,11 +150,11 @@ class RoundRouter
     }
 
     public async GetNewUser(req: Request, res: Response):Promise<any> {
-        console.log("HEY WE CALLED GET NEW USER", req);
-        if(req.user){
+        console.log("HEY WE CALLED GET NEW USER", req.body);
+        if(req){
             res.json(req.user)
         } else {
-            res.json("NO USER FOUND")
+            res.json("NO USER FOUND, yo")
         }
     }
 
