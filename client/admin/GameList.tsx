@@ -68,7 +68,14 @@ class GameList extends React.Component<RouteComponentProps<any>, AdminViewModel 
                     <Modal.Content>
                         <Modal.Description>
                             <Form inverted>
-                                <Form.Field>
+                            <Form.Field>
+                                    <label>PIN (remove this soon)</label>
+                                    <Input
+                                        value={(this.state.ModalObject as GameModel).GamePIN}
+                                        onChange={(e) => (this.state.ModalObject as GameModel).GamePIN = parseInt((e.target as HTMLInputElement).value)}
+                                        placeholder="GamePIN"
+                                    />
+                                </Form.Field><Form.Field>
                                     <label>Location</label>
                                     <Input
                                         value={(this.state.ModalObject as GameModel).Location}
