@@ -10,6 +10,7 @@ import TeamModel from '../../shared/models/TeamModel';
 const schObj = SchemaBuilder.fetchSchema(GameModel);
 schObj.Facilitator = {type: mongoose.Schema.Types.ObjectId, ref: "user"}
 schObj.Teams = [{type: mongoose.Schema.Types.ObjectId, ref: "team"}];
+schObj.GamePIN = {type: Number, unique: true}
 const monSchema = new mongoose.Schema(schObj);
 
 
