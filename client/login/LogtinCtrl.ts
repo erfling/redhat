@@ -7,8 +7,11 @@ import { Component } from 'react';
 import BaseController from '../../shared/entity-of-the-state/BaseController';
 import BaseModel from '../../shared/base-sapien/models/BaseModel';
 import BaseClientCtrl from '../../shared/base-sapien/client/BaseClientCtrl';
+import ICommonComponentState from '../../shared/base-sapien/client/ICommonComponentState';
+import Admin from '../admin/UserList'
+import AdminLogin from './AdminLogin'
 
-export default class LoginController extends BaseClientCtrl<UserModel & {FormIsValid: boolean, FormIsSubmitting: boolean, FormError:string;}>
+export default class LoginController extends BaseClientCtrl<UserModel & ICommonComponentState>
 {
     //----------------------------------------------------------------------
     //
@@ -16,9 +19,13 @@ export default class LoginController extends BaseClientCtrl<UserModel & {FormIsV
     //
     //----------------------------------------------------------------------
 
-    private readonly rounds = {
-        
+    protected readonly ComponentStates = {
+        Admin: Admin,
+        AdminLogin: AdminLogin
     };
+
+
+    dataStore: UserModel & ICommonComponentState;
 
     component: any;
 
@@ -37,6 +44,10 @@ export default class LoginController extends BaseClientCtrl<UserModel & {FormIsV
     constructor(reactComp: Component<any, any>) {
         super( Object.assign(new UserModel(), {FormIsValid: false, FormIsSubmitting: false, FormError: null}), reactComp );
         this.component = reactComp;
+        this.ComponentFistma = new FiStMa(this.ComponentStates, this.ComponentStates.AdminLogin) as FiStMa<any>;
+        this.ComponentFistma.addTransition(this.ComponentStates.Admin);
+        this.ComponentFistma.addTransition(this.ComponentStates.AdminLogin);
+        this.dataStore = Object.assign(this.dataStore, {ComponentFistma: this.ComponentFistma})
     }
     
     //----------------------------------------------------------------------
