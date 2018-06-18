@@ -18,6 +18,9 @@ export default class GameModel extends BaseModel
 
     public Name: string = "";
 
+    @dbProp(Number)
+    public GamePIN: number;
+
     @dbProp(String)
     public Location: string = "";
 

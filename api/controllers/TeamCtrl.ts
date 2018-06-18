@@ -6,11 +6,8 @@ import SchemaBuilder from '../SchemaBuilder';
 import TeamModel from '../../shared/models/TeamModel';
 
 const schObj = SchemaBuilder.fetchSchema(TeamModel);
-
-schObj.Players = [{type: mongoose.Schema.Types.ObjectId, ref: "user"}]
-
+schObj.Players = [{type: mongoose.Schema.Types.ObjectId, ref: "user"}];
 const monSchema = new mongoose.Schema(schObj);
-
 export const monTeamModel = mongoose.model("team", monSchema);
 
 class TeamRouter
