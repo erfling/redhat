@@ -6,12 +6,8 @@ import BaseGameCtrl from '../../shared/base-sapien/client/BaseGameCtrl';
 import { Component } from 'react';
 import BaseController from '../../shared/entity-of-the-state/BaseController';
 import BaseModel from '../../shared/base-sapien/models/BaseModel';
-import BaseClientCtrl from '../../shared/base-sapien/client/BaseClientCtrl';
-import ICommonComponentState from '../../shared/base-sapien/client/ICommonComponentState';
-import Admin from '../admin/UserList'
-import AdminLogin from './AdminLogin'
 
-export default class LoginController extends BaseClientCtrl<UserModel & ICommonComponentState>
+export default class LoginController extends BaseController<UserModel & {FormIsValid: boolean, FormIsSubmitting: boolean, FormError:string;}>
 {
     //----------------------------------------------------------------------
     //
@@ -19,13 +15,9 @@ export default class LoginController extends BaseClientCtrl<UserModel & ICommonC
     //
     //----------------------------------------------------------------------
 
-    protected readonly ComponentStates = {
-        Admin: Admin,
-        AdminLogin: AdminLogin
+    private readonly rounds = {
+        
     };
-
-
-    dataStore: UserModel & ICommonComponentState;
 
     component: any;
 
@@ -42,12 +34,8 @@ export default class LoginController extends BaseClientCtrl<UserModel & ICommonC
     //----------------------------------------------------------------------
 
     constructor(reactComp: Component<any, any>) {
-        super( Object.assign(new UserModel(), {FormIsValid: false, FormIsSubmitting: false, FormError: null}), reactComp );
+        super( Object.assign(new UserModel(), {FormIsValid: false, FormIsSubmitting: false, FormError: null}), reactComp.forceUpdate.bind(reactComp) );
         this.component = reactComp;
-        this.ComponentFistma = new FiStMa(this.ComponentStates, this.ComponentStates.AdminLogin) as FiStMa<any>;
-        this.ComponentFistma.addTransition(this.ComponentStates.Admin);
-        this.ComponentFistma.addTransition(this.ComponentStates.AdminLogin);
-        this.dataStore = Object.assign(this.dataStore, {ComponentFistma: this.ComponentFistma})
     }
     
     //----------------------------------------------------------------------
@@ -94,8 +82,7 @@ export default class LoginController extends BaseClientCtrl<UserModel & ICommonC
             localStorage.setItem("rhjwt", returned.token);
             localStorage.setItem("RH_USER", JSON.stringify(returned.user))
             this.dataStore.FormIsSubmitting = false;
-            this.navigateOnClick("/admin/userlist")
-            this.component.props.history.push("/admin");
+            window.location.href = 'http://planetsapientestsite.com/admin/userlist';
         })
         .catch((message) => {
             this.dataStore.FormIsSubmitting = false;
