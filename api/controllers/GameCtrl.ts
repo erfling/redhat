@@ -100,12 +100,13 @@ class GameRouter
     public async SaveGame(req: Request, res: Response):Promise<any> {
 
         const game:GameModel = req.body;
-        if(game.Facilitator)game.Facilitator = game.Facilitator._id.toString();
-        try{
+        if (game.Facilitator) game.Facilitator = game.Facilitator._id.toString();
+        try {
             console.log(game);
-            if(!game._id){
+            if (!game._id) {
+                game.GamePIN = MathUtil.randomXDigits(4);
                 const newGame = await monGameModel.create(game).then(r => r);
-                if(newGame){
+                if (newGame) {
                     const savedGame = await monGameModel
                                             .findById(newGame._id)
                                                 .populate("Facilitator")
@@ -117,20 +118,19 @@ class GameRouter
                                                 });
                     res.json(savedGame);                
                 } else {
-                    res.json("Game not saved")
+                    res.json("Game not saved");
                 }
             } else {
                 const newGame = await monGameModel.findByIdAndUpdate(game._id, game,{new: true}).then(r => r);
-                if(newGame){
+                if (newGame) {
                     const savedGame = await monGameModel.findById(newGame._id).populate("Facilitator")
                     res.json(savedGame);
                 } else {
-                    res.json("Game not saved")
+                    res.json("Game not saved");
                 }
             }
             
-        } 
-        catch (error) {
+        } catch (error) {
             console.log(error);
             res.json("Game not saved");
         }    
@@ -139,22 +139,21 @@ class GameRouter
 
     public async saveTeam(req: Request, res: Response){
         const team = req.body as TeamModel;
-        if(!team.GameId)return res.json("NO GAME ID PROVIDED")
+        if (!team.GameId) return res.json("NO GAME ID PROVIDED")
         try {
+            team.Players = team.Players.map(p => p._id);
 
-            team.Players = team.Players.map(p => p._id)
-
-            if(team._id){
+            if (team._id) {
                 var savedTeam = await monTeamModel.findByIdAndUpdate(team._id, team).then(t => t)
             } else {
                 var savedTeam = await monTeamModel.create(team).then(t => t)
             }
 
-            if(!savedTeam) return res.json("team wasn't saved");
+            if (!savedTeam) return res.json("team wasn't saved");
 
             var existingGame = await monGameModel.findById(team.GameId).then(g => g.toObject() as GameModel)
 
-            if(existingGame){
+            if (existingGame) {
                 if(!existingGame.Teams) existingGame.Teams = [];
                 existingGame.Teams = existingGame.Teams.filter(t => t._id != savedTeam._id.toString()).concat(savedTeam._id);
                 var savedGame = await monGameModel
