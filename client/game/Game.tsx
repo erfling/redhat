@@ -32,7 +32,6 @@ class Game extends React.Component<RouteComponentProps<any>, GameModel & ICommon
     }
 
     componentWillMount() {
-        const Rnd = this.state.RoundsFistma.currentState;
         //this.props.history.push("/game/" + Rnd.WrappedComponent.name.toLowerCase());
     }
 
