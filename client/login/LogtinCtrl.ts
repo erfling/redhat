@@ -35,7 +35,7 @@ export default class LoginController extends BaseClientCtrl<UserModel & {FormIsV
     //----------------------------------------------------------------------
 
     constructor(reactComp: Component<any, any>) {
-        super( Object.assign(new UserModel(), {FormIsValid: false, FormIsSubmitting: false, FormError: null}), reactComp.forceUpdate.bind(reactComp) );
+        super( Object.assign(new UserModel(), {FormIsValid: false, FormIsSubmitting: false, FormError: null}), reactComp );
         this.component = reactComp;
     }
     
