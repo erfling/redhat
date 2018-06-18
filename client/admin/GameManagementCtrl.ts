@@ -11,11 +11,12 @@ import AdminLogin from '../login/AdminLogin'
 import GameList from './GameList'
 import GameDetail from './GameDetail'
 import ApplicationCtrl from '../ApplicationCtrl'
-import { RoleName } from '../../shared/models/UserModel';
+import UserModel, { RoleName } from '../../shared/models/UserModel';
 import SapienServerCom from '../../shared/base-sapien/client/SapienServerCom';
 import ICommonComponentState from '../../shared/base-sapien/client/ICommonComponentState';
 import GameModel from '../../shared/models/GameModel';
 import { plainToClass, plainToClassFromExist, classToPlain } from 'class-transformer';
+import TeamModel from '../../shared/models/TeamModel';
 
 export default class GameManagementCtrl extends BaseClientCtrl<any>
 {
@@ -33,7 +34,7 @@ export default class GameManagementCtrl extends BaseClientCtrl<any>
     };
 
 
-    dataStore: AdminViewModel & ICommonComponentState
+    dataStore: AdminViewModel & ICommonComponentState & {AvailablePlayers: {text: string, value: string, key: number}[]};
 
     component: any;
 
@@ -67,7 +68,8 @@ export default class GameManagementCtrl extends BaseClientCtrl<any>
         
         this.dataStore = Object.assign(new AdminViewModel(), {
             ComponentFistma: this.ComponentFistma,
-            IsLoading: true
+            IsLoading: true,
+            AvailablePlayers: []
         })
 
         if(this.component.componentWillMount == undefined){
@@ -90,6 +92,15 @@ export default class GameManagementCtrl extends BaseClientCtrl<any>
 
     private _onRoundEnter(fromState:React.Component<{}, any>): void {
         console.log("Entered round", this.dataStore.RoundsFistma.currentState, "from round", fromState);
+    }
+
+    public addTeamToGame(game: GameModel){
+        const team = new TeamModel();
+        team.GameId = game._id;
+        const player = new UserModel();
+        player.EditMode = true;
+        team.Players = team.Players.concat(player)
+        game.Teams = game.Teams.concat(team);
     }
 
 
@@ -141,6 +152,15 @@ export default class GameManagementCtrl extends BaseClientCtrl<any>
                         })
     }
 
+    public saveTeam(team: TeamModel){
+        this.dataStore.FormIsSubmitting = true;
+        return SapienServerCom.SaveData(team, SapienServerCom.BASE_REST_URL + "games/team")
+                        .then(r => {
+                            team = Object.assign(team, r)                       
+                            this.dataStore.FormIsSubmitting = false;
+                        })
+    }
+
     public navigateToGameDetail(game: GameModel){
         this.navigateOnClick("/admin/gamedetail/" + game._id)
     }
@@ -154,5 +174,38 @@ export default class GameManagementCtrl extends BaseClientCtrl<any>
                                     this.dataStore.SelectedGame = game;
                                     this.dataStore.IsLoading = false;
                                 })
+    }
+
+    public filterUsersByGame(game: GameModel): void{
+        const usedUserIds: string[] = game.Teams.map(t => t.Players).reduce((a,b) => a.concat(b), []).map(p => p._id)
+
+        this.dataStore.AvailablePlayers = this.dataStore.Users.filter(u => u._id && usedUserIds.indexOf(u._id) == -1).map((u, i) => {
+            return {
+                text: u.FirstName + " " + u.LastName + " (" + u.Email + ")",
+                value: u._id,
+                key: i
+            }
+        })
+    }
+
+    public addPlayer(team: TeamModel): void {
+        this.dataStore.ModalTarget = team;
+        this.dataStore.ModalObject = new UserModel();
+        this.openModal();
+    }
+
+    public saveUser(user: UserModel){
+        this.dataStore.FormIsSubmitting = true;
+        return SapienServerCom.SaveData(user, SapienServerCom.BASE_REST_URL + "user")
+                        .then(r => {
+                            var returnedUser: UserModel = Object.assign(new UserModel(), r);
+                            returnedUser.EditMode = false;
+                            console.log(r, Object.assign(new UserModel(), r))
+                            this.dataStore.Users = this.dataStore.Users.concat(returnedUser);
+                            this.dataStore.FormIsSubmitting = false;
+                            this.dataStore.ModalTarget.Players = this.dataStore.ModalTarget.Players.filter(p => p._id != null).concat(returnedUser)
+                            this.closeModal();
+                            return returnedUser;
+                        })
     }
 }

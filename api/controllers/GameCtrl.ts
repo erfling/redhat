@@ -5,10 +5,11 @@ import BaseModel from '../../shared/base-sapien/models/BaseModel';
 import RoundModel from '../../shared/models/RoundModel';
 import GameModel from '../../shared/models/GameModel';
 import { monTeamModel } from './TeamCtrl';
+import TeamModel from '../../shared/models/TeamModel';
 
 const schObj = SchemaBuilder.fetchSchema(GameModel);
-schObj.Teams = {type: [mongoose.Schema.Types.ObjectId], ref: "team"};
 schObj.Facilitator = {type: mongoose.Schema.Types.ObjectId, ref: "user"}
+schObj.Teams = [{type: mongoose.Schema.Types.ObjectId, ref: "team"}];
 const monSchema = new mongoose.Schema(schObj);
 
 
@@ -71,13 +72,23 @@ class GameRouter
 
     public async GetGame(req: Request, res: Response):Promise<GameModel | any> {
         const ID = req.params.game;
-        console.log(ID);
+        console.log(ID,"YES?");
         try {
             //WHY CAN"T WE CALL POPULATE ON TEAMS?
-            let game = await monGameModel.findById(ID).populate("Teams").populate("Facilitator")
+            let game = await monGameModel.findById(ID)
+                                            .populate("Facilitator")
+                                            .populate({
+                                                path: "Teams",
+                                                populate: {
+                                                    path: "Players"
+                                                }
+                                            });
+                                            
+                                                        
             if (!game) {
               res.status(400).json({ error: 'No games' });
             } else {
+              const status = res.status;
               res.json(game);
             }
         } catch(err) {
@@ -89,13 +100,20 @@ class GameRouter
 
         const game:GameModel = req.body;
         if(game.Facilitator)game.Facilitator = game.Facilitator._id.toString();
-
         try{
             console.log(game);
             if(!game._id){
                 const newGame = await monGameModel.create(game).then(r => r);
                 if(newGame){
-                    const savedGame = await monGameModel.findById(newGame._id).populate("Facilitator")
+                    const savedGame = await monGameModel
+                                            .findById(newGame._id)
+                                                .populate("Facilitator")
+                                                .populate({
+                                                    path: "Teams",
+                                                    populate: {
+                                                        path: "Players"
+                                                    }
+                                                });
                     res.json(savedGame);                
                 } else {
                     res.json("Game not saved")
@@ -118,11 +136,52 @@ class GameRouter
         
     }
 
+    public async saveTeam(req: Request, res: Response){
+        const team = req.body as TeamModel;
+        if(!team.GameId)return res.json("NO GAME ID PROVIDED")
+        try {
+
+            team.Players = team.Players.map(p => p._id)
+
+            if(team._id){
+                var savedTeam = await monTeamModel.findByIdAndUpdate(team._id, team).then(t => t)
+            } else {
+                var savedTeam = await monTeamModel.create(team).then(t => t)
+            }
+
+            if(!savedTeam) return res.json("team wasn't saved");
+
+            var existingGame = await monGameModel.findById(team.GameId).then(g => g.toObject() as GameModel)
+
+            if(existingGame){
+                if(!existingGame.Teams) existingGame.Teams = [];
+                existingGame.Teams = existingGame.Teams.filter(t => t._id != savedTeam._id.toString()).concat(savedTeam._id);
+                var savedGame = await monGameModel
+                                        .findByIdAndUpdate(existingGame._id.toString(), existingGame)
+                                            .populate("Facilicator")
+                                            .populate({
+                                                path: "Teams",
+                                                populate: {
+                                                    path: "Players"
+                                                }
+                                            });
+                res.json(savedGame);
+            } else {
+                res.send("save failed")
+            }
+
+        } catch {
+            res.send("no save")
+        }
+
+    }
+
 
     public routes(){
         this.router.get("/", this.GetGames.bind(this));
         this.router.get("/:game", this.GetGame.bind(this));
         this.router.post("/", this.SaveGame.bind(this));
+        this.router.post("/team", this.saveTeam.bind(this))
     }
 }
 

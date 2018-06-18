@@ -22,6 +22,8 @@ class GameList extends React.Component<RouteComponentProps<any>, AdminViewModel 
     controller: GameManagementCtrl;
 
 
+    //alias for navigation
+    static CLASS_NAME = "GameList";
 
     //----------------------------------------------------------------------
     //
@@ -49,6 +51,13 @@ class GameList extends React.Component<RouteComponentProps<any>, AdminViewModel 
     //  Methods
     //
     //----------------------------------------------------------------------
+
+    componentWillMount () {
+        //this.component.constructor.super(this.component.props).componentWillMount()
+        this.controller.navigateOnClick(this.props.location.pathname);
+        this.controller.getAllGames();
+        this.controller.getAllUsers();
+    }
 
     render() {
         const DashBoardComponent = this.state.ComponentFistma.currentState;

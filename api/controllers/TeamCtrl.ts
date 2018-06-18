@@ -7,7 +7,7 @@ import TeamModel from '../../shared/models/TeamModel';
 
 const schObj = SchemaBuilder.fetchSchema(TeamModel);
 
-schObj.Players = {type: [mongoose.Schema.Types.ObjectId], ref: "user"}
+schObj.Players = [{type: mongoose.Schema.Types.ObjectId, ref: "user"}]
 
 const monSchema = new mongoose.Schema(schObj);
 
@@ -55,7 +55,7 @@ class TeamRouter
         console.log("CALLING GET ROUNDS");
         
         try {
-            let rounds = await monTeamModel.find();
+            let rounds = await monTeamModel.find().populate("Players");
             if (!rounds) {
                 return res.status(400).json({ error: 'No games' });
             } else {
