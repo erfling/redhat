@@ -98,13 +98,12 @@ class GameRouter {
     }
 
     public async SaveGame(req: Request, res: Response): Promise<any> {
-
         const game: GameModel = req.body;
-        if (game.Facilitator) game.Facilitator = game.Facilitator._id.toString();
+        if (game.Facilitator && game.Facilitator._id) game.Facilitator = game.Facilitator._id.toString();
         try {
             console.log(game);
             if (!game._id) {
-                game.GamePIN = MathUtil.randomXDigits(4);
+                if (!game.GamePIN) game.GamePIN = MathUtil.randomXDigits(4);
                 const newGame = await monGameModel.create(game).then(r => r);
                 if (newGame) {
                     const savedGame = await monGameModel
@@ -118,7 +117,7 @@ class GameRouter {
                         });
                     res.json(savedGame);
                 } else {
-                    res.json("Game not saved");
+                    //res.json("Game not saved"); // TODO: Consider throwing an error, but make sure error.code == 11000 can still be caught.
                 }
             } else {
                 const newGame = await monGameModel.findByIdAndUpdate(game._id, game, { new: true }).then(r => r);
@@ -126,12 +125,17 @@ class GameRouter {
                     const savedGame = await monGameModel.findById(newGame._id).populate("Facilitator")
                     res.json(savedGame);
                 } else {
-                    res.json("Game not saved");
+                    //res.json("Game not saved"); // TODO: Consider throwing an error, but make sure error.code == 11000 can still be caught.
                 }
             }
         } catch (error) {
             console.log(error);
-            res.json("Game not saved");
+            if (error.code == 11000) {
+                game.GamePIN = MathUtil.randomXDigits(4);
+                await this.SaveGame(req, res);
+            } else {
+                res.json("Game not saved");
+            }
         }
 
 
