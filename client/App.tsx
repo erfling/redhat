@@ -139,12 +139,19 @@ class App extends React.Component<RouteComponentProps<any>, ApplicationViewModel
                             {this.state && this.state.TestObjWithArray && JSON.stringify(this.state.TestObjWithArray, null, 2)}
                         </pre>
                         <Button
-                            onClick={e => this.controller.dataStore.TestObjWithArray.test = 
-                                this.controller.dataStore.TestObjWithArray.test.concat(
-                                    {
-                                        ['property' + this.state.TestObjWithArray.test.length.toString()]: btoa(Math.random().toString()).substr(5, 5)
-                                    }
-                                )
+                            onClick={(e) => {
+                                this.controller.dataStore.TestObjWithArray.test = this.controller.dataStore.TestObjWithArray.test.concat(
+                                        {
+                                            ['property' + this.state.TestObjWithArray.test.length.toString()]: btoa(Math.random().toString()).substr(5, 5)
+                                        }
+                                    );
+                                    /*this.controller.dataStore.TestObjWithArray.test.push(
+                                        {
+                                            ['property' + this.state.TestObjWithArray.test.length.toString()]: btoa(Math.random().toString()).substr(5, 5)
+                                        }
+                                    );*/
+                                    console.log(this.controller.dataStore["__isProxy"], this.controller.dataStore.TestObjWithArray["__isProxy"], this.controller.dataStore.TestObjWithArray.test["__isProxy"]);
+                                }
                             }
                         >
                             Add to Objects
