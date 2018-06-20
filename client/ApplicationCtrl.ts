@@ -75,7 +75,11 @@ export default class ApplicationCtrl extends BaseClientCtrl<ApplicationViewModel
     //
     //----------------------------------------------------------------------
   
-
+    public signOut(): void{
+        localStorage.removeItem("RH_USER");
+        localStorage.removeItem("rhjwt");
+        this.navigateOnClick("/login/admin")
+    }
 
 
     //----------------------------------------------------------------------

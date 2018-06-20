@@ -23,7 +23,7 @@ class GameList extends React.Component<RouteComponentProps<any>, AdminViewModel 
 
 
     //alias for navigation
-    static CLASS_NAME = "GameList";
+    public static CLASS_NAME = "GameList";
 
     //----------------------------------------------------------------------
     //

@@ -16,6 +16,9 @@ class GameLogin extends React.Component<RouteComponentProps<any>, UserModel>
 
     controller: LoginCtrl;
 
+    public static CLASS_NAME = "GameLogin";
+
+
     //----------------------------------------------------------------------
     //
     //  Constructor

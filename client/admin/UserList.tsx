@@ -22,6 +22,7 @@ class UserList extends React.Component<RouteComponentProps<any>, AdminViewModel 
     //----------------------------------------------------------------------
     controller: UserManagementCtrl;
 
+    public static CLASS_NAME = "UserList"
 
 
     //----------------------------------------------------------------------

@@ -18,6 +18,7 @@ class Admin extends React.Component<RouteComponentProps<any>, AdminViewModel & I
     //----------------------------------------------------------------------
     controller: AdminCtrl;
 
+    public static CLASS_NAME = "Admin"
 
 
     //----------------------------------------------------------------------

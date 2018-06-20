@@ -18,6 +18,9 @@ class PeopleRound extends React.Component<RouteComponentProps<any>, RoundModel>
 
     controller: PeopleRoundCtrl;
 
+    public static CLASS_NAME = "PeopleRound";
+
+
     //----------------------------------------------------------------------
     //
     //  Constructor

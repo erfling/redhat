@@ -9,6 +9,9 @@ a{
 .ui.inverted.menu .blue.active.item, .ui.inverted.blue.menu {
     background-color: #0088B9;
 }
+.admin-side-nav{
+    margin-top: 50px !important;
+}
 .admin-header-segment{
     .ui.header{
         padding-top: 8px;
@@ -20,6 +23,22 @@ a{
     color: #0088B9;
     padding: 10px;
 }
+.admin-header + .source-stream{
+    padding-top:50px;
+}
+.admin-body {
+    padding-top:50px;
+
+    .top.fixed{
+        margin-top:40px !important;
+    }
+    .admin-header + .source-stream{
+        padding-top:40px;
+    }
+}
+
+
+
 .content-block{
 
     margin-bottom: 20px;
@@ -64,3 +83,4 @@ SEMANTIC MOBILE FIX
         margin-bottom: 0 !important;
     }
 }
+

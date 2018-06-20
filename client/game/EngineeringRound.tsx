@@ -17,6 +17,9 @@ class EngineeringRound extends React.Component<RouteComponentProps<any>, RoundMo
     //----------------------------------------------------------------------
     controller: EngineeringRoundCtrl;
 
+    public static CLASS_NAME = "EngineeringRound";
+
+
     //----------------------------------------------------------------------
     //
     //  Constructor

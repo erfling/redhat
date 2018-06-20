@@ -18,6 +18,8 @@ class Game extends React.Component<RouteComponentProps<any>, GameModel & ICommon
 
     controller: GameCtrl;
 
+    public static CLASS_NAME = "Game";
+
     //----------------------------------------------------------------------
     //
     //  Constructor
@@ -60,6 +62,7 @@ class Game extends React.Component<RouteComponentProps<any>, GameModel & ICommon
                 fixed="top"
                 color="blue"
                 borderless
+                className="game-header"
                 style={{
                     flexShrink: 0, //don't allow flexbox to shrink it
                     borderRadius: 0, //clear semantic-ui style

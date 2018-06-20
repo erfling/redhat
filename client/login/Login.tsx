@@ -14,6 +14,8 @@ class Login extends React.Component<RouteComponentProps<any>, any>
 
     controller: any
 
+    public static CLASS_NAME = "Login";
+
 
     //----------------------------------------------------------------------
     //

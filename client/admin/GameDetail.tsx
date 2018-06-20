@@ -25,7 +25,7 @@ class GameDetail extends React.Component<RouteComponentProps<any>, AdminViewMode
     controller: GameManagementCtrl;
 
     //alias for navigation
-    static CLASS_NAME = "GameDetail"
+    public static CLASS_NAME = "GameDetail"
 
     //----------------------------------------------------------------------
     //
@@ -148,7 +148,6 @@ class GameDetail extends React.Component<RouteComponentProps<any>, AdminViewMode
                                                                     allowAdditions
                                                                     value={this.state.SelectedGame.Teams[i].Players[j]._id}
                                                                     onChange={(e, output) => {
-                                                                        console.log("SELECTION", output)
 
                                                                         var playerToAdd: UserModel = this.state.Users.filter(p => {
                                                                             console.log(p._id, p._id == output.value)
@@ -278,10 +277,10 @@ class GameDetail extends React.Component<RouteComponentProps<any>, AdminViewMode
                 SaveFunction={this.controller.saveUser.bind(this.controller)}
                 Submitting={this.state.FormIsSubmitting}
             />}
-            {this.state.SelectedGame && <pre>{JSON.stringify(this.state.SelectedGame, null, 2)}</pre>}
         </>;
     }
 
 }
 
 export default withRouter(GameDetail);
+{this.state.SelectedGame && <pre>{JSON.stringify(this.state.SelectedGame, null, 2)}</pre>}

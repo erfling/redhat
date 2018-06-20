@@ -15,7 +15,10 @@ class SalesRound extends React.Component<RouteComponentProps<any>, RoundModel>
     //  Properties
     //
     //----------------------------------------------------------------------
+    
     controller: SalesRoundCtrl;
+
+    public static CLASS_NAME = "SalesRound";
 
     //----------------------------------------------------------------------
     //

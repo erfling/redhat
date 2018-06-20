@@ -17,6 +17,8 @@ class CustomerRound extends React.Component<RouteComponentProps<any>, RoundModel
     //----------------------------------------------------------------------
     controller: CustomerRoundCtrl;
 
+    public static CLASS_NAME = "CustomerRound";
+    
     //----------------------------------------------------------------------
     //
     //  Constructor

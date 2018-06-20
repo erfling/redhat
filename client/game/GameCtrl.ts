@@ -39,10 +39,10 @@ export default class GameCtrl extends BaseClientCtrl<GameModel>
     constructor(reactComp: Component<any, any>) {
         super( new GameModel(), reactComp );
 
-        console.log("GAME NAV INFO:", this.component.props)
-
+        alert("hello?")
         this.ComponentFistma = new FiStMa(this.ComponentStates, this.ComponentStates.round1);
-        //this.component.props.history.push("/game/" + this.dataStore.RoundsFistma.currentState.WrappedComponent.name.toLowerCase());
+        console.log("GAME NAV INFO:",  this.ComponentFistma.currentState.WrappedComponent)
+
         this.ComponentFistma.addTransition(this.ComponentStates.round1);
         this.ComponentFistma.addTransition(this.ComponentStates.round2);
         this.ComponentFistma.addTransition(this.ComponentStates.round3);
@@ -58,6 +58,8 @@ export default class GameCtrl extends BaseClientCtrl<GameModel>
         this.dataStore = Object.assign(new GameModel(), {
             ComponentFistma: this.ComponentFistma
         })
+        this.component.props.history.push("/game/" + this.ComponentFistma.currentState.WrappedComponent.CLASS_NAME.toLowerCase());
+
 
         
     }
@@ -79,6 +81,7 @@ export default class GameCtrl extends BaseClientCtrl<GameModel>
 
     public Navigate(round: RoundModel){
         this.ComponentFistma.goTo(round);
+        this.component.props.history.push("/game/" + this.ComponentFistma.currentState.WrappedComponent.CLASS_NAME.toLowerCase());
     }
     
     /**
@@ -87,6 +90,7 @@ export default class GameCtrl extends BaseClientCtrl<GameModel>
      */
     public advanceRound(){
         this.ComponentFistma.next();
+        this.component.props.history.push("/game/" + this.ComponentFistma.currentState.WrappedComponent.CLASS_NAME.toLowerCase());
     }
     
     /**
@@ -95,6 +99,8 @@ export default class GameCtrl extends BaseClientCtrl<GameModel>
      */
     public goBackRound(){
         this.ComponentFistma.previous();
+        this.component.props.history.push("/game/" + this.ComponentFistma.currentState.WrappedComponent.CLASS_NAME.toLowerCase());
+
     }
 
     public NavigateFromState(){
