@@ -283,4 +283,4 @@ class GameDetail extends React.Component<RouteComponentProps<any>, AdminViewMode
 }
 
 export default withRouter(GameDetail);
-{this.state.SelectedGame && <pre>{JSON.stringify(this.state.SelectedGame, null, 2)}</pre>}
+//{this.state.SelectedGame && <pre>{JSON.stringify(this.state.SelectedGame, null, 2)}</pre>}

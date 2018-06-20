@@ -31,6 +31,10 @@ export default class ApplicationViewModel extends BaseModel{
         return null
     }
 
+    TestStringArray: string[] = [];
+    TestObjArray: any[] = [];
+    TestObjWithArray: {test: any[]} = {test: []};
+
     //----------------------------------------------------------------------
     //
     //  Constructor

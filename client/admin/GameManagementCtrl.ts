@@ -96,10 +96,12 @@ export default class GameManagementCtrl extends BaseClientCtrl<any>
 
     public addTeamToGame(game: GameModel){
         const team = new TeamModel();
+        /*
         team.GameId = game._id;
         const player = new UserModel();
         player.EditMode = true;
         team.Players = team.Players.concat(player)
+        */
         game.Teams = game.Teams.concat(team);
     }
 

@@ -3,7 +3,7 @@ import { BrowserRouter, Switch, Route, Link } from "react-router-dom";
 import { Sidebar, Menu, Segment, Button, Icon } from 'semantic-ui-react';
 import ApplicationCtrl from './ApplicationCtrl';
 import { RouteComponentProps, withRouter } from "react-router";
-import { RoleName } from '../shared/models/UserModel'
+import UserModel, { RoleName } from '../shared/models/UserModel'
 import DecisionIcon from '-!svg-react-loader?name=Icon!./img/decisions.svg';
 import ICommonComponentState from '../shared/base-sapien/client/ICommonComponentState'
 import ApplicationViewModel from '../shared/models/ApplicationViewModel'
@@ -111,6 +111,44 @@ class App extends React.Component<RouteComponentProps<any>, ApplicationViewModel
                     <Sidebar.Pusher
                         className={"source-stream" + (this.state && this.controller.CurrentUser && this.controller.CurrentUser.Role == RoleName.ADMIN ? " admin-body" : "")}
                     >
+                        <pre>
+                            {this.state && this.state.TestStringArray && JSON.stringify(this.state.TestStringArray, null, 2)}
+                        </pre>
+                        <Button
+                            onClick={e => this.controller.dataStore.TestStringArray = 
+                                this.controller.dataStore.TestStringArray.concat(btoa(Math.random().toString()).substr(5, 5))
+                            }
+                        >
+                            Add to strings
+                        </Button>
+                        <pre>
+                            {this.state && this.state.TestObjArray && JSON.stringify(this.state.TestObjArray, null, 2)}
+                        </pre>
+                        <Button
+                            onClick={e => this.controller.dataStore.TestObjArray = 
+                                this.controller.dataStore.TestObjArray.concat(
+                                    {
+                                        ['property' + this.state.TestObjArray.length.toString()]: btoa(Math.random().toString()).substr(5, 5)
+                                    }
+                                )
+                            }
+                        >
+                            Add to Objects
+                        </Button>
+                        <pre>
+                            {this.state && this.state.TestObjWithArray && JSON.stringify(this.state.TestObjWithArray, null, 2)}
+                        </pre>
+                        <Button
+                            onClick={e => this.controller.dataStore.TestObjWithArray.test = 
+                                this.controller.dataStore.TestObjWithArray.test.concat(
+                                    {
+                                        ['property' + this.state.TestObjWithArray.test.length.toString()]: btoa(Math.random().toString()).substr(5, 5)
+                                    }
+                                )
+                            }
+                        >
+                            Add to Objects
+                        </Button>
                         <ComponentFromState />
                     </Sidebar.Pusher>
                 </Sidebar.Pushable>
