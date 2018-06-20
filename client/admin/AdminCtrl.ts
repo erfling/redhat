@@ -84,27 +84,7 @@ export default class AdminCtrl extends BaseClientCtrl<any>
     //
     //----------------------------------------------------------------------
 
-    private _onRoundEnter(fromState:React.Component<{}, any>): void {
-        console.log("Entered round", this.dataStore.RoundsFistma.currentState, "from round", fromState);
-    }
-
-    
-    
-    /**
-     * Go to next game round
-     * 
-     */
-    public advanceRound(){
-        this.dataStore.RoundsFistma.next();
-    }
-    
-    /**
-     * Go to previous game round
-     * 
-     */
-    public goBackRound(){ 
-        this.dataStore.RoundsFistma.previous();
-    }
+   
 
     //----------------------------------------------------------------------
     //
