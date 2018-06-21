@@ -27,9 +27,6 @@ export default class GameCtrl extends BaseClientCtrl<GameModel>
         round5: CustomerRound
     };
 
-    protected ComponentFistma: FiStMa<any>
-
-
     //----------------------------------------------------------------------
     //
     //  Constructor

@@ -5,6 +5,7 @@ import ContentBlock from './ContentBlock'
 import QuestionModel from "./QuestionModel";
 import { Expose, Type } from "class-transformer";
 import "reflect-metadata";
+import FiStMa from '../entity-of-the-state/FiStMa';
 
 export interface RoundShape extends BaseShape
 {
@@ -50,6 +51,8 @@ export default class RoundModel extends BaseModel
     set _LeaderContent(content: ContentBlock[]) {
         this.LeaderContent = content;
     }
+
+    public SubRoundsFistma:FiStMa<{[key:string]: any}>;
 
     @Type(() => QuestionModel)
     public Questions: QuestionModel[] = [];
