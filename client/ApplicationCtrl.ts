@@ -28,10 +28,11 @@ export default class ApplicationCtrl extends BaseClientCtrl<ApplicationViewModel
 
     component: any;
 
-    static dataStore: ApplicationViewModel & ICommonComponentState & {ShowMenu: boolean};
+    dataStore: ApplicationViewModel & ICommonComponentState & {ShowMenu: boolean};
 
     private static _instance: ApplicationCtrl;
 
+    
     //----------------------------------------------------------------------
     //
     //  Constructor
@@ -59,9 +60,7 @@ export default class ApplicationCtrl extends BaseClientCtrl<ApplicationViewModel
         this.dataStore = Object.assign(new ApplicationViewModel(), {
             ComponentFistma: this.ComponentFistma,
             CurrentUser: localStorage.getItem("RH_USER") || null,
-            ShowMenu: false,
-            Users: [],
-            Games: []
+            ShowMenu: false
         })
 
         console.log(this.component.props)
