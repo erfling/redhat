@@ -13,9 +13,9 @@ export default class ApplicationViewModel extends BaseModel{
     //
     //----------------------------------------------------------------------
 
-    Games: GameModel[];
+    Games: GameModel[] = [];
 
-    Users: UserModel[];
+    Users: UserModel[] = [];
 
     public static get CurrentUser(): UserModel{
         if(localStorage.getItem("RH_USER")){
@@ -30,10 +30,6 @@ export default class ApplicationViewModel extends BaseModel{
         }
         return null
     }
-
-    TestStringArray: string[] = [];
-    TestObjArray: any[] = [];
-    TestObjWithArray: {test: any[]} = {test: []};
 
     //----------------------------------------------------------------------
     //

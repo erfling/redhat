@@ -26,7 +26,7 @@ class App extends React.Component<RouteComponentProps<any>, ApplicationViewModel
     //------
     constructor(props: RouteComponentProps<any>) {
         super(props);
-        this.controller = new ApplicationCtrl(this);
+        this.controller = ApplicationCtrl.GetInstance(this);
         console.log("DATA STORE: ", this.controller.dataStore)
         this.state = this.controller.dataStore;
     }
@@ -102,8 +102,6 @@ class App extends React.Component<RouteComponentProps<any>, ApplicationViewModel
                                 </Menu.Item>
 
                             </Sidebar>
-
-
                         </>
 
                     }
@@ -111,51 +109,6 @@ class App extends React.Component<RouteComponentProps<any>, ApplicationViewModel
                     <Sidebar.Pusher
                         className={"source-stream" + (this.state && this.controller.CurrentUser && this.controller.CurrentUser.Role == RoleName.ADMIN ? " admin-body" : "")}
                     >
-                        <pre>
-                            {this.state && this.state.TestStringArray && JSON.stringify(this.state.TestStringArray, null, 2)}
-                        </pre>
-                        <Button
-                            onClick={e => this.controller.dataStore.TestStringArray = 
-                                this.controller.dataStore.TestStringArray.concat(btoa(Math.random().toString()).substr(5, 5))
-                            }
-                        >
-                            Add to strings
-                        </Button>
-                        <pre>
-                            {this.state && this.state.TestObjArray && JSON.stringify(this.state.TestObjArray, null, 2)}
-                        </pre>
-                        <Button
-                            onClick={e => this.controller.dataStore.TestObjArray = 
-                                this.controller.dataStore.TestObjArray.concat(
-                                    {
-                                        ['property' + this.state.TestObjArray.length.toString()]: btoa(Math.random().toString()).substr(5, 5)
-                                    }
-                                )
-                            }
-                        >
-                            Add to Objects
-                        </Button>
-                        <pre>
-                            {this.state && this.state.TestObjWithArray && JSON.stringify(this.state.TestObjWithArray, null, 2)}
-                        </pre>
-                        <Button
-                            onClick={(e) => {
-                                this.controller.dataStore.TestObjWithArray.test = this.controller.dataStore.TestObjWithArray.test.concat(
-                                        {
-                                            ['property' + this.state.TestObjWithArray.test.length.toString()]: btoa(Math.random().toString()).substr(5, 5)
-                                        }
-                                    );
-                                    /*this.controller.dataStore.TestObjWithArray.test.push(
-                                        {
-                                            ['property' + this.state.TestObjWithArray.test.length.toString()]: btoa(Math.random().toString()).substr(5, 5)
-                                        }
-                                    );*/
-                                    console.log(this.controller.dataStore["__isProxy"], this.controller.dataStore.TestObjWithArray["__isProxy"], this.controller.dataStore.TestObjWithArray.test["__isProxy"]);
-                                }
-                            }
-                        >
-                            Add to Objects
-                        </Button>
                         <ComponentFromState />
                     </Sidebar.Pusher>
                 </Sidebar.Pushable>
@@ -170,6 +123,3 @@ class App extends React.Component<RouteComponentProps<any>, ApplicationViewModel
 }
 
 export default withRouter(App)
-/**{this.state && this.controller.CurrentUser && this.controller.CurrentUser.Role == RoleName.ADMIN &&
-                    
-                } */

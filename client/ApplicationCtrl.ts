@@ -28,7 +28,9 @@ export default class ApplicationCtrl extends BaseClientCtrl<ApplicationViewModel
 
     component: any;
 
-    dataStore: ApplicationViewModel & ICommonComponentState & {ShowMenu: boolean};
+    static dataStore: ApplicationViewModel & ICommonComponentState & {ShowMenu: boolean};
+
+    private static _instance: ApplicationCtrl;
 
     //----------------------------------------------------------------------
     //
@@ -36,7 +38,8 @@ export default class ApplicationCtrl extends BaseClientCtrl<ApplicationViewModel
     //
     //----------------------------------------------------------------------
 
-    constructor(reactComp: Component<any, any>) {
+    
+    private constructor(reactComp: Component<any, any>) {
         super( null, reactComp );
         this.component = reactComp;
         this.CurrentLocation = this.component.props.location.pathname;        
@@ -55,20 +58,23 @@ export default class ApplicationCtrl extends BaseClientCtrl<ApplicationViewModel
         
         this.dataStore = Object.assign(new ApplicationViewModel(), {
             ComponentFistma: this.ComponentFistma,
-            ShowMenu: false
+            CurrentUser: localStorage.getItem("RH_USER") || null,
+            ShowMenu: false,
+            Users: [],
+            Games: []
         })
 
-        var test = new UserModel();
-        test.FirstName = "Billy bob"
-        this.dataStore.Users = [
-            test
-        ]
-        //this.ComponentFistma.goTo(this.ComponentFistma.currentState)
         console.log(this.component.props)
-
-
     }
     
+    public static GetInstance(reactComp: Component<any, any>): ApplicationCtrl {
+        if (!ApplicationCtrl._instance) {
+            ApplicationCtrl._instance = new ApplicationCtrl(reactComp);
+        }
+        return ApplicationCtrl._instance;
+    }
+    
+
     //----------------------------------------------------------------------
     //
     //  Event Handlers
