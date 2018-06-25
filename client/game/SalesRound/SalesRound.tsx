@@ -1,7 +1,7 @@
 import * as React from "react";
 import SalesRoundCtrl from "./SalesRoundCtrl";
-import RoundModel from "../../shared/models/RoundModel";
-import EditableContentBlock from '../../shared/base-sapien/client/shared-components/EditableContentBlock';
+import RoundModel from "../../../shared/models/RoundModel";
+import EditableContentBlock from '../../../shared/base-sapien/client/shared-components/EditableContentBlock';
 import * as Semantic from 'semantic-ui-react';
 import { RouteComponentProps, withRouter } from "react-router";
 const { Button, Grid, Menu, Icon } = Semantic;

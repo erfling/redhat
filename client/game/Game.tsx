@@ -1,7 +1,7 @@
 import * as React from "react";
 import GameCtrl from "./GameCtrl";
 import GameModel from "../../shared/models/GameModel";
-import Round1 from './PeopleRound';
+import Round1 from './PeopleRound/PeopleRound';
 import { Grid, Menu, Container, Button, Segment } from 'semantic-ui-react';
 const { Column, Row } = Grid;
 import { Route, Switch, RouteComponentProps, withRouter } from "react-router";

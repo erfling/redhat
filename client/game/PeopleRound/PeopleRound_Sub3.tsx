@@ -1,14 +1,14 @@
 import * as React from "react";
 import PeopleRoundCtrl from "./PeopleRoundCtrl";
-import RoundModel from "../../shared/models/RoundModel";
-import EditableContentBlock from '../../shared/base-sapien/client/shared-components/EditableContentBlock';
+import RoundModel from "../../../shared/models/RoundModel";
+import EditableContentBlock from '../../../shared/base-sapien/client/shared-components/EditableContentBlock';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 import * as Semantic from 'semantic-ui-react';
 const { Button, Grid, Menu } = Semantic;
 const { Row, Column } = Grid;
 
 
-class Hiring extends React.Component<RouteComponentProps<any>, RoundModel>
+class PeopleRound_Sub3 extends React.Component<RouteComponentProps<any>, RoundModel>
 {
     //----------------------------------------------------------------------
     //
@@ -18,7 +18,7 @@ class Hiring extends React.Component<RouteComponentProps<any>, RoundModel>
 
     controller: PeopleRoundCtrl;
 
-    public static CLASS_NAME = "Hiring";
+    public static CLASS_NAME = "PeopleRound_Sub3";
 
 
     //----------------------------------------------------------------------
@@ -51,10 +51,10 @@ class Hiring extends React.Component<RouteComponentProps<any>, RoundModel>
 
     render() {
         return <>
-            <h1>Round One-A: round1a</h1>
+            <h1>Round One-C: round1c</h1>
         </>;
     }
 
 }
 
-export default withRouter(Hiring);
+export default withRouter(PeopleRound_Sub3);

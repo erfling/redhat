@@ -1,10 +1,10 @@
 import FiStMa from '../../shared/entity-of-the-state/FiStMa';
 import GameModel from '../../shared/models/GameModel';
-import PeopleRound from './PeopleRound';
-import EngineeringRound from './EngineeringRound';
-import SalesRound from './SalesRound';
-import FinanceRound from './FinanceRound';
-import CustomerRound from './CustomerRound';
+import PeopleRound from './PeopleRound/PeopleRound';
+import EngineeringRound from './EngineeringRound/EngineeringRound';
+import SalesRound from './SalesRound/SalesRound';
+import FinanceRound from './FinanceRound/FinanceRound';
+import CustomerRound from './CustomerRound/CustomerRound';
 import BaseGameCtrl from '../../shared/base-sapien/client/BaseGameCtrl';
 import { Component } from 'react';
 import RoundModel from '../../shared/models/RoundModel';

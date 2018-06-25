@@ -1,24 +1,26 @@
 import * as React from "react";
-import CustomerRoundCtrl from "./CustomerRoundCtrl";
-import RoundModel from "../../shared/models/RoundModel";
-import EditableContentBlock from '../../shared/base-sapien/client/shared-components/EditableContentBlock';
+import FinanceRoundCtrl from "./FinanceRoundCtrl";
+import RoundModel from "../../../shared/models/RoundModel";
+import EditableContentBlock from '../../../shared/base-sapien/client/shared-components/EditableContentBlock';
 import * as Semantic from 'semantic-ui-react';
-const { Button, Grid, Menu } = Semantic;
+import { RouteComponentProps, withRouter } from "react-router";
+const { Button, Grid, Menu, Icon } = Semantic;
 const { Row, Column } = Grid;
-import { withRouter, RouteComponentProps } from 'react-router-dom';
 
 
-class CustomerRound extends React.Component<RouteComponentProps<any>, RoundModel>
+class FinanceRound extends React.Component<RouteComponentProps<any>, RoundModel>
 {
     //----------------------------------------------------------------------
     //
     //  Properties
     //
     //----------------------------------------------------------------------
-    controller: CustomerRoundCtrl;
-
-    public static CLASS_NAME = "CustomerRound";
     
+    controller: FinanceRoundCtrl;
+
+    public static CLASS_NAME = "FinanceRound";
+
+
     //----------------------------------------------------------------------
     //
     //  Constructor
@@ -27,10 +29,10 @@ class CustomerRound extends React.Component<RouteComponentProps<any>, RoundModel
 
     constructor(props: RouteComponentProps<any>) {
         super(props);
-        console.log("CONSTRUCTOR OF CUSTOMER ROUND SAYS THIS ABOUT ROUTING:", this.props.location, this.props.match)
-        this.controller = new CustomerRoundCtrl(this);
+
+        this.controller = new FinanceRoundCtrl(this);
         this.state = this.controller.dataStore;
-        this.controller.getContentByRound("CUSTOMER");
+        this.controller.getContentByRound("FINANCE");
     }
 
     componentWillMount() {
@@ -56,7 +58,7 @@ class CustomerRound extends React.Component<RouteComponentProps<any>, RoundModel
 
             <Row>
                 <Column computer={12} mobile={16} tablet={16}>
-                    <h1>ROUND FIVE: BUILD THE RELATIONSHIPS</h1>
+                    <h1>ROUND 4: GROW THE COMPANY.</h1>
                 </Column>
             </Row>
             <Grid
@@ -85,4 +87,4 @@ class CustomerRound extends React.Component<RouteComponentProps<any>, RoundModel
 
 }
 
-export default withRouter(CustomerRound);
+export default withRouter(FinanceRound);
