@@ -4,7 +4,7 @@ import RoundModel from "../../../shared/models/RoundModel";
 import EditableContentBlock from '../../../shared/base-sapien/client/shared-components/EditableContentBlock';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 import * as Semantic from 'semantic-ui-react';
-const { Button, Grid, Menu } = Semantic;
+const { Button, Grid, Menu, Segment } = Semantic;
 const { Row, Column } = Grid;
 
 
@@ -20,7 +20,6 @@ class Hiring extends React.Component<RouteComponentProps<any>, RoundModel>
 
     public static CLASS_NAME = "Hiring";
 
-
     //----------------------------------------------------------------------
     //
     //  Constructor
@@ -30,7 +29,7 @@ class Hiring extends React.Component<RouteComponentProps<any>, RoundModel>
     constructor(props: RouteComponentProps<any>) {
         super(props);
 
-        this.controller = new PeopleRoundCtrl(this);
+        this.controller = PeopleRoundCtrl.GetInstance();
         this.state = this.controller.dataStore;
         this.controller.getContentByRound("PEOPLE");
     }
@@ -50,9 +49,27 @@ class Hiring extends React.Component<RouteComponentProps<any>, RoundModel>
     //----------------------------------------------------------------------
 
     render() {
-        return <>
-            <h1>Round One-A: round1a</h1>
-        </>;
+        if (this.state) {
+            return <>
+                <h1>Round One-A: round1a</h1>
+                {this.state.IndividualContributorContent && this.state.IndividualContributorContent.map((c, i) =>
+                    <EditableContentBlock
+                        onSaveHandler={this.controller.updateICContent.bind(this.controller)}
+                        onRemoveHandler={this.controller.removeRoundContent.bind(this.controller)}
+                        Content={c}
+                        key={i}
+                        idx={i}
+                    />
+                )}
+                <Row>
+                    <Button
+                        onClick={() => this.controller.addRoundContent()}
+                    >Add Content</Button>
+                </Row>
+            </>;
+        } else {
+            return <Segment loading></Segment>
+        }
     }
 
 }
