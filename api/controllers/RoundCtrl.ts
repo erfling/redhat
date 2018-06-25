@@ -3,10 +3,15 @@ import * as mongoose from 'mongoose';
 import RoundModel from '../../shared/models/RoundModel';
 import BaseModel from '../../shared/base-sapien/models/BaseModel';
 import SchemaBuilder from '../SchemaBuilder';
+import SubRoundModel from '../../shared/models/SubRoundModel';
 
 const schObj = SchemaBuilder.fetchSchema(RoundModel);
 const monSchema = new mongoose.Schema(schObj);
 export const monRoundModel = mongoose.model("round", monSchema);
+
+const subSchObj = SchemaBuilder.fetchSchema(SubRoundModel);
+const monSubSchema = new mongoose.Schema(subSchObj);
+export const monSubRoundModel = mongoose.model("subround", monSubSchema);
 
 class RoundRouter
 {
