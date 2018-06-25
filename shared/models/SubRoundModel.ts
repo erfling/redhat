@@ -20,6 +20,10 @@ export default class SubRoundModel extends BaseModel
 
     @Type(() =>String)
     @dbProp(String)
+    public RoundId: string = "";
+
+    @Type(() =>String)
+    @dbProp(String)
     public Name: string = "";
 
     @dbProp(String)
