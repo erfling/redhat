@@ -15,11 +15,6 @@ export default class PeopleRoundCtrl extends BaseRoundCtrl<RoundModel>
     //
     //----------------------------------------------------------------------
 
-    protected readonly ComponentStates = {
-        sub1: Hiring,
-        sub2: PeopleRound_Sub2
-    };
-
     private static _instance: PeopleRoundCtrl;
 
     //----------------------------------------------------------------------
@@ -31,7 +26,11 @@ export default class PeopleRoundCtrl extends BaseRoundCtrl<RoundModel>
     private constructor(reactComp: React.Component<any, any>) {
         super(reactComp);
         this.dataStore.Name = "PEOPLE";
-        
+
+        this.ComponentStates = {
+            sub1: Hiring,
+            sub2: PeopleRound_Sub2
+        };
         this.ComponentFistma = new FiStMa(this.ComponentStates, this.ComponentStates.sub1);
         this.ComponentFistma.addTransition(this.ComponentStates.sub1);
     }

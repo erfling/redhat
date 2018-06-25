@@ -6,7 +6,6 @@ import { RouteComponentProps, withRouter } from "react-router";
 import GameManagementCtrl from './GameManagementCtrl';
 import AdminViewModel from '../../shared/models/AdminViewModel';
 import ICommonComponentState from '../../shared/base-sapien/client/ICommonComponentState';
-import DecisionIcon from '-!svg-react-loader?name=Icon!../img/decisions.svg';
 import GameModel from "../../shared/models/GameModel";
 import { DateInput } from 'semantic-ui-calendar-react';
 import * as moment from 'moment';
@@ -19,8 +18,8 @@ class GameList extends React.Component<RouteComponentProps<any>, AdminViewModel 
     //  Properties
     //
     //----------------------------------------------------------------------
-    controller: GameManagementCtrl;
 
+    controller: GameManagementCtrl = GameManagementCtrl.GetInstance(this);
 
     //alias for navigation
     public static CLASS_NAME = "GameList";
@@ -33,7 +32,7 @@ class GameList extends React.Component<RouteComponentProps<any>, AdminViewModel 
 
     constructor(props: RouteComponentProps<any>) {
         super(props);
-        this.controller = new GameManagementCtrl(this);
+        
         this.state = this.controller.dataStore;
     }
 

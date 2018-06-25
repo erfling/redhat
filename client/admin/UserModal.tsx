@@ -1,15 +1,7 @@
 import * as React from "react";
-import FiStMa from '../../shared/entity-of-the-state/FiStMa';
 import { Grid, Table, Modal, Button, Segment, Label, Header, Icon, Form, Input, Checkbox, Popup } from 'semantic-ui-react';
 const { Row, Column } = Grid;
-import { RouteComponentProps, withRouter } from "react-router";
 import UserManagementCtrl from './UserManagementCtrl';
-import AdminViewModel from '../../shared/models/AdminViewModel';
-import ICommonComponentState from '../../shared/base-sapien/client/ICommonComponentState';
-import DecisionIcon from '-!svg-react-loader?name=Icon!../img/decisions.svg';
-import GameModel from "../../shared/models/GameModel";
-import { DateInput } from 'semantic-ui-calendar-react';
-import * as moment from 'moment';
 import UserModel, { RoleName } from "../../shared/models/UserModel";
 
 interface UserModalProps{
@@ -26,9 +18,8 @@ export default class UserModal extends React.Component< UserModalProps, {} >
     //  Properties
     //
     //----------------------------------------------------------------------
-    controller: UserManagementCtrl;
 
-
+    controller: UserManagementCtrl = UserManagementCtrl.GetInstance(this);
 
     //----------------------------------------------------------------------
     //

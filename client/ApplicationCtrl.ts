@@ -1,9 +1,6 @@
 import FiStMa from '../shared/entity-of-the-state/FiStMa';
 import UserModel, { RoleName } from '../shared/models/UserModel';
-import ApplicationViewModel from '../shared/models/ApplicationViewModel'
-import SapienServerCom from '../shared/base-sapien/client/SapienServerCom';
-
-import BaseGameCtrl from '../shared/base-sapien/client/BaseGameCtrl';
+import ApplicationViewModel from '../shared/models/ApplicationViewModel';
 import { Component } from 'react';
 import BaseClientCtrl from '../shared/base-sapien/client/BaseClientCtrl';
 
@@ -21,22 +18,10 @@ export default class ApplicationCtrl extends BaseClientCtrl<ApplicationViewModel
     //
     //----------------------------------------------------------------------
 
-    protected readonly ComponentStates = {
-        game: Game,
-        admin: Admin,
-        login: Login
-    };
-
-    ComponentFistma: FiStMa<any>
-
-
-    component: any;
-
     dataStore: ICommonComponentState & {ComponentFistma?: FiStMa<any>};
 
     private static _instance: ApplicationCtrl;
 
-    
     //----------------------------------------------------------------------
     //
     //  Constructor
@@ -45,9 +30,12 @@ export default class ApplicationCtrl extends BaseClientCtrl<ApplicationViewModel
 
     
     private constructor(reactComp: Component<any, any>) {
-
         super( DataStore.ApplicationState, reactComp );
-        this.component = reactComp;
+        this.ComponentStates = {
+            game: Game,
+            admin: Admin,
+            login: Login
+        };
         DataStore.ApplicationState.CurrentUser = localStorage.getItem("RH_USER") ? Object.assign( new UserModel(), JSON.parse(localStorage.getItem("RH_USER") ) ) : new UserModel()
         this.dataStore = DataStore.ApplicationState;
 
@@ -69,10 +57,10 @@ export default class ApplicationCtrl extends BaseClientCtrl<ApplicationViewModel
     }
     
     public static GetInstance(reactComp: Component<any, any>): ApplicationCtrl {
-        if (!ApplicationCtrl._instance) {
-            ApplicationCtrl._instance = new ApplicationCtrl(reactComp);
+        if (!this._instance) {
+            this._instance = new ApplicationCtrl(reactComp);
         }
-        return ApplicationCtrl._instance;
+        return this._instance;
     }
     
 

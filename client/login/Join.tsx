@@ -5,7 +5,7 @@ const Field = { Form }
 const { Column, Row } = Grid;
 //import * as Icons from 'react-icons/lib/io';
 import { Route, Switch, RouteComponentProps, withRouter } from "react-router";
-import LoginCtrl from './LogtinCtrl'
+import LoginCtrl from './LoginCtrl'
 import ICommonComponentState from '../../shared/base-sapien/client/ICommonComponentState'
 
 class Join extends React.Component<RouteComponentProps<any>, UserModel & ICommonComponentState>
@@ -16,7 +16,7 @@ class Join extends React.Component<RouteComponentProps<any>, UserModel & ICommon
     //
     //----------------------------------------------------------------------
 
-    controller: LoginCtrl;
+    controller: LoginCtrl = new LoginCtrl(this);
 
     public static CLASS_NAME = "Join";
 
@@ -28,7 +28,7 @@ class Join extends React.Component<RouteComponentProps<any>, UserModel & ICommon
 
     constructor(props: RouteComponentProps<any>) {
         super(props);
-        this.controller = new LoginCtrl(this)
+        
         this.state = this.controller.dataStore;
         const token = this._parseURLQueryStrings(this.props.location.search).token;
         if (token) localStorage.setItem("rhjwt", token);
@@ -65,7 +65,6 @@ class Join extends React.Component<RouteComponentProps<any>, UserModel & ICommon
     //----------------------------------------------------------------------
 
     render() {
-
         const validator = () => {
             return false;
         }

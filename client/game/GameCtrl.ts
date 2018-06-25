@@ -5,11 +5,9 @@ import EngineeringRound from './EngineeringRound/EngineeringRound';
 import SalesRound from './SalesRound/SalesRound';
 import FinanceRound from './FinanceRound/FinanceRound';
 import CustomerRound from './CustomerRound/CustomerRound';
-import BaseGameCtrl from '../../shared/base-sapien/client/BaseGameCtrl';
 import { Component } from 'react';
 import RoundModel from '../../shared/models/RoundModel';
 import UserModel from '../../shared/models/UserModel';
-import SchemaBuilder from '../../api/SchemaBuilder';
 import BaseClientCtrl from '../../shared/base-sapien/client/BaseClientCtrl';
 import DataStore from '../../shared/base-sapien/client/DataStore';
 
@@ -21,13 +19,7 @@ export default class GameCtrl extends BaseClientCtrl<GameModel>
     //
     //----------------------------------------------------------------------
 
-    protected readonly ComponentStates = {
-        round1: PeopleRound, 
-        round2: EngineeringRound, 
-        round3: SalesRound, 
-        round4: FinanceRound, 
-        round5: CustomerRound
-    };
+    private static _instance: GameCtrl;
 
     //----------------------------------------------------------------------
     //
@@ -35,11 +27,16 @@ export default class GameCtrl extends BaseClientCtrl<GameModel>
     //
     //----------------------------------------------------------------------
 
-    constructor(reactComp: Component<any, any>) {
+    private constructor(reactComp: Component<any, any>) {
         super( new GameModel(), reactComp );
 
-        this.component = reactComp;
-
+        this.ComponentStates = {
+            round1: PeopleRound, 
+            round2: EngineeringRound, 
+            round3: SalesRound, 
+            round4: FinanceRound, 
+            round5: CustomerRound
+        };
         this.ComponentFistma = new FiStMa(this.ComponentStates, this.ComponentStates.round1);
         console.log("GAME NAV INFO:",  this.ComponentFistma.currentState.WrappedComponent)
 
@@ -62,7 +59,6 @@ export default class GameCtrl extends BaseClientCtrl<GameModel>
 
 
         this.component.componentDidMount = () => {
-
             if (this.component.props.location.search){
                 console.log("FOUND LOCATION SEARCH", this.component.props.location.search, this.ComponentFistma.currentState.WrappedComponent);
             }
@@ -70,7 +66,15 @@ export default class GameCtrl extends BaseClientCtrl<GameModel>
             this.component.props.history.push("/game/" + this.ComponentFistma.currentState.WrappedComponent.CLASS_NAME.toLowerCase());
             this.navigateOnClick(this.component.props.location.pathname);
         }
-        
+    }
+
+    public static GetInstance(reactComp?: Component<any, any>): GameCtrl {
+        if (!this._instance && reactComp) {
+            this._instance = new GameCtrl(reactComp);
+        }
+        if (!this._instance) throw new Error("NO INSTANCE");
+
+        return this._instance;
     }
     
     //----------------------------------------------------------------------
@@ -81,7 +85,6 @@ export default class GameCtrl extends BaseClientCtrl<GameModel>
 
     private _onRoundEnter(fromState:React.Component<{}, any>): void {
         this.NavigateFromState();
-
     }
 
     private _onInvalidTrans(from:any, to:any): void {

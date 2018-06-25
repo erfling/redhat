@@ -1,12 +1,9 @@
 import * as React from "react";
-import { BrowserRouter, Switch, Route, Link } from "react-router-dom";
 import { Sidebar, Menu, Segment, Button, Icon } from 'semantic-ui-react';
 import ApplicationCtrl from './ApplicationCtrl';
 import { RouteComponentProps, withRouter } from "react-router";
-import UserModel, { RoleName } from '../shared/models/UserModel'
-import DecisionIcon from '-!svg-react-loader?name=Icon!./img/decisions.svg';
-import ICommonComponentState from '../shared/base-sapien/client/ICommonComponentState'
-import ApplicationViewModel from '../shared/models/ApplicationViewModel'
+import UserModel, { RoleName } from '../shared/models/UserModel';
+import ICommonComponentState from '../shared/base-sapien/client/ICommonComponentState';
 import FiStMa from '../shared/entity-of-the-state/FiStMa';
 
 class App extends React.Component<RouteComponentProps<any>, ICommonComponentState & {ComponentFistma?: FiStMa<any>}>
@@ -18,19 +15,36 @@ class App extends React.Component<RouteComponentProps<any>, ICommonComponentStat
     //
     //----------------------------------------------------------------------
 
-    controller: ApplicationCtrl;
+    controller: ApplicationCtrl = ApplicationCtrl.GetInstance(this);
+
+    public static CLASS_NAME = "App";
 
     //----------------------------------------------------------------------
     //
     //  Constructor
     //
-    //------
+    //----------------------------------------------------------------------
+
     constructor(props: RouteComponentProps<any>) {
         super(props);
-        this.controller = ApplicationCtrl.GetInstance(this);
+        
         console.log("DATA STORE: ", this.controller.dataStore)
         this.state = this.controller.dataStore;
     }
+
+    //----------------------------------------------------------------------
+    //
+    //  Event Handlers
+    //
+    //----------------------------------------------------------------------
+
+
+
+    //----------------------------------------------------------------------
+    //
+    //  Methods
+    //
+    //----------------------------------------------------------------------
 
     render() {
         if (this.state && this.controller.ComponentFistma) {

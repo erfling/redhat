@@ -1,6 +1,6 @@
 import * as React from "react";
 import { RouteComponentProps, withRouter, Route } from "react-router";
-import LoginController from './LogtinCtrl'
+import LoginCtrl from './LoginCtrl';
 import { Grid, Menu, Container, Button } from 'semantic-ui-react';
 const { Column, Row } = Grid;
 
@@ -12,7 +12,7 @@ class Login extends React.Component<RouteComponentProps<any>, any>
     //
     //----------------------------------------------------------------------
 
-    controller: any
+    controller: LoginCtrl = new LoginCtrl(this);
 
     public static CLASS_NAME = "Login";
 
@@ -26,7 +26,6 @@ class Login extends React.Component<RouteComponentProps<any>, any>
     constructor(props: RouteComponentProps<any>) {
         super(props);
 
-        this.controller = new LoginController(this);
         this.state = this.controller.dataStore;
     }
 
