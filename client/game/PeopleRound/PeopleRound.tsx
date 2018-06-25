@@ -20,7 +20,6 @@ class PeopleRound extends React.Component<RouteComponentProps<any>, RoundModel>
 
     public static CLASS_NAME = "PeopleRound";
 
-
     //----------------------------------------------------------------------
     //
     //  Constructor
@@ -30,7 +29,7 @@ class PeopleRound extends React.Component<RouteComponentProps<any>, RoundModel>
     constructor(props: RouteComponentProps<any>) {
         super(props);
         alert("Contstructing people round")
-        this.controller = new PeopleRoundCtrl(this);
+        this.controller = PeopleRoundCtrl.GetInstance(this);
         this.state = this.controller.dataStore;
         this.controller.getContentByRound("PEOPLE");
     }
@@ -57,26 +56,12 @@ class PeopleRound extends React.Component<RouteComponentProps<any>, RoundModel>
                 <Row>
                     <Column computer={12} mobile={16} tablet={16}>
                         <h1>Round One: Build the Team</h1>
-                        <SubRnd/>
                     </Column>
                 </Row>
                 <Grid
                     padded={true}
                 >
-                    {this.state.IndividualContributorContent && this.state.IndividualContributorContent.map((c, i) =>
-                        <EditableContentBlock
-                            onSaveHandler={this.controller.updateICContent.bind(this.controller)}
-                            onRemoveHandler={this.controller.removeRoundContent.bind(this.controller)}
-                            Content={c}
-                            key={i}
-                            idx={i}
-                        />
-                    )}
-                    <Row>
-                        <Button
-                            onClick={() => this.controller.addRoundContent()}
-                        >Add Content</Button>
-                    </Row>
+                    <SubRnd/>
                 </Grid>
                 <Row>
                     Form content goes here

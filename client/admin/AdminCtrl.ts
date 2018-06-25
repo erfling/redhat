@@ -106,12 +106,10 @@ export default class AdminCtrl extends BaseClientCtrl<any>
         if (!AdminCtrl._instance && reactComp) {
             AdminCtrl._instance = new AdminCtrl(reactComp);
         }
-
-        if(!AdminCtrl._instance)throw new Error("NO INSTANCE OF ADMIN")
+        if (!AdminCtrl._instance) throw new Error("NO INSTANCE OF ADMIN")
 
         return AdminCtrl._instance;
     }
-    
     
     //----------------------------------------------------------------------
     //
