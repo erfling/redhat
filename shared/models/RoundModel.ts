@@ -28,8 +28,6 @@ export default class RoundModel extends BaseModel
     //
     //----------------------------------------------------------------------
 
-    //public  REST_URL: string = urlFactory.getBaseUrl(RoundModel); 
-
     @Type(() =>String)
     @dbProp(String)
     public Name: string = "";
@@ -40,6 +38,9 @@ export default class RoundModel extends BaseModel
     @Type(() => Number)
     @dbProp(Number)
     public RoundIdx: number = 0;
+
+    @dbProp(String)
+    public CurrentSubRound: string = "";
 
     public SubRoundsFistma:FiStMa<{[key:string]: any}>;
 

@@ -25,6 +25,9 @@ export default class GameModel extends BaseModel
     public Location: string = "";
 
     @dbProp(String)
+    public CurrentRound: string = "";
+
+    @dbProp(String)
     public DatePlayed: string = new Date().toLocaleDateString();
 
     @Type(() => TeamModel)
