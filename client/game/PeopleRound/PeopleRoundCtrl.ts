@@ -34,6 +34,10 @@ export default class PeopleRoundCtrl extends BaseRoundCtrl<RoundModel>
         
         this.ComponentFistma = new FiStMa(this.ComponentStates, this.ComponentStates.sub1);
         this.ComponentFistma.addTransition(this.ComponentStates.sub1);
+        this.ComponentFistma.addTransition(this.ComponentStates.sub2);
+        this.ComponentFistma.addOnEnter("*", this.getContentBySubRound.bind(this));
+
+        this.getContentBySubRound.bind(this)();
     }
 
     public static GetInstance(reactComp?: Component<any, any>): PeopleRoundCtrl {

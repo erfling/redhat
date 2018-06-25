@@ -18,6 +18,9 @@ export default class SubRoundModel extends BaseModel
 
     //public  REST_URL: string = urlFactory.getBaseUrl(RoundModel); 
 
+    public REST_URL: string = "rounds/subround";
+
+
     @Type(() =>String)
     @dbProp(String)
     public RoundId: string = "";

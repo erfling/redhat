@@ -29,7 +29,6 @@ class CustomerRound extends React.Component<RouteComponentProps<any>, RoundModel
         super(props);
         console.log("CONSTRUCTOR OF CUSTOMER ROUND SAYS THIS ABOUT ROUTING:", this.props.location, this.props.match)
         this.state = this.controller.dataStore;
-        this.controller.getContentByRound("CUSTOMER");
     }
 
     componentWillMount() {

@@ -44,7 +44,7 @@ export default class RoundModel extends BaseModel
 
     @Type(() => SubRoundModel)
     @dbProp(String)
-    public SubRounds: SubRoundModel[];
+    public SubRounds: SubRoundModel[] = [];
 
     //----------------------------------------------------------------------
     //

@@ -31,7 +31,6 @@ class FinanceRound extends React.Component<RouteComponentProps<any>, RoundModel>
         super(props);
 
         this.state = this.controller.dataStore;
-        this.controller.getContentByRound("FINANCE");
     }
 
     componentWillMount() {

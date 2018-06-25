@@ -30,7 +30,6 @@ class PeopleRound_Sub3 extends React.Component<RouteComponentProps<any>, RoundMo
         super(props);
 
         this.state = this.controller.dataStore;
-        this.controller.getContentByRound("PEOPLE");
     }
 
     //----------------------------------------------------------------------

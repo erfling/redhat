@@ -30,7 +30,6 @@ class PeopleRound extends React.Component<RouteComponentProps<any>, RoundModel>
         super(props);
         
         this.state = this.controller.dataStore;
-        this.controller.getContentByRound("PEOPLE");
     }
 
     //----------------------------------------------------------------------
