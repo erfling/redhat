@@ -1,5 +1,4 @@
 import * as React from "react";
-import FiStMa from '../../shared/entity-of-the-state/FiStMa';
 import { Grid, Menu } from 'semantic-ui-react';
 const { Row, Column } = Grid;
 import { RouteComponentProps, withRouter} from "react-router";
@@ -12,7 +11,7 @@ class DefaultAdmin extends React.Component<RouteComponentProps<any>, any>
     //  Properties
     //
     //----------------------------------------------------------------------
-    controller: AdminCtrl;
+    controller: AdminCtrl = AdminCtrl.GetInstance(this);
 
     public static CLASS_NAME = "DefaultAdmin";
 
@@ -24,10 +23,9 @@ class DefaultAdmin extends React.Component<RouteComponentProps<any>, any>
 
     constructor(props: RouteComponentProps<any>) {
         super(props);
-        this.controller = AdminCtrl.GetInstance(this);
+        
         this.state = this.controller.dataStore;
     }
-
 
     //----------------------------------------------------------------------
     //

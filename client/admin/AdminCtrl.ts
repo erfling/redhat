@@ -1,17 +1,13 @@
 import FiStMa from '../../shared/entity-of-the-state/FiStMa';
 import AdminViewModel from '../../shared/models/AdminViewModel';
 import ApplicationViewModel from '../../shared/models/ApplicationViewModel';
-import BaseController from "../../shared/entity-of-the-state/BaseController";
 import { Component } from 'react';
-import Game from '../game/Game';
 import GameList from './GameList';
-import Admin from './Admin';
 import DefaultAdmin from './DefaultAdmin'
 import BaseClientCtrl from '../../shared/base-sapien/client/BaseClientCtrl';
 import AdminLogin from '../login/AdminLogin'
 import GameLogin from '../login/GameLogin'
 import UserList from './UserList';
-import ApplicationCtrl from '../ApplicationCtrl'
 import UserModel, { RoleName } from '../../shared/models/UserModel';
 import GameDetail from './GameDetail';
 import ICommonComponentState from '../../shared/base-sapien/client/ICommonComponentState';
@@ -25,19 +21,6 @@ export default class AdminCtrl extends BaseClientCtrl<any>
     //
     //----------------------------------------------------------------------
 
-    protected readonly ComponentStates = {
-        game: GameList,
-        gameDetail: GameDetail,
-        users: UserList,
-        adminLogin: AdminLogin,
-        default: DefaultAdmin,
-        gameLogin: GameLogin
-    };
-
-    ComponentFistma: FiStMa<any>
-
-    component: any;
-
     private static _instance: AdminCtrl;
 
     public dataStore: AdminViewModel & ICommonComponentState & {ComponentFistma?: FiStMa<any>};
@@ -50,12 +33,20 @@ export default class AdminCtrl extends BaseClientCtrl<any>
 
     private constructor(reactComp: Component<any, any>) {
         super(null, reactComp);
-
-        this.component = reactComp;        
+        
         this.dataStore = DataStore.Admin;
 
+        this.ComponentStates = {
+            game: GameList,
+            gameDetail: GameDetail,
+            users: UserList,
+            adminLogin: AdminLogin,
+            default: DefaultAdmin,
+            gameLogin: GameLogin
+        };
+
         //if we don't have a user, go to admin login.
-        if(!ApplicationViewModel.CurrentUser || !ApplicationViewModel.Token){
+        if (!ApplicationViewModel.CurrentUser || !ApplicationViewModel.Token){
             this.ComponentFistma = new FiStMa(this.ComponentStates, this.ComponentStates.adminLogin);
         } 
         //if we have a user, but not an admin, go to game login
@@ -63,7 +54,7 @@ export default class AdminCtrl extends BaseClientCtrl<any>
             this.ComponentFistma = new FiStMa(this.ComponentStates, this.ComponentStates.adminLogin);
         }
         //otherwise, go where the url tells us. If bad url, go to admin default
-        else{
+        else {
             console.log("HEY YOU",this.component.props.location);
             this.ComponentFistma = new FiStMa(this.ComponentStates, this.UrlToComponent(this.component.props.location.pathname) || this.ComponentStates.default);
         }
@@ -77,8 +68,6 @@ export default class AdminCtrl extends BaseClientCtrl<any>
             alert("INVALID")
         });
 
-
-
         this.ComponentFistma.addOnEnter("*", () => {
             console.warn("ADMIN ON ENTER", this.ComponentFistma.currentState.WrappedComponent.CLASS_NAME)
             this.component.forceUpdate();
@@ -89,7 +78,6 @@ export default class AdminCtrl extends BaseClientCtrl<any>
             console.log("ADMIN DID UPDATE", this.component.props.location.pathname, prevProps.location.pathname, this.component.props.location.pathname == prevProps.location.pathname)
             this.conditionallyNavigate(this.component.props.location.pathname, prevProps.location.pathname)
         }
-        
 /*
         setTimeout(() => {
             //DataStore.Admin.Users.push(new UserModel());

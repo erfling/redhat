@@ -7,17 +7,10 @@ import Game from '../game/Game';
 import Admin from './Admin';
 import DefaultAdmin from './DefaultAdmin'
 import BaseClientCtrl from '../../shared/base-sapien/client/BaseClientCtrl';
-import AdminLogin from '../login/AdminLogin'
-import GameList from './GameList'
-import ApplicationCtrl from '../ApplicationCtrl'
 import UserModel, { RoleName } from '../../shared/models/UserModel';
 import SapienServerCom from '../../shared/base-sapien/client/SapienServerCom';
-import ICommonComponentState from '../../shared/base-sapien/client/ICommonComponentState';
 import GameModel from '../../shared/models/GameModel';
-import { plainToClass, plainToClassFromExist, classToPlain } from 'class-transformer';
 import AdminCtrl from './AdminCtrl';
-import UserList from './UserList';
-import DataStore from '../../shared/base-sapien/client/DataStore';
 
 export default class UserManagementCtrl extends BaseClientCtrl<any>
 {
@@ -27,10 +20,7 @@ export default class UserManagementCtrl extends BaseClientCtrl<any>
     //
     //----------------------------------------------------------------------
 
-
-    dataStore: any;
-
-    component: any;
+    private static _instance: UserManagementCtrl;
 
     //----------------------------------------------------------------------
     //
@@ -38,12 +28,9 @@ export default class UserManagementCtrl extends BaseClientCtrl<any>
     //
     //----------------------------------------------------------------------
 
-    constructor(reactComp: Component<any, any>) {
-
+    private constructor(reactComp: Component<any, any>) {
         super(null, reactComp);
         this.CurrentLocation = this.component.props.location.pathname;
-
-        this.component = reactComp;
         
         //this.dataStore = DataStore.Admin
         this.dataStore = AdminCtrl.GetInstance().dataStore;
@@ -51,7 +38,15 @@ export default class UserManagementCtrl extends BaseClientCtrl<any>
         this.component.componentWillMount = () => {
             this.getAllUsers();
         }
+    }
 
+    public static GetInstance(reactComp?: Component<any, any>): UserManagementCtrl {
+        if (!this._instance && reactComp) {
+            this._instance = new UserManagementCtrl(reactComp);
+        }
+        if (!this._instance) throw new Error("NO INSTANCE");
+
+        return this._instance;
     }
     
     //----------------------------------------------------------------------
@@ -63,7 +58,6 @@ export default class UserManagementCtrl extends BaseClientCtrl<any>
     private _onRoundEnter(fromState:React.Component<{}, any>): void {
         console.log("Entered round", this.dataStore.RoundsFistma.currentState, "from round", fromState);
     }
-
 
     //----------------------------------------------------------------------
     //

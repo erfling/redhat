@@ -5,32 +5,20 @@ import GameLogin from './GameLogin'
 import AdminLogin from './AdminLogin'
 import Join from './Join'
 
-import BaseGameCtrl from '../../shared/base-sapien/client/BaseGameCtrl';
 import { Component } from 'react';
-import BaseController from '../../shared/entity-of-the-state/BaseController';
-import BaseModel from '../../shared/base-sapien/models/BaseModel';
 import ICommonComponentState from '../../shared/base-sapien/client/ICommonComponentState';
 import BaseClientCtrl from '../../shared/base-sapien/client/BaseClientCtrl';
 
-export default class LoginController extends BaseClientCtrl<UserModel & ICommonComponentState>
+export default class LoginCtrl extends BaseClientCtrl<UserModel & ICommonComponentState>
 {
     //----------------------------------------------------------------------
     //
     //  Properties
     //
     //----------------------------------------------------------------------
-
-    component: any;
-
-    dataStore: UserModel & ICommonComponentState;
-
-    ComponentFistma: FiStMa<any>
     
-    protected readonly ComponentStates = {
-        game: GameLogin,
-        admin: AdminLogin,
-        first: Join
-    };
+    dataStore: UserModel & ICommonComponentState;
+    
     //----------------------------------------------------------------------
     //
     //  Constructor
@@ -39,7 +27,12 @@ export default class LoginController extends BaseClientCtrl<UserModel & ICommonC
 
     constructor(reactComp: Component<any, any>) {
         super( Object.assign(new UserModel()), reactComp);
-        this.component = reactComp;
+        
+        this.ComponentStates = {
+            game: GameLogin,
+            admin: AdminLogin,
+            first: Join
+        };
         this.ComponentFistma = new FiStMa(this.ComponentStates, this.UrlToComponent(this.component.props.location.pathname) || this.ComponentStates.game);
 
         this.dataStore = Object.assign(

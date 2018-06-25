@@ -1,10 +1,8 @@
 import * as React from "react";
 import FiStMa from '../../shared/entity-of-the-state/FiStMa';
-import Game from '../game/Game';
 import { Grid, Sidebar, Menu, Segment } from 'semantic-ui-react';
 const { Row, Column } = Grid;
 import { RouteComponentProps, withRouter} from "react-router";
-import { Route, Link } from "react-router-dom";
 import AdminCtrl from './AdminCtrl';
 import ICommonComponentState from '../../shared/base-sapien/client/ICommonComponentState'
 import AdminViewModel from '../../shared/models/AdminViewModel';
@@ -16,11 +14,9 @@ class Admin extends React.Component<RouteComponentProps<any>, AdminViewModel & I
     //  Properties
     //
     //----------------------------------------------------------------------
-    controller: AdminCtrl;
+    controller: AdminCtrl = AdminCtrl.GetInstance(this);
 
-    public static CLASS_NAME = "Admin"
-
-
+    public static CLASS_NAME = "Admin";
 
     //----------------------------------------------------------------------
     //
@@ -30,7 +26,7 @@ class Admin extends React.Component<RouteComponentProps<any>, AdminViewModel & I
 
     constructor(props: RouteComponentProps<any>) {
         super(props);
-        this.controller = AdminCtrl.GetInstance(this);
+        
         this.state = this.controller.dataStore;
     }
 
@@ -50,7 +46,7 @@ class Admin extends React.Component<RouteComponentProps<any>, AdminViewModel & I
     
 
     render() {
-        if(this.state && this.controller.ComponentFistma){
+        if (this.state && this.controller.ComponentFistma){
             const DashBoardComponent = this.controller.ComponentFistma.currentState;
             console.log("DB COMPONENT", DashBoardComponent.WrappedComponent.name)
             return <>

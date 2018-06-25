@@ -5,7 +5,7 @@ const Field = { Form }
 const { Column, Row } = Grid;
 //import * as Icons from 'react-icons/lib/io';
 import { Route, Switch, RouteComponentProps, withRouter } from "react-router";
-import LoginCtrl from './LogtinCtrl'
+import LoginCtrl from './LoginCtrl'
 import ICommonComponentState from '../../shared/base-sapien/client/ICommonComponentState'
 
 class AdminLogin extends React.Component<RouteComponentProps<any>, UserModel & ICommonComponentState>
@@ -16,10 +16,9 @@ class AdminLogin extends React.Component<RouteComponentProps<any>, UserModel & I
     //
     //----------------------------------------------------------------------
 
-    controller: LoginCtrl;
+    controller: LoginCtrl = new LoginCtrl(this);
 
     public static CLASS_NAME = "Admin";
-
 
     //----------------------------------------------------------------------
     //
@@ -29,8 +28,8 @@ class AdminLogin extends React.Component<RouteComponentProps<any>, UserModel & I
 
     constructor(props: RouteComponentProps<any>) {
         super(props);
-        this.props.history.push("/login/admin")
-        this.controller = new LoginCtrl(this)
+
+        this.props.history.push("/login/admin");
         this.state = this.controller.dataStore;
     }
 

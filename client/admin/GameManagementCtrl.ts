@@ -1,21 +1,16 @@
 import FiStMa from '../../shared/entity-of-the-state/FiStMa';
 import AdminViewModel from '../../shared/models/AdminViewModel';
 import ApplicationViewModel from '../../shared/models/ApplicationViewModel';
-import BaseController from "../../shared/entity-of-the-state/BaseController";
 import { Component } from 'react';
 import Game from '../game/Game';
-import Admin from './Admin';
-import DefaultAdmin from './DefaultAdmin'
 import BaseClientCtrl from '../../shared/base-sapien/client/BaseClientCtrl';
-import AdminLogin from '../login/AdminLogin'
-import GameList from './GameList'
-import GameDetail from './GameDetail'
-import ApplicationCtrl from '../ApplicationCtrl'
+import AdminLogin from '../login/AdminLogin';
+import GameList from './GameList';
+import GameDetail from './GameDetail';
 import UserModel, { RoleName } from '../../shared/models/UserModel';
 import SapienServerCom from '../../shared/base-sapien/client/SapienServerCom';
 import ICommonComponentState from '../../shared/base-sapien/client/ICommonComponentState';
 import GameModel from '../../shared/models/GameModel';
-import { plainToClass, plainToClassFromExist, classToPlain } from 'class-transformer';
 import TeamModel from '../../shared/models/TeamModel';
 import AdminCtrl from './AdminCtrl';
 
@@ -27,18 +22,9 @@ export default class GameManagementCtrl extends BaseClientCtrl<any>
     //
     //----------------------------------------------------------------------
 
-    protected readonly ComponentStates = {
-        gameList: GameList,
-        gamedetail: GameDetail,
-        game: Game,
-        adminLogin: AdminLogin
-    };
+    private static _instance: GameManagementCtrl;
 
-    ComponentFistma: FiStMa<any>
-    
     dataStore: AdminViewModel & ICommonComponentState & {AvailablePlayers?: {text: string, value: string, key: number}[], ComponentFistma?: FiStMa<any>};
-
-    component: any;
 
     //----------------------------------------------------------------------
     //
@@ -47,15 +33,18 @@ export default class GameManagementCtrl extends BaseClientCtrl<any>
     //----------------------------------------------------------------------
 
     constructor(reactComp: Component<any, any>) {
-
         super(null, reactComp);
+
+        this.ComponentStates = {
+            gameList: GameList,
+            gamedetail: GameDetail,
+            game: Game,
+            adminLogin: AdminLogin
+        };
         this.CurrentLocation = this.component.props.location.pathname;
 
-        this.component = reactComp;
-        
-
         //if we don't have a user, go to admin login.
-        if(!ApplicationViewModel.CurrentUser || !ApplicationViewModel.Token){
+        if (!ApplicationViewModel.CurrentUser || !ApplicationViewModel.Token){
             this.ComponentFistma = new FiStMa(this.ComponentStates, this.ComponentStates.adminLogin) as FiStMa<any>;
         } 
         //if we have a user, but not an admin, go to game login
@@ -63,15 +52,12 @@ export default class GameManagementCtrl extends BaseClientCtrl<any>
             this.ComponentFistma = new FiStMa(this.ComponentStates, this.ComponentStates.adminLogin);
         }
         //otherwise, go where the url tells us. If bad url, go to admin default
-        else{
+        else {
             this.ComponentFistma = new FiStMa(this.ComponentStates, this.UrlToComponent(this.component.props.location.pathname));
         }
-
-        
         this.dataStore = AdminCtrl.GetInstance().dataStore;
-        this.ComponentFistma = this.ComponentFistma;
 
-        if(this.component.componentWillMount == undefined){
+        if (this.component.componentWillMount == undefined){
             this.component.componentWillMount = () => {
                 //this.component.constructor.super(this.component.props).componentWillMount()
                 console.log("MOUNTED: ", this.component, this.component.props.location.pathname);
@@ -81,6 +67,15 @@ export default class GameManagementCtrl extends BaseClientCtrl<any>
             }
         }
 
+    }
+
+    public static GetInstance(reactComp?: Component<any, any>): GameManagementCtrl {
+        if (!this._instance && reactComp) {
+            this._instance = new GameManagementCtrl(reactComp);
+        }
+        if (!this._instance) throw new Error("NO INSTANCE");
+
+        return this._instance;
     }
     
     //----------------------------------------------------------------------
@@ -103,7 +98,6 @@ export default class GameManagementCtrl extends BaseClientCtrl<any>
         */
         game.Teams = game.Teams.concat(team);
     }
-
 
     //----------------------------------------------------------------------
     //
