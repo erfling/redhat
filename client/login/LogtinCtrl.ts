@@ -24,6 +24,8 @@ export default class LoginController extends BaseClientCtrl<UserModel & ICommonC
 
     dataStore: UserModel & ICommonComponentState;
 
+    ComponentFistma: FiStMa<any>
+    
     protected readonly ComponentStates = {
         game: GameLogin,
         admin: AdminLogin,

@@ -33,9 +33,6 @@ class Game extends React.Component<RouteComponentProps<any>, GameModel & ICommon
         this.state = this.controller.dataStore;
     }
 
-    componentWillMount() {
-        //this.props.history.push("/game/" + Rnd.WrappedComponent.name.toLowerCase());
-    }
 
     //----------------------------------------------------------------------
     //
@@ -52,8 +49,8 @@ class Game extends React.Component<RouteComponentProps<any>, GameModel & ICommon
     //----------------------------------------------------------------------
 
     render() {
-        if(this.state && this.state.ComponentFistma) {
-        const Rnd = this.state.ComponentFistma.currentState;
+        if(this.state && this.controller.ComponentFistma) {
+        const Rnd = this.controller.ComponentFistma.currentState;
         return <Container
             fluid={true}
         >
@@ -91,7 +88,6 @@ class Game extends React.Component<RouteComponentProps<any>, GameModel & ICommon
                 columns={16}
             >
                 <Rnd/>
-                
             </Grid>
             <Menu
                 inverted

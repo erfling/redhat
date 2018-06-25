@@ -17,6 +17,7 @@ import ICommonComponentState from '../../shared/base-sapien/client/ICommonCompon
 import GameModel from '../../shared/models/GameModel';
 import { plainToClass, plainToClassFromExist, classToPlain } from 'class-transformer';
 import TeamModel from '../../shared/models/TeamModel';
+import AdminCtrl from './AdminCtrl';
 
 export default class GameManagementCtrl extends BaseClientCtrl<any>
 {
@@ -33,8 +34,9 @@ export default class GameManagementCtrl extends BaseClientCtrl<any>
         adminLogin: AdminLogin
     };
 
-
-    dataStore: AdminViewModel & ICommonComponentState & {AvailablePlayers: {text: string, value: string, key: number}[]};
+    ComponentFistma: FiStMa<any>
+    
+    dataStore: AdminViewModel & ICommonComponentState & {AvailablePlayers?: {text: string, value: string, key: number}[], ComponentFistma?: FiStMa<any>};
 
     component: any;
 
@@ -66,11 +68,8 @@ export default class GameManagementCtrl extends BaseClientCtrl<any>
         }
 
         
-        this.dataStore = Object.assign(new AdminViewModel(), {
-            ComponentFistma: this.ComponentFistma,
-            IsLoading: true,
-            AvailablePlayers: []
-        })
+        this.dataStore = AdminCtrl.GetInstance().dataStore;
+        this.ComponentFistma = this.ComponentFistma;
 
         if(this.component.componentWillMount == undefined){
             this.component.componentWillMount = () => {
@@ -121,12 +120,13 @@ export default class GameManagementCtrl extends BaseClientCtrl<any>
     }
 
     public getAllUsers(){
-        return SapienServerCom.GetData(null, null, SapienServerCom.BASE_REST_URL + "user").then(r => {
-            console.log("Users ARE: ",r)
-            this.dataStore.Users = r;
-            
-            this.dataStore.IsLoading = false;
-        })
+        if(!this.dataStore.Users || !this.dataStore.Users.length){
+            return SapienServerCom.GetData(null, null, SapienServerCom.BASE_REST_URL + "user").then(r => {
+                console.log("Users ARE: ",r)
+                this.dataStore.Users = r;            
+                this.dataStore.IsLoading = false;
+            })
+        }
     }
 
     public createOrEditGame(game?: GameModel){

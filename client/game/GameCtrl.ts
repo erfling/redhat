@@ -8,8 +8,10 @@ import CustomerRound from './CustomerRound';
 import BaseGameCtrl from '../../shared/base-sapien/client/BaseGameCtrl';
 import { Component } from 'react';
 import RoundModel from '../../shared/models/RoundModel';
+import UserModel from '../../shared/models/UserModel';
 import SchemaBuilder from '../../api/SchemaBuilder';
 import BaseClientCtrl from '../../shared/base-sapien/client/BaseClientCtrl';
+import DataStore from '../../shared/base-sapien/client/DataStore';
 
 export default class GameCtrl extends BaseClientCtrl<GameModel>
 {
@@ -27,6 +29,9 @@ export default class GameCtrl extends BaseClientCtrl<GameModel>
         round5: CustomerRound
     };
 
+    ComponentFistma: FiStMa<any>
+
+
     //----------------------------------------------------------------------
     //
     //  Constructor
@@ -36,7 +41,8 @@ export default class GameCtrl extends BaseClientCtrl<GameModel>
     constructor(reactComp: Component<any, any>) {
         super( new GameModel(), reactComp );
 
-        alert("hello?")
+        this.component = reactComp;
+
         this.ComponentFistma = new FiStMa(this.ComponentStates, this.ComponentStates.round1);
         console.log("GAME NAV INFO:",  this.ComponentFistma.currentState.WrappedComponent)
 
@@ -51,13 +57,22 @@ export default class GameCtrl extends BaseClientCtrl<GameModel>
         console.log("YO1:", this.dataStore.Name, "why is this undefined?");
 
         this.dataStore.Name = "Some initial value";
+        
         console.log("YO2:", this.dataStore.Name);
-        this.dataStore = Object.assign(new GameModel(), {
-            ComponentFistma: this.ComponentFistma
-        })
-        this.component.props.history.push("/game/" + this.ComponentFistma.currentState.WrappedComponent.CLASS_NAME.toLowerCase());
+        DataStore.GamePlay.CurrentUser = localStorage.getItem("RH_USER") ? Object.assign( new UserModel(), JSON.parse(localStorage.getItem("RH_USER") ) ) : new UserModel()
+
+        this.dataStore = DataStore.GamePlay;
 
 
+        this.component.componentDidMount = () => {
+
+            if (this.component.props.location.search){
+                console.log("FOUND LOCATION SEARCH", this.component.props.location.search, this.ComponentFistma.currentState.WrappedComponent);
+            }
+
+            this.component.props.history.push("/game/" + this.ComponentFistma.currentState.WrappedComponent.CLASS_NAME.toLowerCase());
+            this.navigateOnClick(this.component.props.location.pathname);
+        }
         
     }
     

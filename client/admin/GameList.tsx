@@ -60,7 +60,7 @@ class GameList extends React.Component<RouteComponentProps<any>, AdminViewModel 
     }
 
     render() {
-        const DashBoardComponent = this.state.ComponentFistma.currentState;
+        const DashBoardComponent = this.controller.ComponentFistma.currentState;
         return <>
             {this.state.ModalObject &&
                 <Modal open={this.state.ModalOpen} basic onClose={e => this.controller.closeModal()}>

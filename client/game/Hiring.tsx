@@ -8,7 +8,7 @@ const { Button, Grid, Menu } = Semantic;
 const { Row, Column } = Grid;
 
 
-class PeopleRound_Sub1 extends React.Component<RouteComponentProps<any>, RoundModel>
+class Hiring extends React.Component<RouteComponentProps<any>, RoundModel>
 {
     //----------------------------------------------------------------------
     //
@@ -18,7 +18,7 @@ class PeopleRound_Sub1 extends React.Component<RouteComponentProps<any>, RoundMo
 
     controller: PeopleRoundCtrl;
 
-    public static CLASS_NAME = "PeopleRound_Sub1";
+    public static CLASS_NAME = "Hiring";
 
 
     //----------------------------------------------------------------------
@@ -57,4 +57,4 @@ class PeopleRound_Sub1 extends React.Component<RouteComponentProps<any>, RoundMo
 
 }
 
-export default withRouter(PeopleRound_Sub1);
+export default withRouter(Hiring);

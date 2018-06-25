@@ -15,7 +15,7 @@ import UserModel, { RoleName } from "../../shared/models/UserModel";
 import UserModal from './UserModal';
 import { SSL_OP_LEGACY_SERVER_CONNECT } from "constants";
 
-class GameDetail extends React.Component<RouteComponentProps<any>, AdminViewModel & ICommonComponentState & { AvailablePlayers: { text: string, value: string, key: number }[] }>
+class GameDetail extends React.Component<RouteComponentProps<any>, AdminViewModel & ICommonComponentState & {AvailablePlayers?: {text: string, value: string, key: number}[], ComponentFistma?: FiStMa<any>}>
 {
     //----------------------------------------------------------------------
     //
@@ -63,7 +63,7 @@ class GameDetail extends React.Component<RouteComponentProps<any>, AdminViewMode
     }
 
     render() {
-        const DashBoardComponent = this.state.ComponentFistma.currentState;
+        const DashBoardComponent = this.controller.ComponentFistma.currentState;
         return <>
 
             <Segment

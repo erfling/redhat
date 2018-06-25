@@ -24,7 +24,7 @@ class DefaultAdmin extends React.Component<RouteComponentProps<any>, any>
 
     constructor(props: RouteComponentProps<any>) {
         super(props);
-        this.controller = new AdminCtrl(this);
+        this.controller = AdminCtrl.GetInstance(this);
         this.state = this.controller.dataStore;
     }
 
@@ -44,7 +44,7 @@ class DefaultAdmin extends React.Component<RouteComponentProps<any>, any>
     //----------------------------------------------------------------------
 
     render() {
-        const DashBoardComponent = this.state.ComponentFistma.currentState;
+        const DashBoardComponent = this.controller.ComponentFistma.currentState;
         return <>
             {this.state.CurrentUser && <h2>Welcome, {this.state.CurrentUser.FirstName}</h2>}
             {!this.state.CurrentUser && <h2>YO</h2>}

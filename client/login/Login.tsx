@@ -49,8 +49,8 @@ class Login extends React.Component<RouteComponentProps<any>, any>
     //----------------------------------------------------------------------
 
     render() {
-        if (this.state && this.state.ComponentFistma) {
-            const ComponentFromState: any = this.state.ComponentFistma.currentState
+        if (this.state && this.controller.ComponentFistma) {
+            const ComponentFromState: any = this.controller.ComponentFistma.currentState
         return <Container
             fluid={true}
         >

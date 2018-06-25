@@ -15,6 +15,9 @@ import SapienServerCom from '../../shared/base-sapien/client/SapienServerCom';
 import ICommonComponentState from '../../shared/base-sapien/client/ICommonComponentState';
 import GameModel from '../../shared/models/GameModel';
 import { plainToClass, plainToClassFromExist, classToPlain } from 'class-transformer';
+import AdminCtrl from './AdminCtrl';
+import UserList from './UserList';
+import DataStore from '../../shared/base-sapien/client/DataStore';
 
 export default class UserManagementCtrl extends BaseClientCtrl<any>
 {
@@ -25,7 +28,7 @@ export default class UserManagementCtrl extends BaseClientCtrl<any>
     //----------------------------------------------------------------------
 
 
-    dataStore: AdminViewModel & ICommonComponentState & {DeletionUser: UserModel}
+    dataStore: any;
 
     component: any;
 
@@ -42,12 +45,8 @@ export default class UserManagementCtrl extends BaseClientCtrl<any>
 
         this.component = reactComp;
         
-        
-        this.dataStore = Object.assign(new AdminViewModel(), {
-            ComponentFistma: this.ComponentFistma,
-            IsLoading: true,
-            DeletionUser: null
-        })
+        //this.dataStore = DataStore.Admin
+        this.dataStore = AdminCtrl.GetInstance().dataStore;
 
         this.component.componentWillMount = () => {
             this.getAllUsers();
@@ -75,18 +74,21 @@ export default class UserManagementCtrl extends BaseClientCtrl<any>
     public getAllGames(){
         return SapienServerCom.GetData(null, null, SapienServerCom.BASE_REST_URL + "games").then(r => {
             console.log("GAMES ARE: ",r)
+
+            
             this.dataStore.Games = r;
             this.dataStore.IsLoading = false;
         })
     }
 
     public getAllUsers(){
-        return SapienServerCom.GetData(null, null, SapienServerCom.BASE_REST_URL + "user").then(r => {
-            console.log("Users ARE: ",r)
-            this.dataStore.Users = r;
-            
-            this.dataStore.IsLoading = false;
-        })
+        if(!this.dataStore.Users || !this.dataStore.Users.length){
+            return SapienServerCom.GetData(null, null, SapienServerCom.BASE_REST_URL + "user").then(r => {
+                console.log("Users ARE: ",r)
+                this.dataStore.Users = r;            
+                this.dataStore.IsLoading = false;
+            })
+        }
     }
 
     public createOrEditUser(user?: UserModel){
@@ -106,6 +108,7 @@ export default class UserManagementCtrl extends BaseClientCtrl<any>
                                 console.log(r, Object.assign(new UserModel(), r))
                                 this.dataStore.Users = this.dataStore.Users.concat(Object.assign(new UserModel(), r))
                             }
+                            console.log("USERS ARE", AdminCtrl.GetInstance().dataStore.Users)
                             this.dataStore.FormIsSubmitting = false;
                             this.closeModal();
                         })
@@ -114,7 +117,8 @@ export default class UserManagementCtrl extends BaseClientCtrl<any>
     public DeleteUser(user: UserModel){
         return SapienServerCom.DeleteData(user, SapienServerCom.BASE_REST_URL + "user").then(r => {
             this.dataStore.Users = this.dataStore.Users.filter(u => u._id != user._id);
-            this.dataStore.DeletionUser = null;
+            console.log(AdminCtrl.GetInstance().dataStore.Users, this.dataStore.Users)
+            this.dataStore.DeletionUser = null; 
         })
     }
 }

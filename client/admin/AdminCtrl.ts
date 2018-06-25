@@ -12,8 +12,10 @@ import AdminLogin from '../login/AdminLogin'
 import GameLogin from '../login/GameLogin'
 import UserList from './UserList';
 import ApplicationCtrl from '../ApplicationCtrl'
-import { RoleName } from '../../shared/models/UserModel';
+import UserModel, { RoleName } from '../../shared/models/UserModel';
 import GameDetail from './GameDetail';
+import ICommonComponentState from '../../shared/base-sapien/client/ICommonComponentState';
+import DataStore from '../../shared/base-sapien/client/DataStore';
 
 export default class AdminCtrl extends BaseClientCtrl<any>
 {
@@ -32,9 +34,13 @@ export default class AdminCtrl extends BaseClientCtrl<any>
         gameLogin: GameLogin
     };
 
-
+    ComponentFistma: FiStMa<any>
 
     component: any;
+
+    private static _instance: AdminCtrl;
+
+    public dataStore: AdminViewModel & ICommonComponentState & {ComponentFistma?: FiStMa<any>};
 
     //----------------------------------------------------------------------
     //
@@ -42,12 +48,12 @@ export default class AdminCtrl extends BaseClientCtrl<any>
     //
     //----------------------------------------------------------------------
 
-    constructor(reactComp: Component<any, any>) {
+    private constructor(reactComp: Component<any, any>) {
 
         super(null, reactComp);
 
-        this.component = reactComp;
-        
+        this.component = reactComp;        
+        this.dataStore = DataStore.Admin;
 
         //if we don't have a user, go to admin login.
         if(!ApplicationViewModel.CurrentUser || !ApplicationViewModel.Token){
@@ -68,15 +74,44 @@ export default class AdminCtrl extends BaseClientCtrl<any>
         this.ComponentFistma.addTransition(this.ComponentStates.game)
         this.ComponentFistma.addTransition(this.ComponentStates.gameLogin)
         this.ComponentFistma.addTransition(this.ComponentStates.users)
+        this.ComponentFistma.onInvalidTransition(() => {
+            alert("INVALID")
+        });
 
-        this.dataStore = Object.assign(new AdminViewModel(), {
-            ComponentFistma: this.ComponentFistma
+
+
+        this.ComponentFistma.addOnEnter("*", () => {
+            console.warn("ADMIN ON ENTER", this.ComponentFistma.currentState.WrappedComponent.CLASS_NAME)
+            this.component.forceUpdate();
         })
 
         this.component.componentDidUpdate = (prevProps, prevState, snapshot) => {
+            //alert(this.component.props.location.pathname + " asdf " + prevProps.location.pathname)
+            console.log("ADMIN DID UPDATE", this.component.props.location.pathname, prevProps.location.pathname, this.component.props.location.pathname == prevProps.location.pathname)
             this.conditionallyNavigate(this.component.props.location.pathname, prevProps.location.pathname)
         }
+        
+/*
+        setTimeout(() => {
+            //DataStore.Admin.Users.push(new UserModel());
+            var test = new UserModel();
+            test.FirstName = "HEY THIS IS OUR TEST"
+            this.dataStore.Users = this.dataStore.Users.concat(test);
+            console.log(this.dataStore, DataStore.Admin)
+        },2000)*/
     }
+
+    
+    public static GetInstance(reactComp?: Component<any, any>): AdminCtrl {
+        if (!AdminCtrl._instance && reactComp) {
+            AdminCtrl._instance = new AdminCtrl(reactComp);
+        }
+
+        if(!AdminCtrl._instance)throw new Error("NO INSTANCE OF ADMIN")
+
+        return AdminCtrl._instance;
+    }
+    
     
     //----------------------------------------------------------------------
     //

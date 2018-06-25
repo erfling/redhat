@@ -11,6 +11,7 @@ import Game from './game/Game';
 import Admin from './admin/Admin'
 import Login from './login/Login'
 import ICommonComponentState from '../shared/base-sapien/client/ICommonComponentState';
+import DataStore from '../shared/base-sapien/client/DataStore';
 
 export default class ApplicationCtrl extends BaseClientCtrl<ApplicationViewModel>
 {
@@ -26,9 +27,12 @@ export default class ApplicationCtrl extends BaseClientCtrl<ApplicationViewModel
         login: Login
     };
 
+    ComponentFistma: FiStMa<any>
+
+
     component: any;
 
-    dataStore: ApplicationViewModel & ICommonComponentState & {ShowMenu: boolean};
+    dataStore: ICommonComponentState & {ComponentFistma?: FiStMa<any>};
 
     private static _instance: ApplicationCtrl;
 
@@ -41,29 +45,27 @@ export default class ApplicationCtrl extends BaseClientCtrl<ApplicationViewModel
 
     
     private constructor(reactComp: Component<any, any>) {
-        super( null, reactComp );
-        this.component = reactComp;
-        this.CurrentLocation = this.component.props.location.pathname;        
 
-        if(this.CurrentUser && this.CurrentUser.Role == RoleName.ADMIN || this.UrlToComponent(this.CurrentLocation) == this.ComponentStates.admin){
+        super( DataStore.ApplicationState, reactComp );
+        this.component = reactComp;
+        DataStore.ApplicationState.CurrentUser = localStorage.getItem("RH_USER") ? Object.assign( new UserModel(), JSON.parse(localStorage.getItem("RH_USER") ) ) : new UserModel()
+        this.dataStore = DataStore.ApplicationState;
+
+        this.CurrentLocation = this.component.props.location.pathname;
+        
+        if(this.dataStore.CurrentUser && this.dataStore.CurrentUser.Role == RoleName.ADMIN || this.UrlToComponent(this.CurrentLocation) == this.ComponentStates.admin){
             this.ComponentFistma = new FiStMa(this.ComponentStates, this.ComponentStates.admin);
         } else {
             this.ComponentFistma =  new FiStMa(this.ComponentStates, this.ComponentStates.game);
         }
            
+        this.ComponentFistma = this.ComponentFistma;
+
         console.log(this.component.props);
 
         this.ComponentFistma.addTransition(this.ComponentStates.game);
         this.ComponentFistma.addTransition(this.ComponentStates.admin);
-
-        
-        this.dataStore = Object.assign(new ApplicationViewModel(), {
-            ComponentFistma: this.ComponentFistma,
-            CurrentUser: localStorage.getItem("RH_USER") || null,
-            ShowMenu: false
-        })
-
-        console.log(this.component.props)
+ 
     }
     
     public static GetInstance(reactComp: Component<any, any>): ApplicationCtrl {
@@ -93,23 +95,6 @@ export default class ApplicationCtrl extends BaseClientCtrl<ApplicationViewModel
     //
     //----------------------------------------------------------------------
 
-    get AdminUserLoggedIn(): boolean {
-        let store: ApplicationViewModel = this.dataStore as ApplicationViewModel;
-        return ApplicationViewModel.Token && ApplicationViewModel.CurrentUser && ApplicationViewModel.CurrentUser.Role == RoleName.ADMIN;
-    }
 
-    get CurrentUser(): UserModel {        
-        return ApplicationViewModel.CurrentUser;
-    }
-
-    getCurrentState(){
-        //default to game as current state, unless user is logged in and is an admin
-        if(this.dataStore.CurrentUser && this.dataStore.CurrentUser.Role == RoleName.ADMIN || this.UrlToComponent(this.CurrentLocation) == this.ComponentStates.admin){
-            this.ComponentFistma = new FiStMa(this.ComponentStates, this.ComponentStates.admin);
-        } else {
-            this.ComponentFistma =  new FiStMa(this.ComponentStates, this.ComponentStates.game);
-        }
-        return this.ComponentFistma
-    }
 
 }

@@ -7,8 +7,9 @@ import UserModel, { RoleName } from '../shared/models/UserModel'
 import DecisionIcon from '-!svg-react-loader?name=Icon!./img/decisions.svg';
 import ICommonComponentState from '../shared/base-sapien/client/ICommonComponentState'
 import ApplicationViewModel from '../shared/models/ApplicationViewModel'
+import FiStMa from '../shared/entity-of-the-state/FiStMa';
 
-class App extends React.Component<RouteComponentProps<any>, ApplicationViewModel & ICommonComponentState & { ShowMenu: boolean }>
+class App extends React.Component<RouteComponentProps<any>, ICommonComponentState & {ComponentFistma?: FiStMa<any>}>
 {
 
     //----------------------------------------------------------------------
@@ -32,10 +33,10 @@ class App extends React.Component<RouteComponentProps<any>, ApplicationViewModel
     }
 
     render() {
-        if (this.state && this.state.ComponentFistma) {
-            const ComponentFromState: any = this.state.ComponentFistma.currentState
+        if (this.state && this.controller.ComponentFistma) {
+            const ComponentFromState: any = this.controller.ComponentFistma.currentState
             return <>
-                {this.state && this.controller.CurrentUser && this.controller.CurrentUser.Role == RoleName.ADMIN &&
+                {this.state && this.state.CurrentUser && this.state.CurrentUser.Role == RoleName.ADMIN &&
 
                     <Menu
                         fixed="top"
@@ -52,6 +53,10 @@ class App extends React.Component<RouteComponentProps<any>, ApplicationViewModel
                             />
                         </Menu.Item>
                         <Menu.Item 
+                            position="right" header>
+                            {this.state.CurrentUser.Name}
+                        </Menu.Item>
+                        <Menu.Item 
                             onClick={e => this.controller.signOut()}
                             position="right" header>
                             Sign Out
@@ -61,7 +66,7 @@ class App extends React.Component<RouteComponentProps<any>, ApplicationViewModel
                 <Sidebar.Pushable
                     style={{ height: '100vh' }}
                 >
-                    {this.state && this.controller.CurrentUser && this.controller.CurrentUser.Role == RoleName.ADMIN &&
+                    {this.state && this.state.CurrentUser && this.state.CurrentUser.Role == RoleName.ADMIN &&
                         <>
                             <Sidebar
                                 as={Menu}
@@ -82,6 +87,7 @@ class App extends React.Component<RouteComponentProps<any>, ApplicationViewModel
                                             onClick={e => {
                                                 e.preventDefault();
                                                 this.controller.navigateOnClick("/admin/userlist")
+                                                this.forceUpdate()
                                             }}
                                         />
                                         <Menu.Item
@@ -89,13 +95,15 @@ class App extends React.Component<RouteComponentProps<any>, ApplicationViewModel
                                             onClick={e => {
                                                 e.preventDefault();
                                                 this.controller.navigateOnClick("/admin/gamelist")
+                                                this.forceUpdate()
                                             }}
                                         />
                                         <Menu.Item
                                             name='Edit Game Content'
                                             onClick={e => {
                                                 e.preventDefault();
-                                                this.controller.navigateOnClick("/game")
+                                                this.controller.navigateOnClick("/game/peopleround/hiring?edit=true")
+                                                this.forceUpdate()
                                             }}
                                         />
                                     </Menu.Menu>
@@ -107,8 +115,9 @@ class App extends React.Component<RouteComponentProps<any>, ApplicationViewModel
                     }
 
                     <Sidebar.Pusher
-                        className={"source-stream" + (this.state && this.controller.CurrentUser && this.controller.CurrentUser.Role == RoleName.ADMIN ? " admin-body" : "")}
-                    >
+                        className={"source-stream" + (this.state && this.state.CurrentUser && this.state.CurrentUser.Role == RoleName.ADMIN ? " admin-body" : "")}
+                    >   
+                        <h1>{this.state.CurrentUser.Name}</h1>
                         <ComponentFromState />
                     </Sidebar.Pusher>
                 </Sidebar.Pushable>

@@ -29,7 +29,7 @@ class PeopleRound extends React.Component<RouteComponentProps<any>, RoundModel>
 
     constructor(props: RouteComponentProps<any>) {
         super(props);
-
+        alert("Contstructing people round")
         this.controller = new PeopleRoundCtrl(this);
         this.state = this.controller.dataStore;
         this.controller.getContentByRound("PEOPLE");
@@ -50,8 +50,8 @@ class PeopleRound extends React.Component<RouteComponentProps<any>, RoundModel>
     //----------------------------------------------------------------------
 
     render() {
-        if (this.state && this.state.SubRoundsFistma) {
-            const SubRnd = this.state.SubRoundsFistma.currentState;
+        if (this.state && this.controller.ComponentFistma) {
+            const SubRnd = this.controller.ComponentFistma.currentState;
 
             return <>
                 <Row>
