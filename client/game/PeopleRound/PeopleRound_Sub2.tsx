@@ -16,7 +16,7 @@ class PeopleRound_Sub2 extends React.Component<RouteComponentProps<any>, RoundMo
     //
     //----------------------------------------------------------------------
 
-    controller: PeopleRoundCtrl;
+    controller: PeopleRoundCtrl = PeopleRoundCtrl.GetInstance();
 
     public static CLASS_NAME = "PeopleRound_Sub2";
 
@@ -29,7 +29,6 @@ class PeopleRound_Sub2 extends React.Component<RouteComponentProps<any>, RoundMo
     constructor(props: RouteComponentProps<any>) {
         super(props);
 
-        this.controller = PeopleRoundCtrl.GetInstance();
         this.state = this.controller.dataStore;
         this.controller.getContentByRound("PEOPLE");
     }

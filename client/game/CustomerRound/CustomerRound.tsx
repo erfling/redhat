@@ -15,7 +15,7 @@ class CustomerRound extends React.Component<RouteComponentProps<any>, RoundModel
     //  Properties
     //
     //----------------------------------------------------------------------
-    controller: CustomerRoundCtrl;
+    controller: CustomerRoundCtrl = CustomerRoundCtrl.GetInstance(this);
 
     public static CLASS_NAME = "CustomerRound";
     
@@ -28,7 +28,6 @@ class CustomerRound extends React.Component<RouteComponentProps<any>, RoundModel
     constructor(props: RouteComponentProps<any>) {
         super(props);
         console.log("CONSTRUCTOR OF CUSTOMER ROUND SAYS THIS ABOUT ROUTING:", this.props.location, this.props.match)
-        this.controller = new CustomerRoundCtrl(this);
         this.state = this.controller.dataStore;
         this.controller.getContentByRound("CUSTOMER");
     }

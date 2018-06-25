@@ -19,8 +19,6 @@ export default class PeopleRoundCtrl extends BaseRoundCtrl<RoundModel>
         sub1: Hiring,
         sub2: PeopleRound_Sub2
     };
-    
-    ComponentFistma: FiStMa<any>;
 
     private static _instance: PeopleRoundCtrl;
 
@@ -39,12 +37,12 @@ export default class PeopleRoundCtrl extends BaseRoundCtrl<RoundModel>
     }
 
     public static GetInstance(reactComp?: Component<any, any>): PeopleRoundCtrl {
-        if (!PeopleRoundCtrl._instance && reactComp) {
-            PeopleRoundCtrl._instance = new PeopleRoundCtrl(reactComp);
+        if (!this._instance && reactComp) {
+            this._instance = new PeopleRoundCtrl(reactComp);
         }
-        if (!PeopleRoundCtrl._instance) throw new Error("NO INSTANCE OF ADMIN")
+        if (!this._instance) throw new Error("NO INSTANCE");
 
-        return PeopleRoundCtrl._instance;
+        return this._instance;
     }
 
     //----------------------------------------------------------------------

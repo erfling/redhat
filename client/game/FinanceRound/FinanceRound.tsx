@@ -16,7 +16,7 @@ class FinanceRound extends React.Component<RouteComponentProps<any>, RoundModel>
     //
     //----------------------------------------------------------------------
     
-    controller: FinanceRoundCtrl;
+    controller: FinanceRoundCtrl = FinanceRoundCtrl.GetInstance(this);
 
     public static CLASS_NAME = "FinanceRound";
 
@@ -30,7 +30,6 @@ class FinanceRound extends React.Component<RouteComponentProps<any>, RoundModel>
     constructor(props: RouteComponentProps<any>) {
         super(props);
 
-        this.controller = new FinanceRoundCtrl(this);
         this.state = this.controller.dataStore;
         this.controller.getContentByRound("FINANCE");
     }

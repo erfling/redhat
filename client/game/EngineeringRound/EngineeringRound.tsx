@@ -15,7 +15,7 @@ class EngineeringRound extends React.Component<RouteComponentProps<any>, RoundMo
     //  Properties
     //
     //----------------------------------------------------------------------
-    controller: EngineeringRoundCtrl;
+    controller: EngineeringRoundCtrl = EngineeringRoundCtrl.GetInstance(this);
 
     public static CLASS_NAME = "EngineeringRound";
 
@@ -29,7 +29,6 @@ class EngineeringRound extends React.Component<RouteComponentProps<any>, RoundMo
     constructor(props: RouteComponentProps<any>) {
         super(props);
 
-        this.controller = new EngineeringRoundCtrl(this);
         this.state = this.controller.dataStore;
         this.controller.getContentByRound("ENGINEERING");
     }

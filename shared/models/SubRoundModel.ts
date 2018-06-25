@@ -48,8 +48,6 @@ export default class SubRoundModel extends BaseModel
         this.LeaderContent = content;
     }
 
-    public SubRoundsFistma:FiStMa<{[key:string]: any}>;
-
     @Type(() => QuestionModel)
     public Questions: QuestionModel[] = [];
 

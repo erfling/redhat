@@ -49,7 +49,6 @@ export default class AdminCtrl extends BaseClientCtrl<any>
     //----------------------------------------------------------------------
 
     private constructor(reactComp: Component<any, any>) {
-
         super(null, reactComp);
 
         this.component = reactComp;        
@@ -103,12 +102,12 @@ export default class AdminCtrl extends BaseClientCtrl<any>
 
     
     public static GetInstance(reactComp?: Component<any, any>): AdminCtrl {
-        if (!AdminCtrl._instance && reactComp) {
-            AdminCtrl._instance = new AdminCtrl(reactComp);
+        if (!this._instance && reactComp) {
+            this._instance = new AdminCtrl(reactComp);
         }
-        if (!AdminCtrl._instance) throw new Error("NO INSTANCE OF ADMIN")
+        if (!this._instance) throw new Error("NO INSTANCE")
 
-        return AdminCtrl._instance;
+        return this._instance;
     }
     
     //----------------------------------------------------------------------

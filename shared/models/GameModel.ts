@@ -34,9 +34,6 @@ export default class GameModel extends BaseModel
     @dbProp([ObjectID])
     public Teams: TeamModel[];
 
-    @Type(() => FiStMa)
-    public RoundsFistma:FiStMa<{[key:string]: any}>;
-
     @Type(() => UserModel)
     @dbProp([ObjectID])
     public Facilitator: UserModel = new UserModel()

@@ -42,8 +42,6 @@ export default class RoundModel extends BaseModel
     @dbProp(String)
     public CurrentSubRound: string = "";
 
-    public SubRoundsFistma:FiStMa<{[key:string]: any}>;
-
     @Type(() => SubRoundModel)
     @dbProp(String)
     public SubRounds: SubRoundModel[];
