@@ -1,14 +1,14 @@
 import * as React from "react";
 import PeopleRoundCtrl from "./PeopleRoundCtrl";
-import RoundModel from "../../shared/models/RoundModel";
-import EditableContentBlock from '../../shared/base-sapien/client/shared-components/EditableContentBlock';
+import RoundModel from "../../../shared/models/RoundModel";
+import EditableContentBlock from '../../../shared/base-sapien/client/shared-components/EditableContentBlock';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 import * as Semantic from 'semantic-ui-react';
 const { Button, Grid, Menu } = Semantic;
 const { Row, Column } = Grid;
 
 
-class PeopleRound_Sub3 extends React.Component<RouteComponentProps<any>, RoundModel>
+class PeopleRound_Sub2 extends React.Component<RouteComponentProps<any>, RoundModel>
 {
     //----------------------------------------------------------------------
     //
@@ -18,7 +18,7 @@ class PeopleRound_Sub3 extends React.Component<RouteComponentProps<any>, RoundMo
 
     controller: PeopleRoundCtrl;
 
-    public static CLASS_NAME = "PeopleRound_Sub3";
+    public static CLASS_NAME = "PeopleRound_Sub2";
 
 
     //----------------------------------------------------------------------
@@ -51,10 +51,10 @@ class PeopleRound_Sub3 extends React.Component<RouteComponentProps<any>, RoundMo
 
     render() {
         return <>
-            <h1>Round One-C: round1c</h1>
+            <h1>Round One-B: round1b</h1>
         </>;
     }
 
 }
 
-export default withRouter(PeopleRound_Sub3);
+export default withRouter(PeopleRound_Sub2);

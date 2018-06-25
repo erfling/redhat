@@ -1,8 +1,8 @@
 'use strict';
-import BaseRoundCtrl from '../../shared/base-sapien/client/BaseRoundCtrl';
-import RoundModel from '../../shared/models/RoundModel';
+import BaseRoundCtrl from '../../../shared/base-sapien/client/BaseRoundCtrl';
+import RoundModel from '../../../shared/models/RoundModel';
 
-export default class SalesRoundCtrl extends BaseRoundCtrl<RoundModel>
+export default class FinanceRoundCtrl extends BaseRoundCtrl<RoundModel>
 {
     //----------------------------------------------------------------------
     //
