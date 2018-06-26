@@ -47,7 +47,7 @@ export default class UserModel extends BaseModel
 
     @dbProp(Boolean)
     @Type(() => Boolean)
-    public IsLeader: Boolean = false;
+    public IsLeader: boolean = false;
 
     //Flag to indicate whether a user's role has changed. If role changes to admin, we flag so user is emailed
     public RoleChanged: boolean = false;

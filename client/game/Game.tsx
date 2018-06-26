@@ -4,10 +4,12 @@ import GameModel from "../../shared/models/GameModel";
 import { Grid, Menu, Container, Button, Segment } from 'semantic-ui-react';
 const { Column, Row } = Grid;
 import { Route, Switch, RouteComponentProps, withRouter } from "react-router";
+import { IGamePlayModel } from '../../shared/base-sapien/client/DataStore'
 
 import ICommonComponentState from '../../shared/base-sapien/client/ICommonComponentState';
+import { RoleName } from "../../shared/models/UserModel";
 
-class Game extends React.Component<RouteComponentProps<any>, GameModel & ICommonComponentState>
+class Game extends React.Component<RouteComponentProps<any>, IGamePlayModel & ICommonComponentState>
 {
     //----------------------------------------------------------------------
     //
@@ -51,6 +53,7 @@ class Game extends React.Component<RouteComponentProps<any>, GameModel & ICommon
         return <Container
             fluid={true}
         >
+            {this.state && this.state.IsEditing && <h1>EDIT MODE</h1>}
             <Menu
                 inverted
                 fixed="top"
@@ -86,21 +89,6 @@ class Game extends React.Component<RouteComponentProps<any>, GameModel & ICommon
             >
                 <Rnd/>
             </Grid>
-            <Menu
-                inverted
-                color="blue"
-                fixed="bottom"
-                borderless
-                style={{
-                    flexShrink: 0, //don't allow flexbox to shrink it
-                    borderRadius: 0, //clear semantic-ui style
-                    margin: 0 //clear semantic-ui style
-                }}>
-                <Menu.Item
-                    header>
-                    Fixed Footer
-					</Menu.Item>
-            </Menu>
         </Container>
         } else {
             return <Segment loading></Segment>
@@ -110,10 +98,3 @@ class Game extends React.Component<RouteComponentProps<any>, GameModel & ICommon
 }
 
 export default withRouter(Game);
-/**
- * <Switch>
-                    {this.state.RoundsFistma._stateMap.map((rnd, i) => {
-                        return <Route path={'/game/'+rnd.WrappedComponent.name.toLowerCase()} component={rnd} key={i} />
-                    })}
-                </Switch>
- */

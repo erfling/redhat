@@ -61,20 +61,7 @@ class EngineeringRound extends React.Component<RouteComponentProps<any>, RoundMo
             <Grid
                 padded={true}
             >
-                {this.state.IndividualContributorContent && this.state.IndividualContributorContent.map((c, i) =>
-                    <EditableContentBlock
-                        onSaveHandler={this.controller.updateICContent.bind(this.controller)}
-                        onRemoveHandler={this.controller.removeRoundContent.bind(this.controller)}
-                        Content={c}
-                        key={i}
-                        idx={i}
-                    />
-                )}
-                <Row>
-                    <Button
-                        onClick={() => this.controller.addRoundContent()}
-                    >Add Content</Button>
-                </Row>
+                
             </Grid>
             <Row>
                 Form content goes here

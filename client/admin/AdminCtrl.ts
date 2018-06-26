@@ -33,7 +33,6 @@ export default class AdminCtrl extends BaseClientCtrl<any>
 
     private constructor(reactComp: Component<any, any>) {
         super(null, reactComp);
-        
         this.dataStore = DataStore.Admin;
 
         this.ComponentStates = {
@@ -65,7 +64,7 @@ export default class AdminCtrl extends BaseClientCtrl<any>
         this.ComponentFistma.addTransition(this.ComponentStates.gameLogin)
         this.ComponentFistma.addTransition(this.ComponentStates.users)
         this.ComponentFistma.onInvalidTransition(() => {
-            alert("INVALID")
+            
         });
 
         this.ComponentFistma.addOnEnter("*", () => {
@@ -78,14 +77,7 @@ export default class AdminCtrl extends BaseClientCtrl<any>
             console.log("ADMIN DID UPDATE", this.component.props.location.pathname, prevProps.location.pathname, this.component.props.location.pathname == prevProps.location.pathname)
             this.conditionallyNavigate(this.component.props.location.pathname, prevProps.location.pathname)
         }
-/*
-        setTimeout(() => {
-            //DataStore.Admin.Users.push(new UserModel());
-            var test = new UserModel();
-            test.FirstName = "HEY THIS IS OUR TEST"
-            this.dataStore.Users = this.dataStore.Users.concat(test);
-            console.log(this.dataStore, DataStore.Admin)
-        },2000)*/
+
     }
 
     

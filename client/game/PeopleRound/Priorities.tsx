@@ -2,13 +2,14 @@ import * as React from "react";
 import PeopleRoundCtrl from "./PeopleRoundCtrl";
 import RoundModel from "../../../shared/models/RoundModel";
 import EditableContentBlock from '../../../shared/base-sapien/client/shared-components/EditableContentBlock';
+import RoundContent from "../RoundContent";
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 import * as Semantic from 'semantic-ui-react';
 const { Button, Grid, Menu, Segment } = Semantic;
 const { Row, Column } = Grid;
 
 
-class PeopleRound_Sub2 extends React.Component<RouteComponentProps<any>, RoundModel>
+class Priorities extends React.Component<RouteComponentProps<any>, RoundModel>
 {
     //----------------------------------------------------------------------
     //
@@ -18,7 +19,7 @@ class PeopleRound_Sub2 extends React.Component<RouteComponentProps<any>, RoundMo
 
     controller: PeopleRoundCtrl = PeopleRoundCtrl.GetInstance();
 
-    public static CLASS_NAME = "PeopleRound_Sub2";
+    public static CLASS_NAME = "Priorities";
 
     //----------------------------------------------------------------------
     //
@@ -28,7 +29,6 @@ class PeopleRound_Sub2 extends React.Component<RouteComponentProps<any>, RoundMo
 
     constructor(props: RouteComponentProps<any>) {
         super(props);
-
         this.state = this.controller.dataStore;
     }
 
@@ -47,21 +47,20 @@ class PeopleRound_Sub2 extends React.Component<RouteComponentProps<any>, RoundMo
     //----------------------------------------------------------------------
 
     render() {
+        const thisSubRound = this.state.SubRounds.filter(s => s.Name.toUpperCase() == Priorities.CLASS_NAME.toUpperCase())[0]
+        console.log("SUBROUND>>>>>>>>>>>>>>>>>>>>>", thisSubRound)
         if (this.state) {
             return <>
-                <h1>Round One-B: round1b</h1>
-                {this.state.IndividualContributorContent && this.state.IndividualContributorContent.map((c, i) =>
-                    <EditableContentBlock
-                        onSaveHandler={this.controller.updateICContent.bind(this.controller)}
-                        onRemoveHandler={this.controller.removeRoundContent.bind(this.controller)}
-                        Content={c}
-                        key={i}
-                        idx={i}
-                    />
-                )}
+                <h1>Priority</h1>
+                <RoundContent
+                    CurrentUser={this.state.CurrentUser}
+                    SubRound={thisSubRound}
+                    onSaveHandler={this.controller.updateContent.bind(this.controller)}
+                    onRemoveHandler={this.controller.removeRoundContent.bind(this.controller)}
+                />
                 <Row>
                     <Button
-                        onClick={() => this.controller.addRoundContent()}
+                        onClick={() => this.controller.addRoundContent(thisSubRound, this.state._id, this.state.CurrentUser.IsLeader)}
                     >Add Content</Button>
                 </Row>
             </>;
@@ -72,4 +71,4 @@ class PeopleRound_Sub2 extends React.Component<RouteComponentProps<any>, RoundMo
 
 }
 
-export default withRouter(PeopleRound_Sub2);
+export default withRouter(Priorities);

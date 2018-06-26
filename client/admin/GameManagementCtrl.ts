@@ -157,7 +157,6 @@ export default class GameManagementCtrl extends BaseClientCtrl<any>
     }
 
     public getGame( id: string ){
-        alert(id);
         const game: GameModel = new GameModel()
         this.dataStore.IsLoading = true;
         return SapienServerCom.GetData(null, GameModel, SapienServerCom.BASE_REST_URL + GameModel.REST_URL + "/" + id)

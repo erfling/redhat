@@ -6,7 +6,8 @@ import EditableContentBlock from '../../../shared/base-sapien/client/shared-comp
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 import * as Semantic from 'semantic-ui-react';
 import SubRoundModel from "../../../shared/models/SubRoundModel";
-const { Button, Grid, Menu, Segment } = Semantic;
+import RoundContent from "../RoundContent"
+const { Button, Grid, Menu, Segment, Dimmer, Loader } = Semantic;
 const { Row, Column } = Grid;
 
 
@@ -49,33 +50,29 @@ class Hiring extends React.Component<RouteComponentProps<any>, RoundModel>
     //----------------------------------------------------------------------
 
     render() {
-        if (this.state) {
-
-            let ICContent: ContentBlock[] = []; 
-            if(this.state.SubRounds){
-                var subRound = this.state.SubRounds.filter(s => s.Name.toUpperCase() == Hiring.CLASS_NAME.toUpperCase())[0];
-                if(subRound)ICContent = subRound.IndividualContributorContent;
-            }
+        if (this.state && this.state.CurrentUser) {
+            const thisSubRound = this.state.SubRounds.filter(s => s.Name.toUpperCase() == Hiring.CLASS_NAME.toUpperCase())[0]
 
             return <>
-                <h1>Round One-A: round1a</h1>
-                {ICContent && ICContent.map((c, i) =>
-                    <EditableContentBlock
-                        onSaveHandler={this.controller.updateICContent.bind(this.controller)}
-                        onRemoveHandler={this.controller.removeRoundContent.bind(this.controller)}
-                        Content={c}
-                        key={i}
-                        idx={i}
-                    />
-                )}
+                <h1>make the hires</h1>
+
+                <RoundContent
+                    CurrentUser={this.state.CurrentUser}
+                    SubRound={thisSubRound}
+                    onSaveHandler={this.controller.updateContent.bind(this.controller)}
+                    onRemoveHandler={this.controller.removeRoundContent.bind(this.controller)}
+                />
+
                 <Row>
                     <Button
-                        onClick={() => this.controller.addRoundContent()}
+                        onClick={() => this.controller.addRoundContent(thisSubRound, this.state._id, this.state.CurrentUser.IsLeader)}
                     >Add Content</Button>
                 </Row>
             </>;
         } else {
-            return <Segment loading></Segment>
+            return <Dimmer active>
+                    <Loader>Saving</Loader>
+                </Dimmer>
         }
     }
 

@@ -108,6 +108,7 @@
     "webserver": "tsc && node ./build/api/index.js",
     "build": "tsc && ./node_modules/.bin/webpack --config webpack.config.prod.js",
     "dev": "tsc && ./node_modules/.bin/webpack --config webpack.config.dev.js && node ./build/api/index.js",
+    "dev-prod": "tsc && ./node_modules/.bin/webpack --config webpack.config.prod.js && node ./build/api/index.js",
     "dev-start": "concurrently \"webpack-dev-server --config webpack.config.dev.js\" \"yarn webserver\" ",
     "sapien-start": "concurrently \"sudo yarn webpack --config webpack.config.dev.js\" \"yarn webserver\" "
   },

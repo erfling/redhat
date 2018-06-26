@@ -57,7 +57,6 @@ export default class GameCtrl extends BaseClientCtrl<GameModel>
 
         this.dataStore = DataStore.GamePlay;
 
-
         this.component.componentDidMount = () => {
             if (this.component.props.location.search){
                 console.log("FOUND LOCATION SEARCH", this.component.props.location.search, this.ComponentFistma.currentState.WrappedComponent);

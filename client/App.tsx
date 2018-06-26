@@ -5,8 +5,9 @@ import { RouteComponentProps, withRouter } from "react-router";
 import UserModel, { RoleName } from '../shared/models/UserModel';
 import ICommonComponentState from '../shared/base-sapien/client/ICommonComponentState';
 import FiStMa from '../shared/entity-of-the-state/FiStMa';
+import DataStore from '../shared/base-sapien/client/DataStore'
 
-class App extends React.Component<RouteComponentProps<any>, ICommonComponentState & {ComponentFistma?: FiStMa<any>}>
+class App extends React.Component<RouteComponentProps<any>, ICommonComponentState & { ComponentFistma?: FiStMa<any> }>
 {
 
     //----------------------------------------------------------------------
@@ -27,7 +28,7 @@ class App extends React.Component<RouteComponentProps<any>, ICommonComponentStat
 
     constructor(props: RouteComponentProps<any>) {
         super(props);
-        
+
         console.log("DATA STORE: ", this.controller.dataStore)
         this.state = this.controller.dataStore;
     }
@@ -66,11 +67,11 @@ class App extends React.Component<RouteComponentProps<any>, ICommonComponentStat
                                 onClick={e => this.controller.dataStore.ShowMenu = !this.controller.dataStore.ShowMenu}
                             />
                         </Menu.Item>
-                        <Menu.Item 
+                        <Menu.Item
                             position="right" header>
                             {this.state.CurrentUser.Name}
                         </Menu.Item>
-                        <Menu.Item 
+                        <Menu.Item
                             onClick={e => this.controller.signOut()}
                             position="right" header>
                             Sign Out
@@ -91,8 +92,8 @@ class App extends React.Component<RouteComponentProps<any>, ICommonComponentStat
                                 inverted
                                 className="admin-sidebar"
                             >
-                                <Menu.Item/>
-                                <Menu.Item/>
+                                <Menu.Item />
+                                <Menu.Item />
                                 <Menu.Item>
                                     <Menu.Header>Administer</Menu.Header>
                                     <Menu.Menu>
@@ -101,7 +102,6 @@ class App extends React.Component<RouteComponentProps<any>, ICommonComponentStat
                                             onClick={e => {
                                                 e.preventDefault();
                                                 this.controller.navigateOnClick("/admin/userlist")
-                                                this.forceUpdate()
                                             }}
                                         />
                                         <Menu.Item
@@ -109,15 +109,14 @@ class App extends React.Component<RouteComponentProps<any>, ICommonComponentStat
                                             onClick={e => {
                                                 e.preventDefault();
                                                 this.controller.navigateOnClick("/admin/gamelist")
-                                                this.forceUpdate()
                                             }}
                                         />
                                         <Menu.Item
                                             name='Edit Game Content'
                                             onClick={e => {
                                                 e.preventDefault();
+                                                DataStore.GamePlay.IsEditing = true;
                                                 this.controller.navigateOnClick("/game/peopleround/hiring?edit=true")
-                                                this.forceUpdate()
                                             }}
                                         />
                                     </Menu.Menu>
@@ -130,11 +129,27 @@ class App extends React.Component<RouteComponentProps<any>, ICommonComponentStat
 
                     <Sidebar.Pusher
                         className={"source-stream" + (this.state && this.state.CurrentUser && this.state.CurrentUser.Role == RoleName.ADMIN ? " admin-body" : "")}
-                    >   
-                        <h1>{this.state.CurrentUser.Name}</h1>
+                    >
                         <ComponentFromState />
+
                     </Sidebar.Pusher>
+                   
                 </Sidebar.Pushable>
+                <Menu
+                        inverted
+                        color="blue"
+                        fixed="bottom"
+                        borderless
+                        style={{
+                            flexShrink: 0, //don't allow flexbox to shrink it
+                            borderRadius: 0, //clear semantic-ui style
+                            margin: 0 //clear semantic-ui style
+                        }}>
+                        <Menu.Item
+                            header>
+                            Fixed Footer
+					</Menu.Item>
+                </Menu>
 
             </>
         } else if (!this.state) {

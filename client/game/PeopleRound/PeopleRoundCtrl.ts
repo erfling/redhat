@@ -3,8 +3,7 @@ import { Component } from 'react';
 import BaseRoundCtrl from '../../../shared/base-sapien/client/BaseRoundCtrl';
 import RoundModel from '../../../shared/models/RoundModel';
 import Hiring from './Hiring';
-import PeopleRound_Sub2 from './PeopleRound_Sub2';
-import PeopleRound_Sub3 from './PeopleRound_Sub3';
+import Priorities from './Priorities';
 import FiStMa from '../../../shared/entity-of-the-state/FiStMa';
 
 export default class PeopleRoundCtrl extends BaseRoundCtrl<RoundModel>
@@ -28,8 +27,8 @@ export default class PeopleRoundCtrl extends BaseRoundCtrl<RoundModel>
         this.dataStore.Name = "PEOPLE";
 
         this.ComponentStates = {
-            sub1: Hiring,
-            sub2: PeopleRound_Sub2
+            sub1: Priorities,
+            sub2: Hiring
         };
         this.ComponentFistma = new FiStMa(this.ComponentStates, this.ComponentStates.sub1);
         this.ComponentFistma.addTransition(this.ComponentStates.sub1);
@@ -54,9 +53,7 @@ export default class PeopleRoundCtrl extends BaseRoundCtrl<RoundModel>
     //
     //----------------------------------------------------------------------
 
-    updateContent(newContent:any){
-        super.updateICContent(newContent, 0);
-    }
+  
 
     //----------------------------------------------------------------------
     //
