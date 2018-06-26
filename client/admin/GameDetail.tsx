@@ -22,7 +22,8 @@ class GameDetail extends React.Component<RouteComponentProps<any>, AdminViewMode
     //  Properties
     //
     //----------------------------------------------------------------------
-    controller: GameManagementCtrl;
+    
+    controller: GameManagementCtrl = new GameManagementCtrl(this);
 
     //alias for navigation
     public static CLASS_NAME = "GameDetail"
@@ -35,10 +36,9 @@ class GameDetail extends React.Component<RouteComponentProps<any>, AdminViewMode
 
     constructor(props: RouteComponentProps<any>) {
         super(props);
-        this.controller = new GameManagementCtrl(this);
+        
         this.state = this.controller.dataStore;
     }
-
 
     //----------------------------------------------------------------------
     //

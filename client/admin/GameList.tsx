@@ -19,7 +19,7 @@ class GameList extends React.Component<RouteComponentProps<any>, AdminViewModel 
     //
     //----------------------------------------------------------------------
 
-    controller: GameManagementCtrl = GameManagementCtrl.GetInstance(this);
+    controller: GameManagementCtrl = new GameManagementCtrl(this);
 
     //alias for navigation
     public static CLASS_NAME = "GameList";

@@ -22,8 +22,6 @@ export default class GameManagementCtrl extends BaseClientCtrl<any>
     //
     //----------------------------------------------------------------------
 
-    private static _instance: GameManagementCtrl;
-
     dataStore: AdminViewModel & ICommonComponentState & {AvailablePlayers?: {text: string, value: string, key: number}[], ComponentFistma?: FiStMa<any>};
 
     //----------------------------------------------------------------------
@@ -33,7 +31,7 @@ export default class GameManagementCtrl extends BaseClientCtrl<any>
     //----------------------------------------------------------------------
 
     constructor(reactComp: Component<any, any>) {
-        super(null, reactComp);
+        super( Object.assign(new GameModel()), reactComp);
 
         this.ComponentStates = {
             gameList: GameList,
@@ -67,15 +65,6 @@ export default class GameManagementCtrl extends BaseClientCtrl<any>
             }
         }
 
-    }
-
-    public static GetInstance(reactComp?: Component<any, any>): GameManagementCtrl {
-        if (!this._instance && reactComp) {
-            this._instance = new GameManagementCtrl(reactComp);
-        }
-        if (!this._instance) throw new Error("NO INSTANCE");
-
-        return this._instance;
     }
     
     //----------------------------------------------------------------------
@@ -119,6 +108,12 @@ export default class GameManagementCtrl extends BaseClientCtrl<any>
                 console.log("Users ARE: ",r)
                 this.dataStore.Users = r;            
                 this.dataStore.IsLoading = false;
+                return this.dataStore.Users;
+            })
+        } else {
+            return new Promise((resolve, reject) => {
+                console.log("USERS ARE",this.dataStore.Users)
+                return resolve(this.dataStore.Users);
             })
         }
     }
@@ -126,7 +121,7 @@ export default class GameManagementCtrl extends BaseClientCtrl<any>
     public createOrEditGame(game?: GameModel){
         this.dataStore.ModalObject = Object.assign(new GameModel(), game) || new GameModel();
         if(!this.dataStore.ModalObject.DatePlayed) this.dataStore.ModalObject.DatePlayed = new Date().toLocaleDateString();
-        console.log(this.dataStore.ModalObject.DatePlayed)
+        console.log(this.dataStore.ModalObject.DatePlayed);
 
         this.openModal();
     }
@@ -158,17 +153,19 @@ export default class GameManagementCtrl extends BaseClientCtrl<any>
     }
 
     public navigateToGameDetail(game: GameModel){
-        this.navigateOnClick("/admin/gamedetail/" + game._id)
+        this.navigateOnClick("/admin/gamedetail/" + game._id);
     }
 
     public getGame( id: string ){
-        const game: GameModel = this.dataStore.Games.filter(g => g._id == id)[0] || new GameModel()
+        alert(id);
+        const game: GameModel = new GameModel()
         this.dataStore.IsLoading = true;
         return SapienServerCom.GetData(null, GameModel, SapienServerCom.BASE_REST_URL + GameModel.REST_URL + "/" + id)
                                 .then(r => {
                                     Object.assign(game, r);
                                     this.dataStore.SelectedGame = game;
                                     this.dataStore.IsLoading = false;
+                                    return this.dataStore.SelectedGame;
                                 })
     }
 
@@ -176,6 +173,7 @@ export default class GameManagementCtrl extends BaseClientCtrl<any>
         const usedUserIds: string[] = game.Teams.map(t => t.Players).reduce((a,b) => a.concat(b), []).map(p => p._id)
 
         this.dataStore.AvailablePlayers = this.dataStore.Users.filter(u => u._id && usedUserIds.indexOf(u._id) == -1).map((u, i) => {
+            console.log("FILTERING A USER", u)
             return {
                 text: u.FirstName + " " + u.LastName + " (" + u.Email + ")",
                 value: u._id,
