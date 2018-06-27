@@ -22,6 +22,12 @@ export default class ApplicationCtrl extends BaseClientCtrl<ApplicationViewModel
 
     private static _instance: ApplicationCtrl;
 
+    protected readonly ComponentStates = {
+        game: Game,
+        admin: Admin,
+        login: Login
+    };
+
     //----------------------------------------------------------------------
     //
     //  Constructor
@@ -31,17 +37,13 @@ export default class ApplicationCtrl extends BaseClientCtrl<ApplicationViewModel
     
     private constructor(reactComp: Component<any, any>) {
         super( DataStore.ApplicationState, reactComp );
-        this.ComponentStates = {
-            game: Game,
-            admin: Admin,
-            login: Login
-        };
+        
         DataStore.ApplicationState.CurrentUser = localStorage.getItem("RH_USER") ? Object.assign( new UserModel(), JSON.parse(localStorage.getItem("RH_USER") ) ) : new UserModel()
         this.dataStore = DataStore.ApplicationState;
 
         this.CurrentLocation = this.component.props.location.pathname;
         
-        if(this.dataStore.CurrentUser && this.dataStore.CurrentUser.Role == RoleName.ADMIN || this.UrlToComponent(this.CurrentLocation) == this.ComponentStates.admin){
+        if (this.dataStore.CurrentUser && this.dataStore.CurrentUser.Role == RoleName.ADMIN || this.UrlToComponent(this.CurrentLocation) == this.ComponentStates.admin){
             this.ComponentFistma = new FiStMa(this.ComponentStates, this.ComponentStates.admin);
         } else {
             this.ComponentFistma =  new FiStMa(this.ComponentStates, this.ComponentStates.game);
@@ -62,7 +64,6 @@ export default class ApplicationCtrl extends BaseClientCtrl<ApplicationViewModel
         }
         return this._instance;
     }
-    
 
     //----------------------------------------------------------------------
     //

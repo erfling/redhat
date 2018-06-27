@@ -21,6 +21,14 @@ export default class GameCtrl extends BaseClientCtrl<GameModel>
 
     private static _instance: GameCtrl;
 
+    protected readonly ComponentStates = {
+        round1: PeopleRound, 
+        round2: EngineeringRound, 
+        round3: SalesRound, 
+        round4: FinanceRound, 
+        round5: CustomerRound
+    };
+
     //----------------------------------------------------------------------
     //
     //  Constructor
@@ -30,13 +38,6 @@ export default class GameCtrl extends BaseClientCtrl<GameModel>
     private constructor(reactComp: Component<any, any>) {
         super( new GameModel(), reactComp );
 
-        this.ComponentStates = {
-            round1: PeopleRound, 
-            round2: EngineeringRound, 
-            round3: SalesRound, 
-            round4: FinanceRound, 
-            round5: CustomerRound
-        };
         this.ComponentFistma = new FiStMa(this.ComponentStates, this.ComponentStates.round1);
         console.log("GAME NAV INFO:",  this.ComponentFistma.currentState.WrappedComponent)
 
