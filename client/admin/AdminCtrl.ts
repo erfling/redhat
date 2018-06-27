@@ -25,6 +25,15 @@ export default class AdminCtrl extends BaseClientCtrl<any>
 
     public dataStore: AdminViewModel & ICommonComponentState & {ComponentFistma?: FiStMa<any>};
 
+    protected readonly ComponentStates = {
+        game: GameList,
+        gameDetail: GameDetail,
+        users: UserList,
+        adminLogin: AdminLogin,
+        default: DefaultAdmin,
+        gameLogin: GameLogin
+    };
+
     //----------------------------------------------------------------------
     //
     //  Constructor
@@ -34,15 +43,6 @@ export default class AdminCtrl extends BaseClientCtrl<any>
     private constructor(reactComp: Component<any, any>) {
         super(null, reactComp);
         this.dataStore = DataStore.Admin;
-
-        this.ComponentStates = {
-            game: GameList,
-            gameDetail: GameDetail,
-            users: UserList,
-            adminLogin: AdminLogin,
-            default: DefaultAdmin,
-            gameLogin: GameLogin
-        };
 
         //if we don't have a user, go to admin login.
         if (!ApplicationViewModel.CurrentUser || !ApplicationViewModel.Token){

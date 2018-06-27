@@ -18,6 +18,12 @@ export default class LoginCtrl extends BaseClientCtrl<UserModel & ICommonCompone
     //----------------------------------------------------------------------
     
     dataStore: UserModel & ICommonComponentState;
+
+    protected readonly ComponentStates = {
+        game: GameLogin,
+        admin: AdminLogin,
+        first: Join
+    };
     
     //----------------------------------------------------------------------
     //
@@ -28,11 +34,6 @@ export default class LoginCtrl extends BaseClientCtrl<UserModel & ICommonCompone
     constructor(reactComp: Component<any, any>) {
         super( Object.assign(new UserModel()), reactComp);
         
-        this.ComponentStates = {
-            game: GameLogin,
-            admin: AdminLogin,
-            first: Join
-        };
         this.ComponentFistma = new FiStMa(this.ComponentStates, this.UrlToComponent(this.component.props.location.pathname) || this.ComponentStates.game);
 
         this.dataStore = Object.assign(

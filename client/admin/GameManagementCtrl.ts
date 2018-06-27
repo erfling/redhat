@@ -24,6 +24,13 @@ export default class GameManagementCtrl extends BaseClientCtrl<any>
 
     dataStore: AdminViewModel & ICommonComponentState & {AvailablePlayers?: {text: string, value: string, key: number}[], ComponentFistma?: FiStMa<any>};
 
+    protected readonly ComponentStates = {
+        gameList: GameList,
+        gamedetail: GameDetail,
+        game: Game,
+        adminLogin: AdminLogin
+    };
+
     //----------------------------------------------------------------------
     //
     //  Constructor
@@ -33,12 +40,6 @@ export default class GameManagementCtrl extends BaseClientCtrl<any>
     constructor(reactComp: Component<any, any>) {
         super( Object.assign(new GameModel()), reactComp);
 
-        this.ComponentStates = {
-            gameList: GameList,
-            gamedetail: GameDetail,
-            game: Game,
-            adminLogin: AdminLogin
-        };
         this.CurrentLocation = this.component.props.location.pathname;
 
         //if we don't have a user, go to admin login.
