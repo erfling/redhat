@@ -1,6 +1,7 @@
 import * as React from "react";
 import EditableContentBlock from '../../shared/base-sapien/client/shared-components/EditableContentBlock';
-import { Grid, Button, TextArea, Input} from 'semantic-ui-react'
+import EditableQuestionBlock from '../../shared/base-sapien/client/shared-components/EditableQuestionBlock';
+import { Grid, Button, TextArea, Input, Form} from 'semantic-ui-react'
 const { Column, Row } = Grid;
 //import 'semantic-ui-css/semantic.min.css';
 import SubRoundModel from "../../shared/models/SubRoundModel";
@@ -48,6 +49,24 @@ export default class RoundContent extends React.Component<RoundContentProps, {}>
                         />
                     }
                 )}
+                
+                {this.props.CurrentUser.IsLeader && this.props.SubRound != null && this.props.SubRound.Questions && 
+                    <Form>                
+                        {this.props.SubRound.Questions.map((q, i) => {
+                            return <EditableQuestionBlock
+                                        Question={q}
+                                        idx={i}
+                                        key={i}
+                                        SubRoundId={this.props.SubRound._id}
+                                        onSaveHandler={this.props.onSaveHandler}
+                                        onRemoveHandler={this.props.onRemoveHandler}
+                                        IsEditable={this.props.CurrentUser.Role == RoleName.ADMIN}
+                                    />
+                            }
+                        )}
+                    </Form>
+                }
+
                 
         </>
     }

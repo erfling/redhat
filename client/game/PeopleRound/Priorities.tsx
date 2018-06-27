@@ -51,7 +51,6 @@ class Priorities extends React.Component<RouteComponentProps<any>, RoundModel>
         console.log("SUBROUND>>>>>>>>>>>>>>>>>>>>>", thisSubRound)
         if (this.state) {
             return <>
-                <h1>Priority</h1>
                 <RoundContent
                     CurrentUser={this.state.CurrentUser}
                     SubRound={thisSubRound}

@@ -2,9 +2,10 @@ import ValueObj from "../entity-of-the-state/ValueObj";
 import ContentBlock from './ContentBlock'
 import PossibleAnswer from './PossibleAnswerModel';
 
-export enum QuestionType  {
-    "MULTIPLE_CHOICE",
-    "SLIDER"
+export enum QuestionType {
+    PRIORITY = "PRIORITY",
+    MULTIPLE_CHOICE ="MULTIPLE_CHOICE",
+    SLIDER = "SLIDER"
 }
 
 export interface QuestionShape {
@@ -14,6 +15,7 @@ export interface QuestionShape {
 
     PossibleAnswers: PossibleAnswer[];
 }
+
 
 export default class QuestionModel implements QuestionShape
 {
