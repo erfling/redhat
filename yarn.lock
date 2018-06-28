@@ -94,6 +94,12 @@
   version "0.0.30"
   resolved "https://registry.yarnpkg.com/@types/debug/-/debug-0.0.30.tgz#dc1e40f7af3b9c815013a7860e6252f6352a84df"
 
+"@types/eventemitter2@^4.1.0":
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/@types/eventemitter2/-/eventemitter2-4.1.0.tgz#090b4a67f25aa0fc087c8f2403e46f5ccc3fdfbc"
+  dependencies:
+    eventemitter2 "*"
+
 "@types/events@*":
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/@types/events/-/events-1.2.0.tgz#81a6731ce4df43619e5c8c945383b3e62a89ea86"
@@ -2382,6 +2388,10 @@ event-stream@~3.3.0:
     split "0.3"
     stream-combiner "~0.0.4"
     through "~2.3.1"
+
+eventemitter2@*, eventemitter2@^5.0.1:
+  version "5.0.1"
+  resolved "https://registry.yarnpkg.com/eventemitter2/-/eventemitter2-5.0.1.tgz#6197a095d5fb6b57e8942f6fd7eaad63a09c9452"
 
 eventemitter3@^3.0.0:
   version "3.1.0"
