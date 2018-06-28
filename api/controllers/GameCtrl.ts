@@ -143,6 +143,7 @@ class GameRouter {
 
     public async saveTeam(req: Request, res: Response) {
         const team = req.body as TeamModel;
+        console.warn(team)
         if (!team.GameId) return res.json("NO GAME ID PROVIDED")
         try {
 

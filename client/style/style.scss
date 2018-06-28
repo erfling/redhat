@@ -99,28 +99,18 @@ SEMANTIC MOBILE FIX
     outline: none;
     -webkit-overflow-scrolling: touch;
     border: 1px solid #999;
+    display: table;
+    width: 100%;
 }
 
 .Showcase__style__list {
-    width: 400px;
-    height: 600px;
     overflow: auto;
     -webkit-overflow-scrolling: touch;
     border: 1px solid #999;
 }
 .Showcase__style__stylizedItem {
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-align: center;
-    -webkit-align-items: center;
-    -ms-flex-align: center;
-    align-items: center;
-    width: 100%;
-    padding: 0 20px;
+
     background-color: #fff;
-    border-bottom: 1px solid #efefef;
     box-sizing: border-box;
     -webkit-user-select: none;
     -moz-user-select: none;
@@ -128,7 +118,20 @@ SEMANTIC MOBILE FIX
     user-select: none;
     color: #333;
     font-weight: 400;
-    min-height: 60px;
+    display: table-row;
+
+    & > div{
+        padding: 10px 20px;
+        display: table-cell;
+        border-bottom: 1px solid #efefef;
+        text-align: left;
+        &:first-child{
+            width:10px;
+        }
+        &:last-child{
+            padding: 10px 3px; 
+        }
+    }
 }
 
 .Showcase__style__item {

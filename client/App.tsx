@@ -116,7 +116,7 @@ class App extends React.Component<RouteComponentProps<any>, ICommonComponentStat
                                             onClick={e => {
                                                 e.preventDefault();
                                                 DataStore.GamePlay.IsEditing = true;
-                                                this.controller.navigateOnClick("/game/peopleround/hiring?edit=true")
+                                                this.controller.navigateOnClick("/game/peopleround")
                                             }}
                                         />
                                     </Menu.Menu>

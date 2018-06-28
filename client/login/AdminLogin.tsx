@@ -78,7 +78,7 @@ class AdminLogin extends React.Component<RouteComponentProps<any>, UserModel & I
                         <Button
                             primary
                             loading={this.state.FormIsSubmitting}
-                            onClick={() => this.controller.Login()}
+                            onClick={() => this.controller.AdminLogin()}
                         >Log in</Button>
                         {this.state && this.state.FormError &&
                             <Message negative>
