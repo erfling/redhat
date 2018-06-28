@@ -14,6 +14,7 @@ interface RoundContentProps {
     SubRound: SubRoundModel,
     onSaveHandler(content: ContentBlock, subroundId: string, i: number): void;
     onRemoveHandler(isLeader: boolean, i: number): void;
+    onAddContent(thisSubRound: SubRoundModel, RoundId: string, IsLeader:boolean): void;
 }
 
 export default class RoundContent extends React.Component<RoundContentProps, {}>
@@ -50,8 +51,18 @@ export default class RoundContent extends React.Component<RoundContentProps, {}>
                     }
                 )}
                 
+
+                <Row>
+                    <Button
+                        color="blue"
+                        onClick={() => this.props.onAddContent(this.props.SubRound, this.props.SubRound._id, this.props.CurrentUser.IsLeader)}
+                    >Add Content</Button>
+                </Row>
+
                 {this.props.CurrentUser.IsLeader && this.props.SubRound != null && this.props.SubRound.Questions && 
-                    <Form>                
+                    <Form
+                        style={{width:'100%'}}
+                    >                
                         {this.props.SubRound.Questions.map((q, i) => {
                             return <EditableQuestionBlock
                                         Question={q}

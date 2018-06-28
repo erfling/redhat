@@ -3,6 +3,7 @@ import ContentBlock from './ContentBlock'
 import PossibleAnswer from "./PossibleAnswerModel";
 import QuestionModel from "./QuestionModel";
 import { Type } from "class-transformer";
+import BaseModel from "../base-sapien/models/BaseModel";
 
 export interface ResponseShape {
     Answer: ValueObj;
@@ -12,7 +13,7 @@ export interface ResponseShape {
     Question: QuestionModel;
 }
 
-export default class ResponseModel
+export default class ResponseModel extends BaseModel
 {
     //----------------------------------------------------------------------
     //

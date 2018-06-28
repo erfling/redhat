@@ -56,12 +56,8 @@ class Priorities extends React.Component<RouteComponentProps<any>, RoundModel>
                     SubRound={thisSubRound}
                     onSaveHandler={this.controller.updateContent.bind(this.controller)}
                     onRemoveHandler={this.controller.removeRoundContent.bind(this.controller)}
+                    onAddContent={this.controller.addRoundContent.bind(this.controller)}
                 />
-                <Row>
-                    <Button
-                        onClick={() => this.controller.addRoundContent(thisSubRound, this.state._id, this.state.CurrentUser.IsLeader)}
-                    >Add Content</Button>
-                </Row>
             </>;
         } else {
             return <Segment loading></Segment>

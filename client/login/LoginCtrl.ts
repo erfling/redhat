@@ -80,13 +80,14 @@ export default class LoginCtrl extends BaseClientCtrl<UserModel & ICommonCompone
         })
     }
 
-    public Login(){
+    public AdminLogin(){
         this.dataStore.FormIsSubmitting = true;
-        SapienServerCom.SaveData(this.dataStore, SapienServerCom.BASE_REST_URL + "auth").then((returned:any) => {
+        SapienServerCom.SaveData(this.dataStore, SapienServerCom.BASE_REST_URL + "auth/admin").then((returned:any) => {
             console.log("returned", returned)
             Object.assign(this.dataStore, returned.user, returned.token);
             localStorage.setItem("rhjwt", returned.token);
             localStorage.setItem("RH_USER", JSON.stringify(returned.user))
+            localStorage.setItem("TEAM", JSON.stringify(returned.team))
             this.dataStore.FormIsSubmitting = false;
             window.location.href = 'http://planetsapientestsite.com/admin/userlist';
         })

@@ -1,6 +1,7 @@
 import ValueObj from "../entity-of-the-state/ValueObj";
 import ContentBlock from './ContentBlock'
 import PossibleAnswer from './PossibleAnswerModel';
+import BaseModel, { dbProp } from "../base-sapien/models/BaseModel";
 
 export enum QuestionType {
     PRIORITY = "PRIORITY",
@@ -8,16 +9,8 @@ export enum QuestionType {
     SLIDER = "SLIDER"
 }
 
-export interface QuestionShape {
-    Text: string;
 
-    Type: QuestionType;
-
-    PossibleAnswers: PossibleAnswer[];
-}
-
-
-export default class QuestionModel implements QuestionShape
+export default class QuestionModel extends BaseModel
 {
     //----------------------------------------------------------------------
     //
@@ -29,6 +22,7 @@ export default class QuestionModel implements QuestionShape
 
     public Type: QuestionType = QuestionType.MULTIPLE_CHOICE;
 
+    @dbProp([PossibleAnswer])
     public PossibleAnswers: PossibleAnswer[] = [];
     public set _PossibleAnswers(answers: PossibleAnswer[]){
         this.PossibleAnswers = answers;
