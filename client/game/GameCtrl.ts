@@ -10,6 +10,7 @@ import RoundModel from '../../shared/models/RoundModel';
 import UserModel from '../../shared/models/UserModel';
 import BaseClientCtrl from '../../shared/base-sapien/client/BaseClientCtrl';
 import DataStore from '../../shared/base-sapien/client/DataStore';
+import TeamModel from '../../shared/models/TeamModel';
 
 export default class GameCtrl extends BaseClientCtrl<GameModel>
 {
@@ -49,13 +50,9 @@ export default class GameCtrl extends BaseClientCtrl<GameModel>
         this.ComponentFistma.addOnEnter("*", this._onRoundEnter.bind(this));
         this.ComponentFistma.onInvalidTransition(this._onInvalidTrans);
 
-        console.log("YO1:", this.dataStore.Name, "why is this undefined?");
 
-        this.dataStore.Name = "Some initial value";
-        
-        console.log("YO2:", this.dataStore.Name);
-        DataStore.GamePlay.CurrentUser = localStorage.getItem("RH_USER") ? Object.assign( new UserModel(), JSON.parse(localStorage.getItem("RH_USER") ) ) : new UserModel()
-
+        DataStore.GamePlay.CurrentUser = localStorage.getItem("RH_USER") ? Object.assign( new UserModel(), JSON.parse(localStorage.getItem("RH_USER") ) ) : new UserModel()        
+        DataStore.GamePlay.CurrentTeam = localStorage.getItem("TEAM") ? Object.assign( new TeamModel(), JSON.parse(localStorage.getItem("TEAM") ) ) : new TeamModel()        
         this.dataStore = DataStore.GamePlay;
 
         this.component.componentDidMount = () => {

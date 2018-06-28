@@ -5,6 +5,10 @@ import RoundModel from '../../../shared/models/RoundModel';
 import Hiring from './Hiring';
 import Priorities from './Priorities';
 import FiStMa from '../../../shared/entity-of-the-state/FiStMa';
+import ValueObj from '../../../shared/entity-of-the-state/ValueObj';
+import ResponseModel from '../../../shared/models/ResponseModel';
+import QuestionModel from '../../../shared/models/QuestionModel';
+import GameCtrl from '../GameCtrl';
 
 export default class PeopleRoundCtrl extends BaseRoundCtrl<RoundModel>
 {
@@ -54,6 +58,16 @@ export default class PeopleRoundCtrl extends BaseRoundCtrl<RoundModel>
     //
     //----------------------------------------------------------------------
 
+    public Save1AResponse( resp: ValueObj[], question: QuestionModel ) {
+        const response = new ResponseModel();
+        response.Answer = resp;
+        response.TeamId = GameCtrl.GetInstance().dataStore.CurrentTeam._id;
+        response.QuestionId = question._id;
+        response.Question = question;
+        response.GameId = GameCtrl.GetInstance().dataStore.CurrentTeam.GameId;
+
+        console.log("RESPONSE IS:", response, question,GameCtrl.GetInstance().dataStore);
+    }
   
 
     //----------------------------------------------------------------------

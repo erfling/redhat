@@ -3,7 +3,7 @@ import ContentBlock from './ContentBlock'
 import PossibleAnswer from "./PossibleAnswerModel";
 import QuestionModel from "./QuestionModel";
 import { Type } from "class-transformer";
-import BaseModel from "../base-sapien/models/BaseModel";
+import BaseModel, { dbProp } from "../base-sapien/models/BaseModel";
 
 export interface ResponseShape {
     Answer: ValueObj;
@@ -21,7 +21,17 @@ export default class ResponseModel extends BaseModel
     //
     //----------------------------------------------------------------------
 
-    public Answer: ValueObj = new ValueObj();
+
+    public Answer: ValueObj | ValueObj[]= new ValueObj();
+    
+    @dbProp(String)
+    public QuestionId: string;
+    
+    @dbProp(String)
+    public GameId: string;
+
+    @dbProp(String)
+    public TeamId: string;
     
     @Type(() => PossibleAnswer)
     public PossibleAnswer: PossibleAnswer = new PossibleAnswer();

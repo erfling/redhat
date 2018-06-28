@@ -5,14 +5,20 @@ import BaseModel from '../../shared/base-sapien/models/BaseModel';
 import SchemaBuilder from '../SchemaBuilder';
 import SubRoundModel from '../../shared/models/SubRoundModel';
 
-const subSchObj = SchemaBuilder.fetchSchema(SubRoundModel);
-const monSubSchema = new mongoose.Schema(subSchObj);
-export const monSubRoundModel = mongoose.model("subround", monSubSchema);
-
 const schObj = SchemaBuilder.fetchSchema(RoundModel);
 schObj.SubRounds = [{ type: mongoose.Schema.Types.ObjectId, ref: "subround" }];
 const monSchema = new mongoose.Schema(schObj);
 export const monRoundModel = mongoose.model("round", monSchema);
+
+const qSchObj = SchemaBuilder.fetchSchema(SubRoundModel);
+const qSubSchema = new mongoose.Schema(qSchObj);
+export const monQdModel = mongoose.model("question", qSubSchema);
+
+const subSchObj = SchemaBuilder.fetchSchema(SubRoundModel);
+subSchObj.Questions = [{ type: mongoose.Schema.Types.ObjectId, ref: "question" }];
+const monSubSchema = new mongoose.Schema(subSchObj);
+export const monSubRoundModel = mongoose.model("subround", monSubSchema);
+
 
 class RoundRouter
 {
@@ -92,7 +98,7 @@ class RoundRouter
         const ID = req.params.subround;
         console.log("TRYING TO GET ROUND WITH NAME: ", ID);
         try {
-            let round = await monSubRoundModel.findOne({Name: ID});
+            let round = await monSubRoundModel.findOne({Name: ID}).populate("Questions");
             if (!round) {
               res.status(400).json({ error: 'No round' });
             } else {

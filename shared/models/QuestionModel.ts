@@ -18,17 +18,19 @@ export default class QuestionModel extends BaseModel
     //
     //----------------------------------------------------------------------
 
+    @dbProp(String)
     public Text: string = "";
 
+    @dbProp(String)
     public Type: QuestionType = QuestionType.MULTIPLE_CHOICE;
 
-    @dbProp([PossibleAnswer])
-    public PossibleAnswers: PossibleAnswer[] = [];
-    public set _PossibleAnswers(answers: PossibleAnswer[]){
+    @dbProp([ValueObj])
+    public PossibleAnswers: ValueObj[] = [];
+    public set _PossibleAnswers(answers: ValueObj[]){
         this.PossibleAnswers = answers;
     }
 
-    public AddPossibleAnswer(answer: PossibleAnswer){
+    public AddPossibleAnswer(answer: ValueObj){
         this.PossibleAnswers = this.PossibleAnswers.concat(answer);
     }
     

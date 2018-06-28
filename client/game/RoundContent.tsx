@@ -5,9 +5,11 @@ import { Grid, Button, TextArea, Input, Form} from 'semantic-ui-react'
 const { Column, Row } = Grid;
 //import 'semantic-ui-css/semantic.min.css';
 import SubRoundModel from "../../shared/models/SubRoundModel";
+import ResponseModel from "../../shared/models/ResponseModel";
 import ContentBlock from "../../shared/models/ContentBlock";
 import { plainToClass } from 'class-transformer';
 import UserModel, { RoleName } from "../../shared/models/UserModel";
+import ValueObj from "../../shared/entity-of-the-state/ValueObj";
 
 interface RoundContentProps {
     CurrentUser: UserModel,
@@ -58,27 +60,7 @@ export default class RoundContent extends React.Component<RoundContentProps, {}>
                         onClick={() => this.props.onAddContent(this.props.SubRound, this.props.SubRound._id, this.props.CurrentUser.IsLeader)}
                     >Add Content</Button>
                 </Row>
-
-                {this.props.CurrentUser.IsLeader && this.props.SubRound != null && this.props.SubRound.Questions && 
-                    <Form
-                        style={{width:'100%'}}
-                    >                
-                        {this.props.SubRound.Questions.map((q, i) => {
-                            return <EditableQuestionBlock
-                                        Question={q}
-                                        idx={i}
-                                        key={i}
-                                        SubRoundId={this.props.SubRound._id}
-                                        onSaveHandler={this.props.onSaveHandler}
-                                        onRemoveHandler={this.props.onRemoveHandler}
-                                        IsEditable={this.props.CurrentUser.Role == RoleName.ADMIN}
-                                    />
-                            }
-                        )}
-                    </Form>
-                }
-
-                
+               
         </>
     }
 

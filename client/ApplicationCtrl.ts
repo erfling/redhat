@@ -9,6 +9,7 @@ import Admin from './admin/Admin'
 import Login from './login/Login'
 import ICommonComponentState from '../shared/base-sapien/client/ICommonComponentState';
 import DataStore from '../shared/base-sapien/client/DataStore';
+import TeamModel from '../shared/models/TeamModel';
 
 export default class ApplicationCtrl extends BaseClientCtrl<ApplicationViewModel>
 {
