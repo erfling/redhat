@@ -6,6 +6,7 @@ import QuestionModel from "./QuestionModel";
 import { Expose, Type } from "class-transformer";
 import "reflect-metadata";
 import FiStMa from '../entity-of-the-state/FiStMa';
+import ResponseModel from './ResponseModel';
 
 
 export default class SubRoundModel extends BaseModel
@@ -54,6 +55,7 @@ export default class SubRoundModel extends BaseModel
     @Type(() => QuestionModel)
     public Questions: QuestionModel[] = [];
 
+    public Responses: ResponseModel[] = [];
     
 
     //----------------------------------------------------------------------

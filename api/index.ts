@@ -13,8 +13,13 @@ import AuthUtils from './AuthUtils';
 import GameCtrl from './controllers/GameCtrl';
 import GameModel from '../shared/models/GameModel'
 import TeamCtrl from './controllers/TeamCtrl';
+import LongPoll from '../shared/base-sapien/api/LongPoll'
+import GamePlayCtrl from './controllers/GamePlayCtrl';
 
 const app = express();
+const LP = new LongPoll(app);
+console.log("LONG POLL IS", LP);
+console.log("<<<<<<<<<<<<<<<<<<<<<<<END LONG POLL LOG>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
 const port = normalizePort(80);
 const httpServer = http.createServer(app);
 
@@ -67,16 +72,23 @@ function onListening(): void {
     .use(bodyParser.json());
 
     AuthUtils.SET_UP_PASSPORT();
+    LP.create("/sapien/api/test", (req, res, next) => {
+        console.log("REQUEST FOR LONG POLL")
+        res.send("LONG POLL HIT")
+        //next();
+    },)
     app.use('/', router)
         .use('/sapien/api/rounds', Passport.authenticate('jwt', {session: false}), RoundController)
         .use('/sapien/api/' + GameModel.REST_URL, GameCtrl)
         .use('/sapien/api/auth', LoginCtrl)
         .use('/sapien/api/team', TeamCtrl)
         .use('/sapien/api/user', UserCtrl )
+        .use('/sapien/api/gameplay', Passport.authenticate('jwt', {session: false}), GamePlayCtrl )
         .use('/assets', express.static("dist/assets"))
         .use('/', express.static("dist"))
         .use('*', express.static("dist"))
         .use('**', express.static("dist"))
+        
 
         // Passport.authenticate('jwt', {session: false}),
 }

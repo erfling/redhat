@@ -5,12 +5,10 @@ import QuestionModel from "./QuestionModel";
 import { Type } from "class-transformer";
 import BaseModel, { dbProp } from "../base-sapien/models/BaseModel";
 
-export interface ResponseShape {
-    Answer: ValueObj;
-    
-    PossibleAnswer: PossibleAnswer;
-
-    Question: QuestionModel;
+export interface ResponseFetcher{
+    RoundId: string;
+    TeamId: string;
+    GameId: string;
 }
 
 export default class ResponseModel extends BaseModel
@@ -32,6 +30,9 @@ export default class ResponseModel extends BaseModel
 
     @dbProp(String)
     public TeamId: string;
+
+    @dbProp(String)
+    public RoundId: string;
     
     @Type(() => PossibleAnswer)
     public PossibleAnswer: PossibleAnswer = new PossibleAnswer();
