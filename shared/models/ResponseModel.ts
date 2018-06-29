@@ -19,8 +19,14 @@ export default class ResponseModel extends BaseModel
     //
     //----------------------------------------------------------------------
 
-
-    public Answer: ValueObj | ValueObj[]= new ValueObj();
+    //WE HAVE BOTH ANSWER AND ANSWERS TO PRESERVE TYPE SAFETY AND ALLOW MONGOOSE MODEL GENERATION
+    //PRIORITY TYPE QUESTIONS HAVE ARRAYS OF VALUE OBJECTS
+    //BOTH PROPS DEFINED MANUALLY IN SCHEMA, GAMEPLAYCTRL.TS
+    public Answer: ValueObj | ValueObj[] = new ValueObj();
+    
+    //WE HAVE BOTH ANSWER AND ANSWERS TO PRESERVE TYPE SAFETY AND ALLOW MONGOOSE MODEL GENERATION
+    //BOTH PROPS DEFINED MANUALLY IN SCHEMA, GAMEPLAYCTRL.TS
+    public Answers: ValueObj | ValueObj[] = new ValueObj();
     
     @dbProp(String)
     public QuestionId: string;

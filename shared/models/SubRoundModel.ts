@@ -54,9 +54,7 @@ export default class SubRoundModel extends BaseModel
 
     @Type(() => QuestionModel)
     public Questions: QuestionModel[] = [];
-
-    public Responses: ResponseModel[] = [];
-    
+   
 
     //----------------------------------------------------------------------
     //
