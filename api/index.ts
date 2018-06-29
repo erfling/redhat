@@ -4,9 +4,6 @@ import RoundController from './controllers/RoundCtrl'
 import * as mongoose from 'mongoose';
 import * as bodyParser from 'body-parser';
 import * as Passport from 'passport'
-import * as PassportJWT from 'passport-jwt';
-import * as PassportLocal from 'passport-local';
-import * as jwt from 'jsonwebtoken';
 import LoginCtrl from './controllers/LoginCtrl';
 import UserCtrl from './controllers/UserCtrl';
 import AuthUtils from './AuthUtils';
@@ -18,8 +15,6 @@ import GamePlayCtrl from './controllers/GamePlayCtrl';
 
 const app = express();
 const LP = new LongPoll(app);
-console.log("LONG POLL IS", LP);
-console.log("<<<<<<<<<<<<<<<<<<<<<<<END LONG POLL LOG>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
 const port = normalizePort(80);
 const httpServer = http.createServer(app);
 
@@ -56,7 +51,6 @@ function onListening(): void {
     
     var connection = mongoose.connect(MONGO_URI || process.env.MONGODB_URI).then((connection) => {
         //console.log(typeof connection, connection);
-
     }).catch((r) => {
         console.log(r);
     });
@@ -73,9 +67,9 @@ function onListening(): void {
 
     AuthUtils.SET_UP_PASSPORT();
     LP.create("/sapien/api/test", (req, res, next) => {
-        console.log("REQUEST FOR LONG POLL")
-        res.send("LONG POLL HIT")
-        //next();
+        console.log("REQUEST FOR LONG POLL");
+        res.send("LONG POLL HIT");
+        next();
     },)
     app.use('/', router)
         .use('/sapien/api/rounds', Passport.authenticate('jwt', {session: false}), RoundController)
@@ -88,7 +82,6 @@ function onListening(): void {
         .use('/', express.static("dist"))
         .use('*', express.static("dist"))
         .use('**', express.static("dist"))
-        
 
         // Passport.authenticate('jwt', {session: false}),
 }
