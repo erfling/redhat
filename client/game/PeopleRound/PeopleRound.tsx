@@ -66,9 +66,6 @@ class PeopleRound extends React.Component<RouteComponentProps<any>, RoundModel>
                 <Grid>
                     <SubRnd/>
                 </Grid>
-                <Row>
-                    Form content goes here
-                </Row>
             </>
         } else {
             return <Segment loading></Segment>

@@ -8,6 +8,15 @@ import "reflect-metadata";
 import FiStMa from '../entity-of-the-state/FiStMa';
 import ResponseModel from './ResponseModel';
 
+export interface ContentShape{
+    data: any,
+    depth: number,
+    entityRanges: any[],
+    inlineStyleRanges: any[],
+    key: string,
+    test: string,
+    type: string
+}
 
 export default class SubRoundModel extends BaseModel
 {
@@ -36,21 +45,11 @@ export default class SubRoundModel extends BaseModel
     @dbProp(Number)
     public RoundIdx: number = 0;
 
-    @Type(() => ContentBlock)
-    @dbProp([ContentBlock])
-    public IndividualContributorContent: ContentBlock[] = [];
+    @dbProp(String)
+    public IndividualContributorContent: string = "";
     
-    @Type(() => ContentBlock)
-    @dbProp([ContentBlock])
-    public LeaderContent: ContentBlock[] = [];
-
-    @Expose()
-    get _LeaderContent(): ContentBlock[]{
-        return this.LeaderContent;
-    }
-    set _LeaderContent(content: ContentBlock[]) {
-        this.LeaderContent = content;
-    }
+    @dbProp(String)
+    public LeaderContent: string = "";
 
     @Type(() => QuestionModel)
     public Questions: QuestionModel[] = [];

@@ -21,6 +21,19 @@ export default class ContentBlockModel extends BaseModel
 
     IsNew?: boolean = false;
 
+    content: [
+        {
+            data: any;
+            depth: number,
+            entityRanges: any[],
+            inlineStyleRanges: any[],
+            key: string,
+            test: string,
+            type: string
+        }
+
+    ];
+
     //----------------------------------------------------------------------
     //
     //  Constructor

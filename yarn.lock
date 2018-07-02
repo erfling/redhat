@@ -94,6 +94,13 @@
   version "0.0.30"
   resolved "https://registry.yarnpkg.com/@types/debug/-/debug-0.0.30.tgz#dc1e40f7af3b9c815013a7860e6252f6352a84df"
 
+"@types/draft-js@^0.10.0":
+  version "0.10.23"
+  resolved "https://registry.yarnpkg.com/@types/draft-js/-/draft-js-0.10.23.tgz#c313e5e2d6d1b707c18317882b9415975890f3bd"
+  dependencies:
+    "@types/react" "*"
+    immutable "^3.8.1"
+
 "@types/eventemitter2@^4.1.0":
   version "4.1.0"
   resolved "https://registry.yarnpkg.com/@types/eventemitter2/-/eventemitter2-4.1.0.tgz#090b4a67f25aa0fc087c8f2403e46f5ccc3fdfbc"
@@ -259,6 +266,10 @@
   resolved "https://registry.yarnpkg.com/@types/react/-/react-16.3.14.tgz#f90ac6834de172e13ecca430dcb6814744225d36"
   dependencies:
     csstype "^2.2.0"
+
+"@types/sanitize-html@^1.14.0":
+  version "1.14.0"
+  resolved "https://registry.yarnpkg.com/@types/sanitize-html/-/sanitize-html-1.14.0.tgz#9a03ec58306e24feaa3fbdb8ab593934d53ecb05"
 
 "@types/seedrandom@^2.4.27":
   version "2.4.27"
@@ -497,7 +508,7 @@ array-union@^1.0.1:
   dependencies:
     array-uniq "^1.0.1"
 
-array-uniq@^1.0.1:
+array-uniq@^1.0.1, array-uniq@^1.0.2:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/array-uniq/-/array-uniq-1.0.3.tgz#af6ac877a25cc7f74e058894753858dfdb24fdb6"
 
@@ -2033,7 +2044,7 @@ domain-browser@^1.1.1:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/domain-browser/-/domain-browser-1.2.0.tgz#3d31f50191a6749dd1375a7f522e823d42e54eda"
 
-domelementtype@1:
+domelementtype@1, domelementtype@^1.3.0:
   version "1.3.0"
   resolved "https://registry.yarnpkg.com/domelementtype/-/domelementtype-1.3.0.tgz#b17aed82e8ab59e52dd9c19b1756e0fc187204c2"
 
@@ -2044,6 +2055,12 @@ domelementtype@~1.1.1:
 domhandler@2.1:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/domhandler/-/domhandler-2.1.0.tgz#d2646f5e57f6c3bab11cf6cb05d3c0acf7412594"
+  dependencies:
+    domelementtype "1"
+
+domhandler@^2.3.0:
+  version "2.4.2"
+  resolved "https://registry.yarnpkg.com/domhandler/-/domhandler-2.4.2.tgz#8805097e933d65e85546f726d60f5eb88b44f803"
   dependencies:
     domelementtype "1"
 
@@ -2060,6 +2077,13 @@ domutils@1.5.1:
     dom-serializer "0"
     domelementtype "1"
 
+domutils@^1.5.1:
+  version "1.7.0"
+  resolved "https://registry.yarnpkg.com/domutils/-/domutils-1.7.0.tgz#56ea341e834e06e6748af7a1cb25da67ea9f8c2a"
+  dependencies:
+    dom-serializer "0"
+    domelementtype "1"
+
 dont-sniff-mimetype@1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/dont-sniff-mimetype/-/dont-sniff-mimetype-1.0.0.tgz#5932890dc9f4e2f19e5eb02a20026e5e5efc8f58"
@@ -2069,6 +2093,32 @@ dot-prop@^4.1.0:
   resolved "https://registry.yarnpkg.com/dot-prop/-/dot-prop-4.2.0.tgz#1f19e0c2e1aa0e32797c49799f2837ac6af69c57"
   dependencies:
     is-obj "^1.0.0"
+
+draft-js-export-html@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/draft-js-export-html/-/draft-js-export-html-1.2.0.tgz#1cbe2b78e1fed74fc29c7cdcbfd7540468eca209"
+  dependencies:
+    draft-js-utils "^1.2.0"
+
+draft-js-utils@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/draft-js-utils/-/draft-js-utils-1.2.0.tgz#f5cb23eb167325ffed3d79882fdc317721d2fd12"
+
+draft-js@^0.10.0:
+  version "0.10.5"
+  resolved "https://registry.yarnpkg.com/draft-js/-/draft-js-0.10.5.tgz#bfa9beb018fe0533dbb08d6675c371a6b08fa742"
+  dependencies:
+    fbjs "^0.8.15"
+    immutable "~3.7.4"
+    object-assign "^4.1.0"
+
+draftjs-to-html@^0.7.0:
+  version "0.7.6"
+  resolved "https://registry.yarnpkg.com/draftjs-to-html/-/draftjs-to-html-0.7.6.tgz#95bc55aeeca6c6a7abc242c5616946704c6685c9"
+
+draftjs-utils@^0.9.3:
+  version "0.9.4"
+  resolved "https://registry.yarnpkg.com/draftjs-utils/-/draftjs-utils-0.9.4.tgz#976c61aa133dbbbfedd65ae1dd6627d7b98c6f08"
 
 duplexer3@^0.1.4:
   version "0.1.4"
@@ -2209,7 +2259,7 @@ enhanced-resolve@^3.0.0, enhanced-resolve@^3.4.0:
     object-assign "^4.0.1"
     tapable "^0.2.7"
 
-entities@~1.1.1:
+entities@^1.1.1, entities@~1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/entities/-/entities-1.1.1.tgz#6e5c2d0a5621b5dadaecef80b90edfb5cd7772f0"
 
@@ -2573,6 +2623,18 @@ faye-websocket@~0.11.0:
   resolved "https://registry.yarnpkg.com/faye-websocket/-/faye-websocket-0.11.1.tgz#f0efe18c4f56e4f40afc7e06c719fd5ee6188f38"
   dependencies:
     websocket-driver ">=0.5.1"
+
+fbjs@^0.8.15:
+  version "0.8.17"
+  resolved "https://registry.yarnpkg.com/fbjs/-/fbjs-0.8.17.tgz#c4d598ead6949112653d6588b01a5cdcd9f90fdd"
+  dependencies:
+    core-js "^1.0.0"
+    isomorphic-fetch "^2.1.1"
+    loose-envify "^1.0.0"
+    object-assign "^4.1.0"
+    promise "^7.1.1"
+    setimmediate "^1.0.5"
+    ua-parser-js "^0.7.18"
 
 fbjs@^0.8.16:
   version "0.8.16"
@@ -3206,6 +3268,14 @@ html-tags@^1.0.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/html-tags/-/html-tags-1.2.0.tgz#c78de65b5663aa597989dd2b7ab49200d7e4db98"
 
+html-to-draftjs@^0.1.0-beta7:
+  version "0.1.0-beta9"
+  resolved "https://registry.yarnpkg.com/html-to-draftjs/-/html-to-draftjs-0.1.0-beta9.tgz#6e61455d9afb4b71f1fc0ea79fa033fa83e934e0"
+
+html-to-draftjs@^1.4.0:
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/html-to-draftjs/-/html-to-draftjs-1.4.0.tgz#8a3cbbba5b49d50be8ce85cc08b112d5bf00fc1d"
+
 html-webpack-plugin@^3.0.6:
   version "3.2.0"
   resolved "https://registry.yarnpkg.com/html-webpack-plugin/-/html-webpack-plugin-3.2.0.tgz#b01abbd723acaaa7b37b6af4492ebda03d9dd37b"
@@ -3217,6 +3287,17 @@ html-webpack-plugin@^3.0.6:
     tapable "^1.0.0"
     toposort "^1.0.0"
     util.promisify "1.0.0"
+
+htmlparser2@^3.9.0:
+  version "3.9.2"
+  resolved "https://registry.yarnpkg.com/htmlparser2/-/htmlparser2-3.9.2.tgz#1bdf87acca0f3f9e53fa4fcceb0f4b4cbb00b338"
+  dependencies:
+    domelementtype "^1.3.0"
+    domhandler "^2.3.0"
+    domutils "^1.5.1"
+    entities "^1.1.1"
+    inherits "^2.0.1"
+    readable-stream "^2.0.2"
 
 htmlparser2@~3.3.0:
   version "3.3.0"
@@ -3343,6 +3424,14 @@ ignore@^3.3.5:
 image-size@~0.5.0:
   version "0.5.5"
   resolved "https://registry.yarnpkg.com/image-size/-/image-size-0.5.5.tgz#09dfd4ab9d20e29eb1c3e80b8990378df9e3cb9c"
+
+immutable@^3.8.1:
+  version "3.8.2"
+  resolved "https://registry.yarnpkg.com/immutable/-/immutable-3.8.2.tgz#c2439951455bb39913daf281376f1530e104adf3"
+
+immutable@~3.7.4:
+  version "3.7.6"
+  resolved "https://registry.yarnpkg.com/immutable/-/immutable-3.7.6.tgz#13b4d3cb12befa15482a26fe1b2ebae640071e4b"
 
 import-lazy@^2.1.0:
   version "2.1.0"
@@ -3994,6 +4083,12 @@ levn@~0.3.0:
     prelude-ls "~1.1.2"
     type-check "~0.3.2"
 
+linkify-it@^2.0.3:
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/linkify-it/-/linkify-it-2.0.3.tgz#d94a4648f9b1c179d64fa97291268bdb6ce9434f"
+  dependencies:
+    uc.micro "^1.0.1"
+
 load-json-file@^1.0.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/load-json-file/-/load-json-file-1.1.0.tgz#956905708d58b4bab4c2261b04f59f31c99374c0"
@@ -4053,9 +4148,13 @@ lodash.camelcase@^4.3.0:
   version "4.3.0"
   resolved "https://registry.yarnpkg.com/lodash.camelcase/-/lodash.camelcase-4.3.0.tgz#b28aa6288a2b9fc651035c7711f65ab6190331a6"
 
-lodash.clonedeep@^4.3.2:
+lodash.clonedeep@^4.3.2, lodash.clonedeep@^4.5.0:
   version "4.5.0"
   resolved "https://registry.yarnpkg.com/lodash.clonedeep/-/lodash.clonedeep-4.5.0.tgz#e23f3f9c4f8fbdde872529c1071857a086e5ccef"
+
+lodash.escaperegexp@^4.1.2:
+  version "4.1.2"
+  resolved "https://registry.yarnpkg.com/lodash.escaperegexp/-/lodash.escaperegexp-4.1.2.tgz#64762c48618082518ac3df4ccf5d5886dae20347"
 
 lodash.get@4.4.2:
   version "4.4.2"
@@ -5408,6 +5507,14 @@ postcss@^6.0.1:
     source-map "^0.6.1"
     supports-color "^5.4.0"
 
+postcss@^6.0.14:
+  version "6.0.23"
+  resolved "https://registry.yarnpkg.com/postcss/-/postcss-6.0.23.tgz#61c82cc328ac60e677645f979054eb98bc0e3324"
+  dependencies:
+    chalk "^2.4.1"
+    source-map "^0.6.1"
+    supports-color "^5.4.0"
+
 prelude-ls@~1.1.2:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/prelude-ls/-/prelude-ls-1.1.2.tgz#21932a549f5e52ffd9a827f570e04be62a97da54"
@@ -5666,6 +5773,16 @@ react-dom@^16.3.2:
     object-assign "^4.1.1"
     prop-types "^15.6.0"
 
+react-draft-wysiwyg@^1.8.4:
+  version "1.12.13"
+  resolved "https://registry.yarnpkg.com/react-draft-wysiwyg/-/react-draft-wysiwyg-1.12.13.tgz#609bf9918607837223b67893b1e40d58e20341f4"
+  dependencies:
+    classnames "^2.2.5"
+    draftjs-utils "^0.9.3"
+    html-to-draftjs "^1.4.0"
+    linkify-it "^2.0.3"
+    prop-types "^15.6.0"
+
 react-emotion@^8.0.8:
   version "8.0.12"
   resolved "https://registry.yarnpkg.com/react-emotion/-/react-emotion-8.0.12.tgz#3dd94c151197e2e3399e34e3e118df141b5ebb7b"
@@ -5682,6 +5799,12 @@ react-hot-loader@^3.1.3:
     react-proxy "^3.0.0-alpha.0"
     redbox-react "^1.3.6"
     source-map "^0.6.1"
+
+react-html-parser@^2.0.2:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/react-html-parser/-/react-html-parser-2.0.2.tgz#6dbe1ddd2cebc1b34ca15215158021db5fc5685e"
+  dependencies:
+    htmlparser2 "^3.9.0"
 
 react-icon-base@2.1.0:
   version "2.1.0"
@@ -5805,6 +5928,18 @@ react-vis@^1.8.2:
     global "^4.3.1"
     prop-types "^15.5.8"
     react-motion "^0.5.2"
+
+react-wysiwyg-typescript@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/react-wysiwyg-typescript/-/react-wysiwyg-typescript-1.0.2.tgz#379e4ea7f50a65048594436e2c65a4efef899f9d"
+  dependencies:
+    "@types/draft-js" "^0.10.0"
+    draft-js "^0.10.0"
+    draft-js-export-html "^1.2.0"
+    draftjs-to-html "^0.7.0"
+    html-to-draftjs "^0.1.0-beta7"
+    react-draft-wysiwyg "^1.8.4"
+    react-html-parser "^2.0.2"
 
 react@^16.3.2:
   version "16.3.2"
@@ -6206,6 +6341,21 @@ safe-regex@^1.1.0:
 "safer-buffer@>= 2.1.2 < 3":
   version "2.1.2"
   resolved "https://registry.yarnpkg.com/safer-buffer/-/safer-buffer-2.1.2.tgz#44fa161b0187b9549dd84bb91802f9bd8385cd6a"
+
+sanitize-html@^1.18.2:
+  version "1.18.2"
+  resolved "https://registry.yarnpkg.com/sanitize-html/-/sanitize-html-1.18.2.tgz#61877ba5a910327e42880a28803c2fbafa8e4642"
+  dependencies:
+    chalk "^2.3.0"
+    htmlparser2 "^3.9.0"
+    lodash.clonedeep "^4.5.0"
+    lodash.escaperegexp "^4.1.2"
+    lodash.isplainobject "^4.0.6"
+    lodash.isstring "^4.0.1"
+    lodash.mergewith "^4.6.0"
+    postcss "^6.0.14"
+    srcset "^1.0.0"
+    xtend "^4.0.0"
 
 sass-graph@^2.2.4:
   version "2.2.4"
@@ -6717,6 +6867,13 @@ sprintf-js@~1.0.2:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/sprintf-js/-/sprintf-js-1.0.3.tgz#04e6926f662895354f3dd015203633b857297e2c"
 
+srcset@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/srcset/-/srcset-1.0.0.tgz#a5669de12b42f3b1d5e83ed03c71046fc48f41ef"
+  dependencies:
+    array-uniq "^1.0.2"
+    number-is-nan "^1.0.0"
+
 sshpk@^1.7.0:
   version "1.14.1"
   resolved "https://registry.yarnpkg.com/sshpk/-/sshpk-1.14.1.tgz#130f5975eddad963f1d56f92b9ac6c51fa9f83eb"
@@ -7170,9 +7327,13 @@ typescript@@2.6.2:
   version "2.6.2"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-2.6.2.tgz#3c5b6fd7f6de0914269027f03c0946758f7673a4"
 
-ua-parser-js@^0.7.9:
+ua-parser-js@^0.7.18, ua-parser-js@^0.7.9:
   version "0.7.18"
   resolved "https://registry.yarnpkg.com/ua-parser-js/-/ua-parser-js-0.7.18.tgz#a7bfd92f56edfb117083b69e31d2aa8882d4b1ed"
+
+uc.micro@^1.0.1:
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/uc.micro/-/uc.micro-1.0.5.tgz#0c65f15f815aa08b560a61ce8b4db7ffc3f45376"
 
 uglify-es@^3.3.4:
   version "3.3.9"
