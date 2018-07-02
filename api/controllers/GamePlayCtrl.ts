@@ -8,8 +8,6 @@ import ResponseModel, { ResponseFetcher } from '../../shared/models/ResponseMode
 import { monTeamModel } from './TeamCtrl'
 
 const schObj = SchemaBuilder.fetchSchema(ResponseModel);
-schObj.Answer = { label: String, data: String, isSaved: Boolean}
-schObj.Answers = [{ label: String, data: String, isSaved: Boolean}]
 const monSchema = new mongoose.Schema(schObj);
 export const monResponseModel = mongoose.model("response", monSchema);
 
@@ -90,18 +88,20 @@ class GamePlayRouter
 
     public async SaveResponse(req: Request, res: Response){
         const response: ResponseModel = Object.assign(new ResponseModel(), req.body as ResponseModel);
-        console.log(response, req.body);
+
         try{
             if(!response._id) {
-                var SavedResponse = await monResponseModel.create(response).then(r => r.toObject() as ResponseModel);
+                console.log("HERE")
+                var SaveResponse = await monResponseModel.create(response).then(r => r.toObject() as ResponseModel);
             } else {
-                var SavedResponse = await monResponseModel.findByIdAndUpdate(response._id, response, {new: true}).then(r => r.toObject() as ResponseModel);
+                var SaveResponse = await monResponseModel.findByIdAndUpdate(response._id, response, {new: true}).then(r => r.toObject() as ResponseModel);
             }
+            console.log(SaveResponse);
 
-            res.json(SavedResponse);
+            res.json(SaveResponse);
         }
-        catch(error){
-            res.json(error)
+        catch{
+
         }
     }
 

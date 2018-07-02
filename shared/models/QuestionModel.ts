@@ -1,7 +1,6 @@
 import ValueObj from "../entity-of-the-state/ValueObj";
 import ContentBlock from './ContentBlock'
 import PossibleAnswer from './PossibleAnswerModel';
-import ResponseModel from './ResponseModel';
 import BaseModel, { dbProp } from "../base-sapien/models/BaseModel";
 
 export enum QuestionType {
@@ -34,7 +33,5 @@ export default class QuestionModel extends BaseModel
     public AddPossibleAnswer(answer: ValueObj){
         this.PossibleAnswers = this.PossibleAnswers.concat(answer);
     }
-
-    public Response: ResponseModel;
     
 }

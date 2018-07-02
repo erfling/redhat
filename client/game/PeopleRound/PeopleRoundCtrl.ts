@@ -61,17 +61,18 @@ export default class PeopleRoundCtrl extends BaseRoundCtrl<RoundModel>
     //----------------------------------------------------------------------
 
     public Save1AResponse( resp: ValueObj[], question: QuestionModel, round: SubRoundModel ) {
-        const response = question.Response || new ResponseModel();
-        response.Answers = resp;
+        const response = new ResponseModel();
+        response.Answer = resp;
         response.TeamId = GameCtrl.GetInstance().dataStore.CurrentTeam._id;
         response.QuestionId = question._id;
         response.Question = question;
         response.RoundId = round._id;
         response.GameId = GameCtrl.GetInstance().dataStore.CurrentTeam.GameId;
+        console.log("ROUND IS:", round, question,GameCtrl.GetInstance().dataStore);
 
         return SapienServerCom.SaveData(response, SapienServerCom.BASE_REST_URL + "gameplay/response").then(r => {
             console.log(r);
-            question.PossibleAnswers = question.Response = Object.assign(new ResponseModel(), r);            
+            round.Responses = round.Responses.map(resp => resp._id == r._id ? Object.assign(new ResponseModel(), r) : resp);
             return round;
         })
 
