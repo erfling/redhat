@@ -22,7 +22,7 @@ export default class GameManagementCtrl extends BaseClientCtrl<any>
     //
     //----------------------------------------------------------------------
 
-    dataStore: AdminViewModel & ICommonComponentState & {AvailablePlayers?: {text: string, value: string, key: number}[], ComponentFistma?: FiStMa<any>};
+    dataStore: AdminViewModel & ICommonComponentState & { AvailablePlayers?: { text: string, value: string, key: number }[], ComponentFistma?: FiStMa<any> };
 
     protected readonly ComponentStates = {
         gameList: GameList,
@@ -31,54 +31,44 @@ export default class GameManagementCtrl extends BaseClientCtrl<any>
         adminLogin: AdminLogin
     };
 
+    private static _instance: GameManagementCtrl;
+
+
     //----------------------------------------------------------------------
     //
     //  Constructor
     //
     //----------------------------------------------------------------------
 
-    constructor(reactComp: Component<any, any>) {
-        super( Object.assign(new GameModel()), reactComp);
+    constructor(reactComp?: Component<any, any>) {
+        super( reactComp ? Object.assign(new GameModel()) : null, reactComp || null);
 
         this.CurrentLocation = this.component.props.location.pathname;
 
-        //if we don't have a user, go to admin login.
-        if (!ApplicationViewModel.CurrentUser || !ApplicationViewModel.Token){
-            this.ComponentFistma = new FiStMa(this.ComponentStates, this.ComponentStates.adminLogin) as FiStMa<any>;
-        } 
-        //if we have a user, but not an admin, go to game login
-        else if (!ApplicationViewModel.CurrentUser || ApplicationViewModel.CurrentUser.Role != RoleName.ADMIN) {
-            this.ComponentFistma = new FiStMa(this.ComponentStates, this.ComponentStates.adminLogin);
-        }
-        //otherwise, go where the url tells us. If bad url, go to admin default
-        else {
-            this.ComponentFistma = new FiStMa(this.ComponentStates, this.UrlToComponent(this.component.props.location.pathname));
-        }
-        this.dataStore = AdminCtrl.GetInstance().dataStore;
-
-        if (this.component.componentWillMount == undefined){
-            this.component.componentWillMount = () => {
-                //this.component.constructor.super(this.component.props).componentWillMount()
-                console.log("MOUNTED: ", this.component, this.component.props.location.pathname);
-                this.navigateOnClick(this.component.props.location.pathname);
-                this.getAllGames();
-                this.getAllUsers();
-            }
-        }
+        if (reactComp) this._setUpFistma(reactComp)
 
     }
-    
+
+    public static GetInstance(reactComp?: Component<any, any>): GameManagementCtrl {
+        if (!this._instance) {
+            this._instance = new GameManagementCtrl(reactComp || null);
+        }
+        if (!this._instance) throw new Error("NO INSTANCE")
+        if (reactComp) this._instance._setUpFistma(reactComp)
+        return this._instance;
+    }
+
     //----------------------------------------------------------------------
     //
     //  Event Handlers
     //
     //----------------------------------------------------------------------
 
-    private _onRoundEnter(fromState:React.Component<{}, any>): void {
+    private _onRoundEnter(fromState: React.Component<{}, any>): void {
         console.log("Entered round", this.dataStore.RoundsFistma.currentState, "from round", fromState);
     }
 
-    public addTeamToGame(game: GameModel){
+    public addTeamToGame(game: GameModel) {
         const team = new TeamModel();
         team.GameId = game._id;
         const player = new UserModel();
@@ -93,82 +83,82 @@ export default class GameManagementCtrl extends BaseClientCtrl<any>
     //
     //----------------------------------------------------------------------
 
-    public getAllGames(){
+    public getAllGames() {
         return SapienServerCom.GetData(null, null, SapienServerCom.BASE_REST_URL + "games").then(r => {
-            console.log("GAMES ARE: ",r)
+            console.log("GAMES ARE: ", r)
             this.dataStore.Games = r;
             this.dataStore.IsLoading = false;
         })
     }
 
-    public getAllUsers(){
-        if(!this.dataStore.Users || !this.dataStore.Users.length){
+    public getAllUsers() {
+        if (!this.dataStore.Users || !this.dataStore.Users.length) {
             return SapienServerCom.GetData(null, null, SapienServerCom.BASE_REST_URL + "user").then(r => {
-                console.log("Users ARE: ",r)
-                this.dataStore.Users = r;            
+                console.log("Users ARE: ", r)
+                this.dataStore.Users = r;
                 this.dataStore.IsLoading = false;
                 return this.dataStore.Users;
             })
         } else {
             return new Promise((resolve, reject) => {
-                console.log("USERS ARE",this.dataStore.Users)
+                console.log("USERS ARE", this.dataStore.Users)
                 return resolve(this.dataStore.Users);
             })
         }
     }
 
-    public createOrEditGame(game?: GameModel){
+    public createOrEditGame(game?: GameModel) {
         this.dataStore.ModalObject = Object.assign(new GameModel(), game) || new GameModel();
-        if(!this.dataStore.ModalObject.DatePlayed) this.dataStore.ModalObject.DatePlayed = new Date().toLocaleDateString();
+        if (!this.dataStore.ModalObject.DatePlayed) this.dataStore.ModalObject.DatePlayed = new Date().toLocaleDateString();
         console.log(this.dataStore.ModalObject.DatePlayed);
 
         this.openModal();
     }
-    
-    public saveGame(game: GameModel){
+
+    public saveGame(game: GameModel) {
         this.dataStore.FormIsSubmitting = true;
         SapienServerCom.SaveData(game, SapienServerCom.BASE_REST_URL + "games")
-                        .then(r => {
-                            if(game._id){
-                                this.dataStore.Games = this.dataStore.Games.map(g => {
-                                    return g._id == game._id ? Object.assign(game, r) : g
-                                })
-                            } else {
-                                console.log(r, Object.assign(new GameModel(), r))
-                                this.dataStore.Games = this.dataStore.Games.concat(Object.assign(new GameModel(), r))
-                            }
-                            this.dataStore.FormIsSubmitting = false;
-                            this.closeModal();
-                        })
+            .then(r => {
+                if (game._id) {
+                    this.dataStore.Games = this.dataStore.Games.map(g => {
+                        return g._id == game._id ? Object.assign(game, r) : g
+                    })
+                } else {
+                    console.log(r, Object.assign(new GameModel(), r))
+                    this.dataStore.Games = this.dataStore.Games.concat(Object.assign(new GameModel(), r))
+                }
+                this.dataStore.FormIsSubmitting = false;
+                this.closeModal();
+            })
     }
 
-    public saveTeam(team: TeamModel){
+    public saveTeam(team: TeamModel) {
         this.dataStore.FormIsSubmitting = true;
         return SapienServerCom.SaveData(team, SapienServerCom.BASE_REST_URL + "games/team")
-                        .then(r => {
-                            team = Object.assign(team, r)                       
-                            this.dataStore.FormIsSubmitting = false;
-                        })
+            .then(r => {
+                team = Object.assign(team, r)
+                this.dataStore.FormIsSubmitting = false;
+            })
     }
 
-    public navigateToGameDetail(game: GameModel){
+    public navigateToGameDetail(game: GameModel) {
         this.navigateOnClick("/admin/gamedetail/" + game._id);
     }
 
-    public getGame( id: string ){
+    public getGame(id: string) {
         const game: GameModel = new GameModel()
         this.dataStore.IsLoading = true;
         return SapienServerCom.GetData(null, GameModel, SapienServerCom.BASE_REST_URL + GameModel.REST_URL + "/" + id)
-                                .then(r => {
-                                    Object.assign(game, r);
-                                    this.dataStore.SelectedGame = game;
-                                    this.dataStore.IsLoading = false;
-                                    return this.dataStore.SelectedGame;
-                                })
+            .then(r => {
+                Object.assign(game, r);
+                this.dataStore.SelectedGame = game;
+                this.dataStore.IsLoading = false;
+                return this.dataStore.SelectedGame;
+            })
     }
 
-    public filterUsersByGame(game: GameModel): void{
-        const usedUserIds: string[] = game.Teams.map(t => t.Players).reduce((a,b) => a.concat(b), []).map(p => p._id)
+    public filterUsersByGame(game: GameModel): void {
+        const usedUserIds: string[] = game.Teams.map(t => t.Players).reduce((a, b) => a.concat(b), []).map(p => p._id)
 
         this.dataStore.AvailablePlayers = this.dataStore.Users.filter(u => u._id && usedUserIds.indexOf(u._id) == -1).map((u, i) => {
             console.log("FILTERING A USER", u)
@@ -186,18 +176,49 @@ export default class GameManagementCtrl extends BaseClientCtrl<any>
         this.openModal();
     }
 
-    public saveUser(user: UserModel){
+    public saveUser(user: UserModel) {
         this.dataStore.FormIsSubmitting = true;
         return SapienServerCom.SaveData(user, SapienServerCom.BASE_REST_URL + "user")
-                        .then(r => {
-                            var returnedUser: UserModel = Object.assign(new UserModel(), r);
-                            returnedUser.EditMode = false;
-                            console.log(r, Object.assign(new UserModel(), r))
-                            this.dataStore.Users = this.dataStore.Users.concat(returnedUser);
-                            this.dataStore.FormIsSubmitting = false;
-                            this.dataStore.ModalTarget.Players = this.dataStore.ModalTarget.Players.filter(p => p._id != null).concat(returnedUser)
-                            this.closeModal();
-                            return returnedUser;
-                        })
+            .then(r => {
+                var returnedUser: UserModel = Object.assign(new UserModel(), r);
+                returnedUser.EditMode = false;
+                console.log(r, Object.assign(new UserModel(), r))
+                this.dataStore.Users = this.dataStore.Users.concat(returnedUser);
+                this.dataStore.FormIsSubmitting = false;
+                this.dataStore.ModalTarget.Players = this.dataStore.ModalTarget.Players.filter(p => p._id != null).concat(returnedUser)
+                this.closeModal();
+                return returnedUser;
+            })
     }
+
+    private _setUpFistma(reactComp: Component) {
+
+        this.component = reactComp;
+        if (!this.dataStore) this.dataStore = Object.assign(new GameModel());
+        //if we don't have a user, go to admin login.
+        if (!ApplicationViewModel.CurrentUser || !ApplicationViewModel.Token) {
+            this.ComponentFistma = new FiStMa(this.ComponentStates, this.ComponentStates.adminLogin) as FiStMa<any>;
+        }
+        //if we have a user, but not an admin, go to game login
+        else if (!ApplicationViewModel.CurrentUser || ApplicationViewModel.CurrentUser.Role != RoleName.ADMIN) {
+            this.ComponentFistma = new FiStMa(this.ComponentStates, this.ComponentStates.adminLogin);
+        }
+        //otherwise, go where the url tells us. If bad url, go to admin default
+        else {
+            this.ComponentFistma = new FiStMa(this.ComponentStates, this.UrlToComponent(this.component.props.location.pathname));
+        }
+
+        this.dataStore = AdminCtrl.GetInstance().dataStore;
+
+        if (this.component.componentWillMount == undefined) {
+            this.component.componentWillMount = () => {
+                //this.component.constructor.super(this.component.props).componentWillMount()
+                console.log("MOUNTED: ", this.component, this.component.props.location.pathname);
+                this.navigateOnClick(this.component.props.location.pathname);
+                this.getAllGames();
+                this.getAllUsers();
+            }
+        }
+    }
+
 }

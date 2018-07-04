@@ -25,7 +25,7 @@ export default class AdminCtrl extends BaseClientCtrl<any>
 
     public dataStore: AdminViewModel & ICommonComponentState & {ComponentFistma?: FiStMa<any>};
 
-    protected readonly ComponentStates = {
+    public readonly ComponentStates = {
         game: GameList,
         gameDetail: GameDetail,
         users: UserList,
@@ -40,10 +40,47 @@ export default class AdminCtrl extends BaseClientCtrl<any>
     //
     //----------------------------------------------------------------------
 
-    private constructor(reactComp: Component<any, any>) {
-        super(null, reactComp);
+    private constructor(reactComp? : Component<any, any>) {
+        super(null, reactComp || null);
         this.dataStore = DataStore.Admin;
 
+        if(reactComp){
+            this._setUpFistma(reactComp)
+        }
+
+    }
+
+    
+    public static GetInstance(reactComp?: Component<any, any>): AdminCtrl {
+        if (!this._instance) {
+            this._instance = new AdminCtrl(reactComp || null);
+        }
+
+        if (!this._instance) throw new Error("NO INSTANCE");
+
+        if (reactComp) {
+            this._instance._setUpFistma(reactComp)
+        }
+        
+        return this._instance;
+    }
+    
+    //----------------------------------------------------------------------
+    //
+    //  Event Handlers
+    //
+    //----------------------------------------------------------------------
+
+   
+
+    //----------------------------------------------------------------------
+    //
+    //  Methods
+    //
+    //----------------------------------------------------------------------
+ 
+    private _setUpFistma(reactComp: Component){
+        this.component = reactComp;
         //if we don't have a user, go to admin login.
         if (!ApplicationViewModel.CurrentUser || !ApplicationViewModel.Token){
             this.ComponentFistma = new FiStMa(this.ComponentStates, this.ComponentStates.adminLogin);
@@ -73,36 +110,9 @@ export default class AdminCtrl extends BaseClientCtrl<any>
         })
 
         this.component.componentDidUpdate = (prevProps, prevState, snapshot) => {
-            //alert(this.component.props.location.pathname + " asdf " + prevProps.location.pathname)
             console.log("ADMIN DID UPDATE", this.component.props.location.pathname, prevProps.location.pathname, this.component.props.location.pathname == prevProps.location.pathname)
             this.conditionallyNavigate(this.component.props.location.pathname, prevProps.location.pathname)
         }
-
     }
-
-    
-    public static GetInstance(reactComp?: Component<any, any>): AdminCtrl {
-        if (!this._instance && reactComp) {
-            this._instance = new AdminCtrl(reactComp);
-        }
-        if (!this._instance) throw new Error("NO INSTANCE")
-
-        return this._instance;
-    }
-    
-    //----------------------------------------------------------------------
-    //
-    //  Event Handlers
-    //
-    //----------------------------------------------------------------------
-
-   
-
-    //----------------------------------------------------------------------
-    //
-    //  Methods
-    //
-    //----------------------------------------------------------------------
- 
 
 }

@@ -28,8 +28,8 @@ export default class UserManagementCtrl extends BaseClientCtrl<any>
     //
     //----------------------------------------------------------------------
 
-    private constructor(reactComp: Component<any, any>) {
-        super(null, reactComp);
+    private constructor(reactComp?: Component<any, any>) {
+        super(null, reactComp || null);
         this.CurrentLocation = this.component.props.location.pathname;
         
         //this.dataStore = DataStore.Admin
@@ -41,11 +41,11 @@ export default class UserManagementCtrl extends BaseClientCtrl<any>
     }
 
     public static GetInstance(reactComp?: Component<any, any>): UserManagementCtrl {
-        if (!this._instance && reactComp) {
-            this._instance = new UserManagementCtrl(reactComp);
+        if (!this._instance) {
+            this._instance = new UserManagementCtrl(reactComp || null);
         }
-        if (!this._instance) throw new Error("NO INSTANCE");
-
+        if (!this._instance) throw new Error("NO INSTANCE")
+        if(reactComp) this._instance.component = reactComp;
         return this._instance;
     }
     
@@ -67,9 +67,7 @@ export default class UserManagementCtrl extends BaseClientCtrl<any>
 
     public getAllGames(){
         return SapienServerCom.GetData(null, null, SapienServerCom.BASE_REST_URL + "games").then(r => {
-            console.log("GAMES ARE: ",r)
 
-            
             this.dataStore.Games = r;
             this.dataStore.IsLoading = false;
         })

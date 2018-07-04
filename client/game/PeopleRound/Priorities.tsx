@@ -103,7 +103,6 @@ class Priorities extends React.Component<RouteComponentProps<any>, RoundModel>
                             </Row>
                         }
                         )}
-                        <pre>{thisSubRound.Responses && JSON.stringify(thisSubRound, null, 2)}</pre>
                     </Form>
 
                 }

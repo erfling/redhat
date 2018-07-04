@@ -29,7 +29,7 @@ class Hiring extends React.Component<RouteComponentProps<any>, RoundModel>
 
     constructor(props: RouteComponentProps<any>) {
         super(props);
-
+        
         this.state = this.controller.dataStore;
     }
 
@@ -57,7 +57,7 @@ class Hiring extends React.Component<RouteComponentProps<any>, RoundModel>
             </>;
         } else {
             return <Dimmer active>
-                    <Loader>Saving</Loader>
+                    <Loader>asdf</Loader>
                 </Dimmer>
         }
     }

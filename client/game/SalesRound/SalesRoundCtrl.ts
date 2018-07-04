@@ -24,11 +24,11 @@ export default class SalesRoundCtrl extends BaseRoundCtrl<RoundModel>
     }
 
     public static GetInstance(reactComp?: Component<any, any>): SalesRoundCtrl {
-        if (!this._instance && reactComp) {
-            this._instance = new SalesRoundCtrl(reactComp);
+        if (!this._instance) {
+            this._instance = new SalesRoundCtrl(reactComp || null);
         }
         if (!this._instance) throw new Error("NO INSTANCE");
-
+        if(reactComp) this._instance.component = reactComp;
         return this._instance;
     }
 
@@ -46,6 +46,9 @@ export default class SalesRoundCtrl extends BaseRoundCtrl<RoundModel>
     //
     //----------------------------------------------------------------------
 
+    protected _setUpFistma(reactComp: Component){
+       
+    }
 
 
 }

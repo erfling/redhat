@@ -63,7 +63,8 @@ class Game extends React.Component<RouteComponentProps<any>, IGamePlayModel & IC
                 style={{
                     flexShrink: 0, //don't allow flexbox to shrink it
                     borderRadius: 0, //clear semantic-ui style
-                    margin: 0 //clear semantic-ui style
+                    margin: 0,//clear semantic-ui style
+                    marginTop: this.state.CurrentUser.Role == RoleName.ADMIN ? '50px' : 0
                 }}>
                 <Menu.Item
                     header>

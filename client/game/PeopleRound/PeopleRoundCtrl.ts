@@ -11,6 +11,7 @@ import QuestionModel from '../../../shared/models/QuestionModel';
 import GameCtrl from '../GameCtrl';
 import SubRoundModel from '../../../shared/models/SubRoundModel';
 import SapienServerCom from '../../../shared/base-sapien/client/SapienServerCom';
+import DataStore from '../../../shared/base-sapien/client/DataStore'
 
 export default class PeopleRoundCtrl extends BaseRoundCtrl<RoundModel>
 {
@@ -34,25 +35,30 @@ export default class PeopleRoundCtrl extends BaseRoundCtrl<RoundModel>
     //----------------------------------------------------------------------
 
     private constructor(reactComp: React.Component<any, any>) {
-        super(reactComp);
-        this.dataStore.Name = "PEOPLE";
+        super(reactComp || null);
 
         this.ComponentFistma = new FiStMa(this.ComponentStates, this.ComponentStates.sub1);
         this.ComponentFistma.addTransition(this.ComponentStates.sub1);
         this.ComponentFistma.addTransition(this.ComponentStates.sub2);
-        this.ComponentFistma.addOnEnter("*", this.getContentBySubRound.bind(this));
+        console.log("dere")
 
-        this.getContentBySubRound.bind(this)();
+        if (reactComp) this._setUpFistma(reactComp);
+
     }
 
     public static GetInstance(reactComp?: Component<any, any>): PeopleRoundCtrl {
-        if (!this._instance && reactComp) {
-            this._instance = new PeopleRoundCtrl(reactComp);
+        if (!PeopleRoundCtrl._instance) {
+            console.log("jere")
+            PeopleRoundCtrl._instance = new PeopleRoundCtrl(reactComp || null);
         }
-        if (!this._instance) throw new Error("NO INSTANCE");
 
-        return this._instance;
+        if (!PeopleRoundCtrl._instance) throw new Error("NO INSTANCE");
+        if (reactComp) PeopleRoundCtrl._instance._setUpFistma(reactComp)
+
+        return PeopleRoundCtrl._instance;
     }
+    //        if(reactComp) this._instance.component = reactComp;
+
 
     //----------------------------------------------------------------------
     //
@@ -85,6 +91,17 @@ export default class PeopleRoundCtrl extends BaseRoundCtrl<RoundModel>
     //
     //----------------------------------------------------------------------
 
+    protected _setUpFistma(reactComp: Component){  
+        console.log("PEOPLE ROUND IS", this)
 
+        this.component = reactComp;
+        this.dataStore = Object.assign(new RoundModel(), DataStore.ApplicationState)
+        this.dataStore.Name = "PEOPLE";
+
+        this.ComponentFistma.addOnEnter("*", this.getContentBySubRound.bind(this));
+
+        this.getContentBySubRound.bind(this)();
+
+    }
 
 }

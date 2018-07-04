@@ -8,9 +8,14 @@ import CustomerRound from './CustomerRound/CustomerRound';
 import { Component } from 'react';
 import RoundModel from '../../shared/models/RoundModel';
 import UserModel from '../../shared/models/UserModel';
+import RoundChangeMapping from '../../shared/models/RoundChangeMapping';
 import BaseClientCtrl from '../../shared/base-sapien/client/BaseClientCtrl';
 import DataStore from '../../shared/base-sapien/client/DataStore';
 import TeamModel from '../../shared/models/TeamModel';
+import SapienServerCom from '../../shared/base-sapien/client/SapienServerCom';
+import BaseRoundCtrl from '../../shared/base-sapien/client/BaseRoundCtrl';
+import PeopleRoundCtrl from './PeopleRound/PeopleRoundCtrl';
+import EngineeringRoundCtrl from './EngineeringRound/EngineeringRoundCtrl';
 
 export default class GameCtrl extends BaseClientCtrl<GameModel>
 {
@@ -22,7 +27,9 @@ export default class GameCtrl extends BaseClientCtrl<GameModel>
 
     private static _instance: GameCtrl;
 
-    protected readonly ComponentStates = {
+    private _childController: BaseRoundCtrl<any>;
+
+    public readonly ComponentStates = {
         round1: PeopleRound, 
         round2: EngineeringRound, 
         round3: SalesRound, 
@@ -36,41 +43,19 @@ export default class GameCtrl extends BaseClientCtrl<GameModel>
     //
     //----------------------------------------------------------------------
 
-    private constructor(reactComp: Component<any, any>) {
-        super( new GameModel(), reactComp );
-
-        this.ComponentFistma = new FiStMa(this.ComponentStates, this.ComponentStates.round1);
-        console.log("GAME NAV INFO:",  this.ComponentFistma.currentState.WrappedComponent)
-
-        this.ComponentFistma.addTransition(this.ComponentStates.round1);
-        this.ComponentFistma.addTransition(this.ComponentStates.round2);
-        this.ComponentFistma.addTransition(this.ComponentStates.round3);
-        this.ComponentFistma.addTransition(this.ComponentStates.round4);
-        this.ComponentFistma.addTransition(this.ComponentStates.round5);
-        this.ComponentFistma.addOnEnter("*", this._onRoundEnter.bind(this));
-        this.ComponentFistma.onInvalidTransition(this._onInvalidTrans);
+    private constructor(reactComp?: Component<any, any>) {
+        super( reactComp ? Object.assign(new GameModel()) : null, reactComp || null);
 
 
-        DataStore.GamePlay.CurrentUser = localStorage.getItem("RH_USER") ? Object.assign( new UserModel(), JSON.parse(localStorage.getItem("RH_USER") ) ) : new UserModel()        
-        DataStore.GamePlay.CurrentTeam = localStorage.getItem("TEAM") ? Object.assign( new TeamModel(), JSON.parse(localStorage.getItem("TEAM") ) ) : new TeamModel()        
-        this.dataStore = DataStore.GamePlay;
-
-        this.component.componentDidMount = () => {
-            if (this.component.props.location.search){
-                console.log("FOUND LOCATION SEARCH", this.component.props.location.search, this.ComponentFistma.currentState.WrappedComponent);
-            }
-
-            this.component.props.history.push("/game/" + this.ComponentFistma.currentState.WrappedComponent.CLASS_NAME.toLowerCase());
-            this.navigateOnClick(this.component.props.location.pathname);
-        }
+        if (reactComp) this._setUpFistma(reactComp);
     }
 
     public static GetInstance(reactComp?: Component<any, any>): GameCtrl {
-        if (!this._instance && reactComp) {
-            this._instance = new GameCtrl(reactComp);
+        if (!this._instance) {
+            this._instance = new GameCtrl(reactComp || null);
         }
         if (!this._instance) throw new Error("NO INSTANCE");
-
+        if(reactComp) this._instance.component = reactComp;
         return this._instance;
     }
     
@@ -98,8 +83,31 @@ export default class GameCtrl extends BaseClientCtrl<GameModel>
      * 
      */
     public advanceRound(){
-        this.ComponentFistma.next();
-        this.component.props.history.push("/game/" + this.ComponentFistma.currentState.WrappedComponent.CLASS_NAME.toLowerCase());
+
+        let targetState: React.ComponentClass;
+        let mapping: RoundChangeMapping = {
+            ParentRound: null,
+            ChildRound: null
+        }
+
+        this._childController = this._getTargetController(this.ComponentFistma.currentState.WrappedComponent.CLASS_NAME)
+
+
+
+        if ( this._childController.ComponentFistma && this._childController.ComponentFistma.getNext() ){
+            mapping.ParentRound = this.ComponentFistma.currentState.WrappedComponent.CLASS_NAME;
+            mapping.ChildRound = this._childController.ComponentFistma.getNext().WrappedComponent.CLASS_NAME;
+        } else if ( this.ComponentFistma.getNext() ) {
+            mapping.ParentRound = this.ComponentFistma.getNext().WrappedComponent.CLASS_NAME;
+            mapping.ChildRound = this._childController.ComponentFistma.getFirst().WrappedComponent.CLASS_NAME;
+        }
+
+        console.log("MAPPING IS", mapping)
+
+        if ( mapping.ParentRound && mapping.ChildRound ) {
+            SapienServerCom.SaveData(mapping, SapienServerCom.BASE_REST_URL + "facilitation/round/" + this.dataStore.CurrentTeam.GameId);
+        }
+
     }
     
     /**
@@ -107,9 +115,48 @@ export default class GameCtrl extends BaseClientCtrl<GameModel>
      * 
      */
     public goBackRound(){
-        this.ComponentFistma.previous();
-        this.component.props.history.push("/game/" + this.ComponentFistma.currentState.WrappedComponent.CLASS_NAME.toLowerCase());
+        if(this.ComponentFistma.getPrevious()){
+            console.log("CURRENT STATE IS: ",this.ComponentFistma.currentState.WrappedComponent.CLASS_NAME);
+        }
 
+        let targetState: React.ComponentClass;
+        let mapping: RoundChangeMapping = {
+            ParentRound: null,
+            ChildRound: null
+        }
+
+        this._childController = this._getTargetController(this.ComponentFistma.currentState.WrappedComponent.CLASS_NAME)
+
+        if ( this._childController.ComponentFistma && this._childController.ComponentFistma.getPrevious() ){
+            mapping.ParentRound = this.ComponentFistma.currentState.WrappedComponent.CLASS_NAME;
+            mapping.ChildRound = this._childController.ComponentFistma.getPrevious().WrappedComponent.CLASS_NAME;
+        } else if ( this.ComponentFistma.getPrevious() ) {
+            mapping.ParentRound = this.ComponentFistma.getPrevious().WrappedComponent.CLASS_NAME;
+            this._childController = this._getTargetController( mapping.ParentRound)
+            mapping.ChildRound = this._childController.ComponentFistma.getLast().WrappedComponent.CLASS_NAME;
+        }
+
+        if ( mapping.ParentRound && mapping.ChildRound ) {
+            SapienServerCom.SaveData(mapping, SapienServerCom.BASE_REST_URL + "facilitation/round/" + this.dataStore.CurrentTeam.GameId);
+        }
+
+    }
+
+    private _getTargetController(componentName: string): BaseRoundCtrl<any>{
+        let childController: BaseRoundCtrl<any>
+        switch(componentName){
+            case "PeopleRound":
+                childController = PeopleRoundCtrl.GetInstance();
+                break;
+            case "EngineeringRound":
+                childController = EngineeringRoundCtrl.GetInstance();
+                break;
+            default: 
+                childController = null;
+                break;
+        }
+
+        return childController;
     }
 
     public NavigateFromState(){
@@ -122,6 +169,51 @@ export default class GameCtrl extends BaseClientCtrl<GameModel>
     //
     //----------------------------------------------------------------------
 
+    public async pollForGameStateChange(gameId: string){
+
+        await SapienServerCom.GetData(null, null, "/listenforgameadvance/" + gameId).then((r: RoundChangeMapping) => {
+            console.log("GOT THIS BACK FROM LONG POLL", r, this._childController.className);
+            this.pollForGameStateChange(gameId);
+
+            if (this.ComponentFistma.currentState.WrappedComponent.CLASS_NAME.toUpperCase() != r.ParentRound.toUpperCase())
+                this.navigateOnClick("/game/" + r.ParentRound.toLowerCase() + "/" + r.ChildRound.toLowerCase());
+
+            this._childController.navigateOnClick("/game/" + r.ParentRound.toLowerCase() + "/" + r.ChildRound.toLowerCase())
+        })
+    }
+
+    private _setUpFistma(reactComp: Component) {
+
+        this.component = reactComp;
+        if (!this.dataStore) this.dataStore = Object.assign(new GameModel());
+
+        this.ComponentFistma = new FiStMa(this.ComponentStates, this.ComponentStates.round1);
+        console.log("GAME NAV INFO:",  this.ComponentFistma.currentState.WrappedComponent)
+
+        this.ComponentFistma.addTransition(this.ComponentStates.round1);
+        this.ComponentFistma.addTransition(this.ComponentStates.round2);
+        this.ComponentFistma.addTransition(this.ComponentStates.round3);
+        this.ComponentFistma.addTransition(this.ComponentStates.round4);
+        this.ComponentFistma.addTransition(this.ComponentStates.round5);
+        this.ComponentFistma.addOnEnter("*", this._onRoundEnter.bind(this));
+        this.ComponentFistma.onInvalidTransition(this._onInvalidTrans);
+
+
+        DataStore.GamePlay.CurrentUser = localStorage.getItem("RH_USER") ? Object.assign( new UserModel(), JSON.parse(localStorage.getItem("RH_USER") ) ) : new UserModel()        
+        DataStore.GamePlay.CurrentTeam = localStorage.getItem("TEAM") ? Object.assign( new TeamModel(), JSON.parse(localStorage.getItem("TEAM") ) ) : new TeamModel()        
+        this.dataStore = DataStore.GamePlay;
+
+        this.pollForGameStateChange(this.dataStore.CurrentTeam.GameId)
+
+        this.component.componentDidMount = () => {
+            if (this.component.props.location.search){
+                console.log("FOUND LOCATION SEARCH", this.component.props.location.search, this.ComponentFistma.currentState.WrappedComponent);
+            }
+
+            this.component.props.history.push("/game/" + this.ComponentFistma.currentState.WrappedComponent.CLASS_NAME.toLowerCase());
+            this.navigateOnClick(this.component.props.location.pathname);
+        }
+    }
 
 
 }

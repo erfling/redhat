@@ -23,7 +23,7 @@ export default class ApplicationCtrl extends BaseClientCtrl<ApplicationViewModel
 
     private static _instance: ApplicationCtrl;
 
-    protected readonly ComponentStates = {
+    public readonly ComponentStates = {
         game: Game,
         admin: Admin,
         login: Login
@@ -36,33 +36,21 @@ export default class ApplicationCtrl extends BaseClientCtrl<ApplicationViewModel
     //----------------------------------------------------------------------
 
     
-    private constructor(reactComp: Component<any, any>) {
-        super( DataStore.ApplicationState, reactComp );
+    private constructor(reactComp?: Component<any, any>) {
+        super( null, reactComp );
         
-        DataStore.ApplicationState.CurrentUser = localStorage.getItem("RH_USER") ? Object.assign( new UserModel(), JSON.parse(localStorage.getItem("RH_USER") ) ) : new UserModel()
-        this.dataStore = DataStore.ApplicationState;
-
-        this.CurrentLocation = this.component.props.location.pathname;
         
-        if (this.dataStore.CurrentUser && this.dataStore.CurrentUser.Role == RoleName.ADMIN || this.UrlToComponent(this.CurrentLocation) == this.ComponentStates.admin){
-            this.ComponentFistma = new FiStMa(this.ComponentStates, this.ComponentStates.admin);
-        } else {
-            this.ComponentFistma =  new FiStMa(this.ComponentStates, this.ComponentStates.game);
-        }
-           
-        this.ComponentFistma = this.ComponentFistma;
-
-        console.log(this.component.props);
-
-        this.ComponentFistma.addTransition(this.ComponentStates.game);
-        this.ComponentFistma.addTransition(this.ComponentStates.admin);
+        if (reactComp) this._setUpFistma(reactComp)
+        
  
     }
     
-    public static GetInstance(reactComp: Component<any, any>): ApplicationCtrl {
+    public static GetInstance(reactComp?: Component<any, any>): ApplicationCtrl {
         if (!this._instance) {
-            this._instance = new ApplicationCtrl(reactComp);
+            this._instance = new ApplicationCtrl(reactComp || null);
         }
+        if (!this._instance) throw new Error("NO INSTANCE")
+        if (reactComp) this._instance._setUpFistma(reactComp)
         return this._instance;
     }
 
@@ -85,6 +73,25 @@ export default class ApplicationCtrl extends BaseClientCtrl<ApplicationViewModel
     //
     //----------------------------------------------------------------------
 
+    protected _setUpFistma(reactComp: Component){
+        this.component = reactComp;
+        
+        DataStore.ApplicationState.CurrentUser = localStorage.getItem("RH_USER") ? Object.assign( new UserModel(), JSON.parse(localStorage.getItem("RH_USER") ) ) : new UserModel()
+        this.dataStore = DataStore.ApplicationState;
 
+        this.CurrentLocation = this.component.props.location.pathname;
+        if (this.dataStore.CurrentUser && this.dataStore.CurrentUser.Role == RoleName.ADMIN || this.UrlToComponent(this.CurrentLocation) == this.ComponentStates.admin){
+            this.ComponentFistma = new FiStMa(this.ComponentStates, this.ComponentStates.admin);
+        } else {
+            this.ComponentFistma =  new FiStMa(this.ComponentStates, this.ComponentStates.game);
+        }
+           
+        this.ComponentFistma = this.ComponentFistma;
+
+        console.log(this.component.props);
+
+        this.ComponentFistma.addTransition(this.ComponentStates.game);
+        this.ComponentFistma.addTransition(this.ComponentStates.admin);
+    }
 
 }

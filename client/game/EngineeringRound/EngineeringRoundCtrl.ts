@@ -21,15 +21,14 @@ export default class EngineeringRoundCtrl extends BaseRoundCtrl<RoundModel>
 
     private constructor(reactComp: React.Component<any, any>) {
         super(reactComp);
-        this.dataStore.Name = "ENGINEERING";
     }
 
     public static GetInstance(reactComp?: Component<any, any>): EngineeringRoundCtrl {
-        if (!this._instance && reactComp) {
-            this._instance = new EngineeringRoundCtrl(reactComp);
+        if (!this._instance) {
+            this._instance = new EngineeringRoundCtrl(reactComp || null);
         }
         if (!this._instance) throw new Error("NO INSTANCE");
-
+        if(reactComp) this._instance.component = reactComp;
         return this._instance;
     }
 
@@ -47,6 +46,8 @@ export default class EngineeringRoundCtrl extends BaseRoundCtrl<RoundModel>
     //
     //----------------------------------------------------------------------
 
-
+    protected _setUpFistma(reactComp: Component){
+        //this.dataStore.Name = "ENGINEERING";
+    }
 
 }
