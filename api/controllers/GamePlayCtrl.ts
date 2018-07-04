@@ -1,3 +1,5 @@
+import { AppServer } from '../AppServer'
+
 import { Router, Request, Response, NextFunction } from 'express';
 import * as mongoose from 'mongoose';
 import RoundModel from '../../shared/models/RoundModel';
@@ -6,12 +8,11 @@ import SchemaBuilder from '../SchemaBuilder';
 import TeamModel from '../../shared/models/TeamModel';
 import ResponseModel, { ResponseFetcher } from '../../shared/models/ResponseModel';
 import { monTeamModel } from './TeamCtrl'
+import { LongPollCtrl, LongPollRouter} from './LongPollCtrl'
 
 const schObj = SchemaBuilder.fetchSchema(ResponseModel);
 const monSchema = new mongoose.Schema(schObj);
 export const monResponseModel = mongoose.model("response", monSchema);
-
-
 
 class GamePlayRouter
 {
@@ -32,9 +33,11 @@ class GamePlayRouter
 
     constructor() {
         this.router = Router({mergeParams:true});
-        this.routes();
-        
-        //console.log("monSchema:", monRoundModel);
+
+        //TODO: figure out why AppServer import is undefined unless we wait a tick????????????
+        setTimeout(() => {
+            this.routes();
+        },1)
     }
 
     //----------------------------------------------------------------------
@@ -120,6 +123,7 @@ class GamePlayRouter
         this.router.get("/", this.GetRounds.bind(this));
         this.router.post("/response", this.SaveResponse.bind(this));
         this.router.post("/roundresponses", this.GetTeamResponsesByRound.bind(this));
+        
     }
 }
 
