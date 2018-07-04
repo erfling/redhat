@@ -1,4 +1,5 @@
 var webpack = require('webpack');
+const CompressionPlugin = require('compression-webpack-plugin');
 
 var path = require('path');  
 var glob = require('glob');  
@@ -11,8 +12,8 @@ var ROOT_PATH = path.resolve(__dirname);
 
 module.exports = {
     entry: {
-      main:       './client/index.tsx',
-      vendor: ['react', 'lodash', 'semantic-ui-react', 'react-router-dom', 'react-router'],
+      main:   './client/index.tsx',
+      vendor: ['react', 'lodash', 'semantic-ui-react', 'react-router-dom', 'react-router',  "draft-js", 'sanitize-html'],
     },
     devtool: false,
     output: {
@@ -104,9 +105,17 @@ module.exports = {
       new UglifyJSPlugin(),
       new webpack.optimize.CommonsChunkPlugin({
         name: 'vendor'
+      }),
+      new CompressionPlugin({
+        asset: '[path].gz[query]',
+        algorithm: 'gzip',
+        test: /\.js$|/,
+        minRatio: 0.8,
+        filename: (filename) => {
+          console.log("FILE IS", filename)
+        }
       })
       
     ]
   };
   //<meta name="google-site-verification" content="LJ1jS5T5gq2RSmbjAqtxgKB01F86s7iNm5BZ0Xi91Ak" />
-  console.log(glob.sync(path.join(__dirname, 'dist/index.html')))
