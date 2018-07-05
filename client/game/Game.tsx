@@ -1,10 +1,11 @@
 import * as React from "react";
 import GameCtrl from "./GameCtrl";
 import GameModel from "../../shared/models/GameModel";
-import { Grid, Menu, Container, Button, Segment } from 'semantic-ui-react';
+import { Grid, Menu, Button, Segment } from 'semantic-ui-react';
 const { Column, Row } = Grid;
 import { Route, Switch, RouteComponentProps, withRouter } from "react-router";
 import { IGamePlayModel } from '../../shared/base-sapien/client/DataStore'
+import Circles from '-!svg-react-loader?name=Icon!../img/circles.svg';
 
 import ICommonComponentState from '../../shared/base-sapien/client/ICommonComponentState';
 import { RoleName } from "../../shared/models/UserModel";
@@ -50,9 +51,7 @@ class Game extends React.Component<RouteComponentProps<any>, IGamePlayModel & IC
     render() {
         if (this.state && this.controller.ComponentFistma) {
         const Rnd = this.controller.ComponentFistma.currentState;
-        return <Container
-            fluid={true}
-        >
+        return <>
             {this.state && this.state.IsEditing && <h1>EDIT MODE</h1>}
             <Menu
                 inverted
@@ -85,12 +84,20 @@ class Game extends React.Component<RouteComponentProps<any>, IGamePlayModel & IC
                 </Menu.Item>
             </Menu>
             <Grid
-                padded={true}
                 columns={16}
+                className="game-wrapper"
             >
+                <Circles
+                    style={{
+                        position: 'fixed',
+                        bottom: '60px',
+                        right: '-220px'
+                    }}
+                />
                 <Rnd/>
+               
             </Grid>
-        </Container>
+        </>
         } else {
             return <Segment loading></Segment>
         }
