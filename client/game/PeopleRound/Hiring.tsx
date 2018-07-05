@@ -1,11 +1,13 @@
 import * as React from "react";
 import PeopleRoundCtrl from "./PeopleRoundCtrl";
 import RoundModel from "../../../shared/models/RoundModel";
-import EditableContentBlock from '../../../shared/base-sapien/client/shared-components/EditableContentBlock';
+import { RoleName } from "../../../shared/models/UserModel";
+import ValueObj from '../../../shared/entity-of-the-state/ValueObj';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
+import EditableContentBlock from '../../../shared/base-sapien/client/shared-components/EditableContentBlock';
+import EditableQuestionBlock from '../../../shared/base-sapien/client/shared-components/EditableQuestionBlock';
 import * as Semantic from 'semantic-ui-react';
-import SubRoundModel from "../../../shared/models/SubRoundModel";
-const { Button, Grid, Menu, Segment, Dimmer, Loader } = Semantic;
+const { Button, Grid, Menu, Segment, Form, Dimmer, Loader } = Semantic;
 const { Row, Column } = Grid;
 
 
@@ -29,7 +31,7 @@ class Hiring extends React.Component<RouteComponentProps<any>, RoundModel>
 
     constructor(props: RouteComponentProps<any>) {
         super(props);
-        
+
         this.state = this.controller.dataStore;
     }
 
@@ -48,17 +50,68 @@ class Hiring extends React.Component<RouteComponentProps<any>, RoundModel>
     //----------------------------------------------------------------------
 
     render() {
-        if (this.state && this.state.CurrentUser) {
-            const thisSubRound = this.state.SubRounds.filter(s => s.Name.toUpperCase() == Hiring.CLASS_NAME.toUpperCase())[0]
+        const thisSubRound = this.state.SubRounds.filter(s => s.Name.toUpperCase() == Hiring.CLASS_NAME.toUpperCase())[0]
 
+        if (this.state) {
             return <>
-                <h1>make the hires</h1>
+                {!this.state.CurrentUser.IsLeader && thisSubRound &&
 
+                    <EditableContentBlock
+                        IsEditable={this.state.CurrentUser.Role == RoleName.ADMIN}
+                        IsLeader={this.state.CurrentUser.IsLeader}
+                        SubRoundId={thisSubRound._id}
+                        onSaveHandler={this.controller.updateContent.bind(this.controller)}
+                        Content={thisSubRound.IndividualContributorContent}
+                    />
+                }
+
+                {this.state.CurrentUser.IsLeader && thisSubRound &&
+
+                    <EditableContentBlock
+                        IsEditable={this.state.CurrentUser.Role == RoleName.ADMIN}
+                        IsLeader={this.state.CurrentUser.IsLeader}
+                        SubRoundId={thisSubRound._id}
+                        onSaveHandler={this.controller.updateContent.bind(this.controller)}
+                        Content={thisSubRound.LeaderContent}
+                    />
+                }
+
+                {this.state.CurrentUser.IsLeader && thisSubRound != null && thisSubRound.Questions &&
+                    <Form
+                        style={{ width: '100%' }}
+                    >
+                        {thisSubRound.Questions.map((q, i) => {
+                            return <Row
+                                    key={"question-" + i.toString()}
+                                >
+                                <EditableQuestionBlock
+                                    Question={q}
+                                    idx={i}
+                                    key={i}
+                                    SubRoundId={thisSubRound._id}
+                                    onSaveHandler={this.controller.updateContent.bind(this.controller)}
+                                    onRemoveHandler={this.controller.removeRoundContent.bind(this.controller)}
+                                    IsEditable={this.state.CurrentUser.Role == RoleName.ADMIN}
+                                />
+                                <Button
+                                    content='Save'
+                                    icon='checkmark'
+                                    labelPosition='right'
+                                    onClick={e => {
+                                        this.controller.Save1AResponse(q.PossibleAnswers, q, thisSubRound)
+                                    }}
+                                />
+                            </Row>
+                        }
+                        )}
+                    </Form>
+
+                }
             </>;
         } else {
             return <Dimmer active>
-                    <Loader>asdf</Loader>
-                </Dimmer>
+                <Loader>Loading</Loader>
+            </Dimmer>
         }
     }
 
