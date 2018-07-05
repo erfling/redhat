@@ -1,5 +1,4 @@
 import ValueObj from "../entity-of-the-state/ValueObj";
-import ContentBlock from './ContentBlock'
 import PossibleAnswer from "./PossibleAnswerModel";
 import QuestionModel from "./QuestionModel";
 import { Type } from "class-transformer";
@@ -18,7 +17,6 @@ export default class ResponseModel extends BaseModel
     //  Properties
     //
     //----------------------------------------------------------------------
-
 
     @dbProp([{label: String, value: String}])
     private _Answer: ValueObj[] | ValueObj = [new ValueObj()];
@@ -52,6 +50,9 @@ export default class ResponseModel extends BaseModel
 
     @dbProp(String)
     public RoundId: string;
+
+    @dbProp(Number)
+    public Score: number = 0;
     
     @Type(() => PossibleAnswer)
     public PossibleAnswer: PossibleAnswer = new PossibleAnswer();
