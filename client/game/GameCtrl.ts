@@ -1,5 +1,6 @@
 import FiStMa from '../../shared/entity-of-the-state/FiStMa';
 import GameModel from '../../shared/models/GameModel';
+import Welcome from './Welcome/Welcome';
 import PeopleRound from './PeopleRound/PeopleRound';
 import EngineeringRound from './EngineeringRound/EngineeringRound';
 import SalesRound from './SalesRound/SalesRound';
@@ -16,6 +17,7 @@ import SapienServerCom from '../../shared/base-sapien/client/SapienServerCom';
 import BaseRoundCtrl from '../../shared/base-sapien/client/BaseRoundCtrl';
 import PeopleRoundCtrl from './PeopleRound/PeopleRoundCtrl';
 import EngineeringRoundCtrl from './EngineeringRound/EngineeringRoundCtrl';
+import WelcomeCtrl from './Welcome/WelcomeCtrl';
 
 export default class GameCtrl extends BaseClientCtrl<GameModel>
 {
@@ -30,6 +32,7 @@ export default class GameCtrl extends BaseClientCtrl<GameModel>
     private _childController: BaseRoundCtrl<any>;
 
     public readonly ComponentStates = {
+        round0: Welcome,
         round1: PeopleRound, 
         round2: EngineeringRound, 
         round3: SalesRound, 
@@ -145,6 +148,9 @@ export default class GameCtrl extends BaseClientCtrl<GameModel>
     private _getTargetController(componentName: string): BaseRoundCtrl<any>{
         let childController: BaseRoundCtrl<any>
         switch(componentName){
+            case "Welcome":
+                childController = WelcomeCtrl.GetInstance();
+                break;
             case "PeopleRound":
                 childController = PeopleRoundCtrl.GetInstance();
                 break;
@@ -172,7 +178,7 @@ export default class GameCtrl extends BaseClientCtrl<GameModel>
     public async pollForGameStateChange(gameId: string){
 
         await SapienServerCom.GetData(null, null, "/listenforgameadvance/" + gameId).then((r: RoundChangeMapping) => {
-            console.log("GOT THIS BACK FROM LONG POLL", r, this._childController.className);
+            console.log("GOT THIS BACK FROM LONG POLL", r);
             this.pollForGameStateChange(gameId);
 
             if (this.ComponentFistma.currentState.WrappedComponent.CLASS_NAME.toUpperCase() != r.ParentRound.toUpperCase())
@@ -187,9 +193,10 @@ export default class GameCtrl extends BaseClientCtrl<GameModel>
         this.component = reactComp;
         if (!this.dataStore) this.dataStore = Object.assign(new GameModel());
 
-        this.ComponentFistma = new FiStMa(this.ComponentStates, this.ComponentStates.round1);
+        this.ComponentFistma = new FiStMa(this.ComponentStates, this.ComponentStates.round0);
         console.log("GAME NAV INFO:",  this.ComponentFistma.currentState.WrappedComponent)
 
+        this.ComponentFistma.addTransition(this.ComponentStates.round0);
         this.ComponentFistma.addTransition(this.ComponentStates.round1);
         this.ComponentFistma.addTransition(this.ComponentStates.round2);
         this.ComponentFistma.addTransition(this.ComponentStates.round3);

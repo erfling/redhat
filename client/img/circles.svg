@@ -1,1 +1,35 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 289 289" style="background: transparent;"><title>circles</title><path d="M191.79,144A47.79,47.79,0,1,1,144,96.21,47.78,47.78,0,0,1,191.79,144Z" transform="translate(0.5 0.5)" style="fill:none;stroke:#fff;stroke-miterlimit:10"/><path d="M207.88,144A63.88,63.88,0,1,1,144,80.12,63.88,63.88,0,0,1,207.88,144Z" transform="translate(0.5 0.5)" style="fill:none;stroke:#fff;stroke-miterlimit:10;opacity:0.8"/><circle cx="144" cy="144" r="79.66" transform="translate(-20.66 263.64) rotate(-80.81)" style="fill:none;stroke:#fff;stroke-miterlimit:10;opacity:0.6000000000000001"/><circle cx="144" cy="144" r="95.74" transform="translate(-12.94 273.67) rotate(-84.37)" style="fill:none;stroke:#fff;stroke-miterlimit:10;opacity:0.4"/><circle cx="144" cy="144" r="111.83" transform="translate(-59.15 144.5) rotate(-45)" style="fill:none;stroke:#fff;stroke-miterlimit:10;opacity:0.2"/><circle cx="144" cy="144" r="127.6" transform="translate(-59.15 144.5) rotate(-45)" style="fill:none;stroke:#fff;stroke-miterlimit:10;opacity:0.1"/><circle cx="144.5" cy="144.5" r="144" style="fill:none;stroke:#fff;stroke-miterlimit:10;opacity:0.05"/></svg>
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 22.1.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 289 289" style="enable-background:new 0 0 289 289;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:none;stroke:#FFFFFF;stroke-miterlimit:10;}
+	.st1{opacity:0.8;fill:none;stroke:#FFFFFF;stroke-miterlimit:10;enable-background:new    ;}
+	.st2{opacity:0.6;fill:none;stroke:#FFFFFF;stroke-miterlimit:10;enable-background:new    ;}
+	.st3{opacity:0.4;fill:none;stroke:#FFFFFF;stroke-miterlimit:10;enable-background:new    ;}
+	.st4{opacity:0.2;fill:none;stroke:#FFFFFF;stroke-miterlimit:10;enable-background:new    ;}
+	.st5{opacity:0.1;fill:none;stroke:#FFFFFF;stroke-miterlimit:10;enable-background:new    ;}
+	.st6{opacity:5.000000e-02;fill:none;stroke:#FFFFFF;stroke-miterlimit:10;enable-background:new    ;}
+	.st7{fill:#0088B9;}
+	.st8{fill:#FFFFFF;}
+</style>
+<title>circles</title>
+<path class="st0" d="M192.3,144.5c0,26.4-21.4,47.8-47.8,47.8s-47.8-21.4-47.8-47.8s21.4-47.8,47.8-47.8c0,0,0,0,0,0
+	C170.9,96.7,192.3,118.1,192.3,144.5C192.3,144.5,192.3,144.5,192.3,144.5z"/>
+<path class="st1" d="M208.4,144.5c0,35.3-28.6,63.9-63.9,63.9s-63.9-28.6-63.9-63.9s28.6-63.9,63.9-63.9l0,0
+	C179.8,80.6,208.4,109.2,208.4,144.5z"/>
+<circle class="st2" cx="144.5" cy="144.5" r="79.7"/>
+<circle class="st3" cx="144.5" cy="144.5" r="95.7"/>
+<circle class="st4" cx="144.5" cy="144.5" r="111.8"/>
+<circle class="st5" cx="144.5" cy="144.5" r="127.6"/>
+<circle class="st6" cx="144.5" cy="144.5" r="144"/>
+<ellipse transform="matrix(0.9991 -4.145058e-02 4.145058e-02 0.9991 -5.8749 6.1036)" class="st7" cx="144.3" cy="144.7" rx="37.7" ry="37.7"/>
+<g>
+	<path class="st8" d="M143.9,153.5c0.3-2.2-0.4-4.3-2.3-6.6l-0.2-0.3c-3.2-3.7-4.5-7.7-3.9-11.7c1-6.5,6.8-10.7,7.8-11.4l0.1-0.1
+		l-2.9-4.5c-0.9,0.6-9,6-10.4,15.2c-0.6,3.9-0.2,9.8,5.1,16l0.3,0.4c0.5,0.6,1.1,1.6,1,2.2c-0.2,1.2-1.8,2.8-2.8,3.5l2.9,4.6
+		C139.2,160.5,143.3,157.6,143.9,153.5z"/>
+	<path class="st8" d="M150.1,139.3l-0.3-0.4c-0.5-0.6-1.1-1.6-1-2.2c0.2-1.2,1.8-2.9,2.8-3.5l-2.9-4.6c0,0-4.6,3.1-5.2,7.3
+		c-0.3,2.2,0.4,4.3,2.3,6.6l0.2,0.3c3.2,3.7,4.5,7.7,3.9,11.7c-1,7-7.7,11.3-7.9,11.4l0,0l2.9,4.6c0.9-0.6,9-6,10.4-15.2
+		C155.8,151.4,155.4,145.5,150.1,139.3z"/>
+</g>
+</svg>
