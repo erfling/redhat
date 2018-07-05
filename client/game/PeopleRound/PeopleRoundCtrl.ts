@@ -10,7 +10,6 @@ import ResponseModel from '../../../shared/models/ResponseModel';
 import QuestionModel from '../../../shared/models/QuestionModel';
 import GameCtrl from '../GameCtrl';
 import SubRoundModel from '../../../shared/models/SubRoundModel';
-import SapienServerCom from '../../../shared/base-sapien/client/SapienServerCom';
 import DataStore from '../../../shared/base-sapien/client/DataStore'
 
 export default class PeopleRoundCtrl extends BaseRoundCtrl<RoundModel>
@@ -67,23 +66,26 @@ export default class PeopleRoundCtrl extends BaseRoundCtrl<RoundModel>
     //----------------------------------------------------------------------
 
     public Save1AResponse( resp: ValueObj[], question: QuestionModel, round: SubRoundModel ) {
+        // calculate score //
+        var score:number = 0;
+        resp.forEach((val, index) => {
+            var distFromExpected:number = Math.abs( val.data - (index + 1) );
+            if (distFromExpected < 2) score += 2 - distFromExpected;
+            console.log(val.label, "Dist:",distFromExpected, "Dist < 2:", distFromExpected < 2, 2 - distFromExpected);
+        });
+        console.log("SCORE:", score);
+        // build response //
         const response = new ResponseModel();
         response.Answer = resp;
+        response.Score = score;
         response.TeamId = GameCtrl.GetInstance().dataStore.CurrentTeam._id;
         response.QuestionId = question._id;
         response.Question = question;
         response.RoundId = round._id;
         response.GameId = GameCtrl.GetInstance().dataStore.CurrentTeam.GameId;
-        console.log("ROUND IS:", round, question,GameCtrl.GetInstance().dataStore);
-
-        return SapienServerCom.SaveData(response, SapienServerCom.BASE_REST_URL + "gameplay/response").then(r => {
-            console.log(r);
-            round.Responses = round.Responses.map(resp => resp._id == r._id ? Object.assign(new ResponseModel(), r) : resp);
-            return round;
-        })
-
+        // save response //
+        this.SaveResponse(response, question, round);
     }
-  
 
     //----------------------------------------------------------------------
     //
