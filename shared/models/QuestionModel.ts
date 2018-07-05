@@ -2,6 +2,7 @@ import ValueObj from "../entity-of-the-state/ValueObj";
 import ContentBlock from './ContentBlock'
 import PossibleAnswer from './PossibleAnswerModel';
 import BaseModel, { dbProp } from "../base-sapien/models/BaseModel";
+import ResponseModel from "./ResponseModel";
 
 export enum QuestionType {
     PRIORITY = "PRIORITY",
@@ -33,5 +34,7 @@ export default class QuestionModel extends BaseModel
     public AddPossibleAnswer(answer: ValueObj){
         this.PossibleAnswers = this.PossibleAnswers.concat(answer);
     }
-    
+
+    Response: ResponseModel;
+
 }

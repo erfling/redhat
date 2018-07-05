@@ -20,7 +20,26 @@ export default class ResponseModel extends BaseModel
     //----------------------------------------------------------------------
 
 
-    public Answer: ValueObj | ValueObj[]= new ValueObj();
+    @dbProp([{label: String, value: String}])
+    private _Answer: ValueObj[] | ValueObj = [new ValueObj()];
+    public set Answer(answer: ValueObj[] | ValueObj) {
+        this._Answer = answer;
+    }
+    public get Answer() {
+        if(this._Answer && Array.isArray(this._Answer) && this._Answer.length == 1){
+
+            if(!isNaN(parseFloat(this._Answer[0].data))){
+                this._Answer[0].data = parseFloat(this._Answer[0].data);
+            }
+            return this._Answer[0];            
+        }
+        return this._Answer ? (this._Answer as ValueObj[]).map(a => {
+            if(!isNaN(parseFloat(a.data))){
+                a.data = parseFloat(a.data);
+            }
+            return a;
+        }) as ValueObj[] : null;
+    }
     
     @dbProp(String)
     public QuestionId: string;
