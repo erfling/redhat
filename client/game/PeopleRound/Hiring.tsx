@@ -51,41 +51,41 @@ class Hiring extends React.Component<RouteComponentProps<any>, RoundModel>
     //----------------------------------------------------------------------
 
     render() {
-        const thisSubRound = this.state.SubRounds.filter(s => s.Name.toUpperCase() == Hiring.CLASS_NAME.toUpperCase())[0]
+        const thisSubRound = this.state.Round.SubRounds.filter(s => s.Name.toUpperCase() == Hiring.CLASS_NAME.toUpperCase())[0]
 
         if (this.state) {
             return <>
-                {!this.state.CurrentUser.IsLeader && thisSubRound &&
+                {!this.state.ApplicationState.CurrentUser.IsLeader && thisSubRound &&
 
                     <EditableContentBlock
-                        IsEditable={this.state.CurrentUser.Role == RoleName.ADMIN}
-                        IsLeader={this.state.CurrentUser.IsLeader}
+                        IsEditable={this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN}
+                        IsLeader={this.state.ApplicationState.IsLeader}
                         SubRoundId={thisSubRound._id}
                         onSaveHandler={this.controller.updateContent.bind(this.controller)}
                         Content={thisSubRound.IndividualContributorContent}
                     />
                 }
 
-                {this.state.CurrentUser.IsLeader && thisSubRound &&
+                {this.state.ApplicationState.CurrentUser.IsLeader && thisSubRound &&
 
                     <EditableContentBlock
-                        IsEditable={this.state.CurrentUser.Role == RoleName.ADMIN}
-                        IsLeader={this.state.CurrentUser.IsLeader}
+                        IsEditable={this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN}
+                        IsLeader={this.state.ApplicationState.CurrentUser.IsLeader}
                         SubRoundId={thisSubRound._id}
                         onSaveHandler={this.controller.updateContent.bind(this.controller)}
                         Content={thisSubRound.LeaderContent}
                     />
                 }
 
-                {this.state.CurrentUser.IsLeader && thisSubRound != null && thisSubRound.Questions &&
+                {this.state.ApplicationState.CurrentUser.IsLeader && thisSubRound != null && thisSubRound.Questions &&
                     <Form
                         style={{ width: '100%' }}
                     >
                         {thisSubRound.Questions.map((q, i) => {
                             q = Object.assign(new QuestionModel, q);
                             return <Row
-                                    key={"question-" + i.toString()}
-                                >
+                                key={"question-" + i.toString()}
+                            >
                                 <EditableQuestionBlock
                                     Question={q}
                                     idx={i}
@@ -100,6 +100,8 @@ class Hiring extends React.Component<RouteComponentProps<any>, RoundModel>
                                     content='Save'
                                     icon='checkmark'
                                     labelPosition='right'
+                                    color='blue'
+                                    loading={this.state.ApplicationState.FormIsSubmitting }
                                     onClick={e => {
                                         this.controller.Save1BResponse(q.Response, q, thisSubRound)
                                     }}

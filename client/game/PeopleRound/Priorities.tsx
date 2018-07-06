@@ -49,32 +49,33 @@ class Priorities extends React.Component<RouteComponentProps<any>, RoundModel>
     //----------------------------------------------------------------------
 
     render() {
-        const thisSubRound = this.state.SubRounds.filter(s => s.Name.toUpperCase() == Priorities.CLASS_NAME.toUpperCase())[0]
+        const thisSubRound = this.state.Round.SubRounds.filter(s => s.Name.toUpperCase() == Priorities.CLASS_NAME.toUpperCase())[0]
         if (this.state) {
+            
             return <>
-                {!this.state.CurrentUser.IsLeader && thisSubRound &&
+                {!this.state.ApplicationState.CurrentUser.IsLeader && thisSubRound &&
 
                     <EditableContentBlock
-                        IsEditable={this.state.CurrentUser.Role == RoleName.ADMIN}
-                        IsLeader={this.state.CurrentUser.IsLeader}
+                        IsEditable={this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN}
+                        IsLeader={this.state.ApplicationState.CurrentUser.IsLeader}
                         SubRoundId={thisSubRound._id}
                         onSaveHandler={this.controller.updateContent.bind(this.controller)}
                         Content={thisSubRound.IndividualContributorContent}
                     />
                 }
 
-                {this.state.CurrentUser.IsLeader && thisSubRound &&
+                {this.state.ApplicationState.CurrentUser.IsLeader && thisSubRound &&
 
                     <EditableContentBlock
-                        IsEditable={this.state.CurrentUser.Role == RoleName.ADMIN}
-                        IsLeader={this.state.CurrentUser.IsLeader}
+                        IsEditable={this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN}
+                        IsLeader={this.state.ApplicationState.CurrentUser.IsLeader}
                         SubRoundId={thisSubRound._id}
                         onSaveHandler={this.controller.updateContent.bind(this.controller)}
                         Content={thisSubRound.LeaderContent}
                     />
                 }
 
-                {this.state.CurrentUser.IsLeader && thisSubRound != null && thisSubRound.Questions &&
+                {this.state.ApplicationState.CurrentUser.IsLeader && thisSubRound != null && thisSubRound.Questions &&
                     <Form
                         style={{ width: '100%' }}
                     >
@@ -91,12 +92,14 @@ class Priorities extends React.Component<RouteComponentProps<any>, RoundModel>
                                         console.log(r);
                                         this.controller.updateResponse(q, r)
                                     }}
-                                    IsEditable={this.state.CurrentUser.Role == RoleName.ADMIN}
+                                    IsEditable={this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN}
                                 />
                                 <Button
                                     content='Save'
                                     icon='checkmark'
                                     labelPosition='right'
+                                    color="blue"
+                                    loading={this.state.ApplicationState.FormIsSubmitting }
                                     onClick={e => {
                                         this.controller.Save1AResponse(q.Response, q, thisSubRound)
                                     }}
@@ -104,6 +107,7 @@ class Priorities extends React.Component<RouteComponentProps<any>, RoundModel>
                             </Row>
                         }
                         )}
+                        
                     </Form>
 
                 }

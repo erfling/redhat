@@ -28,7 +28,7 @@ class Welcome extends React.Component<RouteComponentProps<any>, RoundModel>
 
     constructor(props: RouteComponentProps<any>) {
         super(props);
-        
+
         this.state = this.controller.dataStore;
     }
 
@@ -51,21 +51,11 @@ class Welcome extends React.Component<RouteComponentProps<any>, RoundModel>
             const SubRnd = this.controller.ComponentFistma.currentState;
 
             return <>
-                {this.state.CurrentUser && this.state.CurrentUser.Role == RoleName.ADMIN && 
-                    <Button
-                        onClick={e => this.controller.dataStore.CurrentUser.IsLeader = !this.controller.dataStore.CurrentUser.IsLeader}
-                    >
-                        Show {this.state.CurrentUser.IsLeader ? "IC" : "Leader"} Content
-                    </Button>
-                }
+
                 <Grid
-                    style={{
-                        height:'90vh'
-                    }}
-                    verticalAlign="middle"
                 >
                     <Row>
-                        <SubRnd/>
+                        <SubRnd />
                     </Row>
                 </Grid>
             </>

@@ -10,7 +10,7 @@ import Circles from '-!svg-react-loader?name=Icon!../img/circles.svg';
 import ICommonComponentState from '../../shared/base-sapien/client/ICommonComponentState';
 import { RoleName } from "../../shared/models/UserModel";
 
-class Game extends React.Component<RouteComponentProps<any>, IGamePlayModel & ICommonComponentState>
+class Game extends React.Component<RouteComponentProps<any>, ICommonComponentState>
 {
     //----------------------------------------------------------------------
     //
@@ -52,7 +52,6 @@ class Game extends React.Component<RouteComponentProps<any>, IGamePlayModel & IC
         if (this.state && this.controller.ComponentFistma) {
         const Rnd = this.controller.ComponentFistma.currentState;
         return <>
-            {this.state && this.state.IsEditing && <h1>EDIT MODE</h1>}
             <Menu
                 inverted
                 fixed="top"
@@ -81,11 +80,22 @@ class Game extends React.Component<RouteComponentProps<any>, IGamePlayModel & IC
                 </Menu.Item>
                 
                 <Menu.Item position="right" header>
+                    {this.state.CurrentUser && this.state.CurrentUser.Role == RoleName.ADMIN &&
+                        <Button
+                            onClick={e => this.controller.dataStore.CurrentUser.IsLeader = !this.controller.dataStore.CurrentUser.IsLeader}
+                        >
+                            Show {this.state.CurrentUser.IsLeader ? "IC" : "Leader"} Content
+                        </Button>
+                    }
                 </Menu.Item>
             </Menu>
             <Grid
                 columns={16}
                 className="game-wrapper"
+                style={{
+                    textAlign: 'left',
+                    paddingBottom:'50px'
+                }}
             >
                 <Circles
                     style={{

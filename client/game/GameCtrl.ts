@@ -206,9 +206,9 @@ export default class GameCtrl extends BaseClientCtrl<GameModel>
         this.ComponentFistma.onInvalidTransition(this._onInvalidTrans);
 
 
-        DataStore.GamePlay.CurrentUser = localStorage.getItem("RH_USER") ? Object.assign( new UserModel(), JSON.parse(localStorage.getItem("RH_USER") ) ) : new UserModel()        
-        DataStore.GamePlay.CurrentTeam = localStorage.getItem("TEAM") ? Object.assign( new TeamModel(), JSON.parse(localStorage.getItem("TEAM") ) ) : new TeamModel()        
-        this.dataStore = DataStore.GamePlay;
+        DataStore.ApplicationState.CurrentUser = localStorage.getItem("RH_USER") ? Object.assign( new UserModel(), JSON.parse(localStorage.getItem("RH_USER") ) ) : new UserModel()        
+        DataStore.ApplicationState.CurrentTeam = localStorage.getItem("TEAM") ? Object.assign( new TeamModel(), JSON.parse(localStorage.getItem("TEAM") ) ) : new TeamModel()        
+        this.dataStore = DataStore.ApplicationState;
 
         this.pollForGameStateChange(this.dataStore.CurrentTeam.GameId)
 

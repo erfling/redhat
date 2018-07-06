@@ -6,6 +6,7 @@ import * as Semantic from 'semantic-ui-react';
 import { RoleName } from '../../../shared/models/UserModel';
 const { Button, Grid, Menu, Segment } = Semantic;
 const { Row, Column } = Grid;
+import DeepProxy from "../../../shared/entity-of-the-state/DeepProxy";
 
 
 class PeopleRound extends React.Component<RouteComponentProps<any>, RoundModel>
@@ -28,7 +29,7 @@ class PeopleRound extends React.Component<RouteComponentProps<any>, RoundModel>
 
     constructor(props: RouteComponentProps<any>) {
         super(props);
-        
+
         this.state = this.controller.dataStore;
     }
 
@@ -51,21 +52,21 @@ class PeopleRound extends React.Component<RouteComponentProps<any>, RoundModel>
             const SubRnd = this.controller.ComponentFistma.currentState;
 
             return <>
-                {this.state.CurrentUser && this.state.CurrentUser.Role == RoleName.ADMIN && 
-                    <Button
-                        onClick={e => this.controller.dataStore.CurrentUser.IsLeader = !this.controller.dataStore.CurrentUser.IsLeader}
-                    >
-                        Show {this.state.CurrentUser.IsLeader ? "IC" : "Leader"} Content
-                    </Button>
-                }
-                <Row>
-                    <Column computer={12} mobile={16} tablet={16}>
-                        <h3>Round One: Build the Team</h3>
-                    </Column>
-                </Row>
-                <Grid>
-                    <SubRnd/>
-                </Grid>
+                <Column width={16} centered>
+                    <Grid centered>
+                        <Column mobile={16} tablet={12} computer={8} largeScreen={6} >
+                            <Row>
+                                <Column computer={12} mobile={16} tablet={16}>
+                                    <h3>Round One: Build the Team</h3>
+                                </Column>
+                            </Row>
+                            <Grid>
+                                <SubRnd />
+                            </Grid>
+                        </Column>
+                    </Grid>
+                </Column>
+
             </>
         } else {
             return <Segment loading></Segment>

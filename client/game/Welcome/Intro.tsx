@@ -9,7 +9,7 @@ import * as Semantic from 'semantic-ui-react';
 const { Button, Grid, Menu, Segment, Form, Dimmer, Loader, Header } = Semantic;
 const { Row, Column } = Grid;
 import Logo from '-!svg-react-loader?name=Icon!../../img/ss-logo.svg';
-import LogoWithCircles from '-!svg-react-loader?name=Icon!../../img/ss-logo-with-circles.svg';
+import IntroLogo from '-!svg-react-loader?name=Icon!../../img/intro-logo.svg';
 
 
 class Intro extends React.Component<RouteComponentProps<any>, RoundModel>
@@ -55,54 +55,60 @@ class Intro extends React.Component<RouteComponentProps<any>, RoundModel>
 
         if (this.state) {
             return <>
-                <Column width={16}>
-                    <Grid>
-                        <Header
-                            as='h3'
-                        >
-                            welcome to
-                    </Header>
-
-                        <Row>
-                            <Column width={5} mobile={5}>
-                                <LogoWithCircles
-                                    style={{
-                                        position: 'absolute',
-                                        width: '200px',
-                                        marginLeft: '-20px'
-                                    }}
-                                />
-                            </Column>
-                            <Column width={7} mobile={7}>
+                <Column width={16} centered>
+                    <Grid centered>
+                        <Column mobile={16} tablet={12} computer={8} largeScreen={6} >
+                            <Row>
                                 <Header
-                                    as='h1'
+                                    as='h3'
                                 >
-                                    source stream
-                            </Header>
-                            </Column>
-                        </Row>
-                        {!this.state.CurrentUser.IsLeader && thisSubRound &&
+                                    welcome to
+                        </Header>
+                            </Row>
 
-                            <EditableContentBlock
-                                IsEditable={this.state.CurrentUser.Role == RoleName.ADMIN}
-                                IsLeader={this.state.CurrentUser.IsLeader}
-                                SubRoundId={thisSubRound._id}
-                                onSaveHandler={this.controller.updateContent.bind(this.controller)}
-                                Content={thisSubRound.IndividualContributorContent}
-                            />
-                        }
+                            <Row>
+                                <IntroLogo
+                                    className="intro-logo"
+                                />
+                            </Row>
+                            {this.state.CurrentUser && this.state.CurrentUser.Role == RoleName.ADMIN &&
+                                <Button
+                                    onClick={e => this.controller.dataStore.CurrentUser.IsLeader = !this.controller.dataStore.CurrentUser.IsLeader}
+                                >
+                                    Show {this.state.CurrentUser.IsLeader ? "IC" : "Leader"} Content
+                                </Button>
+                            }
+                            {!this.state.CurrentUser.IsLeader && thisSubRound &&
 
-                        {this.state.CurrentUser.IsLeader && thisSubRound &&
+                                <EditableContentBlock
+                                    IsEditable={this.state.CurrentUser.Role == RoleName.ADMIN}
+                                    IsLeader={this.state.CurrentUser.IsLeader}
+                                    SubRoundId={thisSubRound._id}
+                                    onSaveHandler={this.controller.updateContent.bind(this.controller)}
+                                    Content={thisSubRound.IndividualContributorContent}
+                                />
+                            }
 
-                            <EditableContentBlock
-                                IsEditable={this.state.CurrentUser.Role == RoleName.ADMIN}
-                                IsLeader={this.state.CurrentUser.IsLeader}
-                                SubRoundId={thisSubRound._id}
-                                onSaveHandler={this.controller.updateContent.bind(this.controller)}
-                                Content={thisSubRound.LeaderContent}
-                            />
-                        }
+                            {this.state.CurrentUser.IsLeader && thisSubRound &&
+
+                                <EditableContentBlock
+                                    IsEditable={this.state.CurrentUser.Role == RoleName.ADMIN}
+                                    IsLeader={this.state.CurrentUser.IsLeader}
+                                    SubRoundId={thisSubRound._id}
+                                    onSaveHandler={this.controller.updateContent.bind(this.controller)}
+                                    Content={thisSubRound.LeaderContent}
+                                />
+                            }
+                            <Row>
+                                <Button 
+                                    color="blue"
+                                    size='huge'>
+                                    Login
+                                </Button>
+                            </Row>
+                        </Column>
                     </Grid>
+
                 </Column>
 
             </>;

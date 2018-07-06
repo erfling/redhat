@@ -113,9 +113,14 @@ export default class PeopleRoundCtrl extends BaseRoundCtrl<RoundModel>
         console.log("PEOPLE ROUND IS", this)
 
         this.component = reactComp;
-        this.dataStore = Object.assign(new RoundModel(), DataStore.ApplicationState)
+        this.dataStore = {
+            Round: new RoundModel(),
+            ApplicationState: DataStore.ApplicationState
+        };
         this.dataStore.Name = "PEOPLE";
 
+        
+        
         this.ComponentFistma.addOnEnter("*", this.getContentBySubRound.bind(this));
 
         this.getContentBySubRound.bind(this)();
