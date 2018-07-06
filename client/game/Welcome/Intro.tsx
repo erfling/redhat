@@ -55,52 +55,55 @@ class Intro extends React.Component<RouteComponentProps<any>, RoundModel>
 
         if (this.state) {
             return <>
-                <Header
-                    as='h3'
-                >
-                    welcome to
-                </Header>
-                <Column width={4} mobile={4}>
-                    <Row>
-                        <LogoWithCircles
-                            style={{
-                                position: 'absolute',
-                                width: '200px'
-                            }}
-                        />
-                    </Row>
-                </Column>
-                <Column width={12} mobile={12}>
-                    <Row>
+                <Column width={16}>
+                    <Grid>
                         <Header
-                            as='h1'
+                            as='h3'
                         >
-                            source stream
-                        </Header>
-                    </Row>
+                            welcome to
+                    </Header>
+
+                        <Row>
+                            <Column width={5} mobile={5}>
+                                <LogoWithCircles
+                                    style={{
+                                        position: 'absolute',
+                                        width: '200px',
+                                        marginLeft: '-20px'
+                                    }}
+                                />
+                            </Column>
+                            <Column width={7} mobile={7}>
+                                <Header
+                                    as='h1'
+                                >
+                                    source stream
+                            </Header>
+                            </Column>
+                        </Row>
+                        {!this.state.CurrentUser.IsLeader && thisSubRound &&
+
+                            <EditableContentBlock
+                                IsEditable={this.state.CurrentUser.Role == RoleName.ADMIN}
+                                IsLeader={this.state.CurrentUser.IsLeader}
+                                SubRoundId={thisSubRound._id}
+                                onSaveHandler={this.controller.updateContent.bind(this.controller)}
+                                Content={thisSubRound.IndividualContributorContent}
+                            />
+                        }
+
+                        {this.state.CurrentUser.IsLeader && thisSubRound &&
+
+                            <EditableContentBlock
+                                IsEditable={this.state.CurrentUser.Role == RoleName.ADMIN}
+                                IsLeader={this.state.CurrentUser.IsLeader}
+                                SubRoundId={thisSubRound._id}
+                                onSaveHandler={this.controller.updateContent.bind(this.controller)}
+                                Content={thisSubRound.LeaderContent}
+                            />
+                        }
+                    </Grid>
                 </Column>
-                {!this.state.CurrentUser.IsLeader && thisSubRound &&
-
-                    <EditableContentBlock
-                        IsEditable={this.state.CurrentUser.Role == RoleName.ADMIN}
-                        IsLeader={this.state.CurrentUser.IsLeader}
-                        SubRoundId={thisSubRound._id}
-                        onSaveHandler={this.controller.updateContent.bind(this.controller)}
-                        Content={thisSubRound.IndividualContributorContent}
-                    />
-                }
-
-                    {this.state.CurrentUser.IsLeader && thisSubRound &&
-
-                        <EditableContentBlock
-                            IsEditable={this.state.CurrentUser.Role == RoleName.ADMIN}
-                            IsLeader={this.state.CurrentUser.IsLeader}
-                            SubRoundId={thisSubRound._id}
-                            onSaveHandler={this.controller.updateContent.bind(this.controller)}
-                            Content={thisSubRound.LeaderContent}
-                        />
-                    }
-
 
             </>;
         } else {

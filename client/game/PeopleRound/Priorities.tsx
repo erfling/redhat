@@ -87,8 +87,7 @@ class Priorities extends React.Component<RouteComponentProps<any>, RoundModel>
                                     idx={i}
                                     key={i}
                                     SubRoundId={thisSubRound._id}
-                                    onSaveHandler={this.controller.updateContent.bind(this.controller)}
-                                    onRemoveHandler={this.controller.removeRoundContent.bind(this.controller)}
+                                    onChangeHander={r => console.log(r)}
                                     IsEditable={this.state.CurrentUser.Role == RoleName.ADMIN}
                                 />
                                 <Button

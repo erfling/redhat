@@ -21,6 +21,7 @@ export default class ResponseModel extends BaseModel
     @dbProp([{label: String, value: String}])
     private _Answer: ValueObj[] | ValueObj = [new ValueObj()];
     public set Answer(answer: ValueObj[] | ValueObj) {
+        console.log("ANSWER IN SETTER IS: ", answer)
         this._Answer = answer;
     }
     public get Answer() {
@@ -31,7 +32,10 @@ export default class ResponseModel extends BaseModel
             }
             return this._Answer[0];            
         }
-        return this._Answer ? (this._Answer as ValueObj[]).map(a => {
+
+        console.log("HERE'S YOUR ANSWER: ", this, this._Answer)
+
+        return (this._Answer && this._Answer) ? (this._Answer as ValueObj[]).map(a => {
             if(!isNaN(parseFloat(a.data))){
                 a.data = parseFloat(a.data);
             }
@@ -58,6 +62,11 @@ export default class ResponseModel extends BaseModel
     public PossibleAnswer: PossibleAnswer = new PossibleAnswer();
 
     @Type(() => QuestionModel)
-    public Question: QuestionModel = new QuestionModel();
+    public Question: QuestionModel = null;
+
+    //Maker for question this response's question is paired with in another round, if it is paired.
+    @dbProp(String)
+    public SiblingQuestionId: String = null;
+
     
 }

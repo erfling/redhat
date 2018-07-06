@@ -30,11 +30,14 @@ export default class QuestionModel extends BaseModel
     public set _PossibleAnswers(answers: ValueObj[]){
         this.PossibleAnswers = answers;
     }
-
     public AddPossibleAnswer(answer: ValueObj){
         this.PossibleAnswers = this.PossibleAnswers.concat(answer);
     }
 
-    Response: ResponseModel;
+    Response: ResponseModel = new ResponseModel();
+
+    //Maker for question this quesitno is paired with in another round, if it is paired.
+    @dbProp(String)
+    public SiblingQuestionId: String = null;
 
 }

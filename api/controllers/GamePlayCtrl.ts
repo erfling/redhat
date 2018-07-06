@@ -9,6 +9,10 @@ import TeamModel from '../../shared/models/TeamModel';
 import ResponseModel, { ResponseFetcher } from '../../shared/models/ResponseModel';
 import { monTeamModel } from './TeamCtrl'
 import { LongPollCtrl, LongPollRouter} from './LongPollCtrl'
+import ValueObj from '../../shared/entity-of-the-state/ValueObj';
+import { monQModel } from './RoundCtrl';
+import QuestionModel from '../../shared/models/QuestionModel';
+import PossibleAnswerModel from '../../shared/models/PossibleAnswerModel';
 
 const schObj = SchemaBuilder.fetchSchema(ResponseModel);
 const monSchema = new mongoose.Schema(schObj);
@@ -108,6 +112,59 @@ class GamePlayRouter
         }
     }
 
+    //Special case, since 1b responses depend on 1A responses
+    public async Save1BResponse(req: Request, res: Response, next){
+        console.log("WE DONE CALLED THIS")
+        const response: ResponseModel = Object.assign(new ResponseModel(), req.body as ResponseModel);
+
+        try{
+           
+            //get 1A response for comparison
+            const OneAResponse = await monResponseModel.findOne({
+                GameId: response.GameId,
+                TeamId: response.TeamId,
+                QuestionId: response.SiblingQuestionId
+            }).then(r => Object.assign(new ResponseModel(), r.toObject()));
+
+
+            //get the possible answer matching our response
+            const question = await monQModel.findById(response.QuestionId).then(r => Object.assign(new ResponseModel(), r.toObject()));
+            console.log("RESPONSE", response, OneAResponse);
+            //score 
+
+            question.PossibleAnswers = (question.PossibleAnswers as ValueObj[]).map((pa, i) => {  
+                let total: number = 0;              
+                //find out how far each possible answer is from the 1AResponse
+                OneAResponse.Answer.forEach((a, j) => {
+                    total += Math.abs(i-j);
+                })
+                return Object.assign(pa, {Distance: total})
+            }).sort((a, b) => {
+                if(a.Distance > b.Distance){
+                    return 1;
+                } else if (a.Distance < b.Distance) {
+                    return -1;
+                }
+                return 0;
+            })
+            console.log("HELLO",OneAResponse.Answer, question.PossibleAnswers);
+            
+            if((response.Answer as ValueObj).label == question.PossibleAnswers[0].label){
+                req.body.Score = 4;
+            } else if ((response.Answer as ValueObj).label == question.PossibleAnswers[1].label){
+                req.body.Score = question.PossibleAnswers[1].Distance ==  question.PossibleAnswers[0].Distance1 ? 4 : 1;
+            } else if ((response.Answer as ValueObj).label == question.PossibleAnswers[2].label){
+                req.body.Score = question.PossibleAnswers[2].Distance ==  question.PossibleAnswers[1].Distance1 ? 1 : 0;
+            }
+
+            next();
+        }
+        catch (err){
+            console.log(err);
+            res.json("no sir")
+        }
+    }
+
     public async GetTeamResponsesByRound(req: Request, res: Response){
         const fetcher = req.body as ResponseFetcher;
         try{
@@ -122,6 +179,7 @@ class GamePlayRouter
         //this.router.all("*", cors());
         this.router.get("/", this.GetRounds.bind(this));
         this.router.post("/response", this.SaveResponse.bind(this));
+        this.router.post("/1bresponse", this.Save1BResponse.bind(this), this.SaveResponse.bind(this));
         this.router.post("/roundresponses", this.GetTeamResponsesByRound.bind(this));
         
     }

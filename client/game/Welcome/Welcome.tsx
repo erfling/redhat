@@ -64,7 +64,9 @@ class Welcome extends React.Component<RouteComponentProps<any>, RoundModel>
                     }}
                     verticalAlign="middle"
                 >
-                    <SubRnd/>
+                    <Row>
+                        <SubRnd/>
+                    </Row>
                 </Grid>
             </>
         } else {

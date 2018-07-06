@@ -11,6 +11,7 @@ import QuestionModel from '../../../shared/models/QuestionModel';
 import GameCtrl from '../GameCtrl';
 import SubRoundModel from '../../../shared/models/SubRoundModel';
 import DataStore from '../../../shared/base-sapien/client/DataStore'
+import SapienServerCom from '../../../shared/base-sapien/client/SapienServerCom';
 
 export default class PeopleRoundCtrl extends BaseRoundCtrl<RoundModel>
 {
@@ -39,7 +40,6 @@ export default class PeopleRoundCtrl extends BaseRoundCtrl<RoundModel>
         this.ComponentFistma = new FiStMa(this.ComponentStates, this.ComponentStates.sub1);
         this.ComponentFistma.addTransition(this.ComponentStates.sub1);
         this.ComponentFistma.addTransition(this.ComponentStates.sub2);
-        console.log("dere")
 
         if (reactComp) this._setUpFistma(reactComp);
 
@@ -47,7 +47,6 @@ export default class PeopleRoundCtrl extends BaseRoundCtrl<RoundModel>
 
     public static GetInstance(reactComp?: Component<any, any>): PeopleRoundCtrl {
         if (!PeopleRoundCtrl._instance) {
-            console.log("jere")
             PeopleRoundCtrl._instance = new PeopleRoundCtrl(reactComp || null);
         }
 
@@ -80,11 +79,27 @@ export default class PeopleRoundCtrl extends BaseRoundCtrl<RoundModel>
         response.Score = score;
         response.TeamId = GameCtrl.GetInstance().dataStore.CurrentTeam._id;
         response.QuestionId = question._id;
-        response.Question = question;
         response.RoundId = round._id;
         response.GameId = GameCtrl.GetInstance().dataStore.CurrentTeam.GameId;
         // save response //
         this.SaveResponse(response, question, round);
+    }
+
+    public Save1BResponse( resp: ResponseModel, question: QuestionModel, round: SubRoundModel ) {
+
+        console.log(resp, question, round);
+        resp.SiblingQuestionId = question.SiblingQuestionId;
+        resp.TeamId = GameCtrl.GetInstance().dataStore.CurrentTeam._id;
+        resp.QuestionId = question._id;
+        resp.RoundId = round._id;
+        resp.GameId = GameCtrl.GetInstance().dataStore.CurrentTeam.GameId;
+        // save response //
+        return SapienServerCom.SaveData(resp, SapienServerCom.BASE_REST_URL + "gameplay/1bresponse").then(r => {
+            console.log(r);
+            round.Responses = round.Responses.map(resp => resp._id == r._id ? Object.assign(new ResponseModel(), r) : resp);
+            return round;
+        })
+        
     }
 
     //----------------------------------------------------------------------

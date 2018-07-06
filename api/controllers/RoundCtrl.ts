@@ -12,7 +12,7 @@ export const monRoundModel = mongoose.model("round", monSchema);
 
 const qSchObj = SchemaBuilder.fetchSchema(SubRoundModel);
 const qSubSchema = new mongoose.Schema(qSchObj);
-export const monQdModel = mongoose.model("question", qSubSchema);
+export const monQModel = mongoose.model("question", qSubSchema);
 
 const subSchObj = SchemaBuilder.fetchSchema(SubRoundModel);
 subSchObj.Questions = [{ type: mongoose.Schema.Types.ObjectId, ref: "question" }];
