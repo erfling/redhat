@@ -91,8 +91,8 @@ class Game extends React.Component<RouteComponentProps<any>, IGamePlayModel & IC
                     style={{
                         position: 'fixed',
                         bottom: '60px',
-                        right: '-220px',
-                        width: '200px'
+                        right: '-210px',
+                        width: '380px'
                     }}
                 />
                 <Rnd/>

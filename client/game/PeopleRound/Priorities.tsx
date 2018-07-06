@@ -87,7 +87,10 @@ class Priorities extends React.Component<RouteComponentProps<any>, RoundModel>
                                     idx={i}
                                     key={i}
                                     SubRoundId={thisSubRound._id}
-                                    onChangeHander={r => console.log(r)}
+                                    onChangeHander={r => {
+                                        console.log(r);
+                                        this.controller.updateResponse(q, r)
+                                    }}
                                     IsEditable={this.state.CurrentUser.Role == RoleName.ADMIN}
                                 />
                                 <Button
@@ -95,7 +98,7 @@ class Priorities extends React.Component<RouteComponentProps<any>, RoundModel>
                                     icon='checkmark'
                                     labelPosition='right'
                                     onClick={e => {
-                                        this.controller.Save1AResponse(q.PossibleAnswers, q, thisSubRound)
+                                        this.controller.Save1AResponse(q.Response, q, thisSubRound)
                                     }}
                                 />
                             </Row>
