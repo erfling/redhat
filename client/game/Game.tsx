@@ -85,7 +85,10 @@ class Game extends React.Component<RouteComponentProps<any>, ICommonComponentSta
                 <Menu.Item position="right" header>
                     {this.state.CurrentUser && this.state.CurrentUser.Role == RoleName.ADMIN &&
                         <Button
-                            onClick={e => this.controller.dataStore.CurrentUser.IsLeader = !this.controller.dataStore.CurrentUser.IsLeader}
+                            onClick={e => {
+                                this.controller.dataStore.CurrentUser.IsLeader = !this.controller.dataStore.CurrentUser.IsLeader
+                                this.controller.dataStoreChange()
+                            }}
                         >
                             Show {this.state.CurrentUser.IsLeader ? "IC" : "Leader"} Content
                         </Button>

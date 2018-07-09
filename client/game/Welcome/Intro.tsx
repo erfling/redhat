@@ -73,13 +73,6 @@ class Intro extends React.Component<RouteComponentProps<any>, IRoundDataStore>
                                     className="intro-logo"
                                 />
                             </Row>
-                            {this.state.ApplicationState.CurrentUser && this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN &&
-                                <Button
-                                    onClick={e => this.controller.dataStore.ApplicationState.CurrentUser.IsLeader = !this.controller.dataStore.ApplicationState.CurrentUser.IsLeader}
-                                >
-                                    Show {this.state.ApplicationState.CurrentUser.IsLeader ? "IC" : "Leader"} Content
-                                </Button>
-                            }
                             {!this.state.ApplicationState.CurrentUser.IsLeader && thisSubRound &&
 
                                 <EditableContentBlock
