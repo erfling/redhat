@@ -13,7 +13,7 @@ var ROOT_PATH = path.resolve(__dirname);
 module.exports = {
     entry: {
       main:   './client/index.tsx',
-      vendor: ['react', 'lodash', 'semantic-ui-react', 'react-router-dom', 'react-router',  "draft-js", 'sanitize-html'],
+      vendor: ['react', 'lodash', 'semantic-ui-react', 'react-router-dom', 'react-router', 'sanitize-html'],
     },
     devtool: false,
     output: {
@@ -99,7 +99,7 @@ module.exports = {
       }),
       new ExtractTextPlugin('style.css'),
       new webpack.DefinePlugin({
-        'process.env.NODE_ENV': '"production"'
+        'process.env.NODE_ENV': '"prod"'
       }),
       new webpack.optimize.AggressiveMergingPlugin(),//Merge chunks
       new UglifyJSPlugin(),
@@ -111,8 +111,10 @@ module.exports = {
         algorithm: 'gzip',
         test: /\.js$|/,
         minRatio: 0.8,
+        deleteOriginalAssets: true,
         filename: (filename) => {
           console.log("FILE IS", filename)
+          return filename;
         }
       })
       
