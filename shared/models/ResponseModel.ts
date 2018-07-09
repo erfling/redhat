@@ -21,7 +21,6 @@ export default class ResponseModel extends BaseModel
     @dbProp([{label: String, value: String}])
     private _Answer: ValueObj[] | ValueObj = [new ValueObj()];
     public set Answer(answer: ValueObj[] | ValueObj) {
-        console.log("ANSWER IN SETTER IS: ", answer)
         this._Answer = answer;
     }
     public get Answer() {
