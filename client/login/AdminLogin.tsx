@@ -54,7 +54,7 @@ class AdminLogin extends React.Component<RouteComponentProps<any>, UserModel & I
 
         return <>
 
-            <Row centered>
+            <Row>
                 <Column wide={6} computer={8} tablet={6} mobile={16}> 
                     <Form>
                         <Form.Field>

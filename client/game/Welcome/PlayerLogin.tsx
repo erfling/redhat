@@ -55,8 +55,8 @@ class PlayerLogin extends React.Component<RouteComponentProps<any>, {Round: Roun
 
         if (this.state) {
             return <>
-                <Column width={16} centered>
-                    <Grid centered>
+                <Column width={16}>
+                    <Grid>
                         <Column mobile={16} tablet={12} computer={8} largeScreen={6} 
                             style={{
                                 textAlign: 'left'

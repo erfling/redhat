@@ -57,9 +57,7 @@ class Intro extends React.Component<RouteComponentProps<any>, IRoundDataStore>
 
         if (this.state) {
             return <>
-                <Column width={16} centered>
-                    <Grid centered>
-                        <Column mobile={16} tablet={12} computer={8} largeScreen={6} >
+                        <Column>
                             <Row>
                                 <Header
                                     as='h3'
@@ -94,19 +92,23 @@ class Intro extends React.Component<RouteComponentProps<any>, IRoundDataStore>
                                     Content={thisSubRound.LeaderContent}
                                 />
                             }
-                            <Row>
+                            <Row
+                                centered
+                            >
                                 <Button 
                                     color="blue"
                                     size='huge'
+                                    style={{
+                                        marginLeft: 'auto',
+                                        marginRight: 'auto',
+                                        display: 'block'
+                                    }}
                                     onClick={e => this.controller.navigateOnClick("/game/welcome/playerlogin")}
                                 >
                                     Login
                                 </Button>
                             </Row>
                         </Column>
-                    </Grid>
-
-                </Column>
 
             </>;
         } else {

@@ -55,8 +55,8 @@ class PeopleRound extends React.Component<RouteComponentProps<any>, IRoundDataSt
             console.log("huh?", this.state, SubRnd.WrappedComponent.CLASS_NAME)
 
             return <>
-                <Column width={16} centered>
-                    <Grid centered>
+                <Column width={16}>
+                    <Grid>
                         <Column mobile={16} tablet={12} computer={8} largeScreen={6} >
                             <Row>
                                 <Column computer={12} mobile={16} tablet={16}>

@@ -55,7 +55,6 @@ class Login extends React.Component<RouteComponentProps<any>, any>
         >
             <Grid
                 verticalAlign="middle"
-                centered
                 padded={true}
                 columns={16}
             >

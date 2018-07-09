@@ -97,7 +97,7 @@ class Priorities extends React.Component<RouteComponentProps<any>, IRoundDataSto
                                     IsEditable={this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN}
                                 />
                                 <Button
-                                    content='Save'
+                                    content='Submit'
                                     icon='checkmark'
                                     labelPosition='right'
                                     color="blue"

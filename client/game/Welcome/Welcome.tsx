@@ -53,12 +53,11 @@ class Welcome extends React.Component<RouteComponentProps<any>, IRoundDataStore>
             const SubRnd = this.controller.ComponentFistma.currentState;
 
             return <>
-
-                <Grid>
-                    <Row>
+                <Column mobile={16} tablet={12} computer={8} largeScreen={6} >
+                    <Grid>
                         <SubRnd />
-                    </Row>
-                </Grid>
+                    </Grid>
+                </Column>
             </>
         } else {
             return <Segment loading></Segment>

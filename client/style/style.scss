@@ -7,6 +7,12 @@ h1, h2, h3, h4, h5, p, .header{
 p, ul li, blockquote{
     font-size: 16px;
 }
+.game-wrapper{
+    .column{
+        margin-left:auto;
+        margin-right:auto;
+    }
+}
 /*
 .edit-content{
     right:20px;

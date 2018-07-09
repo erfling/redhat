@@ -23,6 +23,9 @@ export default class QuestionModel extends BaseModel
     public Text: string = "";
 
     @dbProp(String)
+    public SubText: string = "";
+
+    @dbProp(String)
     public Type: QuestionType = QuestionType.MULTIPLE_CHOICE;
 
     @dbProp([ValueObj])
