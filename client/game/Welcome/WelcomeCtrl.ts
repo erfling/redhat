@@ -84,7 +84,8 @@ export default class WelcomeCtrl extends BaseRoundCtrl<RoundModel>
                 this.dataStore.ApplicationState.CurrentUser = this.dataStore.ApplicationState.CurrentUser = Object.assign(new UserModel(), r.user)
 
                 GameCtrl.GetInstance().navigateOnClick("/game/peopleround/priorities");
-                GameCtrl.GetInstance().pollForGameStateChange(r.team.GameId)
+                GameCtrl.GetInstance().pollForGameStateChange(r.team.GameId);
+                GameCtrl.GetInstance().dataStoreChange();
                 return r;
         }).catch((r) => {
             this.dataStore.ApplicationState.FormError = "There was a problem logging you in. Please try again.";
