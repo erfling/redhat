@@ -126,7 +126,7 @@ export class AppServer {
                 AppServer.LongPoll.publishToId("/listenforgameadvance/:gameid", req.params.gameid , req.body)
                 res.json("long poll publish hit")
             })
-            .use('/assets', express.static("dist/assets"))
+            .use('/assets', express.static("/dist/assets"))
             .use('/', express.static("dist"))
             .use('*', express.static("dist"))
             .use('**', express.static("dist"))
