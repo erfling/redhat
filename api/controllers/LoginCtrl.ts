@@ -1,6 +1,6 @@
 import { Router, Request, Response, NextFunction } from 'express';
 import * as mongoose from 'mongoose';
-import UserModel from '../../shared/models/UserModel';
+import UserModel, { RoleName } from '../../shared/models/UserModel';
 import BaseModel from '../../shared/base-sapien/models/BaseModel';
 import SchemaBuilder from '../SchemaBuilder';
 import * as Passport from 'passport'
@@ -9,6 +9,9 @@ import * as LocalStrategy from 'passport-local';
 import * as jwt from 'jsonwebtoken';
 import { monTeamModel } from './TeamCtrl'
 import { monGameModel } from './GameCtrl';
+import GameModel from '../../shared/models/GameModel';
+import { monUserModel } from './UserCtrl';
+import TeamModel from '../../shared/models/TeamModel';
 
 class LoginCtrl
 {
@@ -47,35 +50,53 @@ class LoginCtrl
     //----------------------------------------------------------------------
     
     public async Login(req: Request, res: Response):Promise<any> {
-        const user = req.body as UserModel;
+        const loginInfo = req.body as {Email: string, GamePIN: number};
         console.log("USER", req.body);
         //const dbRoundModel = new monRoundModel(roundToSave); 
         
+        //get the game
+
         
         try{
-            Passport.authenticate('local', {session: false}, (err, user: UserModel, info) => {
-                console.log("ERROR IN AUTH METHOD", err);
-                if (err || !user) {
-                    return res.status(401).json({
-                        message: info ? info.message : 'Login failed',
-                        user   : user
-                    });
+            const game: GameModel = await monGameModel.findOne({GamePIN: loginInfo.GamePIN}).populate(
+                {
+                    path: "Teams",
                 }
-        
-                req.login(user, {session: false}, (err) => {
-                    console.log("USER AS PASSED FROM AUTH:", user)
-                    if (err) {
-                        res.send(err);
-                    }
-                    console.log(user);
-                    const token = jwt.sign(JSON.parse(JSON.stringify(user)), 'zigwagytywu');
-        
-                    return res.json({user, token});
-                });
-            })(req, res);
-        }
-        catch{
+            ).then(r => Object.assign( new GameModel(), JSON.parse( JSON.stringify( r.toJSON() ) ) ) )
 
+            if(!game){
+                throw("We couldn't find the game you're trying to join. Please try again.")
+            }
+    
+            console.log(game.Teams);
+
+            const user:UserModel = await monUserModel.findOne({Email: loginInfo.Email}).then(r => Object.assign(new UserModel(),JSON.parse( JSON.stringify( r.toJSON() ) ) ) );
+
+            if(!user){
+                throw('no user')
+            }
+            console.log(user)
+
+            const team: TeamModel = game.Teams.filter(team => {
+                //let team = t.toJSON();
+                console.log(team.Players[3], user._id, typeof team.Players[3], typeof user._id, typeof "butt")
+
+                return team.Players.indexOf(user._id) != -1
+            })[0] || null;
+            console.log("TEAM IS: ", team)
+            if(!team){
+                throw("no team");
+            }
+
+            const token = jwt.sign(JSON.stringify(user), 'zigwagytywu');
+
+            return res.json({user, token, team});
+            
+        }
+        catch (err){
+            res
+                .status(500)
+                .send(err)
         }
     }
     
@@ -83,8 +104,6 @@ class LoginCtrl
         const user = req.body as UserModel;
         console.log("USER", req.body);
         //const dbRoundModel = new monRoundModel(roundToSave); 
-        
-        
         try{
             Passport.authenticate('local', {session: false}, (err, user: UserModel, info) => {
                 console.log("ERROR IN AUTH METHOD", err);
@@ -100,7 +119,11 @@ class LoginCtrl
                     if (err) {
                         res.send(err);
                     }
-                    console.log(user);
+
+                    if(user.Role != RoleName.ADMIN){
+                        res.send("You aren't authorized to do that")
+                    }
+                    
                     const token = jwt.sign(JSON.stringify(user), 'zigwagytywu');
 
                     //get our test team for the admin user
@@ -117,8 +140,9 @@ class LoginCtrl
                 });
             })(req, res);
         }
-        catch{
-
+        catch (error){
+            console.log(error);
+            res.send("couldn't login")
         }
     }
 

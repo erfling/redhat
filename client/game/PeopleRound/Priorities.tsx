@@ -7,11 +7,13 @@ import { withRouter, RouteComponentProps } from 'react-router-dom';
 import EditableContentBlock from '../../../shared/base-sapien/client/shared-components/EditableContentBlock';
 import EditableQuestionBlock from '../../../shared/base-sapien/client/shared-components/EditableQuestionBlock';
 import * as Semantic from 'semantic-ui-react';
+import { IRoundDataStore } from '../../../shared/base-sapien/client/BaseRoundCtrl';
+
 const { Button, Grid, Menu, Segment, Form, Dimmer, Loader } = Semantic;
 const { Row, Column } = Grid;
 
 
-class Priorities extends React.Component<RouteComponentProps<any>, RoundModel>
+class Priorities extends React.Component<RouteComponentProps<any>, IRoundDataStore>
 {
     //----------------------------------------------------------------------
     //

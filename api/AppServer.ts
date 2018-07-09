@@ -126,7 +126,7 @@ export class AppServer {
                 res.json("long poll publish hit")
             })
             .use('/assets', express.static("dist/assets"))
-            .use('/', express.static("dist"))            
+            .use('/', express.static("dist"))
             .use('*', express.static("dist"))
             .use('**', express.static("dist"))
 

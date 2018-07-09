@@ -33,6 +33,7 @@ class Game extends React.Component<RouteComponentProps<any>, ICommonComponentSta
         
         this.state = this.controller.dataStore;
     }
+    
 
     //----------------------------------------------------------------------
     //
@@ -47,6 +48,9 @@ class Game extends React.Component<RouteComponentProps<any>, ICommonComponentSta
     //  Methods
     //
     //----------------------------------------------------------------------
+
+    componentDidUpdate(){
+    }
 
     render() {
         if (this.state && this.controller.ComponentFistma) {
@@ -66,7 +70,6 @@ class Game extends React.Component<RouteComponentProps<any>, ICommonComponentSta
                 }}>
                 <Menu.Item
                     header>
-                    Global game header
                 </Menu.Item>
                 <Menu.Item
                     onClick={() => this.controller.goBackRound()}

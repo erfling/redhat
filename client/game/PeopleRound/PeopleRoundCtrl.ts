@@ -36,6 +36,7 @@ export default class PeopleRoundCtrl extends BaseRoundCtrl<RoundModel>
 
     private constructor(reactComp: React.Component<any, any>) {
         super(reactComp || null);
+        this.dataStoreChange = this.onPeopleRoundDataStore.bind(this);
 
         this.ComponentFistma = new FiStMa(this.ComponentStates, this.ComponentStates.sub1);
         this.ComponentFistma.addTransition(this.ComponentStates.sub1);
@@ -109,17 +110,23 @@ export default class PeopleRoundCtrl extends BaseRoundCtrl<RoundModel>
     //
     //----------------------------------------------------------------------
 
+    onPeopleRoundDataStore(){
+        if (this.component){ 
+            console.log("COMPONENT IS", this.component)
+            this.component.forceUpdate.bind(this.component)()
+        }
+    }
+
     protected _setUpFistma(reactComp: Component){  
         console.log("PEOPLE ROUND IS", this)
 
         this.component = reactComp;
         this.dataStore = {
             Round: new RoundModel(),
-            ApplicationState: DataStore.ApplicationState
+            ApplicationState: DataStore.ApplicationState,
+            SelectedSubround: null
         };
-        this.dataStore.Name = "PEOPLE";
-
-        
+        this.dataStore.Round.Name = "PEOPLE";
         
         this.ComponentFistma.addOnEnter("*", this.getContentBySubRound.bind(this));
 

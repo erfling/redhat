@@ -102,7 +102,13 @@ export default class GameCtrl extends BaseClientCtrl<GameModel>
             mapping.ChildRound = this._childController.ComponentFistma.getNext().WrappedComponent.CLASS_NAME;
         } else if ( this.ComponentFistma.getNext() ) {
             mapping.ParentRound = this.ComponentFistma.getNext().WrappedComponent.CLASS_NAME;
+            this._childController = this._getTargetController(this.ComponentFistma.getNext().WrappedComponent.CLASS_NAME)
+
+            //get the first component from the NEXT fistma
+            
+
             mapping.ChildRound = this._childController.ComponentFistma.getFirst().WrappedComponent.CLASS_NAME;
+
         }
 
         console.log("MAPPING IS", mapping)
@@ -118,10 +124,6 @@ export default class GameCtrl extends BaseClientCtrl<GameModel>
      * 
      */
     public goBackRound(){
-        if(this.ComponentFistma.getPrevious()){
-            console.log("CURRENT STATE IS: ",this.ComponentFistma.currentState.WrappedComponent.CLASS_NAME);
-        }
-
         let targetState: React.ComponentClass;
         let mapping: RoundChangeMapping = {
             ParentRound: null,
@@ -130,31 +132,40 @@ export default class GameCtrl extends BaseClientCtrl<GameModel>
 
         this._childController = this._getTargetController(this.ComponentFistma.currentState.WrappedComponent.CLASS_NAME)
 
+
+
         if ( this._childController.ComponentFistma && this._childController.ComponentFistma.getPrevious() ){
             mapping.ParentRound = this.ComponentFistma.currentState.WrappedComponent.CLASS_NAME;
             mapping.ChildRound = this._childController.ComponentFistma.getPrevious().WrappedComponent.CLASS_NAME;
         } else if ( this.ComponentFistma.getPrevious() ) {
             mapping.ParentRound = this.ComponentFistma.getPrevious().WrappedComponent.CLASS_NAME;
-            this._childController = this._getTargetController( mapping.ParentRound)
+            this._childController = this._getTargetController(this.ComponentFistma.getPrevious().WrappedComponent.CLASS_NAME)
+
+            //get the first component from the NEXT fistma
+            
+
             mapping.ChildRound = this._childController.ComponentFistma.getLast().WrappedComponent.CLASS_NAME;
+
         }
+
+        console.log("MAPPING IS", mapping)
 
         if ( mapping.ParentRound && mapping.ChildRound ) {
             SapienServerCom.SaveData(mapping, SapienServerCom.BASE_REST_URL + "facilitation/round/" + this.dataStore.CurrentTeam.GameId);
         }
-
     }
 
     private _getTargetController(componentName: string): BaseRoundCtrl<any>{
         let childController: BaseRoundCtrl<any>
+        componentName = componentName.toLocaleUpperCase();
         switch(componentName){
-            case "Welcome":
+            case "WELCOME":
                 childController = WelcomeCtrl.GetInstance();
                 break;
-            case "PeopleRound":
+            case "PEOPLEROUND":
                 childController = PeopleRoundCtrl.GetInstance();
                 break;
-            case "EngineeringRound":
+            case "ENGINEERINGROUND":
                 childController = EngineeringRoundCtrl.GetInstance();
                 break;
             default: 
@@ -176,15 +187,20 @@ export default class GameCtrl extends BaseClientCtrl<GameModel>
     //----------------------------------------------------------------------
 
     public async pollForGameStateChange(gameId: string){
-
+        console.log("polling for game state")
+        if(!gameId)return;
         await SapienServerCom.GetData(null, null, "/listenforgameadvance/" + gameId).then((r: RoundChangeMapping) => {
             console.log("GOT THIS BACK FROM LONG POLL", r);
+
+            this._childController = this._getTargetController(r.ParentRound)
+
+            GameCtrl.GetInstance().navigateOnClick("/game/" + r.ParentRound.toLowerCase() + "/" + r.ChildRound.toLowerCase());
+            this._childController.navigateOnClick("/game/" + r.ParentRound.toLowerCase() + "/" + r.ChildRound.toLowerCase());
+
+            this.dataStoreChange();
+            this._childController.dataStoreChange();
+
             this.pollForGameStateChange(gameId);
-
-            if (this.ComponentFistma.currentState.WrappedComponent.CLASS_NAME.toUpperCase() != r.ParentRound.toUpperCase())
-                this.navigateOnClick("/game/" + r.ParentRound.toLowerCase() + "/" + r.ChildRound.toLowerCase());
-
-            this._childController.navigateOnClick("/game/" + r.ParentRound.toLowerCase() + "/" + r.ChildRound.toLowerCase())
         })
     }
 
@@ -207,9 +223,10 @@ export default class GameCtrl extends BaseClientCtrl<GameModel>
 
 
         DataStore.ApplicationState.CurrentUser = localStorage.getItem("RH_USER") ? Object.assign( new UserModel(), JSON.parse(localStorage.getItem("RH_USER") ) ) : new UserModel()        
-        DataStore.ApplicationState.CurrentTeam = localStorage.getItem("TEAM") ? Object.assign( new TeamModel(), JSON.parse(localStorage.getItem("TEAM") ) ) : new TeamModel()        
+        DataStore.ApplicationState.CurrentTeam = localStorage.getItem("RH_TEAM") ? Object.assign( new TeamModel(), JSON.parse(localStorage.getItem("RH_TEAM") ) ) : new TeamModel()        
         this.dataStore = DataStore.ApplicationState;
 
+        console.log("DATASTORE:", this.dataStore.CurrentTeam)
         this.pollForGameStateChange(this.dataStore.CurrentTeam.GameId)
 
         this.component.componentDidMount = () => {

@@ -4,6 +4,7 @@ import BaseRoundCtrl from '../../../shared/base-sapien/client/BaseRoundCtrl';
 import RoundModel from '../../../shared/models/RoundModel';
 import Welcome from './Welcome';
 import Intro from './Intro';
+import PlayerLogin from './PlayerLogin';
 import FiStMa from '../../../shared/entity-of-the-state/FiStMa';
 import ValueObj from '../../../shared/entity-of-the-state/ValueObj';
 import ResponseModel from '../../../shared/models/ResponseModel';
@@ -12,7 +13,9 @@ import GameCtrl from '../GameCtrl';
 import SubRoundModel from '../../../shared/models/SubRoundModel';
 import SapienServerCom from '../../../shared/base-sapien/client/SapienServerCom';
 import DataStore from '../../../shared/base-sapien/client/DataStore'
-
+import ICommonComponentState from '../../../shared/base-sapien/client/ICommonComponentState';
+import TeamModel from '../../../shared/models/TeamModel';
+import UserModel from '../../../shared/models/UserModel';
 
 
 export default class WelcomeCtrl extends BaseRoundCtrl<RoundModel>
@@ -27,6 +30,7 @@ export default class WelcomeCtrl extends BaseRoundCtrl<RoundModel>
 
     protected readonly ComponentStates = {
         sub1: Intro,
+        sub2: PlayerLogin
     };
 
     //----------------------------------------------------------------------
@@ -63,6 +67,31 @@ export default class WelcomeCtrl extends BaseRoundCtrl<RoundModel>
     //
     //----------------------------------------------------------------------
   
+    public LoginPlayer(){
+        this.dataStore.ApplicationState.FormError = null;
+        SapienServerCom.SaveData({
+            Email: this.dataStore.ApplicationState.CurrentUser.Email, 
+            GamePIN: this.dataStore.ApplicationState.CurrentGame.GamePIN}, 
+            SapienServerCom.BASE_REST_URL + "auth").then((r:{team: TeamModel, user: UserModel, token: string}) => {
+
+                console.log("returned", r)
+
+                localStorage.setItem("RH_USER", JSON.stringify(r.user))
+                localStorage.setItem("RH_TEAM", JSON.stringify(r.team))
+                localStorage.setItem("rhjwt", r.token);
+
+                this.dataStore.ApplicationState.CurrentTeam = this.dataStore.ApplicationState.CurrentTeam = Object.assign(new TeamModel(), r.team)
+                this.dataStore.ApplicationState.CurrentUser = this.dataStore.ApplicationState.CurrentUser = Object.assign(new UserModel(), r.user)
+
+                GameCtrl.GetInstance().navigateOnClick("/game/peopleround/priorities");
+                GameCtrl.GetInstance().pollForGameStateChange(r.team.GameId)
+                return r;
+        }).catch((r) => {
+            this.dataStore.ApplicationState.FormError = "There was a problem logging you in. Please try again.";
+        })
+
+
+    }
 
     //----------------------------------------------------------------------
     //
@@ -74,10 +103,16 @@ export default class WelcomeCtrl extends BaseRoundCtrl<RoundModel>
         console.log("INTDO ROUND IS", this)
 
         this.component = reactComp;
-        this.dataStore = Object.assign(new RoundModel(), DataStore.ApplicationState)
-        this.dataStore.Name = "PEOPLE";
+        this.dataStore = {
+            Round: new RoundModel(),
+            ApplicationState: DataStore.ApplicationState,
+            SelectedSubround: null
+        };        
+        this.dataStore.Round.Name = "WELCOME";
 
-        this.ComponentFistma.addOnEnter("*", this.getContentBySubRound.bind(this));
+  
+        this.ComponentFistma.addOnEnter(this.ComponentStates.sub1, this.getContentBySubRound.bind(this));
+        this.ComponentFistma.addOnEnter(this.ComponentStates.sub2, this.getContentBySubRound.bind(this));
 
         this.getContentBySubRound.bind(this)();
 

@@ -8,11 +8,13 @@ import EditableContentBlock from '../../../shared/base-sapien/client/shared-comp
 import EditableQuestionBlock from '../../../shared/base-sapien/client/shared-components/EditableQuestionBlock';
 import * as Semantic from 'semantic-ui-react';
 import QuestionModel from "../../../shared/models/QuestionModel";
+import { IRoundDataStore } from '../../../shared/base-sapien/client/BaseRoundCtrl';
+
 const { Button, Grid, Menu, Segment, Form, Dimmer, Loader } = Semantic;
 const { Row, Column } = Grid;
 
 
-class Hiring extends React.Component<RouteComponentProps<any>, RoundModel>
+class Hiring extends React.Component<RouteComponentProps<any>, IRoundDataStore>
 {
     //----------------------------------------------------------------------
     //
@@ -59,7 +61,7 @@ class Hiring extends React.Component<RouteComponentProps<any>, RoundModel>
 
                     <EditableContentBlock
                         IsEditable={this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN}
-                        IsLeader={this.state.ApplicationState.IsLeader}
+                        IsLeader={this.state.ApplicationState.CurrentUser.IsLeader}
                         SubRoundId={thisSubRound._id}
                         onSaveHandler={this.controller.updateContent.bind(this.controller)}
                         Content={thisSubRound.IndividualContributorContent}
@@ -94,7 +96,7 @@ class Hiring extends React.Component<RouteComponentProps<any>, RoundModel>
                                     onChangeHander={r => {
                                         this.controller.updateResponse(q, r)
                                     }}
-                                    IsEditable={this.state.CurrentUser.Role == RoleName.ADMIN}
+                                    IsEditable={this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN}
                                 />
                                 <Button
                                     content='Save'

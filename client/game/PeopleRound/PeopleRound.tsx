@@ -4,12 +4,14 @@ import RoundModel from "../../../shared/models/RoundModel";
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 import * as Semantic from 'semantic-ui-react';
 import { RoleName } from '../../../shared/models/UserModel';
+import { IRoundDataStore } from '../../../shared/base-sapien/client/BaseRoundCtrl';
+
 const { Button, Grid, Menu, Segment } = Semantic;
 const { Row, Column } = Grid;
 import DeepProxy from "../../../shared/entity-of-the-state/DeepProxy";
 
 
-class PeopleRound extends React.Component<RouteComponentProps<any>, RoundModel>
+class PeopleRound extends React.Component<RouteComponentProps<any>, IRoundDataStore>
 {
     //----------------------------------------------------------------------
     //
@@ -50,6 +52,7 @@ class PeopleRound extends React.Component<RouteComponentProps<any>, RoundModel>
     render() {
         if (this.state && this.controller.ComponentFistma) {
             const SubRnd = this.controller.ComponentFistma.currentState;
+            console.log("huh?", this.state, SubRnd.WrappedComponent.CLASS_NAME)
 
             return <>
                 <Column width={16} centered>

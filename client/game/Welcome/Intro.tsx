@@ -8,11 +8,13 @@ import EditableContentBlock from '../../../shared/base-sapien/client/shared-comp
 import * as Semantic from 'semantic-ui-react';
 const { Button, Grid, Menu, Segment, Form, Dimmer, Loader, Header } = Semantic;
 const { Row, Column } = Grid;
+import { IRoundDataStore } from '../../../shared/base-sapien/client/BaseRoundCtrl';
+
 import Logo from '-!svg-react-loader?name=Icon!../../img/ss-logo.svg';
 import IntroLogo from '-!svg-react-loader?name=Icon!../../img/intro-logo.svg';
 
 
-class Intro extends React.Component<RouteComponentProps<any>, RoundModel>
+class Intro extends React.Component<RouteComponentProps<any>, IRoundDataStore>
 {
     //----------------------------------------------------------------------
     //
@@ -51,7 +53,7 @@ class Intro extends React.Component<RouteComponentProps<any>, RoundModel>
     //----------------------------------------------------------------------
 
     render() {
-        const thisSubRound = this.state.SubRounds.filter(s => s.Name.toUpperCase() == Intro.CLASS_NAME.toUpperCase())[0]
+        const thisSubRound = this.state.Round.SubRounds.filter(s => s.Name.toUpperCase() == Intro.CLASS_NAME.toUpperCase())[0]
 
         if (this.state) {
             return <>
@@ -71,29 +73,29 @@ class Intro extends React.Component<RouteComponentProps<any>, RoundModel>
                                     className="intro-logo"
                                 />
                             </Row>
-                            {this.state.CurrentUser && this.state.CurrentUser.Role == RoleName.ADMIN &&
+                            {this.state.ApplicationState.CurrentUser && this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN &&
                                 <Button
-                                    onClick={e => this.controller.dataStore.CurrentUser.IsLeader = !this.controller.dataStore.CurrentUser.IsLeader}
+                                    onClick={e => this.controller.dataStore.ApplicationState.CurrentUser.IsLeader = !this.controller.dataStore.ApplicationState.CurrentUser.IsLeader}
                                 >
-                                    Show {this.state.CurrentUser.IsLeader ? "IC" : "Leader"} Content
+                                    Show {this.state.ApplicationState.CurrentUser.IsLeader ? "IC" : "Leader"} Content
                                 </Button>
                             }
-                            {!this.state.CurrentUser.IsLeader && thisSubRound &&
+                            {!this.state.ApplicationState.CurrentUser.IsLeader && thisSubRound &&
 
                                 <EditableContentBlock
-                                    IsEditable={this.state.CurrentUser.Role == RoleName.ADMIN}
-                                    IsLeader={this.state.CurrentUser.IsLeader}
+                                    IsEditable={this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN}
+                                    IsLeader={this.state.ApplicationState.CurrentUser.IsLeader}
                                     SubRoundId={thisSubRound._id}
                                     onSaveHandler={this.controller.updateContent.bind(this.controller)}
                                     Content={thisSubRound.IndividualContributorContent}
                                 />
                             }
 
-                            {this.state.CurrentUser.IsLeader && thisSubRound &&
+                            {this.state.ApplicationState.CurrentUser.IsLeader && thisSubRound &&
 
                                 <EditableContentBlock
-                                    IsEditable={this.state.CurrentUser.Role == RoleName.ADMIN}
-                                    IsLeader={this.state.CurrentUser.IsLeader}
+                                    IsEditable={this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN}
+                                    IsLeader={this.state.ApplicationState.CurrentUser.IsLeader}
                                     SubRoundId={thisSubRound._id}
                                     onSaveHandler={this.controller.updateContent.bind(this.controller)}
                                     Content={thisSubRound.LeaderContent}
@@ -102,7 +104,9 @@ class Intro extends React.Component<RouteComponentProps<any>, RoundModel>
                             <Row>
                                 <Button 
                                     color="blue"
-                                    size='huge'>
+                                    size='huge'
+                                    onClick={e => this.controller.navigateOnClick("/game/welcome/playerlogin")}
+                                >
                                     Login
                                 </Button>
                             </Row>

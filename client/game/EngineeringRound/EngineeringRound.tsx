@@ -4,11 +4,13 @@ import RoundModel from "../../../shared/models/RoundModel";
 import EditableContentBlock from '../../../shared/base-sapien/client/shared-components/EditableContentBlock';
 import * as Semantic from 'semantic-ui-react';
 import { withRouter, RouteComponentProps } from "react-router";
+import { IRoundDataStore } from '../../../shared/base-sapien/client/BaseRoundCtrl';
+
 const { Button, Grid, Menu } = Semantic;
 const { Row, Column } = Grid;
 
 
-class EngineeringRound extends React.Component<RouteComponentProps<any>, RoundModel>
+class EngineeringRound extends React.Component<RouteComponentProps<any>, IRoundDataStore>
 {
     //----------------------------------------------------------------------
     //
