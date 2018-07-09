@@ -36,14 +36,12 @@ export default class PeopleRoundCtrl extends BaseRoundCtrl<RoundModel>
 
     private constructor(reactComp: React.Component<any, any>) {
         super(reactComp || null);
-        this.dataStoreChange = this.onPeopleRoundDataStore.bind(this);
 
         this.ComponentFistma = new FiStMa(this.ComponentStates, this.ComponentStates.sub1);
         this.ComponentFistma.addTransition(this.ComponentStates.sub1);
         this.ComponentFistma.addTransition(this.ComponentStates.sub2);
 
         if (reactComp) this._setUpFistma(reactComp);
-
     }
 
     public static GetInstance(reactComp?: Component<any, any>): PeopleRoundCtrl {
@@ -56,8 +54,6 @@ export default class PeopleRoundCtrl extends BaseRoundCtrl<RoundModel>
 
         return PeopleRoundCtrl._instance;
     }
-    //        if(reactComp) this._instance.component = reactComp;
-
 
     //----------------------------------------------------------------------
     //
@@ -67,8 +63,6 @@ export default class PeopleRoundCtrl extends BaseRoundCtrl<RoundModel>
 
     public Save1AResponse( response: ResponseModel, question: QuestionModel, round: SubRoundModel ) {
         // calculate score //
-
-
         var score:number = 0;
         (response.Answer as ValueObj[]).forEach((val, index) => {
             var distFromExpected:number = Math.abs( val.data - (index + 1) );
@@ -88,7 +82,6 @@ export default class PeopleRoundCtrl extends BaseRoundCtrl<RoundModel>
     }
 
     public Save1BResponse( resp: ResponseModel, question: QuestionModel, round: SubRoundModel ) {
-
         console.log(resp, question, round);
         resp.SiblingQuestionId = question.SiblingQuestionId;
         resp.TeamId = GameCtrl.GetInstance().dataStore.CurrentTeam._id;
@@ -100,8 +93,7 @@ export default class PeopleRoundCtrl extends BaseRoundCtrl<RoundModel>
             console.log(r);
             round.Responses = round.Responses.map(resp => resp._id == r._id ? Object.assign(new ResponseModel(), r) : resp);
             return round;
-        })
-        
+        });
     }
 
     //----------------------------------------------------------------------
@@ -110,15 +102,8 @@ export default class PeopleRoundCtrl extends BaseRoundCtrl<RoundModel>
     //
     //----------------------------------------------------------------------
 
-    onPeopleRoundDataStore(){
-        if (this.component){ 
-            console.log("COMPONENT IS", this.component)
-            this.component.forceUpdate.bind(this.component)()
-        }
-    }
-
     protected _setUpFistma(reactComp: Component){  
-        console.log("PEOPLE ROUND IS", this)
+        console.log("PEOPLE ROUND IS", this);
 
         this.component = reactComp;
         this.dataStore = {
@@ -130,8 +115,7 @@ export default class PeopleRoundCtrl extends BaseRoundCtrl<RoundModel>
         
         this.ComponentFistma.addOnEnter("*", this.getContentBySubRound.bind(this));
 
-        this.getContentBySubRound.bind(this)();
-
+        this.getContentBySubRound();
     }
 
 }
