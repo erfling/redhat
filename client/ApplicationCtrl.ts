@@ -99,7 +99,7 @@ export default class ApplicationCtrl extends BaseClientCtrl<ApplicationViewModel
             CSSClass: cssClass || null
         }
 
-        const toast = new ToastModel(this.dataStore.Toasts.t, toastProps)
+        const toast = new ToastModel(this.dataStore.Toasts, toastProps)
     }
 
 }
