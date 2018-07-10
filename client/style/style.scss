@@ -201,7 +201,7 @@ SEMANTIC MOBILE FIX
         border-radius:3px;
         max-width: 280px;
         width: 25vh;
-        color: black;
+        color: white;
         opacity: 0;
         box-shadow: 1px 0 10px 0 rgba(0, 0, 0, 0.3);
         font-weight: bold;
@@ -225,6 +225,14 @@ SEMANTIC MOBILE FIX
 
         &.danger{
             background: #d12626;
+        }
+
+        &.info{
+            background: #0088B9;
+        }
+
+        &.warning{
+            background: #f2711c;
         }
 
         &.fading{
