@@ -49,7 +49,6 @@ class PeopleRound extends React.Component<RouteComponentProps<any>, IRoundDataSt
     render() {
         if (this.state && this.controller.ComponentFistma) {
             const SubRnd = this.controller.ComponentFistma.currentState;
-            console.log("huh?", this.state, SubRnd.WrappedComponent.CLASS_NAME)
 
             return <>
                 <Column width={16}>
