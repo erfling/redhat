@@ -93,11 +93,14 @@ export default class ApplicationCtrl extends BaseClientCtrl<ApplicationViewModel
         this.dataStore.ComponentFistma = this.ComponentFistma;
     }
 
-    public addToast(message: string, cssClass?: string){
+    public addToast(message: string, cssClass?: string, activeDuration?: number, fadeDuration?: number){
         const toastProps: IToastProps = {
             Message: message,
             CSSClass: cssClass || null
         }
+
+        if (activeDuration) toastProps.ActiveDuration = activeDuration;
+        if (fadeDuration) toastProps.FadeDuration = fadeDuration;
 
         const toast = new ToastModel(this.dataStore.Toasts, toastProps)
     }
