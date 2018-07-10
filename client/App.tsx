@@ -49,7 +49,7 @@ class App extends React.Component<RouteComponentProps<any>, ICommonComponentStat
 
     render() {
         if (this.state && this.controller.ComponentFistma) {
-            const ComponentFromState: any = this.controller.ComponentFistma.currentState
+            const ComponentFromState: any = this.state.ComponentFistma.currentState
             return <>
                 {this.state && this.state.CurrentUser && this.state.CurrentUser.Role == RoleName.ADMIN &&
 

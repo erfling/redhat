@@ -92,6 +92,7 @@ export default class ApplicationCtrl extends BaseClientCtrl<ApplicationViewModel
 
         this.ComponentFistma.addTransition(this.ComponentStates.game);
         this.ComponentFistma.addTransition(this.ComponentStates.admin);
+        this.dataStore.ComponentFistma = this.ComponentFistma;
     }
 
 }

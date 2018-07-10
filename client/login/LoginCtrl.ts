@@ -8,6 +8,7 @@ import Join from './Join'
 import { Component } from 'react';
 import ICommonComponentState from '../../shared/base-sapien/client/ICommonComponentState';
 import BaseClientCtrl from '../../shared/base-sapien/client/BaseClientCtrl';
+import ApplicationCtrl from '../ApplicationCtrl'
 
 export default class LoginCtrl extends BaseClientCtrl<UserModel & ICommonComponentState>
 {
@@ -35,7 +36,9 @@ export default class LoginCtrl extends BaseClientCtrl<UserModel & ICommonCompone
         super( Object.assign(new UserModel()), reactComp);
         
         this.ComponentFistma = new FiStMa(this.ComponentStates, this.UrlToComponent(this.component.props.location.pathname) || this.ComponentStates.game);
-
+        this.ComponentFistma.addTransition(this.ComponentStates.game)
+        this.ComponentFistma.addTransition(this.ComponentStates.admin)
+        this.ComponentFistma.addTransition(this.ComponentStates.first)
         this.dataStore = Object.assign(
             this.dataStore,
             {
@@ -82,14 +85,13 @@ export default class LoginCtrl extends BaseClientCtrl<UserModel & ICommonCompone
 
     public AdminLogin(){
         this.dataStore.FormIsSubmitting = true;
-        SapienServerCom.SaveData(this.dataStore, SapienServerCom.BASE_REST_URL + "auth/admin").then((returned:any) => {
-            console.log("returned", returned)
-            Object.assign(this.dataStore, returned.user, returned.token);
+        SapienServerCom.SaveData({Email: this.dataStore.Email, Password: this.dataStore.Password}, SapienServerCom.BASE_REST_URL + "auth/admin").then((returned:any) => {
+            Object.assign(this.dataStore, returned.user);
             localStorage.setItem("rhjwt", returned.token);
             localStorage.setItem("RH_USER", JSON.stringify(returned.user))
-            localStorage.setItem("TEAM", JSON.stringify(returned.team))
+            localStorage.setItem("RH_TEAM", JSON.stringify(returned.team))
             this.dataStore.FormIsSubmitting = false;
-            window.location.href = 'http://planetsapientestsite.com/admin/userlist';
+            ApplicationCtrl.GetInstance().navigateOnClick('/admin/userlist');
         })
         .catch((message) => {
             this.dataStore.FormIsSubmitting = false;

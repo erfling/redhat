@@ -113,6 +113,8 @@ export default class AdminCtrl extends BaseClientCtrl<any>
             console.log("ADMIN DID UPDATE", this.component.props.location.pathname, prevProps.location.pathname, this.component.props.location.pathname == prevProps.location.pathname)
             this.conditionallyNavigate(this.component.props.location.pathname, prevProps.location.pathname)
         }
+
+        this.dataStore.ComponentFistma = this.ComponentFistma;
     }
 
 }
