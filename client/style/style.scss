@@ -205,17 +205,15 @@ SEMANTIC MOBILE FIX
         opacity: 0;
         box-shadow: 1px 0 10px 0 rgba(0, 0, 0, 0.3);
         font-weight: bold;
-        transition: all .6s;
+        transition: opacity .6s, margin-left .6s;
         text-align: center;
-        margin-left: 150%;
+        margin-left: 0;
         margin-bottom: 7px;
         &:last-child{
             margin-bottom: 9vh;
         }
         &.active{
             opacity: 1;
-            margin-left: 0;
-
             &:last-child{
                 margin-bottom: 9vh;
             }
