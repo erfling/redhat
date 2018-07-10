@@ -151,14 +151,13 @@ class App extends React.Component<RouteComponentProps<any>, ICommonComponentStat
                             Fixed Footer
 					</Menu.Item>
                 </Menu>
-                {this.state.Toasts.t && this.state.Toasts.t.length &&
+                {this.state.Toasts &&
                     <div className="toast-holder">
-                        {this.state.Toasts.t.filter(t => t != null).map(t => <SapienToast
+                        {this.state.Toasts.filter(t => !t.Killed).map(t => <SapienToast
                             Toast={t}
                         />)}
                     </div>
                 }
-                {this.state.Toasts && <h1>{this.state.Toasts.t.length}</h1>}
             </>
         } else if (!this.state) {
             return <h2>Loading</h2>

@@ -199,25 +199,43 @@ SEMANTIC MOBILE FIX
     .sapien-toast{
         padding: 1em ;
         border-radius:3px;
-        max-width: 240px;
-        width: 20vh;
-        color: white;
+        max-width: 280px;
+        width: 25vh;
+        color: black;
         opacity: 0;
+        box-shadow: 1px 0 10px 0 rgba(0, 0, 0, 0.3);
+        font-weight: bold;
         transition: all .6s;
-        margin-top:0px;
-
-        &.success, &.danger, &.warning, &.info{
-            margin-top:-200px;
+        text-align: center;
+        margin-left: 150%;
+        margin-bottom: 7px;
+        &:last-child{
+            margin-bottom: 9vh;
+        }
+        &.active{
             opacity: 1;
+            margin-left: 0;
+
+            &:last-child{
+                margin-bottom: 9vh;
+            }
         }
 
         &.success{
-            background: green;
+            background: #00A33D;
+        }
+
+        &.danger{
+            background: #d12626;
         }
 
         &.fading{
-            margin-top: -500px;
+            margin-left: 150%;
             opacity: 0;
+        }
+        
+        &.killed {
+            display: none;
         }
     }
 }
