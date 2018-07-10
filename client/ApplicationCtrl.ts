@@ -74,7 +74,6 @@ export default class ApplicationCtrl extends BaseClientCtrl<ApplicationViewModel
     //----------------------------------------------------------------------
 
     protected _setUpFistma(reactComp: Component){
-        alert("adsfasdf")
         this.component = reactComp;
         
         DataStore.ApplicationState.CurrentUser = localStorage.getItem("RH_USER") ? Object.assign( new UserModel(), JSON.parse(localStorage.getItem("RH_USER") ) ) : new UserModel()
