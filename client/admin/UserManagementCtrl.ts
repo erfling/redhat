@@ -11,6 +11,7 @@ import UserModel, { RoleName } from '../../shared/models/UserModel';
 import SapienServerCom from '../../shared/base-sapien/client/SapienServerCom';
 import GameModel from '../../shared/models/GameModel';
 import AdminCtrl from './AdminCtrl';
+import ApplicationCtrl from '../ApplicationCtrl';
 
 export default class UserManagementCtrl extends BaseClientCtrl<any>
 {
@@ -103,6 +104,12 @@ export default class UserManagementCtrl extends BaseClientCtrl<any>
                             console.log("USERS ARE", AdminCtrl.GetInstance().dataStore.Users)
                             this.dataStore.FormIsSubmitting = false;
                             this.closeModal();
+                            ApplicationCtrl.GetInstance().addToast("Save successful")
+
+                        })
+                        .catch(() => {
+                            this.closeModal();
+                            ApplicationCtrl.GetInstance().addToast("There was a problem saving the user", "danger");
                         })
     }
 

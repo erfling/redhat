@@ -13,6 +13,7 @@ import ICommonComponentState from '../../shared/base-sapien/client/ICommonCompon
 import GameModel from '../../shared/models/GameModel';
 import TeamModel from '../../shared/models/TeamModel';
 import AdminCtrl from './AdminCtrl';
+import ApplicationCtrl from '../ApplicationCtrl';
 
 export default class GameManagementCtrl extends BaseClientCtrl<any>
 {
@@ -117,7 +118,7 @@ export default class GameManagementCtrl extends BaseClientCtrl<any>
 
     public saveGame(game: GameModel) {
         this.dataStore.FormIsSubmitting = true;
-        SapienServerCom.SaveData(game, SapienServerCom.BASE_REST_URL + "games")
+        return SapienServerCom.SaveData(game, SapienServerCom.BASE_REST_URL + "games")
             .then(r => {
                 if (game._id) {
                     this.dataStore.Games = this.dataStore.Games.map(g => {
@@ -126,9 +127,14 @@ export default class GameManagementCtrl extends BaseClientCtrl<any>
                 } else {
                     console.log(r, Object.assign(new GameModel(), r))
                     this.dataStore.Games = this.dataStore.Games.concat(Object.assign(new GameModel(), r))
-                }
+                }                
                 this.dataStore.FormIsSubmitting = false;
                 this.closeModal();
+                ApplicationCtrl.GetInstance().addToast("Save successful")
+                return r;
+            }).catch(() => {
+                this.closeModal();
+                ApplicationCtrl.GetInstance().addToast("There was a problem saving the game", "danger");
             })
     }
 
@@ -138,6 +144,10 @@ export default class GameManagementCtrl extends BaseClientCtrl<any>
             .then(r => {
                 team = Object.assign(team, r)
                 this.dataStore.FormIsSubmitting = false;
+                ApplicationCtrl.GetInstance().addToast("Save successful");
+            }).catch(() => {
+                this.dataStore.FormIsSubmitting = false;
+                ApplicationCtrl.GetInstance().addToast("There was a problem saving the game", "danger")
             })
     }
 

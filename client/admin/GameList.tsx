@@ -63,7 +63,7 @@ class GameList extends React.Component<RouteComponentProps<any>, AdminViewModel 
         return <>
             {this.state.ModalObject &&
                 <Modal open={this.state.ModalOpen} basic onClose={e => this.controller.closeModal()}>
-                    <Modal.Header><Icon name="game"/>Create or Edit a Game</Modal.Header>
+                    <Modal.Header><Icon name="game"/>Create Game</Modal.Header>
                     <Modal.Content>
                         <Modal.Description>
                             <Form inverted>
@@ -195,16 +195,6 @@ class GameList extends React.Component<RouteComponentProps<any>, AdminViewModel 
                         {this.state.Games && this.state.Games.map((g, i) =>
                             <Table.Row key={i}>
                                 <Table.Cell>
-                                    <Popup
-                                        trigger={<Button
-                                            color="blue"
-                                            circular
-                                            icon='edit'
-                                            onClick={e => this.controller.createOrEditGame(g)}
-                                        ></Button>}
-                                        header="Edit Game"
-                                    />
-
                                     <Popup
                                         trigger={<Button
                                             color="blue"

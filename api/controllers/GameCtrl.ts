@@ -123,6 +123,12 @@ class GameRouter {
                 const newGame = await monGameModel.findByIdAndUpdate(game._id, game, { new: true }).then(r => r);
                 if (newGame) {
                     const savedGame = await monGameModel.findById(newGame._id).populate("Facilitator")
+                                                                                .populate({
+                                                                                    path: "Teams",
+                                                                                    populate: {
+                                                                                        path: "Players"
+                                                                                    }
+                                                                                });
                     res.json(savedGame);
                 } else {
                     //res.json("Game not saved"); // TODO: Consider throwing an error, but make sure error.code == 11000 can still be caught.

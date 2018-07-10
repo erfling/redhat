@@ -18,6 +18,7 @@ import BaseRoundCtrl from '../../shared/base-sapien/client/BaseRoundCtrl';
 import PeopleRoundCtrl from './PeopleRound/PeopleRoundCtrl';
 import EngineeringRoundCtrl from './EngineeringRound/EngineeringRoundCtrl';
 import WelcomeCtrl from './Welcome/WelcomeCtrl';
+import ApplicationCtrl from '../ApplicationCtrl';
 
 export default class GameCtrl extends BaseClientCtrl<GameModel>
 {
@@ -199,6 +200,8 @@ export default class GameCtrl extends BaseClientCtrl<GameModel>
 
             this.dataStoreChange();
             this._childController.dataStoreChange();
+
+            ApplicationCtrl.GetInstance().addToast("Your game has been advanced to the next round.", "info");
 
             this.pollForGameStateChange(gameId);
         })

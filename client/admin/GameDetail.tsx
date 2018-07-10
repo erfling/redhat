@@ -1,6 +1,6 @@
 import * as React from "react";
 import FiStMa from '../../shared/entity-of-the-state/FiStMa';
-import { Button, Segment, Label, Header, Icon, Form, Input, Dropdown, Popup, Card, Grid, Loader, Dimmer } from 'semantic-ui-react';
+import { Button, Segment, Label, Header, Icon, Form, Input, Dropdown, Popup, Card, Grid, Loader, Dimmer, Modal } from 'semantic-ui-react';
 const { Row, Column } = Grid;
 import { RouteComponentProps, withRouter } from "react-router";
 import GameManagementCtrl from './GameManagementCtrl';
@@ -15,14 +15,14 @@ import UserModel, { RoleName } from "../../shared/models/UserModel";
 import UserModal from './UserModal';
 import { SSL_OP_LEGACY_SERVER_CONNECT } from "constants";
 
-class GameDetail extends React.Component<RouteComponentProps<any>, AdminViewModel & ICommonComponentState & {AvailablePlayers?: {text: string, value: string, key: number}[], ComponentFistma?: FiStMa<any>}>
+class GameDetail extends React.Component<RouteComponentProps<any>, AdminViewModel & ICommonComponentState & { AvailablePlayers?: { text: string, value: string, key: number }[], ComponentFistma?: FiStMa<any> }>
 {
     //----------------------------------------------------------------------
     //
     //  Properties
     //
     //----------------------------------------------------------------------
-    
+
     controller: GameManagementCtrl = new GameManagementCtrl(this);
 
     //alias for navigation
@@ -36,7 +36,7 @@ class GameDetail extends React.Component<RouteComponentProps<any>, AdminViewMode
 
     constructor(props: RouteComponentProps<any>) {
         super(props);
-        
+
         this.state = this.controller.dataStore;
     }
 
@@ -65,13 +65,119 @@ class GameDetail extends React.Component<RouteComponentProps<any>, AdminViewMode
     render() {
         const DashBoardComponent = this.controller.ComponentFistma.currentState;
         return <>
+            {this.state.ModalObject && this.state.ModalObject.className == "GameModel" && 
+                <Modal open={this.state.ModalOpen} basic onClose={e => this.controller.closeModal()}>
+                    <Modal.Header><Icon name="game" />Edit Game</Modal.Header>
+                    <Modal.Content>
+                        <Modal.Description>
+                            <Form inverted>
+                                <Form.Field>
+                                    <label>PIN (remove this soon)</label>
+                                    <Input
+                                        value={(this.state.ModalObject as GameModel).GamePIN}
+                                        onChange={(e) => (this.state.ModalObject as GameModel).GamePIN = parseInt((e.target as HTMLInputElement).value)}
+                                        placeholder="GamePIN"
+                                    />
+                                </Form.Field><Form.Field>
+                                    <label>Location</label>
+                                    <Input
+                                        value={(this.state.ModalObject as GameModel).Location}
+                                        onChange={(e) => (this.state.ModalObject as GameModel).Location = (e.target as HTMLInputElement).value}
+                                        placeholder="Location"
+                                    />
+                                </Form.Field>
+                                <Form.Field
+                                    onClick={e => {
+                                        setTimeout(() => {
+                                            let popup = document.querySelector("#suirCalendarPopup");
+                                            (popup.parentNode as HTMLDivElement).style.display = "none";
 
+                                            if (popup) {
+                                                (popup.parentNode as HTMLDivElement).style.filter = "none";
+                                                (popup.parentNode as HTMLDivElement).style['-webkit-filter'] = "none";
+                                                (popup.parentNode as HTMLDivElement).style.display = "block";
+                                            }
+                                        }, 1)
+                                    }}
+                                >
+                                    <label>Start Date</label>
+                                    <DateInput
+                                        name="date"
+                                        placeholder="Date"
+                                        value={this.controller.dataStore.ModalObject.DatePlayed}
+                                        iconPosition="left"
+                                        dateFormat="MM/DD/YYYY"
+                                        onChange={(e, output) => {
+                                            this.controller.dataStore.ModalObject.DatePlayed = output.value;
+                                        }} />
+                                </Form.Field>
+                                <Form.Field>
+                                    <label>Facilitator</label>
+                                    {this.state.Users &&
+                                        <Dropdown
+                                            placeholder='Select Facilitator'
+                                            fluid
+                                            search
+                                            selection
+                                            value={(this.state.ModalObject as GameModel).Facilitator._id}
+                                            onChange={(e, output) => {
+                                                this.controller.dataStore.ModalObject.Facilitator._id = output.value
+                                            }}
+                                            options={this.state.Users.filter(u => u.Role == RoleName.ADMIN).map((u, i) => {
+                                                return {
+                                                    text: u.FirstName + " " + u.LastName + " (" + u.Email + ")",
+                                                    value: u._id,
+                                                    key: i
+                                                }
+                                            })}
+                                        />
+                                    }
+                                </Form.Field>
+                            </Form>
+                        </Modal.Description>
+                    </Modal.Content>
+                    <Modal.Actions>
+                        <Button
+                            inverted
+                            color='red'
+                            icon='cancel'
+                            labelPosition="right"
+                            content="Cancel"
+                            onClick={e => this.controller.closeModal()}
+                        >
+                        </Button>
+                        <Button
+                            inverted
+                            color="blue"
+                            icon='check'
+                            labelPosition="right"
+                            content='Save Game'
+                            loading={this.state.FormIsSubmitting}
+                            onClick={e => this.controller.saveGame(this.state.ModalObject)
+                                                            .then(r => {
+                                                                console.warn("<<<<<<>>>>>>savedgame",r);
+                                                                this.setState(Object.assign(this.state, {SelectedGame: Object.assign(this.state.SelectedGame, r)}))}
+                                                            )}
+                        ></Button>
+                    </Modal.Actions>
+                </Modal>
+            }
             <Segment
                 clearing
                 className="top-info"
                 loading={this.state.IsLoading}
             >  {this.state.SelectedGame &&
                 <>
+                    <Popup
+                        floated="right"
+                        trigger={<Button
+                            color="blue"
+                            circular
+                            icon='edit'
+                            onClick={e => this.controller.createOrEditGame(this.state.SelectedGame)}
+                        ></Button>}
+                        header="Edit Game"
+                    />
                     <Header as="h3">
                         <Label
                             ribbon
@@ -90,6 +196,7 @@ class GameDetail extends React.Component<RouteComponentProps<any>, AdminViewMode
                     <Header as="h3">
                         <Icon name="user" />Facilitator: {this.state.SelectedGame.Facilitator.FirstName + " " + this.state.SelectedGame.Facilitator.LastName}
                     </Header>
+                    
                 </>
                 }
             </Segment>
@@ -164,7 +271,7 @@ class GameDetail extends React.Component<RouteComponentProps<any>, AdminViewMode
                                                                     onAddItem={e => this.controller.addPlayer(this.state.SelectedGame.Teams[i])}
                                                                 />
                                                             }
-                                                            {!p.EditMode && <Header as="h4">{p.FirstName} {p.LastName} {p.Email && <small><br/>{p.Email}</small>}</Header>}
+                                                            {!p.EditMode && <Header as="h4">{p.FirstName} {p.LastName} {p.Email && <small><br />{p.Email}</small>}</Header>}
                                                         </Column>
                                                         <Column width={3}>
                                                             {!p.EditMode &&
@@ -271,7 +378,7 @@ class GameDetail extends React.Component<RouteComponentProps<any>, AdminViewMode
                 </>
 
             }
-            {this.state.ModalObject && <UserModal
+            {this.state.ModalObject && this.state.ModalObject.className == "UserModel" && <UserModal
                 User={this.state.ModalObject}
                 CloseFunction={this.controller.closeModal.bind(this.controller)}
                 SaveFunction={this.controller.saveUser.bind(this.controller)}

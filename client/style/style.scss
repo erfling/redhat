@@ -109,11 +109,22 @@ SEMANTIC MOBILE FIX
 }
 .suir-calendar.cell{border:none !important}.suir-calendar.week-day{border:none !important;border-bottom:1px solid rgba(34,36,38,.1) !important}.suir-calendar.time-picker-header{border-bottom:1px solid rgba(34,36,38,.1) !important}.suir-calendar.date:hover,.suir-calendar.time:hover{outline:1px solid #85b7d9;cursor:pointer}.suir-calendar.button:hover{cursor:pointer}.suir-calendar.popup{padding:0}
 .top-info{
+    > button{
+        float: right;
+    }
     >* {
         display: inline-block;
         margin-right: 10px !important;
         margin-top: 3px !important;
         margin-bottom: 0 !important;
+    }
+    @media screen and (max-width: 766px) {
+        >* {
+            display: block;
+            margin-right: 0 !important;
+            margin-top: 0 !important;
+            margin-bottom: 17px !important;
+        } 
     }
 }
 
@@ -213,7 +224,7 @@ SEMANTIC MOBILE FIX
             margin-bottom: 9vh;
         }
         &.active{
-            opacity: 1;
+            opacity: .9;
             &:last-child{
                 margin-bottom: 9vh;
             }
