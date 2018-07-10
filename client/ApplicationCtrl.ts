@@ -3,6 +3,7 @@ import UserModel, { RoleName } from '../shared/models/UserModel';
 import ApplicationViewModel from '../shared/models/ApplicationViewModel';
 import { Component } from 'react';
 import BaseClientCtrl from '../shared/base-sapien/client/BaseClientCtrl';
+import ToastModel, {IToastProps} from "../shared/base-sapien/models/ToastModel";
 
 import Game from './game/Game';
 import Admin from './admin/Admin'
@@ -87,12 +88,18 @@ export default class ApplicationCtrl extends BaseClientCtrl<ApplicationViewModel
         }
            
         this.ComponentFistma = this.ComponentFistma;
-
-        console.log(this.component.props);
-
         this.ComponentFistma.addTransition(this.ComponentStates.game);
         this.ComponentFistma.addTransition(this.ComponentStates.admin);
         this.dataStore.ComponentFistma = this.ComponentFistma;
+    }
+
+    public addToast(message: string, cssClass?: string){
+        const toastProps: IToastProps = {
+            Message: message,
+            CSSClass: cssClass || null
+        }
+
+        const toast = new ToastModel(this.dataStore.Toasts.t, toastProps)
     }
 
 }

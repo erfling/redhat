@@ -42,7 +42,7 @@ export default class AdminCtrl extends BaseClientCtrl<any>
 
     private constructor(reactComp? : Component<any, any>) {
         super(null, reactComp || null);
-        this.dataStore = DataStore.Admin;
+        this.dataStore = Object.assign(DataStore.Admin, DataStore.ApplicationState);
 
         if(reactComp){
             this._setUpFistma(reactComp)

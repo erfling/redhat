@@ -190,3 +190,34 @@ SEMANTIC MOBILE FIX
     max-height: 30vh;
     overflow-y: scroll;
 }
+
+/** HERE, TO, IS YOUR FACE**/
+.toast-holder{
+    bottom: 0;
+    position: fixed;
+    right:5px;
+    .sapien-toast{
+        padding: 1em ;
+        border-radius:3px;
+        max-width: 240px;
+        width: 20vh;
+        color: white;
+        opacity: 0;
+        transition: all .6s;
+        margin-top:0px;
+
+        &.success, &.danger, &.warning, &.info{
+            margin-top:-200px;
+            opacity: 1;
+        }
+
+        &.success{
+            background: green;
+        }
+
+        &.fading{
+            margin-top: -500px;
+            opacity: 0;
+        }
+    }
+}

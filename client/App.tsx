@@ -6,6 +6,7 @@ import UserModel, { RoleName } from '../shared/models/UserModel';
 import ICommonComponentState from '../shared/base-sapien/client/ICommonComponentState';
 import FiStMa from '../shared/entity-of-the-state/FiStMa';
 import DataStore from '../shared/base-sapien/client/DataStore'
+import SapienToast from '../shared/base-sapien/client/shared-components/SapienToast'
 
 class App extends React.Component<RouteComponentProps<any>, ICommonComponentState & { ComponentFistma?: FiStMa<any> }>
 {
@@ -150,7 +151,14 @@ class App extends React.Component<RouteComponentProps<any>, ICommonComponentStat
                             Fixed Footer
 					</Menu.Item>
                 </Menu>
-
+                {this.state.Toasts.t && this.state.Toasts.t.length &&
+                    <div className="toast-holder">
+                        {this.state.Toasts.t.filter(t => t != null).map(t => <SapienToast
+                            Toast={t}
+                        />)}
+                    </div>
+                }
+                {this.state.Toasts && <h1>{this.state.Toasts.t.length}</h1>}
             </>
         } else if (!this.state) {
             return <h2>Loading</h2>

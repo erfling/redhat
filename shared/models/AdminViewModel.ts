@@ -20,8 +20,13 @@ export default class AdminViewModel extends BaseModel {
 
     Users: UserModel[] = [];
 
+    private _CurrentUser: UserModel;
     get CurrentUser(): UserModel {
         return ApplicationViewModel.CurrentUser;
+    }
+
+    set CurrentUser(user: UserModel) {
+        this._CurrentUser = user;
     }
 
     //----------------------------------------------------------------------
