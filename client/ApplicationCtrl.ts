@@ -19,8 +19,6 @@ export default class ApplicationCtrl extends BaseClientCtrl<IControllerDataStore
     //
     //----------------------------------------------------------------------
 
-    dataStore: IControllerDataStore;
-
     private static _instance: ApplicationCtrl;
 
     public readonly ComponentStates = {
