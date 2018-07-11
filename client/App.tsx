@@ -7,8 +7,10 @@ import ICommonComponentState from '../shared/base-sapien/client/ICommonComponent
 import FiStMa from '../shared/entity-of-the-state/FiStMa';
 import DataStore from '../shared/base-sapien/client/DataStore'
 import SapienToast from '../shared/base-sapien/client/shared-components/SapienToast'
+import GameCtrl from "./game/GameCtrl";
+import { IControllerDataStore } from '../shared/base-sapien/client/BaseClientCtrl';
 
-class App extends React.Component<RouteComponentProps<any>, ICommonComponentState & { ComponentFistma?: FiStMa<any> }>
+class App extends React.Component<RouteComponentProps<any>, IControllerDataStore>
 {
 
     //----------------------------------------------------------------------
@@ -52,7 +54,7 @@ class App extends React.Component<RouteComponentProps<any>, ICommonComponentStat
         if (this.state && this.controller.ComponentFistma) {
             const ComponentFromState: any = this.state.ComponentFistma.currentState
             return <>
-                {this.state && this.state.CurrentUser && this.state.CurrentUser.Role == RoleName.ADMIN &&
+                {this.state && this.state.ApplicationState.CurrentUser && this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN &&
 
                     <Menu
                         fixed="top"
@@ -64,13 +66,13 @@ class App extends React.Component<RouteComponentProps<any>, ICommonComponentStat
                         }}>
                         <Menu.Item>
                             <Icon
-                                name={this.state.ShowMenu ? 'cancel' : 'bars'}
-                                onClick={e => this.controller.dataStore.ShowMenu = !this.controller.dataStore.ShowMenu}
+                                name={this.state.ApplicationState.ShowMenu ? 'cancel' : 'bars'}
+                                onClick={e => this.controller.dataStore.ApplicationState.ShowMenu = !this.controller.dataStore.ApplicationState.ShowMenu}
                             />
                         </Menu.Item>
                         <Menu.Item
                             position="right" header>
-                            {this.state.CurrentUser.Name}
+                            {this.state.ApplicationState.CurrentUser.Name}
                         </Menu.Item>
                         <Menu.Item
                             onClick={e => this.controller.signOut()}
@@ -82,13 +84,13 @@ class App extends React.Component<RouteComponentProps<any>, ICommonComponentStat
                 <Sidebar.Pushable
                     style={{ height: '100vh' }}
                 >
-                    {this.state && this.state.CurrentUser && this.state.CurrentUser.Role == RoleName.ADMIN &&
+                    {this.state && this.state.ApplicationState.CurrentUser && this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN &&
                         <>
                             <Sidebar
                                 as={Menu}
                                 animation='overlay'
                                 width='thin'
-                                visible={this.state.ShowMenu}
+                                visible={this.state.ApplicationState.ShowMenu}
                                 vertical
                                 inverted
                                 className="admin-sidebar"
@@ -129,14 +131,16 @@ class App extends React.Component<RouteComponentProps<any>, ICommonComponentStat
                     }
 
                     <Sidebar.Pusher
-                        className={"source-stream" + (this.state && this.state.CurrentUser && this.state.CurrentUser.Role == RoleName.ADMIN ? " admin-body" : "")}
-                    >
+                        className={"source-stream" + (this.state && this.state.ApplicationState.CurrentUser && this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN ? " admin-body" : "")}
+                    >   
+                        <h1>{ComponentFromState && ComponentFromState.WrappedComponent.CLASS_NAME}</h1>
                         <ComponentFromState />
 
                     </Sidebar.Pusher>
-                   
+
                 </Sidebar.Pushable>
-                <Menu
+                {ComponentFromState && ComponentFromState.WrappedComponent.CLASS_NAME.toUpperCase() == "GAME" &&
+                    <Menu
                         inverted
                         color="blue"
                         fixed="bottom"
@@ -146,14 +150,33 @@ class App extends React.Component<RouteComponentProps<any>, ICommonComponentStat
                             borderRadius: 0, //clear semantic-ui style
                             margin: 0 //clear semantic-ui style
                         }}>
-                        <Menu.Item
-                            header>
-                            Fixed Footer
-					</Menu.Item>
-                </Menu>
-                {this.state.Toasts &&
+                            <Menu.Item
+                                onClick={() => GameCtrl.GetInstance().goBackRound()}
+                                header>
+                                    BACK
+                            </Menu.Item>
+                            <Menu.Item
+                                onClick={() => GameCtrl.GetInstance().advanceRound()}
+                                header>
+                                    FORWARD
+                            </Menu.Item>
+                            <Menu.Item position="right" header>
+                                {this.state.ApplicationState.CurrentUser && this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN &&
+                                    <Button
+                                        onClick={e => {
+                                            GameCtrl.GetInstance().dataStore.ApplicationState.CurrentUser.IsLeader = !GameCtrl.GetInstance().dataStore.ApplicationState.CurrentUser.IsLeader
+                                            GameCtrl.GetInstance().dataStoreChange()
+                                        }}
+                                    >
+                                    </Button>
+                                }
+                            </Menu.Item>
+                            
+                    </Menu>
+                }
+                {this.state.ApplicationState.Toasts &&
                     <div className="toast-holder">
-                        {this.state.Toasts.filter(t => !t.Killed).map(t => <SapienToast
+                        {this.state.ApplicationState.Toasts.filter(t => !t.Killed).map(t => <SapienToast
                             Toast={t}
                         />)}
                     </div>
@@ -168,3 +191,8 @@ class App extends React.Component<RouteComponentProps<any>, ICommonComponentStat
 }
 
 export default withRouter(App)
+
+/**
+ *                                        
+
+ */
