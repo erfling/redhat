@@ -101,7 +101,7 @@ class Priorities extends React.Component<RouteComponentProps<any>, IRoundDataSto
                                     icon='checkmark'
                                     labelPosition='right'
                                     color="blue"
-                                    loading={this.state.ApplicationState.FormIsSubmitting }
+                                    loading={q.Response ? q.Response.IsSaving : false}
                                     onClick={e => {
                                         this.controller.Save1AResponse(q.Response, q, thisSubRound)
                                     }}
