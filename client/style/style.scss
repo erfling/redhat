@@ -1,11 +1,11 @@
 @import '../font/stylesheet.css';
 
-h1, h2, h3, h4, h5, p, .header{
+h1, h2, h3, h4, h5, p, .header, ul, ul li{
     font-family: 'Nexa', 'Helvetica Neue', Arial, Helvetica, sans-serif;
     color: #0088B9;
 }
 p, ul li, blockquote{
-    font-size: 16px;
+    font-size: 17px;
 }
 .game-wrapper{
     .column{
