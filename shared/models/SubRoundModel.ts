@@ -1,11 +1,7 @@
-import { BaseShape } from './../base-sapien/models/BaseModel';
 import BaseModel, {dbProp} from '../../shared/base-sapien/models/BaseModel';
-import ValueObj from "../entity-of-the-state/ValueObj";
-import ContentBlock from './ContentBlock'
 import QuestionModel from "./QuestionModel";
 import { Expose, Type } from "class-transformer";
 import "reflect-metadata";
-import FiStMa from '../entity-of-the-state/FiStMa';
 import ResponseModel from './ResponseModel';
 
 export interface ContentShape{

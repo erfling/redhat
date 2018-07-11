@@ -1,13 +1,11 @@
 import BaseModel from "../base-sapien/models/BaseModel";
 import GameModel from "./GameModel";
 import UserModel from "./UserModel";
-import FiStMa from '../entity-of-the-state/FiStMa';
 import ApplicationViewModel from './ApplicationViewModel'
+import ValueObj from "../entity-of-the-state/ValueObj";
 
-export default class AdminViewModel extends BaseModel {
-
-    [index: string]: any;
-
+export default class AdminViewModel extends BaseModel
+{
     //----------------------------------------------------------------------
     //
     //  Properties
