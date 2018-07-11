@@ -91,7 +91,7 @@ export default class AdminCtrl extends BaseClientCtrl<any>
         }
         //otherwise, go where the url tells us. If bad url, go to admin default
         else {
-            console.log("HEY YOU",this.component.props.location);
+            //console.log("HEY YOU",this.component.props.location);
             this.ComponentFistma = new FiStMa(this.ComponentStates, this.UrlToComponent(this.component.props.location.pathname) || this.ComponentStates.default);
         }
 

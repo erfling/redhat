@@ -1,6 +1,4 @@
 import * as React from "react";
-import { Grid, Menu } from 'semantic-ui-react';
-const { Row, Column } = Grid;
 import { RouteComponentProps, withRouter} from "react-router";
 import AdminCtrl from './AdminCtrl';
 
@@ -11,6 +9,7 @@ class DefaultAdmin extends React.Component<RouteComponentProps<any>, any>
     //  Properties
     //
     //----------------------------------------------------------------------
+
     controller: AdminCtrl = AdminCtrl.GetInstance(this);
 
     public static CLASS_NAME = "DefaultAdmin";

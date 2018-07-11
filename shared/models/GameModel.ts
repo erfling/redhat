@@ -1,5 +1,4 @@
 import { BaseShape, dbProp } from './../base-sapien/models/BaseModel';
-import FiStMa from "../entity-of-the-state/FiStMa";
 import BaseModel from "../base-sapien/models/BaseModel";
 import TeamModel from "../models/TeamModel";
 import { Type } from 'class-transformer';

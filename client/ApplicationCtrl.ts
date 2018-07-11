@@ -10,7 +10,6 @@ import Admin from './admin/Admin'
 import Login from './login/Login'
 import ICommonComponentState from '../shared/base-sapien/client/ICommonComponentState';
 import DataStore from '../shared/base-sapien/client/DataStore';
-import TeamModel from '../shared/models/TeamModel';
 
 export default class ApplicationCtrl extends BaseClientCtrl<ApplicationViewModel>
 {
@@ -35,15 +34,11 @@ export default class ApplicationCtrl extends BaseClientCtrl<ApplicationViewModel
     //  Constructor
     //
     //----------------------------------------------------------------------
-
     
     private constructor(reactComp?: Component<any, any>) {
         super( null, reactComp );
         
-        
-        if (reactComp) this._setUpFistma(reactComp)
-        
- 
+        if (reactComp) this._setUpFistma(reactComp);
     }
     
     public static GetInstance(reactComp?: Component<any, any>): ApplicationCtrl {
@@ -61,12 +56,11 @@ export default class ApplicationCtrl extends BaseClientCtrl<ApplicationViewModel
     //
     //----------------------------------------------------------------------
   
-    public signOut(): void{
+    public signOut(): void {
         localStorage.removeItem("RH_USER");
         localStorage.removeItem("rhjwt");
         this.navigateOnClick("/login/admin")
     }
-
 
     //----------------------------------------------------------------------
     //
@@ -74,7 +68,7 @@ export default class ApplicationCtrl extends BaseClientCtrl<ApplicationViewModel
     //
     //----------------------------------------------------------------------
 
-    protected _setUpFistma(reactComp: Component){
+    protected _setUpFistma(reactComp: Component): void {
         this.component = reactComp;
         
         DataStore.ApplicationState.CurrentUser = localStorage.getItem("RH_USER") ? Object.assign( new UserModel(), JSON.parse(localStorage.getItem("RH_USER") ) ) : new UserModel()
@@ -93,7 +87,7 @@ export default class ApplicationCtrl extends BaseClientCtrl<ApplicationViewModel
         this.dataStore.ComponentFistma = this.ComponentFistma;
     }
 
-    public addToast(message: string, cssClass?: string, activeDuration?: number, fadeDuration?: number){
+    public addToast(message: string, cssClass?: string, activeDuration?: number, fadeDuration?: number): void {
         const toastProps: IToastProps = {
             Message: message,
             CSSClass: cssClass || null

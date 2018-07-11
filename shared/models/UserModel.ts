@@ -1,7 +1,5 @@
-import RoleModel from "./RoleModel";
 import { Type, Expose } from "class-transformer";
 import BaseModel, { dbProp } from "../base-sapien/models/BaseModel";
-import ResponseModel from "./ResponseModel";
 
 export enum RoleName {
     ADMIN = "ADMIN",

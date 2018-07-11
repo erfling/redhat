@@ -6,7 +6,6 @@ import QuestionModel from "./QuestionModel";
 import SubRoundModel from "./SubRoundModel";
 import { Expose, Type } from "class-transformer";
 import "reflect-metadata";
-import FiStMa from '../entity-of-the-state/FiStMa';
 
 export interface RoundShape extends BaseShape
 {

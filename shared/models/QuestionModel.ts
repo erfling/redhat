@@ -1,6 +1,4 @@
 import ValueObj from "../entity-of-the-state/ValueObj";
-import ContentBlock from './ContentBlock'
-import PossibleAnswer from './PossibleAnswerModel';
 import BaseModel, { dbProp } from "../base-sapien/models/BaseModel";
 import ResponseModel from "./ResponseModel";
 
