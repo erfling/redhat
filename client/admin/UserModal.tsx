@@ -19,7 +19,6 @@ export default class UserModal extends React.Component< UserModalProps, {} >
     //
     //----------------------------------------------------------------------
 
-    controller: UserManagementCtrl = UserManagementCtrl.GetInstance(this);
 
     //----------------------------------------------------------------------
     //

@@ -218,6 +218,11 @@ export default class GameManagementCtrl extends BaseClientCtrl<any>
             this.ComponentFistma = new FiStMa(this.ComponentStates, this.UrlToComponent(this.component.props.location.pathname));
         }
 
+        this.ComponentFistma.addTransition(this.ComponentStates.game)
+        this.ComponentFistma.addTransition(this.ComponentStates.gameList)
+        this.ComponentFistma.addTransition(this.ComponentStates.gamedetail)
+        this.ComponentFistma.addTransition(this.ComponentStates.adminLogin)
+
         this.dataStore = AdminCtrl.GetInstance().dataStore;
 
         if (this.component.componentWillMount == undefined) {
