@@ -6,11 +6,11 @@ const { Column, Row } = Grid;
 import { Route, Switch, RouteComponentProps, withRouter } from "react-router";
 import { IGamePlayModel } from '../../shared/base-sapien/client/DataStore'
 import Circles from '-!svg-react-loader?name=Icon!../img/circles.svg';
+import {IControllerDataStore} from '../../shared/base-sapien/client/BaseClientCtrl';
 
-import ICommonComponentState from '../../shared/base-sapien/client/ICommonComponentState';
 import { RoleName } from "../../shared/models/UserModel";
 
-class Game extends React.Component<RouteComponentProps<any>, ICommonComponentState>
+class Game extends React.Component<RouteComponentProps<any>, IControllerDataStore & { Game: GameModel}>
 {
     //----------------------------------------------------------------------
     //
@@ -66,7 +66,7 @@ class Game extends React.Component<RouteComponentProps<any>, ICommonComponentSta
                     flexShrink: 0, //don't allow flexbox to shrink it
                     borderRadius: 0, //clear semantic-ui style
                     margin: 0,//clear semantic-ui style
-                    marginTop: this.state.CurrentUser.Role == RoleName.ADMIN ? '50px' : 0
+                    marginTop: this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN ? '50px' : 0
                 }}>
                 <Menu.Item
                     header>
@@ -83,14 +83,14 @@ class Game extends React.Component<RouteComponentProps<any>, ICommonComponentSta
                 </Menu.Item>
                 
                 <Menu.Item position="right" header>
-                    {this.state.CurrentUser && this.state.CurrentUser.Role == RoleName.ADMIN &&
+                    {this.state.ApplicationState.CurrentUser && this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN &&
                         <Button
                             onClick={e => {
                                 this.controller.dataStore.CurrentUser.IsLeader = !this.controller.dataStore.CurrentUser.IsLeader
                                 this.controller.dataStoreChange()
                             }}
                         >
-                            Show {this.state.CurrentUser.IsLeader ? "IC" : "Leader"} Content
+                            Show {this.state.ApplicationState.CurrentUser.IsLeader ? "IC" : "Leader"} Content
                         </Button>
                     }
                 </Menu.Item>

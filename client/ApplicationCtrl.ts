@@ -2,7 +2,7 @@ import FiStMa from '../shared/entity-of-the-state/FiStMa';
 import UserModel, { RoleName } from '../shared/models/UserModel';
 import ApplicationViewModel from '../shared/models/ApplicationViewModel';
 import { Component } from 'react';
-import BaseClientCtrl from '../shared/base-sapien/client/BaseClientCtrl';
+import BaseClientCtrl, { IControllerDataStore } from '../shared/base-sapien/client/BaseClientCtrl';
 import ToastModel, {IToastProps} from "../shared/base-sapien/models/ToastModel";
 
 import Game from './game/Game';
@@ -12,7 +12,7 @@ import ICommonComponentState from '../shared/base-sapien/client/ICommonComponent
 import DataStore from '../shared/base-sapien/client/DataStore';
 import TeamModel from '../shared/models/TeamModel';
 
-export default class ApplicationCtrl extends BaseClientCtrl<ApplicationViewModel>
+export default class ApplicationCtrl extends BaseClientCtrl<IControllerDataStore>
 {
     //----------------------------------------------------------------------
     //
@@ -20,7 +20,7 @@ export default class ApplicationCtrl extends BaseClientCtrl<ApplicationViewModel
     //
     //----------------------------------------------------------------------
 
-    dataStore: ICommonComponentState & {ComponentFistma?: FiStMa<any>};
+    dataStore: IControllerDataStore;
 
     private static _instance: ApplicationCtrl;
 
@@ -78,16 +78,18 @@ export default class ApplicationCtrl extends BaseClientCtrl<ApplicationViewModel
         this.component = reactComp;
         
         DataStore.ApplicationState.CurrentUser = localStorage.getItem("RH_USER") ? Object.assign( new UserModel(), JSON.parse(localStorage.getItem("RH_USER") ) ) : new UserModel()
-        this.dataStore = DataStore.ApplicationState;
+        this.dataStore = {
+            ApplicationState: DataStore.ApplicationState,
+            ComponentFistma: null
+        }
 
         this.CurrentLocation = this.component.props.location.pathname;
-        if (this.dataStore.CurrentUser && this.dataStore.CurrentUser.Role == RoleName.ADMIN || this.UrlToComponent(this.CurrentLocation) == this.ComponentStates.admin){
+        if (this.dataStore.ApplicationState.CurrentUser && this.dataStore.ApplicationState.CurrentUser.Role == RoleName.ADMIN || this.UrlToComponent(this.CurrentLocation) == this.ComponentStates.admin){
             this.ComponentFistma = new FiStMa(this.ComponentStates, this.ComponentStates.admin);
         } else {
             this.ComponentFistma =  new FiStMa(this.ComponentStates, this.ComponentStates.game);
         }
-           
-        this.ComponentFistma = this.ComponentFistma;
+        
         this.ComponentFistma.addTransition(this.ComponentStates.game);
         this.ComponentFistma.addTransition(this.ComponentStates.admin);
         this.dataStore.ComponentFistma = this.ComponentFistma;
@@ -102,7 +104,7 @@ export default class ApplicationCtrl extends BaseClientCtrl<ApplicationViewModel
         if (activeDuration) toastProps.ActiveDuration = activeDuration;
         if (fadeDuration) toastProps.FadeDuration = fadeDuration;
 
-        const toast = new ToastModel(this.dataStore.Toasts, toastProps)
+        const toast = new ToastModel(this.dataStore.ApplicationState.Toasts, toastProps)
     }
 
 }

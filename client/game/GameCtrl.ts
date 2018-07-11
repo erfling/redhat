@@ -10,7 +10,7 @@ import { Component } from 'react';
 import RoundModel from '../../shared/models/RoundModel';
 import UserModel from '../../shared/models/UserModel';
 import RoundChangeMapping from '../../shared/models/RoundChangeMapping';
-import BaseClientCtrl from '../../shared/base-sapien/client/BaseClientCtrl';
+import BaseClientCtrl, {IControllerDataStore} from '../../shared/base-sapien/client/BaseClientCtrl';
 import DataStore from '../../shared/base-sapien/client/DataStore';
 import TeamModel from '../../shared/models/TeamModel';
 import SapienServerCom from '../../shared/base-sapien/client/SapienServerCom';
@@ -20,7 +20,7 @@ import EngineeringRoundCtrl from './EngineeringRound/EngineeringRoundCtrl';
 import WelcomeCtrl from './Welcome/WelcomeCtrl';
 import ApplicationCtrl from '../ApplicationCtrl';
 
-export default class GameCtrl extends BaseClientCtrl<GameModel>
+export default class GameCtrl extends BaseClientCtrl<IControllerDataStore & { Game: GameModel}>
 {
     //----------------------------------------------------------------------
     //
@@ -49,9 +49,6 @@ export default class GameCtrl extends BaseClientCtrl<GameModel>
 
     private constructor(reactComp?: Component<any, any>) {
         super( reactComp ? Object.assign(new GameModel()) : null, reactComp || null);
-
-
-        if (reactComp) this._setUpFistma(reactComp);
     }
 
     public static GetInstance(reactComp?: Component<any, any>): GameCtrl {
@@ -59,7 +56,8 @@ export default class GameCtrl extends BaseClientCtrl<GameModel>
             this._instance = new GameCtrl(reactComp || null);
         }
         if (!this._instance) throw new Error("NO INSTANCE");
-        if(reactComp) this._instance.component = reactComp;
+        if (reactComp) this._instance._setUpFistma(reactComp);
+
         return this._instance;
     }
     
@@ -210,7 +208,10 @@ export default class GameCtrl extends BaseClientCtrl<GameModel>
     private _setUpFistma(reactComp: Component) {
 
         this.component = reactComp;
-        if (!this.dataStore) this.dataStore = Object.assign(new GameModel());
+        if (!this.dataStore) this.dataStore = {
+            Game: new GameModel(),
+            ComponentFistma: null
+        }
 
         this.ComponentFistma = new FiStMa(this.ComponentStates, this.ComponentStates.round0);
         console.log("GAME NAV INFO:",  this.ComponentFistma.currentState.WrappedComponent)
@@ -229,7 +230,10 @@ export default class GameCtrl extends BaseClientCtrl<GameModel>
         DataStore.ApplicationState.CurrentTeam = localStorage.getItem("RH_TEAM") ? Object.assign( new TeamModel(), JSON.parse(localStorage.getItem("RH_TEAM") ) ) : new TeamModel()        
         this.dataStore = DataStore.ApplicationState;
 
-        console.log("DATASTORE:", this.dataStore.CurrentTeam)
+        
+        this.dataStore.ComponentFistma = this.ComponentFistma;
+
+        console.log("DATASTORE APPLICATION:", DataStore.ApplicationState)
         this.pollForGameStateChange(this.dataStore.CurrentTeam.GameId)
 
         this.component.componentDidMount = () => {
@@ -238,7 +242,7 @@ export default class GameCtrl extends BaseClientCtrl<GameModel>
             }
 
             this.component.props.history.push("/game/" + this.ComponentFistma.currentState.WrappedComponent.CLASS_NAME.toLowerCase());
-            this.navigateOnClick(this.component.props.location.pathname);
+            this.navigateOnClick.bind(this)(this.component.props.location.pathname);
         }
     }
 
