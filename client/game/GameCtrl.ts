@@ -223,15 +223,18 @@ export default class GameCtrl extends BaseClientCtrl<IControllerDataStore & {Gam
         this.ComponentFistma.addOnEnter("*", this._onRoundEnter.bind(this));
         this.ComponentFistma.onInvalidTransition(this._onInvalidTrans);
 
-        if (!this.dataStore) this.dataStore = {
-            Game: new GameModel(),
-            ComponentFistma: this.ComponentFistma,
-            ApplicationState: DataStore.ApplicationState
-        }
-
-
         DataStore.ApplicationState.CurrentUser = localStorage.getItem("RH_USER") ? Object.assign( new UserModel(), JSON.parse(localStorage.getItem("RH_USER") ) ) : new UserModel();      
         DataStore.ApplicationState.CurrentTeam = localStorage.getItem("RH_TEAM") ? Object.assign( new TeamModel(), JSON.parse(localStorage.getItem("RH_TEAM") ) ) : new TeamModel();
+
+        if (!this.dataStore) {
+            this.dataStore = {
+                Game: new GameModel(),
+                ComponentFistma: this.ComponentFistma,
+                ApplicationState: DataStore.ApplicationState
+            };
+        } else if (!this.dataStore.ApplicationState) {
+            this.dataStore.ApplicationState = DataStore.ApplicationState;
+        }
 
         console.log("DATASTORE APPLICATION:", DataStore.ApplicationState)
         this.pollForGameStateChange(this.dataStore.ApplicationState.CurrentTeam.GameId)
