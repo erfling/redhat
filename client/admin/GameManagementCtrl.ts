@@ -17,15 +17,13 @@ import ApplicationCtrl from '../ApplicationCtrl';
 import DataStore from '../../shared/base-sapien/client/DataStore';
 
 
-export default class GameManagementCtrl extends BaseClientCtrl<IControllerDataStore & {Admin: AdminViewModel}>
+export default class GameManagementCtrl extends BaseClientCtrl<IControllerDataStore & {Admin: AdminViewModel} & {ShowUserModal: boolean, ShowGameModal: boolean, ShowTeamDeleteModal: boolean}>
 {
     //----------------------------------------------------------------------
     //
     //  Properties
     //
     //----------------------------------------------------------------------
-
-    dataStore: IControllerDataStore & {Admin: AdminViewModel}
 
     protected readonly ComponentStates = {
         gameList: GameList,
@@ -206,7 +204,10 @@ export default class GameManagementCtrl extends BaseClientCtrl<IControllerDataSt
         this.dataStore = {
             Admin: DataStore.Admin,
             ApplicationState: DataStore.ApplicationState,
-            ComponentFistma: null
+            ComponentFistma: null,
+            ShowGameModal: false,
+            ShowTeamDeleteModal: false,
+            ShowUserModal: false
         }
 
         //if we don't have a user, go to admin login.
