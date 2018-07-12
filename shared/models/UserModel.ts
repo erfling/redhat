@@ -7,6 +7,13 @@ export enum RoleName {
     PLAYER = "PLAYER"
 }
 
+export enum JobName {
+    IC = "IC",
+    MANAGER = "Manager",
+    CHIPCO = "ChipCo",
+    INTEGRATED_SYSTEMS = "Integrated Systems"
+}
+
 export default class UserModel extends BaseModel
 {
     //----------------------------------------------------------------------
@@ -50,5 +57,9 @@ export default class UserModel extends BaseModel
 
     //Flag to indicate whether a user's role has changed. If role changes to admin, we flag so user is emailed
     public RoleChanged: boolean = false;
+
+    @dbProp(String)
+    @Type(() => String)
+    public Job: JobName = JobName.IC;
     
 }
