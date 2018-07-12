@@ -1,6 +1,6 @@
 'use strict';
 import { Component } from 'react';
-import BaseRoundCtrl from '../../../shared/base-sapien/client/BaseRoundCtrl';
+import BaseRoundCtrl, {IRoundDataStore} from '../../../shared/base-sapien/client/BaseRoundCtrl';
 import RoundModel from '../../../shared/models/RoundModel';
 import Hiring from './Hiring';
 import Priorities from './Priorities';
@@ -13,7 +13,7 @@ import SubRoundModel from '../../../shared/models/SubRoundModel';
 import DataStore from '../../../shared/base-sapien/client/DataStore'
 import SapienServerCom from '../../../shared/base-sapien/client/SapienServerCom';
 
-export default class PeopleRoundCtrl extends BaseRoundCtrl<RoundModel>
+export default class PeopleRoundCtrl extends BaseRoundCtrl<IRoundDataStore>
 {
     //----------------------------------------------------------------------
     //
@@ -42,6 +42,7 @@ export default class PeopleRoundCtrl extends BaseRoundCtrl<RoundModel>
         this.ComponentFistma.addTransition(this.ComponentStates.sub2);
 
         if (reactComp) this._setUpFistma(reactComp);
+
     }
 
     public static GetInstance(reactComp?: Component<any, any>): PeopleRoundCtrl {
@@ -118,6 +119,8 @@ export default class PeopleRoundCtrl extends BaseRoundCtrl<RoundModel>
         this.dataStore.Round.Name = "PEOPLE";
         
         this.ComponentFistma.addOnEnter("*", this.getContentBySubRound.bind(this));
+
+        
 
         this.getContentBySubRound();
     }

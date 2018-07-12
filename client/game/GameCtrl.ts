@@ -48,7 +48,10 @@ export default class GameCtrl extends BaseClientCtrl<IControllerDataStore & { Ga
     //----------------------------------------------------------------------
 
     private constructor(reactComp?: Component<any, any>) {
-        super( reactComp ? Object.assign(new GameModel()) : null, reactComp || null);
+        super({
+            Game: new GameModel(),
+            ComponentFistma: null
+        }, reactComp || null);
     }
 
     public static GetInstance(reactComp?: Component<any, any>): GameCtrl {
@@ -228,9 +231,7 @@ export default class GameCtrl extends BaseClientCtrl<IControllerDataStore & { Ga
 
         DataStore.ApplicationState.CurrentUser = localStorage.getItem("RH_USER") ? Object.assign( new UserModel(), JSON.parse(localStorage.getItem("RH_USER") ) ) : new UserModel()        
         DataStore.ApplicationState.CurrentTeam = localStorage.getItem("RH_TEAM") ? Object.assign( new TeamModel(), JSON.parse(localStorage.getItem("RH_TEAM") ) ) : new TeamModel()        
-        this.dataStore = DataStore.ApplicationState;
-
-        
+        this.dataStore = DataStore.ApplicationState;        
         this.dataStore.ComponentFistma = this.ComponentFistma;
 
         console.log("DATASTORE APPLICATION:", DataStore.ApplicationState)

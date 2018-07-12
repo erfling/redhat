@@ -21,6 +21,8 @@ const schObj = SchemaBuilder.fetchSchema(UserModel);
  ***************************************/
 schObj.Password = { type: String, select: false }
 
+//emails must be unique, and we lowercase all of them
+schObj.Email = { type: String, lowercase: true, unique: true }
 
 const monSchema = new mongoose.Schema(schObj);
 console.log("USER SCHEMA INIT:",  schObj)
@@ -114,7 +116,7 @@ class RoundRouter
                 }
 
             } else {
-                var savedUser = await monUserModel.findOneAndUpdate({Email: userToSave.Email}, userToSave, {new: true}).then(r => r.toObject() as UserModel);
+                var savedUser = await monUserModel.findByIdAndUpdate(userToSave._id, userToSave, {new: true}).then(r => r.toObject() as UserModel);
 
                 //invite user who's role has changed to ADMIN to create admin password
                 if( savedUser.Role == RoleName.ADMIN && userToSave.RoleChanged ){
