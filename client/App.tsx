@@ -130,9 +130,7 @@ class App extends React.Component<RouteComponentProps<any>, IControllerDataStore
                     <Sidebar.Pusher
                         className={"source-stream" + (this.state && this.state.ApplicationState.CurrentUser && this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN ? " admin-body" : "")}
                     >   
-                        <h1>{ComponentFromState && ComponentFromState.WrappedComponent.CLASS_NAME}</h1>
                         <ComponentFromState />
-
                     </Sidebar.Pusher>
 
                 </Sidebar.Pushable>

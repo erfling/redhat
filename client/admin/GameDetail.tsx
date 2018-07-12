@@ -15,6 +15,7 @@ import UserModel, { RoleName } from "../../shared/models/UserModel";
 import UserModal from './UserModal';
 import {IControllerDataStore} from '../../shared/base-sapien/client/BaseClientCtrl';
 import GameModal from './GameModal'
+import DeleteTeamModal from './DeleteTeamModal'
 
 class GameDetail extends React.Component<RouteComponentProps<any>, IControllerDataStore & {Admin: AdminViewModel} & {ShowUserModal: boolean, ShowGameModal: boolean, ShowTeamDeleteModal: boolean}>
 {
@@ -280,7 +281,7 @@ class GameDetail extends React.Component<RouteComponentProps<any>, IControllerDa
                                                 icon="trash"
                                                 color="red"
                                                 content="Delete"
-                                                onClick={e => this.controller.saveTeam(this.state.Admin.SelectedGame.Teams[i])}
+                                                onClick={e => this.controller.OpenTeamModal(this.state.Admin.SelectedGame.Teams[i])}
                                             >
                                             </Button>
 
@@ -297,6 +298,13 @@ class GameDetail extends React.Component<RouteComponentProps<any>, IControllerDa
                 User={this.state.ApplicationState.ModalObject}
                 CloseFunction={this.controller.closeModal.bind(this.controller)}
                 SaveFunction={this.controller.saveUser.bind(this.controller)}
+                Submitting={this.state.ApplicationState.FormIsSubmitting}
+            />}
+
+            {this.state && this.state.ApplicationState.ModalObject && this.state.ShowTeamDeleteModal && <DeleteTeamModal
+                Team={this.state.ApplicationState.ModalObject}
+                CloseFunction={this.controller.closeModal.bind(this.controller)}
+                SaveFunction={this.controller.DeleteTeam.bind(this.controller)}
                 Submitting={this.state.ApplicationState.FormIsSubmitting}
             />}
         </>;

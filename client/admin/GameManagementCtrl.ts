@@ -197,6 +197,22 @@ export default class GameManagementCtrl extends BaseClientCtrl<IControllerDataSt
             })
     }
 
+    public DeleteTeam(team: TeamModel){
+        this.dataStore.ApplicationState.FormIsSubmitting = true;
+        return SapienServerCom.SaveData(team, SapienServerCom.BASE_REST_URL + "games/team/delete")
+            .then(r => {
+                //team = Object.assign(team, r)
+                this.dataStore.Admin.SelectedGame = r;
+                this.dataStore.ApplicationState.FormIsSubmitting = false;
+                this.closeModal();
+                ApplicationCtrl.GetInstance().addToast("Team successfully deleted");
+            }).catch(() => {
+                this.dataStore.ApplicationState.FormIsSubmitting = false;
+                ApplicationCtrl.GetInstance().addToast("There was a problem deleting the team", "danger")
+            })
+        
+    }
+
     private _setUpFistma(reactComp: Component) {
 
         this.component = reactComp;

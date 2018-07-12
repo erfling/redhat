@@ -188,12 +188,49 @@ class GameRouter {
 
     }
 
+    public async DeleteTeam(req, res){
+        const team: TeamModel = Object.assign(new TeamModel(), req.body)
+        
+        try{
+            //remove the team from the game
+            const game = await monGameModel.findById(team.GameId).then(r => Object.assign(new GameModel(), r.toJSON()))
+            console.log(game)
+            if(game){
+                const Teams = game.Teams.filter(t => t != team._id);
+                const savedGame = await monGameModel
+                                        .findByIdAndUpdate(game._id, {Teams}, {new: true})
+                                        .populate("Facilicator")
+                                        .populate({
+                                            path: "Teams",
+                                            populate: {
+                                                path: "Players"
+                                            }
+                                        });
+
+                if(savedGame){
+                    //delete the team
+                    const updatedTeam = await monTeamModel.findByIdAndRemove(team._id)
+                }
+    
+                res.json(savedGame)
+            }
+            
+
+        }
+        catch(err){
+            console.log(err)
+            res.json("The team couldn't be removed")
+        }
+        
+
+    }
 
     public routes() {
         this.router.get("/", this.GetGames.bind(this));
         this.router.get("/:game", this.GetGame.bind(this));
         this.router.post("/", this.SaveGame.bind(this));
         this.router.post("/team", this.saveTeam.bind(this))
+        this.router.post("/team/delete", this.DeleteTeam.bind(this))
     }
 }
 
