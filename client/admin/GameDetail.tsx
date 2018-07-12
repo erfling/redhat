@@ -67,7 +67,8 @@ class GameDetail extends React.Component<RouteComponentProps<any>, IControllerDa
         const DashBoardComponent = this.controller.ComponentFistma.currentState;
         if(this.state){
         return <>
-            {this.state && this.state.ApplicationState && this.state.ApplicationState.ModalObject && this.state.ApplicationState.ModalObject.className == "GameModel" && 
+        <pre>{this.state.ApplicationState && this.state.ApplicationState.ModalObject && JSON.stringify( this.state.ApplicationState.ModalObject.className, null, 2 )}</pre>
+            {this.state.ApplicationState && this.state.ApplicationState.ModalObject && this.state.ApplicationState.ModalObject.className == "GameModel" && 
                 <Modal open={this.state.ApplicationState.ModalOpen} basic onClose={e => this.controller.closeModal()}>
                     <Modal.Header><Icon name="game" />Edit Game</Modal.Header>
                     <Modal.Content>
@@ -155,7 +156,7 @@ class GameDetail extends React.Component<RouteComponentProps<any>, IControllerDa
                             labelPosition="right"
                             content='Save Game'
                             loading={this.state.ApplicationState.FormIsSubmitting}
-                            onClick={e => this.controller.saveGame(this.state.Admin.ModalObject)
+                            onClick={e => this.controller.saveGame(this.state.ApplicationState.ModalObject)
                                                             .then(r => {
                                                                 console.warn("<<<<<<>>>>>>savedgame",r);
                                                                 this.setState(Object.assign(this.state, {SelectedGame: Object.assign(this.state.Admin.SelectedGame, r)}))}

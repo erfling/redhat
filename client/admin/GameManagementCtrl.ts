@@ -108,10 +108,9 @@ export default class GameManagementCtrl extends BaseClientCtrl<IControllerDataSt
 
     public createOrEditGame(game?: GameModel) {
 
-        console.log("WE PASSED THIS GAME", game)
-
         this.dataStore.ApplicationState.ModalObject = Object.assign(new GameModel(), game) || new GameModel();
         if (!this.dataStore.ApplicationState.ModalObject.DatePlayed) this.dataStore.ApplicationState.ModalObject.DatePlayed = new Date().toLocaleDateString();
+        console.log("WE PASSED THIS GAME", game, game.className)
 
         this.openModal();
     }
@@ -133,7 +132,7 @@ export default class GameManagementCtrl extends BaseClientCtrl<IControllerDataSt
                 ApplicationCtrl.GetInstance().addToast("Save successful")
                 return r;
             }).catch(() => {
-                this.closeModal();
+                this.dataStore.ApplicationState.FormIsSubmitting = false;
                 ApplicationCtrl.GetInstance().addToast("There was a problem saving the game", "danger");
             })
     }
