@@ -4,7 +4,7 @@ import ApplicationViewModel from '../../shared/models/ApplicationViewModel';
 import { Component } from 'react';
 import GameList from './GameList';
 import DefaultAdmin from './DefaultAdmin'
-import BaseClientCtrl from '../../shared/base-sapien/client/BaseClientCtrl';
+import BaseClientCtrl, {IControllerDataStore} from '../../shared/base-sapien/client/BaseClientCtrl';
 import AdminLogin from '../login/AdminLogin'
 import GameLogin from '../login/GameLogin'
 import UserList from './UserList';
@@ -13,7 +13,7 @@ import GameDetail from './GameDetail';
 import ICommonComponentState from '../../shared/base-sapien/client/ICommonComponentState';
 import DataStore from '../../shared/base-sapien/client/DataStore';
 
-export default class AdminCtrl extends BaseClientCtrl<any>
+export default class AdminCtrl extends BaseClientCtrl<IControllerDataStore & {Admin: AdminViewModel}>
 {
     //----------------------------------------------------------------------
     //
@@ -23,7 +23,6 @@ export default class AdminCtrl extends BaseClientCtrl<any>
 
     private static _instance: AdminCtrl;
 
-    public dataStore: AdminViewModel & ICommonComponentState & {ComponentFistma?: FiStMa<any>};
 
     public readonly ComponentStates = {
         game: GameList,
@@ -42,8 +41,7 @@ export default class AdminCtrl extends BaseClientCtrl<any>
 
     private constructor(reactComp? : Component<any, any>) {
         super(null, reactComp || null);
-        this.dataStore = Object.assign(DataStore.Admin, DataStore.ApplicationState);
-
+       
         if(reactComp){
             this._setUpFistma(reactComp)
         }
@@ -112,6 +110,11 @@ export default class AdminCtrl extends BaseClientCtrl<any>
         this.component.componentDidUpdate = (prevProps, prevState, snapshot) => {
             console.log("ADMIN DID UPDATE", this.component.props.location.pathname, prevProps.location.pathname, this.component.props.location.pathname == prevProps.location.pathname)
             this.conditionallyNavigate(this.component.props.location.pathname, prevProps.location.pathname)
+        }
+
+        this.dataStore = {
+            Admin: DataStore.Admin,
+            ApplicationState: DataStore.ApplicationState
         }
 
         this.dataStore.ComponentFistma = this.ComponentFistma;

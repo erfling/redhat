@@ -10,8 +10,9 @@ import GameModel from "../../shared/models/GameModel";
 import { DateInput } from 'semantic-ui-calendar-react';
 import * as moment from 'moment';
 import UserModel, { RoleName } from "../../shared/models/UserModel";
+import {IControllerDataStore} from '../../shared/base-sapien/client/BaseClientCtrl';
 
-class GameList extends React.Component<RouteComponentProps<any>, AdminViewModel & ICommonComponentState>
+class GameList extends React.Component<RouteComponentProps<any>, IControllerDataStore & {Admin: AdminViewModel}>
 {
     //----------------------------------------------------------------------
     //
@@ -61,8 +62,8 @@ class GameList extends React.Component<RouteComponentProps<any>, AdminViewModel 
     render() {
         const DashBoardComponent = this.controller.ComponentFistma.currentState;
         return <>
-            {this.state.ModalObject &&
-                <Modal open={this.state.ModalOpen} basic onClose={e => this.controller.closeModal()}>
+            {this.state.ApplicationState.ModalObject &&
+                <Modal open={this.state.ApplicationState.ModalOpen} basic onClose={e => this.controller.closeModal()}>
                     <Modal.Header><Icon name="game"/>Create Game</Modal.Header>
                     <Modal.Content>
                         <Modal.Description>
@@ -70,15 +71,15 @@ class GameList extends React.Component<RouteComponentProps<any>, AdminViewModel 
                             <Form.Field>
                                     <label>PIN (remove this soon)</label>
                                     <Input
-                                        value={(this.state.ModalObject as GameModel).GamePIN}
-                                        onChange={(e) => (this.state.ModalObject as GameModel).GamePIN = parseInt((e.target as HTMLInputElement).value)}
+                                        value={(this.state.ApplicationState.ModalObject as GameModel).GamePIN}
+                                        onChange={(e) => (this.state.ApplicationState.ModalObject as GameModel).GamePIN = parseInt((e.target as HTMLInputElement).value)}
                                         placeholder="GamePIN"
                                     />
                                 </Form.Field><Form.Field>
                                     <label>Location</label>
                                     <Input
-                                        value={(this.state.ModalObject as GameModel).Location}
-                                        onChange={(e) => (this.state.ModalObject as GameModel).Location = (e.target as HTMLInputElement).value}
+                                        value={(this.state.ApplicationState.ModalObject as GameModel).Location}
+                                        onChange={(e) => (this.state.ApplicationState.ModalObject as GameModel).Location = (e.target as HTMLInputElement).value}
                                         placeholder="Location"
                                     />
                                 </Form.Field>
@@ -100,28 +101,28 @@ class GameList extends React.Component<RouteComponentProps<any>, AdminViewModel 
                                     <DateInput
                                         name="date"
                                         placeholder="Date"
-                                        value={this.controller.dataStore.ModalObject.DatePlayed}
+                                        value={this.controller.dataStore.ApplicationState.ModalObject.DatePlayed}
                                         iconPosition="left"
                                         dateFormat="MM/DD/YYYY"
                                         onChange={(e, output) => {
                                             console.log("CALLENDAR THING: ", output)
-                                            this.controller.dataStore.ModalObject.DatePlayed = output.value;
+                                            this.controller.dataStore.ApplicationState.ModalObject.DatePlayed = output.value;
                                         }} />
                                 </Form.Field>
                                 <Form.Field>
                                     <label>Facilitator</label>
-                                    {this.state.Users && 
+                                    {this.state.Admin.Users && 
                                         <Dropdown 
                                             placeholder='Select Facilitator' 
                                             fluid 
                                             search 
                                             selection
-                                            value={(this.state.ModalObject as GameModel).Facilitator._id}
+                                            value={(this.state.ApplicationState.ModalObject as GameModel).Facilitator._id}
                                             onChange={(e, output) => {
                                                 console.log("SELECTION", output)
-                                                this.controller.dataStore.ModalObject.Facilitator._id = output.value
+                                                this.controller.dataStore.ApplicationState.ModalObject.Facilitator._id = output.value
                                             }}
-                                            options={this.state.Users.filter(u => u.Role == RoleName.ADMIN).map((u,i) => {
+                                            options={this.state.Admin.Users.filter(u => u.Role == RoleName.ADMIN).map((u,i) => {
                                                 return {
                                                     text: u.FirstName + " " + u.LastName + " (" + u.Email + ")",
                                                     value: u._id,
@@ -150,8 +151,8 @@ class GameList extends React.Component<RouteComponentProps<any>, AdminViewModel 
                             icon='check'
                             labelPosition="right"
                             content='Save Game'
-                            loading={this.state.FormIsSubmitting}
-                            onClick={e => this.controller.saveGame(this.state.ModalObject)}
+                            loading={this.state.ApplicationState.FormIsSubmitting}
+                            onClick={e => this.controller.saveGame(this.state.ApplicationState.ModalObject)}
                         ></Button>
                     </Modal.Actions>
                 </Modal>
@@ -179,7 +180,7 @@ class GameList extends React.Component<RouteComponentProps<any>, AdminViewModel 
                     </Button>
             </Segment>
             <Segment
-                loading={this.state.IsLoading}
+                loading={this.state.ApplicationState.IsLoading}
             >
                 <Table celled>
                     <Table.Header>
@@ -192,7 +193,7 @@ class GameList extends React.Component<RouteComponentProps<any>, AdminViewModel 
                     </Table.Header>
 
                     <Table.Body>
-                        {this.state.Games && this.state.Games.map((g, i) =>
+                        {this.state.Admin.Games && this.state.Admin.Games.map((g, i) =>
                             <Table.Row key={i}>
                                 <Table.Cell>
                                     <Popup

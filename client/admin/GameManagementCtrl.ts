@@ -3,7 +3,7 @@ import AdminViewModel from '../../shared/models/AdminViewModel';
 import ApplicationViewModel from '../../shared/models/ApplicationViewModel';
 import { Component } from 'react';
 import Game from '../game/Game';
-import BaseClientCtrl from '../../shared/base-sapien/client/BaseClientCtrl';
+import BaseClientCtrl, {IControllerDataStore} from '../../shared/base-sapien/client/BaseClientCtrl';
 import AdminLogin from '../login/AdminLogin';
 import GameList from './GameList';
 import GameDetail from './GameDetail';
@@ -14,8 +14,10 @@ import GameModel from '../../shared/models/GameModel';
 import TeamModel from '../../shared/models/TeamModel';
 import AdminCtrl from './AdminCtrl';
 import ApplicationCtrl from '../ApplicationCtrl';
+import DataStore from '../../shared/base-sapien/client/DataStore';
 
-export default class GameManagementCtrl extends BaseClientCtrl<any>
+
+export default class GameManagementCtrl extends BaseClientCtrl<IControllerDataStore & {Admin: AdminViewModel}>
 {
     //----------------------------------------------------------------------
     //
@@ -23,7 +25,7 @@ export default class GameManagementCtrl extends BaseClientCtrl<any>
     //
     //----------------------------------------------------------------------
 
-    dataStore: AdminViewModel & ICommonComponentState & { AvailablePlayers?: { text: string, value: string, key: number }[], ComponentFistma?: FiStMa<any> };
+    dataStore: IControllerDataStore & {Admin: AdminViewModel}
 
     protected readonly ComponentStates = {
         gameList: GameList,
@@ -65,10 +67,6 @@ export default class GameManagementCtrl extends BaseClientCtrl<any>
     //
     //----------------------------------------------------------------------
 
-    private _onRoundEnter(fromState: React.Component<{}, any>): void {
-        console.log("Entered round", this.dataStore.RoundsFistma.currentState, "from round", fromState);
-    }
-
     public addTeamToGame(game: GameModel) {
         const team = new TeamModel();
         team.GameId = game._id;
@@ -87,48 +85,50 @@ export default class GameManagementCtrl extends BaseClientCtrl<any>
     public getAllGames() {
         return SapienServerCom.GetData(null, null, SapienServerCom.BASE_REST_URL + "games").then(r => {
             console.log("GAMES ARE: ", r)
-            this.dataStore.Games = r;
-            this.dataStore.IsLoading = false;
+            this.dataStore.Admin.Games = r;
+            this.dataStore.ApplicationState.IsLoading = false;
         })
     }
 
     public getAllUsers() {
-        if (!this.dataStore.Users || !this.dataStore.Users.length) {
+        if (!this.dataStore.Admin.Users || !this.dataStore.Admin.Users.length) {
             return SapienServerCom.GetData(null, null, SapienServerCom.BASE_REST_URL + "user").then(r => {
                 console.log("Users ARE: ", r)
-                this.dataStore.Users = r;
-                this.dataStore.IsLoading = false;
-                return this.dataStore.Users;
+                this.dataStore.Admin.Users = r;
+                this.dataStore.ApplicationState.IsLoading = false;
+                return this.dataStore.Admin.Users;
             })
         } else {
             return new Promise((resolve, reject) => {
-                console.log("USERS ARE", this.dataStore.Users)
-                return resolve(this.dataStore.Users);
+                console.log("USERS ARE", this.dataStore.Admin.Users)
+                return resolve(this.dataStore.Admin.Users);
             })
         }
     }
 
     public createOrEditGame(game?: GameModel) {
-        this.dataStore.ModalObject = Object.assign(new GameModel(), game) || new GameModel();
-        if (!this.dataStore.ModalObject.DatePlayed) this.dataStore.ModalObject.DatePlayed = new Date().toLocaleDateString();
-        console.log(this.dataStore.ModalObject.DatePlayed);
+
+        console.log("WE PASSED THIS GAME", game)
+
+        this.dataStore.ApplicationState.ModalObject = Object.assign(new GameModel(), game) || new GameModel();
+        if (!this.dataStore.ApplicationState.ModalObject.DatePlayed) this.dataStore.ApplicationState.ModalObject.DatePlayed = new Date().toLocaleDateString();
 
         this.openModal();
     }
 
     public saveGame(game: GameModel) {
-        this.dataStore.FormIsSubmitting = true;
+        this.dataStore.ApplicationState.FormIsSubmitting = true;
         return SapienServerCom.SaveData(game, SapienServerCom.BASE_REST_URL + "games")
             .then(r => {
                 if (game._id) {
-                    this.dataStore.Games = this.dataStore.Games.map(g => {
+                    this.dataStore.Admin.Games = this.dataStore.Admin.Games.map(g => {
                         return g._id == game._id ? Object.assign(game, r) : g
                     })
                 } else {
                     console.log(r, Object.assign(new GameModel(), r))
-                    this.dataStore.Games = this.dataStore.Games.concat(Object.assign(new GameModel(), r))
+                    this.dataStore.Admin.Games = this.dataStore.Admin.Games.concat(Object.assign(new GameModel(), r))
                 }                
-                this.dataStore.FormIsSubmitting = false;
+                this.dataStore.ApplicationState.FormIsSubmitting = false;
                 this.closeModal();
                 ApplicationCtrl.GetInstance().addToast("Save successful")
                 return r;
@@ -139,14 +139,14 @@ export default class GameManagementCtrl extends BaseClientCtrl<any>
     }
 
     public saveTeam(team: TeamModel) {
-        this.dataStore.FormIsSubmitting = true;
+        this.dataStore.ApplicationState.FormIsSubmitting = true;
         return SapienServerCom.SaveData(team, SapienServerCom.BASE_REST_URL + "games/team")
             .then(r => {
                 team = Object.assign(team, r)
-                this.dataStore.FormIsSubmitting = false;
+                this.dataStore.ApplicationState.FormIsSubmitting = false;
                 ApplicationCtrl.GetInstance().addToast("Save successful");
             }).catch(() => {
-                this.dataStore.FormIsSubmitting = false;
+                this.dataStore.ApplicationState.FormIsSubmitting = false;
                 ApplicationCtrl.GetInstance().addToast("There was a problem saving the game", "danger")
             })
     }
@@ -157,20 +157,20 @@ export default class GameManagementCtrl extends BaseClientCtrl<any>
 
     public getGame(id: string) {
         const game: GameModel = new GameModel()
-        this.dataStore.IsLoading = true;
+        this.dataStore.ApplicationState.IsLoading = true;
         return SapienServerCom.GetData(null, GameModel, SapienServerCom.BASE_REST_URL + GameModel.REST_URL + "/" + id)
             .then(r => {
                 Object.assign(game, r);
-                this.dataStore.SelectedGame = game;
-                this.dataStore.IsLoading = false;
-                return this.dataStore.SelectedGame;
+                this.dataStore.Admin.SelectedGame = game;
+                this.dataStore.ApplicationState.IsLoading = false;
+                return this.dataStore.Admin.SelectedGame;
             })
     }
 
     public filterUsersByGame(game: GameModel): void {
         const usedUserIds: string[] = game.Teams.map(t => t.Players).reduce((a, b) => a.concat(b), []).map(p => p._id)
 
-        this.dataStore.AvailablePlayers = this.dataStore.Users.filter(u => u._id && usedUserIds.indexOf(u._id) == -1).map((u, i) => {
+        this.dataStore.Admin.AvailablePlayers = this.dataStore.Admin.Users.filter(u => u._id && usedUserIds.indexOf(u._id) == -1).map((u, i) => {
             console.log("FILTERING A USER", u)
             return {
                 text: u.FirstName + " " + u.LastName + " (" + u.Email + ")",
@@ -181,21 +181,21 @@ export default class GameManagementCtrl extends BaseClientCtrl<any>
     }
 
     public addPlayer(team: TeamModel): void {
-        this.dataStore.ModalTarget = team;
-        this.dataStore.ModalObject = new UserModel();
+        this.dataStore.ApplicationState.ModalTarget = team;
+        this.dataStore.ApplicationState.ModalObject = new UserModel();
         this.openModal();
     }
 
     public saveUser(user: UserModel) {
-        this.dataStore.FormIsSubmitting = true;
+        this.dataStore.ApplicationState.FormIsSubmitting = true;
         return SapienServerCom.SaveData(user, SapienServerCom.BASE_REST_URL + "user")
             .then(r => {
                 var returnedUser: UserModel = Object.assign(new UserModel(), r);
                 returnedUser.EditMode = false;
                 console.log(r, Object.assign(new UserModel(), r))
-                this.dataStore.Users = this.dataStore.Users.concat(returnedUser);
-                this.dataStore.FormIsSubmitting = false;
-                this.dataStore.ModalTarget.Players = this.dataStore.ModalTarget.Players.filter(p => p._id != null).concat(returnedUser)
+                this.dataStore.Admin.Users = this.dataStore.Admin.Users.concat(returnedUser);
+                this.dataStore.ApplicationState.FormIsSubmitting = false;
+                this.dataStore.ApplicationState.ModalTarget.Players = this.dataStore.ApplicationState.ModalTarget.Players.filter(p => p._id != null).concat(returnedUser)
                 this.closeModal();
                 return returnedUser;
             })
@@ -204,13 +204,18 @@ export default class GameManagementCtrl extends BaseClientCtrl<any>
     private _setUpFistma(reactComp: Component) {
 
         this.component = reactComp;
-        if (!this.dataStore) this.dataStore = Object.assign(new GameModel());
+        this.dataStore = {
+            Admin: DataStore.Admin,
+            ApplicationState: DataStore.ApplicationState,
+            ComponentFistma: null
+        }
+
         //if we don't have a user, go to admin login.
-        if (!ApplicationViewModel.CurrentUser || !ApplicationViewModel.Token) {
+        if (!this.dataStore.ApplicationState.CurrentUser) {
             this.ComponentFistma = new FiStMa(this.ComponentStates, this.ComponentStates.adminLogin) as FiStMa<any>;
         }
         //if we have a user, but not an admin, go to game login
-        else if (!ApplicationViewModel.CurrentUser || ApplicationViewModel.CurrentUser.Role != RoleName.ADMIN) {
+        else if (!this.dataStore.ApplicationState.CurrentUser || this.dataStore.ApplicationState.CurrentUser.Role != RoleName.ADMIN) {
             this.ComponentFistma = new FiStMa(this.ComponentStates, this.ComponentStates.adminLogin);
         }
         //otherwise, go where the url tells us. If bad url, go to admin default
@@ -223,7 +228,6 @@ export default class GameManagementCtrl extends BaseClientCtrl<any>
         this.ComponentFistma.addTransition(this.ComponentStates.gamedetail)
         this.ComponentFistma.addTransition(this.ComponentStates.adminLogin)
 
-        this.dataStore = AdminCtrl.GetInstance().dataStore;
 
         if (this.component.componentWillMount == undefined) {
             this.component.componentWillMount = () => {
@@ -234,6 +238,9 @@ export default class GameManagementCtrl extends BaseClientCtrl<any>
                 this.getAllUsers();
             }
         }
+
+        this.dataStore.ComponentFistma = this.ComponentFistma;
+
     }
 
 }
