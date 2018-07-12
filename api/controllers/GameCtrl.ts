@@ -17,7 +17,7 @@ const monSchema = new mongoose.Schema(schObj);
 
 export const monGameModel = mongoose.model("game", monSchema);
 
-class GameRouter {
+class GameCtrl {
     //----------------------------------------------------------------------
     //
     //  Properties
@@ -234,4 +234,4 @@ class GameRouter {
     }
 }
 
-export default new GameRouter().router;
+export default new GameCtrl().router;

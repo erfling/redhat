@@ -4,6 +4,7 @@ import TeamModel from "../models/TeamModel";
 import { Type } from 'class-transformer';
 import { ObjectID } from 'bson';
 import UserModel from './UserModel';
+import RoundChangeMapping from './RoundChangeMapping';
 
 export default class GameModel extends BaseModel
 {
@@ -23,8 +24,11 @@ export default class GameModel extends BaseModel
     @dbProp(String)
     public Location: string = "";
 
-    @dbProp(String)
-    public CurrentRound: string = "";
+    @dbProp({ParentRound: String, ChildRound: String})
+    public CurrentRound: RoundChangeMapping = {
+        ParentRound: "",
+        ChildRound: ""
+    };
 
     @dbProp(String)
     public DatePlayed: string = new Date().toLocaleDateString();

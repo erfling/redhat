@@ -7,14 +7,11 @@ import * as Passport from 'passport'
 import LoginCtrl from './controllers/LoginCtrl';
 import UserCtrl from './controllers/UserCtrl';
 import AuthUtils from './AuthUtils';
-import GameCtrl from './controllers/GameCtrl';
+import GameCtrl, { monGameModel } from './controllers/GameCtrl';
 import GameModel from '../shared/models/GameModel'
 import TeamCtrl from './controllers/TeamCtrl';
 import GamePlayCtrl from './controllers/GamePlayCtrl';
-import FacilitationCtrl from './controllers/FacilitationCtrl';
-import { Long } from 'bson';
-import { LongPollCtrl } from './controllers/LongPollCtrl';
-import LongPoll from '../shared/base-sapien/api/LongPoll'
+import LongPoll from '../shared/base-sapien/api/LongPoll';
 
 export class AppServer {
 
@@ -52,8 +49,6 @@ export class AppServer {
         else if (port >= 0) return port;
         else return false;
     }
-
-
 
     public static StartServer() {
 
@@ -121,16 +116,19 @@ export class AppServer {
             .use('/sapien/api/team', TeamCtrl)
             .use('/sapien/api/user', UserCtrl)
             .use('/sapien/api/gameplay', Passport.authenticate('jwt', { session: false }), GamePlayCtrl)
-            .post('/sapien/api/facilitation/round/:gameid', Passport.authenticate('jwt', { session: false }), (req, res) => {
-                console.log(req.body)
-                AppServer.LongPoll.publishToId("/listenforgameadvance/:gameid", req.params.gameid , req.body)
-                res.json("long poll publish hit")
+            .post('/sapien/api/facilitation/round/:gameid', Passport.authenticate('jwt', { session: false }), async (req, res) => {
+                console.log(req.body);
+                // Update Game object on DB
+                const gameSave = await monGameModel.findByIdAndUpdate(req.params.gameid, {CurrentRound: req.body});
+                if (gameSave) {
+                    AppServer.LongPoll.publishToId("/listenforgameadvance/:gameid", req.params.gameid , req.body);
+                    res.json("long poll publish hit");
+                }
             })
             .use('/assets', express.static("dist/assets"))
             .use('/', express.static("dist"))
             .use('*', express.static("dist"))
             .use('**', express.static("dist"))
-
     }
 
 }

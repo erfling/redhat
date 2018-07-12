@@ -88,16 +88,13 @@ export default class GameCtrl extends BaseClientCtrl<IControllerDataStore & {Gam
      * 
      */
     public advanceRound(){
-
         let targetState: React.ComponentClass;
         let mapping: RoundChangeMapping = {
             ParentRound: null,
             ChildRound: null
         }
 
-        this._childController = this._getTargetController(this.ComponentFistma.currentState.WrappedComponent.CLASS_NAME)
-
-
+        this._childController = this._getTargetController(this.ComponentFistma.currentState.WrappedComponent.CLASS_NAME);
 
         if ( this._childController.ComponentFistma && this._childController.ComponentFistma.getNext() ){
             mapping.ParentRound = this.ComponentFistma.currentState.WrappedComponent.CLASS_NAME;
@@ -134,8 +131,6 @@ export default class GameCtrl extends BaseClientCtrl<IControllerDataStore & {Gam
 
         this._childController = this._getTargetController(this.ComponentFistma.currentState.WrappedComponent.CLASS_NAME)
 
-
-
         if ( this._childController.ComponentFistma && this._childController.ComponentFistma.getPrevious() ){
             mapping.ParentRound = this.ComponentFistma.currentState.WrappedComponent.CLASS_NAME;
             mapping.ChildRound = this._childController.ComponentFistma.getPrevious().WrappedComponent.CLASS_NAME;
@@ -144,10 +139,8 @@ export default class GameCtrl extends BaseClientCtrl<IControllerDataStore & {Gam
             this._childController = this._getTargetController(this.ComponentFistma.getPrevious().WrappedComponent.CLASS_NAME)
 
             //get the first component from the NEXT fistma
-            
 
             mapping.ChildRound = this._childController.ComponentFistma.getLast().WrappedComponent.CLASS_NAME;
-
         }
 
         console.log("MAPPING IS", mapping)
