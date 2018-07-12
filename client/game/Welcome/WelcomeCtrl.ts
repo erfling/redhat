@@ -2,23 +2,17 @@
 import { Component } from 'react';
 import BaseRoundCtrl from '../../../shared/base-sapien/client/BaseRoundCtrl';
 import RoundModel from '../../../shared/models/RoundModel';
-import Welcome from './Welcome';
 import Intro from './Intro';
 import PlayerLogin from './PlayerLogin';
 import FiStMa from '../../../shared/entity-of-the-state/FiStMa';
-import ValueObj from '../../../shared/entity-of-the-state/ValueObj';
-import ResponseModel from '../../../shared/models/ResponseModel';
-import QuestionModel from '../../../shared/models/QuestionModel';
 import GameCtrl from '../GameCtrl';
-import SubRoundModel from '../../../shared/models/SubRoundModel';
 import SapienServerCom from '../../../shared/base-sapien/client/SapienServerCom';
 import DataStore from '../../../shared/base-sapien/client/DataStore'
-import ICommonComponentState from '../../../shared/base-sapien/client/ICommonComponentState';
 import TeamModel from '../../../shared/models/TeamModel';
 import UserModel from '../../../shared/models/UserModel';
+import { IRoundDataStore } from '../../../shared/base-sapien/client/BaseRoundCtrl';
 
-
-export default class WelcomeCtrl extends BaseRoundCtrl<RoundModel>
+export default class WelcomeCtrl extends BaseRoundCtrl<IRoundDataStore>
 {
     //----------------------------------------------------------------------
     //
@@ -91,7 +85,6 @@ export default class WelcomeCtrl extends BaseRoundCtrl<RoundModel>
             this.dataStore.ApplicationState.FormError = "There was a problem logging you in. Please try again.";
         })
 
-
     }
 
     //----------------------------------------------------------------------
@@ -107,10 +100,10 @@ export default class WelcomeCtrl extends BaseRoundCtrl<RoundModel>
         this.dataStore = {
             Round: new RoundModel(),
             ApplicationState: DataStore.ApplicationState,
+            ComponentFistma: this.ComponentFistma,
             SelectedSubround: null
         };        
         this.dataStore.Round.Name = "WELCOME";
-
   
         this.ComponentFistma.addOnEnter(this.ComponentStates.sub1, this.getContentBySubRound.bind(this));
         this.ComponentFistma.addOnEnter(this.ComponentStates.sub2, this.getContentBySubRound.bind(this));

@@ -1,8 +1,6 @@
 import { IRoundDataStore } from '../../../shared/base-sapien/client/BaseRoundCtrl';
 import * as React from 'react';
 import CustomerRoundCtrl from "./CustomerRoundCtrl";
-import RoundModel from "../../../shared/models/RoundModel";
-import EditableContentBlock from '../../../shared/base-sapien/client/shared-components/EditableContentBlock';
 import * as Semantic from 'semantic-ui-react';
 const { Button, Grid, Menu } = Semantic;
 const { Row, Column } = Grid;
@@ -16,6 +14,7 @@ class CustomerRound extends React.Component<RouteComponentProps<any>, IRoundData
     //  Properties
     //
     //----------------------------------------------------------------------
+    
     controller: CustomerRoundCtrl = CustomerRoundCtrl.GetInstance(this);
 
     public static CLASS_NAME = "CustomerRound";

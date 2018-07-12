@@ -101,7 +101,7 @@ export default class UserManagementCtrl extends BaseClientCtrl<any>
                                 console.log(r, Object.assign(new UserModel(), r))
                                 this.dataStore.Users = this.dataStore.Users.concat(Object.assign(new UserModel(), r))
                             }
-                            console.log("USERS ARE", AdminCtrl.GetInstance().dataStore.Users)
+                            console.log("USERS ARE", AdminCtrl.GetInstance().dataStore.Admin.Users)
                             this.dataStore.FormIsSubmitting = false;
                             this.closeModal();
                             ApplicationCtrl.GetInstance().addToast("Save successful")
@@ -116,7 +116,7 @@ export default class UserManagementCtrl extends BaseClientCtrl<any>
     public DeleteUser(user: UserModel){
         return SapienServerCom.DeleteData(user, SapienServerCom.BASE_REST_URL + "user").then(r => {
             this.dataStore.Users = this.dataStore.Users.filter(u => u._id != user._id);
-            console.log(AdminCtrl.GetInstance().dataStore.Users, this.dataStore.Users)
+            console.log(AdminCtrl.GetInstance().dataStore.Admin.Users, this.dataStore.Users)
             this.dataStore.DeletionUser = null; 
         })
     }

@@ -4,13 +4,12 @@ import GameModel from "../../shared/models/GameModel";
 import { Grid, Menu, Button, Segment } from 'semantic-ui-react';
 const { Column, Row } = Grid;
 import { Route, Switch, RouteComponentProps, withRouter } from "react-router";
-import { IGamePlayModel } from '../../shared/base-sapien/client/DataStore'
 import Circles from '-!svg-react-loader?name=Icon!../img/circles.svg';
 import {IControllerDataStore} from '../../shared/base-sapien/client/BaseClientCtrl';
 
 import { RoleName } from "../../shared/models/UserModel";
 
-class Game extends React.Component<RouteComponentProps<any>, IControllerDataStore & { Game: GameModel}>
+class Game extends React.Component<RouteComponentProps<any>, IControllerDataStore & {Game: GameModel}>
 {
     //----------------------------------------------------------------------
     //
@@ -33,7 +32,6 @@ class Game extends React.Component<RouteComponentProps<any>, IControllerDataStor
         
         this.state = this.controller.dataStore;
     }
-    
 
     //----------------------------------------------------------------------
     //
@@ -86,7 +84,7 @@ class Game extends React.Component<RouteComponentProps<any>, IControllerDataStor
                     {this.state.ApplicationState.CurrentUser && this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN &&
                         <Button
                             onClick={e => {
-                                this.controller.dataStore.CurrentUser.IsLeader = !this.controller.dataStore.CurrentUser.IsLeader
+                                this.controller.dataStore.ApplicationState.CurrentUser.IsLeader = !this.controller.dataStore.ApplicationState.CurrentUser.IsLeader
                                 this.controller.dataStoreChange()
                             }}
                         >

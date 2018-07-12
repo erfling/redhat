@@ -23,7 +23,6 @@ export default class AdminCtrl extends BaseClientCtrl<IControllerDataStore & {Ad
 
     private static _instance: AdminCtrl;
 
-
     public readonly ComponentStates = {
         game: GameList,
         gameDetail: GameDetail,
@@ -42,10 +41,9 @@ export default class AdminCtrl extends BaseClientCtrl<IControllerDataStore & {Ad
     private constructor(reactComp? : Component<any, any>) {
         super(null, reactComp || null);
        
-        if(reactComp){
-            this._setUpFistma(reactComp)
+        if (reactComp) {
+            this._setUpFistma(reactComp);
         }
-
     }
 
     
@@ -114,10 +112,9 @@ export default class AdminCtrl extends BaseClientCtrl<IControllerDataStore & {Ad
 
         this.dataStore = {
             Admin: DataStore.Admin,
+            ComponentFistma: this.ComponentFistma,
             ApplicationState: DataStore.ApplicationState
         }
-
-        this.dataStore.ComponentFistma = this.ComponentFistma;
     }
 
 }

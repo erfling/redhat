@@ -1,9 +1,9 @@
 'use strict';
 import { Component } from 'react';
 import BaseRoundCtrl from '../../../shared/base-sapien/client/BaseRoundCtrl';
-import RoundModel from '../../../shared/models/RoundModel';
+import { IRoundDataStore } from '../../../shared/base-sapien/client/BaseRoundCtrl';
 
-export default class EngineeringRoundCtrl extends BaseRoundCtrl<RoundModel>
+export default class EngineeringRoundCtrl extends BaseRoundCtrl<IRoundDataStore>
 {
     //----------------------------------------------------------------------
     //

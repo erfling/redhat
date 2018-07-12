@@ -5,8 +5,9 @@ const { Column, Row } = Grid;
 //import * as Icons from 'react-icons/lib/io';
 import { Route, Switch, RouteComponentProps, withRouter } from "react-router";
 import LoginCtrl from './LoginCtrl';
+import { IControllerDataStore } from "../../shared/base-sapien/client/BaseClientCtrl";
 
-class GameLogin extends React.Component<RouteComponentProps<any>, UserModel>
+class GameLogin extends React.Component<RouteComponentProps<any>, UserModel & IControllerDataStore>
 {
     //----------------------------------------------------------------------
     //

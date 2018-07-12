@@ -5,10 +5,10 @@ const Field = { Form }
 const { Column, Row } = Grid;
 //import * as Icons from 'react-icons/lib/io';
 import { Route, Switch, RouteComponentProps, withRouter } from "react-router";
-import LoginCtrl from './LoginCtrl'
-import ICommonComponentState from '../../shared/base-sapien/client/ICommonComponentState'
+import LoginCtrl from './LoginCtrl';
+import { IControllerDataStore } from "../../shared/base-sapien/client/BaseClientCtrl";
 
-class Join extends React.Component<RouteComponentProps<any>, UserModel & ICommonComponentState>
+class Join extends React.Component<RouteComponentProps<any>, UserModel & IControllerDataStore>
 {
     //----------------------------------------------------------------------
     //

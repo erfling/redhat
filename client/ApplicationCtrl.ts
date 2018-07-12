@@ -1,6 +1,5 @@
 import FiStMa from '../shared/entity-of-the-state/FiStMa';
 import UserModel, { RoleName } from '../shared/models/UserModel';
-import ApplicationViewModel from '../shared/models/ApplicationViewModel';
 import { Component } from 'react';
 import BaseClientCtrl, { IControllerDataStore } from '../shared/base-sapien/client/BaseClientCtrl';
 import ToastModel, {IToastProps} from "../shared/base-sapien/models/ToastModel";
@@ -8,7 +7,6 @@ import ToastModel, {IToastProps} from "../shared/base-sapien/models/ToastModel";
 import Game from './game/Game';
 import Admin from './admin/Admin'
 import Login from './login/Login'
-import ICommonComponentState from '../shared/base-sapien/client/ICommonComponentState';
 import DataStore from '../shared/base-sapien/client/DataStore';
 
 export default class ApplicationCtrl extends BaseClientCtrl<IControllerDataStore>

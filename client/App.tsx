@@ -1,18 +1,15 @@
 import * as React from "react";
-import { Sidebar, Menu, Segment, Button, Icon } from 'semantic-ui-react';
+import { Sidebar, Menu, Button, Icon } from 'semantic-ui-react';
 import ApplicationCtrl from './ApplicationCtrl';
 import { RouteComponentProps, withRouter } from "react-router";
-import UserModel, { RoleName } from '../shared/models/UserModel';
-import ICommonComponentState from '../shared/base-sapien/client/ICommonComponentState';
-import FiStMa from '../shared/entity-of-the-state/FiStMa';
 import DataStore from '../shared/base-sapien/client/DataStore'
 import SapienToast from '../shared/base-sapien/client/shared-components/SapienToast'
 import GameCtrl from "./game/GameCtrl";
 import { IControllerDataStore } from '../shared/base-sapien/client/BaseClientCtrl';
+import {RoleName} from '../shared/models/UserModel';
 
 class App extends React.Component<RouteComponentProps<any>, IControllerDataStore>
 {
-
     //----------------------------------------------------------------------
     //
     //  Properties

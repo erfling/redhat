@@ -20,7 +20,7 @@ import EngineeringRoundCtrl from './EngineeringRound/EngineeringRoundCtrl';
 import WelcomeCtrl from './Welcome/WelcomeCtrl';
 import ApplicationCtrl from '../ApplicationCtrl';
 
-export default class GameCtrl extends BaseClientCtrl<IControllerDataStore & { Game: GameModel}>
+export default class GameCtrl extends BaseClientCtrl<IControllerDataStore & {Game: GameModel}>
 {
     //----------------------------------------------------------------------
     //
@@ -116,7 +116,7 @@ export default class GameCtrl extends BaseClientCtrl<IControllerDataStore & { Ga
         console.log("MAPPING IS", mapping)
 
         if ( mapping.ParentRound && mapping.ChildRound ) {
-            SapienServerCom.SaveData(mapping, SapienServerCom.BASE_REST_URL + "facilitation/round/" + this.dataStore.CurrentTeam.GameId);
+            SapienServerCom.SaveData(mapping, SapienServerCom.BASE_REST_URL + "facilitation/round/" + this.dataStore.ApplicationState.CurrentTeam.GameId);
         }
 
     }
@@ -153,7 +153,7 @@ export default class GameCtrl extends BaseClientCtrl<IControllerDataStore & { Ga
         console.log("MAPPING IS", mapping)
 
         if ( mapping.ParentRound && mapping.ChildRound ) {
-            SapienServerCom.SaveData(mapping, SapienServerCom.BASE_REST_URL + "facilitation/round/" + this.dataStore.CurrentTeam.GameId);
+            SapienServerCom.SaveData(mapping, SapienServerCom.BASE_REST_URL + "facilitation/round/" + this.dataStore.ApplicationState.CurrentTeam.GameId);
         }
     }
 
@@ -209,12 +209,7 @@ export default class GameCtrl extends BaseClientCtrl<IControllerDataStore & { Ga
     }
 
     private _setUpFistma(reactComp: Component) {
-
         this.component = reactComp;
-        if (!this.dataStore) this.dataStore = {
-            Game: new GameModel(),
-            ComponentFistma: null
-        }
 
         this.ComponentFistma = new FiStMa(this.ComponentStates, this.ComponentStates.round0);
         console.log("GAME NAV INFO:",  this.ComponentFistma.currentState.WrappedComponent)
@@ -228,14 +223,18 @@ export default class GameCtrl extends BaseClientCtrl<IControllerDataStore & { Ga
         this.ComponentFistma.addOnEnter("*", this._onRoundEnter.bind(this));
         this.ComponentFistma.onInvalidTransition(this._onInvalidTrans);
 
+        if (!this.dataStore) this.dataStore = {
+            Game: new GameModel(),
+            ComponentFistma: this.ComponentFistma,
+            ApplicationState: DataStore.ApplicationState
+        }
 
-        DataStore.ApplicationState.CurrentUser = localStorage.getItem("RH_USER") ? Object.assign( new UserModel(), JSON.parse(localStorage.getItem("RH_USER") ) ) : new UserModel()        
-        DataStore.ApplicationState.CurrentTeam = localStorage.getItem("RH_TEAM") ? Object.assign( new TeamModel(), JSON.parse(localStorage.getItem("RH_TEAM") ) ) : new TeamModel()        
-        this.dataStore = DataStore.ApplicationState;        
-        this.dataStore.ComponentFistma = this.ComponentFistma;
+
+        DataStore.ApplicationState.CurrentUser = localStorage.getItem("RH_USER") ? Object.assign( new UserModel(), JSON.parse(localStorage.getItem("RH_USER") ) ) : new UserModel();      
+        DataStore.ApplicationState.CurrentTeam = localStorage.getItem("RH_TEAM") ? Object.assign( new TeamModel(), JSON.parse(localStorage.getItem("RH_TEAM") ) ) : new TeamModel();
 
         console.log("DATASTORE APPLICATION:", DataStore.ApplicationState)
-        this.pollForGameStateChange(this.dataStore.CurrentTeam.GameId)
+        this.pollForGameStateChange(this.dataStore.ApplicationState.CurrentTeam.GameId)
 
         this.component.componentDidMount = () => {
             if (this.component.props.location.search){
@@ -246,6 +245,5 @@ export default class GameCtrl extends BaseClientCtrl<IControllerDataStore & { Ga
             this.navigateOnClick.bind(this)(this.component.props.location.pathname);
         }
     }
-
 
 }

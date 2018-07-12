@@ -1,13 +1,12 @@
 import * as React from "react";
-import FiStMa from '../../shared/entity-of-the-state/FiStMa';
 import { Grid, Sidebar, Menu, Segment } from 'semantic-ui-react';
 const { Row, Column } = Grid;
 import { RouteComponentProps, withRouter} from "react-router";
 import AdminCtrl from './AdminCtrl';
-import ICommonComponentState from '../../shared/base-sapien/client/ICommonComponentState'
 import AdminViewModel from '../../shared/models/AdminViewModel';
+import { IControllerDataStore } from "../../shared/base-sapien/client/BaseClientCtrl";
 
-class Admin extends React.Component<RouteComponentProps<any>, AdminViewModel & ICommonComponentState & {ComponentFistma?: FiStMa<any>} >
+class Admin extends React.Component<RouteComponentProps<any>, IControllerDataStore & {Admin: AdminViewModel} >
 {
     //----------------------------------------------------------------------
     //

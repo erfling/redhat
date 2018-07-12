@@ -1,3 +1,4 @@
+import { IControllerDataStore } from './../../shared/base-sapien/client/BaseClientCtrl';
 import FiStMa from '../../shared/entity-of-the-state/FiStMa';
 import UserModel from '../../shared/models/UserModel';
 import SapienServerCom from '../../shared/base-sapien/client/SapienServerCom';
@@ -10,15 +11,13 @@ import ICommonComponentState from '../../shared/base-sapien/client/ICommonCompon
 import BaseClientCtrl from '../../shared/base-sapien/client/BaseClientCtrl';
 import ApplicationCtrl from '../ApplicationCtrl'
 
-export default class LoginCtrl extends BaseClientCtrl<UserModel & ICommonComponentState>
+export default class LoginCtrl extends BaseClientCtrl<UserModel & IControllerDataStore>
 {
     //----------------------------------------------------------------------
     //
     //  Properties
     //
     //----------------------------------------------------------------------
-    
-    dataStore: UserModel & ICommonComponentState;
 
     protected readonly ComponentStates = {
         game: GameLogin,

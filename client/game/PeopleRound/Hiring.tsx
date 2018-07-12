@@ -1,8 +1,6 @@
 import * as React from "react";
 import PeopleRoundCtrl from "./PeopleRoundCtrl";
-import RoundModel from "../../../shared/models/RoundModel";
 import { RoleName } from "../../../shared/models/UserModel";
-import ValueObj from '../../../shared/entity-of-the-state/ValueObj';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 import EditableContentBlock from '../../../shared/base-sapien/client/shared-components/EditableContentBlock';
 import EditableQuestionBlock from '../../../shared/base-sapien/client/shared-components/EditableQuestionBlock';
@@ -10,7 +8,7 @@ import * as Semantic from 'semantic-ui-react';
 import QuestionModel from "../../../shared/models/QuestionModel";
 import { IRoundDataStore } from '../../../shared/base-sapien/client/BaseRoundCtrl';
 
-const { Button, Grid, Menu, Segment, Form, Dimmer, Loader } = Semantic;
+const { Button, Grid, Form, Dimmer, Loader } = Semantic;
 const { Row, Column } = Grid;
 
 

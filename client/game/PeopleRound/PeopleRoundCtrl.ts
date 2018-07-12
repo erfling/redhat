@@ -78,10 +78,10 @@ export default class PeopleRoundCtrl extends BaseRoundCtrl<IRoundDataStore>
         // build response //
         //const response = new ResponseModel();
         response.Score = score;
-        response.TeamId = GameCtrl.GetInstance().dataStore.CurrentTeam._id;
+        response.TeamId = GameCtrl.GetInstance().dataStore.ApplicationState.CurrentTeam._id;
         response.QuestionId = question._id;
         response.RoundId = round._id;
-        response.GameId = GameCtrl.GetInstance().dataStore.CurrentTeam.GameId;
+        response.GameId = GameCtrl.GetInstance().dataStore.ApplicationState.CurrentTeam.GameId;
         // save response //
         this.SaveResponse(response, question, round);
     }
@@ -89,10 +89,10 @@ export default class PeopleRoundCtrl extends BaseRoundCtrl<IRoundDataStore>
     public Save1BResponse( resp: ResponseModel, question: QuestionModel, round: SubRoundModel ) {
         console.log(resp, question, round);
         resp.SiblingQuestionId = question.SiblingQuestionId;
-        resp.TeamId = GameCtrl.GetInstance().dataStore.CurrentTeam._id;
+        resp.TeamId = GameCtrl.GetInstance().dataStore.ApplicationState.CurrentTeam._id;
         resp.QuestionId = question._id;
         resp.RoundId = round._id;
-        resp.GameId = GameCtrl.GetInstance().dataStore.CurrentTeam.GameId;
+        resp.GameId = GameCtrl.GetInstance().dataStore.ApplicationState.CurrentTeam.GameId;
         // save response //
         return SapienServerCom.SaveData(resp, SapienServerCom.BASE_REST_URL + "gameplay/1bresponse").then(r => {
             console.log(r);
@@ -109,18 +109,17 @@ export default class PeopleRoundCtrl extends BaseRoundCtrl<IRoundDataStore>
 
     protected _setUpFistma(reactComp: Component){  
         console.log("PEOPLE ROUND IS", this);
-
         this.component = reactComp;
+        
         this.dataStore = {
             Round: new RoundModel(),
+            SelectedSubround: null,
+            ComponentFistma: this.ComponentFistma,
             ApplicationState: DataStore.ApplicationState,
-            SelectedSubround: null
         };
         this.dataStore.Round.Name = "PEOPLE";
         
         this.ComponentFistma.addOnEnter("*", this.getContentBySubRound.bind(this));
-
-        
 
         this.getContentBySubRound();
     }

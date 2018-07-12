@@ -1,7 +1,5 @@
 import * as React from "react";
 import EngineeringRoundCtrl from "./EngineeringRoundCtrl";
-import RoundModel from "../../../shared/models/RoundModel";
-import EditableContentBlock from '../../../shared/base-sapien/client/shared-components/EditableContentBlock';
 import * as Semantic from 'semantic-ui-react';
 import { withRouter, RouteComponentProps } from "react-router";
 import { IRoundDataStore } from '../../../shared/base-sapien/client/BaseRoundCtrl';
@@ -17,10 +15,10 @@ class EngineeringRound extends React.Component<RouteComponentProps<any>, IRoundD
     //  Properties
     //
     //----------------------------------------------------------------------
+    
     controller: EngineeringRoundCtrl = EngineeringRoundCtrl.GetInstance(this);
 
     public static CLASS_NAME = "EngineeringRound";
-
 
     //----------------------------------------------------------------------
     //

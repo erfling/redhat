@@ -1,17 +1,12 @@
 import * as React from "react";
 import WelcomeCtrl from "./WelcomeCtrl";
 import RoundModel from "../../../shared/models/RoundModel";
-import { RoleName } from "../../../shared/models/UserModel";
-import ValueObj from '../../../shared/entity-of-the-state/ValueObj';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
-import EditableContentBlock from '../../../shared/base-sapien/client/shared-components/EditableContentBlock';
 import * as Semantic from 'semantic-ui-react';
 const { Button, Grid, Menu, Segment, Form, Dimmer, Loader, Header, Message } = Semantic;
 const { Row, Column } = Grid;
-import Logo from '-!svg-react-loader?name=Icon!../../img/ss-logo.svg';
 import IntroLogo from '-!svg-react-loader?name=Icon!../../img/intro-logo.svg';
 import ICommonComponentState from "../../../shared/base-sapien/client/ICommonComponentState";
-
 
 class PlayerLogin extends React.Component<RouteComponentProps<any>, {Round: RoundModel, ApplicationState: ICommonComponentState}>
 {
