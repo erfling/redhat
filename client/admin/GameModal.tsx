@@ -5,8 +5,7 @@ import UserModel, { RoleName } from "../../shared/models/UserModel";
 import GameModel from "../../shared/models/GameModel";
 import { DateInput } from 'semantic-ui-calendar-react';
 
-interface UserModalProps{
-    User: UserModel;
+interface GameModalProps{
     Game: GameModel;
     Users: UserModel[];
     CloseFunction: () => void;
@@ -14,7 +13,7 @@ interface UserModalProps{
     Submitting: boolean
 }
 
-export default class GameModal extends React.Component< UserModalProps, {} >
+export default class GameModal extends React.Component< GameModalProps, {} >
 {
     //----------------------------------------------------------------------
     //
@@ -29,7 +28,7 @@ export default class GameModal extends React.Component< UserModalProps, {} >
     //
     //----------------------------------------------------------------------
 
-    constructor(props: UserModalProps) {
+    constructor(props: GameModalProps) {
         super(props);
     }
 
@@ -49,10 +48,10 @@ export default class GameModal extends React.Component< UserModalProps, {} >
     //----------------------------------------------------------------------
 
     render() {
-        const { User, Game,  CloseFunction, SaveFunction, Submitting, Users } = this.props
+        const {  Game,  CloseFunction, SaveFunction, Submitting, Users } = this.props
         return <>
                 <Modal open={Game != null} basic onClose={e => CloseFunction()}>
-                    <Modal.Header><Icon name="game" />Edit Game</Modal.Header>
+                    <Modal.Header><Icon name="game" />{Game._id != null ? "Edit" : "Create" } Game</Modal.Header>
                     <Modal.Content>
                         <Modal.Description>
                             <Form inverted>

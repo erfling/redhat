@@ -14,9 +14,9 @@ import * as moment from 'moment';
 import UserModel, { RoleName } from "../../shared/models/UserModel";
 import UserModal from './UserModal';
 import {IControllerDataStore} from '../../shared/base-sapien/client/BaseClientCtrl';
+import GameModal from './GameModal'
 
-
-class GameDetail extends React.Component<RouteComponentProps<any>, IControllerDataStore & {Admin: AdminViewModel}>
+class GameDetail extends React.Component<RouteComponentProps<any>, IControllerDataStore & {Admin: AdminViewModel} & {ShowUserModal: boolean, ShowGameModal: boolean, ShowTeamDeleteModal: boolean}>
 {
     //----------------------------------------------------------------------
     //
@@ -68,102 +68,14 @@ class GameDetail extends React.Component<RouteComponentProps<any>, IControllerDa
         if(this.state){
         return <>
         <pre>{this.state.ApplicationState && this.state.ApplicationState.ModalObject && JSON.stringify( this.state.ApplicationState.ModalObject.className, null, 2 )}</pre>
-            {this.state.ApplicationState && this.state.ApplicationState.ModalObject && this.state.ApplicationState.ModalObject.className == "GameModel" && 
-                <Modal open={this.state.ApplicationState.ModalOpen} basic onClose={e => this.controller.closeModal()}>
-                    <Modal.Header><Icon name="game" />Edit Game</Modal.Header>
-                    <Modal.Content>
-                        <Modal.Description>
-                            <Form inverted>
-                                <Form.Field>
-                                    <label>PIN (remove this soon)</label>
-                                    <Input
-                                        value={(this.state.ApplicationState.ModalObject as GameModel).GamePIN}
-                                        onChange={(e) => (this.state.ApplicationState.ModalObject as GameModel).GamePIN = parseInt((e.target as HTMLInputElement).value)}
-                                        placeholder="GamePIN"
-                                    />
-                                </Form.Field><Form.Field>
-                                    <label>Location</label>
-                                    <Input
-                                        value={(this.state.ApplicationState.ModalObject as GameModel).Location}
-                                        onChange={(e) => (this.state.ApplicationState.ModalObject as GameModel).Location = (e.target as HTMLInputElement).value}
-                                        placeholder="Location"
-                                    />
-                                </Form.Field>
-                                <Form.Field
-                                    onClick={e => {
-                                        setTimeout(() => {
-                                            let popup = document.querySelector("#suirCalendarPopup");
-                                            (popup.parentNode as HTMLDivElement).style.display = "none";
-
-                                            if (popup) {
-                                                (popup.parentNode as HTMLDivElement).style.filter = "none";
-                                                (popup.parentNode as HTMLDivElement).style['-webkit-filter'] = "none";
-                                                (popup.parentNode as HTMLDivElement).style.display = "block";
-                                            }
-                                        }, 1)
-                                    }}
-                                >
-                                    <label>Start Date</label>
-                                    <DateInput
-                                        name="date"
-                                        placeholder="Date"
-                                        value={this.controller.dataStore.ApplicationState.ModalObject.DatePlayed}
-                                        iconPosition="left"
-                                        dateFormat="MM/DD/YYYY"
-                                        onChange={(e, output) => {
-                                            this.controller.dataStore.ApplicationState.ModalObject.DatePlayed = output.value;
-                                        }} />
-                                </Form.Field>
-                                <Form.Field>
-                                    <label>Facilitator</label>
-                                    {this.state.Admin.Users &&
-                                        <Dropdown
-                                            placeholder='Select Facilitator'
-                                            fluid
-                                            search
-                                            selection
-                                            value={(this.state.ApplicationState.ModalObject as GameModel).Facilitator._id}
-                                            onChange={(e, output) => {
-                                                this.controller.dataStore.ApplicationState.ModalObject.Facilitator._id = output.value
-                                            }}
-                                            options={this.state.Admin.Users.filter(u => u.Role == RoleName.ADMIN).map((u, i) => {
-                                                return {
-                                                    text: u.FirstName + " " + u.LastName + " (" + u.Email + ")",
-                                                    value: u._id,
-                                                    key: i
-                                                }
-                                            })}
-                                        />
-                                    }
-                                </Form.Field>
-                            </Form>
-                        </Modal.Description>
-                    </Modal.Content>
-                    <Modal.Actions>
-                        <Button
-                            inverted
-                            color='red'
-                            icon='cancel'
-                            labelPosition="right"
-                            content="Cancel"
-                            onClick={e => this.controller.closeModal()}
-                        >
-                        </Button>
-                        <Button
-                            inverted
-                            color="blue"
-                            icon='check'
-                            labelPosition="right"
-                            content='Save Game'
-                            loading={this.state.ApplicationState.FormIsSubmitting}
-                            onClick={e => this.controller.saveGame(this.state.ApplicationState.ModalObject)
-                                                            .then(r => {
-                                                                console.warn("<<<<<<>>>>>>savedgame",r);
-                                                                this.setState(Object.assign(this.state, {SelectedGame: Object.assign(this.state.Admin.SelectedGame, r)}))}
-                                                            )}
-                        ></Button>
-                    </Modal.Actions>
-                </Modal>
+            {this.state && this.state.ShowGameModal &&
+                <GameModal
+                    Game={this.state.Admin.SelectedGame}
+                    Users={this.state.Admin.Users}
+                    CloseFunction={this.controller.closeModal.bind(this.controller)}
+                    SaveFunction={this.controller.saveGame.bind(this.controller)}
+                    Submitting= {this.state.ApplicationState.FormIsSubmitting}
+                />
             }
             <Segment
                 clearing

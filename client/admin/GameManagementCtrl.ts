@@ -108,8 +108,7 @@ export default class GameManagementCtrl extends BaseClientCtrl<IControllerDataSt
 
         this.dataStore.ApplicationState.ModalObject = Object.assign(new GameModel(), game) || new GameModel();
         if (!this.dataStore.ApplicationState.ModalObject.DatePlayed) this.dataStore.ApplicationState.ModalObject.DatePlayed = new Date().toLocaleDateString();
-        console.log("WE PASSED THIS GAME", game, game.className)
-
+        this.dataStore.ShowGameModal = true;
         this.openModal();
     }
 
@@ -241,6 +240,28 @@ export default class GameManagementCtrl extends BaseClientCtrl<IControllerDataSt
 
         this.dataStore.ComponentFistma = this.ComponentFistma;
 
+    }
+
+    OpenUserModal(user : UserModel){
+        this.dataStore.ApplicationState.ModalObject = user;
+        this.dataStore.ShowUserModal = true;
+    }
+
+    OpenGameModal(game : GameModel){
+        this.dataStore.ApplicationState.ModalObject = game;
+        this.dataStore.ShowGameModal = true;
+    }
+
+    OpenTeamModal(team : TeamModel){
+        this.dataStore.ApplicationState.ModalObject = team;
+        this.dataStore.ShowTeamDeleteModal = true;
+    }
+
+    closeModal(){
+        super.closeModal();
+        this.dataStore.ShowTeamDeleteModal = false;
+        this.dataStore.ShowGameModal = false;
+        this.dataStore.ShowUserModal = false;
     }
 
 }
