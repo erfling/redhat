@@ -1,14 +1,13 @@
 import * as React from "react";
 import WelcomeCtrl from "./WelcomeCtrl";
-import RoundModel from "../../../shared/models/RoundModel";
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 import * as Semantic from 'semantic-ui-react';
-const { Button, Grid, Menu, Segment, Form, Dimmer, Loader, Header, Message } = Semantic;
+const { Button, Grid, Form, Dimmer, Loader, Message } = Semantic;
 const { Row, Column } = Grid;
 import IntroLogo from '-!svg-react-loader?name=Icon!../../img/intro-logo.svg';
-import ICommonComponentState from "../../../shared/base-sapien/client/ICommonComponentState";
+import { IRoundDataStore } from "../../../shared/base-sapien/client/BaseRoundCtrl";
 
-class PlayerLogin extends React.Component<RouteComponentProps<any>, {Round: RoundModel, ApplicationState: ICommonComponentState}>
+class PlayerLogin extends React.Component<RouteComponentProps<any>, IRoundDataStore>
 {
     //----------------------------------------------------------------------
     //
@@ -47,7 +46,6 @@ class PlayerLogin extends React.Component<RouteComponentProps<any>, {Round: Roun
     //----------------------------------------------------------------------
 
     render() {
-
         if (this.state) {
             return <>
                 <Column width={16}>
