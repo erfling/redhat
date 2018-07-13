@@ -27,7 +27,8 @@ export default class GameModel extends BaseModel
     @dbProp({ParentRound: String, ChildRound: String})
     public CurrentRound: RoundChangeMapping = {
         ParentRound: "",
-        ChildRound: ""
+        ChildRound: "",
+        UserJobs: null
     };
 
     @dbProp(String)
