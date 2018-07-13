@@ -197,7 +197,7 @@ export default class GameCtrl extends BaseClientCtrl<IControllerDataStore & {Gam
             const targetJob = r.UserJobs[this.dataStore.ApplicationState.CurrentUser._id] || JobName.IC;
             this.dataStore.ApplicationState.CurrentUser.Job = targetJob;
 
-            ApplicationCtrl.GetInstance().addToast("Your game has been advanced to the next round.", "info");
+            ApplicationCtrl.GetInstance().addToast("The game is in a new round", "info");
             ApplicationCtrl.GetInstance().addToast("You're now playing the roll of " + targetJob, "info");
 
             this.pollForGameStateChange(gameId);
