@@ -105,9 +105,7 @@ export default class GameCtrl extends BaseClientCtrl<IControllerDataStore & {Gam
 
             //get the first component from the NEXT fistma
             
-
             mapping.ChildRound = this._childController.ComponentFistma.getFirst().WrappedComponent.CLASS_NAME;
-
         }
 
         console.log("MAPPING IS", mapping)
