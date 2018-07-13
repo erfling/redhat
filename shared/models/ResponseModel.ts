@@ -24,18 +24,16 @@ export default class ResponseModel extends BaseModel
         this._Answer = answer;
     }
     public get Answer() {
-        if(this._Answer && Array.isArray(this._Answer) && this._Answer.length == 1){
-
-            if(!isNaN(parseFloat(this._Answer[0].data))){
+        if (this._Answer && Array.isArray(this._Answer) && this._Answer.length == 1) {
+            if (!isNaN(parseFloat(this._Answer[0].data))) {
                 this._Answer[0].data = parseFloat(this._Answer[0].data);
             }
             return this._Answer[0];            
         }
-
         console.log("HERE'S YOUR ANSWER: ", this, this._Answer)
 
         return (this._Answer && this._Answer) ? (this._Answer as ValueObj[]).map(a => {
-            if(!isNaN(parseFloat(a.data))){
+            if (!isNaN(parseFloat(a.data))){
                 a.data = parseFloat(a.data);
             }
             return a;
@@ -67,5 +65,4 @@ export default class ResponseModel extends BaseModel
     @dbProp(String)
     public SiblingQuestionId: String = null;
 
-    
 }

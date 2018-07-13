@@ -3,7 +3,7 @@ import BaseModel, {dbProp} from '../../shared/base-sapien/models/BaseModel';
 import ContentBlock from './ContentBlock'
 import QuestionModel from "./QuestionModel";
 import SubRoundModel from "./SubRoundModel";
-import { Expose, Type } from "class-transformer";
+import { Type } from "class-transformer";
 import "reflect-metadata";
 
 export interface RoundShape extends BaseShape

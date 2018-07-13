@@ -4,7 +4,6 @@ import BaseModel, { dbProp } from "../base-sapien/models/BaseModel";
 import { ObjectID } from "bson";
 import ResponseModel from "./ResponseModel";
 
-
 export default class TeamModel extends BaseModel
 {
     //----------------------------------------------------------------------

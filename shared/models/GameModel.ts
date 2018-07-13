@@ -1,4 +1,4 @@
-import { BaseShape, dbProp } from './../base-sapien/models/BaseModel';
+import { dbProp } from './../base-sapien/models/BaseModel';
 import BaseModel from "../base-sapien/models/BaseModel";
 import TeamModel from "../models/TeamModel";
 import { Type } from 'class-transformer';
@@ -13,7 +13,7 @@ export default class GameModel extends BaseModel
     //
     //----------------------------------------------------------------------
 
-    public static REST_URL = "games"
+    public static REST_URL = "games"; //TODO: Do we need this? BaseModel already has instance prop of same name.
 
     public Name: string = "";
 

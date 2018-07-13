@@ -1,6 +1,6 @@
 import BaseModel, {dbProp} from '../../shared/base-sapien/models/BaseModel';
 import QuestionModel from "./QuestionModel";
-import { Expose, Type } from "class-transformer";
+import { Type } from "class-transformer";
 import "reflect-metadata";
 import ResponseModel from './ResponseModel';
 
