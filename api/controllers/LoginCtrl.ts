@@ -1,11 +1,6 @@
 import { Router, Request, Response, NextFunction } from 'express';
-import * as mongoose from 'mongoose';
 import UserModel, { RoleName } from '../../shared/models/UserModel';
-import BaseModel from '../../shared/base-sapien/models/BaseModel';
-import SchemaBuilder from '../SchemaBuilder';
-import * as Passport from 'passport'
-import * as PassportJWT from 'passport-jwt';
-import * as LocalStrategy from 'passport-local';
+import * as Passport from 'passport';
 import * as jwt from 'jsonwebtoken';
 import { monTeamModel } from './TeamCtrl'
 import { monGameModel } from './GameCtrl';

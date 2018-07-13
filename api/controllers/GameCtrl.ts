@@ -1,8 +1,6 @@
 import { Router, Request, Response, NextFunction } from 'express';
 import * as mongoose from 'mongoose';
 import SchemaBuilder from '../SchemaBuilder';
-import BaseModel from '../../shared/base-sapien/models/BaseModel';
-import RoundModel from '../../shared/models/RoundModel';
 import GameModel from '../../shared/models/GameModel';
 import { monTeamModel } from './TeamCtrl';
 import TeamModel from '../../shared/models/TeamModel';

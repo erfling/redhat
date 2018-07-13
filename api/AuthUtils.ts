@@ -5,8 +5,6 @@ import * as jwt from 'jsonwebtoken';
 import { monUserModel } from './controllers/UserCtrl'
 import * as bcrypt from 'bcrypt';
 import UserModel, { RoleName } from '../shared/models/UserModel';
-import { plainToClass, plainToClassFromExist, classToPlain } from 'class-transformer';
-import { INSPECT_MAX_BYTES } from 'buffer';
 import { NextFunction } from 'express';
 
 const LocagStrategy = PassportLocal.Strategy;
