@@ -2,7 +2,6 @@ import { BaseShape, dbProp } from './../base-sapien/models/BaseModel';
 import BaseModel from "../base-sapien/models/BaseModel";
 import TeamModel from "../models/TeamModel";
 import { Type } from 'class-transformer';
-import { ObjectID } from 'bson';
 import UserModel from './UserModel';
 import RoundChangeMapping from './RoundChangeMapping';
 
@@ -35,11 +34,11 @@ export default class GameModel extends BaseModel
     public DatePlayed: string = new Date().toLocaleDateString();
 
     @Type(() => TeamModel)
-    @dbProp([ObjectID])
+    @dbProp(String)
     public Teams: TeamModel[];
 
     @Type(() => UserModel)
-    @dbProp([ObjectID])
+    @dbProp(String)
     public Facilitator: UserModel = new UserModel()
 
     //----------------------------------------------------------------------
