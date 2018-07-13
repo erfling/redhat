@@ -8,7 +8,7 @@ import FinanceRound from './FinanceRound/FinanceRound';
 import CustomerRound from './CustomerRound/CustomerRound';
 import { Component } from 'react';
 import RoundModel from '../../shared/models/RoundModel';
-import UserModel from '../../shared/models/UserModel';
+import UserModel, { JobName } from '../../shared/models/UserModel';
 import RoundChangeMapping from '../../shared/models/RoundChangeMapping';
 import BaseClientCtrl, {IControllerDataStore} from '../../shared/base-sapien/client/BaseClientCtrl';
 import DataStore from '../../shared/base-sapien/client/DataStore';
@@ -195,7 +195,12 @@ export default class GameCtrl extends BaseClientCtrl<IControllerDataStore & {Gam
             this.dataStoreChange();
             this._childController.dataStoreChange();
 
+
+            const targetJob: JobName = (r as any).UserJobs[this.dataStore.ApplicationState.CurrentUser._id] || JobName.IC;
+            this.dataStore.ApplicationState.CurrentUser.Job = targetJob;
+
             ApplicationCtrl.GetInstance().addToast("Your game has been advanced to the next round.", "info");
+            ApplicationCtrl.GetInstance().addToast("You're now playing the roll of " + targetJob, "info");
 
             this.pollForGameStateChange(gameId);
         })
