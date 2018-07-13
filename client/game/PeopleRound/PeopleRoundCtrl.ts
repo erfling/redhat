@@ -8,7 +8,6 @@ import FiStMa from '../../../shared/entity-of-the-state/FiStMa';
 import ValueObj from '../../../shared/entity-of-the-state/ValueObj';
 import ResponseModel from '../../../shared/models/ResponseModel';
 import QuestionModel from '../../../shared/models/QuestionModel';
-import GameCtrl from '../GameCtrl';
 import SubRoundModel from '../../../shared/models/SubRoundModel';
 import DataStore from '../../../shared/base-sapien/client/DataStore'
 import SapienServerCom from '../../../shared/base-sapien/client/SapienServerCom';
@@ -78,10 +77,10 @@ export default class PeopleRoundCtrl extends BaseRoundCtrl<IRoundDataStore>
         // build response //
         //const response = new ResponseModel();
         response.Score = score;
-        response.TeamId = GameCtrl.GetInstance().dataStore.ApplicationState.CurrentTeam._id;
+        response.TeamId = this.dataStore.ApplicationState.CurrentTeam._id;
         response.QuestionId = question._id;
         response.RoundId = round._id;
-        response.GameId = GameCtrl.GetInstance().dataStore.ApplicationState.CurrentTeam.GameId;
+        response.GameId = this.dataStore.ApplicationState.CurrentTeam.GameId;
         // save response //
         this.SaveResponse(response, question, round);
     }
@@ -89,10 +88,10 @@ export default class PeopleRoundCtrl extends BaseRoundCtrl<IRoundDataStore>
     public Save1BResponse( resp: ResponseModel, question: QuestionModel, round: SubRoundModel ) {
         console.log(resp, question, round);
         resp.SiblingQuestionId = question.SiblingQuestionId;
-        resp.TeamId = GameCtrl.GetInstance().dataStore.ApplicationState.CurrentTeam._id;
+        resp.TeamId = this.dataStore.ApplicationState.CurrentTeam._id;
         resp.QuestionId = question._id;
         resp.RoundId = round._id;
-        resp.GameId = GameCtrl.GetInstance().dataStore.ApplicationState.CurrentTeam.GameId;
+        resp.GameId = this.dataStore.ApplicationState.CurrentTeam.GameId;
         // save response //
         return SapienServerCom.SaveData(resp, SapienServerCom.BASE_REST_URL + "gameplay/1bresponse").then(r => {
             console.log(r);

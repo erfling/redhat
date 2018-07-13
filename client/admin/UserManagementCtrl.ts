@@ -1,13 +1,6 @@
-import FiStMa from '../../shared/entity-of-the-state/FiStMa';
-import AdminViewModel from '../../shared/models/AdminViewModel';
-import ApplicationViewModel from '../../shared/models/ApplicationViewModel';
-import BaseController from "../../shared/entity-of-the-state/BaseController";
 import { Component } from 'react';
-import Game from '../game/Game';
-import Admin from './Admin';
-import DefaultAdmin from './DefaultAdmin'
 import BaseClientCtrl from '../../shared/base-sapien/client/BaseClientCtrl';
-import UserModel, { RoleName } from '../../shared/models/UserModel';
+import UserModel from '../../shared/models/UserModel';
 import SapienServerCom from '../../shared/base-sapien/client/SapienServerCom';
 import GameModel from '../../shared/models/GameModel';
 import AdminCtrl from './AdminCtrl';

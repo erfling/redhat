@@ -159,7 +159,7 @@ class App extends React.Component<RouteComponentProps<any>, IControllerDataStore
                                 {this.state.ApplicationState.CurrentUser && this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN &&
                                     <Button
                                         onClick={e => {
-                                            GameCtrl.GetInstance().dataStore.ApplicationState.CurrentUser.IsLeader = !GameCtrl.GetInstance().dataStore.ApplicationState.CurrentUser.IsLeader
+                                            this.state.ApplicationState.CurrentUser.IsLeader = !this.state.ApplicationState.CurrentUser.IsLeader
                                             GameCtrl.GetInstance().dataStoreChange()
                                         }}
                                     >
