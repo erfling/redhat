@@ -1,9 +1,7 @@
 import * as React from "react";
 import WelcomeCtrl from "./WelcomeCtrl";
-import RoundModel from "../../../shared/models/RoundModel";
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 import * as Semantic from 'semantic-ui-react';
-import { RoleName } from '../../../shared/models/UserModel';
 import { IRoundDataStore } from '../../../shared/base-sapien/client/BaseRoundCtrl';
 
 const { Button, Grid, Menu, Segment } = Semantic;

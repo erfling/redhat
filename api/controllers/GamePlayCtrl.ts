@@ -1,18 +1,10 @@
-import { AppServer } from '../AppServer'
-
 import { Router, Request, Response, NextFunction } from 'express';
 import * as mongoose from 'mongoose';
-import RoundModel from '../../shared/models/RoundModel';
-import BaseModel from '../../shared/base-sapien/models/BaseModel';
 import SchemaBuilder from '../SchemaBuilder';
-import TeamModel from '../../shared/models/TeamModel';
 import ResponseModel, { ResponseFetcher } from '../../shared/models/ResponseModel';
-import { monTeamModel } from './TeamCtrl'
-import { LongPollCtrl, LongPollRouter} from './LongPollCtrl'
+import { monTeamModel } from './TeamCtrl';
 import ValueObj from '../../shared/entity-of-the-state/ValueObj';
 import { monQModel } from './RoundCtrl';
-import QuestionModel from '../../shared/models/QuestionModel';
-import PossibleAnswerModel from '../../shared/models/PossibleAnswerModel';
 
 const schObj = SchemaBuilder.fetchSchema(ResponseModel);
 const monSchema = new mongoose.Schema(schObj);

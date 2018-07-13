@@ -1,6 +1,4 @@
 import { Router, Request, Response, NextFunction } from 'express';
-import LongPoll from '../../shared/base-sapien/api/LongPoll';
-import { AppServer } from '../AppServer'
 
 export class LongPollCtrl{
 

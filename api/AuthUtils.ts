@@ -5,8 +5,6 @@ import * as jwt from 'jsonwebtoken';
 import { monUserModel } from './controllers/UserCtrl'
 import * as bcrypt from 'bcrypt';
 import UserModel, { RoleName } from '../shared/models/UserModel';
-import { plainToClass, plainToClassFromExist, classToPlain } from 'class-transformer';
-import { INSPECT_MAX_BYTES } from 'buffer';
 import { NextFunction } from 'express';
 
 const LocagStrategy = PassportLocal.Strategy;
@@ -21,7 +19,7 @@ export default abstract class AuthUtils {
 
     public static SET_UP_PASSPORT(): void {
 
-        //Set up local strategy and check entered data against users collection for valid email and passwords
+        //Set up local strategy and check entered data against users collection for valid email and passwords 
         Passport.use(new LocagStrategy(
             {
                 usernameField: 'Email',

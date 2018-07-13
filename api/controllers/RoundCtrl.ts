@@ -1,7 +1,6 @@
 import { Router, Request, Response, NextFunction } from 'express';
 import * as mongoose from 'mongoose';
 import RoundModel from '../../shared/models/RoundModel';
-import BaseModel from '../../shared/base-sapien/models/BaseModel';
 import SchemaBuilder from '../SchemaBuilder';
 import SubRoundModel from '../../shared/models/SubRoundModel';
 

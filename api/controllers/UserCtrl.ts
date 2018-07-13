@@ -1,10 +1,8 @@
 import { Router, Request, Response, NextFunction } from 'express';
 import * as mongoose from 'mongoose';
 import UserModel, { RoleName } from '../../shared/models/UserModel';
-import BaseModel from '../../shared/base-sapien/models/BaseModel';
 import SchemaBuilder from '../SchemaBuilder';
 import Auth, {PERMISSION_LEVELS} from '../AuthUtils'; 
-import { plainToClass } from 'class-transformer';
 import EmailCtrl from './EmailCtrl';
 import * as Passport from 'passport'
 

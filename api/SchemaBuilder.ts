@@ -1,4 +1,3 @@
-import * as Mongoose from "mongoose";
 
 export default abstract class SchemaBuilder
 {
