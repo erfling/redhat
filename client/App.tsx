@@ -163,6 +163,7 @@ class App extends React.Component<RouteComponentProps<any>, IControllerDataStore
                                             GameCtrl.GetInstance().dataStoreChange()
                                         }}
                                     >
+                                        Show {this.state.ApplicationState.CurrentUser.IsLeader ? "IC" : "Leader"} Content
                                     </Button>
                                 }
                             </Menu.Item>
