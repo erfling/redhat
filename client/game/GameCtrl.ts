@@ -196,7 +196,7 @@ export default class GameCtrl extends BaseClientCtrl<IControllerDataStore & {Gam
             this._childController.dataStoreChange();
 
 
-            const targetJob: JobName = (r as any).UserJobs[this.dataStore.ApplicationState.CurrentUser._id] || JobName.IC;
+            const targetJob = r.UserJobs[this.dataStore.ApplicationState.CurrentUser._id] || JobName.IC;
             this.dataStore.ApplicationState.CurrentUser.Job = targetJob;
 
             ApplicationCtrl.GetInstance().addToast("Your game has been advanced to the next round.", "info");
