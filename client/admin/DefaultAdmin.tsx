@@ -1,8 +1,10 @@
 import * as React from "react";
 import { RouteComponentProps, withRouter} from "react-router";
 import AdminCtrl from './AdminCtrl';
+import {IControllerDataStore} from '../../shared/base-sapien/client/BaseClientCtrl';
+import AdminViewModel from '../../shared/models/AdminViewModel'
 
-class DefaultAdmin extends React.Component<RouteComponentProps<any>, any>
+class DefaultAdmin extends React.Component<RouteComponentProps<any>, IControllerDataStore & {Admin: AdminViewModel}>
 {
     //----------------------------------------------------------------------
     //
@@ -43,8 +45,7 @@ class DefaultAdmin extends React.Component<RouteComponentProps<any>, any>
     render() {
         const DashBoardComponent = this.controller.ComponentFistma.currentState;
         return <>
-            {this.state.CurrentUser && <h2>Welcome, {this.state.CurrentUser.FirstName}</h2>}
-            {!this.state.CurrentUser && <h2>YO</h2>}
+            {this.state.ApplicationState.CurrentUser && <h2>Welcome, {this.state.ApplicationState.CurrentUser.FirstName}</h2>}
         </>;
     }
 
