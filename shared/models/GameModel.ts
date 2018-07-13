@@ -23,23 +23,24 @@ export default class GameModel extends BaseModel
     @dbProp(String)
     public Location: string = "";
 
-    @dbProp({ParentRound: String, ChildRound: String, UserJobs: {} })
-    public CurrentRound: RoundChangeMapping = {
-        ParentRound: "",
-        ChildRound: "",
-        UserJobs: null
-    };
+    @dbProp({GameId: String, ParentRound: String, ChildRound: String, UserJobs: {} })
+    public CurrentRound: RoundChangeMapping = new RoundChangeMapping();
 
     @dbProp(String)
     public DatePlayed: string = new Date().toLocaleDateString();
 
     @Type(() => TeamModel)
-    @dbProp(String)
+    @dbProp([String])
     public Teams: TeamModel[];
 
     @Type(() => UserModel)
     @dbProp(String)
     public Facilitator: UserModel = new UserModel()
+
+    @dbProp([String])
+    public HasBeenManager = [];
+
+    public VisitedRoundsMapping: {[key:string]: RoundChangeMapping};
 
     //----------------------------------------------------------------------
     //

@@ -5,6 +5,13 @@ import GameModel from '../../shared/models/GameModel';
 import { monTeamModel } from './TeamCtrl';
 import TeamModel from '../../shared/models/TeamModel';
 import MathUtil from '../../shared/entity-of-the-state/MathUtil'
+import RoundChangeMapping from '../../shared/models/RoundChangeMapping';
+
+
+const mappingSchObj = SchemaBuilder.fetchSchema(RoundChangeMapping);
+const monMappingSchema = new mongoose.Schema(mappingSchObj);
+export const monMappingModel = mongoose.model("roundchangemapping", monMappingSchema);
+
 
 const schObj = SchemaBuilder.fetchSchema(GameModel);
 schObj.Facilitator = { type: mongoose.Schema.Types.ObjectId, ref: "user" }

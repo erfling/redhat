@@ -5,6 +5,7 @@ import * as mongoose from 'mongoose';
 import * as bodyParser from 'body-parser';
 import * as Passport from 'passport'
 import LoginCtrl from './controllers/LoginCtrl';
+import { monMappingModel } from './controllers/GameCtrl';
 import UserCtrl from './controllers/UserCtrl';
 import AuthUtils from './AuthUtils';
 import GameCtrl, { monGameModel } from './controllers/GameCtrl';
@@ -12,6 +13,8 @@ import GameModel from '../shared/models/GameModel'
 import TeamCtrl from './controllers/TeamCtrl';
 import GamePlayCtrl from './controllers/GamePlayCtrl';
 import LongPoll from '../shared/base-sapien/api/LongPoll';
+import RoundChangeMapping from '../shared/models/RoundChangeMapping';
+import { JobName } from '../shared/models/UserModel';
 
 export class AppServer {
 
@@ -21,7 +24,7 @@ export class AppServer {
     public static router: express.Router = express.Router();
     public static httpServer = http.createServer(AppServer.app);
 
-    private constructor(){}
+    private constructor() { }
 
     static onError(error: NodeJS.ErrnoException): void {
         if (error.syscall !== 'listen') throw error;
@@ -88,25 +91,23 @@ export class AppServer {
         });
 
         //GZIP large resources in production
-        console.log("ENVIRONMENT IS:", process.env.NODE_ENV )
-        if(process.env.NODE_ENV && process.env.NODE_ENV.indexOf("prod") != -1){
-
+        console.log("ENVIRONMENT IS:", process.env.NODE_ENV)
+        if (process.env.NODE_ENV && process.env.NODE_ENV.indexOf("prod") != -1) {
             AppServer.app
                 .get('*.js', function (req, res, next) {
                     req.url = req.url + '.gz';
                     res.set('Content-Encoding', 'gzip');
-                    res.set('Content-Type', 'text/javascript');                
+                    res.set('Content-Type', 'text/javascript');
                     console.log("GZIP ON: ", req.url)
                     next();
                 })
                 .get('*.css', function (req, res, next) {
                     req.url = req.url + '.gz';
                     res.set('Content-Encoding', 'gzip');
-                    res.set('Content-Type', 'text/css');                
+                    res.set('Content-Type', 'text/css');
                     console.log("GZIP ON: ", req.url)
                     next();
                 })
-
         }
 
         AppServer.app.use('/', AppServer.router)
@@ -117,12 +118,64 @@ export class AppServer {
             .use('/sapien/api/user', UserCtrl)
             .use('/sapien/api/gameplay', Passport.authenticate('jwt', { session: false }), GamePlayCtrl)
             .post('/sapien/api/facilitation/round/:gameid', Passport.authenticate('jwt', { session: false }), async (req, res) => {
-                console.log(req.body);
-                // Update Game object on DB
-                const gameSave = await monGameModel.findByIdAndUpdate(req.params.gameid, {CurrentRound: req.body});
-                if (gameSave) {
-                    AppServer.LongPoll.publishToId("/listenforgameadvance/:gameid", req.params.gameid , req.body);
-                    res.json("long poll publish hit");
+                console.log("HIT HERe",req.body);
+                try {
+                    const mapping: RoundChangeMapping = Object.assign(new RoundChangeMapping(), req.body);
+                    const game: GameModel = await monGameModel.findById(req.params.gameid).populate("Teams").then(g => Object.assign(new GameModel(), g.toJSON()));
+                    //Pick role for each player on each team
+                    //TODO: get rid of magic string
+                    mapping.UserJobs = {};
+
+                    var oldMapping: RoundChangeMapping = await monMappingModel.findOne({ GameId: game._id, ParentRound: mapping.ParentRound }).then(r => r ? Object.assign(new RoundChangeMapping(), r.toJSON()) : null);
+                    console.log(oldMapping);
+                    if (!oldMapping) {
+                        if (mapping.ParentRound == "EngineeringRound") {
+                            game.Teams.forEach(t => {
+                                var managerAssigned = false;
+                                for (let i = 0; i < t.Players.length; i++) {
+                                    let pid = t.Players[i].toString();
+                                    console.log(typeof pid, pid)
+                                    if (game.HasBeenManager.indexOf(pid) == -1 && !managerAssigned) {
+                                        game.HasBeenManager.push(pid);
+                                        mapping.UserJobs[pid] = JobName.MANAGER;
+                                        managerAssigned = true;
+                                    } else {
+                                        mapping.UserJobs[pid] = i % 2 ? JobName.INTEGRATED_SYSTEMS : JobName.CHIPCO;
+                                    }
+                                }
+
+                            })
+                        } else {
+                            game.Teams.forEach(t => {
+                                for (let i = 0; i < t.Players.length; i++) {
+                                    let pid = t.Players[i].toString();
+                                    if (game.HasBeenManager.indexOf(pid) == -1 /*&& *this isn't round 5 for a 4 player team*/) {
+                                        game.HasBeenManager.push(pid);
+                                        mapping.UserJobs[pid] = JobName.MANAGER;
+                                        break;
+                                    }
+                                }
+                            })
+                        }
+
+                        mapping.GameId = game._id;
+                        var newMapping:RoundChangeMapping = await monMappingModel.create(mapping).then(r => Object.assign(new RoundChangeMapping(), r.toJSON()))
+                    }
+
+                    if (( !newMapping || !newMapping.ParentRound.length ) && !oldMapping) {
+                        throw new Error("Couldn't make mapping")
+                    }
+                    // Update Game object on DB
+                    const gameSave = await monGameModel.findByIdAndUpdate(req.params.gameid, { CurrentRound: req.body, HasBeenManager: game.HasBeenManager });
+                    if (gameSave) {
+                        var mapperydoo = (newMapping && newMapping.ParentRound.length) ? newMapping : oldMapping;
+                        AppServer.LongPoll.publishToId("/listenforgameadvance/:gameid", req.params.gameid, mapperydoo);
+                        res.json("long poll publish hit");
+                    }
+                }
+                catch(err) {
+                    console.log(err)
+                    res.send(err)
                 }
             })
             .use('/assets', express.static("dist/assets"))
