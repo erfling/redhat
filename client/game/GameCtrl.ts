@@ -196,6 +196,10 @@ export default class GameCtrl extends BaseClientCtrl<IControllerDataStore & {Gam
             ApplicationCtrl.GetInstance().addToast("You're now playing the roll of " + targetJob, "info");
 
             this.pollForGameStateChange(gameId);
+        }).catch(() => {
+            setTimeout(() => {
+                this.pollForGameStateChange.bind(this)(gameId);
+            }, 2000);
         })
     }
 

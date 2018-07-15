@@ -4,7 +4,7 @@ import * as Semantic from 'semantic-ui-react';
 import { withRouter, RouteComponentProps } from "react-router";
 import { IRoundDataStore } from '../../../shared/base-sapien/client/BaseRoundCtrl';
 
-const { Button, Grid, Menu } = Semantic;
+const { Button, Grid, Menu, Segment, Loader } = Semantic;
 const { Row, Column } = Grid;
 
 
@@ -15,7 +15,7 @@ class EngineeringRound extends React.Component<RouteComponentProps<any>, IRoundD
     //  Properties
     //
     //----------------------------------------------------------------------
-    
+
     controller: EngineeringRoundCtrl = EngineeringRoundCtrl.GetInstance(this);
 
     public static CLASS_NAME = "EngineeringRound";
@@ -49,24 +49,31 @@ class EngineeringRound extends React.Component<RouteComponentProps<any>, IRoundD
     //  Methods
     //
     //----------------------------------------------------------------------
-
+    // 
     render() {
-        return <>
+        if (this.state && this.controller.ComponentFistma) {
+            const SubRnd = this.controller.ComponentFistma.currentState;
 
-            <Row>
-                <Column computer={12} mobile={16} tablet={16}>
-                    <h1>ROUND TWO: BUILD THE SOLUTION</h1>
+            return <>
+                <Column width={16}>
+                    <Grid>
+                        <Column mobile={16} tablet={12} computer={8} largeScreen={6} >
+                            <Row>
+                                <Column computer={12} mobile={16} tablet={16}>
+                                    <h3>Round 2: <small>build the solution</small></h3>
+                                </Column>
+                            </Row>
+                            <Grid>
+                                <SubRnd />
+                            </Grid>
+                        </Column>
+                    </Grid>
                 </Column>
-            </Row>
-            <Grid
-                padded={true}
-            >
-                
-            </Grid>
-            <Row>
-                Form content goes here
-            </Row>
-        </>;
+
+            </>
+        } else {
+            return <Segment loading></Segment>
+        }
     }
 
 }

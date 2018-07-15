@@ -18,7 +18,7 @@ export default class ResponseModel extends BaseModel
     //
     //----------------------------------------------------------------------
 
-    @dbProp([{label: String, value: String}])
+    @dbProp([{label: String, data: String}])
     private _Answer: ValueObj[] | ValueObj = [new ValueObj()];
     public set Answer(answer: ValueObj[] | ValueObj) {
         this._Answer = answer;
@@ -30,7 +30,6 @@ export default class ResponseModel extends BaseModel
             }
             return this._Answer[0];            
         }
-        console.log("HERE'S YOUR ANSWER: ", this, this._Answer)
 
         return (this._Answer && this._Answer) ? (this._Answer as ValueObj[]).map(a => {
             if (!isNaN(parseFloat(a.data))){

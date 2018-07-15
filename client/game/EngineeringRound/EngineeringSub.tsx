@@ -96,7 +96,16 @@ class EngineeringSub extends React.Component<RouteComponentProps<any>, IRoundDat
                                     }}
                                     IsEditable={this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN}
                                 />
-                                
+                                <Button
+                                    content='Save'
+                                    icon='checkmark'
+                                    labelPosition='right'
+                                    color='blue'
+                                    loading={this.state.ApplicationState.FormIsSubmitting }
+                                    onClick={e => {
+                                        this.controller.SaveResponse(q.Response, q, thisSubRound)
+                                    }}
+                                />
                             </Row>
                         }
                         )}

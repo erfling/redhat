@@ -88,7 +88,6 @@ class Game extends React.Component<RouteComponentProps<any>, IControllerDataStor
                                 this.controller.dataStoreChange()
                             }}
                         >
-                        hello?
                             Show {this.state.ApplicationState.CurrentUser.IsLeader ? "IC" : "Leader"} Content
                         </Button>
                     }

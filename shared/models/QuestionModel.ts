@@ -5,6 +5,7 @@ import ResponseModel from "./ResponseModel";
 export enum QuestionType {
     PRIORITY = "PRIORITY",
     MULTIPLE_CHOICE ="MULTIPLE_CHOICE",
+    TOGGLE ="TOGGLE",
     SLIDER = "SLIDER"
 }
 

@@ -65,6 +65,10 @@ export default class EngineeringRoundCtrl extends BaseRoundCtrl<IRoundDataStore>
             ApplicationState: DataStore.ApplicationState,
         };
         this.dataStore.Round.Name = "ENGINEERING";
+
+        this.ComponentFistma.addOnEnter("*", this.getContentBySubRound.bind(this));
+
+        this.getContentBySubRound();
     }
 
 }

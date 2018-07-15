@@ -126,7 +126,8 @@ export class AppServer {
                     //TODO: get rid of magic string
                     mapping.UserJobs = {};
 
-                    var oldMapping: RoundChangeMapping = await monMappingModel.findOne({ GameId: game._id, ParentRound: mapping.ParentRound }).then(r => r ? Object.assign(new RoundChangeMapping(), r.toJSON()) : null);
+                    //make sure the current mapping has the correct child round
+                    var oldMapping: RoundChangeMapping = await monMappingModel.findOneAndUpdate({ GameId: game._id, ParentRound: mapping.ParentRound }, {ChildRound: mapping.ChildRound}).then(r => r ? Object.assign(new RoundChangeMapping(), r.toJSON()) : null);
                     console.log(oldMapping);
                     if (!oldMapping) {
                         if (mapping.ParentRound == "EngineeringRound") {
