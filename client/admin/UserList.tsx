@@ -7,8 +7,9 @@ import AdminViewModel from '../../shared/models/AdminViewModel';
 import ICommonComponentState from '../../shared/base-sapien/client/ICommonComponentState';
 import UserModel, { RoleName } from "../../shared/models/UserModel";
 import UserModal from "./UserModal";
+import {IControllerDataStore} from '../../shared/base-sapien/client/BaseClientCtrl';
 
-class UserList extends React.Component<RouteComponentProps<any>, AdminViewModel & ICommonComponentState & {DeletionUser: UserModel}>
+class UserList extends React.Component<RouteComponentProps<any>, IControllerDataStore & {Admin: AdminViewModel}>
 {
     //----------------------------------------------------------------------
     //
@@ -49,12 +50,12 @@ class UserList extends React.Component<RouteComponentProps<any>, AdminViewModel 
 
     render() {
         return <>
-            {this.state.DeletionUser &&
-                <Modal open={this.state.DeletionUser != null} basic onClose={e => this.controller.closeModal()}>
+            {this.state.Admin.DeletionUser &&
+                <Modal open={this.state.Admin.DeletionUser != null} basic onClose={e => this.controller.closeModal()}>
                     <Modal.Header color="red"><Icon name="remove user"/>Delete User</Modal.Header>
                     <Modal.Content>
                         <Modal.Description>
-                            Are you sure you want to <strong>permanently delete {this.state.DeletionUser.FirstName + " " + this.state.DeletionUser.LastName}</strong>?
+                            Are you sure you want to <strong>permanently delete {this.state.Admin.DeletionUser.FirstName + " " + this.state.Admin.DeletionUser.LastName}</strong>?
                         </Modal.Description>
                     </Modal.Content>
                     <Modal.Actions>
@@ -64,7 +65,7 @@ class UserList extends React.Component<RouteComponentProps<any>, AdminViewModel 
                             icon='cancel'
                             labelPosition="right"
                             content="Cancel"
-                            onClick={e => this.controller.dataStore.DeletionUser = null}
+                            onClick={e => this.controller.dataStore.Admin.DeletionUser = null}
                         >
                         </Button>
                         <Button
@@ -73,18 +74,18 @@ class UserList extends React.Component<RouteComponentProps<any>, AdminViewModel 
                             icon='remove user'
                             labelPosition="right"
                             content='Permanently Delete User'
-                            loading={this.state.FormIsSubmitting}
-                            onClick={e => this.controller.DeleteUser(this.state.DeletionUser)}
+                            loading={this.state.ApplicationState.FormIsSubmitting}
+                            onClick={e => this.controller.DeleteUser(this.state.Admin.DeletionUser)}
                         ></Button>
                     </Modal.Actions>
                 </Modal>
 
             }
-            {this.state.ModalObject && <UserModal
-                User={this.state.ModalObject}
+            {this.state.ApplicationState.ModalObject && <UserModal
+                User={this.state.ApplicationState.ModalObject}
                 CloseFunction={this.controller.closeModal.bind(this.controller)}
                 SaveFunction={this.controller.saveUser.bind(this.controller)}
-                Submitting={this.state.FormIsSubmitting}
+                Submitting={this.state.ApplicationState.FormIsSubmitting}
             />}
             <Segment 
                 clearing
@@ -109,7 +110,7 @@ class UserList extends React.Component<RouteComponentProps<any>, AdminViewModel 
                     </Button>
             </Segment>
             <Segment
-                loading={this.state.IsLoading}
+                loading={this.state.ApplicationState.IsLoading}
             >
                 <Table striped>
                     <Table.Header>
@@ -125,7 +126,7 @@ class UserList extends React.Component<RouteComponentProps<any>, AdminViewModel 
                     </Table.Header>
 
                     <Table.Body>
-                        {this.state.Users && this.state.Users.filter(u => u.Role == RoleName.ADMIN).map((u, i) =>
+                        {this.state.Admin.Users && this.state.Admin.Users.filter(u => u.Role == RoleName.ADMIN).map((u, i) =>
                             <Table.Row key={i}>
                                 <Table.Cell textAlign="center">
                                     <Popup
@@ -144,7 +145,7 @@ class UserList extends React.Component<RouteComponentProps<any>, AdminViewModel 
                                             color="red"
                                             circular
                                             icon='remove user'
-                                            onClick={e => this.controller.dataStore.DeletionUser = u}
+                                            onClick={e => this.controller.dataStore.Admin.DeletionUser = u}
                                         ></Button>}
                                         header={u.FirstName + " " + u.LastName}
                                         content="Delete User"
@@ -171,7 +172,7 @@ class UserList extends React.Component<RouteComponentProps<any>, AdminViewModel 
                 </Table>
             </Segment>
             <Segment
-                loading={this.state.IsLoading}
+                loading={this.state.ApplicationState.IsLoading}
             >
                 <Table striped>
                     <Table.Header>
@@ -191,7 +192,7 @@ class UserList extends React.Component<RouteComponentProps<any>, AdminViewModel 
                     </Table.Header>
 
                     <Table.Body>
-                        {this.state.Users && this.state.Users.filter(u => u.Role == RoleName.PLAYER).map((u, i) =>
+                        {this.state.Admin.Users && this.state.Admin.Users.filter(u => u.Role == RoleName.PLAYER).map((u, i) =>
                             <Table.Row key={i}>
                                 <Table.Cell textAlign="center">
                                 <Popup
@@ -210,7 +211,7 @@ class UserList extends React.Component<RouteComponentProps<any>, AdminViewModel 
                                             color="red"
                                             circular
                                             icon='remove user'
-                                            onClick={e => this.controller.dataStore.DeletionUser = u}
+                                            onClick={e => this.controller.dataStore.Admin.DeletionUser = u}
                                         ></Button>}
                                         header={u.FirstName + " " + u.LastName}
                                         content="Delete User"

@@ -1,12 +1,14 @@
 import { Component } from 'react';
-import BaseClientCtrl from '../../shared/base-sapien/client/BaseClientCtrl';
+import BaseClientCtrl, {IControllerDataStore} from '../../shared/base-sapien/client/BaseClientCtrl';
 import UserModel from '../../shared/models/UserModel';
 import SapienServerCom from '../../shared/base-sapien/client/SapienServerCom';
 import GameModel from '../../shared/models/GameModel';
 import AdminCtrl from './AdminCtrl';
 import ApplicationCtrl from '../ApplicationCtrl';
+import DataStore from '../../shared/base-sapien/client/DataStore';
+import AdminViewModel from '../../shared/models/AdminViewModel';
 
-export default class UserManagementCtrl extends BaseClientCtrl<any>
+export default class UserManagementCtrl extends BaseClientCtrl<IControllerDataStore & {Admin: AdminViewModel}>
 {
     //----------------------------------------------------------------------
     //
@@ -49,9 +51,6 @@ export default class UserManagementCtrl extends BaseClientCtrl<any>
     //
     //----------------------------------------------------------------------
 
-    private _onRoundEnter(fromState:React.Component<{}, any>): void {
-        console.log("Entered round", this.dataStore.RoundsFistma.currentState, "from round", fromState);
-    }
 
     //----------------------------------------------------------------------
     //
@@ -62,40 +61,40 @@ export default class UserManagementCtrl extends BaseClientCtrl<any>
     public getAllGames(){
         return SapienServerCom.GetData(null, null, SapienServerCom.BASE_REST_URL + "games").then(r => {
 
-            this.dataStore.Games = r;
-            this.dataStore.IsLoading = false;
+            this.dataStore.Admin.Games = r;
+            this.dataStore.ApplicationState.IsLoading = false;
         })
     }
 
     public getAllUsers(){
-        if(!this.dataStore.Users || !this.dataStore.Users.length){
+        if(!this.dataStore.Admin.Users || !this.dataStore.Admin.Users.length){
             return SapienServerCom.GetData(null, null, SapienServerCom.BASE_REST_URL + "user").then(r => {
                 console.log("Users ARE: ",r)
-                this.dataStore.Users = r;            
-                this.dataStore.IsLoading = false;
+                this.dataStore.Admin.Users = r;            
+                this.dataStore.ApplicationState.IsLoading = false;
             })
         }
     }
 
     public createOrEditUser(user?: UserModel){
-        this.dataStore.ModalObject = Object.assign(new UserModel(), user) || new GameModel();
+        this.dataStore.ApplicationState.ModalObject = Object.assign(new UserModel(), user) || new GameModel();
         this.openModal();
     }
     
     public saveUser(user: UserModel){
-        this.dataStore.FormIsSubmitting = true;
+        this.dataStore.ApplicationState.FormIsSubmitting = true;
         SapienServerCom.SaveData(user, SapienServerCom.BASE_REST_URL + "user")
                         .then(r => {
                             if(user._id){
-                                this.dataStore.Users = this.dataStore.Users.map(u => {
+                                this.dataStore.Admin.Users = this.dataStore.Admin.Users.map(u => {
                                     return u._id == user._id ? Object.assign(user, r) : u
                                 })
                             } else {
                                 console.log(r, Object.assign(new UserModel(), r))
-                                this.dataStore.Users = this.dataStore.Users.concat(Object.assign(new UserModel(), r))
+                                this.dataStore.Admin.Users = this.dataStore.Admin.Users.concat(Object.assign(new UserModel(), r))
                             }
                             console.log("USERS ARE", AdminCtrl.GetInstance().dataStore.Admin.Users)
-                            this.dataStore.FormIsSubmitting = false;
+                            this.dataStore.ApplicationState.FormIsSubmitting = false;
                             this.closeModal();
                             ApplicationCtrl.GetInstance().addToast("Save successful")
 
@@ -108,9 +107,33 @@ export default class UserManagementCtrl extends BaseClientCtrl<any>
 
     public DeleteUser(user: UserModel){
         return SapienServerCom.DeleteData(user, SapienServerCom.BASE_REST_URL + "user").then(r => {
-            this.dataStore.Users = this.dataStore.Users.filter(u => u._id != user._id);
-            console.log(AdminCtrl.GetInstance().dataStore.Admin.Users, this.dataStore.Users)
-            this.dataStore.DeletionUser = null; 
+            this.dataStore.Admin.Users = this.dataStore.Admin.Users.filter(u => u._id != user._id);
+            console.log(AdminCtrl.GetInstance().dataStore.Admin.Users, this.dataStore.Admin.Users)
+            this.dataStore.Admin.DeletionUser = null; 
         })
+    }
+
+    private _setUpFistma(reactComp: Component) {
+
+        this.component = reactComp;
+        this.dataStore = {
+            Admin: DataStore.Admin,
+            ApplicationState: DataStore.ApplicationState,
+            ComponentFistma: null
+        }
+
+
+        if (this.component.componentWillMount == undefined) {
+            this.component.componentWillMount = () => {
+                //this.component.constructor.super(this.component.props).componentWillMount()
+                console.log("MOUNTED: ", this.component, this.component.props.location.pathname);
+                this.navigateOnClick(this.component.props.location.pathname);
+                this.getAllGames();
+                this.getAllUsers();
+            }
+        }
+
+        this.dataStore.ComponentFistma = this.ComponentFistma;
+
     }
 }
