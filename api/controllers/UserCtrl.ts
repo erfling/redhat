@@ -177,8 +177,6 @@ class RoundRouter
                 }
             )
             new LoginCtrlClass().AdminLogin(req, res)
-            //res.json(savedUser);
-            //next(req, res, null);
         }catch{
             res.json("password not updated")
         }
@@ -224,8 +222,7 @@ class RoundRouter
         this.router.use("/usersetpassword", 
             Passport.authenticate('jwt', {session: false}),
             //(req, res, next) => Auth.IS_USER_AUTHORIZED(req, res, next, PERMISSION_LEVELS.ADMIN), 
-            this.SetNewUserPassword.bind(this),
-            (req, res, next) => new LoginCtrlClass().AdminLogin(req, res)
+            this.SetNewUserPassword.bind(this)
         );
 
         this.router.get("/startfirstlogin", 

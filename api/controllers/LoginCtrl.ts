@@ -8,6 +8,7 @@ import GameModel from '../../shared/models/GameModel';
 import { monUserModel } from './UserCtrl';
 import TeamModel from '../../shared/models/TeamModel';
 
+//this class is exported for use in other routers
 export class LoginCtrlClass
 {
     //----------------------------------------------------------------------
@@ -152,5 +153,6 @@ export class LoginCtrlClass
     }
 }
 
+//this is exported along with the above class so that the above can be used in other routers
 const LoginCtrl = new LoginCtrlClass().router
 export default LoginCtrl;
