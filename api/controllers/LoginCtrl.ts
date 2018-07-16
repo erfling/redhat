@@ -8,7 +8,7 @@ import GameModel from '../../shared/models/GameModel';
 import { monUserModel } from './UserCtrl';
 import TeamModel from '../../shared/models/TeamModel';
 
-class LoginCtrl
+export class LoginCtrlClass
 {
     //----------------------------------------------------------------------
     //
@@ -96,8 +96,9 @@ class LoginCtrl
     }
     
     public async AdminLogin(req: Request, res: Response):Promise<any> {
-        const user = req.body as UserModel;
         console.log("USER", req.body);
+
+        const user = req.body as UserModel;
         //const dbRoundModel = new monRoundModel(roundToSave); 
         try{
             Passport.authenticate('local', {session: false}, (err, user: UserModel, info) => {
@@ -151,4 +152,5 @@ class LoginCtrl
     }
 }
 
-export default new LoginCtrl().router;
+const LoginCtrl = new LoginCtrlClass().router
+export default LoginCtrl;

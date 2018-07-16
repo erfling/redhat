@@ -5,6 +5,8 @@ import SchemaBuilder from '../SchemaBuilder';
 import Auth, {PERMISSION_LEVELS} from '../AuthUtils'; 
 import EmailCtrl from './EmailCtrl';
 import * as Passport from 'passport'
+import { LoginCtrlClass } from './LoginCtrl'
+import { RequestHandler } from 'express-serve-static-core';
 
 const schObj = SchemaBuilder.fetchSchema(UserModel);
 
@@ -158,13 +160,25 @@ class RoundRouter
         }
     }
 
-    public async SetNewUserPassword(req: Request, res: Response):Promise<any> {
+    public async SetNewUserPassword(req: Request, res: Response, next: RequestHandler):Promise<any> {
+
+        console.log("USER SETTING PWORD::::::::::", req.body, req.user);
+
         const id = req.user._id;
         try{
             console.log(req.body.Password, Auth.HASH_PASSWORD(req.body.Password))
             const newPW = Auth.HASH_PASSWORD(req.body.Password);
-            const savedUser = monUserModel.findByIdAndUpdate(id.toString(), {Password: newPW}).then(r => r);
-            res.json(savedUser);
+            const savedUser = await monUserModel.findByIdAndUpdate(id.toString(), {Password: newPW}).then(r => r);
+            req.url = "/admin";
+            req = Object.assign(req, 
+                {
+                    body: Object.assign(savedUser, {Password: req.body.Password}),
+
+                }
+            )
+            //new LoginCtrlClass().AdminLogin(newBody, res)
+            //res.json(savedUser);
+            next(req, res, null);
         }catch{
             res.json("password not updated")
         }
@@ -207,10 +221,11 @@ class RoundRouter
             this.AddNewUser.bind(this)
         );
 
-        this.router.post("/usersetpassword", 
+        this.router.use("/usersetpassword", 
             Passport.authenticate('jwt', {session: false}),
             //(req, res, next) => Auth.IS_USER_AUTHORIZED(req, res, next, PERMISSION_LEVELS.ADMIN), 
-            this.SetNewUserPassword.bind(this)
+            this.SetNewUserPassword.bind(this),
+            (req, res, next) => new LoginCtrlClass().AdminLogin(req, res)
         );
 
         this.router.get("/startfirstlogin", 

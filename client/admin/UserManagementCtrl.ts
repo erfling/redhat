@@ -133,7 +133,5 @@ export default class UserManagementCtrl extends BaseClientCtrl<IControllerDataSt
             }
         }
 
-        this.dataStore.ComponentFistma = this.ComponentFistma;
-
     }
 }
