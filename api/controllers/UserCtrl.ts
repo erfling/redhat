@@ -176,9 +176,9 @@ class RoundRouter
 
                 }
             )
-            //new LoginCtrlClass().AdminLogin(newBody, res)
+            new LoginCtrlClass().AdminLogin(req, res)
             //res.json(savedUser);
-            next(req, res, null);
+            //next(req, res, null);
         }catch{
             res.json("password not updated")
         }
