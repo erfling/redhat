@@ -8,9 +8,8 @@ import BaseClientCtrl, {IControllerDataStore} from '../../shared/base-sapien/cli
 import AdminLogin from '../login/AdminLogin'
 import GameLogin from '../login/GameLogin'
 import UserList from './UserList';
-import UserModel, { RoleName } from '../../shared/models/UserModel';
+import { RoleName } from '../../shared/models/UserModel';
 import GameDetail from './GameDetail';
-import ICommonComponentState from '../../shared/base-sapien/client/ICommonComponentState';
 import DataStore from '../../shared/base-sapien/client/DataStore';
 
 export default class AdminCtrl extends BaseClientCtrl<IControllerDataStore & {Admin: AdminViewModel}>

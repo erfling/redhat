@@ -5,7 +5,6 @@ import SapienServerCom from '../../shared/base-sapien/client/SapienServerCom';
 import GameModel from '../../shared/models/GameModel';
 import AdminCtrl from './AdminCtrl';
 import ApplicationCtrl from '../ApplicationCtrl';
-import DataStore from '../../shared/base-sapien/client/DataStore';
 import AdminViewModel from '../../shared/models/AdminViewModel';
 
 export default class UserManagementCtrl extends BaseClientCtrl<IControllerDataStore & {Admin: AdminViewModel}>
@@ -28,7 +27,6 @@ export default class UserManagementCtrl extends BaseClientCtrl<IControllerDataSt
         super(null, reactComp || null);
         this.CurrentLocation = this.component.props.location.pathname;
         
-        //this.dataStore = DataStore.Admin
         this.dataStore = AdminCtrl.GetInstance().dataStore;
 
         this.component.componentWillMount = () => {
@@ -41,7 +39,7 @@ export default class UserManagementCtrl extends BaseClientCtrl<IControllerDataSt
             this._instance = new UserManagementCtrl(reactComp || null);
         }
         if (!this._instance) throw new Error("NO INSTANCE")
-        if(reactComp) this._instance.component = reactComp;
+        if (reactComp) this._instance.component = reactComp;
         return this._instance;
     }
     
@@ -60,14 +58,13 @@ export default class UserManagementCtrl extends BaseClientCtrl<IControllerDataSt
 
     public getAllGames(){
         return SapienServerCom.GetData(null, null, SapienServerCom.BASE_REST_URL + "games").then(r => {
-
             this.dataStore.Admin.Games = r;
             this.dataStore.ApplicationState.IsLoading = false;
         })
     }
 
     public getAllUsers(){
-        if(!this.dataStore.Admin.Users || !this.dataStore.Admin.Users.length){
+        if (!this.dataStore.Admin.Users || !this.dataStore.Admin.Users.length){
             return SapienServerCom.GetData(null, null, SapienServerCom.BASE_REST_URL + "user").then(r => {
                 console.log("Users ARE: ",r)
                 this.dataStore.Admin.Users = r;            
@@ -85,7 +82,7 @@ export default class UserManagementCtrl extends BaseClientCtrl<IControllerDataSt
         this.dataStore.ApplicationState.FormIsSubmitting = true;
         SapienServerCom.SaveData(user, SapienServerCom.BASE_REST_URL + "user")
                         .then(r => {
-                            if(user._id){
+                            if (user._id){
                                 this.dataStore.Admin.Users = this.dataStore.Admin.Users.map(u => {
                                     return u._id == user._id ? Object.assign(user, r) : u
                                 })
@@ -113,25 +110,4 @@ export default class UserManagementCtrl extends BaseClientCtrl<IControllerDataSt
         })
     }
 
-    private _setUpFistma(reactComp: Component) {
-
-        this.component = reactComp;
-        this.dataStore = {
-            Admin: DataStore.Admin,
-            ApplicationState: DataStore.ApplicationState,
-            ComponentFistma: null
-        }
-
-
-        if (this.component.componentWillMount == undefined) {
-            this.component.componentWillMount = () => {
-                //this.component.constructor.super(this.component.props).componentWillMount()
-                console.log("MOUNTED: ", this.component, this.component.props.location.pathname);
-                this.navigateOnClick(this.component.props.location.pathname);
-                this.getAllGames();
-                this.getAllUsers();
-            }
-        }
-
-    }
 }
