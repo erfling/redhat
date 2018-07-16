@@ -1,7 +1,6 @@
 import * as React from "react";
 import { Grid, Table, Modal, Button, Segment, Label, Header, Icon, Form, Input, Checkbox, Popup } from 'semantic-ui-react';
 const { Row, Column } = Grid;
-import UserManagementCtrl from './UserManagementCtrl';
 import UserModel, { RoleName } from "../../shared/models/UserModel";
 
 interface UserModalProps{

@@ -1,6 +1,5 @@
 import * as React from "react";
 import { Modal, Button, Label, Header, Icon, Form, Input, Checkbox, Dropdown } from 'semantic-ui-react';
-import UserManagementCtrl from './UserManagementCtrl';
 import UserModel, { RoleName } from "../../shared/models/UserModel";
 import GameModel from "../../shared/models/GameModel";
 import { DateInput } from 'semantic-ui-calendar-react';
@@ -32,7 +31,6 @@ export default class GameModal extends React.Component< GameModalProps, {} >
         super(props);
     }
 
-
     //----------------------------------------------------------------------
     //
     //  Event Handlers
@@ -41,32 +39,31 @@ export default class GameModal extends React.Component< GameModalProps, {} >
 
 
 
-    //---------------------k-------------------------------------------------
+    //----------------------------------------------------------------------
     //
     //  Methods
     //
     //----------------------------------------------------------------------
 
     render() {
-        const {  Game,  CloseFunction, SaveFunction, Submitting, Users } = this.props
         return <>
-                <Modal open={Game != null} basic onClose={e => CloseFunction()}>
-                    <Modal.Header><Icon name="game" />{Game._id != null ? "Edit" : "Create" } Game</Modal.Header>
+                <Modal open={this.props.Game != null} basic onClose={e => this.props.CloseFunction()}>
+                    <Modal.Header><Icon name="game" />{this.props.Game._id != null ? "Edit" : "Create" } Game</Modal.Header>
                     <Modal.Content>
                         <Modal.Description>
                             <Form inverted>
                                 <Form.Field>
                                     <label>PIN (remove this soon)</label>
                                     <Input
-                                        value={Game.GamePIN}
-                                        onChange={(e) => Game.GamePIN = parseInt((e.target as HTMLInputElement).value)}
+                                        value={this.props.Game.GamePIN}
+                                        onChange={(e) => this.props.Game.GamePIN = parseInt((e.target as HTMLInputElement).value)}
                                         placeholder="GamePIN"
                                     />
                                 </Form.Field><Form.Field>
                                     <label>Location</label>
                                     <Input
-                                        value={Game.Location}
-                                        onChange={(e) => Game.Location = (e.target as HTMLInputElement).value}
+                                        value={this.props.Game.Location}
+                                        onChange={(e) => this.props.Game.Location = (e.target as HTMLInputElement).value}
                                         placeholder="Location"
                                     />
                                 </Form.Field>
@@ -88,26 +85,26 @@ export default class GameModal extends React.Component< GameModalProps, {} >
                                     <DateInput
                                         name="date"
                                         placeholder="Date"
-                                        value={Game.DatePlayed}
+                                        value={this.props.Game.DatePlayed}
                                         iconPosition="left"
                                         dateFormat="MM/DD/YYYY"
                                         onChange={(e, output) => {
-                                            Game.DatePlayed = output.value;
+                                            this.props.Game.DatePlayed = output.value;
                                         }} />
                                 </Form.Field>
                                 <Form.Field>
                                     <label>Facilitator</label>
-                                    {Users &&
+                                    {this.props.Users &&
                                         <Dropdown
                                             placeholder='Select Facilitator'
                                             fluid
                                             search
                                             selection
-                                            value={Game.Facilitator._id}
+                                            value={this.props.Game.Facilitator._id}
                                             onChange={(e, output) => {
-                                                Game.Facilitator._id = output.value
+                                                this.props.Game.Facilitator._id = output.value
                                             }}
-                                            options={Users.filter(u => u.Role == RoleName.ADMIN).map((u, i) => {
+                                            options={this.props.Users.filter(u => u.Role == RoleName.ADMIN).map((u, i) => {
                                                 return {
                                                     text: u.FirstName + " " + u.LastName + " (" + u.Email + ")",
                                                     value: u._id,
@@ -127,7 +124,7 @@ export default class GameModal extends React.Component< GameModalProps, {} >
                             icon='cancel'
                             labelPosition="right"
                             content="Cancel"
-                            onClick={e => CloseFunction()}
+                            onClick={e => this.props.CloseFunction()}
                         >
                         </Button>
                         <Button
@@ -136,8 +133,8 @@ export default class GameModal extends React.Component< GameModalProps, {} >
                             icon='check'
                             labelPosition="right"
                             content='Save Game'
-                            loading={Submitting}
-                            onClick={e => SaveFunction(Game)}
+                            loading={this.props.Submitting}
+                            onClick={e => this.props.SaveFunction(this.props.Game)}
                         ></Button>
                     </Modal.Actions>
                 </Modal>

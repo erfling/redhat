@@ -1,6 +1,5 @@
 import FiStMa from '../../shared/entity-of-the-state/FiStMa';
 import AdminViewModel from '../../shared/models/AdminViewModel';
-import ApplicationViewModel from '../../shared/models/ApplicationViewModel';
 import { Component } from 'react';
 import Game from '../game/Game';
 import BaseClientCtrl, {IControllerDataStore} from '../../shared/base-sapien/client/BaseClientCtrl';
@@ -9,10 +8,8 @@ import GameList from './GameList';
 import GameDetail from './GameDetail';
 import UserModel, { RoleName } from '../../shared/models/UserModel';
 import SapienServerCom from '../../shared/base-sapien/client/SapienServerCom';
-import ICommonComponentState from '../../shared/base-sapien/client/ICommonComponentState';
 import GameModel from '../../shared/models/GameModel';
 import TeamModel from '../../shared/models/TeamModel';
-import AdminCtrl from './AdminCtrl';
 import ApplicationCtrl from '../ApplicationCtrl';
 import DataStore from '../../shared/base-sapien/client/DataStore';
 
@@ -34,20 +31,18 @@ export default class GameManagementCtrl extends BaseClientCtrl<IControllerDataSt
 
     private static _instance: GameManagementCtrl;
 
-
     //----------------------------------------------------------------------
     //
     //  Constructor
     //
     //----------------------------------------------------------------------
 
-    constructor(reactComp?: Component<any, any>) {
+    private constructor(reactComp?: Component<any, any>) {
         super( reactComp ? Object.assign(new GameModel()) : null, reactComp || null);
 
         this.CurrentLocation = this.component.props.location.pathname;
 
-        if (reactComp) this._setUpFistma(reactComp)
-
+        if (reactComp) this._setUpFistma(reactComp);
     }
 
     public static GetInstance(reactComp?: Component<any, any>): GameManagementCtrl {

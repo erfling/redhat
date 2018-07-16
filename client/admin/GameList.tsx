@@ -1,15 +1,10 @@
 import * as React from "react";
-import FiStMa from '../../shared/entity-of-the-state/FiStMa';
 import { Grid, Table, Modal, Button, Segment, Label, Header, Icon, Form, Input, Dropdown, Popup } from 'semantic-ui-react';
 const { Row, Column } = Grid;
 import { RouteComponentProps, withRouter } from "react-router";
 import GameManagementCtrl from './GameManagementCtrl';
 import AdminViewModel from '../../shared/models/AdminViewModel';
-import ICommonComponentState from '../../shared/base-sapien/client/ICommonComponentState';
-import GameModel from "../../shared/models/GameModel";
-import { DateInput } from 'semantic-ui-calendar-react';
-import * as moment from 'moment';
-import UserModel, { RoleName } from "../../shared/models/UserModel";
+import UserModel from "../../shared/models/UserModel";
 import {IControllerDataStore} from '../../shared/base-sapien/client/BaseClientCtrl';
 import GameModal from './GameModal'
 
@@ -21,7 +16,7 @@ class GameList extends React.Component<RouteComponentProps<any>, IControllerData
     //
     //----------------------------------------------------------------------
 
-    controller: GameManagementCtrl = new GameManagementCtrl(this);
+    controller: GameManagementCtrl = GameManagementCtrl.GetInstance(this);
 
     //alias for navigation
     public static CLASS_NAME = "GameList";
@@ -63,9 +58,9 @@ class GameList extends React.Component<RouteComponentProps<any>, IControllerData
     render() {
         const DashBoardComponent = this.controller.ComponentFistma.currentState;
         return <>
-            {this.state.ShowGameModal &&
+            {this.state.ShowGameModal && this.state.ApplicationState.ModalObject && 
                 <GameModal
-                    Game={new GameModel()}
+                    Game={this.state.ApplicationState.ModalObject}
                     Users={this.state.Admin.Users}
                     CloseFunction={this.controller.closeModal.bind(this.controller)}
                     SaveFunction={this.controller.saveGame.bind(this.controller)}
