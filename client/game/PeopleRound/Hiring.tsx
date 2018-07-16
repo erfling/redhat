@@ -82,7 +82,7 @@ class Hiring extends React.Component<RouteComponentProps<any>, IRoundDataStore>
                         style={{ width: '100%' }}
                     >
                         {thisSubRound.Questions.map((q, i) => {
-                            q = Object.assign(new QuestionModel, q);
+                            q = Object.assign(new QuestionModel(), q);
                             return <Row
                                 key={"question-" + i.toString()}
                             >
@@ -101,7 +101,7 @@ class Hiring extends React.Component<RouteComponentProps<any>, IRoundDataStore>
                                     icon='checkmark'
                                     labelPosition='right'
                                     color='blue'
-                                    loading={this.state.ApplicationState.FormIsSubmitting }
+                                    loading={q.Response ? q.Response.IsSaving : false}
                                     onClick={e => {
                                         this.controller.Save1BResponse(q.Response, q, thisSubRound)
                                     }}
