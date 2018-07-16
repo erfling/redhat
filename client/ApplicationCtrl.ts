@@ -55,6 +55,8 @@ export default class ApplicationCtrl extends BaseClientCtrl<IControllerDataStore
     public signOut(): void {
         localStorage.removeItem("RH_USER");
         localStorage.removeItem("rhjwt");
+        localStorage.removeItem("RH_TEAM");
+        this.dataStore.ApplicationState.CurrentUser = null;
         this.navigateOnClick("/login/admin")
     }
 

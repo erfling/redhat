@@ -10,6 +10,7 @@ import { Component } from 'react';
 import ICommonComponentState from '../../shared/base-sapien/client/ICommonComponentState';
 import BaseClientCtrl from '../../shared/base-sapien/client/BaseClientCtrl';
 import ApplicationCtrl from '../ApplicationCtrl'
+import DataStore from '../../shared/base-sapien/client/DataStore';
 
 export default class LoginCtrl extends BaseClientCtrl<UserModel & IControllerDataStore>
 {
@@ -32,7 +33,7 @@ export default class LoginCtrl extends BaseClientCtrl<UserModel & IControllerDat
     //----------------------------------------------------------------------
 
     constructor(reactComp: Component<any, any>) {
-        super( Object.assign(new UserModel()), reactComp);
+        super( {ApplicationState: DataStore.ApplicationState}, reactComp);
         
         this.ComponentFistma = new FiStMa(this.ComponentStates, this.UrlToComponent(this.component.props.location.pathname) || this.ComponentStates.game);
         this.ComponentFistma.addTransition(this.ComponentStates.game)
@@ -95,6 +96,7 @@ export default class LoginCtrl extends BaseClientCtrl<UserModel & IControllerDat
             localStorage.setItem("RH_USER", JSON.stringify(returned.user))
             localStorage.setItem("RH_TEAM", JSON.stringify(returned.team))
             this.dataStore.FormIsSubmitting = false;
+            this.dataStore.ApplicationState.CurrentUser = Object.assign(new UserModel(), returned.user)
             ApplicationCtrl.GetInstance().navigateOnClick('/admin/userlist');
         })
         .catch((message) => {
