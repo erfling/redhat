@@ -25,7 +25,7 @@ class GameDetail extends React.Component<RouteComponentProps<any>, IControllerDa
     //
     //----------------------------------------------------------------------
 
-    controller: GameManagementCtrl = new GameManagementCtrl(this);
+    controller: GameManagementCtrl = GameManagementCtrl.GetInstance(this);
 
     //alias for navigation
     public static CLASS_NAME = "GameDetail"
