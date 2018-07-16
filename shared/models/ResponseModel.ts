@@ -25,13 +25,13 @@ export default class ResponseModel extends BaseModel
     }
     public get Answer() {
         if (this._Answer && Array.isArray(this._Answer) && this._Answer.length == 1) {
-            if (!isNaN(parseFloat(this._Answer[0].data))) {
+           /* if (!isNaN(parseFloat(this._Answer[0].data))) {
                 this._Answer[0].data = parseFloat(this._Answer[0].data);
-            }
+            }*/
             return this._Answer[0];            
         }
 
-        return (this._Answer && this._Answer) ? (this._Answer as ValueObj[]).map(a => {
+        return this._Answer ? (this._Answer as ValueObj[]).map(a => {
             if (!isNaN(parseFloat(a.data))){
                 a.data = parseFloat(a.data);
             }
