@@ -29,12 +29,6 @@ export default class QuestionModel extends BaseModel
 
     @dbProp([ValueObj])
     public PossibleAnswers: ValueObj[] = [];
-    public set _PossibleAnswers(answers: ValueObj[]){
-        this.PossibleAnswers = answers;
-    }
-    public AddPossibleAnswer(answer: ValueObj){
-        this.PossibleAnswers = this.PossibleAnswers.concat(answer);
-    }
 
     Response: ResponseModel = new ResponseModel();
 
