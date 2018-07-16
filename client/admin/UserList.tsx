@@ -4,8 +4,7 @@ const { Row, Column } = Grid;
 import { RouteComponentProps, withRouter } from "react-router";
 import UserManagementCtrl from './UserManagementCtrl';
 import AdminViewModel from '../../shared/models/AdminViewModel';
-import ICommonComponentState from '../../shared/base-sapien/client/ICommonComponentState';
-import UserModel, { RoleName } from "../../shared/models/UserModel";
+import { RoleName } from "../../shared/models/UserModel";
 import UserModal from "./UserModal";
 import {IControllerDataStore} from '../../shared/base-sapien/client/BaseClientCtrl';
 
@@ -32,7 +31,6 @@ class UserList extends React.Component<RouteComponentProps<any>, IControllerData
         
         this.state = this.controller.dataStore;
     }
-
 
     //----------------------------------------------------------------------
     //
