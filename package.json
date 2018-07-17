@@ -121,7 +121,7 @@
     "build": "tsc && ./node_modules/.bin/webpack --config webpack.config.prod.js",
     "dev": "set NODE_ENV=dev && tsc && ./node_modules/.bin/webpack --config webpack.config.dev.js && node ./build/api/index.js",
     "dev-prod": "set NODE_ENV=prod && tsc && ./node_modules/.bin/webpack --config webpack.config.prod.js && node ./build/api/index.js",
-    "sapien-start": "NODE_ENV=prod && concurrently \"sudo yarn webpack --config webpack.config.prod.js\" \"yarn webserver\" "
+    "sapien-start": "export NODE_ENV=prod && concurrently \"sudo yarn webpack --config webpack.config.prod.js\" \"yarn webserver\" "
   },
   "repository": {
     "type": "git",
