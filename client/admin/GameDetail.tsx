@@ -307,7 +307,7 @@ class GameDetail extends React.Component<RouteComponentProps<any>, IControllerDa
                 SaveFunction={this.controller.DeleteTeam.bind(this.controller)}
                 Submitting={this.state.ApplicationState.FormIsSubmitting}
             />}
-            <pre>{this.state && this.state.Admin && this.state.Admin.AvailablePlayers}</pre>
+            <pre>{this.state && this.state.Admin && this.state.Admin.AvailablePlayers && JSON.stringify(this.state.Admin.AvailablePlayers, null, 3)}</pre>
         </>;
         } else {
             return <h1>adsf</h1>
