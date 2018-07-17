@@ -164,7 +164,9 @@ export default class GameManagementCtrl extends BaseClientCtrl<IControllerDataSt
         //const merged: UserModel[] = [].concat.apply([], users);
         let flatUsers: UserModel[] = [];
         users.forEach((u:UserModel[]) => {
-            flatUsers = flatUsers.concat(u)
+            u.forEach(iu => {
+                flatUsers.push(iu)
+            })
         })
         console.log("flatUsers",flatUsers)
 
