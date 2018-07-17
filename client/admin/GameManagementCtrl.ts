@@ -162,10 +162,12 @@ export default class GameManagementCtrl extends BaseClientCtrl<IControllerDataSt
         const users: UserModel[][] = game.Teams.map(t => t.Players);
 
         //const merged: UserModel[] = [].concat.apply([], users);
-        let userIds: string[] = [];
+        let flatUsers: UserModel[] = [];
         users.forEach((u:UserModel[]) => {
-            userIds = userIds.concat(u.map(iu => iu._id))
+            flatUsers = flatUsers.concat(u)
         })
+
+        let userIds: string[] = flatUsers.map(u => u._id);
 
 
         console.log("usedUserIdsusedUserIdsusedUserIdsusedUserIdsusedUserIdsusedUserIds",userIds)
