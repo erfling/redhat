@@ -168,7 +168,10 @@ export default class GameManagementCtrl extends BaseClientCtrl<IControllerDataSt
         })
         console.log("flatUsers",flatUsers)
 
-        let userIds: string[] = flatUsers.map(u => u._id);
+        let userIds: string[] = flatUsers.map(u => {
+            console.log(u._id, u._FirstName, u.Email)
+            return u._id
+        });
 
 
         console.log("usedUserIdsusedUserIdsusedUserIdsusedUserIdsusedUserIdsusedUserIds",userIds)
