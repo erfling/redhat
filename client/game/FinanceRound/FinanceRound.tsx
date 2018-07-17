@@ -15,9 +15,11 @@ class FinanceRound extends React.Component<RouteComponentProps<any>, IRoundDataS
     //
     //----------------------------------------------------------------------
     
-    controller: FinanceRoundCtrl = FinanceRoundCtrl.GetInstance(this);
-
     public static CLASS_NAME = "FinanceRound";
+
+    public static CONTROLLER = FinanceRoundCtrl;
+    
+    controller: FinanceRoundCtrl = FinanceRoundCtrl.GetInstance(this);
 
     //----------------------------------------------------------------------
     //

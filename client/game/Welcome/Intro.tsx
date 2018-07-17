@@ -10,7 +10,6 @@ import { IRoundDataStore } from '../../../shared/base-sapien/client/BaseRoundCtr
 
 import IntroLogo from '-!svg-react-loader?name=Icon!../../img/intro-logo.svg';
 
-
 class Intro extends React.Component<RouteComponentProps<any>, IRoundDataStore>
 {
     //----------------------------------------------------------------------
@@ -19,9 +18,11 @@ class Intro extends React.Component<RouteComponentProps<any>, IRoundDataStore>
     //
     //----------------------------------------------------------------------
 
-    controller: WelcomeCtrl = WelcomeCtrl.GetInstance();
-
     public static CLASS_NAME = "Intro";
+
+    public static CONTROLLER = WelcomeCtrl;
+    
+    controller: WelcomeCtrl = WelcomeCtrl.GetInstance();
 
     //----------------------------------------------------------------------
     //

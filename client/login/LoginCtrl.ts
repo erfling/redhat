@@ -2,14 +2,12 @@ import { IControllerDataStore } from './../../shared/base-sapien/client/BaseClie
 import FiStMa from '../../shared/entity-of-the-state/FiStMa';
 import UserModel from '../../shared/models/UserModel';
 import SapienServerCom from '../../shared/base-sapien/client/SapienServerCom';
-import GameLogin from './GameLogin'
-import AdminLogin from './AdminLogin'
-import Join from './Join'
-
+import GameLogin from './GameLogin';
+import AdminLogin from './AdminLogin';
+import Join from './Join';
 import { Component } from 'react';
-import ICommonComponentState from '../../shared/base-sapien/client/ICommonComponentState';
 import BaseClientCtrl from '../../shared/base-sapien/client/BaseClientCtrl';
-import ApplicationCtrl from '../ApplicationCtrl'
+import ApplicationCtrl from '../ApplicationCtrl';
 import DataStore from '../../shared/base-sapien/client/DataStore';
 
 export default class LoginCtrl extends BaseClientCtrl<UserModel & IControllerDataStore>

@@ -29,7 +29,6 @@ export default class UserModal extends React.Component< UserModalProps, {} >
         super(props);
     }
 
-
     //----------------------------------------------------------------------
     //
     //  Event Handlers

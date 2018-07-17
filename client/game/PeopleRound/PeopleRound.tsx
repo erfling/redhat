@@ -7,7 +7,6 @@ import { IRoundDataStore } from '../../../shared/base-sapien/client/BaseRoundCtr
 const { Grid, Segment } = Semantic;
 const { Row, Column } = Grid;
 
-
 class PeopleRound extends React.Component<RouteComponentProps<any>, IRoundDataStore>
 {
     //----------------------------------------------------------------------
@@ -16,9 +15,11 @@ class PeopleRound extends React.Component<RouteComponentProps<any>, IRoundDataSt
     //
     //----------------------------------------------------------------------
 
-    controller: PeopleRoundCtrl = PeopleRoundCtrl.GetInstance(this);
-
     public static CLASS_NAME = "PeopleRound";
+
+    public static CONTROLLER = PeopleRoundCtrl;
+    
+    controller: PeopleRoundCtrl = PeopleRoundCtrl.GetInstance(this);
 
     //----------------------------------------------------------------------
     //

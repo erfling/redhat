@@ -12,10 +12,11 @@ class Login extends React.Component<RouteComponentProps<any>, any>
     //
     //----------------------------------------------------------------------
 
-    controller: LoginCtrl = new LoginCtrl(this);
-
     public static CLASS_NAME = "Login";
-
+    
+    public static CONTROLLER = LoginCtrl;
+    
+    controller: LoginCtrl = new LoginCtrl(this);
 
     //----------------------------------------------------------------------
     //

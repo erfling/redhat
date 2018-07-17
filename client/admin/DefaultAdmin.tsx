@@ -12,9 +12,11 @@ class DefaultAdmin extends React.Component<RouteComponentProps<any>, IController
     //
     //----------------------------------------------------------------------
 
-    controller: AdminCtrl = AdminCtrl.GetInstance(this);
-
     public static CLASS_NAME = "DefaultAdmin";
+
+    public static CONTROLLER = AdminCtrl;
+    
+    controller: AdminCtrl = AdminCtrl.GetInstance(this);
 
     //----------------------------------------------------------------------
     //

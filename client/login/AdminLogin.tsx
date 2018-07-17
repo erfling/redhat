@@ -16,9 +16,11 @@ class AdminLogin extends React.Component<RouteComponentProps<any>, UserModel & I
     //
     //----------------------------------------------------------------------
 
-    controller: LoginCtrl = new LoginCtrl(this);
-
     public static CLASS_NAME = "Admin";
+
+    public static CONTROLLER = LoginCtrl;
+    
+    controller: LoginCtrl = new LoginCtrl(this);
 
     //----------------------------------------------------------------------
     //
@@ -34,7 +36,6 @@ class AdminLogin extends React.Component<RouteComponentProps<any>, UserModel & I
     }
 
     componentWillMount() { }
-
 
     //----------------------------------------------------------------------
     //

@@ -16,10 +16,12 @@ class Join extends React.Component<RouteComponentProps<any>, UserModel & IContro
     //
     //----------------------------------------------------------------------
 
-    controller: LoginCtrl = new LoginCtrl(this);
-
     public static CLASS_NAME = "Join";
 
+    public static CONTROLLER = LoginCtrl;
+    
+    controller: LoginCtrl = new LoginCtrl(this);
+    
     //----------------------------------------------------------------------
     //
     //  Constructor

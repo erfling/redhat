@@ -16,9 +16,11 @@ class App extends React.Component<RouteComponentProps<any>, IControllerDataStore
     //
     //----------------------------------------------------------------------
 
-    controller: ApplicationCtrl = ApplicationCtrl.GetInstance(this);
-
     public static CLASS_NAME = "App";
+
+    public static CONTROLLER = ApplicationCtrl;
+    
+    controller: ApplicationCtrl = ApplicationCtrl.GetInstance(this);
 
     //----------------------------------------------------------------------
     //
