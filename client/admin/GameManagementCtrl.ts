@@ -159,9 +159,16 @@ export default class GameManagementCtrl extends BaseClientCtrl<IControllerDataSt
     }
 
     public filterUsersByGame(game: GameModel): void {
-        const usedUserIds: string[] = game.Teams.map(t => t.Players).reduce((a, b) => a.concat(b), []).map(p => p._id)
-        console.log("usedUserIdsusedUserIdsusedUserIdsusedUserIdsusedUserIdsusedUserIds",usedUserIds)
-        this.dataStore.Admin.AvailablePlayers = this.dataStore.Admin.Users.filter(u => u._id && usedUserIds.indexOf(u._id) == -1).map((u, i) => {
+        const users: UserModel[][] = game.Teams.map(t => t.Players);
+
+        const merged: UserModel[] = [].concat.apply([], users);
+
+        const userIds = merged.map(u => u._id)
+
+
+
+        console.log("usedUserIdsusedUserIdsusedUserIdsusedUserIdsusedUserIdsusedUserIds",userIds)
+        this.dataStore.Admin.AvailablePlayers = this.dataStore.Admin.Users.filter(u => u._id && userIds.indexOf(u._id) == -1).map((u, i) => {
             console.log("FILTERING A USER", u)
             return {
                 text: u.FirstName + " " + u.LastName + " (" + u.Email + ")",
