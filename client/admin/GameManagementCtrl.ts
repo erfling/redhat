@@ -160,7 +160,7 @@ export default class GameManagementCtrl extends BaseClientCtrl<IControllerDataSt
 
     public filterUsersByGame(game: GameModel): void {
         const usedUserIds: string[] = game.Teams.map(t => t.Players).reduce((a, b) => a.concat(b), []).map(p => p._id)
-
+        console.log("usedUserIdsusedUserIdsusedUserIdsusedUserIdsusedUserIdsusedUserIds",usedUserIds)
         this.dataStore.Admin.AvailablePlayers = this.dataStore.Admin.Users.filter(u => u._id && usedUserIds.indexOf(u._id) == -1).map((u, i) => {
             console.log("FILTERING A USER", u)
             return {
