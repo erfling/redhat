@@ -160,12 +160,13 @@ export default class GameManagementCtrl extends BaseClientCtrl<IControllerDataSt
 
     public filterUsersByGame(game: GameModel): void {
         const users: UserModel[][] = game.Teams.map(t => t.Players);
-
+        console.log("USERS",users)
         //const merged: UserModel[] = [].concat.apply([], users);
         let flatUsers: UserModel[] = [];
         users.forEach((u:UserModel[]) => {
             flatUsers = flatUsers.concat(u)
         })
+        console.log("flatUsers",flatUsers)
 
         let userIds: string[] = flatUsers.map(u => u._id);
 
