@@ -1,9 +1,9 @@
+'use strict';
 import * as React from "react";
 import GameCtrl from "./GameCtrl";
 import GameModel from "../../shared/models/GameModel";
 import { Grid, Menu, Button, Segment } from 'semantic-ui-react';
-const { Column, Row } = Grid;
-import { Route, Switch, RouteComponentProps, withRouter } from "react-router";
+import { RouteComponentProps, withRouter } from "react-router";
 import Circles from '-!svg-react-loader?name=Icon!../img/circles.svg';
 import {IControllerDataStore} from '../../shared/base-sapien/client/BaseClientCtrl';
 import { RoleName } from "../../shared/models/UserModel";

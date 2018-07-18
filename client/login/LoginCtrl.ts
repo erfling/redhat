@@ -1,14 +1,13 @@
+'use strict';
 import { IControllerDataStore } from './../../shared/base-sapien/client/BaseClientCtrl';
 import FiStMa from '../../shared/entity-of-the-state/FiStMa';
 import UserModel from '../../shared/models/UserModel';
 import SapienServerCom from '../../shared/base-sapien/client/SapienServerCom';
-import GameLogin from './GameLogin';
-import AdminLogin from './AdminLogin';
-import Join from './Join';
 import { Component } from 'react';
 import BaseClientCtrl from '../../shared/base-sapien/client/BaseClientCtrl';
 import ApplicationCtrl from '../ApplicationCtrl';
 import DataStore from '../../shared/base-sapien/client/DataStore';
+import ComponentsVO from '../../shared/base-sapien/client/ComponentsVO';
 
 export default class LoginCtrl extends BaseClientCtrl<IControllerDataStore>
 {
@@ -21,9 +20,9 @@ export default class LoginCtrl extends BaseClientCtrl<IControllerDataStore>
     private static _instance: LoginCtrl;
 
     protected readonly ComponentStates = {
-        game: GameLogin,
-        admin: AdminLogin,
-        first: Join
+        game: ComponentsVO.GameLogin,
+        admin: ComponentsVO.AdminLogin,
+        first: ComponentsVO.Join
     };
     
     //----------------------------------------------------------------------

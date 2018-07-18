@@ -1,13 +1,11 @@
+'use strict';
 import FiStMa from '../shared/entity-of-the-state/FiStMa';
 import UserModel, { RoleName } from '../shared/models/UserModel';
 import { Component } from 'react';
 import BaseClientCtrl, { IControllerDataStore } from '../shared/base-sapien/client/BaseClientCtrl';
 import ToastModel, {IToastProps} from "../shared/base-sapien/models/ToastModel";
-
-import Game from './game/Game';
-import Admin from './admin/Admin'
-import Login from './login/Login'
 import DataStore from '../shared/base-sapien/client/DataStore';
+import ComponentsVO from '../shared/base-sapien/client/ComponentsVO';
 
 export default class ApplicationCtrl extends BaseClientCtrl<IControllerDataStore>
 {
@@ -20,9 +18,9 @@ export default class ApplicationCtrl extends BaseClientCtrl<IControllerDataStore
     private static _instance: ApplicationCtrl;
 
     public readonly ComponentStates = {
-        game: Game,
-        admin: Admin,
-        login: Login
+        game: ComponentsVO.Game,
+        admin: ComponentsVO.Admin,
+        login: ComponentsVO.Login
     };
 
     //----------------------------------------------------------------------

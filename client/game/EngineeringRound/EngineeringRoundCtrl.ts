@@ -2,10 +2,10 @@
 import { Component } from 'react';
 import BaseRoundCtrl from '../../../shared/base-sapien/client/BaseRoundCtrl';
 import { IRoundDataStore } from '../../../shared/base-sapien/client/BaseRoundCtrl';
-import EngineeringSub from './EngineeringSub';
 import FiStMa from '../../../shared/entity-of-the-state/FiStMa';
 import RoundModel from '../../../shared/models/RoundModel';
 import DataStore from '../../../shared/base-sapien/client/DataStore';
+import ComponentsVO from '../../../shared/base-sapien/client/ComponentsVO';
 
 export default class EngineeringRoundCtrl extends BaseRoundCtrl<IRoundDataStore>
 {
@@ -18,7 +18,7 @@ export default class EngineeringRoundCtrl extends BaseRoundCtrl<IRoundDataStore>
     private static _instance: EngineeringRoundCtrl;
 
     protected readonly ComponentStates = {
-        sub1: EngineeringSub
+        sub1: ComponentsVO.EngineeringSub
     };
 
     //----------------------------------------------------------------------

@@ -10,7 +10,7 @@ import {IControllerDataStore} from '../../shared/base-sapien/client/BaseClientCt
 import GameModal from './GameModal'
 import DeleteTeamModal from './DeleteTeamModal'
 
-class GameDetail extends React.Component<RouteComponentProps<any>, IControllerDataStore & {Admin: AdminViewModel} & {ShowUserModal: boolean, ShowGameModal: boolean, ShowTeamDeleteModal: boolean}>
+class GameDetail extends React.Component<RouteComponentProps<any>, IControllerDataStore & {Admin: AdminViewModel, ShowUserModal: boolean, ShowGameModal: boolean, ShowTeamDeleteModal: boolean}>
 {
     //----------------------------------------------------------------------
     //

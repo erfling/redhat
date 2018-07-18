@@ -1,11 +1,6 @@
+'use strict';
 import FiStMa from '../../shared/entity-of-the-state/FiStMa';
 import GameModel from '../../shared/models/GameModel';
-import Welcome from './Welcome/Welcome';
-import PeopleRound from './PeopleRound/PeopleRound';
-import EngineeringRound from './EngineeringRound/EngineeringRound';
-import SalesRound from './SalesRound/SalesRound';
-import FinanceRound from './FinanceRound/FinanceRound';
-import CustomerRound from './CustomerRound/CustomerRound';
 import { Component } from 'react';
 import RoundModel from '../../shared/models/RoundModel';
 import UserModel, { JobName } from '../../shared/models/UserModel';
@@ -19,6 +14,7 @@ import PeopleRoundCtrl from './PeopleRound/PeopleRoundCtrl';
 import EngineeringRoundCtrl from './EngineeringRound/EngineeringRoundCtrl';
 import WelcomeCtrl from './Welcome/WelcomeCtrl';
 import ApplicationCtrl from '../ApplicationCtrl';
+import ComponentsVO from '../../shared/base-sapien/client/ComponentsVO';
 
 export default class GameCtrl extends BaseClientCtrl<IControllerDataStore & {Game: GameModel}>
 {
@@ -33,12 +29,12 @@ export default class GameCtrl extends BaseClientCtrl<IControllerDataStore & {Gam
     private _childController: BaseRoundCtrl<any>;
 
     public readonly ComponentStates = {
-        round0: Welcome,
-        round1: PeopleRound, 
-        round2: EngineeringRound, 
-        round3: SalesRound, 
-        round4: FinanceRound, 
-        round5: CustomerRound
+        round0: ComponentsVO.Welcome,
+        round1: ComponentsVO.PeopleRound, 
+        round2: ComponentsVO.EngineeringRound, 
+        round3: ComponentsVO.SalesRound, 
+        round4: ComponentsVO.FinanceRound, 
+        round5: ComponentsVO.CustomerRound
     };
 
     //----------------------------------------------------------------------
@@ -48,10 +44,9 @@ export default class GameCtrl extends BaseClientCtrl<IControllerDataStore & {Gam
     //----------------------------------------------------------------------
 
     private constructor(reactComp?: Component<any, any>) {
-        super({
-            Game: new GameModel(),
-            ComponentFistma: null
-        }, reactComp || null);
+        super(null, reactComp || null);
+
+        if (reactComp) this._setUpFistma(reactComp);
     }
 
     public static GetInstance(reactComp?: Component<any, any>): GameCtrl {
@@ -110,7 +105,6 @@ export default class GameCtrl extends BaseClientCtrl<IControllerDataStore & {Gam
         if ( mapping.ParentRound && mapping.ChildRound ) {
             SapienServerCom.SaveData(mapping, SapienServerCom.BASE_REST_URL + "facilitation/round/" + this.dataStore.ApplicationState.CurrentTeam.GameId);
         }
-
     }
     
     /**
@@ -120,7 +114,6 @@ export default class GameCtrl extends BaseClientCtrl<IControllerDataStore & {Gam
     public goBackRound(){
         let targetState: React.ComponentClass;
         let mapping: RoundChangeMapping = new RoundChangeMapping();
-            
 
         this._childController = this._getTargetController(this.ComponentFistma.currentState.WrappedComponent.CLASS_NAME)
 
@@ -207,8 +200,6 @@ export default class GameCtrl extends BaseClientCtrl<IControllerDataStore & {Gam
         this.component = reactComp;
 
         this.ComponentFistma = new FiStMa(this.ComponentStates, this.ComponentStates.round0);
-        console.log("GAME NAV INFO:",  this.ComponentFistma.currentState.WrappedComponent)
-
         this.ComponentFistma.addTransition(this.ComponentStates.round0);
         this.ComponentFistma.addTransition(this.ComponentStates.round1);
         this.ComponentFistma.addTransition(this.ComponentStates.round2);
@@ -221,15 +212,11 @@ export default class GameCtrl extends BaseClientCtrl<IControllerDataStore & {Gam
         DataStore.ApplicationState.CurrentUser = localStorage.getItem("RH_USER") ? Object.assign( new UserModel(), JSON.parse(localStorage.getItem("RH_USER") ) ) : new UserModel();      
         DataStore.ApplicationState.CurrentTeam = localStorage.getItem("RH_TEAM") ? Object.assign( new TeamModel(), JSON.parse(localStorage.getItem("RH_TEAM") ) ) : new TeamModel();
 
-        if (!this.dataStore) {
-            this.dataStore = {
-                Game: new GameModel(),
-                ComponentFistma: this.ComponentFistma,
-                ApplicationState: DataStore.ApplicationState
-            };
-        } else if (!this.dataStore.ApplicationState) {
-            this.dataStore.ApplicationState = DataStore.ApplicationState;
-        }
+        this.dataStore = {
+            ApplicationState: DataStore.ApplicationState,
+            ComponentFistma: null,
+            Game: new GameModel()
+        };
 
         console.log("DATASTORE APPLICATION:", DataStore.ApplicationState)
         this.pollForGameStateChange(this.dataStore.ApplicationState.CurrentTeam.GameId)

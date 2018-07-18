@@ -2,8 +2,6 @@
 import { Component } from 'react';
 import BaseRoundCtrl from '../../../shared/base-sapien/client/BaseRoundCtrl';
 import RoundModel from '../../../shared/models/RoundModel';
-import Intro from './Intro';
-import PlayerLogin from './PlayerLogin';
 import FiStMa from '../../../shared/entity-of-the-state/FiStMa';
 import GameCtrl from '../GameCtrl';
 import SapienServerCom from '../../../shared/base-sapien/client/SapienServerCom';
@@ -11,6 +9,7 @@ import DataStore from '../../../shared/base-sapien/client/DataStore'
 import TeamModel from '../../../shared/models/TeamModel';
 import UserModel from '../../../shared/models/UserModel';
 import { IRoundDataStore } from '../../../shared/base-sapien/client/BaseRoundCtrl';
+import ComponentsVO from '../../../shared/base-sapien/client/ComponentsVO';
 
 export default class WelcomeCtrl extends BaseRoundCtrl<IRoundDataStore>
 {
@@ -23,8 +22,8 @@ export default class WelcomeCtrl extends BaseRoundCtrl<IRoundDataStore>
     private static _instance: WelcomeCtrl;
 
     protected readonly ComponentStates = {
-        sub1: Intro,
-        sub2: PlayerLogin
+        sub1: ComponentsVO.Intro,
+        sub2: ComponentsVO.PlayerLogin
     };
 
     //----------------------------------------------------------------------
@@ -67,7 +66,6 @@ export default class WelcomeCtrl extends BaseRoundCtrl<IRoundDataStore>
             Email: this.dataStore.ApplicationState.CurrentUser.Email, 
             GamePIN: this.dataStore.ApplicationState.CurrentGame.GamePIN}, 
             SapienServerCom.BASE_REST_URL + "auth").then((r:{team: TeamModel, user: UserModel, token: string}) => {
-
                 console.log("returned", r)
 
                 localStorage.setItem("RH_USER", JSON.stringify(r.user))
@@ -84,7 +82,6 @@ export default class WelcomeCtrl extends BaseRoundCtrl<IRoundDataStore>
         }).catch((r) => {
             this.dataStore.ApplicationState.FormError = "There was a problem logging you in. Please try again.";
         })
-
     }
 
     //----------------------------------------------------------------------

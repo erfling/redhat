@@ -49,7 +49,6 @@ class Join extends React.Component<RouteComponentProps<any>, IControllerDataStor
 
     componentWillMount() { }
 
-
     //----------------------------------------------------------------------
     //
     //  Event Handlers

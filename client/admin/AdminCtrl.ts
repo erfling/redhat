@@ -1,16 +1,12 @@
+'use strict';
 import FiStMa from '../../shared/entity-of-the-state/FiStMa';
 import AdminViewModel from '../../shared/models/AdminViewModel';
 import ApplicationViewModel from '../../shared/models/ApplicationViewModel';
 import { Component } from 'react';
-import GameList from './GameList';
-import DefaultAdmin from './DefaultAdmin'
 import BaseClientCtrl, {IControllerDataStore} from '../../shared/base-sapien/client/BaseClientCtrl';
-import AdminLogin from '../login/AdminLogin'
-import GameLogin from '../login/GameLogin'
-import UserList from './UserList';
 import { RoleName } from '../../shared/models/UserModel';
-import GameDetail from './GameDetail';
 import DataStore from '../../shared/base-sapien/client/DataStore';
+import ComponentsVO from '../../shared/base-sapien/client/ComponentsVO';
 
 export default class AdminCtrl extends BaseClientCtrl<IControllerDataStore & {Admin: AdminViewModel}>
 {
@@ -23,12 +19,12 @@ export default class AdminCtrl extends BaseClientCtrl<IControllerDataStore & {Ad
     private static _instance: AdminCtrl;
 
     public readonly ComponentStates = {
-        game: GameList,
-        gameDetail: GameDetail,
-        users: UserList,
-        adminLogin: AdminLogin,
-        default: DefaultAdmin,
-        gameLogin: GameLogin
+        gameList: ComponentsVO.GameList,
+        gameDetail: ComponentsVO.GameDetail,
+        users: ComponentsVO.UserList,
+        adminLogin: ComponentsVO.AdminLogin,
+        default: ComponentsVO.DefaultAdmin,
+        gameLogin: ComponentsVO.GameLogin
     };
 
     //----------------------------------------------------------------------
@@ -44,18 +40,14 @@ export default class AdminCtrl extends BaseClientCtrl<IControllerDataStore & {Ad
             this._setUpFistma(reactComp);
         }
     }
-
     
     public static GetInstance(reactComp?: Component<any, any>): AdminCtrl {
         if (!this._instance) {
             this._instance = new AdminCtrl(reactComp || null);
         }
-
         if (!this._instance) throw new Error("NO INSTANCE");
 
-        if (reactComp) {
-            this._instance._setUpFistma(reactComp)
-        }
+        if (reactComp) this._instance._setUpFistma(reactComp);
         
         return this._instance;
     }
@@ -92,7 +84,7 @@ export default class AdminCtrl extends BaseClientCtrl<IControllerDataStore & {Ad
 
         this.ComponentFistma.addTransition(this.ComponentStates.adminLogin)
         this.ComponentFistma.addTransition(this.ComponentStates.default)
-        this.ComponentFistma.addTransition(this.ComponentStates.game)
+        this.ComponentFistma.addTransition(this.ComponentStates.gameList)
         this.ComponentFistma.addTransition(this.ComponentStates.gameLogin)
         this.ComponentFistma.addTransition(this.ComponentStates.users)
         this.ComponentFistma.onInvalidTransition(() => {
