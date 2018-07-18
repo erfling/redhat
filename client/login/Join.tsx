@@ -1,14 +1,12 @@
 import * as React from "react";
-import UserModel from "../../shared/models/UserModel";
 import { Grid, Menu, Container, Button, Form, Input } from 'semantic-ui-react';
 const Field = { Form }
 const { Column, Row } = Grid;
-//import * as Icons from 'react-icons/lib/io';
 import { Route, Switch, RouteComponentProps, withRouter } from "react-router";
 import LoginCtrl from './LoginCtrl';
 import { IControllerDataStore } from "../../shared/base-sapien/client/BaseClientCtrl";
 
-class Join extends React.Component<RouteComponentProps<any>, UserModel & IControllerDataStore>
+class Join extends React.Component<RouteComponentProps<any>, IControllerDataStore>
 {
     //----------------------------------------------------------------------
     //
@@ -20,7 +18,7 @@ class Join extends React.Component<RouteComponentProps<any>, UserModel & IContro
 
     public static CONTROLLER = LoginCtrl;
     
-    controller: LoginCtrl = new LoginCtrl(this);
+    controller: LoginCtrl = LoginCtrl.GetInstance(this);
     
     //----------------------------------------------------------------------
     //
@@ -72,11 +70,11 @@ class Join extends React.Component<RouteComponentProps<any>, UserModel & IContro
         }
 
         return <>
-            {!this.state || !this.state.Name && <Row><h2>Hi. We're getting ready to sign you up.</h2></Row>}
-            {this.state && this.state.FirstName &&
+            {!this.state || !this.state.ApplicationState.CurrentUser.Name && <Row><h2>Hi. We're getting ready to sign you up.</h2></Row>}
+            {this.state && this.state.ApplicationState.CurrentUser.FirstName &&
                 <>
                     <Row>
-                        <h2>Welcome, {this.state.FirstName}</h2>
+                        <h2>Welcome, {this.state.ApplicationState.CurrentUser.FirstName}</h2>
                     </Row>
                     <Row>
                         <Form>
@@ -106,8 +104,8 @@ class Join extends React.Component<RouteComponentProps<any>, UserModel & IContro
                             </Form.Field>
                             <Button                                 
                                 primary
-                                loading={this.state.FormIsSubmitting}
-                                disabled={!this.state.FormIsValid}
+                                loading={this.state.ApplicationState.FormIsSubmitting}
+                                disabled={!this.state.ApplicationState.FormIsValid}
                                 onClick={() => this.controller.submitNewUserPassword()}
                             >Register</Button>
                         </Form>

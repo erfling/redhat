@@ -1,14 +1,12 @@
 import * as React from "react";
-import UserModel from "../../shared/models/UserModel";
 import { Grid, Menu, Container, Button, Form, Input, Message } from 'semantic-ui-react';
 const Field = { Form }
 const { Column, Row } = Grid;
-//import * as Icons from 'react-icons/lib/io';
 import { Route, Switch, RouteComponentProps, withRouter } from "react-router";
 import LoginCtrl from './LoginCtrl';
 import { IControllerDataStore } from "../../shared/base-sapien/client/BaseClientCtrl";
 
-class AdminLogin extends React.Component<RouteComponentProps<any>, UserModel & IControllerDataStore>
+class AdminLogin extends React.Component<RouteComponentProps<any>, IControllerDataStore>
 {
     //----------------------------------------------------------------------
     //
@@ -20,7 +18,7 @@ class AdminLogin extends React.Component<RouteComponentProps<any>, UserModel & I
 
     public static CONTROLLER = LoginCtrl;
     
-    controller: LoginCtrl = new LoginCtrl(this);
+    controller: LoginCtrl = LoginCtrl.GetInstance(this);
 
     //----------------------------------------------------------------------
     //
@@ -61,7 +59,7 @@ class AdminLogin extends React.Component<RouteComponentProps<any>, UserModel & I
                         <Form.Field>
                             <label>Email</label>
                             <input
-                                onChange={(e) => this.controller.dataStore.Email = e.target.value}
+                                onChange={(e) => this.state.ApplicationState.CurrentUser.Email = e.target.value}
                                 ref="EMAIL"
                                 placeholder='Email'
                             />
@@ -70,7 +68,7 @@ class AdminLogin extends React.Component<RouteComponentProps<any>, UserModel & I
                         <Form.Field>
                             <label>Password</label>
                             <input
-                                onChange={(e) => this.controller.dataStore.Password = e.target.value}
+                                onChange={(e) => this.state.ApplicationState.CurrentUser.Password = e.target.value}
                                 type="password"
                                 ref="PASSWORD"
                                 placeholder='Password'
@@ -78,12 +76,12 @@ class AdminLogin extends React.Component<RouteComponentProps<any>, UserModel & I
                         </Form.Field>
                         <Button
                             primary
-                            loading={this.state.FormIsSubmitting}
+                            loading={this.state.ApplicationState.FormIsSubmitting}
                             onClick={() => this.controller.AdminLogin()}
                         >Log in</Button>
-                        {this.state && this.state.FormError &&
+                        {this.state && this.state.ApplicationState.FormError &&
                             <Message negative>
-                                <Message.Header>{this.state.FormError}</Message.Header>
+                                <Message.Header>{this.state.ApplicationState.FormError}</Message.Header>
                             </Message>
                         }
                     </Form>
