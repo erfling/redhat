@@ -48,6 +48,12 @@ class UserList extends React.Component<RouteComponentProps<any>, IControllerData
     //
     //----------------------------------------------------------------------
 
+    componentWillMount() {
+        //this.component.constructor.super(this.component.props).componentWillMount()
+        this.controller.navigateOnClick(this.props.location.pathname);
+        this.controller.getAllUsers();
+    }
+
     render() {
         return <>
             {this.state.Admin.DeletionUser &&

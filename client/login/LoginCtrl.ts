@@ -34,17 +34,7 @@ export default class LoginCtrl extends BaseClientCtrl<IControllerDataStore>
     private constructor(reactComp: Component<any, any>) {
         super( null, reactComp);
 
-        this.dataStore = {
-            ApplicationState: DataStore.ApplicationState,
-            ComponentFistma: null
-        };
-
-        this.ComponentFistma = new FiStMa(this.ComponentStates, this.UrlToComponent(this.component.props.location.pathname) || this.ComponentStates.game);
-        this.ComponentFistma.addTransition(this.ComponentStates.game);
-        this.ComponentFistma.addTransition(this.ComponentStates.admin);
-        this.ComponentFistma.addTransition(this.ComponentStates.first);
-
-        this.dataStore.ComponentFistma = this.ComponentFistma;
+        if (reactComp) this._setUpFistma(reactComp);
     }
 
     public static GetInstance(reactComp?: Component<any, any>): LoginCtrl {
@@ -52,7 +42,7 @@ export default class LoginCtrl extends BaseClientCtrl<IControllerDataStore>
             this._instance = new LoginCtrl(reactComp || null);
         }
         if (!this._instance) throw new Error("NO INSTANCE");
-        if (reactComp) this._instance.component = reactComp;
+        if (reactComp) this._instance._setUpFistma(reactComp);
         return this._instance;
     }
     
@@ -120,6 +110,21 @@ export default class LoginCtrl extends BaseClientCtrl<IControllerDataStore>
     //
     //----------------------------------------------------------------------
 
+    protected _setUpFistma(reactComp: Component){  
+        console.log("INTDO ROUND IS", this)
+        this.component = reactComp;
 
+        this.dataStore = {
+            ApplicationState: DataStore.ApplicationState,
+            ComponentFistma: null
+        };
+
+        this.ComponentFistma = new FiStMa(this.ComponentStates, this.UrlToComponent(this.component.props.location.pathname) || this.ComponentStates.game);
+        this.ComponentFistma.addTransition(this.ComponentStates.game);
+        this.ComponentFistma.addTransition(this.ComponentStates.admin);
+        this.ComponentFistma.addTransition(this.ComponentStates.first);
+
+        this.dataStore.ComponentFistma = this.ComponentFistma;
+    }
 
 }

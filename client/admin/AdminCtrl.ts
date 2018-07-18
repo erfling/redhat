@@ -36,9 +36,7 @@ export default class AdminCtrl extends BaseClientCtrl<IControllerDataStore & {Ad
     private constructor(reactComp? : Component<any, any>) {
         super(null, reactComp || null);
        
-        if (reactComp) {
-            this._setUpFistma(reactComp);
-        }
+        if (reactComp) this._setUpFistma(reactComp);
     }
     
     public static GetInstance(reactComp?: Component<any, any>): AdminCtrl {
@@ -68,6 +66,13 @@ export default class AdminCtrl extends BaseClientCtrl<IControllerDataStore & {Ad
  
     private _setUpFistma(reactComp: Component){
         this.component = reactComp;
+
+        this.dataStore = {
+            Admin: DataStore.Admin,
+            ApplicationState: DataStore.ApplicationState,
+            ComponentFistma: null
+        }
+
         //if we don't have a user, go to admin login.
         if (!ApplicationViewModel.CurrentUser || !ApplicationViewModel.Token){
             this.ComponentFistma = new FiStMa(this.ComponentStates, this.ComponentStates.adminLogin);
@@ -101,11 +106,7 @@ export default class AdminCtrl extends BaseClientCtrl<IControllerDataStore & {Ad
             this.conditionallyNavigate(this.component.props.location.pathname, prevProps.location.pathname)
         }
 
-        this.dataStore = {
-            Admin: DataStore.Admin,
-            ComponentFistma: this.ComponentFistma,
-            ApplicationState: DataStore.ApplicationState
-        }
+        this.dataStore.ComponentFistma = this.ComponentFistma;
     }
 
 }

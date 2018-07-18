@@ -35,22 +35,17 @@ export default class WelcomeCtrl extends BaseRoundCtrl<IRoundDataStore>
     private constructor(reactComp: React.Component<any, any>) {
         super(reactComp || null);
 
-        this.ComponentFistma = new FiStMa(this.ComponentStates, this.ComponentStates.sub1);
-        this.ComponentFistma.addTransition(this.ComponentStates.sub1);
-
         if (reactComp) this._setUpFistma(reactComp);
-
     }
 
     public static GetInstance(reactComp?: Component<any, any>): WelcomeCtrl {
-        if (!WelcomeCtrl._instance) {
-            WelcomeCtrl._instance = new WelcomeCtrl(reactComp || null);
+        if (!this._instance) {
+            this._instance = new WelcomeCtrl(reactComp || null);
         }
+        if (!this._instance) throw new Error("NO INSTANCE");
+        if (reactComp) this._instance._setUpFistma(reactComp);
 
-        if (!WelcomeCtrl._instance) throw new Error("NO INSTANCE");
-        if (reactComp) WelcomeCtrl._instance._setUpFistma(reactComp)
-
-        return WelcomeCtrl._instance;
+        return this._instance;
     }
 
 
@@ -92,21 +87,24 @@ export default class WelcomeCtrl extends BaseRoundCtrl<IRoundDataStore>
 
     protected _setUpFistma(reactComp: Component){  
         console.log("INTDO ROUND IS", this)
-
         this.component = reactComp;
+
         this.dataStore = {
             Round: new RoundModel(),
             ApplicationState: DataStore.ApplicationState,
-            ComponentFistma: this.ComponentFistma,
+            ComponentFistma: null,
             SelectedSubround: null
         };        
         this.dataStore.Round.Name = "WELCOME";
   
+        this.ComponentFistma = new FiStMa(this.ComponentStates, this.ComponentStates.sub1);
+        this.ComponentFistma.addTransition(this.ComponentStates.sub1);
         this.ComponentFistma.addOnEnter(this.ComponentStates.sub1, this.getContentBySubRound.bind(this));
         this.ComponentFistma.addOnEnter(this.ComponentStates.sub2, this.getContentBySubRound.bind(this));
 
-        this.getContentBySubRound.bind(this)();
+        this.dataStore.ComponentFistma = this.ComponentFistma;
 
+        this.getContentBySubRound.bind(this)();
     }
 
 }

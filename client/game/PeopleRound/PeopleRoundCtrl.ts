@@ -35,22 +35,17 @@ export default class PeopleRoundCtrl extends BaseRoundCtrl<IRoundDataStore>
     private constructor(reactComp: React.Component<any, any>) {
         super(reactComp || null);
 
-        this.ComponentFistma = new FiStMa(this.ComponentStates, this.ComponentStates.sub1);
-        this.ComponentFistma.addTransition(this.ComponentStates.sub1);
-        this.ComponentFistma.addTransition(this.ComponentStates.sub2);
-
         if (reactComp) this._setUpFistma(reactComp);
     }
 
     public static GetInstance(reactComp?: Component<any, any>): PeopleRoundCtrl {
-        if (!PeopleRoundCtrl._instance) {
-            PeopleRoundCtrl._instance = new PeopleRoundCtrl(reactComp || null);
+        if (!this._instance) {
+            this._instance = new PeopleRoundCtrl(reactComp || null);
         }
+        if (!this._instance) throw new Error("NO INSTANCE");
+        if (reactComp) this._instance._setUpFistma(reactComp)
 
-        if (!PeopleRoundCtrl._instance) throw new Error("NO INSTANCE");
-        if (reactComp) PeopleRoundCtrl._instance._setUpFistma(reactComp)
-
-        return PeopleRoundCtrl._instance;
+        return this._instance;
     }
 
     //----------------------------------------------------------------------
@@ -104,19 +99,23 @@ export default class PeopleRoundCtrl extends BaseRoundCtrl<IRoundDataStore>
     //
     //----------------------------------------------------------------------
 
-    protected _setUpFistma(reactComp: Component){  
-        console.log("PEOPLE ROUND IS", this);
+    protected _setUpFistma(reactComp: Component) {
         this.component = reactComp;
         
         this.dataStore = {
             Round: new RoundModel(),
             SelectedSubround: null,
-            ComponentFistma: this.ComponentFistma,
             ApplicationState: DataStore.ApplicationState,
+            ComponentFistma: null
         };
         this.dataStore.Round.Name = "PEOPLE";
         
+        this.ComponentFistma = new FiStMa(this.ComponentStates, this.ComponentStates.sub1);
+        this.ComponentFistma.addTransition(this.ComponentStates.sub1);
+        this.ComponentFistma.addTransition(this.ComponentStates.sub2);
         this.ComponentFistma.addOnEnter("*", this.getContentBySubRound.bind(this));
+
+        this.dataStore.ComponentFistma = this.ComponentFistma;
 
         this.getContentBySubRound();
     }

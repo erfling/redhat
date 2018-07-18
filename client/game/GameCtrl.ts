@@ -199,6 +199,15 @@ export default class GameCtrl extends BaseClientCtrl<IControllerDataStore & {Gam
     private _setUpFistma(reactComp: Component) {
         this.component = reactComp;
 
+        DataStore.ApplicationState.CurrentUser = localStorage.getItem("RH_USER") ? Object.assign( new UserModel(), JSON.parse(localStorage.getItem("RH_USER") ) ) : new UserModel();      
+        DataStore.ApplicationState.CurrentTeam = localStorage.getItem("RH_TEAM") ? Object.assign( new TeamModel(), JSON.parse(localStorage.getItem("RH_TEAM") ) ) : new TeamModel();
+
+        this.dataStore = {
+            ApplicationState: DataStore.ApplicationState,
+            ComponentFistma: null,
+            Game: new GameModel()
+        };
+
         this.ComponentFistma = new FiStMa(this.ComponentStates, this.ComponentStates.round0);
         this.ComponentFistma.addTransition(this.ComponentStates.round0);
         this.ComponentFistma.addTransition(this.ComponentStates.round1);
@@ -209,14 +218,7 @@ export default class GameCtrl extends BaseClientCtrl<IControllerDataStore & {Gam
         this.ComponentFistma.addOnEnter("*", this._onRoundEnter.bind(this));
         this.ComponentFistma.onInvalidTransition(this._onInvalidTrans);
 
-        DataStore.ApplicationState.CurrentUser = localStorage.getItem("RH_USER") ? Object.assign( new UserModel(), JSON.parse(localStorage.getItem("RH_USER") ) ) : new UserModel();      
-        DataStore.ApplicationState.CurrentTeam = localStorage.getItem("RH_TEAM") ? Object.assign( new TeamModel(), JSON.parse(localStorage.getItem("RH_TEAM") ) ) : new TeamModel();
-
-        this.dataStore = {
-            ApplicationState: DataStore.ApplicationState,
-            ComponentFistma: null,
-            Game: new GameModel()
-        };
+        this.dataStore.ComponentFistma = this.ComponentFistma;
 
         console.log("DATASTORE APPLICATION:", DataStore.ApplicationState)
         this.pollForGameStateChange(this.dataStore.ApplicationState.CurrentTeam.GameId)
