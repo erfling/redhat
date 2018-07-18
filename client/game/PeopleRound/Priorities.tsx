@@ -1,8 +1,6 @@
 import * as React from "react";
 import PeopleRoundCtrl from "./PeopleRoundCtrl";
-import RoundModel from "../../../shared/models/RoundModel";
 import { RoleName } from "../../../shared/models/UserModel";
-import ValueObj from '../../../shared/entity-of-the-state/ValueObj';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 import EditableContentBlock from '../../../shared/base-sapien/client/shared-components/EditableContentBlock';
 import EditableQuestionBlock from '../../../shared/base-sapien/client/shared-components/EditableQuestionBlock';
@@ -12,7 +10,6 @@ import { IRoundDataStore } from '../../../shared/base-sapien/client/BaseRoundCtr
 const { Button, Grid, Menu, Segment, Form, Dimmer, Loader } = Semantic;
 const { Row, Column } = Grid;
 
-
 class Priorities extends React.Component<RouteComponentProps<any>, IRoundDataStore>
 {
     //----------------------------------------------------------------------
@@ -21,9 +18,11 @@ class Priorities extends React.Component<RouteComponentProps<any>, IRoundDataSto
     //
     //----------------------------------------------------------------------
 
-    controller: PeopleRoundCtrl = PeopleRoundCtrl.GetInstance();
-
     public static CLASS_NAME = "Priorities";
+
+    public static CONTROLLER = PeopleRoundCtrl;
+    
+    controller: PeopleRoundCtrl = PeopleRoundCtrl.GetInstance();
 
     //----------------------------------------------------------------------
     //

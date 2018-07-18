@@ -11,7 +11,6 @@ import EngineeringRoundCtrl from "./EngineeringRoundCtrl";
 const { Button, Grid, Form, Dimmer, Loader } = Semantic;
 const { Row, Column } = Grid;
 
-
 class EngineeringSub extends React.Component<RouteComponentProps<any>, IRoundDataStore>
 {
     //----------------------------------------------------------------------
@@ -20,9 +19,11 @@ class EngineeringSub extends React.Component<RouteComponentProps<any>, IRoundDat
     //
     //----------------------------------------------------------------------
 
-    controller: EngineeringRoundCtrl = EngineeringRoundCtrl.GetInstance();
-
     public static CLASS_NAME = "EngineeringSub";
+
+    public static CONTROLLER = EngineeringRoundCtrl;
+    
+    controller: EngineeringRoundCtrl = EngineeringRoundCtrl.GetInstance();
 
     //----------------------------------------------------------------------
     //

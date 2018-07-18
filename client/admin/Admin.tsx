@@ -13,9 +13,12 @@ class Admin extends React.Component<RouteComponentProps<any>, IControllerDataSto
     //  Properties
     //
     //----------------------------------------------------------------------
-    controller: AdminCtrl = AdminCtrl.GetInstance(this);
-
+    
     public static CLASS_NAME = "Admin";
+
+    public static CONTROLLER = AdminCtrl;
+
+    controller: AdminCtrl = AdminCtrl.GetInstance(this);
 
     //----------------------------------------------------------------------
     //

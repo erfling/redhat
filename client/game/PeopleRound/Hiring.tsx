@@ -11,7 +11,6 @@ import { IRoundDataStore } from '../../../shared/base-sapien/client/BaseRoundCtr
 const { Button, Grid, Form, Dimmer, Loader } = Semantic;
 const { Row, Column } = Grid;
 
-
 class Hiring extends React.Component<RouteComponentProps<any>, IRoundDataStore>
 {
     //----------------------------------------------------------------------
@@ -20,9 +19,11 @@ class Hiring extends React.Component<RouteComponentProps<any>, IRoundDataStore>
     //
     //----------------------------------------------------------------------
 
-    controller: PeopleRoundCtrl = PeopleRoundCtrl.GetInstance();
-
     public static CLASS_NAME = "Hiring";
+
+    public static CONTROLLER = PeopleRoundCtrl;
+    
+    controller: PeopleRoundCtrl = PeopleRoundCtrl.GetInstance();
 
     //----------------------------------------------------------------------
     //

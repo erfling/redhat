@@ -1,12 +1,11 @@
+'use strict';
 import * as React from "react";
 import GameCtrl from "./GameCtrl";
 import GameModel from "../../shared/models/GameModel";
 import { Grid, Menu, Button, Segment } from 'semantic-ui-react';
-const { Column, Row } = Grid;
-import { Route, Switch, RouteComponentProps, withRouter } from "react-router";
+import { RouteComponentProps, withRouter } from "react-router";
 import Circles from '-!svg-react-loader?name=Icon!../img/circles.svg';
 import {IControllerDataStore} from '../../shared/base-sapien/client/BaseClientCtrl';
-
 import { RoleName } from "../../shared/models/UserModel";
 
 class Game extends React.Component<RouteComponentProps<any>, IControllerDataStore & {Game: GameModel}>
@@ -17,9 +16,11 @@ class Game extends React.Component<RouteComponentProps<any>, IControllerDataStor
     //
     //----------------------------------------------------------------------
 
-    controller: GameCtrl = GameCtrl.GetInstance(this);
-
     public static CLASS_NAME = "Game";
+
+    public static CONTROLLER = GameCtrl;
+    
+    controller: GameCtrl = GameCtrl.GetInstance(this);
 
     //----------------------------------------------------------------------
     //

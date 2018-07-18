@@ -6,7 +6,6 @@ const { Button, Grid, Menu } = Semantic;
 const { Row, Column } = Grid;
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 
-
 class CustomerRound extends React.Component<RouteComponentProps<any>, IRoundDataStore>
 {
     //----------------------------------------------------------------------
@@ -15,9 +14,11 @@ class CustomerRound extends React.Component<RouteComponentProps<any>, IRoundData
     //
     //----------------------------------------------------------------------
     
-    controller: CustomerRoundCtrl = CustomerRoundCtrl.GetInstance(this);
-
     public static CLASS_NAME = "CustomerRound";
+    
+    public static CONTROLLER = CustomerRoundCtrl;
+
+    controller: CustomerRoundCtrl = CustomerRoundCtrl.GetInstance(this);
     
     //----------------------------------------------------------------------
     //

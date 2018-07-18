@@ -2,8 +2,6 @@
 import { Component } from 'react';
 import BaseRoundCtrl, {IRoundDataStore} from '../../../shared/base-sapien/client/BaseRoundCtrl';
 import RoundModel from '../../../shared/models/RoundModel';
-import Hiring from './Hiring';
-import Priorities from './Priorities';
 import FiStMa from '../../../shared/entity-of-the-state/FiStMa';
 import ValueObj from '../../../shared/entity-of-the-state/ValueObj';
 import ResponseModel from '../../../shared/models/ResponseModel';
@@ -11,6 +9,7 @@ import QuestionModel from '../../../shared/models/QuestionModel';
 import SubRoundModel from '../../../shared/models/SubRoundModel';
 import DataStore from '../../../shared/base-sapien/client/DataStore'
 import SapienServerCom from '../../../shared/base-sapien/client/SapienServerCom';
+import ComponentsVO from '../../../shared/base-sapien/client/ComponentsVO';
 
 export default class PeopleRoundCtrl extends BaseRoundCtrl<IRoundDataStore>
 {
@@ -23,8 +22,8 @@ export default class PeopleRoundCtrl extends BaseRoundCtrl<IRoundDataStore>
     private static _instance: PeopleRoundCtrl;
 
     protected readonly ComponentStates = {
-        sub1: Priorities,
-        sub2: Hiring
+        sub1: ComponentsVO.Priorities,
+        sub2: ComponentsVO.Hiring
     };
 
     //----------------------------------------------------------------------
@@ -41,7 +40,6 @@ export default class PeopleRoundCtrl extends BaseRoundCtrl<IRoundDataStore>
         this.ComponentFistma.addTransition(this.ComponentStates.sub2);
 
         if (reactComp) this._setUpFistma(reactComp);
-
     }
 
     public static GetInstance(reactComp?: Component<any, any>): PeopleRoundCtrl {

@@ -1,20 +1,17 @@
+'use strict';
 import FiStMa from '../../shared/entity-of-the-state/FiStMa';
 import AdminViewModel from '../../shared/models/AdminViewModel';
 import { Component } from 'react';
-import Game from '../game/Game';
 import BaseClientCtrl, {IControllerDataStore} from '../../shared/base-sapien/client/BaseClientCtrl';
-import AdminLogin from '../login/AdminLogin';
-import GameList from './GameList';
-import GameDetail from './GameDetail';
 import UserModel, { RoleName } from '../../shared/models/UserModel';
 import SapienServerCom from '../../shared/base-sapien/client/SapienServerCom';
 import GameModel from '../../shared/models/GameModel';
 import TeamModel from '../../shared/models/TeamModel';
 import ApplicationCtrl from '../ApplicationCtrl';
 import DataStore from '../../shared/base-sapien/client/DataStore';
+import ComponentsVO from '../../shared/base-sapien/client/ComponentsVO';
 
-
-export default class GameManagementCtrl extends BaseClientCtrl<IControllerDataStore & {Admin: AdminViewModel} & {ShowUserModal: boolean, ShowGameModal: boolean, ShowTeamDeleteModal: boolean}>
+export default class GameManagementCtrl extends BaseClientCtrl<IControllerDataStore & {Admin: AdminViewModel, ShowUserModal: boolean, ShowGameModal: boolean, ShowTeamDeleteModal: boolean}>
 {
     //----------------------------------------------------------------------
     //
@@ -23,10 +20,10 @@ export default class GameManagementCtrl extends BaseClientCtrl<IControllerDataSt
     //----------------------------------------------------------------------
 
     protected readonly ComponentStates = {
-        gameList: GameList,
-        gamedetail: GameDetail,
-        game: Game,
-        adminLogin: AdminLogin
+        gameList: ComponentsVO.GameList,
+        gamedetail: ComponentsVO.GameDetail,
+        game: ComponentsVO.Game,
+        adminLogin: ComponentsVO.AdminLogin
     };
 
     private static _instance: GameManagementCtrl;
@@ -49,8 +46,8 @@ export default class GameManagementCtrl extends BaseClientCtrl<IControllerDataSt
         if (!this._instance) {
             this._instance = new GameManagementCtrl(reactComp || null);
         }
-        if (!this._instance) throw new Error("NO INSTANCE")
-        if (reactComp) this._instance._setUpFistma(reactComp)
+        if (!this._instance) throw new Error("NO INSTANCE");
+        if (reactComp) this._instance._setUpFistma(reactComp);
         return this._instance;
     }
 
@@ -225,7 +222,6 @@ export default class GameManagementCtrl extends BaseClientCtrl<IControllerDataSt
     }
 
     private _setUpFistma(reactComp: Component) {
-
         this.component = reactComp;
         this.dataStore = {
             Admin: DataStore.Admin,

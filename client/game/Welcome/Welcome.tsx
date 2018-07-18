@@ -7,7 +7,6 @@ import { IRoundDataStore } from '../../../shared/base-sapien/client/BaseRoundCtr
 const { Button, Grid, Menu, Segment } = Semantic;
 const { Row, Column } = Grid;
 
-
 class Welcome extends React.Component<RouteComponentProps<any>, IRoundDataStore>
 {
     //----------------------------------------------------------------------
@@ -16,9 +15,11 @@ class Welcome extends React.Component<RouteComponentProps<any>, IRoundDataStore>
     //
     //----------------------------------------------------------------------
 
-    controller: WelcomeCtrl = WelcomeCtrl.GetInstance(this);
-
     public static CLASS_NAME = "Welcome";
+
+    public static CONTROLLER = WelcomeCtrl;
+    
+    controller: WelcomeCtrl = WelcomeCtrl.GetInstance(this);
 
     //----------------------------------------------------------------------
     //

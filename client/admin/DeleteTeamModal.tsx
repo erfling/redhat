@@ -1,8 +1,6 @@
 import * as React from "react";
 import { Modal, Button, Label, Header, Icon, Form, Input, Checkbox, Dropdown } from 'semantic-ui-react';
-import UserManagementCtrl from './UserManagementCtrl';
 import TeamModel from "../../shared/models/TeamModel";
-import { DateInput } from 'semantic-ui-calendar-react';
 
 interface GameModalProps{
     Team: TeamModel;
