@@ -27,19 +27,16 @@ export default class UserManagementCtrl extends BaseClientCtrl<IControllerDataSt
         super(null, reactComp || null);
         this.CurrentLocation = this.component.props.location.pathname;
         
-        this.dataStore = AdminCtrl.GetInstance().dataStore;
-
-        this.component.componentWillMount = () => {
-            this.getAllUsers();
-        }
+        if (reactComp) this._setUpFistma(reactComp);
     }
 
     public static GetInstance(reactComp?: Component<any, any>): UserManagementCtrl {
         if (!this._instance) {
             this._instance = new UserManagementCtrl(reactComp || null);
         }
-        if (!this._instance) throw new Error("NO INSTANCE")
+        if (!this._instance) throw new Error("NO INSTANCE");
         if (reactComp) this._instance.component = reactComp;
+
         return this._instance;
     }
     
@@ -66,9 +63,13 @@ export default class UserManagementCtrl extends BaseClientCtrl<IControllerDataSt
     public getAllUsers(){
         if (!this.dataStore.Admin.Users || !this.dataStore.Admin.Users.length){
             return SapienServerCom.GetData(null, null, SapienServerCom.BASE_REST_URL + "user").then(r => {
-                console.log("Users ARE: ",r)
-                this.dataStore.Admin.Users = r;            
+                this.dataStore.Admin.Users = r;
                 this.dataStore.ApplicationState.IsLoading = false;
+                return this.dataStore.Admin.Users;
+            })
+        } else {
+            return new Promise((resolve, reject) => {
+                return resolve(this.dataStore.Admin.Users);
             })
         }
     }
@@ -108,6 +109,23 @@ export default class UserManagementCtrl extends BaseClientCtrl<IControllerDataSt
             console.log(AdminCtrl.GetInstance().dataStore.Admin.Users, this.dataStore.Admin.Users)
             this.dataStore.Admin.DeletionUser = null; 
         })
+    }
+
+    private _setUpFistma(reactComp: Component) {
+        this.component = reactComp;
+
+        this.dataStore = {
+            ApplicationState: AdminCtrl.GetInstance().dataStore.ApplicationState,
+            Admin: AdminCtrl.GetInstance().dataStore.Admin,
+            ComponentFistma: AdminCtrl.GetInstance().dataStore.ComponentFistma
+        }
+
+        if (this.component.componentWillMount == undefined) {
+            this.component.componentWillMount = () => {
+                this.navigateOnClick(this.component.props.location.pathname);
+                this.getAllUsers();
+            }
+        }
     }
 
 }

@@ -2,8 +2,6 @@
 import { Component } from 'react';
 import BaseRoundCtrl, {IRoundDataStore} from '../../../shared/base-sapien/client/BaseRoundCtrl';
 import RoundModel from '../../../shared/models/RoundModel';
-import Hiring from './Hiring';
-import Priorities from './Priorities';
 import FiStMa from '../../../shared/entity-of-the-state/FiStMa';
 import ValueObj from '../../../shared/entity-of-the-state/ValueObj';
 import ResponseModel from '../../../shared/models/ResponseModel';
@@ -11,6 +9,7 @@ import QuestionModel from '../../../shared/models/QuestionModel';
 import SubRoundModel from '../../../shared/models/SubRoundModel';
 import DataStore from '../../../shared/base-sapien/client/DataStore'
 import SapienServerCom from '../../../shared/base-sapien/client/SapienServerCom';
+import ComponentsVO from '../../../shared/base-sapien/client/ComponentsVO';
 
 export default class PeopleRoundCtrl extends BaseRoundCtrl<IRoundDataStore>
 {
@@ -23,8 +22,8 @@ export default class PeopleRoundCtrl extends BaseRoundCtrl<IRoundDataStore>
     private static _instance: PeopleRoundCtrl;
 
     protected readonly ComponentStates = {
-        sub1: Priorities,
-        sub2: Hiring
+        sub1: ComponentsVO.Priorities,
+        sub2: ComponentsVO.Hiring
     };
 
     //----------------------------------------------------------------------
@@ -36,6 +35,7 @@ export default class PeopleRoundCtrl extends BaseRoundCtrl<IRoundDataStore>
     private constructor(reactComp: React.Component<any, any>) {
         super(reactComp || null);
 
+<<<<<<< HEAD
         this.ComponentFistma = new FiStMa(this.ComponentStates, this.ComponentStates.sub1);
         this.ComponentFistma.addTransition(this.ComponentStates.sub1);
         this.ComponentFistma.addTransition(this.ComponentStates.sub2);
@@ -47,19 +47,19 @@ export default class PeopleRoundCtrl extends BaseRoundCtrl<IRoundDataStore>
             ApplicationState: DataStore.ApplicationState,
         };
         this.dataStore.Round.Name = "PEOPLE";
+=======
+>>>>>>> f56720953dfdf5759c1ef928d98538d3ef70ec75
         if (reactComp) this._setUpFistma(reactComp);
-
     }
 
     public static GetInstance(reactComp?: Component<any, any>): PeopleRoundCtrl {
-        if (!PeopleRoundCtrl._instance) {
-            PeopleRoundCtrl._instance = new PeopleRoundCtrl(reactComp || null);
+        if (!this._instance) {
+            this._instance = new PeopleRoundCtrl(reactComp || null);
         }
+        if (!this._instance) throw new Error("NO INSTANCE");
+        if (reactComp) this._instance._setUpFistma(reactComp)
 
-        if (!PeopleRoundCtrl._instance) throw new Error("NO INSTANCE");
-        if (reactComp) PeopleRoundCtrl._instance._setUpFistma(reactComp)
-
-        return PeopleRoundCtrl._instance;
+        return this._instance;
     }
 
     //----------------------------------------------------------------------
@@ -113,12 +113,26 @@ export default class PeopleRoundCtrl extends BaseRoundCtrl<IRoundDataStore>
     //
     //----------------------------------------------------------------------
 
-    protected _setUpFistma(reactComp: Component){  
-        console.log("PEOPLE ROUND IS", this);
+    protected _setUpFistma(reactComp: Component) {
         this.component = reactComp;
         
+<<<<<<< HEAD
+=======
+        this.dataStore = {
+            Round: new RoundModel(),
+            SelectedSubround: null,
+            ApplicationState: DataStore.ApplicationState,
+            ComponentFistma: null
+        };
+        this.dataStore.Round.Name = "PEOPLE";
+>>>>>>> f56720953dfdf5759c1ef928d98538d3ef70ec75
         
+        this.ComponentFistma = new FiStMa(this.ComponentStates, this.ComponentStates.sub1);
+        this.ComponentFistma.addTransition(this.ComponentStates.sub1);
+        this.ComponentFistma.addTransition(this.ComponentStates.sub2);
         this.ComponentFistma.addOnEnter("*", this.getContentBySubRound.bind(this));
+
+        this.dataStore.ComponentFistma = this.ComponentFistma;
 
         this.getContentBySubRound();
     }

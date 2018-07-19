@@ -1,5 +1,4 @@
-import { dbProp } from './../base-sapien/models/BaseModel';
-import BaseModel from "../base-sapien/models/BaseModel";
+import BaseModel, { dbProp } from "../base-sapien/models/BaseModel";
 import TeamModel from "../models/TeamModel";
 import { Type } from 'class-transformer';
 import UserModel from './UserModel';

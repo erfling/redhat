@@ -2,8 +2,6 @@
 import { Component } from 'react';
 import BaseRoundCtrl from '../../../shared/base-sapien/client/BaseRoundCtrl';
 import RoundModel from '../../../shared/models/RoundModel';
-import Intro from './Intro';
-import PlayerLogin from './PlayerLogin';
 import FiStMa from '../../../shared/entity-of-the-state/FiStMa';
 import GameCtrl from '../GameCtrl';
 import SapienServerCom from '../../../shared/base-sapien/client/SapienServerCom';
@@ -11,6 +9,7 @@ import DataStore from '../../../shared/base-sapien/client/DataStore'
 import TeamModel from '../../../shared/models/TeamModel';
 import UserModel from '../../../shared/models/UserModel';
 import { IRoundDataStore } from '../../../shared/base-sapien/client/BaseRoundCtrl';
+import ComponentsVO from '../../../shared/base-sapien/client/ComponentsVO';
 
 export default class WelcomeCtrl extends BaseRoundCtrl<IRoundDataStore>
 {
@@ -23,8 +22,8 @@ export default class WelcomeCtrl extends BaseRoundCtrl<IRoundDataStore>
     private static _instance: WelcomeCtrl;
 
     protected readonly ComponentStates = {
-        sub1: Intro,
-        sub2: PlayerLogin
+        sub1: ComponentsVO.Intro,
+        sub2: ComponentsVO.PlayerLogin
     };
 
     //----------------------------------------------------------------------
@@ -36,6 +35,7 @@ export default class WelcomeCtrl extends BaseRoundCtrl<IRoundDataStore>
     private constructor(reactComp: React.Component<any, any>) {
         super(reactComp || null);
 
+<<<<<<< HEAD
       
         this.ComponentFistma = new FiStMa(this.ComponentStates, this.ComponentStates.sub1);
         this.ComponentFistma.addTransition(this.ComponentStates.sub1);
@@ -47,19 +47,19 @@ export default class WelcomeCtrl extends BaseRoundCtrl<IRoundDataStore>
         };        
         this.dataStore.Round.Name = "WELCOME";
 
+=======
+>>>>>>> f56720953dfdf5759c1ef928d98538d3ef70ec75
         if (reactComp) this._setUpFistma(reactComp);
-
     }
 
     public static GetInstance(reactComp?: Component<any, any>): WelcomeCtrl {
-        if (!WelcomeCtrl._instance) {
-            WelcomeCtrl._instance = new WelcomeCtrl(reactComp || null);
+        if (!this._instance) {
+            this._instance = new WelcomeCtrl(reactComp || null);
         }
+        if (!this._instance) throw new Error("NO INSTANCE");
+        if (reactComp) this._instance._setUpFistma(reactComp);
 
-        if (!WelcomeCtrl._instance) throw new Error("NO INSTANCE");
-        if (reactComp) WelcomeCtrl._instance._setUpFistma(reactComp)
-
-        return WelcomeCtrl._instance;
+        return this._instance;
     }
 
 
@@ -75,7 +75,6 @@ export default class WelcomeCtrl extends BaseRoundCtrl<IRoundDataStore>
             Email: this.dataStore.ApplicationState.CurrentUser.Email, 
             GamePIN: this.dataStore.ApplicationState.CurrentGame.GamePIN}, 
             SapienServerCom.BASE_REST_URL + "auth").then((r:{team: TeamModel, user: UserModel, token: string}) => {
-
                 console.log("returned", r)
 
                 localStorage.setItem("RH_USER", JSON.stringify(r.user))
@@ -92,7 +91,6 @@ export default class WelcomeCtrl extends BaseRoundCtrl<IRoundDataStore>
         }).catch((r) => {
             this.dataStore.ApplicationState.FormError = "There was a problem logging you in. Please try again.";
         })
-
     }
 
     //----------------------------------------------------------------------
@@ -103,14 +101,27 @@ export default class WelcomeCtrl extends BaseRoundCtrl<IRoundDataStore>
 
     protected _setUpFistma(reactComp: Component){  
         console.log("INTDO ROUND IS", this)
-
         this.component = reactComp;
+<<<<<<< HEAD
+=======
+
+        this.dataStore = {
+            Round: new RoundModel(),
+            ApplicationState: DataStore.ApplicationState,
+            ComponentFistma: null,
+            SelectedSubround: null
+        };        
+        this.dataStore.Round.Name = "WELCOME";
+>>>>>>> f56720953dfdf5759c1ef928d98538d3ef70ec75
   
+        this.ComponentFistma = new FiStMa(this.ComponentStates, this.ComponentStates.sub1);
+        this.ComponentFistma.addTransition(this.ComponentStates.sub1);
         this.ComponentFistma.addOnEnter(this.ComponentStates.sub1, this.getContentBySubRound.bind(this));
         this.ComponentFistma.addOnEnter(this.ComponentStates.sub2, this.getContentBySubRound.bind(this));
 
-        this.getContentBySubRound.bind(this)();
+        this.dataStore.ComponentFistma = this.ComponentFistma;
 
+        this.getContentBySubRound.bind(this)();
     }
 
 }

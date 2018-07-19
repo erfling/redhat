@@ -15,9 +15,11 @@ class PlayerLogin extends React.Component<RouteComponentProps<any>, IRoundDataSt
     //
     //----------------------------------------------------------------------
 
-    controller: WelcomeCtrl = WelcomeCtrl.GetInstance();
-
     public static CLASS_NAME = "PlayerLogin";
+
+    public static CONTROLLER = WelcomeCtrl;
+    
+    controller: WelcomeCtrl = WelcomeCtrl.GetInstance();
 
     //----------------------------------------------------------------------
     //

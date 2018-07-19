@@ -16,10 +16,11 @@ class GameList extends React.Component<RouteComponentProps<any>, IControllerData
     //
     //----------------------------------------------------------------------
 
+    public static CLASS_NAME = "GameList"; //alias for navigation
+    
+    public static CONTROLLER = GameManagementCtrl;
+    
     controller: GameManagementCtrl = GameManagementCtrl.GetInstance(this);
-
-    //alias for navigation
-    public static CLASS_NAME = "GameList";
 
     //----------------------------------------------------------------------
     //

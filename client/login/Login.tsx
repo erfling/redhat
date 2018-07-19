@@ -2,9 +2,9 @@ import * as React from "react";
 import { RouteComponentProps, withRouter, Route } from "react-router";
 import LoginCtrl from './LoginCtrl';
 import { Grid, Menu, Container, Button } from 'semantic-ui-react';
-const { Column, Row } = Grid;
+import { IControllerDataStore } from "../../shared/base-sapien/client/BaseClientCtrl";
 
-class Login extends React.Component<RouteComponentProps<any>, any>
+class Login extends React.Component<RouteComponentProps<any>, IControllerDataStore>
 {
     //----------------------------------------------------------------------
     //
@@ -12,10 +12,11 @@ class Login extends React.Component<RouteComponentProps<any>, any>
     //
     //----------------------------------------------------------------------
 
-    controller: LoginCtrl = new LoginCtrl(this);
-
     public static CLASS_NAME = "Login";
-
+    
+    public static CONTROLLER = LoginCtrl;
+    
+    controller: LoginCtrl = LoginCtrl.GetInstance(this);
 
     //----------------------------------------------------------------------
     //
@@ -48,8 +49,8 @@ class Login extends React.Component<RouteComponentProps<any>, any>
     //----------------------------------------------------------------------
 
     render() {
-        if (this.state && this.controller.ComponentFistma) {
-            const ComponentFromState: any = this.controller.ComponentFistma.currentState
+        if (this.state && this.state.ComponentFistma) {
+            const ComponentFromState: any = this.state.ComponentFistma.currentState
         return <Container
             fluid={true}
         >

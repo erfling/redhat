@@ -12,7 +12,6 @@ import { IRoundDataStore } from '../../../shared/base-sapien/client/BaseRoundCtr
 const { Button, Grid, Menu, Segment, Form, Dimmer, Loader } = Semantic;
 const { Row, Column } = Grid;
 
-
 class Priorities extends React.Component<RouteComponentProps<any>, IRoundDataStore>
 {
     //----------------------------------------------------------------------
@@ -21,9 +20,11 @@ class Priorities extends React.Component<RouteComponentProps<any>, IRoundDataSto
     //
     //----------------------------------------------------------------------
 
-    controller: PeopleRoundCtrl = PeopleRoundCtrl.GetInstance();
-
     public static CLASS_NAME = "Priorities";
+
+    public static CONTROLLER = PeopleRoundCtrl;
+    
+    controller: PeopleRoundCtrl = PeopleRoundCtrl.GetInstance();
 
     //----------------------------------------------------------------------
     //

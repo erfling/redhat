@@ -1,23 +1,16 @@
 import * as React from "react";
-import FiStMa from '../../shared/entity-of-the-state/FiStMa';
 import { Button, Segment, Label, Header, Icon, Form, Input, Dropdown, Popup, Card, Grid, Loader, Dimmer, Modal } from 'semantic-ui-react';
 const { Row, Column } = Grid;
 import { RouteComponentProps, withRouter } from "react-router";
 import GameManagementCtrl from './GameManagementCtrl';
 import AdminViewModel from '../../shared/models/AdminViewModel';
-import ICommonComponentState from '../../shared/base-sapien/client/ICommonComponentState';
-import DecisionIcon from '-!svg-react-loader?name=Icon!../img/decisions.svg';
-import GameModel from "../../shared/models/GameModel";
-import TeamModel from "../../shared/models/TeamModel";
-import { DateInput } from 'semantic-ui-calendar-react';
-import * as moment from 'moment';
 import UserModel, { RoleName } from "../../shared/models/UserModel";
 import UserModal from './UserModal';
 import {IControllerDataStore} from '../../shared/base-sapien/client/BaseClientCtrl';
 import GameModal from './GameModal'
 import DeleteTeamModal from './DeleteTeamModal'
 
-class GameDetail extends React.Component<RouteComponentProps<any>, IControllerDataStore & {Admin: AdminViewModel} & {ShowUserModal: boolean, ShowGameModal: boolean, ShowTeamDeleteModal: boolean}>
+class GameDetail extends React.Component<RouteComponentProps<any>, IControllerDataStore & {Admin: AdminViewModel, ShowUserModal: boolean, ShowGameModal: boolean, ShowTeamDeleteModal: boolean}>
 {
     //----------------------------------------------------------------------
     //
@@ -25,10 +18,11 @@ class GameDetail extends React.Component<RouteComponentProps<any>, IControllerDa
     //
     //----------------------------------------------------------------------
 
-    controller: GameManagementCtrl = GameManagementCtrl.GetInstance(this);
+    public static CLASS_NAME = "GameDetail"; //alias for navigation
 
-    //alias for navigation
-    public static CLASS_NAME = "GameDetail"
+    public static CONTROLLER = GameManagementCtrl;
+
+    controller: GameManagementCtrl = GameManagementCtrl.GetInstance(this);
 
     //----------------------------------------------------------------------
     //

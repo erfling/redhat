@@ -16,9 +16,11 @@ class UserList extends React.Component<RouteComponentProps<any>, IControllerData
     //
     //----------------------------------------------------------------------
 
-    controller: UserManagementCtrl = UserManagementCtrl.GetInstance(this);
+    public static CLASS_NAME = "UserList";
 
-    public static CLASS_NAME = "UserList"
+    public static CONTROLLER = UserManagementCtrl;
+    
+    controller: UserManagementCtrl = UserManagementCtrl.GetInstance(this);
 
     //----------------------------------------------------------------------
     //
@@ -45,6 +47,12 @@ class UserList extends React.Component<RouteComponentProps<any>, IControllerData
     //  Methods
     //
     //----------------------------------------------------------------------
+
+    componentWillMount() {
+        //this.component.constructor.super(this.component.props).componentWillMount()
+        this.controller.navigateOnClick(this.props.location.pathname);
+        this.controller.getAllUsers();
+    }
 
     render() {
         return <>

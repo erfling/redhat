@@ -1,20 +1,17 @@
+'use strict';
 import FiStMa from '../../shared/entity-of-the-state/FiStMa';
 import AdminViewModel from '../../shared/models/AdminViewModel';
 import { Component } from 'react';
-import Game from '../game/Game';
 import BaseClientCtrl, {IControllerDataStore} from '../../shared/base-sapien/client/BaseClientCtrl';
-import AdminLogin from '../login/AdminLogin';
-import GameList from './GameList';
-import GameDetail from './GameDetail';
 import UserModel, { RoleName } from '../../shared/models/UserModel';
 import SapienServerCom from '../../shared/base-sapien/client/SapienServerCom';
 import GameModel from '../../shared/models/GameModel';
 import TeamModel from '../../shared/models/TeamModel';
 import ApplicationCtrl from '../ApplicationCtrl';
 import DataStore from '../../shared/base-sapien/client/DataStore';
+import ComponentsVO from '../../shared/base-sapien/client/ComponentsVO';
 
-
-export default class GameManagementCtrl extends BaseClientCtrl<IControllerDataStore & {Admin: AdminViewModel} & {ShowUserModal: boolean, ShowGameModal: boolean, ShowTeamDeleteModal: boolean}>
+export default class GameManagementCtrl extends BaseClientCtrl<IControllerDataStore & {Admin: AdminViewModel, ShowUserModal: boolean, ShowGameModal: boolean, ShowTeamDeleteModal: boolean}>
 {
     //----------------------------------------------------------------------
     //
@@ -23,10 +20,10 @@ export default class GameManagementCtrl extends BaseClientCtrl<IControllerDataSt
     //----------------------------------------------------------------------
 
     protected readonly ComponentStates = {
-        gameList: GameList,
-        gamedetail: GameDetail,
-        game: Game,
-        adminLogin: AdminLogin
+        gameList: ComponentsVO.GameList,
+        gamedetail: ComponentsVO.GameDetail,
+        game: ComponentsVO.Game,
+        adminLogin: ComponentsVO.AdminLogin
     };
 
     private static _instance: GameManagementCtrl;
@@ -38,7 +35,7 @@ export default class GameManagementCtrl extends BaseClientCtrl<IControllerDataSt
     //----------------------------------------------------------------------
 
     private constructor(reactComp?: Component<any, any>) {
-        super( reactComp ? Object.assign(new GameModel()) : null, reactComp || null);
+        super( null, reactComp || null);
 
         this.CurrentLocation = this.component.props.location.pathname;
 
@@ -49,8 +46,8 @@ export default class GameManagementCtrl extends BaseClientCtrl<IControllerDataSt
         if (!this._instance) {
             this._instance = new GameManagementCtrl(reactComp || null);
         }
-        if (!this._instance) throw new Error("NO INSTANCE")
-        if (reactComp) this._instance._setUpFistma(reactComp)
+        if (!this._instance) throw new Error("NO INSTANCE");
+        if (reactComp) this._instance._setUpFistma(reactComp);
         return this._instance;
     }
 
@@ -86,21 +83,18 @@ export default class GameManagementCtrl extends BaseClientCtrl<IControllerDataSt
     public getAllUsers() {
         if (!this.dataStore.Admin.Users || !this.dataStore.Admin.Users.length) {
             return SapienServerCom.GetData(null, null, SapienServerCom.BASE_REST_URL + "user").then(r => {
-                console.log("Users ARE: ", r)
                 this.dataStore.Admin.Users = r;
                 this.dataStore.ApplicationState.IsLoading = false;
                 return this.dataStore.Admin.Users;
             })
         } else {
             return new Promise((resolve, reject) => {
-                console.log("USERS ARE", this.dataStore.Admin.Users)
                 return resolve(this.dataStore.Admin.Users);
             })
         }
     }
 
     public createOrEditGame(game?: GameModel) {
-
         this.dataStore.ApplicationState.ModalObject = Object.assign(new GameModel(), game) || new GameModel();
         if (!this.dataStore.ApplicationState.ModalObject.DatePlayed) this.dataStore.ApplicationState.ModalObject.DatePlayed = new Date().toLocaleDateString();
         this.dataStore.ShowGameModal = true;
@@ -175,7 +169,6 @@ export default class GameManagementCtrl extends BaseClientCtrl<IControllerDataSt
             return u._id
         });
 
-
         console.log("usedUserIdsusedUserIdsusedUserIdsusedUserIdsusedUserIdsusedUserIds",userIds)
         this.dataStore.Admin.AvailablePlayers = this.dataStore.Admin.Users.filter(u => u._id && userIds.indexOf(u._id) == -1).map((u, i) => {
             console.log("FILTERING A USER", u)
@@ -225,8 +218,8 @@ export default class GameManagementCtrl extends BaseClientCtrl<IControllerDataSt
     }
 
     private _setUpFistma(reactComp: Component) {
-
         this.component = reactComp;
+
         this.dataStore = {
             Admin: DataStore.Admin,
             ApplicationState: DataStore.ApplicationState,
@@ -254,10 +247,8 @@ export default class GameManagementCtrl extends BaseClientCtrl<IControllerDataSt
         this.ComponentFistma.addTransition(this.ComponentStates.gamedetail)
         this.ComponentFistma.addTransition(this.ComponentStates.adminLogin)
 
-
         if (this.component.componentWillMount == undefined) {
             this.component.componentWillMount = () => {
-                //this.component.constructor.super(this.component.props).componentWillMount()
                 console.log("MOUNTED: ", this.component, this.component.props.location.pathname);
                 this.navigateOnClick(this.component.props.location.pathname);
                 this.getAllGames();
@@ -266,7 +257,6 @@ export default class GameManagementCtrl extends BaseClientCtrl<IControllerDataSt
         }
 
         this.dataStore.ComponentFistma = this.ComponentFistma;
-
     }
 
     OpenUserModal(user : UserModel){

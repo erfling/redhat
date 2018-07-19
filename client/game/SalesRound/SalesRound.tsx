@@ -15,9 +15,11 @@ class SalesRound extends React.Component<RouteComponentProps<any>, IRoundDataSto
     //
     //----------------------------------------------------------------------
     
-    controller: SalesRoundCtrl = SalesRoundCtrl.GetInstance(this);
-
     public static CLASS_NAME = "SalesRound";
+
+    public static CONTROLLER = SalesRoundCtrl;
+    
+    controller: SalesRoundCtrl = SalesRoundCtrl.GetInstance(this);
 
     //----------------------------------------------------------------------
     //
