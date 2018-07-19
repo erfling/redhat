@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Sidebar, Menu, Button, Icon } from 'semantic-ui-react';
+import { Sidebar, Menu, Button, Icon, Popup } from 'semantic-ui-react';
 import ApplicationCtrl from './ApplicationCtrl';
 import { RouteComponentProps, withRouter } from "react-router";
 import DataStore from '../shared/base-sapien/client/DataStore'
@@ -10,6 +10,7 @@ import {RoleName, JobName} from '../shared/models/UserModel';
 import PeopleRoundCtrl from './game/PeopleRound/PeopleRoundCtrl'
 import WelcomeCtrl from './game/Welcome/WelcomeCtrl'
 import EngineeringRoundCtrl from './game/EngineeringRound/EngineeringRoundCtrl'
+import MessageList from './game/MessageList'
 
 class App extends React.Component<RouteComponentProps<any>, IControllerDataStore>
 {
@@ -158,6 +159,23 @@ class App extends React.Component<RouteComponentProps<any>, IControllerDataStore
                                 header>
                                     FORWARD
                             </Menu.Item>
+                            <Menu.Item
+                                header>
+                                     <Popup
+                                        className="email-popup"
+                                        trigger={<Icon name="mail"/>}
+                                        content={
+                                            <MessageList
+                                                Messages={this.state.ApplicationState.CurrentMessages}
+                                                SelectFunc={(m) => {
+                                                    (GameCtrl.GetInstance()._getTargetController((GameCtrl.GetInstance().dataStore.ComponentFistma.currentState as any).WrappedComponent.CLASS_NAME)  as any).dataStore.SelectedMessage = m;
+                                                }}
+                                            />
+                                        }
+                                        on='click'
+                                        position='top center'
+                                    />
+                            </Menu.Item>
                             <Menu.Item position="right" header>
                                 {this.state.ApplicationState.CurrentUser && this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN &&
                                         <>
@@ -171,19 +189,16 @@ class App extends React.Component<RouteComponentProps<any>, IControllerDataStore
                                                             CurrentUser: Object.assign(this.state.ApplicationState.CurrentUser, {Job: e.target.value as JobName})
                                                         })
                                                     }))
-
+                                                    
                                                     GameCtrl.GetInstance().dataStoreChange();
-                                                    WelcomeCtrl.GetInstance().getContentBySubRound();
-                                                    PeopleRoundCtrl.GetInstance().getContentBySubRound();
-                                                    EngineeringRoundCtrl.GetInstance().getContentBySubRound();
+                                                    (GameCtrl.GetInstance()._getTargetController((GameCtrl.GetInstance().dataStore.ComponentFistma.currentState as any).WrappedComponent.CLASS_NAME)  as any).getContentBySubRound()
                                                 }}
                                             >
                                                 {Object.keys(JobName).map(jn => <option style={{color:'#000'}} value={JobName[jn]}>{JobName[jn]}</option>)}
                                             </select>
                                         </>
                                 }
-                            </Menu.Item>
-                            
+                            </Menu.Item>                            
                     </Menu>
                 }
                 {this.state.ApplicationState.Toasts &&
@@ -206,5 +221,6 @@ export default withRouter(App)
 
 /**
  *                                        
+                        {this.state && this.state.ApplicationState && <pre>{JSON.stringify(this.state.ApplicationState, null, 2)}</pre>}
 
  */

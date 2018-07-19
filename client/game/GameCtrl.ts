@@ -48,10 +48,34 @@ export default class GameCtrl extends BaseClientCtrl<IControllerDataStore & {Gam
     //----------------------------------------------------------------------
 
     private constructor(reactComp?: Component<any, any>) {
-        super({
-            Game: new GameModel(),
-            ComponentFistma: null
-        }, reactComp || null);
+        super(null, reactComp || null);
+
+        this.component = reactComp;
+
+        this.ComponentFistma = new FiStMa(this.ComponentStates, this.ComponentStates.round0);
+        console.log("GAME NAV INFO:",  this.ComponentFistma.currentState.WrappedComponent)
+
+        this.ComponentFistma.addTransition(this.ComponentStates.round0);
+        this.ComponentFistma.addTransition(this.ComponentStates.round1);
+        this.ComponentFistma.addTransition(this.ComponentStates.round2);
+        this.ComponentFistma.addTransition(this.ComponentStates.round3);
+        this.ComponentFistma.addTransition(this.ComponentStates.round4);
+        this.ComponentFistma.addTransition(this.ComponentStates.round5);
+        this.ComponentFistma.addOnEnter("*", this._onRoundEnter.bind(this));
+        this.ComponentFistma.onInvalidTransition(this._onInvalidTrans);
+
+        DataStore.ApplicationState.CurrentUser = localStorage.getItem("RH_USER") ? Object.assign( new UserModel(), JSON.parse(localStorage.getItem("RH_USER") ) ) : new UserModel();      
+        DataStore.ApplicationState.CurrentTeam = localStorage.getItem("RH_TEAM") ? Object.assign( new TeamModel(), JSON.parse(localStorage.getItem("RH_TEAM") ) ) : new TeamModel();
+
+        if (!this.dataStore) {
+            this.dataStore = {
+                Game: new GameModel(),
+                ComponentFistma: this.ComponentFistma,
+                ApplicationState: DataStore.ApplicationState
+            };
+        } else if (!this.dataStore.ApplicationState) {
+            this.dataStore.ApplicationState = DataStore.ApplicationState;
+        }
     }
 
     public static GetInstance(reactComp?: Component<any, any>): GameCtrl {
@@ -204,32 +228,7 @@ export default class GameCtrl extends BaseClientCtrl<IControllerDataStore & {Gam
     }
 
     private _setUpFistma(reactComp: Component) {
-        this.component = reactComp;
-
-        this.ComponentFistma = new FiStMa(this.ComponentStates, this.ComponentStates.round0);
-        console.log("GAME NAV INFO:",  this.ComponentFistma.currentState.WrappedComponent)
-
-        this.ComponentFistma.addTransition(this.ComponentStates.round0);
-        this.ComponentFistma.addTransition(this.ComponentStates.round1);
-        this.ComponentFistma.addTransition(this.ComponentStates.round2);
-        this.ComponentFistma.addTransition(this.ComponentStates.round3);
-        this.ComponentFistma.addTransition(this.ComponentStates.round4);
-        this.ComponentFistma.addTransition(this.ComponentStates.round5);
-        this.ComponentFistma.addOnEnter("*", this._onRoundEnter.bind(this));
-        this.ComponentFistma.onInvalidTransition(this._onInvalidTrans);
-
-        DataStore.ApplicationState.CurrentUser = localStorage.getItem("RH_USER") ? Object.assign( new UserModel(), JSON.parse(localStorage.getItem("RH_USER") ) ) : new UserModel();      
-        DataStore.ApplicationState.CurrentTeam = localStorage.getItem("RH_TEAM") ? Object.assign( new TeamModel(), JSON.parse(localStorage.getItem("RH_TEAM") ) ) : new TeamModel();
-
-        if (!this.dataStore) {
-            this.dataStore = {
-                Game: new GameModel(),
-                ComponentFistma: this.ComponentFistma,
-                ApplicationState: DataStore.ApplicationState
-            };
-        } else if (!this.dataStore.ApplicationState) {
-            this.dataStore.ApplicationState = DataStore.ApplicationState;
-        }
+        
 
         console.log("DATASTORE APPLICATION:", DataStore.ApplicationState)
         this.pollForGameStateChange(this.dataStore.ApplicationState.CurrentTeam.GameId)

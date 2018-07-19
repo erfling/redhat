@@ -55,15 +55,17 @@ class Priorities extends React.Component<RouteComponentProps<any>, IRoundDataSto
         if (this.state) {
             
             return <>
-                {thisSubRound && this.controller.getMessagesByJob(this.state.ApplicationState.CurrentUser.Job, thisSubRound._id).map(m => 
-                    
+                
+
+                {thisSubRound && this.state.SelectedMessage &&
                     <EditableContentBlock
                         IsEditable={this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN}
                         SubRoundId={thisSubRound._id}
                         onSaveHandler={this.controller.updateContent.bind(this.controller)}
-                        Message={m}
+                        Message={this.state.SelectedMessage}
                     />
-                )}
+                }
+                    
 
                 {this.state.ApplicationState.CurrentUser.Job == JobName.MANAGER && thisSubRound != null && thisSubRound.Questions &&
                     <Form

@@ -68,7 +68,7 @@ class Intro extends React.Component<RouteComponentProps<any>, IRoundDataStore>
                             className="intro-logo"
                         />
                     </Row>
-                    <pre>{JSON.stringify(this.state, null, 2)}</pre>
+
                     {thisSubRound && this.state.SelectedMessage &&
                         <EditableContentBlock
                             IsEditable={this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN}
@@ -78,7 +78,6 @@ class Intro extends React.Component<RouteComponentProps<any>, IRoundDataStore>
                         />
                     }
                     
-
                     <Row
                         centered
                     >
@@ -108,7 +107,8 @@ class Intro extends React.Component<RouteComponentProps<any>, IRoundDataStore>
 }
 
 export default withRouter(Intro);
-  /*
+  /*                    <pre>{JSON.stringify(this.state, null, 2)}</pre>
+
                                 <Button
                                     content='Save'
                                     icon='checkmark'

@@ -68,7 +68,6 @@ class GameDetail extends React.Component<RouteComponentProps<any>, IControllerDa
         const DashBoardComponent = this.controller.ComponentFistma.currentState;
         if(this.state){
         return <>
-        <pre>{this.state.ApplicationState && this.state.ApplicationState.ModalObject && JSON.stringify( this.state.ApplicationState.ModalObject.className, null, 2 )}</pre>
             {this.state && this.state.ShowGameModal &&
                 <GameModal
                     Game={this.state.Admin.SelectedGame}
