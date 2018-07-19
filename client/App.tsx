@@ -171,7 +171,7 @@ class App extends React.Component<RouteComponentProps<any>, IControllerDataStore
                                                 Messages={this.state.ApplicationState.CurrentMessages}
                                                 SelectFunc={(m) => {
                                                     (GameCtrl.GetInstance()._getTargetController((GameCtrl.GetInstance().dataStore.ComponentFistma.currentState as any).WrappedComponent.CLASS_NAME)  as any).dataStore.SelectedMessage = m;
-                                                    console.log("<<<<<<<<<<<<<<<<<<<<CURRENT MESSATE", (GameCtrl.GetInstance().dataStore.ComponentFistma.currentState as any).WrappedComponent.CLASS_NAME), (GameCtrl.GetInstance()._getTargetController((GameCtrl.GetInstance().dataStore.ComponentFistma.currentState as any).WrappedComponent.CLASS_NAME)  as any).dataStore.SelectedMessage);
+                                                    console.log("<<<<<<<<<<<<<<<<<<<<CURRENT MESSATE", (GameCtrl.GetInstance().dataStore.ComponentFistma.currentState as any).WrappedComponent.CLASS_NAME, (GameCtrl.GetInstance()._getTargetController((GameCtrl.GetInstance().dataStore.ComponentFistma.currentState as any).WrappedComponent.CLASS_NAME)  as any).dataStore.SelectedMessage);
 
                                                 }}
                                             />
