@@ -170,9 +170,13 @@ class App extends React.Component<RouteComponentProps<any>, IControllerDataStore
                                             <MessageList
                                                 Messages={this.state.ApplicationState.CurrentMessages}
                                                 SelectFunc={(m) => {
-                                                    (GameCtrl.GetInstance()._getTargetController((GameCtrl.GetInstance().dataStore.ComponentFistma.currentState as any).WrappedComponent.CLASS_NAME)  as any).dataStore.SelectedMessage = m;
-                                                    console.log("<<<<<<<<<<<<<<<<<<<<CURRENT MESSATE", (GameCtrl.GetInstance().dataStore.ComponentFistma.currentState as any).WrappedComponent.CLASS_NAME, (GameCtrl.GetInstance()._getTargetController((GameCtrl.GetInstance().dataStore.ComponentFistma.currentState as any).WrappedComponent.CLASS_NAME)  as any).dataStore.SelectedMessage);
-
+                                                    PeopleRoundCtrl.GetInstance().dataStore.ApplicationState.SelectedMessage = this.controller.dataStore.ApplicationState.SelectedMessage = DataStore.ApplicationState.SelectedMessage = m;
+                                                    console.log("<<<<<<<<<<<<<<<<<<<<CURRENT MESSATE", (GameCtrl.GetInstance().dataStore.ComponentFistma.currentState as any).WrappedComponent.CLASS_NAME, (GameCtrl.GetInstance()._getTargetController((GameCtrl.GetInstance().dataStore.ComponentFistma.currentState as any).WrappedComponent.CLASS_NAME)  as any).dataStore.ApplicationState.SelectedMessage);
+                                                    const prc: PeopleRoundCtrl = (GameCtrl.GetInstance()._getTargetController((GameCtrl.GetInstance().dataStore.ComponentFistma.currentState as any).WrappedComponent.CLASS_NAME)  as PeopleRoundCtrl);
+                                                    /*setTimeout(() => {
+                                                        prc.component.forceUpdate.bind(prc.component)();
+                                                        prc.component.render();
+                                                    },1000)*/
                                                 }}
                                             />
                                         }

@@ -58,6 +58,7 @@ class PeopleRound extends React.Component<RouteComponentProps<any>, IRoundDataSt
                             <Row>
                                 <Column computer={12} mobile={16} tablet={16}>
                                     <h3>Round One: Build the Team</h3>
+                                    <pre>{this.state && this.state.ApplicationState && this.state.ApplicationState.SelectedMessage && JSON.stringify(this.state.ApplicationState.SelectedMessage, null, 2)}</pre>
                                 </Column>
                             </Row>
                             <Grid>

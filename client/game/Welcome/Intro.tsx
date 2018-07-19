@@ -70,12 +70,12 @@ class Intro extends React.Component<RouteComponentProps<any>, IRoundDataStore>
                         />
                     </Row>
 
-                    {thisSubRound && this.state.SelectedMessage &&
+                    {thisSubRound && this.state.ApplicationState.SelectedMessage &&
                         <EditableContentBlock
                             IsEditable={this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN}
                             SubRoundId={thisSubRound._id}
                             onSaveHandler={this.controller.updateContent.bind(this.controller)}
-                            Message={this.state.SelectedMessage}
+                            Message={this.state.ApplicationState.SelectedMessage}
                         />
                     }
                     
