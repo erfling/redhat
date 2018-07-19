@@ -3,6 +3,7 @@ import QuestionModel from "./QuestionModel";
 import { Type } from "class-transformer";
 import "reflect-metadata";
 import ResponseModel from './ResponseModel';
+import MessageModel from './MessageModel'
 
 export interface ContentShape{
     data: any,
@@ -46,6 +47,18 @@ export default class SubRoundModel extends BaseModel
     
     @dbProp(String)
     public LeaderContent: string = "";
+
+    @dbProp(MessageModel)
+    public LeaderMessages: MessageModel[];
+
+    @dbProp(MessageModel)
+    public ICMessages: MessageModel[];
+
+    @dbProp(MessageModel)
+    public ChipCoMessages: MessageModel[];
+
+    @dbProp(MessageModel)
+    public IntegratedSystemsMessages: MessageModel[];
 
     @Type(() => QuestionModel)
     public Questions: QuestionModel[] = [];

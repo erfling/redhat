@@ -6,7 +6,7 @@ import DataStore from '../shared/base-sapien/client/DataStore'
 import SapienToast from '../shared/base-sapien/client/shared-components/SapienToast'
 import GameCtrl from "./game/GameCtrl";
 import { IControllerDataStore } from '../shared/base-sapien/client/BaseClientCtrl';
-import {RoleName} from '../shared/models/UserModel';
+import {RoleName, JobName} from '../shared/models/UserModel';
 
 class App extends React.Component<RouteComponentProps<any>, IControllerDataStore>
 {
@@ -157,14 +157,19 @@ class App extends React.Component<RouteComponentProps<any>, IControllerDataStore
                             </Menu.Item>
                             <Menu.Item position="right" header>
                                 {this.state.ApplicationState.CurrentUser && this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN &&
-                                    <Button
-                                        onClick={e => {
-                                            this.state.ApplicationState.CurrentUser.IsLeader = !this.state.ApplicationState.CurrentUser.IsLeader
-                                            GameCtrl.GetInstance().dataStoreChange()
-                                        }}
-                                    >
-                                        Show {this.state.ApplicationState.CurrentUser.IsLeader ? "IC" : "Leader"} Content
-                                    </Button>
+                                        <>
+                                            Current Role: <select
+                                                style={{color:'#000'}}
+                                                value={this.controller.dataStore.ApplicationState.CurrentUser.Job}
+                                                onChange={e => {
+                                                    console.log(e.target.value)
+                                                    this.controller.dataStore.ApplicationState.CurrentUser.Job = e.target.value as JobName
+                                                    //GameCtrl.GetInstance().dataStoreChange()
+                                                }}
+                                            >
+                                                {Object.keys(JobName).map(rn => <option style={{color:'#000'}} value={rn}>{rn}</option>)}
+                                            </select>
+                                        </>
                                 }
                             </Menu.Item>
                             

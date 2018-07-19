@@ -54,58 +54,48 @@ class Intro extends React.Component<RouteComponentProps<any>, IRoundDataStore>
 
         if (this.state) {
             return <>
-                        <Column>
-                            <Row>
-                                <Header
-                                    as='h3'
-                                >
-                                    welcome to
+                <Column>
+                    <Row>
+                        <Header
+                            as='h3'
+                        >
+                            welcome to
                         </Header>
-                            </Row>
+                    </Row>
 
-                            <Row>
-                                <IntroLogo
-                                    className="intro-logo"
-                                />
-                            </Row>
-                            {!this.state.ApplicationState.CurrentUser.IsLeader && thisSubRound &&
+                    <Row>
+                        <IntroLogo
+                            className="intro-logo"
+                        />
+                        {this.state && this.state.ApplicationState && this.state.ApplicationState.CurrentUser && <pre>{JSON.stringify(this.state.ApplicationState.CurrentUser, null, 2)}</pre>}
+                    </Row>
+                    {thisSubRound && this.controller.getMessagesByJob(this.state.ApplicationState.CurrentUser.Job, thisSubRound._id).map(m =>
 
-                                <EditableContentBlock
-                                    IsEditable={this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN}
-                                    IsLeader={this.state.ApplicationState.CurrentUser.IsLeader}
-                                    SubRoundId={thisSubRound._id}
-                                    onSaveHandler={this.controller.updateContent.bind(this.controller)}
-                                    Content={thisSubRound.IndividualContributorContent}
-                                />
-                            }
-
-                            {this.state.ApplicationState.CurrentUser.IsLeader && thisSubRound &&
-
-                                <EditableContentBlock
-                                    IsEditable={this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN}
-                                    IsLeader={this.state.ApplicationState.CurrentUser.IsLeader}
-                                    SubRoundId={thisSubRound._id}
-                                    onSaveHandler={this.controller.updateContent.bind(this.controller)}
-                                    Content={thisSubRound.LeaderContent}
-                                />
-                            }
-                            <Row
-                                centered
-                            >
-                                <Button 
-                                    color="blue"
-                                    size='huge'
-                                    style={{
-                                        marginLeft: 'auto',
-                                        marginRight: 'auto',
-                                        display: 'block'
-                                    }}
-                                    onClick={e => this.controller.navigateOnClick("/game/welcome/playerlogin")}
-                                >
-                                    Login
+                        <EditableContentBlock
+                            IsEditable={this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN}
+                            SubRoundId={thisSubRound._id}
+                            onSaveHandler={this.controller.updateContent.bind(this.controller)}
+                            Message={m}
+                        />
+                        
+                    )}
+                    <Row
+                        centered
+                    >
+                        <Button
+                            color="blue"
+                            size='huge'
+                            style={{
+                                marginLeft: 'auto',
+                                marginRight: 'auto',
+                                display: 'block'
+                            }}
+                            onClick={e => this.controller.navigateOnClick("/game/welcome/playerlogin")}
+                        >
+                            Login
                                 </Button>
-                            </Row>
-                        </Column>
+                    </Row>
+                </Column>
 
             </>;
         } else {

@@ -1,5 +1,6 @@
 import { Type, Expose } from "class-transformer";
 import BaseModel, { dbProp } from "../base-sapien/models/BaseModel";
+import MessageModel from "./MessageModel";
 
 export enum RoleName {
     ADMIN = "ADMIN",
@@ -8,7 +9,7 @@ export enum RoleName {
 }
 
 export enum JobName {
-    IC = "IC",
+    IC = "Individual Contributor",
     MANAGER = "Manager",
     CHIPCO = "ChipCo",
     INTEGRATED_SYSTEMS = "Integrated Systems"
@@ -61,5 +62,12 @@ export default class UserModel extends BaseModel
     @dbProp(String)
     @Type(() => String)
     public Job: JobName = JobName.IC;
+
+    @dbProp(MessageModel)
+    public ReceivedMessages: MessageModel[];
     
+    @dbProp(MessageModel)
+    public ReadMessages: MessageModel[];
+
+
 }

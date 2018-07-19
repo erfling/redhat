@@ -1,5 +1,5 @@
 import * as React from "react";
-import { RoleName } from "../../../shared/models/UserModel";
+import { RoleName, JobName } from "../../../shared/models/UserModel";
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 import EditableContentBlock from '../../../shared/base-sapien/client/shared-components/EditableContentBlock';
 import EditableQuestionBlock from '../../../shared/base-sapien/client/shared-components/EditableQuestionBlock';
@@ -55,29 +55,19 @@ class EngineeringSub extends React.Component<RouteComponentProps<any>, IRoundDat
 
         if (this.state) {
             return <>
-                {!this.state.ApplicationState.CurrentUser.IsLeader && thisSubRound &&
-
+               {thisSubRound && this.controller.getMessagesByJob(this.state.ApplicationState.CurrentUser.Job, thisSubRound._id).map(m => 
+                    
                     <EditableContentBlock
                         IsEditable={this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN}
-                        IsLeader={this.state.ApplicationState.CurrentUser.IsLeader}
                         SubRoundId={thisSubRound._id}
                         onSaveHandler={this.controller.updateContent.bind(this.controller)}
-                        Content={thisSubRound.IndividualContributorContent}
+                        Message={m}
                     />
-                }
 
-                {this.state.ApplicationState.CurrentUser.IsLeader && thisSubRound &&
+                )}
 
-                    <EditableContentBlock
-                        IsEditable={this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN}
-                        IsLeader={this.state.ApplicationState.CurrentUser.IsLeader}
-                        SubRoundId={thisSubRound._id}
-                        onSaveHandler={this.controller.updateContent.bind(this.controller)}
-                        Content={thisSubRound.LeaderContent}
-                    />
-                }
 
-                {this.state.ApplicationState.CurrentUser.IsLeader && thisSubRound != null && thisSubRound.Questions &&
+                {this.state.ApplicationState.CurrentUser.Job == JobName.MANAGER && thisSubRound != null && thisSubRound.Questions &&
                     <Form
                         style={{ width: '100%' }}
                     >

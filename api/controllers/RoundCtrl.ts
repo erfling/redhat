@@ -3,9 +3,20 @@ import * as mongoose from 'mongoose';
 import RoundModel from '../../shared/models/RoundModel';
 import SchemaBuilder from '../SchemaBuilder';
 import SubRoundModel from '../../shared/models/SubRoundModel';
+import MessageModel from '../../shared/models/MessageModel';
+import UserModel, { JobName } from '../../shared/models/UserModel';
+
+const messageSchObj = SchemaBuilder.fetchSchema(MessageModel);
+const monMessageSchema = new mongoose.Schema(messageSchObj);
+export const monMessageModel= mongoose.model("message", monMessageSchema);
+
 
 const schObj = SchemaBuilder.fetchSchema(RoundModel);
 schObj.SubRounds = [{ type: mongoose.Schema.Types.ObjectId, ref: "subround" }];
+
+//consider leaving content off default queries
+//schObj.Content = { type: String, select: false }
+
 const monSchema = new mongoose.Schema(schObj);
 export const monRoundModel = mongoose.model("round", monSchema);
 
@@ -15,9 +26,13 @@ export const monQModel = mongoose.model("question", qSubSchema);
 
 const subSchObj = SchemaBuilder.fetchSchema(SubRoundModel);
 subSchObj.Questions = [{ type: mongoose.Schema.Types.ObjectId, ref: "question" }];
-
+subSchObj.LeaderMessages = [{ type: mongoose.Schema.Types.ObjectId, ref: "message" }];
+subSchObj.ICMessages = [{ type: mongoose.Schema.Types.ObjectId, ref: "message" }];
+subSchObj.ChipCoMessages = [{ type: mongoose.Schema.Types.ObjectId, ref: "message" }];
+subSchObj.IntegratedSystemsMessages = [{ type: mongoose.Schema.Types.ObjectId, ref: "message" }];
 
 const monSubSchema = new mongoose.Schema(subSchObj);
+
 export const monSubRoundModel = mongoose.model("subround", monSubSchema);
 
 
@@ -97,9 +112,10 @@ class RoundRouter
     public async GetSubRound(req: Request, res: Response):Promise<any> {
         
         const ID = req.params.subround;
+        const job = this._getMessageProp(req.params.job);
         console.log("TRYING TO GET ROUND WITH NAME: ", ID);
         try {
-            let round = await monSubRoundModel.findOne({Name: ID}).populate("Questions");
+            let round = await monSubRoundModel.findOne({Name: ID}).populate("Questions").populate(job);
             if (!round) {
               res.status(400).json({ error: 'No round' });
             } else {
@@ -161,11 +177,24 @@ class RoundRouter
         }
     }
 
+    private _getMessageProp(job: JobName): keyof UserModel {
+        switch(job){
+            case JobName.MANAGER:
+                return 'LeaderMessages'
+            case JobName.CHIPCO:
+                return 'ChipCoMessages'
+            case JobName.INTEGRATED_SYSTEMS:
+                return 'IntegratedSystemsMessages'
+            default:
+                return 'ICMessages'
+        }
+    }
+
     public routes(){
         //this.router.all("*", cors());
         this.router.get("/", this.GetRounds.bind(this));
         this.router.get("/:round", this.GetRound.bind(this));
-        this.router.get("/subround/:subround", this.GetSubRound.bind(this));
+        this.router.get("/subround/:subround/:job", this.GetSubRound.bind(this));
         this.router.post("/", this.SaveRound.bind(this));
         this.router.post("/subround", this.SaveSubRound.bind(this));
     }
