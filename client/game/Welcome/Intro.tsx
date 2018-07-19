@@ -67,18 +67,18 @@ class Intro extends React.Component<RouteComponentProps<any>, IRoundDataStore>
                         <IntroLogo
                             className="intro-logo"
                         />
-                        {this.state && this.state.ApplicationState && this.state.ApplicationState.CurrentUser && <pre>{JSON.stringify(this.state.ApplicationState.CurrentUser, null, 2)}</pre>}
                     </Row>
-                    {thisSubRound && this.controller.getMessagesByJob(this.state.ApplicationState.CurrentUser.Job, thisSubRound._id).map(m =>
-
+                    <pre>{JSON.stringify(this.state, null, 2)}</pre>
+                    {thisSubRound && this.state.SelectedMessage &&
                         <EditableContentBlock
                             IsEditable={this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN}
                             SubRoundId={thisSubRound._id}
                             onSaveHandler={this.controller.updateContent.bind(this.controller)}
-                            Message={m}
+                            Message={this.state.SelectedMessage}
                         />
-                        
-                    )}
+                    }
+                    
+
                     <Row
                         centered
                     >

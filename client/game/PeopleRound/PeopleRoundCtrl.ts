@@ -40,6 +40,13 @@ export default class PeopleRoundCtrl extends BaseRoundCtrl<IRoundDataStore>
         this.ComponentFistma.addTransition(this.ComponentStates.sub1);
         this.ComponentFistma.addTransition(this.ComponentStates.sub2);
 
+        this.dataStore = {
+            Round: new RoundModel(),
+            SelectedMessage: null,
+            ComponentFistma: this.ComponentFistma,
+            ApplicationState: DataStore.ApplicationState,
+        };
+        this.dataStore.Round.Name = "PEOPLE";
         if (reactComp) this._setUpFistma(reactComp);
 
     }
@@ -110,13 +117,6 @@ export default class PeopleRoundCtrl extends BaseRoundCtrl<IRoundDataStore>
         console.log("PEOPLE ROUND IS", this);
         this.component = reactComp;
         
-        this.dataStore = {
-            Round: new RoundModel(),
-            SelectedSubround: null,
-            ComponentFistma: this.ComponentFistma,
-            ApplicationState: DataStore.ApplicationState,
-        };
-        this.dataStore.Round.Name = "PEOPLE";
         
         this.ComponentFistma.addOnEnter("*", this.getContentBySubRound.bind(this));
 

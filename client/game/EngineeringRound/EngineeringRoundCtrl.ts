@@ -60,7 +60,7 @@ export default class EngineeringRoundCtrl extends BaseRoundCtrl<IRoundDataStore>
     protected _setUpFistma(reactComp: Component){
         this.dataStore = {
             Round: new RoundModel(),
-            SelectedSubround: null,
+            SelectedMessage: null,
             ComponentFistma: this.ComponentFistma,
             ApplicationState: DataStore.ApplicationState,
         };

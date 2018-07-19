@@ -7,6 +7,9 @@ import SapienToast from '../shared/base-sapien/client/shared-components/SapienTo
 import GameCtrl from "./game/GameCtrl";
 import { IControllerDataStore } from '../shared/base-sapien/client/BaseClientCtrl';
 import {RoleName, JobName} from '../shared/models/UserModel';
+import PeopleRoundCtrl from './game/PeopleRound/PeopleRoundCtrl'
+import WelcomeCtrl from './game/Welcome/WelcomeCtrl'
+import EngineeringRoundCtrl from './game/EngineeringRound/EngineeringRoundCtrl'
 
 class App extends React.Component<RouteComponentProps<any>, IControllerDataStore>
 {
@@ -160,14 +163,22 @@ class App extends React.Component<RouteComponentProps<any>, IControllerDataStore
                                         <>
                                             Current Role: <select
                                                 style={{color:'#000'}}
-                                                value={this.controller.dataStore.ApplicationState.CurrentUser.Job}
+                                                value={this.state.ApplicationState.CurrentUser.Job}
                                                 onChange={e => {
                                                     console.log(e.target.value)
-                                                    this.controller.dataStore.ApplicationState.CurrentUser.Job = e.target.value as JobName
-                                                    //GameCtrl.GetInstance().dataStoreChange()
+                                                    this.setState(Object.assign(this.state, {
+                                                        ApplicationState: Object.assign(this.state.ApplicationState, {
+                                                            CurrentUser: Object.assign(this.state.ApplicationState.CurrentUser, {Job: e.target.value as JobName})
+                                                        })
+                                                    }))
+
+                                                    GameCtrl.GetInstance().dataStoreChange();
+                                                    WelcomeCtrl.GetInstance().getContentBySubRound();
+                                                    PeopleRoundCtrl.GetInstance().getContentBySubRound();
+                                                    EngineeringRoundCtrl.GetInstance().getContentBySubRound();
                                                 }}
                                             >
-                                                {Object.keys(JobName).map(rn => <option style={{color:'#000'}} value={rn}>{rn}</option>)}
+                                                {Object.keys(JobName).map(jn => <option style={{color:'#000'}} value={JobName[jn]}>{JobName[jn]}</option>)}
                                             </select>
                                         </>
                                 }

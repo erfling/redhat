@@ -36,8 +36,16 @@ export default class WelcomeCtrl extends BaseRoundCtrl<IRoundDataStore>
     private constructor(reactComp: React.Component<any, any>) {
         super(reactComp || null);
 
+      
         this.ComponentFistma = new FiStMa(this.ComponentStates, this.ComponentStates.sub1);
         this.ComponentFistma.addTransition(this.ComponentStates.sub1);
+        this.dataStore = {
+            Round: new RoundModel(),
+            ApplicationState: DataStore.ApplicationState,
+            ComponentFistma: this.ComponentFistma,
+            SelectedMessage: null
+        };        
+        this.dataStore.Round.Name = "WELCOME";
 
         if (reactComp) this._setUpFistma(reactComp);
 
@@ -97,13 +105,6 @@ export default class WelcomeCtrl extends BaseRoundCtrl<IRoundDataStore>
         console.log("INTDO ROUND IS", this)
 
         this.component = reactComp;
-        this.dataStore = {
-            Round: new RoundModel(),
-            ApplicationState: DataStore.ApplicationState,
-            ComponentFistma: this.ComponentFistma,
-            SelectedSubround: null
-        };        
-        this.dataStore.Round.Name = "WELCOME";
   
         this.ComponentFistma.addOnEnter(this.ComponentStates.sub1, this.getContentBySubRound.bind(this));
         this.ComponentFistma.addOnEnter(this.ComponentStates.sub2, this.getContentBySubRound.bind(this));
