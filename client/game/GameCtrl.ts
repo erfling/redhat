@@ -46,7 +46,6 @@ export default class GameCtrl extends BaseClientCtrl<IControllerDataStore & {Gam
     private constructor(reactComp?: Component<any, any>) {
         super(null, reactComp || null);
 
-<<<<<<< HEAD
         this.component = reactComp;
 
         this.ComponentFistma = new FiStMa(this.ComponentStates, this.ComponentStates.round0);
@@ -73,9 +72,7 @@ export default class GameCtrl extends BaseClientCtrl<IControllerDataStore & {Gam
         } else if (!this.dataStore.ApplicationState) {
             this.dataStore.ApplicationState = DataStore.ApplicationState;
         }
-=======
         if (reactComp) this._setUpFistma(reactComp);
->>>>>>> f56720953dfdf5759c1ef928d98538d3ef70ec75
     }
 
     public static GetInstance(reactComp?: Component<any, any>): GameCtrl {
@@ -226,32 +223,7 @@ export default class GameCtrl extends BaseClientCtrl<IControllerDataStore & {Gam
     }
 
     private _setUpFistma(reactComp: Component) {
-<<<<<<< HEAD
         
-=======
-        this.component = reactComp;
-
-        DataStore.ApplicationState.CurrentUser = localStorage.getItem("RH_USER") ? Object.assign( new UserModel(), JSON.parse(localStorage.getItem("RH_USER") ) ) : new UserModel();      
-        DataStore.ApplicationState.CurrentTeam = localStorage.getItem("RH_TEAM") ? Object.assign( new TeamModel(), JSON.parse(localStorage.getItem("RH_TEAM") ) ) : new TeamModel();
-
-        this.dataStore = {
-            ApplicationState: DataStore.ApplicationState,
-            ComponentFistma: null,
-            Game: new GameModel()
-        };
-
-        this.ComponentFistma = new FiStMa(this.ComponentStates, this.ComponentStates.round0);
-        this.ComponentFistma.addTransition(this.ComponentStates.round0);
-        this.ComponentFistma.addTransition(this.ComponentStates.round1);
-        this.ComponentFistma.addTransition(this.ComponentStates.round2);
-        this.ComponentFistma.addTransition(this.ComponentStates.round3);
-        this.ComponentFistma.addTransition(this.ComponentStates.round4);
-        this.ComponentFistma.addTransition(this.ComponentStates.round5);
-        this.ComponentFistma.addOnEnter("*", this._onRoundEnter.bind(this));
-        this.ComponentFistma.onInvalidTransition(this._onInvalidTrans);
-
-        this.dataStore.ComponentFistma = this.ComponentFistma;
->>>>>>> f56720953dfdf5759c1ef928d98538d3ef70ec75
 
         console.log("DATASTORE APPLICATION:", DataStore.ApplicationState)
         this.pollForGameStateChange(this.dataStore.ApplicationState.CurrentTeam.GameId)

@@ -63,14 +63,9 @@ export default class EngineeringRoundCtrl extends BaseRoundCtrl<IRoundDataStore>
 
         this.dataStore = {
             Round: new RoundModel(),
-<<<<<<< HEAD
             SelectedMessage: null,
             ComponentFistma: this.ComponentFistma,
-=======
-            SelectedSubround: null,
->>>>>>> f56720953dfdf5759c1ef928d98538d3ef70ec75
             ApplicationState: DataStore.ApplicationState,
-            ComponentFistma: null
         };
         this.dataStore.Round.Name = "ENGINEERING";
 
