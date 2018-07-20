@@ -143,7 +143,7 @@ export default class GameCtrl extends BaseClientCtrl<IControllerDataStore & {Gam
         }
     }
 
-    private _getTargetController(componentName: string): BaseRoundCtrl<any>{
+    public _getTargetController(componentName: string): BaseRoundCtrl<any>{
         let childController: BaseRoundCtrl<any>
         componentName = componentName.toLocaleUpperCase();
         switch(componentName){
