@@ -45,7 +45,7 @@ export class LoginCtrlClass
     //
     //----------------------------------------------------------------------
     
-    public async Login(req: Request, res: Response):Promise<any> {
+    public async    Login(req: Request, res: Response):Promise<any> {
         const loginInfo = req.body as {Email: string, GamePIN: number};
         console.log("USER", req.body);
         //const dbRoundModel = new monRoundModel(roundToSave); 
@@ -71,7 +71,7 @@ export class LoginCtrlClass
             if(!user){
                 throw('no user')
             }
-            console.log(user)
+            console.log(user, game.Teams)
 
             const team: TeamModel = game.Teams.filter(team => {
                 //let team = t.toJSON();
@@ -80,6 +80,9 @@ export class LoginCtrlClass
                 return team.Players.indexOf(user._id) != -1
             })[0] || null;
             console.log("TEAM IS: ", team)
+
+            
+
             if(!team){
                 throw("no team");
             }

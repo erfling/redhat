@@ -5,6 +5,7 @@ import SchemaBuilder from '../SchemaBuilder';
 import SubRoundModel from '../../shared/models/SubRoundModel';
 import MessageModel from '../../shared/models/MessageModel';
 import UserModel, { JobName } from '../../shared/models/UserModel';
+import AuthUtils, { PERMISSION_LEVELS } from '../AuthUtils';
 
 const messageSchObj = SchemaBuilder.fetchSchema(MessageModel);
 const monMessageSchema = new mongoose.Schema(messageSchObj);
@@ -228,9 +229,18 @@ class RoundRouter
         this.router.get("/", this.GetRounds.bind(this));
         this.router.get("/:round", this.GetRound.bind(this));
         this.router.get("/subround/:subround/:job", this.GetSubRound.bind(this));
-        this.router.post("/", this.SaveRound.bind(this));
-        this.router.post("/subround", this.SaveSubRound.bind(this));
-        this.router.post("/message", this.SaveMessage.bind(this));
+        this.router.post("/",    
+            (req, res, next) => AuthUtils.IS_USER_AUTHORIZED(req, res, next, PERMISSION_LEVELS.PLAYER), 
+            this.SaveRound.bind(this)
+        );
+        this.router.post("/subround", 
+            (req, res, next) => AuthUtils.IS_USER_AUTHORIZED(req, res, next, PERMISSION_LEVELS.PLAYER), 
+            this.SaveSubRound.bind(this)
+        );
+        this.router.post("/message",            
+            (req, res, next) => AuthUtils.IS_USER_AUTHORIZED(req, res, next, PERMISSION_LEVELS.PLAYER), 
+            this.SaveMessage.bind(this)
+        );
     }
 }
 
