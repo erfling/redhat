@@ -173,10 +173,7 @@ class App extends BaseComponent<RouteComponentProps<any>, IControllerDataStore>
                                             name={JobName.IC}
                                             onClick={e => {
                                                 e.preventDefault();
-                                                GameCtrl.GetInstance().goToMapping({
-                                                    ParentRound: "engineeringround",
-                                                    ChildRound:"priorities"
-                                                })
+                                                
                                                 this.setState(Object.assign(this.state, {
                                                     ApplicationState: Object.assign(this.state.ApplicationState, {
                                                         CurrentUser: Object.assign(this.state.ApplicationState.CurrentUser, {Job: JobName.IC})
@@ -191,10 +188,7 @@ class App extends BaseComponent<RouteComponentProps<any>, IControllerDataStore>
                                             name={JobName.MANAGER}
                                             onClick={e => {
                                                 e.preventDefault();
-                                                GameCtrl.GetInstance().goToMapping({
-                                                    ParentRound: "engineeringround",
-                                                    ChildRound:"priorities"
-                                                })
+                                            
                                                 this.setState(Object.assign(this.state, {
                                                     ApplicationState: Object.assign(this.state.ApplicationState, {
                                                         CurrentUser: Object.assign(this.state.ApplicationState.CurrentUser, {Job: JobName.MANAGER})
