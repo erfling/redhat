@@ -3,11 +3,13 @@ import PeopleRoundCtrl from "./PeopleRoundCtrl";
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 import * as Semantic from 'semantic-ui-react';
 import { IRoundDataStore } from '../../../shared/base-sapien/client/BaseRoundCtrl';
+import BaseComponent from "../../../shared/base-sapien/client/shared-components/BaseComponent";
+import GameCtrl from "../GameCtrl";
 
 const { Grid, Segment } = Semantic;
 const { Row, Column } = Grid;
 
-class PeopleRound extends React.Component<RouteComponentProps<any>, IRoundDataStore>
+class PeopleRound extends BaseComponent<RouteComponentProps<any>, IRoundDataStore>
 {
     //----------------------------------------------------------------------
     //
@@ -31,6 +33,7 @@ class PeopleRound extends React.Component<RouteComponentProps<any>, IRoundDataSt
         super(props);
 
         this.state = this.controller.dataStore;
+        GameCtrl.GetInstance().CurrentComponent = this;
     }
 
     //----------------------------------------------------------------------
@@ -58,7 +61,6 @@ class PeopleRound extends React.Component<RouteComponentProps<any>, IRoundDataSt
                             <Row>
                                 <Column computer={12} mobile={16} tablet={16}>
                                     <h3>Round One: Build the Team</h3>
-                                    <pre>{this.state && this.state.ApplicationState && this.state.ApplicationState.SelectedMessage && JSON.stringify(this.state.ApplicationState.SelectedMessage, null, 2)}</pre>
                                 </Column>
                             </Row>
                             <Grid>

@@ -45,7 +45,7 @@ class Admin extends React.Component<RouteComponentProps<any>, IControllerDataSto
     //  Methods
     //
     //----------------------------------------------------------------------
-    
+
 
     render() {
         if (this.state && this.controller.ComponentFistma){

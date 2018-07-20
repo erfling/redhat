@@ -247,14 +247,6 @@ export default class GameManagementCtrl extends BaseClientCtrl<IControllerDataSt
         this.ComponentFistma.addTransition(this.ComponentStates.gamedetail)
         this.ComponentFistma.addTransition(this.ComponentStates.adminLogin)
 
-        if (this.component.componentWillMount == undefined) {
-            this.component.componentWillMount = () => {
-                console.log("MOUNTED: ", this.component, this.component.props.location.pathname);
-                this.navigateOnClick(this.component.props.location.pathname);
-                this.getAllGames();
-                this.getAllUsers();
-            }
-        }
 
         this.dataStore.ComponentFistma = this.ComponentFistma;
     }

@@ -3,11 +3,12 @@ import WelcomeCtrl from "./WelcomeCtrl";
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 import * as Semantic from 'semantic-ui-react';
 import { IRoundDataStore } from '../../../shared/base-sapien/client/BaseRoundCtrl';
+import BaseComponent from "../../../shared/base-sapien/client/shared-components/BaseComponent";
 
 const { Button, Grid, Menu, Segment } = Semantic;
 const { Row, Column } = Grid;
 
-class Welcome extends React.Component<RouteComponentProps<any>, IRoundDataStore>
+class Welcome extends BaseComponent<RouteComponentProps<any>, IRoundDataStore>
 {
     //----------------------------------------------------------------------
     //

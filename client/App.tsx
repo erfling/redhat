@@ -11,8 +11,11 @@ import PeopleRoundCtrl from './game/PeopleRound/PeopleRoundCtrl'
 import WelcomeCtrl from './game/Welcome/WelcomeCtrl'
 import EngineeringRoundCtrl from './game/EngineeringRound/EngineeringRoundCtrl'
 import MessageList from './game/MessageList'
+import BaseComponent from "../shared/base-sapien/client/shared-components/BaseComponent";
+import BaseRoundCtrl from "../shared/base-sapien/client/BaseRoundCtrl";
+import Inbox from '-!svg-react-loader?name=Icon!./img/inbox.svg';
 
-class App extends React.Component<RouteComponentProps<any>, IControllerDataStore>
+class App extends BaseComponent<RouteComponentProps<any>, IControllerDataStore>
 {
     //----------------------------------------------------------------------
     //
@@ -135,16 +138,16 @@ class App extends React.Component<RouteComponentProps<any>, IControllerDataStore
 
                     <Sidebar.Pusher
                         className={"source-stream" + (this.state && this.state.ApplicationState.CurrentUser && this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN ? " admin-body" : "")}
-                    >   
+                    >
                         <ComponentFromState />
                     </Sidebar.Pusher>
 
                 </Sidebar.Pushable>
                 {ComponentFromState && ComponentFromState.WrappedComponent.CLASS_NAME.toUpperCase() == "GAME" &&
                     <Menu
-                        inverted
                         color="blue"
                         fixed="bottom"
+                        className="bottom-nav"
                         borderless
                         style={{
                             flexShrink: 0, //don't allow flexbox to shrink it
@@ -154,35 +157,21 @@ class App extends React.Component<RouteComponentProps<any>, IControllerDataStore
                             <Menu.Item
                                 onClick={() => GameCtrl.GetInstance().goBackRound()}
                                 header>
-                                    BACK
+                                    <Icon name="angle left"/>
                             </Menu.Item>
                             <Menu.Item
                                 onClick={() => GameCtrl.GetInstance().advanceRound()}
                                 header>
-                                    FORWARD
+                                    <Icon name="angle right"/>
                             </Menu.Item>
                             <Menu.Item
+                                style = {{
+                                    padding: '4px 0'
+                                }}
                                 header>
-                                     <Popup
-                                        className="email-popup"
-                                        trigger={<Icon name="mail"/>}
-                                        content={
-                                            <MessageList
-                                                Messages={this.state.ApplicationState.CurrentMessages}
-                                                SelectFunc={(m) => {
-                                                    PeopleRoundCtrl.GetInstance().dataStore.ApplicationState.SelectedMessage = this.controller.dataStore.ApplicationState.SelectedMessage = DataStore.ApplicationState.SelectedMessage = m;
-                                                    console.log("<<<<<<<<<<<<<<<<<<<<CURRENT MESSATE", (GameCtrl.GetInstance().dataStore.ComponentFistma.currentState as any).WrappedComponent.CLASS_NAME, (GameCtrl.GetInstance()._getTargetController((GameCtrl.GetInstance().dataStore.ComponentFistma.currentState as any).WrappedComponent.CLASS_NAME)  as any).dataStore.ApplicationState.SelectedMessage);
-                                                    const prc: PeopleRoundCtrl = (GameCtrl.GetInstance()._getTargetController((GameCtrl.GetInstance().dataStore.ComponentFistma.currentState as any).WrappedComponent.CLASS_NAME)  as PeopleRoundCtrl);
-                                                    /*setTimeout(() => {
-                                                        prc.component.forceUpdate.bind(prc.component)();
-                                                        prc.component.render();
-                                                    },1000)*/
-                                                }}
-                                            />
-                                        }
-                                        on='click'
-                                        position='top center'
-                                    />
+                                <Inbox
+                                    onClick={e => this.controller.dataStore.ApplicationState.ShowMessageList = !this.controller.dataStore.ApplicationState.ShowMessageList}
+                                /> 
                             </Menu.Item>
                             <Menu.Item position="right" header>
                                 {this.state.ApplicationState.CurrentUser && this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN &&
@@ -199,7 +188,8 @@ class App extends React.Component<RouteComponentProps<any>, IControllerDataStore
                                                     }))
                                                     
                                                     GameCtrl.GetInstance().dataStoreChange();
-                                                    (GameCtrl.GetInstance()._getTargetController((GameCtrl.GetInstance().dataStore.ComponentFistma.currentState as any).WrappedComponent.CLASS_NAME)  as any).getContentBySubRound()
+                                                    (GameCtrl.GetInstance().CurrentComponent.controller as BaseRoundCtrl<any>).getContentBySubRound();
+                                                    //(GameCtrl.GetInstance()._getTargetController((GameCtrl.GetInstance().dataStore.ComponentFistma.currentState as any).WrappedComponent.CLASS_NAME)  as any).getContentBySubRound()
                                                 }}
                                             >
                                                 {Object.keys(JobName).map(jn => <option style={{color:'#000'}} value={JobName[jn]}>{JobName[jn]}</option>)}
@@ -214,6 +204,19 @@ class App extends React.Component<RouteComponentProps<any>, IControllerDataStore
                         {this.state.ApplicationState.Toasts.filter(t => !t.Killed).map(t => <SapienToast
                             Toast={t}
                         />)}
+                    </div>
+                }
+                {this.state.ApplicationState.CurrentMessages && <div                        
+                        className={"mobile-messages" + " " + (this.state.ApplicationState.ShowMessageList ? "show" : "hide")}
+                    >
+                        <MessageList
+                            Messages={this.state.ApplicationState.CurrentMessages}
+                            Show={this.state.ApplicationState.ShowMessageList}
+                            SelectFunc={(m) => {
+                                this.controller.dataStore.ApplicationState.ShowMessageList = false;
+                                (GameCtrl.GetInstance().CurrentComponent.controller as BaseRoundCtrl<any>).dataStore.ApplicationState.SelectedMessage = m;
+                            }}
+                        />
                     </div>
                 }
             </>

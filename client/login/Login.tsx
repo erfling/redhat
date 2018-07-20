@@ -3,8 +3,9 @@ import { RouteComponentProps, withRouter, Route } from "react-router";
 import LoginCtrl from './LoginCtrl';
 import { Grid, Menu, Container, Button } from 'semantic-ui-react';
 import { IControllerDataStore } from "../../shared/base-sapien/client/BaseClientCtrl";
+import BaseComponent from "../../shared/base-sapien/client/shared-components/BaseComponent";
 
-class Login extends React.Component<RouteComponentProps<any>, IControllerDataStore>
+class Login extends BaseComponent<RouteComponentProps<any>, IControllerDataStore>
 {
     //----------------------------------------------------------------------
     //
@@ -30,7 +31,8 @@ class Login extends React.Component<RouteComponentProps<any>, IControllerDataSto
         this.state = this.controller.dataStore;
     }
 
-    componentWillMount() {
+    componentDidMount() {
+        super.componentDidMount();
         this.props.history.push("/" + this.constructor.name.toLowerCase());
     }
 

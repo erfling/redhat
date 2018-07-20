@@ -5,8 +5,9 @@ import * as Semantic from 'semantic-ui-react';
 const { Button, Grid, Menu } = Semantic;
 const { Row, Column } = Grid;
 import { withRouter, RouteComponentProps } from 'react-router-dom';
+import BaseComponent from "../../../shared/base-sapien/client/shared-components/BaseComponent";
 
-class CustomerRound extends React.Component<RouteComponentProps<any>, IRoundDataStore>
+class CustomerRound extends BaseComponent<RouteComponentProps<any>, IRoundDataStore>
 {
     //----------------------------------------------------------------------
     //
@@ -30,10 +31,6 @@ class CustomerRound extends React.Component<RouteComponentProps<any>, IRoundData
         super(props);
         console.log("CONSTRUCTOR OF CUSTOMER ROUND SAYS THIS ABOUT ROUTING:", this.props.location, this.props.match)
         this.state = this.controller.dataStore;
-    }
-
-    componentWillMount() {
-        //this.props.history.push("/game/" + this.constructor.name.toLowerCase());
     }
 
     //----------------------------------------------------------------------

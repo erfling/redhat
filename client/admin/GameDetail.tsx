@@ -9,8 +9,9 @@ import UserModal from './UserModal';
 import {IControllerDataStore} from '../../shared/base-sapien/client/BaseClientCtrl';
 import GameModal from './GameModal'
 import DeleteTeamModal from './DeleteTeamModal'
+import BaseComponent from "../../shared/base-sapien/client/shared-components/BaseComponent";
 
-class GameDetail extends React.Component<RouteComponentProps<any>, IControllerDataStore & {Admin: AdminViewModel, ShowUserModal: boolean, ShowGameModal: boolean, ShowTeamDeleteModal: boolean}>
+class GameDetail extends BaseComponent<RouteComponentProps<any>, IControllerDataStore & {Admin: AdminViewModel, ShowUserModal: boolean, ShowGameModal: boolean, ShowTeamDeleteModal: boolean}>
 {
     //----------------------------------------------------------------------
     //
@@ -51,6 +52,11 @@ class GameDetail extends React.Component<RouteComponentProps<any>, IControllerDa
     //----------------------------------------------------------------------
 
     componentDidMount() {
+        super.componentDidMount();
+        this.controller.navigateOnClick(this.props.location.pathname);
+        this.controller.getAllGames();
+        this.controller.getAllUsers();
+
         console.log("DOES CONSTRUCTOR HAVE LOCATION?", this.props.location.pathname.split("/").filter(s => s.length > 0).reverse()[0])
         this.controller.getGame(this.props.location.pathname.split("/").filter(s => s.length > 0).reverse()[0]).then(r =>
             this.controller.getAllUsers().then(r => this.controller.filterUsersByGame(this.state.Admin.SelectedGame))

@@ -7,8 +7,9 @@ import AdminViewModel from '../../shared/models/AdminViewModel';
 import UserModel from "../../shared/models/UserModel";
 import {IControllerDataStore} from '../../shared/base-sapien/client/BaseClientCtrl';
 import GameModal from './GameModal'
+import BaseComponent from "../../shared/base-sapien/client/shared-components/BaseComponent";
 
-class GameList extends React.Component<RouteComponentProps<any>, IControllerDataStore & {Admin: AdminViewModel, ShowGameModal: boolean}>
+class GameList extends BaseComponent<RouteComponentProps<any>, IControllerDataStore & {Admin: AdminViewModel, ShowGameModal: boolean}>
 {
     //----------------------------------------------------------------------
     //
@@ -49,9 +50,9 @@ class GameList extends React.Component<RouteComponentProps<any>, IControllerData
     //
     //----------------------------------------------------------------------
 
-    componentWillMount () {
-        //this.component.constructor.super(this.component.props).componentWillMount()
-        this.controller.navigateOnClick(this.props.location.pathname);
+    componentDidMount () {
+        super.componentDidMount();
+        this.controller.navigateOnClick.bind(this.controller)(this.props.location.pathname);
         this.controller.getAllGames();
         this.controller.getAllUsers();
     }

@@ -4,9 +4,13 @@ h1, h2, h3, h4, h5, p, .header, ul, ul li{
     font-family: 'Nexa', 'Helvetica Neue', Arial, Helvetica, sans-serif;
     color: #0088B9;
 }
-p, ul li, blockquote{
-    font-size: 17px;
+.bold{
+    font-weight: bold;
 }
+p, ul li, blockquote{
+    font-size: 1.35em;
+}
+
 .game-wrapper{
     .column{
         margin-left:auto;
@@ -259,4 +263,70 @@ SEMANTIC MOBILE FIX
 
 .email-popup{
     max-width:80vw !important
+}
+
+.mobile-messages{ 
+    height:90vh;
+    width: 95vw;
+    top:110vh;
+    left: 2.5vw;
+    min-height: 0;
+    padding:20px 0;
+    position: fixed;
+    border-radius: 10px;
+    overflow-y: auto;
+    transition: all .4s;
+    bottom:0;
+    background: url('../img/inbox-muted.png') white;
+    background-size: 45%;
+    @media screen and (min-width: 766px) {
+        background-size: 25%;
+
+    }
+    background-position: center 75%;
+    background-repeat: no-repeat;
+
+    &.show{
+        top:10vh;
+        box-shadow: 0 0 20px 0 rgba(0,0,0,.5);
+    }
+
+    .mobile-messages-wrapper{
+        position: relative;
+        .ui.header{
+            padding:10px !important;
+        }
+        border-bottom: 1px solid rgba(34,36,38,.15) !important;
+
+        .item{
+            cursor: pointer;
+            font-size: 1.2em;
+            padding:10px !important;
+            border-top: 1px solid rgba(34,36,38,.15) !important;
+            &:nth-of-type(even){
+                background: #eee;
+            }
+            background: rgba(255,255,255,.8);
+            .description{
+                font-weight: normal;
+            }
+        }
+        
+        .mail-bg{
+            position: absolute;
+            top: 50%;
+            margin-top: 0em;
+            font-size: 10em;
+            text-align: center;
+            color: #f1efef;
+            left: 50%;
+            margin-left: -80px;
+        }
+    }
+}
+.bottom-nav{
+    svg{
+        cursor: pointer;
+        width: 40px;
+    }
 }

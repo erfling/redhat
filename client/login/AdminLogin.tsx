@@ -5,8 +5,9 @@ const { Column, Row } = Grid;
 import { Route, Switch, RouteComponentProps, withRouter } from "react-router";
 import LoginCtrl from './LoginCtrl';
 import { IControllerDataStore } from "../../shared/base-sapien/client/BaseClientCtrl";
+import BaseComponent from "../../shared/base-sapien/client/shared-components/BaseComponent";
 
-class AdminLogin extends React.Component<RouteComponentProps<any>, IControllerDataStore>
+class AdminLogin extends BaseComponent<RouteComponentProps<any>, IControllerDataStore>
 {
     //----------------------------------------------------------------------
     //
@@ -32,8 +33,6 @@ class AdminLogin extends React.Component<RouteComponentProps<any>, IControllerDa
         this.props.history.push("/login/admin");
         this.state = this.controller.dataStore;
     }
-
-    componentWillMount() { }
 
     //----------------------------------------------------------------------
     //

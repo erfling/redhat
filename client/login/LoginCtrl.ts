@@ -20,7 +20,6 @@ export default class LoginCtrl extends BaseClientCtrl<IControllerDataStore>
     private static _instance: LoginCtrl;
 
     protected readonly ComponentStates = {
-        game: ComponentsVO.GameLogin,
         admin: ComponentsVO.AdminLogin,
         first: ComponentsVO.Join
     };
@@ -119,8 +118,7 @@ export default class LoginCtrl extends BaseClientCtrl<IControllerDataStore>
             ComponentFistma: null
         };
 
-        this.ComponentFistma = new FiStMa(this.ComponentStates, this.UrlToComponent(this.component.props.location.pathname) || this.ComponentStates.game);
-        this.ComponentFistma.addTransition(this.ComponentStates.game);
+        this.ComponentFistma = new FiStMa(this.ComponentStates, this.UrlToComponent(this.component.props.location.pathname) || this.ComponentStates.admin);
         this.ComponentFistma.addTransition(this.ComponentStates.admin);
         this.ComponentFistma.addTransition(this.ComponentStates.first);
 

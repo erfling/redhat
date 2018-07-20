@@ -7,6 +7,7 @@ import EditableQuestionBlock from '../../../shared/base-sapien/client/shared-com
 import * as Semantic from 'semantic-ui-react';
 import QuestionModel from "../../../shared/models/QuestionModel";
 import { IRoundDataStore } from '../../../shared/base-sapien/client/BaseRoundCtrl';
+import BaseComponent from "../../../shared/base-sapien/client/shared-components/BaseComponent";
 
 const { Button, Grid, Form, Dimmer, Loader } = Semantic;
 const { Row, Column } = Grid;
@@ -34,6 +35,7 @@ class Hiring extends React.Component<RouteComponentProps<any>, IRoundDataStore>
     constructor(props: RouteComponentProps<any>) {
         super(props);
 
+        this.controller.ParentController = PeopleRoundCtrl.GetInstance();
         this.state = this.controller.dataStore;
     }
 

@@ -7,10 +7,11 @@ import * as Semantic from 'semantic-ui-react';
 const { Button, Grid, Menu, Segment, Form, Dimmer, Loader, Header } = Semantic;
 const { Row, Column } = Grid;
 import { IRoundDataStore } from '../../../shared/base-sapien/client/BaseRoundCtrl';
+import BaseComponent from "../../../shared/base-sapien/client/shared-components/BaseComponent";
 
 import IntroLogo from '-!svg-react-loader?name=Icon!../../img/intro-logo.svg';
 
-class Intro extends React.Component<RouteComponentProps<any>, IRoundDataStore>
+class Intro extends BaseComponent<RouteComponentProps<any>, IRoundDataStore>
 {
     //----------------------------------------------------------------------
     //

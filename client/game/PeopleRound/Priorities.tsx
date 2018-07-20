@@ -8,11 +8,12 @@ import EditableContentBlock from '../../../shared/base-sapien/client/shared-comp
 import EditableQuestionBlock from '../../../shared/base-sapien/client/shared-components/EditableQuestionBlock';
 import * as Semantic from 'semantic-ui-react';
 import { IRoundDataStore } from '../../../shared/base-sapien/client/BaseRoundCtrl';
+import BaseComponent from "../../../shared/base-sapien/client/shared-components/BaseComponent";
 
 const { Button, Grid, Menu, Segment, Form, Dimmer, Loader } = Semantic;
 const { Row, Column } = Grid;
 
-class Priorities extends React.Component<RouteComponentProps<any>, IRoundDataStore>
+class Priorities extends BaseComponent<RouteComponentProps<any>, IRoundDataStore>
 {
     //----------------------------------------------------------------------
     //
@@ -35,6 +36,7 @@ class Priorities extends React.Component<RouteComponentProps<any>, IRoundDataSto
     constructor(props: RouteComponentProps<any>) {
         super(props);
         this.state = this.controller.dataStore;
+        this.controller.ParentController = PeopleRoundCtrl.GetInstance();
     }
 
     //----------------------------------------------------------------------
@@ -56,7 +58,6 @@ class Priorities extends React.Component<RouteComponentProps<any>, IRoundDataSto
         if (this.state) {
             
             return <>
-                
                 {thisSubRound && this.state.ApplicationState.SelectedMessage &&
                     <EditableContentBlock
                         IsEditable={this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN}

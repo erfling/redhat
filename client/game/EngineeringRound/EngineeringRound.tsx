@@ -3,11 +3,12 @@ import EngineeringRoundCtrl from "./EngineeringRoundCtrl";
 import * as Semantic from 'semantic-ui-react';
 import { withRouter, RouteComponentProps } from "react-router";
 import { IRoundDataStore } from '../../../shared/base-sapien/client/BaseRoundCtrl';
+import BaseComponent from "../../../shared/base-sapien/client/shared-components/BaseComponent";
 
 const { Button, Grid, Menu, Segment, Loader } = Semantic;
 const { Row, Column } = Grid;
 
-class EngineeringRound extends React.Component<RouteComponentProps<any>, IRoundDataStore>
+class EngineeringRound extends BaseComponent<RouteComponentProps<any>, IRoundDataStore>
 {
     //----------------------------------------------------------------------
     //
@@ -31,10 +32,6 @@ class EngineeringRound extends React.Component<RouteComponentProps<any>, IRoundD
         super(props);
 
         this.state = this.controller.dataStore;
-    }
-
-    componentWillMount() {
-        //this.props.history.push("/game/" + this.constructor.name.toLowerCase());
     }
 
     //----------------------------------------------------------------------

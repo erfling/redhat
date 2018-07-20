@@ -3,11 +3,12 @@ import SalesRoundCtrl from "./SalesRoundCtrl";
 import * as Semantic from 'semantic-ui-react';
 import { RouteComponentProps, withRouter } from "react-router";
 import { IRoundDataStore } from '../../../shared/base-sapien/client/BaseRoundCtrl';
+import BaseComponent from "../../../shared/base-sapien/client/shared-components/BaseComponent";
 
 const { Button, Grid, Menu, Icon } = Semantic;
 const { Row, Column } = Grid;
 
-class SalesRound extends React.Component<RouteComponentProps<any>, IRoundDataStore>
+class SalesRound extends BaseComponent<RouteComponentProps<any>, IRoundDataStore>
 {
     //----------------------------------------------------------------------
     //
@@ -31,10 +32,6 @@ class SalesRound extends React.Component<RouteComponentProps<any>, IRoundDataSto
         super(props);
 
         this.state = this.controller.dataStore;
-    }
-
-    componentWillMount() {
-        //this.props.history.push("/game/" + this.constructor.name.toLowerCase());
     }
 
     //----------------------------------------------------------------------

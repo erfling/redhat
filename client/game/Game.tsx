@@ -7,8 +7,9 @@ import { RouteComponentProps, withRouter } from "react-router";
 import Circles from '-!svg-react-loader?name=Icon!../img/circles.svg';
 import {IControllerDataStore} from '../../shared/base-sapien/client/BaseClientCtrl';
 import { RoleName } from "../../shared/models/UserModel";
+import BaseComponent from "../../shared/base-sapien/client/shared-components/BaseComponent";
 
-class Game extends React.Component<RouteComponentProps<any>, IControllerDataStore & {Game: GameModel}>
+class Game extends BaseComponent<RouteComponentProps<any>, IControllerDataStore & {Game: GameModel}>
 {
     //----------------------------------------------------------------------
     //
@@ -47,6 +48,16 @@ class Game extends React.Component<RouteComponentProps<any>, IControllerDataStor
     //  Methods
     //
     //----------------------------------------------------------------------
+
+    componentDidMount () {
+        super.componentDidMount();
+        if (this.props.location.search){
+            console.log("FOUND LOCATION SEARCH", this.props.location.search);
+        }
+
+        this.props.history.push("/game/" + (this.state.ComponentFistma.currentState as any).WrappedComponent.CLASS_NAME.toLowerCase());
+        this.controller.navigateOnClick.bind(this.controller)(this.props.location.pathname);
+    }
 
     componentDidUpdate(){
     }

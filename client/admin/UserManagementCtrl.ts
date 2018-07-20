@@ -120,12 +120,6 @@ export default class UserManagementCtrl extends BaseClientCtrl<IControllerDataSt
             ComponentFistma: AdminCtrl.GetInstance().dataStore.ComponentFistma
         }
 
-        if (this.component.componentWillMount == undefined) {
-            this.component.componentWillMount = () => {
-                this.navigateOnClick(this.component.props.location.pathname);
-                this.getAllUsers();
-            }
-        }
     }
 
 }

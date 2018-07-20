@@ -6,6 +6,7 @@ import FiStMa from '../../../shared/entity-of-the-state/FiStMa';
 import RoundModel from '../../../shared/models/RoundModel';
 import DataStore from '../../../shared/base-sapien/client/DataStore';
 import ComponentsVO from '../../../shared/base-sapien/client/ComponentsVO';
+import GameCtrl from '../GameCtrl';
 
 export default class EngineeringRoundCtrl extends BaseRoundCtrl<IRoundDataStore>
 {
@@ -29,7 +30,8 @@ export default class EngineeringRoundCtrl extends BaseRoundCtrl<IRoundDataStore>
 
     private constructor(reactComp: React.Component<any, any>) {
         super(reactComp);
-        
+        this.ParentController = GameCtrl.GetInstance();
+
         this.ComponentFistma = new FiStMa(this.ComponentStates, this.ComponentStates.sub1);
         this.ComponentFistma.addTransition(this.ComponentStates.sub1);
     }
@@ -63,8 +65,8 @@ export default class EngineeringRoundCtrl extends BaseRoundCtrl<IRoundDataStore>
 
         this.dataStore = {
             Round: new RoundModel(),
-            ComponentFistma: this.ComponentFistma,
             ApplicationState: DataStore.ApplicationState,
+            ComponentFistma: null
         };
         this.dataStore.Round.Name = "ENGINEERING";
 

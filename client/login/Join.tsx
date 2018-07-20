@@ -5,8 +5,9 @@ const { Column, Row } = Grid;
 import { Route, Switch, RouteComponentProps, withRouter } from "react-router";
 import LoginCtrl from './LoginCtrl';
 import { IControllerDataStore } from "../../shared/base-sapien/client/BaseClientCtrl";
+import BaseComponent from "../../shared/base-sapien/client/shared-components/BaseComponent";
 
-class Join extends React.Component<RouteComponentProps<any>, IControllerDataStore>
+class Join extends BaseComponent<RouteComponentProps<any>, IControllerDataStore>
 {
     //----------------------------------------------------------------------
     //
@@ -46,8 +47,6 @@ class Join extends React.Component<RouteComponentProps<any>, IControllerDataStor
         return queryParams;
 
     }
-
-    componentWillMount() { }
 
     //----------------------------------------------------------------------
     //

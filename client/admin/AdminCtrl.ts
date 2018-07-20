@@ -15,7 +15,6 @@ export default class AdminCtrl extends BaseClientCtrl<IControllerDataStore & {Ad
     //  Properties
     //
     //----------------------------------------------------------------------
-
     private static _instance: AdminCtrl;
 
     public readonly ComponentStates = {
@@ -23,8 +22,7 @@ export default class AdminCtrl extends BaseClientCtrl<IControllerDataStore & {Ad
         gameDetail: ComponentsVO.GameDetail,
         users: ComponentsVO.UserList,
         adminLogin: ComponentsVO.AdminLogin,
-        default: ComponentsVO.DefaultAdmin,
-        gameLogin: ComponentsVO.GameLogin
+        default: ComponentsVO.DefaultAdmin
     };
 
     //----------------------------------------------------------------------
@@ -32,7 +30,6 @@ export default class AdminCtrl extends BaseClientCtrl<IControllerDataStore & {Ad
     //  Constructor
     //
     //----------------------------------------------------------------------
-
     private constructor(reactComp? : Component<any, any>) {
         super(null, reactComp || null);
        
@@ -55,7 +52,6 @@ export default class AdminCtrl extends BaseClientCtrl<IControllerDataStore & {Ad
     //  Event Handlers
     //
     //----------------------------------------------------------------------
-
    
 
     //----------------------------------------------------------------------
@@ -90,7 +86,6 @@ export default class AdminCtrl extends BaseClientCtrl<IControllerDataStore & {Ad
         this.ComponentFistma.addTransition(this.ComponentStates.adminLogin)
         this.ComponentFistma.addTransition(this.ComponentStates.default)
         this.ComponentFistma.addTransition(this.ComponentStates.gameList)
-        this.ComponentFistma.addTransition(this.ComponentStates.gameLogin)
         this.ComponentFistma.addTransition(this.ComponentStates.users)
         this.ComponentFistma.onInvalidTransition(() => {
             

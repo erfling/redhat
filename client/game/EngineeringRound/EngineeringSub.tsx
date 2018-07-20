@@ -7,11 +7,13 @@ import * as Semantic from 'semantic-ui-react';
 import QuestionModel from "../../../shared/models/QuestionModel";
 import { IRoundDataStore } from '../../../shared/base-sapien/client/BaseRoundCtrl';
 import EngineeringRoundCtrl from "./EngineeringRoundCtrl";
+import BaseComponent from "../../../shared/base-sapien/client/shared-components/BaseComponent";
+
 
 const { Button, Grid, Form, Dimmer, Loader } = Semantic;
 const { Row, Column } = Grid;
 
-class EngineeringSub extends React.Component<RouteComponentProps<any>, IRoundDataStore>
+class EngineeringSub extends BaseComponent<RouteComponentProps<any>, IRoundDataStore>
 {
     //----------------------------------------------------------------------
     //

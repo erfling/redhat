@@ -7,8 +7,9 @@ import AdminViewModel from '../../shared/models/AdminViewModel';
 import { RoleName } from "../../shared/models/UserModel";
 import UserModal from "./UserModal";
 import {IControllerDataStore} from '../../shared/base-sapien/client/BaseClientCtrl';
+import BaseComponent from "../../shared/base-sapien/client/shared-components/BaseComponent";
 
-class UserList extends React.Component<RouteComponentProps<any>, IControllerDataStore & {Admin: AdminViewModel}>
+class UserList extends BaseComponent<RouteComponentProps<any>, IControllerDataStore & {Admin: AdminViewModel}>
 {
     //----------------------------------------------------------------------
     //
@@ -48,9 +49,9 @@ class UserList extends React.Component<RouteComponentProps<any>, IControllerData
     //
     //----------------------------------------------------------------------
 
-    componentWillMount() {
-        //this.component.constructor.super(this.component.props).componentWillMount()
-        this.controller.navigateOnClick(this.props.location.pathname);
+    componentDidMount() {
+        super.componentDidMount();
+        this.controller.navigateOnClick.bind(this.controller)(this.props.location.pathname);
         this.controller.getAllUsers();
     }
 
