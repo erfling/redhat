@@ -8,7 +8,7 @@ import UserModel, { JobName } from '../../shared/models/UserModel';
 
 const messageSchObj = SchemaBuilder.fetchSchema(MessageModel);
 const monMessageSchema = new mongoose.Schema(messageSchObj);
-export const monMessageModel= mongoose.model("message", monMessageSchema);
+export const monMessageModel = mongoose.model("message", monMessageSchema);
 
 
 const schObj = SchemaBuilder.fetchSchema(RoundModel);
@@ -73,7 +73,7 @@ class RoundRouter
     //  Methods
     //
     //----------------------------------------------------------------------
-    
+
     public async GetRounds(req: Request, res: Response):Promise<any> {
         console.log("CALLING GET ROUNDS");
         
@@ -130,7 +130,7 @@ class RoundRouter
     public async SaveRound(req: Request, res: Response):Promise<any> {
         const roundToSave = req.body as RoundModel;
         console.log(roundToSave, roundToSave.Name, roundToSave.Name.length);
-        
+
         try{
             if(!roundToSave.Name || !roundToSave.Name.length || !roundToSave._id) {
                 console.log("HERE")
@@ -144,6 +144,39 @@ class RoundRouter
         catch{
 
         }
+    }
+
+    public async SaveMessage(req: Request, res: Response):Promise<any>{
+        const message = req.body as MessageModel;
+
+        try{
+            if(!message._id) {
+                console.log("HERE")
+                var savedMessage = await monMessageModel.create(message);
+            } else {
+                var savedMessage = await monMessageModel.findByIdAndUpdate(message._id, message, {new: true})
+            }
+            res.json(savedMessage);
+
+            //do we need to update a SubRound?
+            /*const sr = await monSubRoundModel.findById(message.RoundId).then(r => r ? Object.assign(new SubRoundModel, r) : null);
+
+            if(sr){
+                const prop = this._getMessageProp(message.Job);
+                if(prop && sr[prop]){
+                    sr[prop] = sr[prop].filter(id => id != message._id).concat(message._id);
+                    req.body = sr;
+                    await this.SaveSubRound(req, res);
+                }
+            }*/
+
+        }
+        catch{
+
+        }
+
+
+
     }
 
 
@@ -197,6 +230,7 @@ class RoundRouter
         this.router.get("/subround/:subround/:job", this.GetSubRound.bind(this));
         this.router.post("/", this.SaveRound.bind(this));
         this.router.post("/subround", this.SaveSubRound.bind(this));
+        this.router.post("/message", this.SaveMessage.bind(this));
     }
 }
 

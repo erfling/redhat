@@ -58,6 +58,7 @@ class Priorities extends BaseComponent<RouteComponentProps<any>, IRoundDataStore
         if (this.state) {
             
             return <>
+
                 {thisSubRound && this.state.ApplicationState.SelectedMessage &&
                     <EditableContentBlock
                         IsEditable={this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN}

@@ -1,4 +1,5 @@
 import BaseModel, {dbProp} from '../../shared/base-sapien/models/BaseModel';
+import { JobName } from './UserModel';
 
 export default class MessageModel extends BaseModel
 {
@@ -25,8 +26,12 @@ export default class MessageModel extends BaseModel
     @dbProp(Boolean)
     public IsDefault: boolean = false;
 
+    @dbProp(String)
+    public Job: JobName = JobName.IC;
+
     public IsRead: boolean = false;
     
+    public IsModified: boolean = false;
 
 
     //----------------------------------------------------------------------
