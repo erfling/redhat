@@ -330,3 +330,9 @@ SEMANTIC MOBILE FIX
         width: 40px;
     }
 }
+
+.ui.left.sidebar, .ui.right.sidebar {
+    height: 100vh;
+    position: fixed !important;
+    top: 40px !important;
+  }

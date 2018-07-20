@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Sidebar, Menu, Button, Icon, Popup } from 'semantic-ui-react';
+import { Sidebar, Menu, Button, Icon, Popup, MenuItem } from 'semantic-ui-react';
 import ApplicationCtrl from './ApplicationCtrl';
 import { RouteComponentProps, withRouter } from "react-router";
 import DataStore from '../shared/base-sapien/client/DataStore'
@@ -101,8 +101,6 @@ class App extends BaseComponent<RouteComponentProps<any>, IControllerDataStore>
                                 inverted
                                 className="admin-sidebar"
                             >
-                                <Menu.Item />
-                                <Menu.Item />
                                 <Menu.Item>
                                     <Menu.Header>Administer</Menu.Header>
                                     <Menu.Menu>
@@ -131,6 +129,122 @@ class App extends BaseComponent<RouteComponentProps<any>, IControllerDataStore>
                                     </Menu.Menu>
                                 </Menu.Item>
 
+                                {ComponentFromState && ComponentFromState.WrappedComponent.CLASS_NAME.toUpperCase() == "GAME" && <>
+                                    <Menu.Item>
+                                        <Menu.Header>Go to:</Menu.Header>
+                                        <Menu.Item
+                                                name='1A'
+                                                onClick={e => {
+                                                    e.preventDefault();
+                                                    GameCtrl.GetInstance().goToMapping({
+                                                        ParentRound: "peopleRound",
+                                                        ChildRound:"priorities"
+                                                    })
+                                                }}
+                                        >
+                                        </Menu.Item>
+                                        <Menu.Item
+                                                name='1B'
+                                                onClick={e => {
+                                                    e.preventDefault();
+                                                    GameCtrl.GetInstance().goToMapping({
+                                                        ParentRound: "peopleRound",
+                                                        ChildRound:"hiring"
+                                                    })
+                                                }}
+                                        >
+                                        </Menu.Item>
+                                        <Menu.Item
+                                                name='2'
+                                                onClick={e => {
+                                                    e.preventDefault();
+                                                    GameCtrl.GetInstance().goToMapping({
+                                                        ParentRound: "engineeringround",
+                                                        ChildRound:"priorities"
+                                                    })
+                                                }}
+                                        >
+                                        </Menu.Item>
+                                        </Menu.Item>
+                                        <Menu.Item>
+                                            <Menu.Header>Play As</Menu.Header>
+                                        
+                                        <MenuItem
+                                            name={JobName.IC}
+                                            onClick={e => {
+                                                e.preventDefault();
+                                                GameCtrl.GetInstance().goToMapping({
+                                                    ParentRound: "engineeringround",
+                                                    ChildRound:"priorities"
+                                                })
+                                                this.setState(Object.assign(this.state, {
+                                                    ApplicationState: Object.assign(this.state.ApplicationState, {
+                                                        CurrentUser: Object.assign(this.state.ApplicationState.CurrentUser, {Job: JobName.IC})
+                                                    })
+                                                }))
+                                                
+                                                GameCtrl.GetInstance().dataStoreChange();
+                                                (GameCtrl.GetInstance().CurrentComponent.controller as BaseRoundCtrl<any>).getContentBySubRound();
+                                            }}
+                                        />
+                                        <MenuItem
+                                            name={JobName.MANAGER}
+                                            onClick={e => {
+                                                e.preventDefault();
+                                                GameCtrl.GetInstance().goToMapping({
+                                                    ParentRound: "engineeringround",
+                                                    ChildRound:"priorities"
+                                                })
+                                                this.setState(Object.assign(this.state, {
+                                                    ApplicationState: Object.assign(this.state.ApplicationState, {
+                                                        CurrentUser: Object.assign(this.state.ApplicationState.CurrentUser, {Job: JobName.MANAGER})
+                                                    })
+                                                }))
+                                                
+                                                GameCtrl.GetInstance().dataStoreChange();
+                                                (GameCtrl.GetInstance().CurrentComponent.controller as BaseRoundCtrl<any>).getContentBySubRound();
+                                            }}
+                                        />
+                                        <MenuItem
+                                            name={JobName.CHIPCO}
+                                            onClick={e => {
+                                                e.preventDefault();
+                                                GameCtrl.GetInstance().goToMapping({
+                                                    ParentRound: "engineeringround",
+                                                    ChildRound:"priorities"
+                                                })
+                                                this.setState(Object.assign(this.state, {
+                                                    ApplicationState: Object.assign(this.state.ApplicationState, {
+                                                        CurrentUser: Object.assign(this.state.ApplicationState.CurrentUser, {Job: JobName.CHIPCO})
+                                                    })
+                                                }))
+                                                
+                                                GameCtrl.GetInstance().dataStoreChange();
+                                                (GameCtrl.GetInstance().CurrentComponent.controller as BaseRoundCtrl<any>).getContentBySubRound();
+                                            }}
+                                        />
+                                        <MenuItem
+                                            name={JobName.INTEGRATED_SYSTEMS}
+                                            onClick={e => {
+                                                e.preventDefault();
+                                                GameCtrl.GetInstance().goToMapping({
+                                                    ParentRound: "engineeringround",
+                                                    ChildRound:"priorities"
+                                                })
+                                                this.setState(Object.assign(this.state, {
+                                                    ApplicationState: Object.assign(this.state.ApplicationState, {
+                                                        CurrentUser: Object.assign(this.state.ApplicationState.CurrentUser, {Job: JobName.INTEGRATED_SYSTEMS})
+                                                    })
+                                                }))
+                                                
+                                                GameCtrl.GetInstance().dataStoreChange();
+                                                (GameCtrl.GetInstance().CurrentComponent.controller as BaseRoundCtrl<any>).getContentBySubRound();
+                                            }}
+                                        />
+                                        </Menu.Item>
+                                    </>
+                                }
+
                             </Sidebar>
                         </>
 
@@ -145,6 +259,7 @@ class App extends BaseComponent<RouteComponentProps<any>, IControllerDataStore>
                 </Sidebar.Pushable>
                 {ComponentFromState && ComponentFromState.WrappedComponent.CLASS_NAME.toUpperCase() == "GAME" &&
                     <Menu
+                        widths={1}
                         color="blue"
                         fixed="bottom"
                         className="bottom-nav"
@@ -155,16 +270,6 @@ class App extends BaseComponent<RouteComponentProps<any>, IControllerDataStore>
                             margin: 0 //clear semantic-ui style
                         }}>
                             <Menu.Item
-                                onClick={() => GameCtrl.GetInstance().goBackRound()}
-                                header>
-                                    <Icon name="angle left"/>
-                            </Menu.Item>
-                            <Menu.Item
-                                onClick={() => GameCtrl.GetInstance().advanceRound()}
-                                header>
-                                    <Icon name="angle right"/>
-                            </Menu.Item>
-                            <Menu.Item
                                 style = {{
                                     padding: '4px 0'
                                 }}
@@ -172,31 +277,7 @@ class App extends BaseComponent<RouteComponentProps<any>, IControllerDataStore>
                                 <Inbox
                                     onClick={e => this.controller.dataStore.ApplicationState.ShowMessageList = !this.controller.dataStore.ApplicationState.ShowMessageList}
                                 /> 
-                            </Menu.Item>
-                            <Menu.Item position="right" header>
-                                {this.state.ApplicationState.CurrentUser && this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN &&
-                                        <>
-                                            Current Role: <select
-                                                style={{color:'#000'}}
-                                                value={this.state.ApplicationState.CurrentUser.Job}
-                                                onChange={e => {
-                                                    console.log(e.target.value)
-                                                    this.setState(Object.assign(this.state, {
-                                                        ApplicationState: Object.assign(this.state.ApplicationState, {
-                                                            CurrentUser: Object.assign(this.state.ApplicationState.CurrentUser, {Job: e.target.value as JobName})
-                                                        })
-                                                    }))
-                                                    
-                                                    GameCtrl.GetInstance().dataStoreChange();
-                                                    (GameCtrl.GetInstance().CurrentComponent.controller as BaseRoundCtrl<any>).getContentBySubRound();
-                                                    //(GameCtrl.GetInstance()._getTargetController((GameCtrl.GetInstance().dataStore.ComponentFistma.currentState as any).WrappedComponent.CLASS_NAME)  as any).getContentBySubRound()
-                                                }}
-                                            >
-                                                {Object.keys(JobName).map(jn => <option style={{color:'#000'}} value={JobName[jn]}>{JobName[jn]}</option>)}
-                                            </select>
-                                        </>
-                                }
-                            </Menu.Item>                            
+                            </Menu.Item>                        
                     </Menu>
                 }
                 {this.state.ApplicationState.Toasts &&

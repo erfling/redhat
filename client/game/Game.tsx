@@ -56,7 +56,7 @@ class Game extends BaseComponent<RouteComponentProps<any>, IControllerDataStore 
         }
 
         this.props.history.push("/game/" + (this.state.ComponentFistma.currentState as any).WrappedComponent.CLASS_NAME.toLowerCase());
-        this.controller.navigateOnClick.bind(this.controller)(this.props.location.pathname);
+        
     }
 
     componentDidUpdate(){
@@ -65,47 +65,7 @@ class Game extends BaseComponent<RouteComponentProps<any>, IControllerDataStore 
     render() {
         if (this.state && this.controller.ComponentFistma) {
         const Rnd = this.controller.ComponentFistma.currentState;
-        return <>
-            <Menu
-                inverted
-                fixed="top"
-                color="blue"
-                borderless
-                className="game-header"
-                style={{
-                    flexShrink: 0, //don't allow flexbox to shrink it
-                    borderRadius: 0, //clear semantic-ui style
-                    margin: 0,//clear semantic-ui style
-                    marginTop: this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN ? '50px' : 0
-                }}>
-                <Menu.Item
-                    header>
-                </Menu.Item>
-                <Menu.Item
-                    onClick={() => this.controller.goBackRound()}
-                    header>
-                    BACK
-                </Menu.Item>
-                <Menu.Item
-                    onClick={() => this.controller.advanceRound()}
-                    header>
-                    FORWARD
-                </Menu.Item>
-                
-                <Menu.Item position="right" header>
-                    {this.state.ApplicationState.CurrentUser && this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN &&
-                        <Button
-                            onClick={e => {
-                                this.controller.dataStore.ApplicationState.CurrentUser.IsLeader = !this.controller.dataStore.ApplicationState.CurrentUser.IsLeader
-                                this.controller.dataStoreChange()
-                            }}
-                        >
-                            Show {this.state.ApplicationState.CurrentUser.IsLeader ? "IC" : "Leader"} Content
-                        </Button>
-                    }
-                </Menu.Item>
-            </Menu>
-            <Grid
+        return <Grid
                 columns={16}
                 className="game-wrapper"
                 style={{
@@ -124,7 +84,6 @@ class Game extends BaseComponent<RouteComponentProps<any>, IControllerDataStore 
                 <Rnd/>
                
             </Grid>
-        </>
         } else {
             return <Segment loading></Segment>
         }

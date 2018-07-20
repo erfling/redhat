@@ -137,6 +137,12 @@ export default class GameCtrl extends BaseClientCtrl<IControllerDataStore & {Gam
         }
     }
 
+    public goToMapping(mapping: Partial<RoundChangeMapping>){
+        if ( mapping.ParentRound && mapping.ChildRound ) {
+            SapienServerCom.SaveData(mapping, SapienServerCom.BASE_REST_URL + "facilitation/round/" + this.dataStore.ApplicationState.CurrentTeam.GameId);
+        }
+    }
+
     private _getTargetController(componentName: string): BaseRoundCtrl<any>{
         let childController: BaseRoundCtrl<any>
         componentName = componentName.toLocaleUpperCase();
