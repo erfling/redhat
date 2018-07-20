@@ -79,64 +79,7 @@ export default class GameCtrl extends BaseClientCtrl<IControllerDataStore & {Gam
         this.component.props.history.push("/game/" + this.ComponentFistma.currentState.WrappedComponent.CLASS_NAME.toLowerCase());
     }
     
-    /**
-     * Go to next game round
-     * 
-     */
-    public advanceRound(){
-        let targetState: React.ComponentClass;
-        let mapping = new RoundChangeMapping();            
-
-        this._childController = this._getTargetController(this.ComponentFistma.currentState.WrappedComponent.CLASS_NAME);
-
-        if ( this._childController.ComponentFistma && this._childController.ComponentFistma.getNext() ){
-            mapping.ParentRound = this.ComponentFistma.currentState.WrappedComponent.CLASS_NAME;
-            mapping.ChildRound = this._childController.ComponentFistma.getNext().WrappedComponent.CLASS_NAME;
-        } else if ( this.ComponentFistma.getNext() ) {
-            mapping.ParentRound = this.ComponentFistma.getNext().WrappedComponent.CLASS_NAME;
-            this._childController = this._getTargetController(this.ComponentFistma.getNext().WrappedComponent.CLASS_NAME)
-
-            //get the first component from the NEXT fistma
-            console.log("CHILD CONTROLLER IS:", this._childController)
-            mapping.ChildRound = this._childController.ComponentFistma.getFirst().WrappedComponent.CLASS_NAME;
-        }
-
-        console.log("MAPPING IS", mapping)
-
-        if ( mapping.ParentRound && mapping.ChildRound ) {
-            SapienServerCom.SaveData(mapping, SapienServerCom.BASE_REST_URL + "facilitation/round/" + this.dataStore.ApplicationState.CurrentTeam.GameId);
-        }
-    }
     
-    /**
-     * Go to previous game round
-     * 
-     */
-    public goBackRound(){
-        let targetState: React.ComponentClass;
-        let mapping: RoundChangeMapping = new RoundChangeMapping();
-
-        this._childController = this._getTargetController(this.ComponentFistma.currentState.WrappedComponent.CLASS_NAME)
-
-        if ( this._childController.ComponentFistma && this._childController.ComponentFistma.getPrevious() ){
-            mapping.ParentRound = this.ComponentFistma.currentState.WrappedComponent.CLASS_NAME;
-            mapping.ChildRound = this._childController.ComponentFistma.getPrevious().WrappedComponent.CLASS_NAME;
-        } else if ( this.ComponentFistma.getPrevious() ) {
-            mapping.ParentRound = this.ComponentFistma.getPrevious().WrappedComponent.CLASS_NAME;
-            this._childController = this._getTargetController(this.ComponentFistma.getPrevious().WrappedComponent.CLASS_NAME)
-
-            //get the first component from the NEXT fistma
-
-            mapping.ChildRound = this._childController.ComponentFistma.getLast().WrappedComponent.CLASS_NAME;
-        }
-
-        console.log("MAPPING IS", mapping)
-
-        if ( mapping.ParentRound && mapping.ChildRound ) {
-            SapienServerCom.SaveData(mapping, SapienServerCom.BASE_REST_URL + "facilitation/round/" + this.dataStore.ApplicationState.CurrentTeam.GameId);
-        }
-    }
-
     public goToMapping(mapping: Partial<RoundChangeMapping>){
         if ( mapping.ParentRound && mapping.ChildRound ) {
             SapienServerCom.SaveData(mapping, SapienServerCom.BASE_REST_URL + "facilitation/round/" + this.dataStore.ApplicationState.CurrentTeam.GameId);
@@ -175,12 +118,34 @@ export default class GameCtrl extends BaseClientCtrl<IControllerDataStore & {Gam
     //----------------------------------------------------------------------
 
     public async pollForGameStateChange(gameId: string){
-        console.log("polling for game state")
-        if(!gameId)return;
-        await SapienServerCom.GetData(null, null, "/listenforgameadvance/" + gameId).then((r: RoundChangeMapping) => {
+
+        if(!this.dataStore.ApplicationState.CurrentTeam)return;
+        console.log("polling for game state", this.dataStore.ApplicationState.CurrentTeam)
+
+        let url = "/listenforgameadvance/" + this.dataStore.ApplicationState.CurrentTeam.GameId;
+        if(this.dataStore.ApplicationState.CurrentTeam.CurrentRound){
+            url = url + "?ParentRound=" + this.dataStore.ApplicationState.CurrentTeam.CurrentRound.ParentRound || "" + "&ChildRound=" + this.dataStore.ApplicationState.CurrentTeam.CurrentRound.ChildRound || "";
+        }
+
+        await SapienServerCom.GetData(null, null, url).then((r: RoundChangeMapping) => {
+
+
+            //set the team's current location to the new location
+            const team = this.dataStore.ApplicationState.CurrentTeam = JSON.parse(localStorage.getItem("RH_TEAM"));
+            team.CurrentRound = r;
+            localStorage.setItem("RH_TEAM", JSON.stringify(team));
+
             console.log("GOT THIS BACK FROM LONG POLL", r);
+            const targetJob = r.UserJobs[this.dataStore.ApplicationState.CurrentUser._id] || JobName.IC;
+            console.log("HELLO?")
+
+            this.dataStore.ApplicationState.CurrentUser.Job 
+                = GameCtrl.GetInstance().dataStore.ApplicationState.CurrentUser.Job 
+                = targetJob;
 
             this._childController = this._getTargetController(r.ParentRound)
+
+            console.log("CHILD CONTROLLER IS",this._childController);
 
             GameCtrl.GetInstance().navigateOnClick("/game/" + r.ParentRound.toLowerCase() + "/" + r.ChildRound.toLowerCase());
             this._childController.navigateOnClick("/game/" + r.ParentRound.toLowerCase() + "/" + r.ChildRound.toLowerCase());
@@ -188,17 +153,13 @@ export default class GameCtrl extends BaseClientCtrl<IControllerDataStore & {Gam
             this.dataStoreChange();
             this._childController.dataStoreChange();
 
-
-            const targetJob = r.UserJobs[this.dataStore.ApplicationState.CurrentUser._id] || JobName.IC;
-            this.dataStore.ApplicationState.CurrentUser.Job = targetJob;
-
             ApplicationCtrl.GetInstance().addToast("The game is in a new round", "info");
             ApplicationCtrl.GetInstance().addToast("You're now playing the roll of " + targetJob, "info");
 
-            this.pollForGameStateChange(gameId);
+            this.pollForGameStateChange(this.dataStore.ApplicationState.CurrentTeam.GameId);
         }).catch(() => {
             setTimeout(() => {
-                this.pollForGameStateChange.bind(this)(gameId);
+                this.pollForGameStateChange.bind(this)(this.dataStore.ApplicationState.CurrentTeam.GameId);
             }, 2000);
         })
     }

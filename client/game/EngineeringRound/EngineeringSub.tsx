@@ -58,6 +58,7 @@ class EngineeringSub extends BaseComponent<RouteComponentProps<any>, IRoundDataS
 
         if (this.state) {
             return <>
+                <h1>{this.state.ApplicationState.CurrentUser.Job}</h1>
                {thisSubRound && this.controller.getMessagesByJob(this.state.ApplicationState.CurrentUser.Job, thisSubRound._id).map(m => 
                     
                     <EditableContentBlock

@@ -85,9 +85,23 @@ export class AppServer {
                 LP.publish("/sapien/api/gameplay/listenforgameadvance", {test: "might as well try an object for no good reason"})
             }, 5000);
         */
-        AppServer.LongPoll.create("/listenforgameadvance/:gameid", (req, res, next) => {
+        AppServer.LongPoll.create("/listenforgameadvance/:gameid", async (req, res, next) => {
             req.id = req.params.gameid;
-            next();
+
+            console.log(req.query)
+
+            const game = await monGameModel.findById(req.id).then(r => r ? Object.assign(new GameModel(), r) : null);
+
+            if(game){
+               if(!game.CurrentRound || !game.CurrentRound.ParentRound){
+                   next();
+               } else if (!req.query || req.query.ParentRound != game.CurrentRound.ParentRound || req.query.ChildRound != game.CurrentRound.ChildRound){
+                   res.json(game.CurrentRound)
+               }
+            } else {
+                next();
+            }
+
         });
 
         //GZIP large resources in production
@@ -128,9 +142,9 @@ export class AppServer {
 
                     //make sure the current mapping has the correct child round
                     var oldMapping: RoundChangeMapping = await monMappingModel.findOneAndUpdate({ GameId: game._id, ParentRound: mapping.ParentRound }, {ChildRound: mapping.ChildRound}).then(r => r ? Object.assign(new RoundChangeMapping(), r.toJSON()) : null);
-                    console.log(oldMapping);
+                    console.log("OLD MAPPING",oldMapping);
                     if (!oldMapping) {
-                        if (mapping.ParentRound == "EngineeringRound") {
+                        if (mapping.ParentRound.toLowerCase() == "engineeringround") {
                             game.Teams.forEach(t => {
                                 var managerAssigned = false;
                                 for (let i = 0; i < t.Players.length; i++) {
@@ -147,12 +161,15 @@ export class AppServer {
 
                             })
                         } else {
+                            console.log("BUILDING MAPPING");
                             game.Teams.forEach(t => {
+                                console.log("TEAM ", t)
                                 for (let i = 0; i < t.Players.length; i++) {
                                     let pid = t.Players[i].toString();
                                     if (game.HasBeenManager.indexOf(pid) == -1 /*&& *this isn't round 5 for a 4 player team*/) {
                                         game.HasBeenManager.push(pid);
                                         mapping.UserJobs[pid] = JobName.MANAGER;
+                                        console.log("HEY< YOU",pid, mapping)
                                         break;
                                     }
                                 }

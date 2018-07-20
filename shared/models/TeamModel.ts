@@ -3,6 +3,7 @@ import { Type } from "class-transformer";
 import BaseModel, { dbProp } from "../base-sapien/models/BaseModel";
 import { ObjectID } from "bson";
 import ResponseModel from "./ResponseModel";
+import RoundChangeMapping from "./RoundChangeMapping";
 
 export default class TeamModel extends BaseModel
 {
@@ -25,4 +26,5 @@ export default class TeamModel extends BaseModel
     @dbProp(String)
     GameId: string;
 
+    CurrentRound: RoundChangeMapping;
 }

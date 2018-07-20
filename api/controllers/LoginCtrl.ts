@@ -45,7 +45,7 @@ export class LoginCtrlClass
     //
     //----------------------------------------------------------------------
     
-    public async    Login(req: Request, res: Response):Promise<any> {
+    public async Login(req: Request, res: Response):Promise<any> {
         const loginInfo = req.body as {Email: string, GamePIN: number};
         console.log("USER", req.body);
         //const dbRoundModel = new monRoundModel(roundToSave); 
@@ -100,7 +100,7 @@ export class LoginCtrlClass
     }
     
     public async AdminLogin(req: Request, res: Response):Promise<any> {
-        console.log("USER", req.body);
+        console.log("ADMIN", req.body);
 
         const user = req.body as UserModel;
         //const dbRoundModel = new monRoundModel(roundToSave); 
@@ -125,18 +125,8 @@ export class LoginCtrlClass
                     }
                     
                     const token = jwt.sign(JSON.stringify(user), 'zigwagytywu');
-
-                    //get our test team for the admin user
-                    var team = await monTeamModel.findOne({Name: "TEST"});
-
-                    //make the admin team
-                    if(!team){
-                        const testGame = await monGameModel.findOne({Location: "TEST_GAME"})
-                        team = await monTeamModel.create({Name: "TEST", GameId: testGame._id});
-                    }
-
         
-                    return res.json({user, token, team});
+                    return res.json({user, token, team: new TeamModel()});
                 });
             })(req, res);
         }
