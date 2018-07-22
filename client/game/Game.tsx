@@ -14,7 +14,6 @@ import BaseComponent from "../../shared/base-sapien/client/shared-components/Bas
 import Info from '-!svg-react-loader?name=Icon!../img/info.svg';
 import Decisions from '-!svg-react-loader?name=Icon!../img/decisions.svg';
 import Inbox from '-!svg-react-loader?name=Icon!../img/inbox.svg';
-import { isMobile } from "react-device-detect";
 import MessageList from './MessageList'
 import IntroLogo from '-!svg-react-loader?name=Icon!../img/intro-logo.svg';
 
