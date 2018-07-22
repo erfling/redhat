@@ -2,6 +2,7 @@
 
 body{
     background: #CCEAF2;
+    background: linear-gradient(#CCEAF2, #a9ebfd);
 }
 
 h1, h2, h3, h4, h5, p, .header, ul, ul li, strong{
@@ -55,13 +56,11 @@ a{
 }
 
 .source-stream {
-    background: #CCEAF2;
     color: #0088B9;
     padding: 10px;
     padding-bottom: 40px;
     min-height: 100vh;
     width: 101vw;
-    background: linear-gradient(#CCEAF2, #a9ebfd);
 }
 .admin-header + .source-stream{
     padding-top:50px;
