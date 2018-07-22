@@ -8,9 +8,10 @@ import QuestionModel from "../../../shared/models/QuestionModel";
 import { IRoundDataStore } from '../../../shared/base-sapien/client/BaseRoundCtrl';
 import EngineeringRoundCtrl from "./EngineeringRoundCtrl";
 import BaseComponent from "../../../shared/base-sapien/client/shared-components/BaseComponent";
+import Decisions from '-!svg-react-loader?name=Icon!../../img/decisions.svg';
 
 
-const { Button, Grid, Form, Dimmer, Loader } = Semantic;
+const { Button, Grid, Form, Dimmer, Loader, Header } = Semantic;
 const { Row, Column } = Grid;
 
 class EngineeringSub extends BaseComponent<RouteComponentProps<any>, IRoundDataStore>
@@ -24,7 +25,7 @@ class EngineeringSub extends BaseComponent<RouteComponentProps<any>, IRoundDataS
     public static CLASS_NAME = "EngineeringSub";
 
     public static CONTROLLER = EngineeringRoundCtrl;
-    
+
     controller: EngineeringRoundCtrl = EngineeringRoundCtrl.GetInstance();
 
     //----------------------------------------------------------------------
@@ -58,8 +59,52 @@ class EngineeringSub extends BaseComponent<RouteComponentProps<any>, IRoundDataS
 
         if (this.state) {
             return <>
-                <h1>{this.state.ApplicationState.CurrentUser.Job}</h1>
-                {thisSubRound && this.state.ApplicationState.SelectedMessage &&
+                {this.state.ApplicationState.CurrentUser.Job == JobName.MANAGER && thisSubRound != null && thisSubRound.Questions &&
+                    <div
+                        className={(this.state.ApplicationState.ShowQuestions ? 'show ' : 'hide ') + (this.state.ApplicationState.MobileWidth ? "mobile-messages decisions" : "wide-messages decisions")}
+                    >
+                        <Form
+                            style={{ width: '100%' }}
+                        >
+                            <Header>
+                                <Decisions
+                                    className="ui circular image"
+                                    style={{ width: '40px' }}
+                                />
+                                Decisions
+                            </Header>
+                                            
+                            {thisSubRound.Questions.map((q, i) => {
+                                return <Row
+                                    key={"question-" + i.toString()}
+                                >
+                                    <EditableQuestionBlock
+                                        Question={q}
+                                        idx={i}
+                                        key={i}
+                                        SubRoundId={thisSubRound._id}
+                                        onChangeHander={r => {
+                                            console.log(r);
+                                            this.controller.updateResponse(q, r)
+                                        }}
+                                        IsEditable={this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN}
+                                    />
+                                    <Button
+                                        content='Submit'
+                                        icon='checkmark'
+                                        labelPosition='right'
+                                        color="blue"
+                                        loading={q.Response ? q.Response.IsSaving : false}
+                                        onClick={e => {
+                                            this.controller.SaveResponse(q.Response, q, thisSubRound)
+                                        }}
+                                    />
+                                </Row>
+                            }
+                            )}
+                        </Form>
+                    </div>
+                }                {thisSubRound && this.state.ApplicationState.SelectedMessage &&
                     <EditableContentBlock
                         IsEditable={this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN}
                         SubRoundId={thisSubRound._id}
@@ -67,42 +112,6 @@ class EngineeringSub extends BaseComponent<RouteComponentProps<any>, IRoundDataS
                         Message={this.state.ApplicationState.SelectedMessage}
                     />
                 }
-
-
-                {this.state.ApplicationState.CurrentUser.Job == JobName.MANAGER && thisSubRound != null && thisSubRound.Questions &&
-                    <Form
-                        style={{ width: '100%' }}
-                    >
-                        {thisSubRound.Questions.map((q, i) => {
-                            q = Object.assign(new QuestionModel, q);
-                            return <Row
-                                key={"question-" + i.toString()}
-                            >
-                                <EditableQuestionBlock
-                                    Question={q}
-                                    idx={i}
-                                    key={i}
-                                    SubRoundId={thisSubRound._id}
-                                    onChangeHander={r => {
-                                        this.controller.updateResponse(q, r)
-                                    }}
-                                    IsEditable={this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN}
-                                />
-                                <Button
-                                    content='Save'
-                                    icon='checkmark'
-                                    labelPosition='right'
-                                    color='blue'
-                                    loading={this.state.ApplicationState.FormIsSubmitting }
-                                    onClick={e => {
-                                        this.controller.SaveResponse(q.Response, q, thisSubRound)
-                                    }}
-                                />
-                            </Row>
-                        }
-                        )}
-                    </Form>
-
                 }
             </>;
         } else {

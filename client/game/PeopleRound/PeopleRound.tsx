@@ -65,7 +65,7 @@ class PeopleRound extends BaseComponent<RouteComponentProps<any>, IRoundDataStor
                                 marginBottom: '-10px'
                             }}
                         >
-                            <h1>round one: build the team</h1>
+                            <h1>round one: build the team: {this.state.ApplicationState.MobileWidth}</h1>
                         </Row>
                     </Column>
                     <SubRnd />

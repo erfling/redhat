@@ -8,8 +8,9 @@ import * as Semantic from 'semantic-ui-react';
 import QuestionModel from "../../../shared/models/QuestionModel";
 import { IRoundDataStore } from '../../../shared/base-sapien/client/BaseRoundCtrl';
 import BaseComponent from "../../../shared/base-sapien/client/shared-components/BaseComponent";
+import Decisions from '-!svg-react-loader?name=Icon!../../img/decisions.svg';
 
-const { Button, Grid, Form, Dimmer, Loader } = Semantic;
+const { Button, Grid, Menu, Segment, Form, Dimmer, Loader, Header } = Semantic;
 const { Row, Column } = Grid;
 
 class Hiring extends React.Component<RouteComponentProps<any>, IRoundDataStore>
@@ -23,7 +24,7 @@ class Hiring extends React.Component<RouteComponentProps<any>, IRoundDataStore>
     public static CLASS_NAME = "Hiring";
 
     public static CONTROLLER = PeopleRoundCtrl;
-    
+
     controller: PeopleRoundCtrl = PeopleRoundCtrl.GetInstance();
 
     //----------------------------------------------------------------------
@@ -58,6 +59,52 @@ class Hiring extends React.Component<RouteComponentProps<any>, IRoundDataStore>
 
         if (this.state) {
             return <>
+                {this.state.ApplicationState.CurrentUser.Job == JobName.MANAGER && thisSubRound != null && thisSubRound.Questions &&
+                    <div
+                        className={(this.state.ApplicationState.ShowQuestions ? 'show ' : 'hide ') + (this.state.ApplicationState.MobileWidth ? "mobile-messages decisions" : "wide-messages decisions")}
+                    >
+                        <Form
+                            style={{ width: '100%' }}
+                        >
+                            <Header>
+                                <Decisions
+                                    className="ui circular image"
+                                    style={{ width: '40px' }}
+                                />
+                                Decisions
+                            </Header>
+                                               
+                            {thisSubRound.Questions.map((q, i) => {
+                                return <Row
+                                    key={"question-" + i.toString()}
+                                >
+                                    <EditableQuestionBlock
+                                        Question={q}
+                                        idx={i}
+                                        key={i}
+                                        SubRoundId={thisSubRound._id}
+                                        onChangeHander={r => {
+                                            console.log(r);
+                                            this.controller.updateResponse(q, r)
+                                        }}
+                                        IsEditable={this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN}
+                                    />
+                                    <Button
+                                        content='Submit'
+                                        icon='checkmark'
+                                        labelPosition='right'
+                                        color="blue"
+                                        loading={q.Response ? q.Response.IsSaving : false}
+                                        onClick={e => {
+                                            this.controller.Save1BResponse(q.Response, q, thisSubRound)
+                                        }}
+                                    />
+                                </Row>
+                            }
+                            )}
+                        </Form>
+                    </div>
+                }
                 {thisSubRound && this.state.ApplicationState.SelectedMessage &&
                     <EditableContentBlock
                         IsEditable={this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN}
@@ -65,42 +112,6 @@ class Hiring extends React.Component<RouteComponentProps<any>, IRoundDataStore>
                         onSaveHandler={this.controller.updateContent.bind(this.controller)}
                         Message={this.state.ApplicationState.SelectedMessage}
                     />
-                }
-
-                {this.state.ApplicationState.CurrentUser.Job == JobName.MANAGER && thisSubRound != null && thisSubRound.Questions &&
-                    <Form
-                        style={{ width: '100%' }}
-                    >
-                        {thisSubRound.Questions.map((q, i) => {
-                            q = Object.assign(new QuestionModel(), q);
-                            return <Row
-                                key={"question-" + i.toString()}
-                            >
-                                <EditableQuestionBlock
-                                    Question={q}
-                                    idx={i}
-                                    key={i}
-                                    SubRoundId={thisSubRound._id}
-                                    onChangeHander={r => {
-                                        this.controller.updateResponse(q, r)
-                                    }}
-                                    IsEditable={this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN}
-                                />
-                                <Button
-                                    content='Save'
-                                    icon='checkmark'
-                                    labelPosition='right'
-                                    color='blue'
-                                    loading={q.Response ? q.Response.IsSaving : false}
-                                    onClick={e => {
-                                        this.controller.Save1BResponse(q.Response, q, thisSubRound)
-                                    }}
-                                />
-                            </Row>
-                        }
-                        )}
-                    </Form>
-
                 }
             </>;
         } else {

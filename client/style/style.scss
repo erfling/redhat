@@ -183,6 +183,7 @@ SEMANTIC MOBILE FIX
     color: #333;
     font-weight: 400;
     display: table-row;
+    z-index: 10002;
 
     & > div{
         padding: 10px 20px;
@@ -278,9 +279,8 @@ SEMANTIC MOBILE FIX
     }
 }
 
-.email-popup{
-    max-width:80vw !important
-}
+
+
 
 .wide-messages, .mobile-messages{
     background: url('../img/inbox-muted.png') white;
@@ -292,26 +292,74 @@ SEMANTIC MOBILE FIX
     background-repeat: no-repeat;
 }
 .wide-messages{
-    height: 100vh;
+    min-height: 100vh;
     background-position: center 340px;
     background-repeat: no-repeat;
+    display: block !important;
+    transition: margin-left .3s ease-in;
 }
+.hide{
+    margin-left: 250vh !important;
+    position: fixed !important;
+    width: 100vw !important;
+}
+.decisions{
+    padding-bottom: 20vh !important;
+    background-image: url('../img/decisions-muted.png'); 
+    background-color: white;
+    &.wide-messages{
+        position: relative !important;
+        width: 100%;
+        margin-top: -51px;
+        padding: 40px 20px;
+        left:0;
+    }
+    form{
+        .row{
+            padding-bottom:30px;
+            padding-top:30px;
+            &:nth-of-type(even){
+                border-top:1px solid #ddd;
+                border-bottom:1px solid #ddd;
+            }
+        }
+    }
+    .ui.radio.checkbox input:checked~.box:after, .ui.radio.checkbox input:checked~label:after {
+        background-color: rgb(0, 136, 185);
+    }
+    .ui.checkbox input:checked~.box:after, .ui.checkbox input:checked~label:after {
+        opacity: 1;
+        color: rgb(0, 136, 185);
+    }
+    .ui.checkbox .box:active::after, .ui.checkbox input:active~label, .ui.checkbox label:active::after {
+        color: rgb(0, 136, 185);
+    }
+}
+
 .mobile-messages{ 
-    height:90vh;
+    height: 90vh;
     width: 95vw;
-    top:110vh;
+    top: 110vh;
     left: 2.5vw;
     min-height: 0;
-    padding:20px 0;
+    padding: 20px 0;
     border-radius: 10px;
-    transition: all .4s;
-    bottom:0;
+    bottom: 0;
     overflow-y: auto;
     position: fixed;
+    z-index: 9999;
+    box-sizing: border-box;
+    transition: top .2s;
+    top: 150vh;
+    margin-left: 0 !important;
 
     &.show{
         top: 120px;
         box-shadow: 0 0 20px 0 rgba(0,0,0,.5);
+    }
+
+    &.hide{
+        top: 150vh !important;
     }
 }
 
@@ -358,7 +406,18 @@ SEMANTIC MOBILE FIX
         cursor: pointer;
         width: 33px;
     }
+
+    &.side{            
+        position: fixed;
+        padding-top: 213px;
+        height: 100vh;
+        border-top: none !important;
+        border-left: none !important;
+        background: #cbeff9 none !important;
+    }
+    
 }
+
 
 .ui.left.sidebar, .ui.right.sidebar {
     height: 100vh;
@@ -374,3 +433,4 @@ SEMANTIC MOBILE FIX
     background-color: rgba(255, 255, 255, 0.8) !important;
     border: none !important;
 }
+

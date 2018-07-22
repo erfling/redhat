@@ -39,6 +39,26 @@ class App extends BaseComponent<RouteComponentProps<any>, IControllerDataStore>
 
         console.log("DATA STORE: ", this.controller.dataStore)
         this.state = this.controller.dataStore;
+
+        /*
+        document.addEventListener("oTransitionEnd", function(e){
+            _handleEndTrastion(e);                      
+        });
+
+        document.addEventListener("transitionend", function(e){
+            _handleEndTrastion(e);                      
+        });         
+
+        function _handleEndTrastion(e: Event){
+            if((e.target as HTMLElement).classList.contains("wide-messages")){
+                console.log(e, (e.target as HTMLElement).classList);
+                (e.target as HTMLElement).style.position = (e.target as HTMLElement).classList.contains('hide') ? "fixed" : "relative"
+                if((e.target as HTMLElement).classList.contains("decisions")){
+                    (e.target as HTMLElement).style.marginTop = (e.target as HTMLElement).classList.contains('hide') ? "0" : "-50px";
+                }
+            }  
+        }
+        */
     }
 
     //----------------------------------------------------------------------
@@ -138,6 +158,7 @@ class App extends BaseComponent<RouteComponentProps<any>, IControllerDataStore>
                                             name='1A'
                                             onClick={e => {
                                                 e.preventDefault();
+                                                this.controller.dataStore.ApplicationState.ShowMenu = false;
                                                 GameCtrl.GetInstance().goToMapping({
                                                     ParentRound: "peopleround",
                                                     ChildRound: "priorities"
@@ -149,6 +170,7 @@ class App extends BaseComponent<RouteComponentProps<any>, IControllerDataStore>
                                             name='1B'
                                             onClick={e => {
                                                 e.preventDefault();
+                                                this.controller.dataStore.ApplicationState.ShowMenu = false;
                                                 GameCtrl.GetInstance().goToMapping({
                                                     ParentRound: "peopleround",
                                                     ChildRound: "hiring"
@@ -160,6 +182,7 @@ class App extends BaseComponent<RouteComponentProps<any>, IControllerDataStore>
                                             name='2'
                                             onClick={e => {
                                                 e.preventDefault();
+                                                this.controller.dataStore.ApplicationState.ShowMenu = false;
                                                 GameCtrl.GetInstance().goToMapping({
                                                     ParentRound: "engineeringround",
                                                     ChildRound: "engeeringsub"
@@ -175,6 +198,7 @@ class App extends BaseComponent<RouteComponentProps<any>, IControllerDataStore>
                                             name={JobName.IC}
                                             onClick={e => {
                                                 e.preventDefault();
+                                                this.controller.dataStore.ApplicationState.ShowMenu = false;
 
                                                 this.setState(Object.assign(this.state, {
                                                     ApplicationState: Object.assign(this.state.ApplicationState, {
@@ -191,6 +215,7 @@ class App extends BaseComponent<RouteComponentProps<any>, IControllerDataStore>
                                             name={JobName.MANAGER}
                                             onClick={e => {
                                                 e.preventDefault();
+                                                this.controller.dataStore.ApplicationState.ShowMenu = false;
 
                                                 this.setState(Object.assign(this.state, {
                                                     ApplicationState: Object.assign(this.state.ApplicationState, {
@@ -207,6 +232,7 @@ class App extends BaseComponent<RouteComponentProps<any>, IControllerDataStore>
                                             name={JobName.CHIPCO}
                                             onClick={e => {
                                                 e.preventDefault();
+                                                this.controller.dataStore.ApplicationState.ShowMenu = false;
 
                                                 this.setState(Object.assign(this.state, {
                                                     ApplicationState: Object.assign(this.state.ApplicationState, {
