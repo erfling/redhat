@@ -59,16 +59,14 @@ class EngineeringSub extends BaseComponent<RouteComponentProps<any>, IRoundDataS
         if (this.state) {
             return <>
                 <h1>{this.state.ApplicationState.CurrentUser.Job}</h1>
-               {thisSubRound && this.controller.getMessagesByJob(this.state.ApplicationState.CurrentUser.Job, thisSubRound._id).map(m => 
-                    
+                {thisSubRound && this.state.ApplicationState.SelectedMessage &&
                     <EditableContentBlock
                         IsEditable={this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN}
                         SubRoundId={thisSubRound._id}
                         onSaveHandler={this.controller.updateContent.bind(this.controller)}
-                        Message={m}
+                        Message={this.state.ApplicationState.SelectedMessage}
                     />
-
-                )}
+                }
 
 
                 {this.state.ApplicationState.CurrentUser.Job == JobName.MANAGER && thisSubRound != null && thisSubRound.Questions &&

@@ -39,9 +39,10 @@ export default class MessageList extends React.Component<MessageProps, { Message
                     style={{width:'40px'}}/>Inbox
             </Header>
             <List divided verticalAlign='middle'>
-                {this.props.Messages && this.props.Messages.map((m, i) => <List.Item>
+                {this.props.Messages && this.props.Messages.map((m, i) => <List.Item
+                    key={i}
+                >
                     <List.Content
-                        key={i}
                         onClick={e => this.props.SelectFunc(m)}
                         className={!m.IsRead ? "bold" : ""}
                     >

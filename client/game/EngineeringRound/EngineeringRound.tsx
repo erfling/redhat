@@ -53,21 +53,21 @@ class EngineeringRound extends BaseComponent<RouteComponentProps<any>, IRoundDat
             const SubRnd = this.controller.ComponentFistma.currentState;
 
             return <>
-                <Column width={16}>
-                    <Grid>
-                        <Column mobile={16} tablet={12} computer={8} largeScreen={6} >
-                            <Row>
-                                <Column computer={12} mobile={16} tablet={16}>
-                                    <h3>Round 2: <small>build the solution</small></h3>
-                                </Column>
-                            </Row>
-                            <Grid>
-                                <SubRnd />
-                            </Grid>
-                        </Column>
-                    </Grid>
-                </Column>
-
+                 <Grid>
+                    <Column
+                        className="content-block"
+                        width={16}
+                    >
+                        <Row
+                            style={{
+                                marginBottom: '-10px'
+                            }}
+                        >
+                            <h1>round two: build the solution</h1>
+                        </Row>
+                    </Column>
+                    <SubRnd />
+                </Grid>
             </>
         } else {
             return <Segment loading></Segment>

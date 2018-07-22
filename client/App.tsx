@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Sidebar, Menu, Button, Icon, Popup, MenuItem } from 'semantic-ui-react';
+import { Sidebar, Menu, Button, Icon, Popup, MenuItem, Grid } from 'semantic-ui-react';
 import ApplicationCtrl from './ApplicationCtrl';
 import { RouteComponentProps, withRouter } from "react-router";
 import DataStore from '../shared/base-sapien/client/DataStore'
@@ -10,10 +10,9 @@ import { RoleName, JobName } from '../shared/models/UserModel';
 import PeopleRoundCtrl from './game/PeopleRound/PeopleRoundCtrl'
 import WelcomeCtrl from './game/Welcome/WelcomeCtrl'
 import EngineeringRoundCtrl from './game/EngineeringRound/EngineeringRoundCtrl'
-import MessageList from './game/MessageList'
 import BaseComponent from "../shared/base-sapien/client/shared-components/BaseComponent";
 import BaseRoundCtrl from "../shared/base-sapien/client/BaseRoundCtrl";
-import Inbox from '-!svg-react-loader?name=Icon!./img/inbox.svg';
+
 
 class App extends BaseComponent<RouteComponentProps<any>, IControllerDataStore>
 {
@@ -56,6 +55,8 @@ class App extends BaseComponent<RouteComponentProps<any>, IControllerDataStore>
     //
     //----------------------------------------------------------------------
 
+    
+
     render() {
         if (this.state && this.controller.ComponentFistma) {
             const ComponentFromState: any = this.state.ComponentFistma.currentState
@@ -87,7 +88,7 @@ class App extends BaseComponent<RouteComponentProps<any>, IControllerDataStore>
                         </Menu.Item>
                     </Menu>
                 }
-                <Sidebar.Pushable
+                <div
                     style={{ height: '100vh' }}
                 >
                     {this.state && this.state.ApplicationState.CurrentUser && this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN &&
@@ -99,6 +100,7 @@ class App extends BaseComponent<RouteComponentProps<any>, IControllerDataStore>
                                 visible={this.state.ApplicationState.ShowMenu}
                                 vertical
                                 inverted
+                                fixed
                                 className="admin-sidebar"
                             >
                                 <Menu.Item>
@@ -241,36 +243,15 @@ class App extends BaseComponent<RouteComponentProps<any>, IControllerDataStore>
 
                     }
 
-                    <Sidebar.Pusher
+                    <div
                         className={"source-stream" + (this.state && this.state.ApplicationState.CurrentUser && this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN ? " admin-body" : "")}
                     >
-                        <ComponentFromState />
-                    </Sidebar.Pusher>
+                        
+                            <ComponentFromState />
+                    </div>
 
-                </Sidebar.Pushable>
-                {ComponentFromState && ComponentFromState.WrappedComponent.CLASS_NAME.toUpperCase() == "GAME" &&
-                    <Menu
-                        widths={1}
-                        color="blue"
-                        fixed="bottom"
-                        className="bottom-nav"
-                        borderless
-                        style={{
-                            flexShrink: 0, //don't allow flexbox to shrink it
-                            borderRadius: 0, //clear semantic-ui style
-                            margin: 0 //clear semantic-ui style
-                        }}>
-                        <Menu.Item
-                            style={{
-                                padding: '4px 0'
-                            }}
-                            header>
-                            <Inbox
-                                onClick={e => this.controller.dataStore.ApplicationState.ShowMessageList = !this.controller.dataStore.ApplicationState.ShowMessageList}
-                            />
-                        </Menu.Item>
-                    </Menu>
-                }
+                </div>
+                
                 {this.state.ApplicationState.Toasts &&
                     <div className="toast-holder">
                         {this.state.ApplicationState.Toasts.filter(t => !t.Killed).map(t => <SapienToast
@@ -278,19 +259,7 @@ class App extends BaseComponent<RouteComponentProps<any>, IControllerDataStore>
                         />)}
                     </div>
                 }
-                {this.state.ApplicationState.CurrentMessages && <div
-                    className={"mobile-messages" + " " + (this.state.ApplicationState.ShowMessageList ? "show" : "hide")}
-                >
-                    <MessageList
-                        Messages={this.state.ApplicationState.CurrentMessages}
-                        Show={this.state.ApplicationState.ShowMessageList}
-                        SelectFunc={(m) => {
-                            this.controller.dataStore.ApplicationState.ShowMessageList = false;
-                            (GameCtrl.GetInstance()._getTargetController((GameCtrl.GetInstance().dataStore.ComponentFistma.currentState as any).WrappedComponent.CLASS_NAME) as any).dataStore.SelectedMessage = m;
-                        }}
-                    />
-                </div>
-                }
+                
             </>
         } else if (!this.state) {
             return <h2>Loading</h2>

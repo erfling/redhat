@@ -1,8 +1,15 @@
 @import '../font/stylesheet.css';
 
+body{
+    background: #CCEAF2;
+}
+
 h1, h2, h3, h4, h5, p, .header, ul, ul li{
-    font-family: 'Nexa', 'Helvetica Neue', Arial, Helvetica, sans-serif;
-    color: #0088B9;
+    font-family: 'Nexa', 'Helvetica Neue', Arial, Helvetica, sans-serif !important;
+    color: #0088B9 !important;
+}
+h1, h2, h3, h4, h5, .header, ul, ul li{
+    font-weight: 300;
 }
 .bold{
     font-weight: bold;
@@ -25,6 +32,13 @@ p, ul li, blockquote{
     margin-bottom: -40px;
 }
 
+.top-logo{    
+    margin-top: -70px;
+    width: 80%;
+    margin-bottom: -75px;
+    max-width: 320px;
+}
+
 a{
     cursor: pointer;
 }
@@ -41,10 +55,13 @@ a{
 }
 
 .source-stream {
-    background: #CCEAF2 !important;
+    background: #CCEAF2;
     color: #0088B9;
     padding: 10px;
     padding-bottom: 40px;
+    min-height: 100vh;
+    width: 101vw;
+    background: linear-gradient(#CCEAF2, #a9ebfd);
 }
 .admin-header + .source-stream{
     padding-top:50px;
@@ -265,6 +282,18 @@ SEMANTIC MOBILE FIX
     max-width:80vw !important
 }
 
+.wide-messages, .mobile-messages{
+    background: url('../img/inbox-muted.png') white;
+    background-size: 45%;
+    @media screen and (min-width: 766px) {
+        background-size: 25%;
+    }
+    background-position: center 75%;
+    background-repeat: no-repeat;
+}
+.wide-messages{
+    height: 100vh;
+}
 .mobile-messages{ 
     height:90vh;
     width: 95vw;
@@ -272,62 +301,55 @@ SEMANTIC MOBILE FIX
     left: 2.5vw;
     min-height: 0;
     padding:20px 0;
-    position: fixed;
     border-radius: 10px;
-    overflow-y: auto;
     transition: all .4s;
     bottom:0;
-    background: url('../img/inbox-muted.png') white;
-    background-size: 45%;
-    @media screen and (min-width: 766px) {
-        background-size: 25%;
-
-    }
-    background-position: center 75%;
-    background-repeat: no-repeat;
+    overflow-y: auto;
+    position: fixed;
 
     &.show{
-        top:10vh;
+        top: 120px;
         box-shadow: 0 0 20px 0 rgba(0,0,0,.5);
     }
+}
 
-    .mobile-messages-wrapper{
-        position: relative;
-        .ui.header{
-            padding:10px !important;
-        }
-        border-bottom: 1px solid rgba(34,36,38,.15) !important;
+.mobile-messages-wrapper{
+    position: relative;
+    .ui.header{
+        padding:10px !important;
+    }
+    border-bottom: 1px solid rgba(34,36,38,.15) !important;
 
-        .item{
-            cursor: pointer;
-            font-size: 1.2em;
-            padding:10px !important;
-            border-top: 1px solid rgba(34,36,38,.15) !important;
-            &:nth-of-type(even){
-                background: #eee;
-            }
-            background: rgba(255,255,255,.8);
-            .description{
-                font-weight: normal;
-            }
+    .item{
+        cursor: pointer;
+        font-size: 1.2em;
+        padding:10px !important;
+        border-top: 1px solid rgba(34,36,38,.15) !important;
+        &:nth-of-type(even){
+            background: #eee;
         }
-        
-        .mail-bg{
-            position: absolute;
-            top: 50%;
-            margin-top: 0em;
-            font-size: 10em;
-            text-align: center;
-            color: #f1efef;
-            left: 50%;
-            margin-left: -80px;
+        background: rgba(255,255,255,.8);
+        .description{
+            font-weight: normal;
         }
     }
+    
+    .mail-bg{
+        position: absolute;
+        top: 50%;
+        margin-top: 0em;
+        font-size: 10em;
+        text-align: center;
+        color: #f1efef;
+        left: 50%;
+        margin-left: -80px;
+    }
 }
-.bottom-nav{
+
+.game-nav{
     svg{
         cursor: pointer;
-        width: 40px;
+        width: 33px;
     }
 }
 
@@ -335,4 +357,9 @@ SEMANTIC MOBILE FIX
     height: 100vh;
     position: fixed !important;
     top: 40px !important;
-  }
+    max-width: 25vh;
+}
+
+.ui.tabular.menu .active.item,  .ui.tabular.menu .item:hover{
+    background: rgba(255, 255, 255, 0.3) !important;
+}

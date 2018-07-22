@@ -16,7 +16,7 @@ import WelcomeCtrl from './Welcome/WelcomeCtrl';
 import ApplicationCtrl from '../ApplicationCtrl';
 import ComponentsVO from '../../shared/base-sapien/client/ComponentsVO';
 
-export default class GameCtrl extends BaseClientCtrl<IControllerDataStore & {Game: GameModel}>
+export default class GameCtrl extends BaseClientCtrl<IControllerDataStore & {Game: GameModel, _mobileWidth: boolean}>
 {
     //----------------------------------------------------------------------
     //
@@ -135,6 +135,10 @@ export default class GameCtrl extends BaseClientCtrl<IControllerDataStore & {Gam
             team.CurrentRound = r;
             localStorage.setItem("RH_TEAM", JSON.stringify(team));
 
+            console.log("<<<<<<<<<<<<TEAM IS NOW>>>>>>>>>>>>", this.dataStore.ApplicationState.CurrentTeam, JSON.parse(localStorage.getItem("RH_TEAM")))
+
+            
+
             console.log("GOT THIS BACK FROM LONG POLL", r);
             const targetJob = r.UserJobs[this.dataStore.ApplicationState.CurrentUser._id] || JobName.IC;
             console.log("HELLO?")
@@ -147,15 +151,15 @@ export default class GameCtrl extends BaseClientCtrl<IControllerDataStore & {Gam
 
             console.log("CHILD CONTROLLER IS",this._childController);
 
-            GameCtrl.GetInstance().navigateOnClick("/game/" + r.ParentRound.toLowerCase() + "/" + r.ChildRound.toLowerCase());
+            //GameCtrl.GetInstance().navigateOnClick("/game/" + r.ParentRound.toLowerCase() + "/" + r.ChildRound.toLowerCase());
             this._childController.navigateOnClick("/game/" + r.ParentRound.toLowerCase() + "/" + r.ChildRound.toLowerCase());
 
             this.dataStoreChange();
             this._childController.dataStoreChange();
 
-            ApplicationCtrl.GetInstance().addToast("The game is in a new round", "info");
-            ApplicationCtrl.GetInstance().addToast("You're now playing the roll of " + targetJob, "info");
-
+            //ApplicationCtrl.GetInstance().addToast("The game is in a new round", "info");
+            //ApplicationCtrl.GetInstance().addToast("You're now playing the roll of " + targetJob, "info");
+            
             this.pollForGameStateChange(this.dataStore.ApplicationState.CurrentTeam.GameId);
         }).catch(() => {
             setTimeout(() => {
@@ -173,7 +177,8 @@ export default class GameCtrl extends BaseClientCtrl<IControllerDataStore & {Gam
         this.dataStore = {
             ApplicationState: DataStore.ApplicationState,
             ComponentFistma: null,
-            Game: new GameModel()
+            Game: new GameModel(),
+            _mobileWidth: window.innerWidth < 767
         };
 
         this.ComponentFistma = new FiStMa(this.ComponentStates, this.ComponentStates.round0);
