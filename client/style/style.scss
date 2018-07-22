@@ -4,7 +4,7 @@ body{
     background: #CCEAF2;
 }
 
-h1, h2, h3, h4, h5, p, .header, ul, ul li{
+h1, h2, h3, h4, h5, p, .header, ul, ul li, strong{
     font-family: 'Nexa', 'Helvetica Neue', Arial, Helvetica, sans-serif !important;
     color: #0088B9 !important;
 }
@@ -288,11 +288,13 @@ SEMANTIC MOBILE FIX
     @media screen and (min-width: 766px) {
         background-size: 25%;
     }
-    background-position: center 75%;
+    background-position: center 50%;
     background-repeat: no-repeat;
 }
 .wide-messages{
     height: 100vh;
+    background-position: center 340px;
+    background-repeat: no-repeat;
 }
 .mobile-messages{ 
     height:90vh;
@@ -314,6 +316,8 @@ SEMANTIC MOBILE FIX
 }
 
 .mobile-messages-wrapper{
+    height: 100vh;
+    overflow-y: auto;
     position: relative;
     .ui.header{
         padding:10px !important;
@@ -347,6 +351,9 @@ SEMANTIC MOBILE FIX
 }
 
 .game-nav{
+    strong{
+        margin-left: 5px;
+    }
     svg{
         cursor: pointer;
         width: 33px;
@@ -359,7 +366,11 @@ SEMANTIC MOBILE FIX
     top: 40px !important;
     max-width: 25vh;
 }
-
-.ui.tabular.menu .active.item,  .ui.tabular.menu .item:hover{
-    background: rgba(255, 255, 255, 0.3) !important;
+.ui.tabular.menu .item{
+    transition: all .4s;
+    cursor: pointer;
+}
+.ui.tabular.menu .active.item, .ui.tabular.menu .item:hover{
+    background-color: rgba(255, 255, 255, 0.8) !important;
+    border: none !important;
 }

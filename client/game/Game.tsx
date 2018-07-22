@@ -131,8 +131,11 @@ class Game extends BaseComponent<RouteComponentProps<any>, IControllerDataStore 
             <Menu
                 style={{
                     position: 'fixed',
-                    marginTop: '152px',
-                    height: "100vh"
+                    paddingTop: '152px',
+                    height: "100vh",
+                    borderTop: 'none',
+                    borderLeft:'none',
+                    background: 'rgba(255, 255, 255, 0.24)'
                 }}
                 fluid
                 vertical
@@ -142,28 +145,30 @@ class Game extends BaseComponent<RouteComponentProps<any>, IControllerDataStore 
             >
 
                 <Menu.Item
-                    active={this.controller.dataStore.ApplicationState.ShowMessageList}
+                    onClick={e => this.controller.dataStore.ApplicationState.ShowMessageList = !this.controller.dataStore.ApplicationState.ShowMessageList}
                 >
                     <Info
                         className="ui circular image"
-                        onClick={e => this.controller.dataStore.ApplicationState.ShowMessageList = !this.controller.dataStore.ApplicationState.ShowMessageList}
                     />
-                    <Header>Game Info</Header>
+                    <strong>Game Info</strong>
                 </Menu.Item>
-                <Menu.Item>
+                <Menu.Item
+                    active={this.controller.dataStore.ApplicationState.ShowMessageList}
+                    onClick={e => this.controller.dataStore.ApplicationState.ShowMessageList = !this.controller.dataStore.ApplicationState.ShowMessageList}
+                    >
                     <Inbox
                         className="ui circular image"
-                        onClick={e => this.controller.dataStore.ApplicationState.ShowMessageList = !this.controller.dataStore.ApplicationState.ShowMessageList}
                     />
-                    <Header>Inbox</Header>
+                    <strong>Inbox</strong>
                 </Menu.Item>
                 {this.state.ApplicationState.CurrentUser.Job == JobName.MANAGER &&
-                    <Menu.Item>
+                    <Menu.Item
+                        onClick={e => this.controller.dataStore.ApplicationState.ShowMessageList = !this.controller.dataStore.ApplicationState.ShowMessageList}
+                    >
                         <Decisions
                             className="ui circular image"
-                            onClick={e => this.controller.dataStore.ApplicationState.ShowMessageList = !this.controller.dataStore.ApplicationState.ShowMessageList}
                         />
-                        <Header>Decisions</Header>
+                        <strong>Decisions</strong>
                     </Menu.Item>
                 }
             </Menu>
@@ -219,7 +224,11 @@ class Game extends BaseComponent<RouteComponentProps<any>, IControllerDataStore 
                             {this.controller.dataStore.ApplicationState.ShowMessageList && this.state.ApplicationState.CurrentMessages && !this.state._mobileWidth && <div
                                 className={"wide-messages" + " " + (this.state.ApplicationState.ShowMessageList ? "show" : "hide")}
                             >
-                                <Segment attached='top'>
+                                <Segment 
+                                    style={{
+                                        padding:0
+                                    }}
+                                >
                                     <MessageList
                                         Messages={this.state.ApplicationState.CurrentMessages}
                                         Show={this.state.ApplicationState.ShowMessageList}
