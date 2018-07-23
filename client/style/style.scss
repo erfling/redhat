@@ -18,7 +18,10 @@ h1, h2, h3, h4, h5, .header, ul, ul li{
 p, ul li, blockquote{
     font-size: 1.35em;
 }
-
+ui li{
+    list-style: outside;
+    margin-left: 10px;
+}
 .game-wrapper{
     .column{
         margin-left:auto;
@@ -295,7 +298,7 @@ SEMANTIC MOBILE FIX
     background-position: center 340px;
     background-repeat: no-repeat;
     display: block !important;
-    transition: margin-left .3s ease-in;
+    transition: margin-left .3s cubic-bezier(0.42, 0, 0.12, 1.23);
 }
 .hide{
     margin-left: 250vh !important;
@@ -337,7 +340,7 @@ SEMANTIC MOBILE FIX
 
 .mobile-messages{ 
     height: 90vh;
-    width: 95vw;
+    width: 97vw;
     top: 110vh;
     left: 2.5vw;
     min-height: 0;
@@ -348,17 +351,21 @@ SEMANTIC MOBILE FIX
     position: fixed;
     z-index: 9999;
     box-sizing: border-box;
-    transition: top .2s;
+    transition: top .3s cubic-bezier(0.42, 0, 0.12, 1.23);
     top: 150vh;
     margin-left: 0 !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
 
     &.show{
         top: 120px;
-        box-shadow: 0 0 20px 0 rgba(0,0,0,.5);
+        box-shadow: 0 0 15px 0 rgba(0,0,0,.3);
     }
 
     &.hide{
+        width: 97vw !important;
         top: 150vh !important;
+        background-size:0;
     }
 }
 

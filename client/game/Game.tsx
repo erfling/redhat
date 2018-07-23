@@ -41,6 +41,8 @@ class Game extends BaseComponent<RouteComponentProps<any>, IControllerDataStore 
         super(props);
 
         this.state = this.controller.dataStore;
+        document.getElementsByTagName('meta')["viewport"].content = "width=device-width, initial-scale=1.0, maximum-scale=1";
+
     }
 
     //----------------------------------------------------------------------
@@ -220,7 +222,7 @@ class Game extends BaseComponent<RouteComponentProps<any>, IControllerDataStore 
                         <Column
                             width={this.state.ApplicationState.MobileWidth ? 16 : 12}
                             style={{
-                                paddingRight: this.state.ApplicationState.ShowMessageList ? 0 : '1rem'
+                                paddingRight: !this.state.ApplicationState.MobileWidth && this.state.ApplicationState.ShowMessageList ? 0 : '1rem'
                             }}
                         >
                             {this.state.ApplicationState.CurrentMessages && !this.state.ApplicationState.MobileWidth && <div
