@@ -48,7 +48,6 @@ export default class WelcomeCtrl extends BaseRoundCtrl<IRoundDataStore>
         return this._instance;
     }
 
-
     //----------------------------------------------------------------------
     //
     //  Event Handlers

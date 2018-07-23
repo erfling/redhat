@@ -4,12 +4,10 @@ import { withRouter, RouteComponentProps } from 'react-router-dom';
 import EditableContentBlock from '../../../shared/base-sapien/client/shared-components/EditableContentBlock';
 import EditableQuestionBlock from '../../../shared/base-sapien/client/shared-components/EditableQuestionBlock';
 import * as Semantic from 'semantic-ui-react';
-import QuestionModel from "../../../shared/models/QuestionModel";
 import { IRoundDataStore } from '../../../shared/base-sapien/client/BaseRoundCtrl';
 import FinanceRoundCtrl from "./FinanceRoundCtrl";
 import BaseComponent from "../../../shared/base-sapien/client/shared-components/BaseComponent";
 import Decisions from '-!svg-react-loader?name=Icon!../../img/decisions.svg';
-
 
 const { Button, Grid, Form, Dimmer, Loader, Header } = Semantic;
 const { Row, Column } = Grid;
@@ -37,6 +35,7 @@ class AquisitionStructure extends BaseComponent<RouteComponentProps<any>, IRound
     constructor(props: RouteComponentProps<any>) {
         super(props);
 
+        this.controller.ParentController = FinanceRoundCtrl.GetInstance();
         this.state = this.controller.dataStore;
     }
 

@@ -10,7 +10,6 @@ import SubRoundModel from '../../../shared/models/SubRoundModel';
 import DataStore from '../../../shared/base-sapien/client/DataStore'
 import SapienServerCom from '../../../shared/base-sapien/client/SapienServerCom';
 import ComponentsVO from '../../../shared/base-sapien/client/ComponentsVO';
-import GameCtrl from '../GameCtrl';
 
 export default class PeopleRoundCtrl extends BaseRoundCtrl<IRoundDataStore>
 {

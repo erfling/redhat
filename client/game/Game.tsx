@@ -9,7 +9,6 @@ const { Row, Column } = Grid;
 import { RouteComponentProps, withRouter } from "react-router";
 import Circles from '-!svg-react-loader?name=Icon!../img/circles.svg';
 import { IControllerDataStore } from '../../shared/base-sapien/client/BaseClientCtrl';
-import { RoleName } from "../../shared/models/UserModel";
 import BaseComponent from "../../shared/base-sapien/client/shared-components/BaseComponent";
 import Info from '-!svg-react-loader?name=Icon!../img/info.svg';
 import Decisions from '-!svg-react-loader?name=Icon!../img/decisions.svg';

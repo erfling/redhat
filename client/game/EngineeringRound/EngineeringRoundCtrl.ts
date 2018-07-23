@@ -6,7 +6,6 @@ import FiStMa from '../../../shared/entity-of-the-state/FiStMa';
 import RoundModel from '../../../shared/models/RoundModel';
 import DataStore from '../../../shared/base-sapien/client/DataStore';
 import ComponentsVO from '../../../shared/base-sapien/client/ComponentsVO';
-import GameCtrl from '../GameCtrl';
 
 export default class EngineeringRoundCtrl extends BaseRoundCtrl<IRoundDataStore>
 {

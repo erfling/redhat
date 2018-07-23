@@ -32,6 +32,7 @@ class SalesRound extends BaseComponent<RouteComponentProps<any>, IRoundDataStore
     constructor(props: RouteComponentProps<any>) {
         super(props);
 
+        GameCtrl.GetInstance().CurrentComponent = this;
         this.state = this.controller.dataStore;
     }
 
