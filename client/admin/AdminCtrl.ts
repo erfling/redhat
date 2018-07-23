@@ -4,7 +4,6 @@ import AdminViewModel from '../../shared/models/AdminViewModel';
 import ApplicationViewModel from '../../shared/models/ApplicationViewModel';
 import { Component } from 'react';
 import BaseClientCtrl, {IControllerDataStore} from '../../shared/base-sapien/client/BaseClientCtrl';
-import { RoleName } from '../../shared/models/UserModel';
 import DataStore from '../../shared/base-sapien/client/DataStore';
 import ComponentsVO from '../../shared/base-sapien/client/ComponentsVO';
 
@@ -15,15 +14,8 @@ export default class AdminCtrl extends BaseClientCtrl<IControllerDataStore & {Ad
     //  Properties
     //
     //----------------------------------------------------------------------
-    private static _instance: AdminCtrl;
 
-    public readonly ComponentStates = {
-        gameList: ComponentsVO.GameList,
-        gameDetail: ComponentsVO.GameDetail,
-        users: ComponentsVO.UserList,
-        adminLogin: ComponentsVO.AdminLogin,
-        default: ComponentsVO.DefaultAdmin
-    };
+    private static _instance: AdminCtrl;
 
     //----------------------------------------------------------------------
     //
@@ -32,18 +24,14 @@ export default class AdminCtrl extends BaseClientCtrl<IControllerDataStore & {Ad
     //----------------------------------------------------------------------
     private constructor(reactComp? : Component<any, any>) {
         super(null, reactComp || null);
-       
-        if (reactComp) this._setUpFistma(reactComp);
     }
     
     public static GetInstance(reactComp?: Component<any, any>): AdminCtrl {
         if (!this._instance) {
             this._instance = new AdminCtrl(reactComp || null);
-        }
-        if (!this._instance) throw new Error("NO INSTANCE");
+            if (!this._instance) throw new Error("NO INSTANCE");
+        } else if (reactComp)  this._instance._setUpFistma(reactComp);
 
-        if (reactComp) this._instance._setUpFistma(reactComp);
-        
         return this._instance;
     }
     
@@ -60,23 +48,30 @@ export default class AdminCtrl extends BaseClientCtrl<IControllerDataStore & {Ad
     //
     //----------------------------------------------------------------------
  
-    private _setUpFistma(reactComp: Component){
+    protected _setUpFistma(reactComp: Component) {
         this.component = reactComp;
+        var compStates = {
+            gameList: ComponentsVO.GameList,
+            gameDetail: ComponentsVO.GameDetail,
+            users: ComponentsVO.UserList,
+            adminLogin: ComponentsVO.AdminLogin,
+            default: ComponentsVO.DefaultAdmin
+        };
 
         //if we don't have a user, go to admin login.
         if (!ApplicationViewModel.CurrentUser || !ApplicationViewModel.Token){
-            this.ComponentFistma = new FiStMa(this.ComponentStates, this.ComponentStates.adminLogin);
+            this.ComponentFistma = new FiStMa(compStates, compStates.adminLogin);
         }
         //otherwise, go where the url tells us. If bad url, go to admin default
         else {
             //console.log("HEY YOU",this.component.props.location);
-            this.ComponentFistma = new FiStMa(this.ComponentStates, this.UrlToComponent(this.component.props.location.pathname) || this.ComponentStates.default);
+            this.ComponentFistma = new FiStMa(compStates, this.UrlToComponent(this.component.props.location.pathname) || compStates.default);
         }
 
-        this.ComponentFistma.addTransition(this.ComponentStates.adminLogin)
-        this.ComponentFistma.addTransition(this.ComponentStates.default)
-        this.ComponentFistma.addTransition(this.ComponentStates.gameList)
-        this.ComponentFistma.addTransition(this.ComponentStates.users)
+        this.ComponentFistma.addTransition(compStates.adminLogin);
+        this.ComponentFistma.addTransition(compStates.default);
+        this.ComponentFistma.addTransition(compStates.gameList);
+        this.ComponentFistma.addTransition(compStates.users);
         this.ComponentFistma.onInvalidTransition(() => {
             
         });

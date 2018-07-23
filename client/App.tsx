@@ -7,11 +7,7 @@ import SapienToast from '../shared/base-sapien/client/shared-components/SapienTo
 import GameCtrl from "./game/GameCtrl";
 import { IControllerDataStore } from '../shared/base-sapien/client/BaseClientCtrl';
 import { RoleName, JobName } from '../shared/models/UserModel';
-import PeopleRoundCtrl from './game/PeopleRound/PeopleRoundCtrl'
-import WelcomeCtrl from './game/Welcome/WelcomeCtrl'
-import EngineeringRoundCtrl from './game/EngineeringRound/EngineeringRoundCtrl'
 import BaseComponent from "../shared/base-sapien/client/shared-components/BaseComponent";
-import BaseRoundCtrl from "../shared/base-sapien/client/BaseRoundCtrl";
 
 
 class App extends BaseComponent<RouteComponentProps<any>, IControllerDataStore>

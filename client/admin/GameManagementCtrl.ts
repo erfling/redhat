@@ -19,13 +19,6 @@ export default class GameManagementCtrl extends BaseClientCtrl<IControllerDataSt
     //
     //----------------------------------------------------------------------
 
-    protected readonly ComponentStates = {
-        gameList: ComponentsVO.GameList,
-        gamedetail: ComponentsVO.GameDetail,
-        game: ComponentsVO.Game,
-        adminLogin: ComponentsVO.AdminLogin
-    };
-
     private static _instance: GameManagementCtrl;
 
     //----------------------------------------------------------------------
@@ -36,18 +29,14 @@ export default class GameManagementCtrl extends BaseClientCtrl<IControllerDataSt
 
     private constructor(reactComp?: Component<any, any>) {
         super( null, reactComp || null);
-
-        this.CurrentLocation = this.component.props.location.pathname;
-
-        if (reactComp) this._setUpFistma(reactComp);
     }
 
     public static GetInstance(reactComp?: Component<any, any>): GameManagementCtrl {
         if (!this._instance) {
             this._instance = new GameManagementCtrl(reactComp || null);
-        }
-        if (!this._instance) throw new Error("NO INSTANCE");
-        if (reactComp) this._instance._setUpFistma(reactComp);
+            if (!this._instance) throw new Error("NO INSTANCE");
+        } else if (reactComp) this._instance._setUpFistma(reactComp);
+
         return this._instance;
     }
 
@@ -217,19 +206,26 @@ export default class GameManagementCtrl extends BaseClientCtrl<IControllerDataSt
         
     }
 
-    private _setUpFistma(reactComp: Component) {
+    protected _setUpFistma(reactComp: Component) {
         this.component = reactComp;
+        this.CurrentLocation = this.component.props.location.pathname;
+        var compStates = {
+            gameList: ComponentsVO.GameList,
+            gamedetail: ComponentsVO.GameDetail,
+            game: ComponentsVO.Game,
+            adminLogin: ComponentsVO.AdminLogin
+        };
 
         //if we don't have a user, go to admin login.
         if (!DataStore.ApplicationState.CurrentUser) {
-            this.ComponentFistma = new FiStMa(this.ComponentStates, this.ComponentStates.adminLogin);
+            this.ComponentFistma = new FiStMa(compStates, compStates.adminLogin);
         } else {
-            this.ComponentFistma = new FiStMa(this.ComponentStates, this.UrlToComponent(this.component.props.location.pathname));
+            this.ComponentFistma = new FiStMa(compStates, this.UrlToComponent(this.component.props.location.pathname));
         }
-        this.ComponentFistma.addTransition(this.ComponentStates.game);
-        this.ComponentFistma.addTransition(this.ComponentStates.gameList);
-        this.ComponentFistma.addTransition(this.ComponentStates.gamedetail);
-        this.ComponentFistma.addTransition(this.ComponentStates.adminLogin);
+        this.ComponentFistma.addTransition(compStates.game);
+        this.ComponentFistma.addTransition(compStates.gameList);
+        this.ComponentFistma.addTransition(compStates.gamedetail);
+        this.ComponentFistma.addTransition(compStates.adminLogin);
 
         this.dataStore = {
             Admin: DataStore.Admin,

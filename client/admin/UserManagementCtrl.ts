@@ -25,17 +25,13 @@ export default class UserManagementCtrl extends BaseClientCtrl<IControllerDataSt
 
     private constructor(reactComp?: Component<any, any>) {
         super(null, reactComp || null);
-        
-        this.CurrentLocation = this.component.props.location.pathname;
-        if (reactComp) this._setUpFistma(reactComp);
     }
 
     public static GetInstance(reactComp?: Component<any, any>): UserManagementCtrl {
         if (!this._instance) {
             this._instance = new UserManagementCtrl(reactComp || null);
-        }
-        if (!this._instance) throw new Error("NO INSTANCE");
-        if (reactComp) this._instance.component = reactComp;
+            if (!this._instance) throw new Error("NO INSTANCE");
+        } else if (reactComp) this._instance._setUpFistma(reactComp);
 
         return this._instance;
     }
@@ -111,8 +107,9 @@ export default class UserManagementCtrl extends BaseClientCtrl<IControllerDataSt
         })
     }
 
-    private _setUpFistma(reactComp: Component) {
+    protected _setUpFistma(reactComp: Component) {
         this.component = reactComp;
+        this.CurrentLocation = this.component.props.location.pathname;
 
         this.dataStore = {
             ApplicationState: AdminCtrl.GetInstance().dataStore.ApplicationState,

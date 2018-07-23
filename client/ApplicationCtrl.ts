@@ -17,12 +17,6 @@ export default class ApplicationCtrl extends BaseClientCtrl<IControllerDataStore
 
     private static _instance: ApplicationCtrl;
 
-    public readonly ComponentStates = {
-        game: ComponentsVO.Game,
-        admin: ComponentsVO.Admin,
-        login: ComponentsVO.Login
-    };
-
     //----------------------------------------------------------------------
     //
     //  Constructor
@@ -31,16 +25,13 @@ export default class ApplicationCtrl extends BaseClientCtrl<IControllerDataStore
     
     private constructor(reactComp?: Component<any, any>) {
         super( null, reactComp );
-        
-        if (reactComp) this._setUpFistma(reactComp);
     }
     
     public static GetInstance(reactComp?: Component<any, any>): ApplicationCtrl {
         if (!this._instance) {
             this._instance = new ApplicationCtrl(reactComp || null);
-        }
-        if (!this._instance) throw new Error("NO INSTANCE");
-        if (reactComp) this._instance._setUpFistma(reactComp);
+            if (!this._instance) throw new Error("NO INSTANCE");
+        } else if (reactComp) this._instance._setUpFistma(reactComp);
 
         return this._instance;
     }
@@ -67,18 +58,24 @@ export default class ApplicationCtrl extends BaseClientCtrl<IControllerDataStore
 
     protected _setUpFistma(reactComp: Component): void {
         this.component = reactComp;
+        this.CurrentLocation = this.component.props.location.pathname;
+        var compStates = {
+            game: ComponentsVO.Game,
+            admin: ComponentsVO.Admin,
+            login: ComponentsVO.Login
+        };
         
         DataStore.ApplicationState.CurrentUser = localStorage.getItem("RH_USER") ? Object.assign( new UserModel(), JSON.parse(localStorage.getItem("RH_USER") ) ) : new UserModel()
 
-        this.CurrentLocation = this.component.props.location.pathname;
-        if (DataStore.ApplicationState.CurrentUser && DataStore.ApplicationState.CurrentUser.Role == RoleName.ADMIN || this.UrlToComponent(this.CurrentLocation) == this.ComponentStates.admin){
-            this.ComponentFistma = new FiStMa(this.ComponentStates, this.ComponentStates.admin);
+        if (DataStore.ApplicationState.CurrentUser && DataStore.ApplicationState.CurrentUser.Role == RoleName.ADMIN || this.UrlToComponent(this.CurrentLocation) == compStates.admin) {
+            console.log(this, compStates);
+            this.ComponentFistma = new FiStMa(compStates, compStates.admin);
         } else {
-            this.ComponentFistma =  new FiStMa(this.ComponentStates, this.ComponentStates.game);
+            this.ComponentFistma =  new FiStMa(compStates, compStates.game);
         }
         
-        this.ComponentFistma.addTransition(this.ComponentStates.game);
-        this.ComponentFistma.addTransition(this.ComponentStates.admin);
+        this.ComponentFistma.addTransition(compStates.game);
+        this.ComponentFistma.addTransition(compStates.admin);
         
         this.dataStore = {
             ApplicationState: DataStore.ApplicationState,

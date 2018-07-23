@@ -17,10 +17,6 @@ export default class EngineeringRoundCtrl extends BaseRoundCtrl<IRoundDataStore>
 
     private static _instance: EngineeringRoundCtrl;
 
-    protected readonly ComponentStates = {
-        sub1: ComponentsVO.EngineeringSub
-    };
-
     //----------------------------------------------------------------------
     //
     //  Constructor
@@ -29,16 +25,13 @@ export default class EngineeringRoundCtrl extends BaseRoundCtrl<IRoundDataStore>
 
     private constructor(reactComp: React.Component<any, any>) {
         super(reactComp || null);
-        
-        if (reactComp) this._setUpFistma(reactComp);
     }
 
     public static GetInstance(reactComp?: Component<any, any>): EngineeringRoundCtrl {
         if (!this._instance) {
             this._instance = new EngineeringRoundCtrl(reactComp || null);
-        }
-        if (!this._instance) throw new Error("NO INSTANCE");
-        if (reactComp) this._instance._setUpFistma(reactComp);
+            if (!this._instance) throw new Error("NO INSTANCE");
+        } else if (reactComp) this._instance._setUpFistma(reactComp);
         
         return this._instance;
     }
@@ -59,9 +52,12 @@ export default class EngineeringRoundCtrl extends BaseRoundCtrl<IRoundDataStore>
 
     protected _setUpFistma(reactComp: Component){
         this.component = reactComp;
+        var compStates = {
+            sub1: ComponentsVO.EngineeringSub
+        };
 
-        this.ComponentFistma = new FiStMa(this.ComponentStates, this.ComponentStates.sub1);
-        this.ComponentFistma.addTransition(this.ComponentStates.sub1);
+        this.ComponentFistma = new FiStMa(compStates, compStates.sub1);
+        this.ComponentFistma.addTransition(compStates.sub1);
         this.ComponentFistma.addOnEnter("*", this.getContentBySubRound.bind(this));
 
         this.dataStore = {
