@@ -65,7 +65,7 @@ export default class AdminCtrl extends BaseClientCtrl<IControllerDataStore & {Ad
         //otherwise, go where the url tells us. If bad url, go to admin default
         else {
             //console.log("HEY YOU",this.component.props.location);
-            this.ComponentFistma = new FiStMa(compStates, this.UrlToComponent(this.component.props.location.pathname) || compStates.default);
+            this.ComponentFistma = new FiStMa(compStates, this.UrlToComponent(this.component.props.location.pathname, compStates) || compStates.default);
         }
 
         this.ComponentFistma.addTransition(compStates.adminLogin);

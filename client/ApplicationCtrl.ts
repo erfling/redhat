@@ -67,7 +67,7 @@ export default class ApplicationCtrl extends BaseClientCtrl<IControllerDataStore
         
         DataStore.ApplicationState.CurrentUser = localStorage.getItem("RH_USER") ? Object.assign( new UserModel(), JSON.parse(localStorage.getItem("RH_USER") ) ) : new UserModel()
 
-        if (DataStore.ApplicationState.CurrentUser && DataStore.ApplicationState.CurrentUser.Role == RoleName.ADMIN || this.UrlToComponent(this.CurrentLocation) == compStates.admin) {
+        if (DataStore.ApplicationState.CurrentUser && DataStore.ApplicationState.CurrentUser.Role == RoleName.ADMIN || this.UrlToComponent(this.CurrentLocation, compStates) == compStates.admin) {
             console.log(this, compStates);
             this.ComponentFistma = new FiStMa(compStates, compStates.admin);
         } else {

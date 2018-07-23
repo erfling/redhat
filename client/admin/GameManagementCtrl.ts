@@ -220,7 +220,7 @@ export default class GameManagementCtrl extends BaseClientCtrl<IControllerDataSt
         if (!DataStore.ApplicationState.CurrentUser) {
             this.ComponentFistma = new FiStMa(compStates, compStates.adminLogin);
         } else {
-            this.ComponentFistma = new FiStMa(compStates, this.UrlToComponent(this.component.props.location.pathname));
+            this.ComponentFistma = new FiStMa(compStates, this.UrlToComponent(this.component.props.location.pathname, compStates));
         }
         this.ComponentFistma.addTransition(compStates.game);
         this.ComponentFistma.addTransition(compStates.gameList);

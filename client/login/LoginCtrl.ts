@@ -109,7 +109,7 @@ export default class LoginCtrl extends BaseClientCtrl<IControllerDataStore>
             first: ComponentsVO.Join
         };
 
-        this.ComponentFistma = new FiStMa(compStates, this.UrlToComponent(this.component.props.location.pathname) || compStates.admin);
+        this.ComponentFistma = new FiStMa(compStates, this.UrlToComponent(this.component.props.location.pathname, compStates) || compStates.admin);
         this.ComponentFistma.addTransition(compStates.admin);
         this.ComponentFistma.addTransition(compStates.first);
 
