@@ -61,7 +61,7 @@ export default class UserModel extends BaseModel
 
     @dbProp(String)
     @Type(() => String)
-    public Job: JobName = JobName.MANAGER;
+    public Job: JobName = JobName.IC;
 
     @dbProp(MessageModel)
     public ReceivedMessages: MessageModel[];

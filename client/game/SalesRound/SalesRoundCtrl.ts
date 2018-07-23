@@ -42,7 +42,7 @@ export default class SalesRoundCtrl extends BaseRoundCtrl<IRoundDataStore>
             this._instance = new SalesRoundCtrl(reactComp || null);
         }
         if (!this._instance) throw new Error("NO INSTANCE");
-        if(reactComp) this._instance.component = reactComp;
+        if(reactComp) this._instance._setUpFistma(reactComp);
         return this._instance;
     }
 
