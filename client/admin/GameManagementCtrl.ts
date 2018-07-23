@@ -233,11 +233,7 @@ export default class GameManagementCtrl extends BaseClientCtrl<IControllerDataSt
         if (!this.dataStore.ApplicationState.CurrentUser) {
             this.ComponentFistma = new FiStMa(this.ComponentStates, this.ComponentStates.adminLogin) as FiStMa<any>;
         }
-        //if we have a user, but not an admin, go to game login
-        else if (!this.dataStore.ApplicationState.CurrentUser || this.dataStore.ApplicationState.CurrentUser.Role != RoleName.ADMIN) {
-            this.ComponentFistma = new FiStMa(this.ComponentStates, this.ComponentStates.adminLogin);
-        }
-        //otherwise, go where the url tells us. If bad url, go to admin default
+
         else {
             this.ComponentFistma = new FiStMa(this.ComponentStates, this.UrlToComponent(this.component.props.location.pathname));
         }
