@@ -1,11 +1,13 @@
-import { IRoundDataStore } from '../../../shared/base-sapien/client/BaseRoundCtrl';
-import * as React from 'react';
+import * as React from "react";
 import CustomerRoundCtrl from "./CustomerRoundCtrl";
-import * as Semantic from 'semantic-ui-react';
-const { Button, Grid, Menu } = Semantic;
-const { Row, Column } = Grid;
 import { withRouter, RouteComponentProps } from 'react-router-dom';
+import * as Semantic from 'semantic-ui-react';
+import { IRoundDataStore } from '../../../shared/base-sapien/client/BaseRoundCtrl';
 import BaseComponent from "../../../shared/base-sapien/client/shared-components/BaseComponent";
+import GameCtrl from "../GameCtrl";
+
+const { Grid, Segment } = Semantic;
+const { Row, Column } = Grid;
 
 class CustomerRound extends BaseComponent<RouteComponentProps<any>, IRoundDataStore>
 {
@@ -14,13 +16,13 @@ class CustomerRound extends BaseComponent<RouteComponentProps<any>, IRoundDataSt
     //  Properties
     //
     //----------------------------------------------------------------------
-    
+
     public static CLASS_NAME = "CustomerRound";
-    
-    public static CONTROLLER = CustomerRoundCtrl;
+
+    public static CONTROLLER = CustomerRound;
 
     controller: CustomerRoundCtrl = CustomerRoundCtrl.GetInstance(this);
-    
+
     //----------------------------------------------------------------------
     //
     //  Constructor
@@ -29,8 +31,9 @@ class CustomerRound extends BaseComponent<RouteComponentProps<any>, IRoundDataSt
 
     constructor(props: RouteComponentProps<any>) {
         super(props);
-        console.log("CONSTRUCTOR OF CUSTOMER ROUND SAYS THIS ABOUT ROUTING:", this.props.location, this.props.match)
+
         this.state = this.controller.dataStore;
+        GameCtrl.GetInstance().CurrentComponent = this;
     }
 
     //----------------------------------------------------------------------
@@ -48,18 +51,29 @@ class CustomerRound extends BaseComponent<RouteComponentProps<any>, IRoundDataSt
     //----------------------------------------------------------------------
 
     render() {
-        return <>
+        if (this.state && this.controller.ComponentFistma) {
+            const SubRnd = this.controller.ComponentFistma.currentState;
 
-            <Row>
-                <Column computer={12} mobile={16} tablet={16}>
-                    <h1>ROUND FIVE: BUILD THE RELATIONSHIPS</h1>
-                </Column>
-            </Row>
-            
-            <Row>
-                Form content goes here
-            </Row>
-        </>;
+            return <>
+                <Grid>
+                    <Column
+                        className="content-block"
+                        width={16}
+                    >
+                        <Row
+                            style={{
+                                marginBottom: '-10px'
+                            }}
+                        >
+                            <h1>round one: build the team: {this.state.ApplicationState.MobileWidth}</h1>
+                        </Row>
+                    </Column>
+                    <SubRnd />
+                </Grid>
+            </>
+        } else {
+            return <Segment loading></Segment>
+        }
     }
 
 }
