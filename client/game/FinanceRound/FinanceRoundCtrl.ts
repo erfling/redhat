@@ -33,7 +33,7 @@ export default class FinanceRoundCtrl extends BaseRoundCtrl<IRoundDataStore>
 
     private constructor(reactComp: React.Component<any, any>) {
         super(reactComp || null);
-        this.ParentController = GameCtrl.GetInstance();
+        
         if (reactComp) this._setUpFistma(reactComp);
     }
 
