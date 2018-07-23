@@ -41,7 +41,6 @@ class Game extends BaseComponent<RouteComponentProps<any>, IControllerDataStore 
 
         this.state = this.controller.dataStore;
         document.getElementsByTagName('meta')["viewport"].content = "width=device-width, initial-scale=1.0, maximum-scale=1";
-
     }
 
     //----------------------------------------------------------------------
