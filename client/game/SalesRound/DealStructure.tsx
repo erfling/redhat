@@ -63,7 +63,6 @@ class DealStructure extends BaseComponent<RouteComponentProps<any>, IRoundDataSt
                     <div
                         className={(this.state.ApplicationState.ShowQuestions ? 'show ' : 'hide ') + (this.state.ApplicationState.MobileWidth ? "mobile-messages decisions" : "wide-messages decisions")}
                     >
-                        you in deal structure, my man
                         <Form
                             style={{ width: '100%' }}
                         >
@@ -86,7 +85,7 @@ class DealStructure extends BaseComponent<RouteComponentProps<any>, IRoundDataSt
                                         SubRoundId={thisSubRound._id}
                                         onChangeHander={r => {
                                             console.log(r);
-                                            this.controller.updateResponse(q, r)
+                                            this.controller.handleResponseChange(q, r, thisSubRound.Questions)
                                         }}
                                         IsEditable={this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN}
                                     />

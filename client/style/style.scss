@@ -60,10 +60,8 @@ a{
 
 .source-stream {
     color: #0088B9;
-    padding: 10px;
     padding-bottom: 40px;
     min-height: 100vh;
-    width: 101vw;
 }
 .admin-header + .source-stream{
     padding-top:50px;
@@ -337,7 +335,9 @@ SEMANTIC MOBILE FIX
         color: rgb(0, 136, 185);
     }
 }
-
+/**
+    padding-left: 0 !important;
+    padding-right: 0 !important;*/
 .mobile-messages{ 
     height: 90vh;
     width: 97vw;
@@ -354,8 +354,6 @@ SEMANTIC MOBILE FIX
     transition: top .3s cubic-bezier(0.42, 0, 0.12, 1.23);
     top: 150vh;
     margin-left: 0 !important;
-    padding-left: 0 !important;
-    padding-right: 0 !important;
 
     &.show{
         top: 120px;
@@ -366,6 +364,10 @@ SEMANTIC MOBILE FIX
         width: 97vw !important;
         top: 150vh !important;
         background-size:0;
+    }
+    &.decisions{
+        padding-left: 30px;
+        padding-right: 30px;
     }
 }
 
@@ -440,3 +442,33 @@ SEMANTIC MOBILE FIX
     border: none !important;
 }
 
+/***slider styles
+**importants override inline styles set by library logic
+***/
+.semantic_ui_range_inner{
+    margin: 0 !important;
+    margin-bottom: 20px;
+    > div:first-child{
+        height: 9px !important;
+        top: 6px !important;
+        border-radius: 9px !important;
+        background-color: #CCEAF2 !important;
+    }
+
+    > div:nth-child(2){
+        height: 14px !important;
+        top: 4px !important;
+        background-color: #0087b9;
+        border-radius: 8px !important;
+        border: 2px solid #10528c;
+    }
+
+    > div:last-child{
+        top: -4px !important;
+        height: 30px !important;
+        width: 30px !important;
+        background-color: rgb(14, 84, 140) !important;
+        box-shadow: none !important;
+    }
+
+}

@@ -8,6 +8,9 @@ import ComponentsVO from '../../../shared/base-sapien/client/ComponentsVO';
 import GameCtrl from '../GameCtrl';
 import RoundModel from '../../../shared/models/RoundModel';
 import FiStMa from '../../../shared/entity-of-the-state/FiStMa';
+import QuestionModel, { QuestionType } from '../../../shared/models/QuestionModel';
+import ResponseModel from '../../../shared/models/ResponseModel';
+import ValueObj from '../../../shared/entity-of-the-state/ValueObj';
 
 export default class SalesRoundCtrl extends BaseRoundCtrl<IRoundDataStore>
 {
@@ -58,6 +61,23 @@ export default class SalesRoundCtrl extends BaseRoundCtrl<IRoundDataStore>
     //  Methods
     //
     //----------------------------------------------------------------------
+
+    handleResponseChange(q: QuestionModel, r: ResponseModel, questions: QuestionModel[]){
+
+        console.log("PASSED ANSWER", r.Answer)
+
+        //special case for handling answer that disables other answers
+        if(q.Text.toUpperCase().indexOf("UNLIMITED ") != -1 ){
+
+            //this.dataStore.Round.Questions.
+            questions.forEach(q => {
+                if(q.Type == QuestionType.SLIDER)q.PossibleAnswers[0].disabled = (r.Answer as ValueObj).data == true.toString();//toString because DB requires single type for all response answers, so string makes the most sense
+            });
+
+        }
+
+        this.updateResponse(q, r)
+    }
 
     protected _setUpFistma(reactComp: Component){
         this.component = reactComp;
