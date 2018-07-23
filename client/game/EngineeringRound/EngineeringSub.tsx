@@ -4,7 +4,6 @@ import { withRouter, RouteComponentProps } from 'react-router-dom';
 import EditableContentBlock from '../../../shared/base-sapien/client/shared-components/EditableContentBlock';
 import EditableQuestionBlock from '../../../shared/base-sapien/client/shared-components/EditableQuestionBlock';
 import * as Semantic from 'semantic-ui-react';
-import QuestionModel from "../../../shared/models/QuestionModel";
 import { IRoundDataStore } from '../../../shared/base-sapien/client/BaseRoundCtrl';
 import EngineeringRoundCtrl from "./EngineeringRoundCtrl";
 import BaseComponent from "../../../shared/base-sapien/client/shared-components/BaseComponent";
@@ -37,6 +36,7 @@ class EngineeringSub extends BaseComponent<RouteComponentProps<any>, IRoundDataS
     constructor(props: RouteComponentProps<any>) {
         super(props);
 
+        this.controller.ParentController = EngineeringRoundCtrl.GetInstance();
         this.state = this.controller.dataStore;
     }
 

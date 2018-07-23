@@ -42,6 +42,7 @@ export default class LoginCtrl extends BaseClientCtrl<IControllerDataStore>
         }
         if (!this._instance) throw new Error("NO INSTANCE");
         if (reactComp) this._instance._setUpFistma(reactComp);
+
         return this._instance;
     }
     
@@ -113,16 +114,14 @@ export default class LoginCtrl extends BaseClientCtrl<IControllerDataStore>
         console.log("INTDO ROUND IS", this)
         this.component = reactComp;
 
-        this.dataStore = {
-            ApplicationState: DataStore.ApplicationState,
-            ComponentFistma: null
-        };
-
         this.ComponentFistma = new FiStMa(this.ComponentStates, this.UrlToComponent(this.component.props.location.pathname) || this.ComponentStates.admin);
         this.ComponentFistma.addTransition(this.ComponentStates.admin);
         this.ComponentFistma.addTransition(this.ComponentStates.first);
 
-        this.dataStore.ComponentFistma = this.ComponentFistma;
+        this.dataStore = {
+            ApplicationState: DataStore.ApplicationState,
+            ComponentFistma: this.ComponentFistma
+        };
     }
 
 }

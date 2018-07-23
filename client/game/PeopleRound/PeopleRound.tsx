@@ -31,9 +31,9 @@ class PeopleRound extends BaseComponent<RouteComponentProps<any>, IRoundDataStor
 
     constructor(props: RouteComponentProps<any>) {
         super(props);
-
-        this.state = this.controller.dataStore;
+        
         GameCtrl.GetInstance().CurrentComponent = this;
+        this.state = this.controller.dataStore;
     }
 
     //----------------------------------------------------------------------

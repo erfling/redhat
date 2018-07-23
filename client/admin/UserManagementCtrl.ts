@@ -25,8 +25,8 @@ export default class UserManagementCtrl extends BaseClientCtrl<IControllerDataSt
 
     private constructor(reactComp?: Component<any, any>) {
         super(null, reactComp || null);
-        this.CurrentLocation = this.component.props.location.pathname;
         
+        this.CurrentLocation = this.component.props.location.pathname;
         if (reactComp) this._setUpFistma(reactComp);
     }
 

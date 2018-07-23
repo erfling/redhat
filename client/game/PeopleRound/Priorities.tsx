@@ -37,8 +37,9 @@ class Priorities extends BaseComponent<RouteComponentProps<any>, IRoundDataStore
 
     constructor(props: RouteComponentProps<any>) {
         super(props);
-        this.state = this.controller.dataStore;
+        
         this.controller.ParentController = PeopleRoundCtrl.GetInstance();
+        this.state = this.controller.dataStore;
     }
 
     //----------------------------------------------------------------------
