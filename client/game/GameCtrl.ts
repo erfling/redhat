@@ -15,6 +15,7 @@ import EngineeringRoundCtrl from './EngineeringRound/EngineeringRoundCtrl';
 import WelcomeCtrl from './Welcome/WelcomeCtrl';
 import ApplicationCtrl from '../ApplicationCtrl';
 import ComponentsVO from '../../shared/base-sapien/client/ComponentsVO';
+import SalesRoundCtrl from './SalesRound/SalesRoundCtrl';
 
 export default class GameCtrl extends BaseClientCtrl<IControllerDataStore & {Game: GameModel, _mobileWidth: boolean}>
 {
@@ -98,6 +99,9 @@ export default class GameCtrl extends BaseClientCtrl<IControllerDataStore & {Gam
             case "ENGINEERINGROUND":
                 childController = EngineeringRoundCtrl.GetInstance();
                 break;
+            case "SALESROUND":
+                childController = SalesRoundCtrl.GetInstance();
+                break;
             default: 
                 childController = null;
                 break;
@@ -142,7 +146,7 @@ export default class GameCtrl extends BaseClientCtrl<IControllerDataStore & {Gam
 
             console.log("CHILD CONTROLLER IS",this._childController);
 
-            //GameCtrl.GetInstance().navigateOnClick("/game/" + r.ParentRound.toLowerCase() + "/" + r.ChildRound.toLowerCase());
+            GameCtrl.GetInstance().navigateOnClick("/game/" + r.ParentRound.toLowerCase() + "/" + r.ChildRound.toLowerCase());
             this._childController.navigateOnClick("/game/" + r.ParentRound.toLowerCase() + "/" + r.ChildRound.toLowerCase());
 
             //ApplicationCtrl.GetInstance().addToast("The game is in a new round", "info");

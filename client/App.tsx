@@ -189,6 +189,18 @@ class App extends BaseComponent<RouteComponentProps<any>, IControllerDataStore>
                                             }}
                                         >
                                         </Menu.Item>
+                                        <Menu.Item
+                                            name='3A'
+                                            onClick={e => {
+                                                e.preventDefault();
+                                                this.controller.dataStore.ApplicationState.ShowMenu = false;
+                                                GameCtrl.GetInstance().goToMapping({
+                                                    ParentRound: "salesround",
+                                                    ChildRound: "dealstructure"
+                                                })
+                                            }}
+                                        >
+                                        </Menu.Item>
                                     </Menu.Item>
                                     <Menu.Item>
                                         <Menu.Header>Play As</Menu.Header>

@@ -1,13 +1,13 @@
 import * as React from "react";
 import FinanceRoundCtrl from "./FinanceRoundCtrl";
+import { withRouter, RouteComponentProps } from 'react-router-dom';
 import * as Semantic from 'semantic-ui-react';
-import { RouteComponentProps, withRouter } from "react-router";
 import { IRoundDataStore } from '../../../shared/base-sapien/client/BaseRoundCtrl';
 import BaseComponent from "../../../shared/base-sapien/client/shared-components/BaseComponent";
+import GameCtrl from "../GameCtrl";
 
-const { Button, Grid, Menu, Icon } = Semantic;
+const { Grid, Segment } = Semantic;
 const { Row, Column } = Grid;
-
 class FinanceRound extends BaseComponent<RouteComponentProps<any>, IRoundDataStore>
 {
     //----------------------------------------------------------------------
@@ -49,23 +49,31 @@ class FinanceRound extends BaseComponent<RouteComponentProps<any>, IRoundDataSto
     //----------------------------------------------------------------------
 
     render() {
-        return <>
+        if (this.state && this.controller.ComponentFistma) {
+            const SubRnd = this.controller.ComponentFistma.currentState;
 
-            <Row>
-                <Column computer={12} mobile={16} tablet={16}>
-                    <h1>ROUND 4: GROW THE COMPANY.</h1>
-                </Column>
-            </Row>
-            <Grid
-                padded={true}
-            >
-                
-            </Grid>
-            <Row>
-                Form content goes here
-            </Row>
-        </>;
+            return <>
+                <Grid>
+                    <Column
+                        className="content-block"
+                        width={16}
+                    >
+                        <Row
+                            style={{
+                                marginBottom: '-10px'
+                            }}
+                        >
+                            <h1>round one: build the team: {this.state.ApplicationState.MobileWidth}</h1>
+                        </Row>
+                    </Column>
+                    <SubRnd />
+                </Grid>
+            </>
+        } else {
+            return <Segment loading></Segment>
+        }
     }
+
 
 }
 

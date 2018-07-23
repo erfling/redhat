@@ -69,6 +69,7 @@
     "react-parallax": "^1.6.0",
     "react-quill": "^1.3.1",
     "react-router-dom": "^4.2.2",
+    "react-semantic-ui-range": "^0.6.1",
     "react-sortable-hoc": "^0.8.3",
     "react-vis": "^1.8.2",
     "react-wysiwyg-typescript": "^1.0.2",

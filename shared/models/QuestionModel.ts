@@ -1,4 +1,4 @@
-import ValueObj from "../entity-of-the-state/ValueObj";
+import ValueObj, {SliderValueObj} from "../entity-of-the-state/ValueObj";
 import BaseModel, { dbProp } from "../base-sapien/models/BaseModel";
 import ResponseModel from "./ResponseModel";
 
@@ -27,13 +27,13 @@ export default class QuestionModel extends BaseModel
     @dbProp(String)
     public Type: QuestionType = QuestionType.MULTIPLE_CHOICE;
 
-    @dbProp([ValueObj])
-    public PossibleAnswers: ValueObj[] = [];
+    @dbProp([SliderValueObj])
+    public PossibleAnswers: SliderValueObj[] = [];
 
     Response: ResponseModel = new ResponseModel();
 
     //Maker for question this quesitno is paired with in another round, if it is paired.
     @dbProp(String)
-    public SiblingQuestionId: String = null;
+    public SiblingQuestionId: string = null;
 
 }
