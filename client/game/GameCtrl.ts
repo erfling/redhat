@@ -67,7 +67,6 @@ export default class GameCtrl extends BaseClientCtrl<IControllerDataStore & {Gam
     //----------------------------------------------------------------------
 
     private _onRoundEnter(fromState:React.Component<{}, any>): void {
-        
         this.NavigateFromState();
     }
 
@@ -122,7 +121,6 @@ export default class GameCtrl extends BaseClientCtrl<IControllerDataStore & {Gam
     //----------------------------------------------------------------------
 
     public async pollForGameStateChange(gameId: string){
-
         if(!this.dataStore.ApplicationState.CurrentTeam)return;
         console.log("polling for game state", this.dataStore.ApplicationState.CurrentTeam)
 
@@ -132,8 +130,6 @@ export default class GameCtrl extends BaseClientCtrl<IControllerDataStore & {Gam
         }
 
         await SapienServerCom.GetData(null, null, url).then((r: RoundChangeMapping) => {
-
-
             //set the team's current location to the new location
             const team = this.dataStore.ApplicationState.CurrentTeam = JSON.parse(localStorage.getItem("RH_TEAM"));
             team.CurrentRound = r;
@@ -141,15 +137,10 @@ export default class GameCtrl extends BaseClientCtrl<IControllerDataStore & {Gam
 
             console.log("<<<<<<<<<<<<TEAM IS NOW>>>>>>>>>>>>", this.dataStore.ApplicationState.CurrentTeam, JSON.parse(localStorage.getItem("RH_TEAM")))
 
-            
-
             console.log("GOT THIS BACK FROM LONG POLL", r);
             const targetJob = r.UserJobs[this.dataStore.ApplicationState.CurrentUser._id] || JobName.IC;
-            console.log("HELLO?")
 
-            this.dataStore.ApplicationState.CurrentUser.Job 
-                = GameCtrl.GetInstance().dataStore.ApplicationState.CurrentUser.Job 
-                = targetJob;
+            this.dataStore.ApplicationState.CurrentUser.Job = targetJob;
 
             this._childController = this._getTargetController(r.ParentRound)
 
@@ -157,9 +148,6 @@ export default class GameCtrl extends BaseClientCtrl<IControllerDataStore & {Gam
 
             GameCtrl.GetInstance().navigateOnClick("/game/" + r.ParentRound.toLowerCase() + "/" + r.ChildRound.toLowerCase());
             this._childController.navigateOnClick("/game/" + r.ParentRound.toLowerCase() + "/" + r.ChildRound.toLowerCase());
-
-            this.dataStoreChange();
-            this._childController.dataStoreChange();
 
             //ApplicationCtrl.GetInstance().addToast("The game is in a new round", "info");
             //ApplicationCtrl.GetInstance().addToast("You're now playing the roll of " + targetJob, "info");
@@ -178,13 +166,6 @@ export default class GameCtrl extends BaseClientCtrl<IControllerDataStore & {Gam
         DataStore.ApplicationState.CurrentUser = localStorage.getItem("RH_USER") ? Object.assign( new UserModel(), JSON.parse(localStorage.getItem("RH_USER") ) ) : new UserModel();      
         DataStore.ApplicationState.CurrentTeam = localStorage.getItem("RH_TEAM") ? Object.assign( new TeamModel(), JSON.parse(localStorage.getItem("RH_TEAM") ) ) : new TeamModel();
 
-        this.dataStore = {
-            ApplicationState: DataStore.ApplicationState,
-            ComponentFistma: null,
-            Game: new GameModel(),
-            _mobileWidth: window.innerWidth < 767
-        };
-
         this.ComponentFistma = new FiStMa(this.ComponentStates, this.ComponentStates.round0);
         this.ComponentFistma.addTransition(this.ComponentStates.round0);
         this.ComponentFistma.addTransition(this.ComponentStates.round1);
@@ -195,11 +176,15 @@ export default class GameCtrl extends BaseClientCtrl<IControllerDataStore & {Gam
         this.ComponentFistma.addOnEnter("*", this._onRoundEnter.bind(this));
         this.ComponentFistma.onInvalidTransition(this._onInvalidTrans);
 
-        this.dataStore.ComponentFistma = this.ComponentFistma;
+        this.dataStore = {
+            ApplicationState: DataStore.ApplicationState,
+            ComponentFistma: this.ComponentFistma,
+            Game: new GameModel(),
+            _mobileWidth: window.innerWidth < 767
+        };
 
-        console.log("DATASTORE APPLICATION:", DataStore.ApplicationState)
-        this.pollForGameStateChange(this.dataStore.ApplicationState.CurrentTeam.GameId)
-
+        console.log("DATASTORE APPLICATION:", DataStore.ApplicationState);
+        this.pollForGameStateChange(this.dataStore.ApplicationState.CurrentTeam.GameId);
     }
 
 }

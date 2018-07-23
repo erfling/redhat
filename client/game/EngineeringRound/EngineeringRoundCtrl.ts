@@ -6,7 +6,6 @@ import FiStMa from '../../../shared/entity-of-the-state/FiStMa';
 import RoundModel from '../../../shared/models/RoundModel';
 import DataStore from '../../../shared/base-sapien/client/DataStore';
 import ComponentsVO from '../../../shared/base-sapien/client/ComponentsVO';
-import GameCtrl from '../GameCtrl';
 
 export default class EngineeringRoundCtrl extends BaseRoundCtrl<IRoundDataStore>
 {
@@ -29,11 +28,9 @@ export default class EngineeringRoundCtrl extends BaseRoundCtrl<IRoundDataStore>
     //----------------------------------------------------------------------
 
     private constructor(reactComp: React.Component<any, any>) {
-        super(reactComp);
-        this.ParentController = GameCtrl.GetInstance();
-
-        this.ComponentFistma = new FiStMa(this.ComponentStates, this.ComponentStates.sub1);
-        this.ComponentFistma.addTransition(this.ComponentStates.sub1);
+        super(reactComp || null);
+        
+        if (reactComp) this._setUpFistma(reactComp);
     }
 
     public static GetInstance(reactComp?: Component<any, any>): EngineeringRoundCtrl {
@@ -63,18 +60,16 @@ export default class EngineeringRoundCtrl extends BaseRoundCtrl<IRoundDataStore>
     protected _setUpFistma(reactComp: Component){
         this.component = reactComp;
 
-        this.dataStore = {
-            Round: new RoundModel(),
-            ApplicationState: DataStore.ApplicationState,
-            ComponentFistma: null
-        };
-        this.dataStore.Round.Name = "ENGINEERING";
-
         this.ComponentFistma = new FiStMa(this.ComponentStates, this.ComponentStates.sub1);
         this.ComponentFistma.addTransition(this.ComponentStates.sub1);
         this.ComponentFistma.addOnEnter("*", this.getContentBySubRound.bind(this));
 
-        this.dataStore.ComponentFistma = this.ComponentFistma;
+        this.dataStore = {
+            Round: new RoundModel(),
+            ApplicationState: DataStore.ApplicationState,
+            ComponentFistma: this.ComponentFistma
+        };
+        this.dataStore.Round.Name = "ENGINEERING";
 
         this.getContentBySubRound();
     }

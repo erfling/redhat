@@ -220,31 +220,25 @@ export default class GameManagementCtrl extends BaseClientCtrl<IControllerDataSt
     private _setUpFistma(reactComp: Component) {
         this.component = reactComp;
 
+        //if we don't have a user, go to admin login.
+        if (!DataStore.ApplicationState.CurrentUser) {
+            this.ComponentFistma = new FiStMa(this.ComponentStates, this.ComponentStates.adminLogin);
+        } else {
+            this.ComponentFistma = new FiStMa(this.ComponentStates, this.UrlToComponent(this.component.props.location.pathname));
+        }
+        this.ComponentFistma.addTransition(this.ComponentStates.game);
+        this.ComponentFistma.addTransition(this.ComponentStates.gameList);
+        this.ComponentFistma.addTransition(this.ComponentStates.gamedetail);
+        this.ComponentFistma.addTransition(this.ComponentStates.adminLogin);
+
         this.dataStore = {
             Admin: DataStore.Admin,
             ApplicationState: DataStore.ApplicationState,
-            ComponentFistma: null,
+            ComponentFistma: this.ComponentFistma,
             ShowGameModal: false,
             ShowTeamDeleteModal: false,
             ShowUserModal: false
         }
-
-        //if we don't have a user, go to admin login.
-        if (!this.dataStore.ApplicationState.CurrentUser) {
-            this.ComponentFistma = new FiStMa(this.ComponentStates, this.ComponentStates.adminLogin) as FiStMa<any>;
-        }
-
-        else {
-            this.ComponentFistma = new FiStMa(this.ComponentStates, this.UrlToComponent(this.component.props.location.pathname));
-        }
-
-        this.ComponentFistma.addTransition(this.ComponentStates.game)
-        this.ComponentFistma.addTransition(this.ComponentStates.gameList)
-        this.ComponentFistma.addTransition(this.ComponentStates.gamedetail)
-        this.ComponentFistma.addTransition(this.ComponentStates.adminLogin)
-
-
-        this.dataStore.ComponentFistma = this.ComponentFistma;
     }
 
     OpenUserModal(user : UserModel){

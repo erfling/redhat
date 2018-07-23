@@ -63,18 +63,8 @@ export default class AdminCtrl extends BaseClientCtrl<IControllerDataStore & {Ad
     private _setUpFistma(reactComp: Component){
         this.component = reactComp;
 
-        this.dataStore = {
-            Admin: DataStore.Admin,
-            ApplicationState: DataStore.ApplicationState,
-            ComponentFistma: null
-        }
-
         //if we don't have a user, go to admin login.
         if (!ApplicationViewModel.CurrentUser || !ApplicationViewModel.Token){
-            this.ComponentFistma = new FiStMa(this.ComponentStates, this.ComponentStates.adminLogin);
-        } 
-        //if we have a user, but not an admin, go to game login
-        else if (!ApplicationViewModel.CurrentUser || ApplicationViewModel.CurrentUser.Role != RoleName.ADMIN) {
             this.ComponentFistma = new FiStMa(this.ComponentStates, this.ComponentStates.adminLogin);
         }
         //otherwise, go where the url tells us. If bad url, go to admin default
@@ -101,7 +91,11 @@ export default class AdminCtrl extends BaseClientCtrl<IControllerDataStore & {Ad
             this.conditionallyNavigate(this.component.props.location.pathname, prevProps.location.pathname)
         }
 
-        this.dataStore.ComponentFistma = this.ComponentFistma;
+        this.dataStore = {
+            Admin: DataStore.Admin,
+            ApplicationState: DataStore.ApplicationState,
+            ComponentFistma: this.ComponentFistma
+        }
     }
 
 }

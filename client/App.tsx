@@ -37,7 +37,6 @@ class App extends BaseComponent<RouteComponentProps<any>, IControllerDataStore>
     constructor(props: RouteComponentProps<any>) {
         super(props);
 
-        console.log("DATA STORE: ", this.controller.dataStore)
         this.state = this.controller.dataStore;
 
         /*

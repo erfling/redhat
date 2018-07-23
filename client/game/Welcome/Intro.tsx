@@ -34,6 +34,7 @@ class Intro extends BaseComponent<RouteComponentProps<any>, IRoundDataStore>
     constructor(props: RouteComponentProps<any>) {
         super(props);
 
+        this.controller.ParentController = WelcomeCtrl.GetInstance();
         this.state = this.controller.dataStore;
     }
 

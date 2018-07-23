@@ -4,6 +4,7 @@ import { withRouter, RouteComponentProps } from 'react-router-dom';
 import * as Semantic from 'semantic-ui-react';
 import { IRoundDataStore } from '../../../shared/base-sapien/client/BaseRoundCtrl';
 import BaseComponent from "../../../shared/base-sapien/client/shared-components/BaseComponent";
+import GameCtrl from "../GameCtrl";
 
 const { Button, Grid, Menu, Segment } = Semantic;
 const { Row, Column } = Grid;
@@ -31,6 +32,7 @@ class Welcome extends BaseComponent<RouteComponentProps<any>, IRoundDataStore>
     constructor(props: RouteComponentProps<any>) {
         super(props);
 
+        GameCtrl.GetInstance().CurrentComponent = this;
         this.state = this.controller.dataStore;
     }
 

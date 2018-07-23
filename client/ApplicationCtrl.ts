@@ -39,8 +39,9 @@ export default class ApplicationCtrl extends BaseClientCtrl<IControllerDataStore
         if (!this._instance) {
             this._instance = new ApplicationCtrl(reactComp || null);
         }
-        if (!this._instance) throw new Error("NO INSTANCE")
-        if (reactComp) this._instance._setUpFistma(reactComp)
+        if (!this._instance) throw new Error("NO INSTANCE");
+        if (reactComp) this._instance._setUpFistma(reactComp);
+
         return this._instance;
     }
 
@@ -68,13 +69,9 @@ export default class ApplicationCtrl extends BaseClientCtrl<IControllerDataStore
         this.component = reactComp;
         
         DataStore.ApplicationState.CurrentUser = localStorage.getItem("RH_USER") ? Object.assign( new UserModel(), JSON.parse(localStorage.getItem("RH_USER") ) ) : new UserModel()
-        this.dataStore = {
-            ApplicationState: DataStore.ApplicationState,
-            ComponentFistma: null
-        }
 
         this.CurrentLocation = this.component.props.location.pathname;
-        if (this.dataStore.ApplicationState.CurrentUser && this.dataStore.ApplicationState.CurrentUser.Role == RoleName.ADMIN || this.UrlToComponent(this.CurrentLocation) == this.ComponentStates.admin){
+        if (DataStore.ApplicationState.CurrentUser && DataStore.ApplicationState.CurrentUser.Role == RoleName.ADMIN || this.UrlToComponent(this.CurrentLocation) == this.ComponentStates.admin){
             this.ComponentFistma = new FiStMa(this.ComponentStates, this.ComponentStates.admin);
         } else {
             this.ComponentFistma =  new FiStMa(this.ComponentStates, this.ComponentStates.game);
@@ -82,7 +79,11 @@ export default class ApplicationCtrl extends BaseClientCtrl<IControllerDataStore
         
         this.ComponentFistma.addTransition(this.ComponentStates.game);
         this.ComponentFistma.addTransition(this.ComponentStates.admin);
-        this.dataStore.ComponentFistma = this.ComponentFistma;
+        
+        this.dataStore = {
+            ApplicationState: DataStore.ApplicationState,
+            ComponentFistma: this.ComponentFistma
+        }
     }
 
     public addToast(message: string, cssClass?: string, activeDuration?: number, fadeDuration?: number): void {

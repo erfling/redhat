@@ -1,8 +1,6 @@
 import * as React from "react";
 import PeopleRoundCtrl from "./PeopleRoundCtrl";
-import RoundModel from "../../../shared/models/RoundModel";
 import { RoleName, JobName } from "../../../shared/models/UserModel";
-import ValueObj from '../../../shared/entity-of-the-state/ValueObj';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 import EditableContentBlock from '../../../shared/base-sapien/client/shared-components/EditableContentBlock';
 import EditableQuestionBlock from '../../../shared/base-sapien/client/shared-components/EditableQuestionBlock';
@@ -13,7 +11,6 @@ import Decisions from '-!svg-react-loader?name=Icon!../../img/decisions.svg';
 
 const { Button, Grid, Menu, Segment, Form, Dimmer, Loader, Header } = Semantic;
 const { Row, Column } = Grid;
-import MessageList from '../MessageList'
 
 class Priorities extends BaseComponent<RouteComponentProps<any>, IRoundDataStore>
 {
@@ -37,8 +34,9 @@ class Priorities extends BaseComponent<RouteComponentProps<any>, IRoundDataStore
 
     constructor(props: RouteComponentProps<any>) {
         super(props);
-        this.state = this.controller.dataStore;
+        
         this.controller.ParentController = PeopleRoundCtrl.GetInstance();
+        this.state = this.controller.dataStore;
     }
 
     //----------------------------------------------------------------------

@@ -2,10 +2,8 @@
 import { Component } from 'react';
 import BaseRoundCtrl from '../../../shared/base-sapien/client/BaseRoundCtrl';
 import { IRoundDataStore } from '../../../shared/base-sapien/client/BaseRoundCtrl';
-import DataStore from '../../../shared/base-sapien/client/DataStore'
-import SapienServerCom from '../../../shared/base-sapien/client/SapienServerCom';
+import DataStore from '../../../shared/base-sapien/client/DataStore';
 import ComponentsVO from '../../../shared/base-sapien/client/ComponentsVO';
-import GameCtrl from '../GameCtrl';
 import RoundModel from '../../../shared/models/RoundModel';
 import FiStMa from '../../../shared/entity-of-the-state/FiStMa';
 import QuestionModel, { QuestionType } from '../../../shared/models/QuestionModel';
@@ -35,7 +33,7 @@ export default class SalesRoundCtrl extends BaseRoundCtrl<IRoundDataStore>
 
     private constructor(reactComp: React.Component<any, any>) {
         super(reactComp || null);
-        this.ParentController = GameCtrl.GetInstance();
+        
         if (reactComp) this._setUpFistma(reactComp);
     }
 
