@@ -61,6 +61,7 @@ export default class FinanceRoundCtrl extends BaseRoundCtrl<IRoundDataStore>
         this.ComponentFistma = new FiStMa(compStates, compStates.sub1);
         this.ComponentFistma.addTransition(compStates.sub1);
         this.ComponentFistma.addTransition(compStates.sub2);
+        this.ComponentFistma.addTransition(compStates.sub3);
         this.ComponentFistma.addOnEnter("*", this.getContentBySubRound.bind(this));
         
         this.dataStore = {
