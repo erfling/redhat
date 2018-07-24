@@ -5,7 +5,7 @@ import GameModel from "../../shared/models/GameModel";
 import UserModel, { JobName } from "../../shared/models/UserModel";
 import { Grid, Menu, Button, Segment, Header } from 'semantic-ui-react';
 const { Row, Column } = Grid;
-import { Route } from 'react-router'
+import { Route, Switch, Redirect } from 'react-router'
 
 import { RouteComponentProps, withRouter } from "react-router";
 import Circles from '-!svg-react-loader?name=Icon!../img/circles.svg';
@@ -247,13 +247,15 @@ export default class Game extends BaseComponent<RouteComponentProps<any>, IContr
                                 </Segment>
                             </div>
                             }
-                            
-                            <Route path="/game/welcome" component={Welcome} />
-                            <Route path="/game/peopleround" component={PeopleRound} />
-                            <Route path="/game/engineeringround" component={EngineeringRound} />
-                            <Route path="/game/salesround" component={SalesRound} />
-                            <Route path="/game/financeround" component={FinanceRound} />
-                            <Route path="/game/customerround" component={CustomerRound} />
+                            <Switch>
+                                <Redirect from="/game" to="/game/Welcome"/>
+                                <Route path="/game/welcome" component={Welcome} />
+                                <Route path="/game/peopleround" component={PeopleRound} />
+                                <Route path="/game/engineeringround" component={EngineeringRound} />
+                                <Route path="/game/salesround" component={SalesRound} />
+                                <Route path="/game/financeround" component={FinanceRound} />
+                                <Route path="/game/customerround" component={CustomerRound} />
+                            </Switch>
                             
                         </Column>
                         {locality.indexOf("WELCOME") == -1 && this.renderGameMenu()}

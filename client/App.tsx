@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Sidebar, Menu, Button, Icon, Popup, MenuItem, Grid } from 'semantic-ui-react';
 import ApplicationCtrl from './ApplicationCtrl';
-import { RouteComponentProps, withRouter, Switch, Route } from "react-router";
+import { RouteComponentProps, withRouter, Switch, Route, Redirect } from "react-router";
 import { BrowserRouter, Link } from 'react-router-dom'
 import DataStore from '../shared/base-sapien/client/DataStore'
 import SapienToast from '../shared/base-sapien/client/shared-components/SapienToast'
@@ -338,10 +338,12 @@ export default class App extends BaseComponent<RouteComponentProps<any>, IContro
                     <div
                         className={"source-stream" + (this.state && this.state.ApplicationState.CurrentUser && this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN ? " admin-body" : "")}
                     >
-                            <h1>test</h1>
-                            <Route path="/game" component={Game} />
-                            <Route path="/login" component={Login} />                            
-                            <Route path="/admin" component={Admin} />
+                            <Switch>
+                                <Redirect from="/" to="/game"/>
+                                <Route path="/game" component={Game} />                            
+                                <Route path="/login" component={Login} />                            
+                                <Route path="/admin" component={Admin} />
+                            </Switch>
 
                     </div>
 

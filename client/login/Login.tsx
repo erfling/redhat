@@ -1,5 +1,5 @@
 import * as React from "react";
-import { RouteComponentProps, withRouter, Route } from "react-router";
+import { RouteComponentProps, withRouter, Route, Redirect, Switch } from "react-router";
 import LoginCtrl from './LoginCtrl';
 import { Grid, Menu, Container, Button } from 'semantic-ui-react';
 import { IControllerDataStore } from "../../shared/base-sapien/client/BaseClientCtrl";
@@ -62,9 +62,11 @@ export default class Login extends BaseComponent<RouteComponentProps<any>, ICont
                     padded={true}
                     columns={16}
                 >
-                    <Route exact path="/login/" component={AdminLogin} />
-                    <Route path="/login/admin" component={AdminLogin} />
-                    <Route path="/login/join" component={Join} />
+                    <Switch>
+                        <Redirect from="/login" exact path="/login/admin" />
+                        <Route path="/login/admin" component={AdminLogin} />
+                        <Route path="/login/join" component={Join} />
+                    </Switch>
                 </Grid>
         </Container>;
         } else {
