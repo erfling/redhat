@@ -342,8 +342,7 @@ export default class App extends BaseComponent<RouteComponentProps<any>, IContro
                         <Route exact path="/" component={Game} />
                         <Route path="/admin" component={Admin} />
                         <Route path="/game" component={Game} />
-                        <Route path="/login" component={Login} />
-                            
+                        <Route path="/login" component={Login} />                            
                     </div>
 
                 </div>
