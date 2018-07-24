@@ -51,7 +51,6 @@ class UserList extends BaseComponent<RouteComponentProps<any>, IControllerDataSt
 
     componentDidMount() {
         super.componentDidMount();
-        this.controller.navigateOnClick.bind(this.controller)(this.props.location.pathname);
         this.controller.getAllUsers();
     }
 

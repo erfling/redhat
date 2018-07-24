@@ -58,13 +58,12 @@ export default class CustomerRoundCtrl extends BaseRoundCtrl<IRoundDataStore>
     protected _setUpFistma(reactComp: Component){
         this.component = reactComp;
         var compStates = {
-            sub1: ComponentsVO.DealStructure,
+            sub1: ComponentsVO.CustomerSub,
         };
 
         this.ComponentFistma = new FiStMa(compStates, compStates.sub1);
         this.ComponentFistma.addTransition(compStates.sub1);
         this.ComponentFistma.addOnEnter("*", this.getContentBySubRound.bind(this));
-        
         this.dataStore = {
             Round: new RoundModel(),
             ApplicationState: DataStore.ApplicationState,

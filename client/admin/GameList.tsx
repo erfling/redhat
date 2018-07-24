@@ -52,7 +52,6 @@ class GameList extends BaseComponent<RouteComponentProps<any>, IControllerDataSt
 
     componentDidMount () {
         super.componentDidMount();
-        this.controller.navigateOnClick.bind(this.controller)(this.props.location.pathname);
         this.controller.getAllGames();
         this.controller.getAllUsers();
     }
