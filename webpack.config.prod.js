@@ -13,7 +13,7 @@ var ROOT_PATH = path.resolve(__dirname);
 module.exports = {
     entry: {
       main:   './client/index.tsx',
-      vendor: ['react', 'lodash', 'semantic-ui-react', 'react-router-dom', 'react-router', 'sanitize-html'],
+      //vendor: ['react', 'lodash', 'semantic-ui-react', 'react-router-dom', 'react-router', 'sanitize-html'],
     },
     devtool: false,
     output: {
