@@ -58,7 +58,6 @@ export default class ApplicationCtrl extends BaseClientCtrl<IControllerDataStore
 
     protected _setUpFistma(reactComp: Component): void {
         this.component = reactComp;
-        this.CurrentLocation = this.component.props.location.pathname;
         var compStates = {
             game: ComponentsVO.Game,
             admin: ComponentsVO.Admin,
@@ -66,13 +65,6 @@ export default class ApplicationCtrl extends BaseClientCtrl<IControllerDataStore
         };
         
         DataStore.ApplicationState.CurrentUser = localStorage.getItem("RH_USER") ? Object.assign( new UserModel(), JSON.parse(localStorage.getItem("RH_USER") ) ) : new UserModel()
-
-        if (DataStore.ApplicationState.CurrentUser && DataStore.ApplicationState.CurrentUser.Role == RoleName.ADMIN || this.UrlToComponent(this.CurrentLocation, compStates) == compStates.admin) {
-            console.log(this, compStates);
-            this.ComponentFistma = new FiStMa(compStates, compStates.admin);
-        } else {
-            this.ComponentFistma =  new FiStMa(compStates, compStates.game);
-        }
         
         this.ComponentFistma.addTransition(compStates.game);
         this.ComponentFistma.addTransition(compStates.admin);
