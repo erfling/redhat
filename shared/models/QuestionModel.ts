@@ -6,7 +6,8 @@ export enum QuestionType {
     PRIORITY = "PRIORITY",
     MULTIPLE_CHOICE ="MULTIPLE_CHOICE",
     TOGGLE ="TOGGLE",
-    SLIDER = "SLIDER"
+    SLIDER = "SLIDER",
+    NUMBER = "NUMBER"
 }
 
 

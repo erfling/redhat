@@ -12,7 +12,7 @@ import Decisions from '-!svg-react-loader?name=Icon!../../img/decisions.svg';
 const { Button, Grid, Form, Dimmer, Loader, Header } = Semantic;
 const { Row, Column } = Grid;
 
-class AquisitionStructure extends BaseComponent<RouteComponentProps<any>, IRoundDataStore>
+class AcquisitionStructure extends BaseComponent<RouteComponentProps<any>, IRoundDataStore>
 {
     //----------------------------------------------------------------------
     //
@@ -20,7 +20,7 @@ class AquisitionStructure extends BaseComponent<RouteComponentProps<any>, IRound
     //
     //----------------------------------------------------------------------
 
-    public static CLASS_NAME = "AquisitionStructure";
+    public static CLASS_NAME = "AcquisitionStructure";
 
     public static CONTROLLER = FinanceRoundCtrl;
 
@@ -54,7 +54,7 @@ class AquisitionStructure extends BaseComponent<RouteComponentProps<any>, IRound
     //----------------------------------------------------------------------
 
     render() {
-        const thisSubRound = this.state.Round.SubRounds.filter(s => s.Name.toUpperCase() == AquisitionStructure.CLASS_NAME.toUpperCase())[0]
+        const thisSubRound = this.state.Round.SubRounds.filter(s => s.Name.toUpperCase() == AcquisitionStructure.CLASS_NAME.toUpperCase())[0]
 
         if (this.state) {
             return <>
@@ -123,4 +123,4 @@ class AquisitionStructure extends BaseComponent<RouteComponentProps<any>, IRound
 
 }
 
-export default withRouter(AquisitionStructure);
+export default withRouter(AcquisitionStructure);

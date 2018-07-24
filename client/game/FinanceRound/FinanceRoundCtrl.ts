@@ -20,7 +20,7 @@ export default class FinanceRoundCtrl extends BaseRoundCtrl<IRoundDataStore>
     protected readonly ComponentStates = {
         sub1: ComponentsVO.Pricing,
         sub2: ComponentsVO.Bid,
-        sub3: ComponentsVO.AquisitionStructure
+        sub3: ComponentsVO.AcquisitionStructure
     };
 
     //----------------------------------------------------------------------
