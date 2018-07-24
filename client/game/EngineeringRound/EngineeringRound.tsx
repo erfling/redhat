@@ -32,7 +32,6 @@ class EngineeringRound extends BaseComponent<RouteComponentProps<any>, IRoundDat
     constructor(props: RouteComponentProps<any>) {
         super(props);
         
-        GameCtrl.GetInstance().CurrentComponent = this;
         this.state = this.controller.dataStore;
     }
 

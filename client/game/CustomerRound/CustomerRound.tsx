@@ -33,7 +33,6 @@ class CustomerRound extends BaseComponent<RouteComponentProps<any>, IRoundDataSt
         super(props);
 
         this.state = this.controller.dataStore;
-        GameCtrl.GetInstance().CurrentComponent = this;
     }
 
     //----------------------------------------------------------------------

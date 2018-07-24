@@ -32,7 +32,6 @@ class FinanceRound extends BaseComponent<RouteComponentProps<any>, IRoundDataSto
     constructor(props: RouteComponentProps<any>) {
         super(props);
 
-        GameCtrl.GetInstance().CurrentComponent = this;
         this.state = this.controller.dataStore;
     }
 
