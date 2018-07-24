@@ -267,7 +267,7 @@ export default class Game extends BaseComponent<RouteComponentProps<any>, IContr
                         Show={this.state.ApplicationState.ShowMessageList}
                         SelectFunc={(m) => {
                             this.controller.dataStore.ApplicationState.ShowMessageList = false;
-                            this.controller.dataStore.ApplicationState.SelectedMessage = m;
+                            this.controller.dataStore.ApplicationState.SelectedMessage = this.controller.ChildController.dataStore.SelectedMessage = m;
                         }}
                     />
                 </div>
