@@ -5,6 +5,8 @@ import { Grid, Menu, Container, Button } from 'semantic-ui-react';
 import { IControllerDataStore } from "../../shared/base-sapien/client/BaseClientCtrl";
 import BaseComponent from "../../shared/base-sapien/client/shared-components/BaseComponent";
 import ComponentVO from '../../shared/base-sapien/client/ComponentsVO';
+import AdminLogin from "./AdminLogin";
+import Join from "./Join";
 export default class Login extends BaseComponent<RouteComponentProps<any>, IControllerDataStore>
 {
     //----------------------------------------------------------------------
@@ -60,11 +62,9 @@ export default class Login extends BaseComponent<RouteComponentProps<any>, ICont
                     padded={true}
                     columns={16}
                 >
-                    <h1>LOGIN</h1>
-
-                    <Route exact path="/" component={ComponentVO.AdminLogin} />
-                    <Route path="/login/admin" component={ComponentVO.AdminLogin} />
-                    <Route path="/login/join" component={ComponentVO.Join} />
+                    <Route exact path="/login/" component={AdminLogin} />
+                    <Route path="/login/admin" component={AdminLogin} />
+                    <Route path="/login/join" component={Join} />
                 </Grid>
         </Container>;
         } else {
