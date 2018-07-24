@@ -1,6 +1,5 @@
 import * as React from "react";
 import FinanceRoundCtrl from "./FinanceRoundCtrl";
-import { withRouter, RouteComponentProps } from 'react-router-dom';
 import * as Semantic from 'semantic-ui-react';
 import { IRoundDataStore } from '../../../shared/base-sapien/client/BaseRoundCtrl';
 import BaseComponent from "../../../shared/base-sapien/client/shared-components/BaseComponent";
@@ -9,7 +8,7 @@ import GameCtrl from "../GameCtrl";
 const { Grid, Segment } = Semantic;
 const { Row, Column } = Grid;
 
-class FinanceRound extends BaseComponent<RouteComponentProps<any>, IRoundDataStore>
+export default class FinanceRound extends BaseComponent<any, IRoundDataStore>
 {
     //----------------------------------------------------------------------
     //
@@ -29,7 +28,7 @@ class FinanceRound extends BaseComponent<RouteComponentProps<any>, IRoundDataSto
     //
     //----------------------------------------------------------------------
 
-    constructor(props: RouteComponentProps<any>) {
+    constructor(props: any) {
         super(props);
 
         GameCtrl.GetInstance().CurrentComponent = this;
@@ -78,5 +77,3 @@ class FinanceRound extends BaseComponent<RouteComponentProps<any>, IRoundDataSto
 
 
 }
-
-export default withRouter(FinanceRound);

@@ -109,7 +109,7 @@ export default class UserManagementCtrl extends BaseClientCtrl<IControllerDataSt
 
     protected _setUpFistma(reactComp: Component) {
         this.component = reactComp;
-        this.CurrentLocation = this.component.props.location.pathname;
+        this.CurrentLocation = window.location.pathname;
 
         this.dataStore = {
             ApplicationState: AdminCtrl.GetInstance().dataStore.ApplicationState,

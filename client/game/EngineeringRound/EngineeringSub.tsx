@@ -1,6 +1,5 @@
 import * as React from "react";
 import { RoleName, JobName } from "../../../shared/models/UserModel";
-import { withRouter, RouteComponentProps } from 'react-router-dom';
 import EditableContentBlock from '../../../shared/base-sapien/client/shared-components/EditableContentBlock';
 import EditableQuestionBlock from '../../../shared/base-sapien/client/shared-components/EditableQuestionBlock';
 import * as Semantic from 'semantic-ui-react';
@@ -12,7 +11,7 @@ import Decisions from '-!svg-react-loader?name=Icon!../../img/decisions.svg';
 const { Button, Grid, Form, Dimmer, Loader, Header } = Semantic;
 const { Row, Column } = Grid;
 
-class EngineeringSub extends BaseComponent<RouteComponentProps<any>, IRoundDataStore>
+export default class EngineeringSub extends BaseComponent<any, IRoundDataStore>
 {
     //----------------------------------------------------------------------
     //
@@ -32,7 +31,7 @@ class EngineeringSub extends BaseComponent<RouteComponentProps<any>, IRoundDataS
     //
     //----------------------------------------------------------------------
 
-    constructor(props: RouteComponentProps<any>) {
+    constructor(props: any) {
         super(props);
 
         this.controller.ParentController = EngineeringRoundCtrl.GetInstance();
@@ -121,5 +120,3 @@ class EngineeringSub extends BaseComponent<RouteComponentProps<any>, IRoundDataS
     }
 
 }
-
-export default withRouter(EngineeringSub);

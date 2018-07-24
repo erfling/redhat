@@ -208,7 +208,7 @@ export default class GameManagementCtrl extends BaseClientCtrl<IControllerDataSt
 
     protected _setUpFistma(reactComp: Component) {
         this.component = reactComp;
-        this.CurrentLocation = this.component.props.location.pathname;
+        this.CurrentLocation = window.location.pathname;
         var compStates = {
             gameList: ComponentsVO.GameList,
             gamedetail: ComponentsVO.GameDetail,
@@ -220,7 +220,7 @@ export default class GameManagementCtrl extends BaseClientCtrl<IControllerDataSt
         if (!DataStore.ApplicationState.CurrentUser) {
             this.ComponentFistma = new FiStMa(compStates, compStates.adminLogin);
         } else {
-            this.ComponentFistma = new FiStMa(compStates, this.UrlToComponent(this.component.props.location.pathname, compStates));
+            this.ComponentFistma = new FiStMa(compStates, this.UrlToComponent(window.location.pathname, compStates));
         }
         this.ComponentFistma.addTransition(compStates.game);
         this.ComponentFistma.addTransition(compStates.gameList);

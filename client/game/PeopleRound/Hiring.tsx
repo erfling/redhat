@@ -1,17 +1,17 @@
 import * as React from "react";
 import PeopleRoundCtrl from "./PeopleRoundCtrl";
 import { RoleName, JobName } from "../../../shared/models/UserModel";
-import { withRouter, RouteComponentProps } from 'react-router-dom';
 import EditableContentBlock from '../../../shared/base-sapien/client/shared-components/EditableContentBlock';
 import EditableQuestionBlock from '../../../shared/base-sapien/client/shared-components/EditableQuestionBlock';
 import * as Semantic from 'semantic-ui-react';
 import { IRoundDataStore } from '../../../shared/base-sapien/client/BaseRoundCtrl';
 import Decisions from '-!svg-react-loader?name=Icon!../../img/decisions.svg';
+import BaseComponent from "../../../shared/base-sapien/client/shared-components/BaseComponent";
 
 const { Button, Grid, Menu, Segment, Form, Dimmer, Loader, Header } = Semantic;
 const { Row, Column } = Grid;
 
-class Hiring extends React.Component<RouteComponentProps<any>, IRoundDataStore>
+export default class Hiring extends BaseComponent<any, IRoundDataStore>
 {
     //----------------------------------------------------------------------
     //
@@ -31,7 +31,7 @@ class Hiring extends React.Component<RouteComponentProps<any>, IRoundDataStore>
     //
     //----------------------------------------------------------------------
 
-    constructor(props: RouteComponentProps<any>) {
+    constructor(props: any) {
         super(props);
         
         this.controller.ParentController = PeopleRoundCtrl.GetInstance();
@@ -120,5 +120,3 @@ class Hiring extends React.Component<RouteComponentProps<any>, IRoundDataStore>
     }
 
 }
-
-export default withRouter(Hiring);

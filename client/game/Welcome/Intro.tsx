@@ -1,7 +1,6 @@
 import * as React from "react";
 import WelcomeCtrl from "./WelcomeCtrl";
 import { RoleName } from "../../../shared/models/UserModel";
-import { withRouter, RouteComponentProps } from 'react-router-dom';
 import EditableContentBlock from '../../../shared/base-sapien/client/shared-components/EditableContentBlock';
 import * as Semantic from 'semantic-ui-react';
 const { Button, Grid, Menu, Segment, Form, Dimmer, Loader, Header } = Semantic;
@@ -11,7 +10,7 @@ import BaseComponent from "../../../shared/base-sapien/client/shared-components/
 
 import IntroLogo from '-!svg-react-loader?name=Icon!../../img/intro-logo.svg';
 
-class Intro extends BaseComponent<RouteComponentProps<any>, IRoundDataStore>
+export default class Intro extends BaseComponent<any, IRoundDataStore>
 {
     //----------------------------------------------------------------------
     //
@@ -31,7 +30,7 @@ class Intro extends BaseComponent<RouteComponentProps<any>, IRoundDataStore>
     //
     //----------------------------------------------------------------------
 
-    constructor(props: RouteComponentProps<any>) {
+    constructor(props: any) {
         super(props);
 
         this.controller.ParentController = WelcomeCtrl.GetInstance();
@@ -109,7 +108,6 @@ class Intro extends BaseComponent<RouteComponentProps<any>, IRoundDataStore>
 
 }
 
-export default withRouter(Intro);
   /*                    <pre>{JSON.stringify(this.state, null, 2)}</pre>
 
                                 <Button

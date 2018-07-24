@@ -2,11 +2,10 @@
 import * as React from "react";
 import GameCtrl from "./GameCtrl";
 import GameModel from "../../shared/models/GameModel";
-import UserModel, { JobName } from "../../shared/models/UserModel";
+import { JobName } from "../../shared/models/UserModel";
 import { Grid, Menu, Button, Segment, Header } from 'semantic-ui-react';
 const { Row, Column } = Grid;
 
-import { RouteComponentProps, withRouter } from "react-router";
 import Circles from '-!svg-react-loader?name=Icon!../img/circles.svg';
 import { IControllerDataStore } from '../../shared/base-sapien/client/BaseClientCtrl';
 import BaseComponent from "../../shared/base-sapien/client/shared-components/BaseComponent";
@@ -16,7 +15,7 @@ import Inbox from '-!svg-react-loader?name=Icon!../img/inbox.svg';
 import MessageList from './MessageList'
 import IntroLogo from '-!svg-react-loader?name=Icon!../img/intro-logo.svg';
 
-class Game extends BaseComponent<RouteComponentProps<any>, IControllerDataStore & { Game: GameModel } & { _mobileWidth: boolean }>
+export default class Game extends BaseComponent<any, IControllerDataStore & { Game: GameModel } & { _mobileWidth: boolean }>
 {
     //----------------------------------------------------------------------
     //
@@ -36,7 +35,7 @@ class Game extends BaseComponent<RouteComponentProps<any>, IControllerDataStore 
     //
     //----------------------------------------------------------------------
 
-    constructor(props: RouteComponentProps<any>) {
+    constructor(props: any) {
         super(props);
 
         this.state = this.controller.dataStore;
@@ -59,11 +58,12 @@ class Game extends BaseComponent<RouteComponentProps<any>, IControllerDataStore 
 
     componentDidMount() {
         super.componentDidMount();
-        if (this.props.location.search) {
-            console.log("FOUND LOCATION SEARCH", this.props.location.search);
+        if (window.location.search) {
+            console.log("FOUND LOCATION SEARCH", window.location.search);
         }
 
-        this.props.history.push("/game/" + (this.state.ComponentFistma.currentState as any).WrappedComponent.CLASS_NAME.toLowerCase());
+        var url = "/game/" + (this.state.ComponentFistma.currentState as any).CLASS_NAME.toLowerCase();
+        window.history.pushState({}, "", url);
 
         this.updateDimensions();
         window.addEventListener("resize", this.updateDimensions.bind(this));
@@ -73,9 +73,9 @@ class Game extends BaseComponent<RouteComponentProps<any>, IControllerDataStore 
     * Calculate & Update state of new dimensions
     */
     updateDimensions() {
-        console.log("updating dimensions", window.outerWidth,this.controller.ComponentFistma.currentState.WrappedComponent.CLASS_NAME)
-        if(this.controller._getTargetController(this.controller.ComponentFistma.currentState.WrappedComponent.CLASS_NAME).dataStore)
-            this.controller.dataStore.ApplicationState.MobileWidth = this.controller._getTargetController(this.controller.ComponentFistma.currentState.WrappedComponent.CLASS_NAME).dataStore.ApplicationState.MobileWidth = window.outerWidth < 767
+        console.log("updating dimensions", window.outerWidth,this.controller.ComponentFistma.currentState.CLASS_NAME)
+        if(this.controller._getTargetController(this.controller.ComponentFistma.currentState.CLASS_NAME).dataStore)
+            this.controller.dataStore.ApplicationState.MobileWidth = this.controller._getTargetController(this.controller.ComponentFistma.currentState.CLASS_NAME).dataStore.ApplicationState.MobileWidth = window.outerWidth < 767
     }
 
     /**
@@ -209,7 +209,7 @@ class Game extends BaseComponent<RouteComponentProps<any>, IControllerDataStore 
 
                     <Grid>
 
-                        {Rnd && Rnd.WrappedComponent.CLASS_NAME != "Welcome" &&
+                        {Rnd && Rnd.CLASS_NAME != "Welcome" &&
                             <Column
                                 width={16}                                
                             >
@@ -247,7 +247,7 @@ class Game extends BaseComponent<RouteComponentProps<any>, IControllerDataStore 
                                 <Rnd />
                             }
                         </Column>
-                        {Rnd && Rnd.WrappedComponent.CLASS_NAME != "Welcome" && this.renderGameMenu()}
+                        {Rnd && Rnd.CLASS_NAME != "Welcome" && this.renderGameMenu()}
                     </Grid>
                 </Column>
                 {this.state.ApplicationState.CurrentMessages && this.state.ApplicationState.MobileWidth && < div
@@ -271,5 +271,3 @@ class Game extends BaseComponent<RouteComponentProps<any>, IControllerDataStore 
     }
 
 }
-
-export default withRouter(Game);

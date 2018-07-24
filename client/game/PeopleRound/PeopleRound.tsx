@@ -1,6 +1,5 @@
 import * as React from "react";
 import PeopleRoundCtrl from "./PeopleRoundCtrl";
-import { withRouter, RouteComponentProps } from 'react-router-dom';
 import * as Semantic from 'semantic-ui-react';
 import { IRoundDataStore } from '../../../shared/base-sapien/client/BaseRoundCtrl';
 import BaseComponent from "../../../shared/base-sapien/client/shared-components/BaseComponent";
@@ -9,7 +8,7 @@ import GameCtrl from "../GameCtrl";
 const { Grid, Segment } = Semantic;
 const { Row, Column } = Grid;
 
-class PeopleRound extends BaseComponent<RouteComponentProps<any>, IRoundDataStore>
+export default class PeopleRound extends BaseComponent<any, IRoundDataStore>
 {
     //----------------------------------------------------------------------
     //
@@ -29,7 +28,7 @@ class PeopleRound extends BaseComponent<RouteComponentProps<any>, IRoundDataStor
     //
     //----------------------------------------------------------------------
 
-    constructor(props: RouteComponentProps<any>) {
+    constructor(props: any) {
         super(props);
         
         GameCtrl.GetInstance().CurrentComponent = this;
@@ -77,5 +76,3 @@ class PeopleRound extends BaseComponent<RouteComponentProps<any>, IRoundDataStor
     }
 
 }
-
-export default withRouter(PeopleRound);

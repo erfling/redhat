@@ -67,7 +67,8 @@ export default class GameCtrl extends BaseClientCtrl<IControllerDataStore & {Gam
 
     public Navigate(round: RoundModel){
         this.ComponentFistma.goTo(round);
-        this.component.props.history.push("/game/" + this.ComponentFistma.currentState.WrappedComponent.CLASS_NAME.toLowerCase());
+        var url = "/game/" + this.ComponentFistma.currentState.CLASS_NAME.toLowerCase();
+        window.history.pushState({}, "", url);
     }
     
     public goToMapping(mapping: Partial<RoundChangeMapping>){
@@ -106,7 +107,7 @@ export default class GameCtrl extends BaseClientCtrl<IControllerDataStore & {Gam
     }
 
     public NavigateFromState(){
-        console.log("WRAPPED COMPONENT IS: ",this.ComponentFistma.currentState.WrappedComponent.name);
+        console.log("WRAPPED COMPONENT IS: ",this.ComponentFistma.currentState.name);
     }
 
     //----------------------------------------------------------------------

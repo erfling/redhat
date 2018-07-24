@@ -2,12 +2,11 @@ import * as React from "react";
 import { Grid, Menu, Container, Button, Form, Input } from 'semantic-ui-react';
 const Field = { Form }
 const { Column, Row } = Grid;
-import { Route, Switch, RouteComponentProps, withRouter } from "react-router";
 import LoginCtrl from './LoginCtrl';
 import { IControllerDataStore } from "../../shared/base-sapien/client/BaseClientCtrl";
 import BaseComponent from "../../shared/base-sapien/client/shared-components/BaseComponent";
 
-class Join extends BaseComponent<RouteComponentProps<any>, IControllerDataStore>
+export default class Join extends BaseComponent<any, IControllerDataStore>
 {
     //----------------------------------------------------------------------
     //
@@ -27,11 +26,11 @@ class Join extends BaseComponent<RouteComponentProps<any>, IControllerDataStore>
     //
     //----------------------------------------------------------------------
 
-    constructor(props: RouteComponentProps<any>) {
+    constructor(props: any) {
         super(props);
         
         this.state = this.controller.dataStore;
-        const token = this._parseURLQueryStrings(this.props.location.search).token;
+        const token = this._parseURLQueryStrings(window.location.search).token;
         if (token) localStorage.setItem("rhjwt", token);
         this.controller.AttemptFirstLogin();
         console.log(token);
@@ -114,5 +113,3 @@ class Join extends BaseComponent<RouteComponentProps<any>, IControllerDataStore>
     }
 
 }
-
-export default withRouter(Join);

@@ -1,18 +1,14 @@
 import * as React from "react";
 import { Sidebar, Menu, Button, Icon, Popup, MenuItem, Grid } from 'semantic-ui-react';
 import ApplicationCtrl from './ApplicationCtrl';
-import { RouteComponentProps, withRouter } from "react-router";
 import DataStore from '../shared/base-sapien/client/DataStore'
 import SapienToast from '../shared/base-sapien/client/shared-components/SapienToast'
 import GameCtrl from "./game/GameCtrl";
 import { IControllerDataStore } from '../shared/base-sapien/client/BaseClientCtrl';
 import { RoleName, JobName } from '../shared/models/UserModel';
 import BaseComponent from "../shared/base-sapien/client/shared-components/BaseComponent";
-import BaseRoundCtrl from "../shared/base-sapien/client/BaseRoundCtrl";
-import ComponentVO from "../shared/base-sapien/client/ComponentsVO";
 
-
-class App extends BaseComponent<RouteComponentProps<any>, IControllerDataStore>
+export default class App extends BaseComponent<any, IControllerDataStore>
 {
     //----------------------------------------------------------------------
     //
@@ -32,7 +28,7 @@ class App extends BaseComponent<RouteComponentProps<any>, IControllerDataStore>
     //
     //----------------------------------------------------------------------
 
-    constructor(props: RouteComponentProps<any>) {
+    constructor(props: any) {
         super(props);
 
         this.state = this.controller.dataStore;
@@ -71,8 +67,6 @@ class App extends BaseComponent<RouteComponentProps<any>, IControllerDataStore>
     //  Methods
     //
     //----------------------------------------------------------------------
-
-    
 
     render() {
         if (this.state && this.controller.ComponentFistma) {
@@ -148,7 +142,7 @@ class App extends BaseComponent<RouteComponentProps<any>, IControllerDataStore>
                                     </Menu.Menu>
                                 </Menu.Item>
 
-                                {ComponentFromState && ComponentFromState.WrappedComponent.CLASS_NAME.toUpperCase() == "GAME" && <>
+                                {ComponentFromState && ComponentFromState.CLASS_NAME.toUpperCase() == "GAME" && <>
                                     <Menu.Item>
                                         <Menu.Header>Go to:</Menu.Header>
                                         <Menu.Item
@@ -279,7 +273,7 @@ class App extends BaseComponent<RouteComponentProps<any>, IControllerDataStore>
 
                                                 GameCtrl.GetInstance().dataStoreChange();
                                                 //(GameCtrl.GetInstance().CurrentComponent.controller as BaseRoundCtrl<any>).getContentBySubRound();
-                                                (GameCtrl.GetInstance()._getTargetController((GameCtrl.GetInstance().dataStore.ComponentFistma.currentState as any).WrappedComponent.CLASS_NAME) as any).getContentBySubRound()
+                                                (GameCtrl.GetInstance()._getTargetController((GameCtrl.GetInstance().dataStore.ComponentFistma.currentState as any).CLASS_NAME) as any).getContentBySubRound()
                                             }}
                                         />
                                         <MenuItem
@@ -296,7 +290,7 @@ class App extends BaseComponent<RouteComponentProps<any>, IControllerDataStore>
 
                                                 GameCtrl.GetInstance().dataStoreChange();
                                                 //(GameCtrl.GetInstance().CurrentComponent.controller as BaseRoundCtrl<any>).getContentBySubRound();
-                                                (GameCtrl.GetInstance()._getTargetController((GameCtrl.GetInstance().dataStore.ComponentFistma.currentState as any).WrappedComponent.CLASS_NAME) as any).getContentBySubRound()
+                                                (GameCtrl.GetInstance()._getTargetController((GameCtrl.GetInstance().dataStore.ComponentFistma.currentState as any).CLASS_NAME) as any).getContentBySubRound()
                                             }}
                                         />
                                         <MenuItem
@@ -313,7 +307,7 @@ class App extends BaseComponent<RouteComponentProps<any>, IControllerDataStore>
 
                                                 GameCtrl.GetInstance().dataStoreChange();
                                                 //(GameCtrl.GetInstance().CurrentComponent.controller as BaseRoundCtrl<any>).getContentBySubRound();
-                                                (GameCtrl.GetInstance()._getTargetController((GameCtrl.GetInstance().dataStore.ComponentFistma.currentState as any).WrappedComponent.CLASS_NAME) as any).getContentBySubRound();
+                                                (GameCtrl.GetInstance()._getTargetController((GameCtrl.GetInstance().dataStore.ComponentFistma.currentState as any).CLASS_NAME) as any).getContentBySubRound();
                                             }}
                                         />
                                         <MenuItem
@@ -328,7 +322,7 @@ class App extends BaseComponent<RouteComponentProps<any>, IControllerDataStore>
                                                 }))
                                                 GameCtrl.GetInstance().dataStoreChange();
                                                 //(GameCtrl.GetInstance().CurrentComponent.controller as BaseRoundCtrl<any>).getContentBySubRound();
-                                                (GameCtrl.GetInstance()._getTargetController((GameCtrl.GetInstance().dataStore.ComponentFistma.currentState as any).WrappedComponent.CLASS_NAME) as any).getContentBySubRound();
+                                                (GameCtrl.GetInstance()._getTargetController((GameCtrl.GetInstance().dataStore.ComponentFistma.currentState as any).CLASS_NAME) as any).getContentBySubRound();
                                             }}
                                         />
                                     </Menu.Item>
@@ -366,7 +360,6 @@ class App extends BaseComponent<RouteComponentProps<any>, IControllerDataStore>
     }
 }
 
-export default withRouter(App)
 
 /**
  *          

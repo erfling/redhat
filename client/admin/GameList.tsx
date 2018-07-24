@@ -1,7 +1,6 @@
 import * as React from "react";
 import { Grid, Table, Modal, Button, Segment, Label, Header, Icon, Form, Input, Dropdown, Popup } from 'semantic-ui-react';
 const { Row, Column } = Grid;
-import { RouteComponentProps, withRouter } from "react-router";
 import GameManagementCtrl from './GameManagementCtrl';
 import AdminViewModel from '../../shared/models/AdminViewModel';
 import UserModel from "../../shared/models/UserModel";
@@ -9,7 +8,7 @@ import {IControllerDataStore} from '../../shared/base-sapien/client/BaseClientCt
 import GameModal from './GameModal'
 import BaseComponent from "../../shared/base-sapien/client/shared-components/BaseComponent";
 
-class GameList extends BaseComponent<RouteComponentProps<any>, IControllerDataStore & {Admin: AdminViewModel, ShowGameModal: boolean}>
+export default class GameList extends BaseComponent<any, IControllerDataStore & {Admin: AdminViewModel, ShowGameModal: boolean}>
 {
     //----------------------------------------------------------------------
     //
@@ -29,7 +28,7 @@ class GameList extends BaseComponent<RouteComponentProps<any>, IControllerDataSt
     //
     //----------------------------------------------------------------------
 
-    constructor(props: RouteComponentProps<any>) {
+    constructor(props: any) {
         super(props);
         
         this.state = this.controller.dataStore;
@@ -52,7 +51,6 @@ class GameList extends BaseComponent<RouteComponentProps<any>, IControllerDataSt
 
     componentDidMount () {
         super.componentDidMount();
-        this.controller.navigateOnClick.bind(this.controller)(this.props.location.pathname);
         this.controller.getAllGames();
         this.controller.getAllUsers();
     }
@@ -136,5 +134,3 @@ class GameList extends BaseComponent<RouteComponentProps<any>, IControllerDataSt
     }
 
 }
-
-export default withRouter(GameList);

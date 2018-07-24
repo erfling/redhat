@@ -1,7 +1,6 @@
 import * as React from "react";
 import { Button, Segment, Label, Header, Icon, Form, Input, Dropdown, Popup, Card, Grid, Loader, Dimmer, Modal } from 'semantic-ui-react';
 const { Row, Column } = Grid;
-import { RouteComponentProps, withRouter } from "react-router";
 import GameManagementCtrl from './GameManagementCtrl';
 import AdminViewModel from '../../shared/models/AdminViewModel';
 import UserModel, { RoleName } from "../../shared/models/UserModel";
@@ -11,7 +10,7 @@ import GameModal from './GameModal'
 import DeleteTeamModal from './DeleteTeamModal'
 import BaseComponent from "../../shared/base-sapien/client/shared-components/BaseComponent";
 
-class GameDetail extends BaseComponent<RouteComponentProps<any>, IControllerDataStore & {Admin: AdminViewModel, ShowUserModal: boolean, ShowGameModal: boolean, ShowTeamDeleteModal: boolean}>
+export default class GameDetail extends BaseComponent<any, IControllerDataStore & {Admin: AdminViewModel, ShowUserModal: boolean, ShowGameModal: boolean, ShowTeamDeleteModal: boolean}>
 {
     //----------------------------------------------------------------------
     //
@@ -31,7 +30,7 @@ class GameDetail extends BaseComponent<RouteComponentProps<any>, IControllerData
     //
     //----------------------------------------------------------------------
 
-    constructor(props: RouteComponentProps<any>) {
+    constructor(props: any) {
         super(props);
 
         this.state = this.controller.dataStore;
@@ -53,12 +52,11 @@ class GameDetail extends BaseComponent<RouteComponentProps<any>, IControllerData
 
     componentDidMount() {
         super.componentDidMount();
-        this.controller.navigateOnClick(this.props.location.pathname);
         this.controller.getAllGames();
         this.controller.getAllUsers();
 
-        console.log("DOES CONSTRUCTOR HAVE LOCATION?", this.props.location.pathname.split("/").filter(s => s.length > 0).reverse()[0])
-        this.controller.getGame(this.props.location.pathname.split("/").filter(s => s.length > 0).reverse()[0]).then(r =>
+        console.log("DOES CONSTRUCTOR HAVE LOCATION?", window.location.pathname.split("/").filter(s => s.length > 0).reverse()[0])
+        this.controller.getGame(window.location.pathname.split("/").filter(s => s.length > 0).reverse()[0]).then(r =>
             this.controller.getAllUsers().then(r => this.controller.filterUsersByGame(this.state.Admin.SelectedGame))
         )
 
@@ -314,5 +312,4 @@ class GameDetail extends BaseComponent<RouteComponentProps<any>, IControllerData
 
 }
 
-export default withRouter(GameDetail);
 //{this.state.Admin.SelectedGame && <pre>{JSON.stringify(this.state.Admin.SelectedGame, null, 2)}</pre>}

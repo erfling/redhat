@@ -58,7 +58,7 @@ export default class ApplicationCtrl extends BaseClientCtrl<IControllerDataStore
 
     protected _setUpFistma(reactComp: Component): void {
         this.component = reactComp;
-        this.CurrentLocation = this.component.props.location.pathname;
+        this.CurrentLocation = window.location.pathname;
         var compStates = {
             game: ComponentsVO.Game,
             admin: ComponentsVO.Admin,

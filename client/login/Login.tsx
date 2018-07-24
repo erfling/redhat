@@ -1,11 +1,10 @@
 import * as React from "react";
-import { RouteComponentProps, withRouter, Route } from "react-router";
 import LoginCtrl from './LoginCtrl';
 import { Grid, Menu, Container, Button } from 'semantic-ui-react';
 import { IControllerDataStore } from "../../shared/base-sapien/client/BaseClientCtrl";
 import BaseComponent from "../../shared/base-sapien/client/shared-components/BaseComponent";
 
-class Login extends BaseComponent<RouteComponentProps<any>, IControllerDataStore>
+export default class Login extends BaseComponent<any, IControllerDataStore>
 {
     //----------------------------------------------------------------------
     //
@@ -25,7 +24,7 @@ class Login extends BaseComponent<RouteComponentProps<any>, IControllerDataStore
     //
     //----------------------------------------------------------------------
 
-    constructor(props: RouteComponentProps<any>) {
+    constructor(props: any) {
         super(props);
 
         this.state = this.controller.dataStore;
@@ -33,7 +32,7 @@ class Login extends BaseComponent<RouteComponentProps<any>, IControllerDataStore
 
     componentDidMount() {
         super.componentDidMount();
-        this.props.history.push("/" + this.constructor.name.toLowerCase());
+        window.history.pushState({}, "", "/" + this.constructor.name.toLowerCase());
     }
 
     //----------------------------------------------------------------------
@@ -70,5 +69,3 @@ class Login extends BaseComponent<RouteComponentProps<any>, IControllerDataStore
     }
 
 }
-
-export default withRouter(Login);

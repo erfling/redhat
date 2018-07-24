@@ -2,12 +2,11 @@ import * as React from "react";
 import { Grid, Menu, Container, Button, Form, Input, Message } from 'semantic-ui-react';
 const Field = { Form }
 const { Column, Row } = Grid;
-import { Route, Switch, RouteComponentProps, withRouter } from "react-router";
 import LoginCtrl from './LoginCtrl';
 import { IControllerDataStore } from "../../shared/base-sapien/client/BaseClientCtrl";
 import BaseComponent from "../../shared/base-sapien/client/shared-components/BaseComponent";
 
-class AdminLogin extends BaseComponent<RouteComponentProps<any>, IControllerDataStore>
+export default class AdminLogin extends BaseComponent<any, IControllerDataStore>
 {
     //----------------------------------------------------------------------
     //
@@ -27,10 +26,10 @@ class AdminLogin extends BaseComponent<RouteComponentProps<any>, IControllerData
     //
     //----------------------------------------------------------------------
 
-    constructor(props: RouteComponentProps<any>) {
+    constructor(props: any) {
         super(props);
 
-        this.props.history.push("/login/admin");
+        window.history.pushState({}, "", "/login/admin");
         this.state = this.controller.dataStore;
     }
 
@@ -92,5 +91,3 @@ class AdminLogin extends BaseComponent<RouteComponentProps<any>, IControllerData
 
 }
 //                            disabled={!this.refs.PASSWORD || !this.refs.EMAIL}
-
-export default withRouter(AdminLogin);
