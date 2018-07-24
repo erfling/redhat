@@ -5,7 +5,7 @@ import { Grid, Menu, Container, Button } from 'semantic-ui-react';
 import { IControllerDataStore } from "../../shared/base-sapien/client/BaseClientCtrl";
 import BaseComponent from "../../shared/base-sapien/client/shared-components/BaseComponent";
 import ComponentVO from '../../shared/base-sapien/client/ComponentsVO';
-class Login extends BaseComponent<RouteComponentProps<any>, IControllerDataStore>
+export default class Login extends BaseComponent<RouteComponentProps<any>, IControllerDataStore>
 {
     //----------------------------------------------------------------------
     //
@@ -55,6 +55,7 @@ class Login extends BaseComponent<RouteComponentProps<any>, IControllerDataStore
         return <Container
             fluid={true}
         >
+        <h1>LOGIN</h1>
             <Grid
                 verticalAlign="middle"
                 padded={true}
@@ -70,5 +71,3 @@ class Login extends BaseComponent<RouteComponentProps<any>, IControllerDataStore
     }
 
 }
-
-export default withRouter(Login);

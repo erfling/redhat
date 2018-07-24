@@ -7,7 +7,7 @@ import LoginCtrl from './LoginCtrl';
 import { IControllerDataStore } from "../../shared/base-sapien/client/BaseClientCtrl";
 import BaseComponent from "../../shared/base-sapien/client/shared-components/BaseComponent";
 
-class AdminLogin extends BaseComponent<RouteComponentProps<any>, IControllerDataStore>
+export default class AdminLogin extends BaseComponent<RouteComponentProps<any>, IControllerDataStore>
 {
     //----------------------------------------------------------------------
     //
@@ -51,7 +51,7 @@ class AdminLogin extends BaseComponent<RouteComponentProps<any>, IControllerData
     render() {
 
         return <>
-
+            <h1>hey</h1>
             <Row>
                 <Column wide={6} computer={8} tablet={6} mobile={16}> 
                     <Form>
@@ -92,5 +92,3 @@ class AdminLogin extends BaseComponent<RouteComponentProps<any>, IControllerData
 
 }
 //                            disabled={!this.refs.PASSWORD || !this.refs.EMAIL}
-
-export default withRouter(AdminLogin);

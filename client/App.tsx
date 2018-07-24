@@ -13,6 +13,7 @@ import BaseRoundCtrl from "../shared/base-sapien/client/BaseRoundCtrl";
 import ComponentVO from "../shared/base-sapien/client/ComponentsVO";
 import Admin from './admin/Admin';
 import Game from "./game/Game";
+import Login from "./login/Login";
 
 class App extends BaseComponent<RouteComponentProps<any>, IControllerDataStore>
 {
@@ -340,6 +341,7 @@ class App extends BaseComponent<RouteComponentProps<any>, IControllerDataStore>
 
                         <Route path="/admin" component={Admin} />
                         <Route path="/game" component={Game} />
+                        <Route path="/login" component={Login} />
                             
                     </div>
 
