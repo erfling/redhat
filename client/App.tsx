@@ -121,14 +121,14 @@ export default class App extends BaseComponent<any, IControllerDataStore>
                                             name='Manage Users'
                                             onClick={e => {
                                                 e.preventDefault();
-                                                this.controller.navigateOnClick("/admin/userlist")
+                                                this.controller.navigateOnClick("/admin/userlist");
                                             }}
                                         />
                                         <Menu.Item
                                             name='Manage Games'
                                             onClick={e => {
                                                 e.preventDefault();
-                                                this.controller.navigateOnClick("/admin/gamelist")
+                                                this.controller.navigateOnClick("/admin/gamelist");
                                             }}
                                         />
                                         <Menu.Item
@@ -136,7 +136,7 @@ export default class App extends BaseComponent<any, IControllerDataStore>
                                             onClick={e => {
                                                 e.preventDefault();
                                                 DataStore.GamePlay.IsEditing = true;
-                                                this.controller.navigateOnClick("/game/welcome")
+                                                this.controller.navigateOnClick("/game/welcome");
                                             }}
                                         />
                                     </Menu.Menu>
@@ -272,7 +272,6 @@ export default class App extends BaseComponent<any, IControllerDataStore>
                                                 }))
 
                                                 GameCtrl.GetInstance().dataStoreChange();
-                                                //(GameCtrl.GetInstance().CurrentComponent.controller as BaseRoundCtrl<any>).getContentBySubRound();
                                                 (GameCtrl.GetInstance()._getTargetController((GameCtrl.GetInstance().dataStore.ComponentFistma.currentState as any).CLASS_NAME) as any).getContentBySubRound()
                                             }}
                                         />
@@ -289,7 +288,6 @@ export default class App extends BaseComponent<any, IControllerDataStore>
                                                 }))
 
                                                 GameCtrl.GetInstance().dataStoreChange();
-                                                //(GameCtrl.GetInstance().CurrentComponent.controller as BaseRoundCtrl<any>).getContentBySubRound();
                                                 (GameCtrl.GetInstance()._getTargetController((GameCtrl.GetInstance().dataStore.ComponentFistma.currentState as any).CLASS_NAME) as any).getContentBySubRound()
                                             }}
                                         />
@@ -306,7 +304,6 @@ export default class App extends BaseComponent<any, IControllerDataStore>
                                                 }))
 
                                                 GameCtrl.GetInstance().dataStoreChange();
-                                                //(GameCtrl.GetInstance().CurrentComponent.controller as BaseRoundCtrl<any>).getContentBySubRound();
                                                 (GameCtrl.GetInstance()._getTargetController((GameCtrl.GetInstance().dataStore.ComponentFistma.currentState as any).CLASS_NAME) as any).getContentBySubRound();
                                             }}
                                         />
@@ -321,7 +318,6 @@ export default class App extends BaseComponent<any, IControllerDataStore>
                                                     })
                                                 }))
                                                 GameCtrl.GetInstance().dataStoreChange();
-                                                //(GameCtrl.GetInstance().CurrentComponent.controller as BaseRoundCtrl<any>).getContentBySubRound();
                                                 (GameCtrl.GetInstance()._getTargetController((GameCtrl.GetInstance().dataStore.ComponentFistma.currentState as any).CLASS_NAME) as any).getContentBySubRound();
                                             }}
                                         />

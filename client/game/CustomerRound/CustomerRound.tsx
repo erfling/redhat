@@ -32,7 +32,6 @@ export default class CustomerRound extends BaseComponent<any, IRoundDataStore>
         super(props);
 
         this.state = this.controller.dataStore;
-        GameCtrl.GetInstance().CurrentComponent = this;
     }
 
     //----------------------------------------------------------------------

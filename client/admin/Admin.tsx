@@ -49,7 +49,7 @@ export default class Admin extends BaseComponent<any, IControllerDataStore & {Ad
 
     render() {
         if (this.state && this.controller.ComponentFistma){
-            const DashBoardComponent = this.controller.ComponentFistma.currentState;
+            const DashBoardComponent = this.controller.ComponentFistma.currentState; 
             console.log("DB COMPONENT", DashBoardComponent.name)
             return <>
                 <DashBoardComponent/>

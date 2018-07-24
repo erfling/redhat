@@ -31,7 +31,6 @@ export default class FinanceRound extends BaseComponent<any, IRoundDataStore>
     constructor(props: any) {
         super(props);
 
-        GameCtrl.GetInstance().CurrentComponent = this;
         this.state = this.controller.dataStore;
     }
 
