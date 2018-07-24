@@ -21,11 +21,6 @@ export default class WelcomeCtrl extends BaseRoundCtrl<IRoundDataStore>
 
     private static _instance: WelcomeCtrl;
 
-    protected readonly ComponentStates = {
-        sub1: ComponentsVO.Intro,
-        sub2: ComponentsVO.PlayerLogin
-    };
-
     //----------------------------------------------------------------------
     //
     //  Constructor
@@ -34,16 +29,13 @@ export default class WelcomeCtrl extends BaseRoundCtrl<IRoundDataStore>
 
     private constructor(reactComp: React.Component<any, any>) {
         super(reactComp || null);
-        
-        if (reactComp) this._setUpFistma(reactComp);
     }
 
     public static GetInstance(reactComp?: Component<any, any>): WelcomeCtrl {
         if (!this._instance) {
             this._instance = new WelcomeCtrl(reactComp || null);
-        }
-        if (!this._instance) throw new Error("NO INSTANCE");
-        if (reactComp) this._instance._setUpFistma(reactComp);
+            if (!this._instance) throw new Error("NO INSTANCE");
+        } else if (reactComp) this._instance._setUpFistma(reactComp);
 
         return this._instance;
     }
@@ -86,11 +78,15 @@ export default class WelcomeCtrl extends BaseRoundCtrl<IRoundDataStore>
 
     protected _setUpFistma(reactComp: Component){
         this.component = reactComp;
+        var compStates = {
+            sub1: ComponentsVO.Intro,
+            sub2: ComponentsVO.PlayerLogin
+        };
 
-        this.ComponentFistma = new FiStMa(this.ComponentStates, this.ComponentStates.sub1);
-        this.ComponentFistma.addTransition(this.ComponentStates.sub1);
-        this.ComponentFistma.addOnEnter(this.ComponentStates.sub1, this.getContentBySubRound.bind(this));
-        this.ComponentFistma.addOnEnter(this.ComponentStates.sub2, this.getContentBySubRound.bind(this));
+        this.ComponentFistma = new FiStMa(compStates, compStates.sub1);
+        this.ComponentFistma.addTransition(compStates.sub1);
+        this.ComponentFistma.addOnEnter(compStates.sub1, this.getContentBySubRound.bind(this));
+        this.ComponentFistma.addOnEnter(compStates.sub2, this.getContentBySubRound.bind(this));
 
         this.dataStore = {
             Round: new RoundModel(),

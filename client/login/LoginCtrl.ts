@@ -18,11 +18,6 @@ export default class LoginCtrl extends BaseClientCtrl<IControllerDataStore>
     //----------------------------------------------------------------------
 
     private static _instance: LoginCtrl;
-
-    protected readonly ComponentStates = {
-        admin: ComponentsVO.AdminLogin,
-        first: ComponentsVO.Join
-    };
     
     //----------------------------------------------------------------------
     //
@@ -32,16 +27,13 @@ export default class LoginCtrl extends BaseClientCtrl<IControllerDataStore>
 
     private constructor(reactComp: Component<any, any>) {
         super( null, reactComp);
-
-        if (reactComp) this._setUpFistma(reactComp);
     }
 
     public static GetInstance(reactComp?: Component<any, any>): LoginCtrl {
         if (!this._instance) {
             this._instance = new LoginCtrl(reactComp || null);
-        }
-        if (!this._instance) throw new Error("NO INSTANCE");
-        if (reactComp) this._instance._setUpFistma(reactComp);
+            if (!this._instance) throw new Error("NO INSTANCE");
+        } else if (reactComp) this._instance._setUpFistma(reactComp);
 
         return this._instance;
     }
@@ -110,13 +102,16 @@ export default class LoginCtrl extends BaseClientCtrl<IControllerDataStore>
     //
     //----------------------------------------------------------------------
 
-    protected _setUpFistma(reactComp: Component){  
-        console.log("INTDO ROUND IS", this)
+    protected _setUpFistma(reactComp: Component) {
         this.component = reactComp;
+        var compStates = {
+            admin: ComponentsVO.AdminLogin,
+            first: ComponentsVO.Join
+        };
 
-        this.ComponentFistma = new FiStMa(this.ComponentStates, this.UrlToComponent(this.component.props.location.pathname) || this.ComponentStates.admin);
-        this.ComponentFistma.addTransition(this.ComponentStates.admin);
-        this.ComponentFistma.addTransition(this.ComponentStates.first);
+        this.ComponentFistma = new FiStMa(compStates, this.UrlToComponent(this.component.props.location.pathname, compStates) || compStates.admin);
+        this.ComponentFistma.addTransition(compStates.admin);
+        this.ComponentFistma.addTransition(compStates.first);
 
         this.dataStore = {
             ApplicationState: DataStore.ApplicationState,

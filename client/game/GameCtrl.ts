@@ -29,15 +29,6 @@ export default class GameCtrl extends BaseClientCtrl<IControllerDataStore & {Gam
 
     private _childController: BaseRoundCtrl<any>;
 
-    public readonly ComponentStates = {
-        round0: ComponentsVO.Welcome,
-        round1: ComponentsVO.PeopleRound, 
-        round2: ComponentsVO.EngineeringRound, 
-        round3: ComponentsVO.SalesRound, 
-        round4: ComponentsVO.FinanceRound, 
-        round5: ComponentsVO.CustomerRound
-    };
-
     //----------------------------------------------------------------------
     //
     //  Constructor
@@ -46,16 +37,13 @@ export default class GameCtrl extends BaseClientCtrl<IControllerDataStore & {Gam
 
     private constructor(reactComp?: Component<any, any>) {
         super(null, reactComp || null);
-
-        if (reactComp) this._setUpFistma(reactComp);
     }
 
     public static GetInstance(reactComp?: Component<any, any>): GameCtrl {
         if (!this._instance) {
             this._instance = new GameCtrl(reactComp || null);
-        }
-        if (!this._instance) throw new Error("NO INSTANCE");
-        if (reactComp) this._instance._setUpFistma(reactComp);
+            if (!this._instance) throw new Error("NO INSTANCE");
+        } else if (reactComp) this._instance._setUpFistma(reactComp);
 
         return this._instance;
     }
@@ -78,7 +66,6 @@ export default class GameCtrl extends BaseClientCtrl<IControllerDataStore & {Gam
         this.ComponentFistma.goTo(round);
         this.component.props.history.push("/game/" + this.ComponentFistma.currentState.WrappedComponent.CLASS_NAME.toLowerCase());
     }
-    
     
     public goToMapping(mapping: Partial<RoundChangeMapping>){
         if ( mapping.ParentRound && mapping.ChildRound ) {
@@ -135,15 +122,13 @@ export default class GameCtrl extends BaseClientCtrl<IControllerDataStore & {Gam
             team.CurrentRound = r;
             localStorage.setItem("RH_TEAM", JSON.stringify(team));
 
-            console.log("<<<<<<<<<<<<TEAM IS NOW>>>>>>>>>>>>", this.dataStore.ApplicationState.CurrentTeam, JSON.parse(localStorage.getItem("RH_TEAM")))
-
+            //console.log("<<<<<<<<<<<<TEAM IS NOW>>>>>>>>>>>>", this.dataStore.ApplicationState.CurrentTeam, JSON.parse(localStorage.getItem("RH_TEAM")));
             console.log("GOT THIS BACK FROM LONG POLL", r);
             const targetJob = r.UserJobs[this.dataStore.ApplicationState.CurrentUser._id] || JobName.IC;
 
             this.dataStore.ApplicationState.CurrentUser.Job = targetJob;
 
-            this._childController = this._getTargetController(r.ParentRound)
-
+            this._childController = this._getTargetController(r.ParentRound);
             console.log("CHILD CONTROLLER IS",this._childController);
 
             GameCtrl.GetInstance().navigateOnClick("/game/" + r.ParentRound.toLowerCase() + "/" + r.ChildRound.toLowerCase());
@@ -160,19 +145,27 @@ export default class GameCtrl extends BaseClientCtrl<IControllerDataStore & {Gam
         })
     }
 
-    private _setUpFistma(reactComp: Component) {
+    protected _setUpFistma(reactComp: Component) {
         this.component = reactComp;
+        var compStates = {
+            round0: ComponentsVO.Welcome,
+            round1: ComponentsVO.PeopleRound, 
+            round2: ComponentsVO.EngineeringRound, 
+            round3: ComponentsVO.SalesRound, 
+            round4: ComponentsVO.FinanceRound, 
+            round5: ComponentsVO.CustomerRound
+        };
 
         DataStore.ApplicationState.CurrentUser = localStorage.getItem("RH_USER") ? Object.assign( new UserModel(), JSON.parse(localStorage.getItem("RH_USER") ) ) : new UserModel();      
         DataStore.ApplicationState.CurrentTeam = localStorage.getItem("RH_TEAM") ? Object.assign( new TeamModel(), JSON.parse(localStorage.getItem("RH_TEAM") ) ) : new TeamModel();
 
-        this.ComponentFistma = new FiStMa(this.ComponentStates, this.ComponentStates.round0);
-        this.ComponentFistma.addTransition(this.ComponentStates.round0);
-        this.ComponentFistma.addTransition(this.ComponentStates.round1);
-        this.ComponentFistma.addTransition(this.ComponentStates.round2);
-        this.ComponentFistma.addTransition(this.ComponentStates.round3);
-        this.ComponentFistma.addTransition(this.ComponentStates.round4);
-        this.ComponentFistma.addTransition(this.ComponentStates.round5);
+        this.ComponentFistma = new FiStMa(compStates, compStates.round0);
+        this.ComponentFistma.addTransition(compStates.round0);
+        this.ComponentFistma.addTransition(compStates.round1);
+        this.ComponentFistma.addTransition(compStates.round2);
+        this.ComponentFistma.addTransition(compStates.round3);
+        this.ComponentFistma.addTransition(compStates.round4);
+        this.ComponentFistma.addTransition(compStates.round5);
         this.ComponentFistma.addOnEnter("*", this._onRoundEnter.bind(this));
         this.ComponentFistma.onInvalidTransition(this._onInvalidTrans);
 
