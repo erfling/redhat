@@ -74,7 +74,8 @@ class Game extends BaseComponent<RouteComponentProps<any>, IControllerDataStore 
     */
     updateDimensions() {
         console.log("updating dimensions", window.outerWidth,this.controller.ComponentFistma.currentState.WrappedComponent.CLASS_NAME)
-        this.controller.dataStore.ApplicationState.MobileWidth = this.controller._getTargetController(this.controller.ComponentFistma.currentState.WrappedComponent.CLASS_NAME).dataStore.ApplicationState.MobileWidth = window.outerWidth < 767
+        if(this.controller._getTargetController(this.controller.ComponentFistma.currentState.WrappedComponent.CLASS_NAME).dataStore)
+            this.controller.dataStore.ApplicationState.MobileWidth = this.controller._getTargetController(this.controller.ComponentFistma.currentState.WrappedComponent.CLASS_NAME).dataStore.ApplicationState.MobileWidth = window.outerWidth < 767
     }
 
     /**

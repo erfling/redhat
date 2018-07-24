@@ -157,8 +157,8 @@ class App extends BaseComponent<RouteComponentProps<any>, IControllerDataStore>
                                                 e.preventDefault();
                                                 this.controller.dataStore.ApplicationState.ShowMenu = false;
                                                 GameCtrl.GetInstance().goToMapping({
-                                                    ParentRound: ComponentVO.PeopleRound.constructor.name,
-                                                    ChildRound: ComponentVO.Priorities.constructor.name
+                                                    ParentRound: "peopleround",
+                                                    ChildRound: "priorities"
                                                 })
                                             }}
                                         >
@@ -169,8 +169,8 @@ class App extends BaseComponent<RouteComponentProps<any>, IControllerDataStore>
                                                 e.preventDefault();
                                                 this.controller.dataStore.ApplicationState.ShowMenu = false;
                                                 GameCtrl.GetInstance().goToMapping({
-                                                    ParentRound: ComponentVO.PeopleRound.constructor.name,
-                                                    ChildRound: ComponentVO.Hiring.constructor.name
+                                                    ParentRound: "peopleround",
+                                                    ChildRound: "hiring"
                                                 })
                                             }}
                                         >
@@ -180,9 +180,9 @@ class App extends BaseComponent<RouteComponentProps<any>, IControllerDataStore>
                                             onClick={e => {
                                                 e.preventDefault();
                                                 this.controller.dataStore.ApplicationState.ShowMenu = false;
-                                                GameCtrl.GetInstance().goToMapping({                                                    
-                                                    ParentRound: ComponentVO.EngineeringRound.constructor.name,
-                                                    ChildRound: ComponentVO.EngineeringSub.constructor.name
+                                                GameCtrl.GetInstance().goToMapping({
+                                                    ParentRound: "engineeringround",
+                                                    ChildRound: "engineeringsub"
                                                 })
                                             }}
                                         >
@@ -192,9 +192,9 @@ class App extends BaseComponent<RouteComponentProps<any>, IControllerDataStore>
                                             onClick={e => {
                                                 e.preventDefault();
                                                 this.controller.dataStore.ApplicationState.ShowMenu = false;
-                                                GameCtrl.GetInstance().goToMapping({                                                    
-                                                    ParentRound: ComponentVO.SalesRound.constructor.name,
-                                                    ChildRound: ComponentVO.DealStructure.constructor.name
+                                                GameCtrl.GetInstance().goToMapping({
+                                                    ParentRound: "SalesRound",
+                                                    ChildRound: "DealStructure"
                                                 })
                                             }}
                                         >
@@ -204,21 +204,9 @@ class App extends BaseComponent<RouteComponentProps<any>, IControllerDataStore>
                                             onClick={e => {
                                                 e.preventDefault();
                                                 this.controller.dataStore.ApplicationState.ShowMenu = false;
-                                                GameCtrl.GetInstance().goToMapping({                                                    
-                                                    ParentRound: ComponentVO.SalesRound.constructor.name,
-                                                    ChildRound: ComponentVO.DealRenewal.constructor.name
-                                                })
-                                            }}
-                                        >
-                                        </Menu.Item>
-                                        <Menu.Item
-                                            name='3B'
-                                            onClick={e => {
-                                                e.preventDefault();
-                                                this.controller.dataStore.ApplicationState.ShowMenu = false;
-                                                GameCtrl.GetInstance().goToMapping({                                                    
-                                                    ParentRound: ComponentVO.SalesRound.constructor.name,
-                                                    ChildRound: ComponentVO.DealRenewal.constructor.name
+                                                GameCtrl.GetInstance().goToMapping({
+                                                    ParentRound: "SalesRound",
+                                                    ChildRound: "DealRenewal"
                                                 })
                                             }}
                                         >
@@ -228,9 +216,9 @@ class App extends BaseComponent<RouteComponentProps<any>, IControllerDataStore>
                                             onClick={e => {
                                                 e.preventDefault();
                                                 this.controller.dataStore.ApplicationState.ShowMenu = false;
-                                                GameCtrl.GetInstance().goToMapping({                                                    
-                                                    ParentRound: ComponentVO.FinanceRound.constructor.name,
-                                                    ChildRound: ComponentVO.Bid.constructor.name
+                                                GameCtrl.GetInstance().goToMapping({
+                                                    ParentRound: "FinanceRound",
+                                                    ChildRound: "Pricing"
                                                 })
                                             }}
                                         >
@@ -240,9 +228,9 @@ class App extends BaseComponent<RouteComponentProps<any>, IControllerDataStore>
                                             onClick={e => {
                                                 e.preventDefault();
                                                 this.controller.dataStore.ApplicationState.ShowMenu = false;
-                                                GameCtrl.GetInstance().goToMapping({                                                    
-                                                    ParentRound: ComponentVO.FinanceRound.constructor.name,
-                                                    ChildRound: ComponentVO.Pricing.constructor.name
+                                                GameCtrl.GetInstance().goToMapping({
+                                                    ParentRound: "FinanceRound",
+                                                    ChildRound: "Bid"
                                                 })
                                             }}
                                         >
@@ -252,9 +240,22 @@ class App extends BaseComponent<RouteComponentProps<any>, IControllerDataStore>
                                             onClick={e => {
                                                 e.preventDefault();
                                                 this.controller.dataStore.ApplicationState.ShowMenu = false;
-                                                GameCtrl.GetInstance().goToMapping({                                                    
-                                                    ParentRound: ComponentVO.FinanceRound.constructor.name,
-                                                    ChildRound: ComponentVO.AcquisitionStructure.constructor.name
+                                                GameCtrl.GetInstance().goToMapping({
+                                                    ParentRound: "FinanceRound",
+                                                    ChildRound: "AcquisitionStructure"
+                                                })
+                                            }}
+                                        >
+                                        </Menu.Item>
+
+                                        <Menu.Item
+                                            name="5"
+                                            onClick={e => {
+                                                e.preventDefault();
+                                                this.controller.dataStore.ApplicationState.ShowMenu = false;
+                                                GameCtrl.GetInstance().goToMapping({
+                                                    ParentRound: "CustomerRound",
+                                                    ChildRound: "CustomerSub"
                                                 })
                                             }}
                                         >

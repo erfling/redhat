@@ -112,7 +112,6 @@ class Bid extends BaseComponent<RouteComponentProps<any>, IRoundDataStore>
                         Message={this.state.ApplicationState.SelectedMessage}
                     />
                 }
-                }
             </>;
         } else {
             return <Dimmer active>

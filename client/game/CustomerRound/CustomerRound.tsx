@@ -65,7 +65,7 @@ class CustomerRound extends BaseComponent<RouteComponentProps<any>, IRoundDataSt
                                 marginBottom: '-10px'
                             }}
                         >
-                            <h1>round one: build the team: {this.state.ApplicationState.MobileWidth}</h1>
+                            <h1>round five: customer round</h1>
                         </Row>
                     </Column>
                     <SubRnd />

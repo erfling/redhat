@@ -65,7 +65,7 @@ class SalesRound extends BaseComponent<RouteComponentProps<any>, IRoundDataStore
                                 marginBottom: '-10px'
                             }}
                         >
-                            <h1>round three: sell the thing</h1>
+                            <h1>round three: make the sale</h1>
                         </Row>
                     </Column>
                     <SubRnd />

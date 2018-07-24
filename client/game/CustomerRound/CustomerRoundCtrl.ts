@@ -2,8 +2,13 @@
 import { Component } from 'react';
 import BaseRoundCtrl from '../../../shared/base-sapien/client/BaseRoundCtrl';
 import { IRoundDataStore } from '../../../shared/base-sapien/client/BaseRoundCtrl';
-import RoundModel from '../../../shared/models/RoundModel';
 import DataStore from '../../../shared/base-sapien/client/DataStore';
+import ComponentsVO from '../../../shared/base-sapien/client/ComponentsVO';
+import RoundModel from '../../../shared/models/RoundModel';
+import FiStMa from '../../../shared/entity-of-the-state/FiStMa';
+import QuestionModel, { QuestionType } from '../../../shared/models/QuestionModel';
+import ResponseModel from '../../../shared/models/ResponseModel';
+import ValueObj from '../../../shared/entity-of-the-state/ValueObj';
 
 export default class CustomerRoundCtrl extends BaseRoundCtrl<IRoundDataStore>
 {
@@ -22,7 +27,9 @@ export default class CustomerRoundCtrl extends BaseRoundCtrl<IRoundDataStore>
     //----------------------------------------------------------------------
 
     private constructor(reactComp: React.Component<any, any>) {
-        super(reactComp);
+        super(reactComp || null);
+        
+        if (reactComp) this._setUpFistma(reactComp);
     }
 
     public static GetInstance(reactComp?: Component<any, any>): CustomerRoundCtrl {
@@ -50,7 +57,9 @@ export default class CustomerRoundCtrl extends BaseRoundCtrl<IRoundDataStore>
 
     protected _setUpFistma(reactComp: Component){
         this.component = reactComp;
-
+        var compStates = {
+            sub1: ComponentsVO.DealStructure,
+        };
         this.dataStore = {
             Round: new RoundModel(),
             ApplicationState: DataStore.ApplicationState,

@@ -16,6 +16,9 @@ import WelcomeCtrl from './Welcome/WelcomeCtrl';
 import ApplicationCtrl from '../ApplicationCtrl';
 import ComponentsVO from '../../shared/base-sapien/client/ComponentsVO';
 import SalesRoundCtrl from './SalesRound/SalesRoundCtrl';
+import FinanceRound from './FinanceRound/FinanceRound';
+import FinanceRoundCtrl from './FinanceRound/FinanceRoundCtrl';
+import CustomerRoundCtrl from './CustomerRound/CustomerRoundCtrl';
 
 export default class GameCtrl extends BaseClientCtrl<IControllerDataStore & {Game: GameModel, _mobileWidth: boolean}>
 {
@@ -88,6 +91,11 @@ export default class GameCtrl extends BaseClientCtrl<IControllerDataStore & {Gam
                 break;
             case "SALESROUND":
                 childController = SalesRoundCtrl.GetInstance();
+                break;
+            case "FINANCEROUND":
+                childController = FinanceRoundCtrl.GetInstance();
+            case "CUSTOMERROUND":
+                childController = CustomerRoundCtrl.GetInstance();
                 break;
             default: 
                 childController = null;

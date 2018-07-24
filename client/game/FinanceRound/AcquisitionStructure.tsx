@@ -112,7 +112,6 @@ class AcquisitionStructure extends BaseComponent<RouteComponentProps<any>, IRoun
                         Message={this.state.ApplicationState.SelectedMessage}
                     />
                 }
-                }
             </>;
         } else {
             return <Dimmer active>
