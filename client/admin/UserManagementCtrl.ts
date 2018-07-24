@@ -109,7 +109,7 @@ export default class UserManagementCtrl extends BaseClientCtrl<IControllerDataSt
 
     protected _setUpFistma(reactComp: Component) {
         this.component = reactComp;
-
+        // TODO: why would we want AdminCtrl's stuff here... especially why AdminCtrl's ComponentFistma?
         this.dataStore = {
             ApplicationState: AdminCtrl.GetInstance().dataStore.ApplicationState,
             Admin: AdminCtrl.GetInstance().dataStore.Admin,
