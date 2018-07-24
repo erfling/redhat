@@ -101,6 +101,10 @@ export default class GameCtrl extends BaseClientCtrl<IControllerDataStore & {Gam
                 childController = null;
                 break;
         }
+        if (childController && childController.ComponentFistma && !childController.component) {
+            // set component to default
+            childController.component = childController.ComponentFistma.currentState.WrappedComponent;
+        }
 
         return childController;
     }
