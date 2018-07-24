@@ -10,7 +10,7 @@ import BaseComponent from "../../shared/base-sapien/client/shared-components/Bas
 import UserList from "./UserList";
 import GameList from "./GameList";
 
-class Admin extends BaseComponent<RouteComponentProps<any>, IControllerDataStore & {Admin: AdminViewModel} >
+export default class Admin extends BaseComponent<RouteComponentProps<any>, IControllerDataStore & {Admin: AdminViewModel} >
 {
     //----------------------------------------------------------------------
     //
@@ -58,8 +58,10 @@ class Admin extends BaseComponent<RouteComponentProps<any>, IControllerDataStore
             console.log("DB COMPONENT", DashBoardComponent.WrappedComponent.name)
             return <>
                 <h1>Admin</h1>
-                <Route exact path="/admin/userlist" component={UserList} />
-                <Route exact path="/admin/gamelist" component={GameList} />
+                <Switch>
+                    <Route exact path="/admin/userlist" component={UserList} />
+                    <Route exact path="/admin/gamelist" component={GameList} />
+                </Switch>
             </>;
         }
 
@@ -70,7 +72,6 @@ class Admin extends BaseComponent<RouteComponentProps<any>, IControllerDataStore
 
 }
 
-export default withRouter(Admin);
 // {this.state && this.state.Users && <h1>{this.state.Users.length} Users</h1>}game: ComponentsVO.Game,
             //admin: ComponentsVO.Admin,
             //login: ComponentsVO.Login

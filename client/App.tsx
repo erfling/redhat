@@ -334,12 +334,12 @@ export default class App extends BaseComponent<RouteComponentProps<any>, IContro
                         </>
 
                     }
-
+                    <h1>IN APP</h1>
                     <div
                         className={"source-stream" + (this.state && this.state.ApplicationState.CurrentUser && this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN ? " admin-body" : "")}
                     >
                             <Switch>
-                                <Redirect from="/" to="/game"/>
+                                <Redirect exact from="/" to="/game"/>
                                 <Route path="/game" component={Game} />                            
                                 <Route path="/login" component={Login} />                            
                                 <Route path="/admin" component={Admin} />
