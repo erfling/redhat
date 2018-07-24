@@ -1,7 +1,8 @@
 import * as React from "react";
 import { Sidebar, Menu, Button, Icon, Popup, MenuItem, Grid } from 'semantic-ui-react';
 import ApplicationCtrl from './ApplicationCtrl';
-import { RouteComponentProps, withRouter } from "react-router";
+import { RouteComponentProps, withRouter, Switch, Route } from "react-router";
+import { BrowserRouter } from 'react-router-dom'
 import DataStore from '../shared/base-sapien/client/DataStore'
 import SapienToast from '../shared/base-sapien/client/shared-components/SapienToast'
 import GameCtrl from "./game/GameCtrl";
@@ -343,8 +344,12 @@ class App extends BaseComponent<RouteComponentProps<any>, IControllerDataStore>
                     <div
                         className={"source-stream" + (this.state && this.state.ApplicationState.CurrentUser && this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN ? " admin-body" : "")}
                     >
-                        
+
+                        <BrowserRouter>
+                            <Route exact path="/" component={Home}/>
+                            <Route path="/news" component={NewsFeed}/>
                             <ComponentFromState />
+                        </BrowserRouter>
                     </div>
 
                 </div>
