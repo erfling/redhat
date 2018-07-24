@@ -61,6 +61,7 @@ export default class Login extends BaseComponent<RouteComponentProps<any>, ICont
                 padded={true}
                 columns={16}
             >
+                <Route exact path="/" component={ComponentVO.AdminLogin} />
                 <Route path="/login/admin" component={ComponentVO.AdminLogin} />
                 <Route path="/login/join" component={ComponentVO.Join} />
             </Grid>

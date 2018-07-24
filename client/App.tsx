@@ -338,7 +338,7 @@ class App extends BaseComponent<RouteComponentProps<any>, IControllerDataStore>
                     <div
                         className={"source-stream" + (this.state && this.state.ApplicationState.CurrentUser && this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN ? " admin-body" : "")}
                     >
-
+                        <Route exact path="/" component={Game} />
                         <Route path="/admin" component={Admin} />
                         <Route path="/game" component={Game} />
                         <Route path="/login" component={Login} />
