@@ -30,7 +30,7 @@ export default class AdminCtrl extends BaseClientCtrl<IControllerDataStore & {Ad
         if (!this._instance) {
             this._instance = new AdminCtrl(reactComp || null);
             if (!this._instance) throw new Error("NO INSTANCE");
-        } else if (reactComp)  this._instance._setUpFistma(reactComp);
+        } else if (reactComp) this._instance._setUpFistma(reactComp);
 
         return this._instance;
     }
@@ -70,6 +70,7 @@ export default class AdminCtrl extends BaseClientCtrl<IControllerDataStore & {Ad
 
         this.ComponentFistma.addTransition(compStates.adminLogin);
         this.ComponentFistma.addTransition(compStates.default);
+        this.ComponentFistma.addTransition(compStates.gameDetail);
         this.ComponentFistma.addTransition(compStates.gameList);
         this.ComponentFistma.addTransition(compStates.users);
         this.ComponentFistma.onInvalidTransition(() => {

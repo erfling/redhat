@@ -76,6 +76,7 @@ export default class ApplicationCtrl extends BaseClientCtrl<IControllerDataStore
         
         this.ComponentFistma.addTransition(compStates.game);
         this.ComponentFistma.addTransition(compStates.admin);
+        this.ComponentFistma.addTransition(compStates.login);
         
         this.dataStore = {
             ApplicationState: DataStore.ApplicationState,
