@@ -15,7 +15,7 @@ import Admin from './admin/Admin';
 import Game from "./game/Game";
 import Login from "./login/Login";
 
-class App extends BaseComponent<RouteComponentProps<any>, IControllerDataStore>
+export default class App extends BaseComponent<RouteComponentProps<any>, IControllerDataStore>
 {
     //----------------------------------------------------------------------
     //
@@ -338,7 +338,6 @@ class App extends BaseComponent<RouteComponentProps<any>, IControllerDataStore>
                     <div
                         className={"source-stream" + (this.state && this.state.ApplicationState.CurrentUser && this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN ? " admin-body" : "")}
                     >
-                    test
                         <Route exact path="/" component={Game} />
                         <Route path="/admin" component={Admin} />
                         <Route path="/game" component={Game} />
@@ -364,9 +363,6 @@ class App extends BaseComponent<RouteComponentProps<any>, IControllerDataStore>
         }
     }
 }
-
-export default withRouter(App)
-
 /**
  *          
                         {this.state && this.state.ApplicationState && <pre>{JSON.stringify(this.state.ApplicationState, null, 2)}</pre>}

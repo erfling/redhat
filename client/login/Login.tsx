@@ -55,12 +55,13 @@ export default class Login extends BaseComponent<RouteComponentProps<any>, ICont
             return <Container
                 fluid={true}
             >
-                <h1>LOGIN</h1>
                 <Grid
                     verticalAlign="middle"
                     padded={true}
                     columns={16}
                 >
+                    <h1>LOGIN</h1>
+
                     <Route exact path="/" component={ComponentVO.AdminLogin} />
                     <Route path="/login/admin" component={ComponentVO.AdminLogin} />
                     <Route path="/login/join" component={ComponentVO.Join} />
