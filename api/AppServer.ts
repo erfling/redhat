@@ -107,21 +107,7 @@ export class AppServer {
 
         });*/
 
-        AppServer.app.get("/listenforgameadvance/:gameid", async (req, res, next) => {
-            const gameId = req.params.gameid;
-
-            try{
-                const game = await monGameModel.findById(gameId).then(r => r ? Object.assign(new GameModel(), r.toJSON()) : null);
-                
-                if(game){ 
-                    console.log("FOUND GAME", game)             
-                    res.json(game.CurrentRound)               
-                }
-            } catch(err) {
-                console.log(err)
-            }
-        });
-
+       /*
         //GZIP large resources in production
         console.log("ENVIRONMENT IS:", process.env.NODE_ENV)
         if (process.env.NODE_ENV && process.env.NODE_ENV.indexOf("prod") != -1) {
@@ -140,7 +126,21 @@ export class AppServer {
                     console.log("GZIP ON: ", req.url)
                     next();
                 })
-        }
+        }*/
+        AppServer.app.get("/listenforgameadvance/:gameid", async (req, res, next) => {
+            const gameId = req.params.gameid;
+
+            try{
+                const game = await monGameModel.findById(gameId).then(r => r ? Object.assign(new GameModel(), r.toJSON()) : null);
+                
+                if(game){ 
+                    console.log("FOUND GAME", game)             
+                    res.json(game.CurrentRound)               
+                }
+            } catch(err) {
+                console.log(err)
+            }
+        });
 
         AppServer.app.use('/', AppServer.router)
             .use('/sapien/api/rounds', RoundController)
