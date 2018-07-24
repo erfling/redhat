@@ -60,6 +60,11 @@ export default class CustomerRoundCtrl extends BaseRoundCtrl<IRoundDataStore>
         var compStates = {
             sub1: ComponentsVO.DealStructure,
         };
+
+        this.ComponentFistma = new FiStMa(compStates, compStates.sub1);
+        this.ComponentFistma.addTransition(compStates.sub1);
+        this.ComponentFistma.addOnEnter("*", this.getContentBySubRound.bind(this));
+        
         this.dataStore = {
             Round: new RoundModel(),
             ApplicationState: DataStore.ApplicationState,

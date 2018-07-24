@@ -132,9 +132,11 @@ export default class GameCtrl extends BaseClientCtrl<IControllerDataStore & {Gam
 
             //console.log("<<<<<<<<<<<<TEAM IS NOW>>>>>>>>>>>>", this.dataStore.ApplicationState.CurrentTeam, JSON.parse(localStorage.getItem("RH_TEAM")));
             console.log("GOT THIS BACK FROM LONG POLL", r);
-            const targetJob = r.UserJobs[this.dataStore.ApplicationState.CurrentUser._id] || JobName.IC;
+            const targetJob = r.UserJobs && r.UserJobs[this.dataStore.ApplicationState.CurrentUser._id] ? r.UserJobs[this.dataStore.ApplicationState.CurrentUser._id] : JobName.IC;
+            console.log("LASER", r);
 
             this.dataStore.ApplicationState.CurrentUser.Job = targetJob;
+            console.log("LASER 2", r);
 
             this._childController = this._getTargetController(r.ParentRound);
             console.log("CHILD CONTROLLER IS",this._childController);
