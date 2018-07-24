@@ -47,7 +47,7 @@ export default class ApplicationCtrl extends BaseClientCtrl<IControllerDataStore
         localStorage.removeItem("rhjwt");
         localStorage.removeItem("RH_TEAM");
         this.dataStore.ApplicationState.CurrentUser = null;
-        this.navigateOnClick("/login/admin")
+        this.component.props.history.push("/login/admin")
     }
 
     //----------------------------------------------------------------------
@@ -66,9 +66,7 @@ export default class ApplicationCtrl extends BaseClientCtrl<IControllerDataStore
         
         DataStore.ApplicationState.CurrentUser = localStorage.getItem("RH_USER") ? Object.assign( new UserModel(), JSON.parse(localStorage.getItem("RH_USER") ) ) : new UserModel()
         
-        this.ComponentFistma.addTransition(compStates.game);
-        this.ComponentFistma.addTransition(compStates.admin);
-        
+       
         this.dataStore = {
             ApplicationState: DataStore.ApplicationState,
             ComponentFistma: this.ComponentFistma

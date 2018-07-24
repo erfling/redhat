@@ -67,8 +67,8 @@ export default class LoginCtrl extends BaseClientCtrl<IControllerDataStore>
             localStorage.setItem("RH_USER", JSON.stringify(returned.user))
             localStorage.setItem("RH_TEAM", JSON.stringify(returned.team))
             this.dataStore.ApplicationState.FormIsSubmitting = false;
-            ApplicationCtrl.GetInstance().navigateOnClick('/admin/userlist');
 
+            this.component.props.history.push('/admin/userlist')
             //TODO: this shouldn't have to be called. Application controller has a component fistma, which is bound to it's dataStore. navigateOnClick call Should send user to Amin, but it doesn't
             ApplicationCtrl.GetInstance().dataStoreChange();
         })
@@ -87,7 +87,7 @@ export default class LoginCtrl extends BaseClientCtrl<IControllerDataStore>
             localStorage.setItem("RH_USER", JSON.stringify(returned.user))
             localStorage.setItem("RH_TEAM", JSON.stringify(returned.team))
             this.dataStore.ApplicationState.FormIsSubmitting = false;
-            ApplicationCtrl.GetInstance().navigateOnClick('/admin/userlist');
+            this.component.props.history.push('/admin/userlist')
         })
         .catch((message) => {
             this.dataStore.ApplicationState.FormIsSubmitting = false;
@@ -109,7 +109,7 @@ export default class LoginCtrl extends BaseClientCtrl<IControllerDataStore>
             first: ComponentsVO.Join
         };
 
-        this.ComponentFistma = new FiStMa(compStates, this.UrlToComponent(this.component.props.location.pathname, compStates) || compStates.admin);
+        this.ComponentFistma = new FiStMa(compStates, compStates.admin);
         this.ComponentFistma.addTransition(compStates.admin);
         this.ComponentFistma.addTransition(compStates.first);
 

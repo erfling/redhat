@@ -9,7 +9,7 @@ import UserModal from "./UserModal";
 import {IControllerDataStore} from '../../shared/base-sapien/client/BaseClientCtrl';
 import BaseComponent from "../../shared/base-sapien/client/shared-components/BaseComponent";
 
-class UserList extends BaseComponent<RouteComponentProps<any>, IControllerDataStore & {Admin: AdminViewModel}>
+export default class UserList extends BaseComponent<RouteComponentProps<any>, IControllerDataStore & {Admin: AdminViewModel}>
 {
     //----------------------------------------------------------------------
     //
@@ -56,6 +56,7 @@ class UserList extends BaseComponent<RouteComponentProps<any>, IControllerDataSt
 
     render() {
         return <>
+
             {this.state.Admin.DeletionUser &&
                 <Modal open={this.state.Admin.DeletionUser != null} basic onClose={e => this.controller.closeModal()}>
                     <Modal.Header color="red"><Icon name="remove user"/>Delete User</Modal.Header>
@@ -248,4 +249,4 @@ class UserList extends BaseComponent<RouteComponentProps<any>, IControllerDataSt
 
 }
 
-export default withRouter(UserList);
+//export default withRouter(UserList);

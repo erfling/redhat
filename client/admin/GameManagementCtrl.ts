@@ -126,7 +126,7 @@ export default class GameManagementCtrl extends BaseClientCtrl<IControllerDataSt
     }
 
     public navigateToGameDetail(game: GameModel) {
-        this.navigateOnClick("/admin/gamedetail/" + game._id);
+        this.component.props.history.push("/admin/gamedetail/" + game._id)
     }
 
     public getGame(id: string) {
@@ -215,12 +215,8 @@ export default class GameManagementCtrl extends BaseClientCtrl<IControllerDataSt
             adminLogin: ComponentsVO.AdminLogin
         };
 
-        //if we don't have a user, go to admin login.
-        if (!DataStore.ApplicationState.CurrentUser) {
-            this.ComponentFistma = new FiStMa(compStates, compStates.adminLogin);
-        } else {
-            this.ComponentFistma = new FiStMa(compStates, this.UrlToComponent(this.component.props.location.pathname, compStates));
-        }
+        this.ComponentFistma = new FiStMa(compStates, compStates.adminLogin);
+
         this.ComponentFistma.addTransition(compStates.game);
         this.ComponentFistma.addTransition(compStates.gameList);
         this.ComponentFistma.addTransition(compStates.gamedetail);

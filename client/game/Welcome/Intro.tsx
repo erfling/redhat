@@ -92,7 +92,7 @@ class Intro extends BaseComponent<RouteComponentProps<any>, IRoundDataStore>
                                 marginRight: 'auto',
                                 display: 'block'
                             }}
-                            onClick={e => this.controller.navigateOnClick("/game/welcome/playerlogin")}
+                            onClick={e => this.props.history.push("/game/welcome/playerlogin")}
                         >
                             Login
                                 </Button>

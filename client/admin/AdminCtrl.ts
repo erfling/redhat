@@ -64,14 +64,11 @@ export default class AdminCtrl extends BaseClientCtrl<IControllerDataStore & {Ad
         }
         //otherwise, go where the url tells us. If bad url, go to admin default
         else {
+            this.ComponentFistma = new FiStMa(compStates, compStates.adminLogin);
+
             //console.log("HEY YOU",this.component.props.location);
-            this.ComponentFistma = new FiStMa(compStates, this.UrlToComponent(this.component.props.location.pathname, compStates) || compStates.default);
         }
 
-        this.ComponentFistma.addTransition(compStates.adminLogin);
-        this.ComponentFistma.addTransition(compStates.default);
-        this.ComponentFistma.addTransition(compStates.gameList);
-        this.ComponentFistma.addTransition(compStates.users);
         this.ComponentFistma.onInvalidTransition(() => {
             
         });
@@ -81,10 +78,6 @@ export default class AdminCtrl extends BaseClientCtrl<IControllerDataStore & {Ad
             this.component.forceUpdate();
         })
 
-        this.component.componentDidUpdate = (prevProps, prevState, snapshot) => {
-            console.log("ADMIN DID UPDATE", this.component.props.location.pathname, prevProps.location.pathname, this.component.props.location.pathname == prevProps.location.pathname)
-            this.conditionallyNavigate(this.component.props.location.pathname, prevProps.location.pathname)
-        }
 
         this.dataStore = {
             Admin: DataStore.Admin,

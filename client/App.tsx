@@ -2,7 +2,7 @@ import * as React from "react";
 import { Sidebar, Menu, Button, Icon, Popup, MenuItem, Grid } from 'semantic-ui-react';
 import ApplicationCtrl from './ApplicationCtrl';
 import { RouteComponentProps, withRouter, Switch, Route } from "react-router";
-import { BrowserRouter } from 'react-router-dom'
+import { BrowserRouter, Link } from 'react-router-dom'
 import DataStore from '../shared/base-sapien/client/DataStore'
 import SapienToast from '../shared/base-sapien/client/shared-components/SapienToast'
 import GameCtrl from "./game/GameCtrl";
@@ -11,7 +11,8 @@ import { RoleName, JobName } from '../shared/models/UserModel';
 import BaseComponent from "../shared/base-sapien/client/shared-components/BaseComponent";
 import BaseRoundCtrl from "../shared/base-sapien/client/BaseRoundCtrl";
 import ComponentVO from "../shared/base-sapien/client/ComponentsVO";
-
+import Admin from './admin/Admin';
+import Game from "./game/Game";
 
 class App extends BaseComponent<RouteComponentProps<any>, IControllerDataStore>
 {
@@ -73,11 +74,10 @@ class App extends BaseComponent<RouteComponentProps<any>, IControllerDataStore>
     //
     //----------------------------------------------------------------------
 
-    
+
 
     render() {
-        if (this.state && this.controller.ComponentFistma) {
-            const ComponentFromState: any = this.state.ComponentFistma.currentState
+        if (this.state) {
             return <>
                 {this.state && this.state.ApplicationState.CurrentUser && this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN &&
 
@@ -126,30 +126,23 @@ class App extends BaseComponent<RouteComponentProps<any>, IControllerDataStore>
                                     <Menu.Menu>
                                         <Menu.Item
                                             name='Manage Users'
-                                            onClick={e => {
-                                                e.preventDefault();
-                                                this.controller.navigateOnClick("/admin/userlist")
-                                            }}
-                                        />
+                                        >
+                                            <Link to="/admin/userlist">Manage Users</Link>
+                                        </Menu.Item>
                                         <Menu.Item
                                             name='Manage Games'
-                                            onClick={e => {
-                                                e.preventDefault();
-                                                this.controller.navigateOnClick("/admin/gamelist")
-                                            }}
-                                        />
+                                        >
+                                            <Link to="/admin/gamelist">Manage Games</Link>
+                                        </Menu.Item>
                                         <Menu.Item
                                             name='Edit Game Content'
-                                            onClick={e => {
-                                                e.preventDefault();
-                                                DataStore.GamePlay.IsEditing = true;
-                                                this.controller.navigateOnClick("/game/welcome")
-                                            }}
-                                        />
+                                        >
+                                            <Link to="/game/welcome">Game Content</Link>
+                                        </Menu.Item>
                                     </Menu.Menu>
                                 </Menu.Item>
 
-                                {ComponentFromState && ComponentFromState.WrappedComponent.CLASS_NAME.toUpperCase() == "GAME" && <>
+                                {this.props.location && this.props.location.pathname.toUpperCase().indexOf("GAME") && <>
                                     <Menu.Item>
                                         <Menu.Header>Go to:</Menu.Header>
                                         <Menu.Item
@@ -265,7 +258,7 @@ class App extends BaseComponent<RouteComponentProps<any>, IControllerDataStore>
                                     </Menu.Item>
                                     <Menu.Item>
                                         <Menu.Header>Play As</Menu.Header>
-                                        
+
                                         <MenuItem
                                             name={JobName.IC}
                                             onClick={e => {
@@ -345,15 +338,13 @@ class App extends BaseComponent<RouteComponentProps<any>, IControllerDataStore>
                         className={"source-stream" + (this.state && this.state.ApplicationState.CurrentUser && this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN ? " admin-body" : "")}
                     >
 
-                        <BrowserRouter>
-                            <Route exact path="/" component={Home}/>
-                            <Route path="/news" component={NewsFeed}/>
-                            <ComponentFromState />
-                        </BrowserRouter>
+                        <Route path="/admin" component={Admin} />
+                        <Route path="/game" component={Game} />
+                            
                     </div>
 
                 </div>
-                
+
                 {this.state.ApplicationState.Toasts &&
                     <div className="toast-holder">
                         {this.state.ApplicationState.Toasts.filter(t => !t.Killed).map(t => <SapienToast
@@ -361,12 +352,12 @@ class App extends BaseComponent<RouteComponentProps<any>, IControllerDataStore>
                         />)}
                     </div>
                 }
-                
+
             </>
         } else if (!this.state) {
             return <h2>Loading</h2>
         } else {
-            return <pre>{JSON.stringify(this.state, null, 2)}</pre>
+            return <pre>hey {JSON.stringify(this.state, null, 2)}</pre>
         }
     }
 }

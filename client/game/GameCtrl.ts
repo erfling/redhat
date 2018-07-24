@@ -140,9 +140,9 @@ export default class GameCtrl extends BaseClientCtrl<IControllerDataStore & {Gam
 
             this._childController = this._getTargetController(r.ParentRound);
             console.log("CHILD CONTROLLER IS",this._childController);
+            
 
-            GameCtrl.GetInstance().navigateOnClick("/game/" + r.ParentRound.toLowerCase() + "/" + r.ChildRound.toLowerCase());
-            this._childController.navigateOnClick("/game/" + r.ParentRound.toLowerCase() + "/" + r.ChildRound.toLowerCase());
+            this.component.props.history.push("/game/" + r.ParentRound.toLowerCase() + "/" + r.ChildRound.toLowerCase());
 
             //ApplicationCtrl.GetInstance().addToast("The game is in a new round", "info");
             //ApplicationCtrl.GetInstance().addToast("You're now playing the roll of " + targetJob, "info");

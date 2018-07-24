@@ -61,7 +61,7 @@ export default class WelcomeCtrl extends BaseRoundCtrl<IRoundDataStore>
                 this.dataStore.ApplicationState.CurrentTeam = this.dataStore.ApplicationState.CurrentTeam = Object.assign(new TeamModel(), r.team)
                 this.dataStore.ApplicationState.CurrentUser = this.dataStore.ApplicationState.CurrentUser = Object.assign(new UserModel(), r.user)
 
-                GameCtrl.GetInstance().navigateOnClick("/game/peopleround/priorities");
+                this.component.props.history.push("/game/peopleround/priorities")
                 GameCtrl.GetInstance().pollForGameStateChange(r.team.GameId);
                 GameCtrl.GetInstance().dataStoreChange();
                 return r;
