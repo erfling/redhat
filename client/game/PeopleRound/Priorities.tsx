@@ -12,7 +12,7 @@ import Decisions from '-!svg-react-loader?name=Icon!../../img/decisions.svg';
 const { Button, Grid, Menu, Segment, Form, Dimmer, Loader, Header } = Semantic;
 const { Row, Column } = Grid;
 
-class Priorities extends BaseComponent<RouteComponentProps<any>, IRoundDataStore>
+export default class Priorities extends BaseComponent<RouteComponentProps<any>, IRoundDataStore>
 {
     //----------------------------------------------------------------------
     //
@@ -123,5 +123,3 @@ class Priorities extends BaseComponent<RouteComponentProps<any>, IRoundDataStore
     }
 
 }
-
-export default withRouter(Priorities);

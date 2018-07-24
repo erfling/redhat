@@ -118,7 +118,7 @@ class App extends BaseComponent<RouteComponentProps<any>, IControllerDataStore>
                                 visible={this.state.ApplicationState.ShowMenu}
                                 vertical
                                 inverted
-                                fixed
+                                fixed="left"
                                 className="admin-sidebar"
                             >
                                 <Menu.Item>
@@ -272,8 +272,8 @@ class App extends BaseComponent<RouteComponentProps<any>, IControllerDataStore>
                                                 }))
 
                                                 GameCtrl.GetInstance().dataStoreChange();
-                                                //(GameCtrl.GetInstance().CurrentComponent.controller as BaseRoundCtrl<any>).getContentBySubRound();
-                                                (GameCtrl.GetInstance()._getTargetController((GameCtrl.GetInstance().dataStore.ComponentFistma.currentState as any).WrappedComponent.CLASS_NAME) as any).getContentBySubRound()
+                                                (GameCtrl.GetInstance().ChildController as BaseRoundCtrl<any>).getContentBySubRound();
+                                                //(GameCtrl.GetInstance()._getTargetController((GameCtrl.GetInstance().dataStore.ComponentFistma.currentState as any).WrappedComponent.CLASS_NAME) as any).getContentBySubRound()
                                             }}
                                         />
                                         <MenuItem
@@ -289,8 +289,8 @@ class App extends BaseComponent<RouteComponentProps<any>, IControllerDataStore>
                                                 }))
 
                                                 GameCtrl.GetInstance().dataStoreChange();
-                                                //(GameCtrl.GetInstance().CurrentComponent.controller as BaseRoundCtrl<any>).getContentBySubRound();
-                                                (GameCtrl.GetInstance()._getTargetController((GameCtrl.GetInstance().dataStore.ComponentFistma.currentState as any).WrappedComponent.CLASS_NAME) as any).getContentBySubRound()
+                                                (GameCtrl.GetInstance().ChildController as BaseRoundCtrl<any>).getContentBySubRound();
+
                                             }}
                                         />
                                         <MenuItem
@@ -306,8 +306,8 @@ class App extends BaseComponent<RouteComponentProps<any>, IControllerDataStore>
                                                 }))
 
                                                 GameCtrl.GetInstance().dataStoreChange();
-                                                //(GameCtrl.GetInstance().CurrentComponent.controller as BaseRoundCtrl<any>).getContentBySubRound();
-                                                (GameCtrl.GetInstance()._getTargetController((GameCtrl.GetInstance().dataStore.ComponentFistma.currentState as any).WrappedComponent.CLASS_NAME) as any).getContentBySubRound();
+                                                (GameCtrl.GetInstance().ChildController as BaseRoundCtrl<any>).getContentBySubRound();
+
                                             }}
                                         />
                                         <MenuItem
@@ -321,8 +321,8 @@ class App extends BaseComponent<RouteComponentProps<any>, IControllerDataStore>
                                                     })
                                                 }))
                                                 GameCtrl.GetInstance().dataStoreChange();
-                                                //(GameCtrl.GetInstance().CurrentComponent.controller as BaseRoundCtrl<any>).getContentBySubRound();
-                                                (GameCtrl.GetInstance()._getTargetController((GameCtrl.GetInstance().dataStore.ComponentFistma.currentState as any).WrappedComponent.CLASS_NAME) as any).getContentBySubRound();
+                                                (GameCtrl.GetInstance().ChildController as BaseRoundCtrl<any>).getContentBySubRound();
+
                                             }}
                                         />
                                     </Menu.Item>

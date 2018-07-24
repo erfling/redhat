@@ -113,7 +113,6 @@ class CustomerSub extends BaseComponent<RouteComponentProps<any>, IRoundDataStor
                         Message={this.state.ApplicationState.SelectedMessage}
                     />
                 }
-                }
             </>;
         } else {
             return <Dimmer active>

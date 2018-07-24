@@ -5,6 +5,7 @@ import GameModel from "../../shared/models/GameModel";
 import UserModel, { JobName } from "../../shared/models/UserModel";
 import { Grid, Menu, Button, Segment, Header } from 'semantic-ui-react';
 const { Row, Column } = Grid;
+import { Route } from 'react-router'
 
 import { RouteComponentProps, withRouter } from "react-router";
 import Circles from '-!svg-react-loader?name=Icon!../img/circles.svg';
@@ -15,8 +16,14 @@ import Decisions from '-!svg-react-loader?name=Icon!../img/decisions.svg';
 import Inbox from '-!svg-react-loader?name=Icon!../img/inbox.svg';
 import MessageList from './MessageList'
 import IntroLogo from '-!svg-react-loader?name=Icon!../img/intro-logo.svg';
+import PeopleRound from "./PeopleRound/PeopleRound";
+import Welcome from "./Welcome/Welcome";
+import SalesRound from "./SalesRound/SalesRound";
+import FinanceRound from "./FinanceRound/FinanceRound";
+import EngineeringRound from "./EngineeringRound/EngineeringRound";
+import CustomerRound from "./CustomerRound/CustomerRound";
 
-class Game extends BaseComponent<RouteComponentProps<any>, IControllerDataStore & { Game: GameModel } & { _mobileWidth: boolean }>
+export default class Game extends BaseComponent<RouteComponentProps<any>, IControllerDataStore & { Game: GameModel } & { _mobileWidth: boolean }>
 {
     //----------------------------------------------------------------------
     //
@@ -63,8 +70,6 @@ class Game extends BaseComponent<RouteComponentProps<any>, IControllerDataStore 
             console.log("FOUND LOCATION SEARCH", this.props.location.search);
         }
 
-        this.props.history.push("/game/" + (this.state.ComponentFistma.currentState as any).WrappedComponent.CLASS_NAME.toLowerCase());
-
         this.updateDimensions();
         window.addEventListener("resize", this.updateDimensions.bind(this));
     }
@@ -73,9 +78,8 @@ class Game extends BaseComponent<RouteComponentProps<any>, IControllerDataStore 
     * Calculate & Update state of new dimensions
     */
     updateDimensions() {
-        console.log("updating dimensions", window.outerWidth,this.controller.ComponentFistma.currentState.WrappedComponent.CLASS_NAME)
-        if(this.controller._getTargetController(this.controller.ComponentFistma.currentState.WrappedComponent.CLASS_NAME).dataStore)
-            this.controller.dataStore.ApplicationState.MobileWidth = this.controller._getTargetController(this.controller.ComponentFistma.currentState.WrappedComponent.CLASS_NAME).dataStore.ApplicationState.MobileWidth = window.outerWidth < 767
+        //if(this.controller.ChildController)
+            this.controller.dataStore.ApplicationState.MobileWidth = this.controller.ChildController.dataStore.ApplicationState.MobileWidth = window.outerWidth < 767
     }
 
     /**
@@ -179,8 +183,9 @@ class Game extends BaseComponent<RouteComponentProps<any>, IControllerDataStore 
     }
 
     render() {
-        if (this.state && this.controller.ComponentFistma) {
-            const Rnd = this.controller.ComponentFistma.currentState;
+        const locality = this.props.location ? this.props.location.pathname.toUpperCase() : "";
+
+        if (this.state) {
             return <Grid
                 columns={16}
                 className="game-wrapper"
@@ -206,10 +211,9 @@ class Game extends BaseComponent<RouteComponentProps<any>, IControllerDataStore 
                     }}
                 />
                 <Column mobile={16} tablet={14} computer={14} largeScreen={12}>
-
                     <Grid>
 
-                        {Rnd && Rnd.WrappedComponent.CLASS_NAME != "Welcome" &&
+                        {locality.indexOf("WELCOME") == -1 &&
                             <Column
                                 width={16}                                
                             >
@@ -243,11 +247,16 @@ class Game extends BaseComponent<RouteComponentProps<any>, IControllerDataStore 
                                 </Segment>
                             </div>
                             }
-                            {(!this.controller.dataStore.ApplicationState.ShowMessageList || this.state.ApplicationState.MobileWidth) && 
-                                <Rnd />
-                            }
+                            
+                            <Route path="/game/welcome" component={Welcome} />
+                            <Route path="/game/peopleround" component={PeopleRound} />
+                            <Route path="/game/engineeringround" component={EngineeringRound} />
+                            <Route path="/game/salesround" component={SalesRound} />
+                            <Route path="/game/financeround" component={FinanceRound} />
+                            <Route path="/game/customerround" component={CustomerRound} />
+                            
                         </Column>
-                        {Rnd && Rnd.WrappedComponent.CLASS_NAME != "Welcome" && this.renderGameMenu()}
+                        {locality.indexOf("WELCOME") == -1 && this.renderGameMenu()}
                     </Grid>
                 </Column>
                 {this.state.ApplicationState.CurrentMessages && this.state.ApplicationState.MobileWidth && < div
@@ -271,5 +280,3 @@ class Game extends BaseComponent<RouteComponentProps<any>, IControllerDataStore 
     }
 
 }
-
-export default withRouter(Game);

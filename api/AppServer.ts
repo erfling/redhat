@@ -84,24 +84,42 @@ export class AppServer {
             setInterval( () => { 
                 LP.publish("/sapien/api/gameplay/listenforgameadvance", {test: "might as well try an object for no good reason"})
             }, 5000);
-        */
+        
         AppServer.LongPoll.create("/listenforgameadvance/:gameid", async (req, res, next) => {
             req.id = req.params.gameid;
 
-            console.log(req.query)
 
             const game = await monGameModel.findById(req.id).then(r => r ? Object.assign(new GameModel(), r) : null);
-
+            next();
+            
             if(game){
+               
                if(!game.CurrentRound || !game.CurrentRound.ParentRound){
                    next();
                } else if (!req.query || req.query.ParentRound != game.CurrentRound.ParentRound || req.query.ChildRound != game.CurrentRound.ChildRound){
                    res.json(game.CurrentRound)
+               } else {
+                   next();
                }
             } else {
                 next();
             }
 
+        });*/
+
+        AppServer.app.get("/listenforgameadvance/:gameid", async (req, res, next) => {
+            const gameId = req.params.gameid;
+
+            try{
+                const game = await monGameModel.findById(gameId).then(r => r ? Object.assign(new GameModel(), r.toJSON()) : null);
+                
+                if(game){ 
+                    console.log("FOUND GAME", game)             
+                    res.json(game.CurrentRound)               
+                }
+            } catch(err) {
+                console.log(err)
+            }
         });
 
         //GZIP large resources in production
@@ -187,7 +205,7 @@ export class AppServer {
                     const gameSave = await monGameModel.findByIdAndUpdate(req.params.gameid, { CurrentRound: req.body, HasBeenManager: game.HasBeenManager });
                     if (gameSave) {
                         var mapperydoo = (newMapping && newMapping.ParentRound.length) ? newMapping : oldMapping;
-                        AppServer.LongPoll.publishToId("/listenforgameadvance/:gameid", req.params.gameid, mapperydoo);
+                       // AppServer.LongPoll.publishToId("/listenforgameadvance/:gameid", req.params.gameid, mapperydoo);
                         res.json("long poll publish hit");
                     }
                 }

@@ -5,11 +5,14 @@ import * as Semantic from 'semantic-ui-react';
 import { IRoundDataStore } from '../../../shared/base-sapien/client/BaseRoundCtrl';
 import BaseComponent from "../../../shared/base-sapien/client/shared-components/BaseComponent";
 import GameCtrl from "../GameCtrl";
+import { Route } from 'react-router-dom';
+import Priorities from "./Priorities";
+import Hiring from "./Hiring";
 
 const { Grid, Segment } = Semantic;
 const { Row, Column } = Grid;
 
-class PeopleRound extends BaseComponent<RouteComponentProps<any>, IRoundDataStore>
+export default class PeopleRound extends BaseComponent<RouteComponentProps<any>, IRoundDataStore>
 {
     //----------------------------------------------------------------------
     //
@@ -51,8 +54,6 @@ class PeopleRound extends BaseComponent<RouteComponentProps<any>, IRoundDataStor
 
     render() {
         if (this.state && this.controller.ComponentFistma) {
-            const SubRnd = this.controller.ComponentFistma.currentState;
-
             return <>
                 <Grid>
                     <Column
@@ -67,8 +68,10 @@ class PeopleRound extends BaseComponent<RouteComponentProps<any>, IRoundDataStor
                             <h1>round one: build the team: {this.state.ApplicationState.MobileWidth}</h1>
                         </Row>
                     </Column>
-                    <SubRnd />
-                </Grid>
+                        <Route exact path="/game/peopleround/" component={Priorities} />
+                        <Route path="/game/peopleround/priorities" component={Priorities} />
+                        <Route path="/game/peopleround/hiring" component={Hiring} />                    
+                </Grid> 
             </>
         } else {
             return <Segment loading></Segment>
@@ -76,5 +79,3 @@ class PeopleRound extends BaseComponent<RouteComponentProps<any>, IRoundDataStor
     }
 
 }
-
-export default withRouter(PeopleRound);

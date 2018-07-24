@@ -12,7 +12,7 @@ import Decisions from '-!svg-react-loader?name=Icon!../../img/decisions.svg';
 const { Button, Grid, Form, Dimmer, Loader, Header } = Semantic;
 const { Row, Column } = Grid;
 
-class EngineeringSub extends BaseComponent<RouteComponentProps<any>, IRoundDataStore>
+export default class EngineeringSub extends BaseComponent<RouteComponentProps<any>, IRoundDataStore>
 {
     //----------------------------------------------------------------------
     //
@@ -111,7 +111,6 @@ class EngineeringSub extends BaseComponent<RouteComponentProps<any>, IRoundDataS
                         Message={this.state.ApplicationState.SelectedMessage}
                     />
                 }
-                }
             </>;
         } else {
             return <Dimmer active>
@@ -121,5 +120,3 @@ class EngineeringSub extends BaseComponent<RouteComponentProps<any>, IRoundDataS
     }
 
 }
-
-export default withRouter(EngineeringSub);

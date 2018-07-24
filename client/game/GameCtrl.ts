@@ -32,6 +32,9 @@ export default class GameCtrl extends BaseClientCtrl<IControllerDataStore & {Gam
 
     private _childController: BaseRoundCtrl<any>;
 
+    public ChildController: BaseClientCtrl<any>;
+
+
     //----------------------------------------------------------------------
     //
     //  Constructor
@@ -72,7 +75,9 @@ export default class GameCtrl extends BaseClientCtrl<IControllerDataStore & {Gam
     
     public goToMapping(mapping: Partial<RoundChangeMapping>){
         if ( mapping.ParentRound && mapping.ChildRound ) {
-            SapienServerCom.SaveData(mapping, SapienServerCom.BASE_REST_URL + "facilitation/round/" + this.dataStore.ApplicationState.CurrentTeam.GameId);
+            SapienServerCom.SaveData(mapping, SapienServerCom.BASE_REST_URL + "facilitation/round/" + this.dataStore.ApplicationState.CurrentTeam.GameId).then(r => {
+                console.log("RESPONSE FROM SERVER FROM ROUND ADVANCE POST", r)
+            });
         }
     }
 
@@ -114,7 +119,6 @@ export default class GameCtrl extends BaseClientCtrl<IControllerDataStore & {Gam
     //  Methods
     //
     //----------------------------------------------------------------------
-
     public async pollForGameStateChange(gameId: string){
         if(!this.dataStore.ApplicationState.CurrentTeam)return;
         console.log("polling for game state", this.dataStore.ApplicationState.CurrentTeam)
@@ -126,32 +130,40 @@ export default class GameCtrl extends BaseClientCtrl<IControllerDataStore & {Gam
 
         await SapienServerCom.GetData(null, null, url).then((r: RoundChangeMapping) => {
             //set the team's current location to the new location
-            const team = this.dataStore.ApplicationState.CurrentTeam = JSON.parse(localStorage.getItem("RH_TEAM"));
-            team.CurrentRound = r;
-            localStorage.setItem("RH_TEAM", JSON.stringify(team));
-
-            //console.log("<<<<<<<<<<<<TEAM IS NOW>>>>>>>>>>>>", this.dataStore.ApplicationState.CurrentTeam, JSON.parse(localStorage.getItem("RH_TEAM")));
             console.log("GOT THIS BACK FROM LONG POLL", r);
-            const targetJob = r.UserJobs && r.UserJobs[this.dataStore.ApplicationState.CurrentUser._id] ? r.UserJobs[this.dataStore.ApplicationState.CurrentUser._id] : JobName.IC;
-            console.log("LASER", r);
+            this.component.props.history.push("/game/" + r.ParentRound.toLowerCase() + "/" + r.ChildRound.toLowerCase());
 
-            this.dataStore.ApplicationState.CurrentUser.Job = targetJob;
-            console.log("LASER 2", r);
+            if (this.dataStore.ApplicationState.CurrentTeam.CurrentRound.ParentRound.toUpperCase() != r.ParentRound.toUpperCase()){
+                const team = this.dataStore.ApplicationState.CurrentTeam = JSON.parse(localStorage.getItem("RH_TEAM"));
+                team.CurrentRound = r;
+                localStorage.setItem("RH_TEAM", JSON.stringify(team));
 
+                //console.log("<<<<<<<<<<<<TEAM IS NOW>>>>>>>>>>>>", this.dataStore.ApplicationState.CurrentTeam, JSON.parse(localStorage.getItem("RH_TEAM")));
+                const targetJob = r.UserJobs && r.UserJobs[this.dataStore.ApplicationState.CurrentUser._id] ? r.UserJobs[this.dataStore.ApplicationState.CurrentUser._id] : JobName.IC;
+                console.log("LASER", targetJob);
+
+                this.dataStore.ApplicationState.CurrentUser.Job = targetJob;
+                console.log("LASER 2", targetJob);
+            }
             this._childController = this._getTargetController(r.ParentRound);
             console.log("CHILD CONTROLLER IS",this._childController);
             
 
-            this.component.props.history.push("/game/" + r.ParentRound.toLowerCase() + "/" + r.ChildRound.toLowerCase());
 
             //ApplicationCtrl.GetInstance().addToast("The game is in a new round", "info");
             //ApplicationCtrl.GetInstance().addToast("You're now playing the roll of " + targetJob, "info");
+        
+            //this.pollForGameStateChange(this.dataStore.ApplicationState.CurrentTeam.GameId);
             
-            this.pollForGameStateChange(this.dataStore.ApplicationState.CurrentTeam.GameId);
+            setTimeout(() => {
+                this.pollForGameStateChange.bind(this)(this.dataStore.ApplicationState.CurrentTeam.GameId);
+            }, 2000);
+            
         }).catch(() => {
             setTimeout(() => {
                 this.pollForGameStateChange.bind(this)(this.dataStore.ApplicationState.CurrentTeam.GameId);
             }, 2000);
+            
         })
     }
 

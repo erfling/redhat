@@ -1,15 +1,18 @@
 import * as React from "react";
 import FinanceRoundCtrl from "./FinanceRoundCtrl";
-import { withRouter, RouteComponentProps } from 'react-router-dom';
+import { withRouter, RouteComponentProps, Route } from 'react-router-dom';
 import * as Semantic from 'semantic-ui-react';
 import { IRoundDataStore } from '../../../shared/base-sapien/client/BaseRoundCtrl';
 import BaseComponent from "../../../shared/base-sapien/client/shared-components/BaseComponent";
 import GameCtrl from "../GameCtrl";
+import Pricing from "./Pricing";
+import AcquisitionStructure from "./AcquisitionStructure";
+import Bid from "./Bid";
 
 const { Grid, Segment } = Semantic;
 const { Row, Column } = Grid;
 
-class FinanceRound extends BaseComponent<RouteComponentProps<any>, IRoundDataStore>
+export default class FinanceRound extends BaseComponent<RouteComponentProps<any>, IRoundDataStore>
 {
     //----------------------------------------------------------------------
     //
@@ -51,7 +54,6 @@ class FinanceRound extends BaseComponent<RouteComponentProps<any>, IRoundDataSto
 
     render() {
         if (this.state && this.controller.ComponentFistma) {
-            const SubRnd = this.controller.ComponentFistma.currentState;
 
             return <>
                 <Grid>
@@ -67,7 +69,12 @@ class FinanceRound extends BaseComponent<RouteComponentProps<any>, IRoundDataSto
                             <h1>round four: finance</h1>
                         </Row>
                     </Column>
-                    <SubRnd />
+
+                    <Route path="/game/financeround" component={Pricing} />
+                    <Route path="/game/financeround/Pricing" component={Pricing} />
+                    <Route path="/game/financeround/Bid" component={Bid} />                
+                    <Route path="/game/financeround/AcquisitionStructure" component={AcquisitionStructure} />
+
                 </Grid>
             </>
         } else {
@@ -77,5 +84,3 @@ class FinanceRound extends BaseComponent<RouteComponentProps<any>, IRoundDataSto
 
 
 }
-
-export default withRouter(FinanceRound);

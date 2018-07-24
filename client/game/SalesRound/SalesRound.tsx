@@ -1,15 +1,17 @@
 import * as React from "react";
 import SalesRoundCtrl from "./SalesRoundCtrl";
-import { withRouter, RouteComponentProps } from 'react-router-dom';
+import { withRouter, RouteComponentProps, Route } from 'react-router-dom';
 import * as Semantic from 'semantic-ui-react';
 import { IRoundDataStore } from '../../../shared/base-sapien/client/BaseRoundCtrl';
 import BaseComponent from "../../../shared/base-sapien/client/shared-components/BaseComponent";
 import GameCtrl from "../GameCtrl";
+import DealRenewal from "./DealRenewal";
+import DealStructure from "./DealStructure";
 
 const { Grid, Segment } = Semantic;
 const { Row, Column } = Grid;
 
-class SalesRound extends BaseComponent<RouteComponentProps<any>, IRoundDataStore>
+export default class SalesRound extends BaseComponent<RouteComponentProps<any>, IRoundDataStore>
 {
     //----------------------------------------------------------------------
     //
@@ -51,7 +53,6 @@ class SalesRound extends BaseComponent<RouteComponentProps<any>, IRoundDataStore
 
     render() {
         if (this.state && this.controller.ComponentFistma) {
-            const SubRnd = this.controller.ComponentFistma.currentState;
 
             return <>
                 <Grid>
@@ -67,7 +68,11 @@ class SalesRound extends BaseComponent<RouteComponentProps<any>, IRoundDataStore
                             <h1>round three: make the sale</h1>
                         </Row>
                     </Column>
-                    <SubRnd />
+
+                    <Route path="/game/salesrounds" component={DealStructure} />
+                    <Route path="/game/salesrounds/DealStructure" component={DealStructure} />
+                    <Route path="/game/salesrounds/DealRenewal" component={DealRenewal} />
+
                 </Grid>
             </>
         } else {
@@ -76,5 +81,3 @@ class SalesRound extends BaseComponent<RouteComponentProps<any>, IRoundDataStore
     }
 
 }
-
-export default withRouter(SalesRound);

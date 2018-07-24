@@ -8,7 +8,7 @@ import IntroLogo from '-!svg-react-loader?name=Icon!../../img/intro-logo.svg';
 import { IRoundDataStore } from "../../../shared/base-sapien/client/BaseRoundCtrl";
 import BaseComponent from "../../../shared/base-sapien/client/shared-components/BaseComponent";
 
-class PlayerLogin extends BaseComponent<RouteComponentProps<any>, IRoundDataStore>
+export default class PlayerLogin extends BaseComponent<RouteComponentProps<any>, IRoundDataStore>
 {
     //----------------------------------------------------------------------
     //
@@ -52,6 +52,7 @@ class PlayerLogin extends BaseComponent<RouteComponentProps<any>, IRoundDataStor
     render() {
         if (this.state) {
             return <>
+            <h1>Login</h1>
                 <Column width={16}>
                     <Grid>
                         <Column mobile={16} tablet={12} computer={8} largeScreen={6} 
@@ -112,5 +113,3 @@ class PlayerLogin extends BaseComponent<RouteComponentProps<any>, IRoundDataStor
     }
 
 }
-
-export default withRouter(PlayerLogin);

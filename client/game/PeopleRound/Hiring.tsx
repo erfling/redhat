@@ -12,7 +12,7 @@ import BaseComponent from "../../../shared/base-sapien/client/shared-components/
 const { Button, Grid, Menu, Segment, Form, Dimmer, Loader, Header } = Semantic;
 const { Row, Column } = Grid;
 
-class Hiring extends BaseComponent<RouteComponentProps<any>, IRoundDataStore>
+export default class Hiring extends BaseComponent<RouteComponentProps<any>, IRoundDataStore>
 {
     //----------------------------------------------------------------------
     //
@@ -121,5 +121,3 @@ class Hiring extends BaseComponent<RouteComponentProps<any>, IRoundDataStore>
     }
 
 }
-
-export default withRouter(Hiring);

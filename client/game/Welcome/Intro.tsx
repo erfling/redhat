@@ -1,7 +1,7 @@
 import * as React from "react";
 import WelcomeCtrl from "./WelcomeCtrl";
 import { RoleName } from "../../../shared/models/UserModel";
-import { withRouter, RouteComponentProps } from 'react-router-dom';
+import { withRouter, RouteComponentProps, Link } from 'react-router-dom';
 import EditableContentBlock from '../../../shared/base-sapien/client/shared-components/EditableContentBlock';
 import * as Semantic from 'semantic-ui-react';
 const { Button, Grid, Menu, Segment, Form, Dimmer, Loader, Header } = Semantic;
@@ -11,7 +11,7 @@ import BaseComponent from "../../../shared/base-sapien/client/shared-components/
 
 import IntroLogo from '-!svg-react-loader?name=Icon!../../img/intro-logo.svg';
 
-class Intro extends BaseComponent<RouteComponentProps<any>, IRoundDataStore>
+export default class Intro extends BaseComponent<RouteComponentProps<any>, IRoundDataStore>
 {
     //----------------------------------------------------------------------
     //
@@ -54,13 +54,12 @@ class Intro extends BaseComponent<RouteComponentProps<any>, IRoundDataStore>
 
     render() {
         const thisSubRound = this.state.Round.SubRounds.filter(s => s.Name.toUpperCase() == Intro.CLASS_NAME.toUpperCase())[0]
-
         if (this.state) {
             return <>
                 <Column>
                     <Row>
                         <Header
-                            as='h3'
+                            as='h1'
                         >
                             welcome to
                         </Header>
@@ -84,6 +83,7 @@ class Intro extends BaseComponent<RouteComponentProps<any>, IRoundDataStore>
                     <Row
                         centered
                     >
+                    <Link to="/game/welcome/playerlogin">
                         <Button
                             color="blue"
                             size='huge'
@@ -96,6 +96,7 @@ class Intro extends BaseComponent<RouteComponentProps<any>, IRoundDataStore>
                         >
                             Login
                                 </Button>
+                        </Link>
                     </Row>
                 </Column>
 
@@ -109,7 +110,6 @@ class Intro extends BaseComponent<RouteComponentProps<any>, IRoundDataStore>
 
 }
 
-export default withRouter(Intro);
   /*                    <pre>{JSON.stringify(this.state, null, 2)}</pre>
 
                                 <Button

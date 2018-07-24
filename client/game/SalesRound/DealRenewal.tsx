@@ -12,7 +12,7 @@ import Decisions from '-!svg-react-loader?name=Icon!../../img/decisions.svg';
 const { Button, Grid, Form, Dimmer, Loader, Header } = Semantic;
 const { Row, Column } = Grid;
 
-class DealRenewal extends BaseComponent<RouteComponentProps<any>, IRoundDataStore>
+export default class DealRenewal extends BaseComponent<RouteComponentProps<any>, IRoundDataStore>
 {
     //----------------------------------------------------------------------
     //
@@ -112,7 +112,6 @@ class DealRenewal extends BaseComponent<RouteComponentProps<any>, IRoundDataStor
                         Message={this.state.ApplicationState.SelectedMessage}
                     />
                 }
-                }
             </>;
         } else {
             return <Dimmer active>
@@ -122,5 +121,3 @@ class DealRenewal extends BaseComponent<RouteComponentProps<any>, IRoundDataStor
     }
 
 }
-
-export default withRouter(DealRenewal);

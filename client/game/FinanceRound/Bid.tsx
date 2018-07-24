@@ -12,7 +12,7 @@ import Decisions from '-!svg-react-loader?name=Icon!../../img/decisions.svg';
 const { Button, Grid, Form, Dimmer, Loader, Header } = Semantic;
 const { Row, Column } = Grid;
 
-class Bid extends BaseComponent<RouteComponentProps<any>, IRoundDataStore>
+export default class Bid extends BaseComponent<RouteComponentProps<any>, IRoundDataStore>
 {
     //----------------------------------------------------------------------
     //
@@ -121,5 +121,3 @@ class Bid extends BaseComponent<RouteComponentProps<any>, IRoundDataStore>
     }
 
 }
-
-export default withRouter(Bid);

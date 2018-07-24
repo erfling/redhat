@@ -1,15 +1,19 @@
 import * as React from "react";
 import WelcomeCtrl from "./WelcomeCtrl";
-import { withRouter, RouteComponentProps } from 'react-router-dom';
+import { withRouter, RouteComponentProps , Redirect} from 'react-router-dom';
 import * as Semantic from 'semantic-ui-react';
 import { IRoundDataStore } from '../../../shared/base-sapien/client/BaseRoundCtrl';
 import BaseComponent from "../../../shared/base-sapien/client/shared-components/BaseComponent";
 import GameCtrl from "../GameCtrl";
+import { Route } from 'react-router'; 
+import Intro from "./Intro";
+import PlayerLogin from "./PlayerLogin";
+
 
 const { Button, Grid, Menu, Segment } = Semantic;
 const { Row, Column } = Grid;
 
-class Welcome extends BaseComponent<RouteComponentProps<any>, IRoundDataStore>
+export default class Welcome extends BaseComponent<RouteComponentProps<any>, IRoundDataStore>
 {
     //----------------------------------------------------------------------
     //
@@ -50,12 +54,13 @@ class Welcome extends BaseComponent<RouteComponentProps<any>, IRoundDataStore>
 
     render() {
         if (this.state && this.controller.ComponentFistma) {
-            const SubRnd = this.controller.ComponentFistma.currentState;
 
             return <>
-                <Column mobile={16} tablet={12} computer={8} largeScreen={6} >
+                <Column mobile={16} tablet={12} computer={8} largeScreen={6}>
                     <Grid>
-                        <SubRnd />
+                        <Route exact path="/game/welcome/" component={Intro} />
+                        <Route path="/game/welcome/intro" component={Intro} />
+                        <Route path="/game/welcome/playerlogin" component={PlayerLogin} />                    
                     </Grid>
                 </Column>
             </>
@@ -65,5 +70,3 @@ class Welcome extends BaseComponent<RouteComponentProps<any>, IRoundDataStore>
     }
 
 }
-
-export default withRouter(Welcome);

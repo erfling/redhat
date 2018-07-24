@@ -1,10 +1,11 @@
 import * as React from "react";
 import CustomerRoundCtrl from "./CustomerRoundCtrl";
-import { withRouter, RouteComponentProps } from 'react-router-dom';
+import { withRouter, RouteComponentProps, Route } from 'react-router-dom';
 import * as Semantic from 'semantic-ui-react';
 import { IRoundDataStore } from '../../../shared/base-sapien/client/BaseRoundCtrl';
 import BaseComponent from "../../../shared/base-sapien/client/shared-components/BaseComponent";
 import GameCtrl from "../GameCtrl";
+import CustomerSub from "./CustomerSub";
 
 const { Grid, Segment } = Semantic;
 const { Row, Column } = Grid;
@@ -51,7 +52,6 @@ class CustomerRound extends BaseComponent<RouteComponentProps<any>, IRoundDataSt
 
     render() {
         if (this.state && this.controller.ComponentFistma) {
-            const SubRnd = this.controller.ComponentFistma.currentState;
 
             return <>
                 <Grid>
@@ -67,7 +67,8 @@ class CustomerRound extends BaseComponent<RouteComponentProps<any>, IRoundDataSt
                             <h1>round five: customer round</h1>
                         </Row>
                     </Column>
-                    <SubRnd />
+                    <Route path="/game/customerround" component={CustomerSub} />
+                    <Route path="/game/customerround/customersub" component={CustomerSub} />                          
                 </Grid>
             </>
         } else {

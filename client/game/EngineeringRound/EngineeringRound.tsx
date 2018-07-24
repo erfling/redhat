@@ -1,10 +1,11 @@
 import * as React from "react";
 import EngineeringRoundCtrl from "./EngineeringRoundCtrl";
 import * as Semantic from 'semantic-ui-react';
-import { withRouter, RouteComponentProps } from "react-router";
+import { withRouter, RouteComponentProps, Route } from "react-router";
 import { IRoundDataStore } from '../../../shared/base-sapien/client/BaseRoundCtrl';
 import BaseComponent from "../../../shared/base-sapien/client/shared-components/BaseComponent";
 import GameCtrl from "../GameCtrl";
+import EngineeringSub from "./EngineeringSub";
 
 const { Button, Grid, Menu, Segment, Loader } = Semantic;
 const { Row, Column } = Grid;
@@ -51,7 +52,6 @@ class EngineeringRound extends BaseComponent<RouteComponentProps<any>, IRoundDat
     // 
     render() {
         if (this.state && this.controller.ComponentFistma) {
-            const SubRnd = this.controller.ComponentFistma.currentState;
 
             return <>
                  <Grid>
@@ -67,7 +67,8 @@ class EngineeringRound extends BaseComponent<RouteComponentProps<any>, IRoundDat
                             <h1>round two: build the solution</h1>
                         </Row>
                     </Column>
-                    <SubRnd />
+                    <Route path="/game/engineeringround" component={EngineeringSub} />
+                    <Route path="/game/engineeringround/engineeringsub" component={EngineeringSub} />                
                 </Grid>
             </>
         } else {
