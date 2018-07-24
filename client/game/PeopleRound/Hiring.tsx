@@ -7,11 +7,12 @@ import EditableQuestionBlock from '../../../shared/base-sapien/client/shared-com
 import * as Semantic from 'semantic-ui-react';
 import { IRoundDataStore } from '../../../shared/base-sapien/client/BaseRoundCtrl';
 import Decisions from '-!svg-react-loader?name=Icon!../../img/decisions.svg';
+import BaseComponent from "../../../shared/base-sapien/client/shared-components/BaseComponent";
 
 const { Button, Grid, Menu, Segment, Form, Dimmer, Loader, Header } = Semantic;
 const { Row, Column } = Grid;
 
-class Hiring extends React.Component<RouteComponentProps<any>, IRoundDataStore>
+class Hiring extends BaseComponent<RouteComponentProps<any>, IRoundDataStore>
 {
     //----------------------------------------------------------------------
     //

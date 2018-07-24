@@ -5,8 +5,9 @@ import { RouteComponentProps, withRouter} from "react-router";
 import AdminCtrl from './AdminCtrl';
 import AdminViewModel from '../../shared/models/AdminViewModel';
 import { IControllerDataStore } from "../../shared/base-sapien/client/BaseClientCtrl";
+import BaseComponent from "../../shared/base-sapien/client/shared-components/BaseComponent";
 
-class Admin extends React.Component<RouteComponentProps<any>, IControllerDataStore & {Admin: AdminViewModel} >
+class Admin extends BaseComponent<RouteComponentProps<any>, IControllerDataStore & {Admin: AdminViewModel} >
 {
     //----------------------------------------------------------------------
     //

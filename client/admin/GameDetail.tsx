@@ -53,7 +53,6 @@ class GameDetail extends BaseComponent<RouteComponentProps<any>, IControllerData
 
     componentDidMount() {
         super.componentDidMount();
-        this.controller.navigateOnClick(this.props.location.pathname);
         this.controller.getAllGames();
         this.controller.getAllUsers();
 
