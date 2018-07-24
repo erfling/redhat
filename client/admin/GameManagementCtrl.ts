@@ -208,7 +208,6 @@ export default class GameManagementCtrl extends BaseClientCtrl<IControllerDataSt
 
     protected _setUpFistma(reactComp: Component) {
         this.component = reactComp;
-        this.CurrentLocation = this.component.props.location.pathname;
         var compStates = {
             gameList: ComponentsVO.GameList,
             gamedetail: ComponentsVO.GameDetail,
