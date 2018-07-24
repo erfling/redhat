@@ -19,7 +19,7 @@ export default class AcquisitionStructure extends BaseComponent<any, IRoundDataS
     //
     //----------------------------------------------------------------------
 
-    public static CLASS_NAME = "AcquisitionStructure";
+    public readonly CLASS_NAME = "AcquisitionStructure";
 
     public static CONTROLLER = FinanceRoundCtrl;
 

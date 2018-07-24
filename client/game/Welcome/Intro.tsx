@@ -18,7 +18,7 @@ export default class Intro extends BaseComponent<any, IRoundDataStore>
     //
     //----------------------------------------------------------------------
 
-    public static CLASS_NAME = "Intro";
+    public readonly CLASS_NAME = "Intro";
 
     public static CONTROLLER = WelcomeCtrl;
     

@@ -18,9 +18,9 @@ export default class GameDetail extends BaseComponent<any, IControllerDataStore 
     //
     //----------------------------------------------------------------------
 
-    public static CLASS_NAME = "GameDetail"; //alias for navigation
-
     public static CONTROLLER = GameManagementCtrl;
+
+    public readonly CLASS_NAME = "GameDetail";
 
     controller: GameManagementCtrl = GameManagementCtrl.GetInstance(this);
 
@@ -32,7 +32,6 @@ export default class GameDetail extends BaseComponent<any, IControllerDataStore 
 
     constructor(props: any) {
         super(props);
-
         this.state = this.controller.dataStore;
     }
 

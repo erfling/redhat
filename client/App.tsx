@@ -16,7 +16,7 @@ export default class App extends BaseComponent<any, IControllerDataStore>
     //
     //----------------------------------------------------------------------
 
-    public static CLASS_NAME = "App";
+    public readonly CLASS_NAME = "App";
 
     public static CONTROLLER = ApplicationCtrl;
 

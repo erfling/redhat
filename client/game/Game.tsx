@@ -23,7 +23,7 @@ export default class Game extends BaseComponent<any, IControllerDataStore & { Ga
     //
     //----------------------------------------------------------------------
 
-    public static CLASS_NAME = "Game";
+    public readonly CLASS_NAME = "Game";
 
     public static CONTROLLER = GameCtrl;
 

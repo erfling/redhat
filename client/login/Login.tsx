@@ -12,7 +12,7 @@ export default class Login extends BaseComponent<any, IControllerDataStore>
     //
     //----------------------------------------------------------------------
 
-    public static CLASS_NAME = "Login";
+    public readonly CLASS_NAME = "Login";
     
     public static CONTROLLER = LoginCtrl;
     

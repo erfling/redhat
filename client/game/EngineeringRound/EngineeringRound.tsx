@@ -16,7 +16,7 @@ export default class EngineeringRound extends BaseComponent<any, IRoundDataStore
     //
     //----------------------------------------------------------------------
 
-    public static CLASS_NAME = "EngineeringRound";
+    public readonly CLASS_NAME = "EngineeringRound";
 
     public static CONTROLLER = EngineeringRoundCtrl;
     

@@ -14,7 +14,7 @@ export default class AdminLogin extends BaseComponent<any, IControllerDataStore>
     //
     //----------------------------------------------------------------------
 
-    public static CLASS_NAME = "Admin";
+    public readonly CLASS_NAME = "Admin";
 
     public static CONTROLLER = LoginCtrl;
     

@@ -19,7 +19,7 @@ export default class DealStructure extends BaseComponent<any, IRoundDataStore>
     //
     //----------------------------------------------------------------------
 
-    public static CLASS_NAME = "DealStructure";
+    public readonly CLASS_NAME = "DealStructure";
 
     public static CONTROLLER = SalesRoundCtrl;
 

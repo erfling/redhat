@@ -19,7 +19,7 @@ export default class Priorities extends BaseComponent<any, IRoundDataStore>
     //
     //----------------------------------------------------------------------
 
-    public static CLASS_NAME = "Priorities";
+    public readonly CLASS_NAME = "Priorities";
 
     public static CONTROLLER = PeopleRoundCtrl;
 

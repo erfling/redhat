@@ -13,10 +13,10 @@ export default class Admin extends BaseComponent<any, IControllerDataStore & {Ad
     //  Properties
     //
     //----------------------------------------------------------------------
-    
-    public static CLASS_NAME = "Admin";
 
     public static CONTROLLER = AdminCtrl;
+
+    public readonly CLASS_NAME = "Admin";
 
     controller: AdminCtrl = AdminCtrl.GetInstance(this);
 

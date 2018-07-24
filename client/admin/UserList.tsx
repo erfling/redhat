@@ -16,7 +16,7 @@ export default class UserList extends BaseComponent<any, IControllerDataStore & 
     //
     //----------------------------------------------------------------------
 
-    public static CLASS_NAME = "UserList";
+    public readonly CLASS_NAME = "UserList";
 
     public static CONTROLLER = UserManagementCtrl;
     

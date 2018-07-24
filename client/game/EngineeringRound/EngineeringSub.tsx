@@ -19,7 +19,7 @@ export default class EngineeringSub extends BaseComponent<any, IRoundDataStore>
     //
     //----------------------------------------------------------------------
 
-    public static CLASS_NAME = "EngineeringSub";
+    public readonly CLASS_NAME = "EngineeringSub";
 
     public static CONTROLLER = EngineeringRoundCtrl;
 

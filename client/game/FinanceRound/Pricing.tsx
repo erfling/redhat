@@ -19,7 +19,7 @@ export default class Pricing extends BaseComponent<any, IRoundDataStore>
     //
     //----------------------------------------------------------------------
 
-    public static CLASS_NAME = "Pricing";
+    public readonly CLASS_NAME = "Pricing";
 
     public static CONTROLLER = FinanceRoundCtrl;
 

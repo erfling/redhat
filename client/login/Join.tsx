@@ -14,7 +14,7 @@ export default class Join extends BaseComponent<any, IControllerDataStore>
     //
     //----------------------------------------------------------------------
 
-    public static CLASS_NAME = "Join";
+    public readonly CLASS_NAME = "Join";
 
     public static CONTROLLER = LoginCtrl;
     

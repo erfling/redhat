@@ -16,7 +16,7 @@ export default class SalesRound extends BaseComponent<any, IRoundDataStore>
     //
     //----------------------------------------------------------------------
     
-    public static CLASS_NAME = "SalesRound";
+    public readonly CLASS_NAME = "SalesRound";
 
     public static CONTROLLER = SalesRoundCtrl;
     

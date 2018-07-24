@@ -16,7 +16,7 @@ export default class PeopleRound extends BaseComponent<any, IRoundDataStore>
     //
     //----------------------------------------------------------------------
 
-    public static CLASS_NAME = "PeopleRound";
+    public readonly CLASS_NAME = "PeopleRound";
 
     public static CONTROLLER = PeopleRoundCtrl;
 

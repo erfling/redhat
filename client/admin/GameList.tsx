@@ -16,7 +16,7 @@ export default class GameList extends BaseComponent<any, IControllerDataStore & 
     //
     //----------------------------------------------------------------------
 
-    public static CLASS_NAME = "GameList"; //alias for navigation
+    public readonly CLASS_NAME = "GameList"; //alias for navigation
     
     public static CONTROLLER = GameManagementCtrl;
     

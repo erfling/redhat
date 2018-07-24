@@ -16,7 +16,7 @@ export default class FinanceRound extends BaseComponent<any, IRoundDataStore>
     //
     //----------------------------------------------------------------------
     
-    public static CLASS_NAME = "FinanceRound";
+    public readonly CLASS_NAME = "FinanceRound";
 
     public static CONTROLLER = FinanceRoundCtrl;
     

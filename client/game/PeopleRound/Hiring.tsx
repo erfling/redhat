@@ -19,7 +19,7 @@ export default class Hiring extends BaseComponent<any, IRoundDataStore>
     //
     //----------------------------------------------------------------------
 
-    public static CLASS_NAME = "Hiring";
+    public readonly CLASS_NAME = "Hiring";
 
     public static CONTROLLER = PeopleRoundCtrl;
 

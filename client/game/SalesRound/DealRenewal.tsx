@@ -19,7 +19,7 @@ export default class DealRenewal extends BaseComponent<any, IRoundDataStore>
     //
     //----------------------------------------------------------------------
 
-    public static CLASS_NAME = "DealRenewal";
+    public readonly CLASS_NAME = "DealRenewal";
 
     public static CONTROLLER = SalesRoundCtrl;
 

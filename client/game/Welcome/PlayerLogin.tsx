@@ -15,7 +15,7 @@ export default class PlayerLogin extends BaseComponent<any, IRoundDataStore>
     //
     //----------------------------------------------------------------------
 
-    public static CLASS_NAME = "PlayerLogin";
+    public readonly CLASS_NAME = "PlayerLogin";
 
     public static CONTROLLER = WelcomeCtrl;
     

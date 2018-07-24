@@ -19,7 +19,7 @@ export default class Bid extends BaseComponent<any, IRoundDataStore>
     //
     //----------------------------------------------------------------------
 
-    public static CLASS_NAME = "Bid";
+    public readonly CLASS_NAME = "Bid";
 
     public static CONTROLLER = FinanceRoundCtrl;
 
