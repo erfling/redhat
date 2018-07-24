@@ -338,6 +338,7 @@ export default class App extends BaseComponent<RouteComponentProps<any>, IContro
                     <div
                         className={"source-stream" + (this.state && this.state.ApplicationState.CurrentUser && this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN ? " admin-body" : "")}
                     >
+                        <h1>test</h1>
                         <Route exact path="/" component={Game} />
                         <Route path="/admin" component={Admin} />
                         <Route path="/game" component={Game} />
