@@ -111,7 +111,7 @@ module.exports = {
         algorithm: 'gzip',
         test: /\.js$|/,
         minRatio: 0.8,
-        deleteOriginalAssets: true,
+        deleteOriginalAssets: false,
         filename: (filename) => {
           console.log("FILE IS", filename)
           return filename;

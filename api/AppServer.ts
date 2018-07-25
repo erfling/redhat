@@ -126,13 +126,6 @@ export class AppServer {
                     console.log("GZIP ON: ", req.url)
                     next();
                 })
-                .get('*.html', function (req, res, next) {
-                    req.url = req.url + '.gz';
-                    res.set('Content-Encoding', 'gzip');
-                    res.set('Content-Type', 'text/html');
-                    console.log("GZIP ON: ", req.url)
-                    next();
-                })
         }
         AppServer.app.get("/listenforgameadvance/:gameid", async (req, res, next) => {
             const gameId = req.params.gameid;
