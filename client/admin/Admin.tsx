@@ -10,6 +10,7 @@ import BaseComponent from "../../shared/base-sapien/client/shared-components/Bas
 import UserList from "./UserList";
 import GameList from "./GameList";
 import { RoleName } from "../../shared/models/UserModel";
+import GameDetail from "./GameDetail";
 
 export default class Admin extends BaseComponent<RouteComponentProps<any>, IControllerDataStore & {Admin: AdminViewModel} >
 {
@@ -62,7 +63,8 @@ export default class Admin extends BaseComponent<RouteComponentProps<any>, ICont
                         <Redirect to="/login/admin"/>
                     }
                     <Route path="/admin/userlist" component={UserList} />
-                    <Route path="/admin/gamelist" component={GameList} />
+                    <Route exact path="/admin/gamelist" component={GameList} />
+                    <Route exact path="/admin/gamedetail/:gameid" component={GameDetail} />
                     <Redirect exact from="/admin" to="/admin/userlist"/>
 
                 </Switch>

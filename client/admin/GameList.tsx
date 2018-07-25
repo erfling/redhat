@@ -1,13 +1,14 @@
 import * as React from "react";
 import { Grid, Table, Modal, Button, Segment, Label, Header, Icon, Form, Input, Dropdown, Popup } from 'semantic-ui-react';
 const { Row, Column } = Grid;
-import { RouteComponentProps, withRouter } from "react-router";
+import { RouteComponentProps, withRouter, Redirect } from "react-router";
 import GameManagementCtrl from './GameManagementCtrl';
 import AdminViewModel from '../../shared/models/AdminViewModel';
 import UserModel from "../../shared/models/UserModel";
 import {IControllerDataStore} from '../../shared/base-sapien/client/BaseClientCtrl';
 import GameModal from './GameModal'
 import BaseComponent from "../../shared/base-sapien/client/shared-components/BaseComponent";
+import { Link } from "react-router-dom";
 
 class GameList extends BaseComponent<RouteComponentProps<any>, IControllerDataStore & {Admin: AdminViewModel, ShowGameModal: boolean}>
 {
@@ -112,8 +113,12 @@ class GameList extends BaseComponent<RouteComponentProps<any>, IControllerDataSt
                                             color="blue"
                                             circular
                                             icon='info'
-                                            onClick={e => this.controller.navigateToGameDetail(g)}
-                                        ></Button>}
+                                            onClick={e => {
+                                                this.controller.navigateToGameDetail(g);
+                                                <Redirect to={'/admin/gamedetail/' + g._id} />
+                                            }}
+                                        >
+                                        </Button>}
                                         header="Game Details"
                                         content="Add teams, players, etc."
                                     />
