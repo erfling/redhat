@@ -61,9 +61,10 @@ export default class Admin extends BaseComponent<RouteComponentProps<any>, ICont
                     {!this.state.ApplicationState.CurrentUser || this.state.ApplicationState.CurrentUser.Role != RoleName.ADMIN &&
                         <Redirect to="/login/admin"/>
                     }
-                    <Redirect from="/admin" to="/admin/userlist"/>
-                    <Route exact path="/admin/userlist" component={UserList} />
-                    <Route exact path="/admin/gamelist" component={GameList} />
+                    <Route path="/admin/userlist" component={UserList} />
+                    <Route path="/admin/gamelist" component={GameList} />
+                    <Redirect exact from="/admin" to="/admin/userlist"/>
+
                 </Switch>
             </>;
         }
