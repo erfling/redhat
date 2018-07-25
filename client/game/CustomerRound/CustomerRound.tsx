@@ -50,6 +50,15 @@ class CustomerRound extends BaseComponent<RouteComponentProps<any>, IRoundDataSt
     //
     //----------------------------------------------------------------------
 
+    componentDidMount(){
+        super.componentDidMount();
+        if(this.props.location && this.props.location.pathname && this.props.location.pathname.toLocaleUpperCase().indexOf("GAME") != -1){
+            GameCtrl.GetInstance().ChildController = this.controller;
+            GameCtrl.GetInstance().dataStoreDeepProxy.addOnChange(this.controller.dataStoreChange.bind(this.controller))
+            console.log("BASE CONTROLLER IN BASE COMPONENT IS:", (GameCtrl.GetInstance().ChildController));
+        }
+    }
+    
     render() {
         if (this.state && this.controller.ComponentFistma) {
 
