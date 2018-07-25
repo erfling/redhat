@@ -51,6 +51,7 @@ export default class PeopleRound extends BaseComponent<RouteComponentProps<any>,
     //  Methods
     //
     //----------------------------------------------------------------------
+    
     componentDidMount(){
         super.componentDidMount();
         if(this.props.location && this.props.location.pathname && this.props.location.pathname.toLocaleUpperCase().indexOf("GAME") != -1){
