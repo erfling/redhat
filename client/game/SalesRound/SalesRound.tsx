@@ -80,7 +80,7 @@ export default class SalesRound extends BaseComponent<any, IRoundDataStore>
                     <Switch>
                         <Route path="/game/salesround/dealstructure" component={DealStructure} />
                         <Route path="/game/salesround/dealrenewal" component={DealRenewal} />
-                        <Redirect from="/game/salesround" to="/game/salesround/dealstructure" />
+                        <Redirect exact from="/game/salesround" to="/game/salesround/dealstructure" />
                     </Switch>
                 </Grid>
             </>

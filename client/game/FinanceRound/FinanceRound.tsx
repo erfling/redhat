@@ -79,10 +79,10 @@ export default class FinanceRound extends BaseComponent<any, IRoundDataStore>
                         </Row>
                     </Column>
                     <Switch>
-                        <Route path="/game/financeround/Pricing" component={Pricing} />
-                        <Route path="/game/financeround/Bid" component={Bid} />                
-                        <Route path="/game/financeround/AcquisitionStructure" component={AcquisitionStructure} />
-                        <Redirect exact from="/game/financeround" to="/game/financeround/Pricing" />
+                        <Route path="/game/financeround/pricing" component={Pricing} />
+                        <Route path="/game/financeround/bid" component={Bid} />                
+                        <Route path="/game/financeround/acquisitionstructure" component={AcquisitionStructure} />
+                        <Redirect exact from="/game/financeround" to="/game/financeround/pricing" />
                     </Switch>
 
                 </Grid>
