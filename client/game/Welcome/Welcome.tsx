@@ -60,9 +60,10 @@ export default class Welcome extends BaseComponent<RouteComponentProps<any>, IRo
                     <Grid>
                         <h1>IN WELCOME</h1>
                         <Switch>
-                            <Redirect exact from="/game/welcome/" to="/game/welcome/intro" />
                             <Route path="/game/welcome/intro" component={Intro} />
-                            <Route path="/game/welcome/playerlogin" component={PlayerLogin} />   
+                            <Route path="/game/welcome/playerlogin" component={PlayerLogin} /> 
+                            <Redirect exact from="/game/welcome/" to="/game/welcome/intro" />
+  
                         </Switch>                 
                     </Grid>
                 </Column>
