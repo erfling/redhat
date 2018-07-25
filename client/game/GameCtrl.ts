@@ -121,7 +121,7 @@ export default class GameCtrl extends BaseClientCtrl<IControllerDataStore & {Gam
     //----------------------------------------------------------------------
     public async pollForGameStateChange(gameId: string){
         if(!this.dataStore.ApplicationState.CurrentTeam)return;
-        console.log("polling for game state", this.dataStore.ApplicationState.CurrentTeam)
+        //console.log("polling for game state", this.dataStore.ApplicationState.CurrentTeam)
 
         let url = "/listenforgameadvance/" + this.dataStore.ApplicationState.CurrentTeam.GameId;
         if(this.dataStore.ApplicationState.CurrentTeam.CurrentRound){
@@ -130,7 +130,7 @@ export default class GameCtrl extends BaseClientCtrl<IControllerDataStore & {Gam
 
         await SapienServerCom.GetData(null, null, url).then((r: RoundChangeMapping) => {
             //set the team's current location to the new location
-            console.log("GOT THIS BACK FROM LONG POLL", r);
+            //console.log("GOT THIS BACK FROM LONG POLL", r);
             this.component.props.history.push("/game/" + r.ParentRound.toLowerCase() + "/" + r.ChildRound.toLowerCase());
 
             if (this.dataStore.ApplicationState.CurrentTeam.CurrentRound.ParentRound.toUpperCase() != r.ParentRound.toUpperCase()){
@@ -140,20 +140,10 @@ export default class GameCtrl extends BaseClientCtrl<IControllerDataStore & {Gam
 
                 //console.log("<<<<<<<<<<<<TEAM IS NOW>>>>>>>>>>>>", this.dataStore.ApplicationState.CurrentTeam, JSON.parse(localStorage.getItem("RH_TEAM")));
                 const targetJob = r.UserJobs && r.UserJobs[this.dataStore.ApplicationState.CurrentUser._id] ? r.UserJobs[this.dataStore.ApplicationState.CurrentUser._id] : JobName.IC;
-                console.log("LASER", targetJob);
 
                 this.dataStore.ApplicationState.CurrentUser.Job = targetJob;
-                console.log("LASER 2", targetJob);
             }
             this._childController = this._getTargetController(r.ParentRound);
-            console.log("CHILD CONTROLLER IS",this._childController);
-            
-
-
-            //ApplicationCtrl.GetInstance().addToast("The game is in a new round", "info");
-            //ApplicationCtrl.GetInstance().addToast("You're now playing the roll of " + targetJob, "info");
-        
-            //this.pollForGameStateChange(this.dataStore.ApplicationState.CurrentTeam.GameId);
             
             setTimeout(() => {
                 this.pollForGameStateChange.bind(this)(this.dataStore.ApplicationState.CurrentTeam.GameId);

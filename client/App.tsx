@@ -289,6 +289,8 @@ export default class App extends BaseComponent<RouteComponentProps<any>, IContro
                                                     })
                                                 }))
 
+                                                console.log("BASE CONTROLLER IN APP IS:", (GameCtrl.GetInstance().ChildController as BaseRoundCtrl<any>))
+
                                                 GameCtrl.GetInstance().dataStoreChange();
                                                 (GameCtrl.GetInstance().ChildController as BaseRoundCtrl<any>).getContentBySubRound();
 
