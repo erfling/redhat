@@ -57,10 +57,6 @@ export default class DealStructure extends BaseComponent<any, IRoundDataStore>
 
         if (this.state) {
             return <>
-                <h1>HELLO</h1>
-                <pre>{thisSubRound && JSON.stringify(thisSubRound, null, 2)}</pre>
-                <pre>{this.state.ApplicationState && JSON.stringify(this.state.ApplicationState.CurrentUser.Job, null, 2)}</pre>
-                <pre>{thisSubRound && JSON.stringify(thisSubRound.Questions, null, 2)}</pre>
                 {this.state.ApplicationState.CurrentUser.Job == JobName.MANAGER && thisSubRound != null && thisSubRound.Questions &&
                     <div
                         className={(this.state.ApplicationState.ShowQuestions ? 'show ' : 'hide ') + (this.state.ApplicationState.MobileWidth ? "mobile-messages decisions" : "wide-messages decisions")}
