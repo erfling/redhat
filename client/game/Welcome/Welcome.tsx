@@ -53,7 +53,7 @@ export default class Welcome extends BaseComponent<RouteComponentProps<any>, IRo
     //----------------------------------------------------------------------
 
     render() {
-        if (this.state && this.controller.ComponentFistma) {
+        if (this.state) {
 
             return <>
                 <Column mobile={16} tablet={12} computer={8} largeScreen={6}>
