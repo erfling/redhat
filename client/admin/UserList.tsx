@@ -1,7 +1,6 @@
 import * as React from "react";
 import { Grid, Table, Modal, Button, Segment, Label, Header, Icon, Form, Input, Checkbox, Popup } from 'semantic-ui-react';
 const { Row, Column } = Grid;
-import { RouteComponentProps, withRouter } from "react-router";
 import UserManagementCtrl from './UserManagementCtrl';
 import AdminViewModel from '../../shared/models/AdminViewModel';
 import { RoleName } from "../../shared/models/UserModel";
@@ -9,7 +8,7 @@ import UserModal from "./UserModal";
 import {IControllerDataStore} from '../../shared/base-sapien/client/BaseClientCtrl';
 import BaseComponent from "../../shared/base-sapien/client/shared-components/BaseComponent";
 
-export default class UserList extends BaseComponent<RouteComponentProps<any>, IControllerDataStore & {Admin: AdminViewModel}>
+export default class UserList extends BaseComponent<any, IControllerDataStore & {Admin: AdminViewModel}>
 {
     //----------------------------------------------------------------------
     //
@@ -29,7 +28,7 @@ export default class UserList extends BaseComponent<RouteComponentProps<any>, IC
     //
     //----------------------------------------------------------------------
 
-    constructor(props: RouteComponentProps<any>) {
+    constructor(props: any) {
         super(props);
         
         this.state = this.controller.dataStore;

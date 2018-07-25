@@ -1,6 +1,6 @@
 import * as React from "react";
 import SalesRoundCtrl from "./SalesRoundCtrl";
-import { withRouter, RouteComponentProps, Route } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
 import * as Semantic from 'semantic-ui-react';
 import { IRoundDataStore } from '../../../shared/base-sapien/client/BaseRoundCtrl';
 import BaseComponent from "../../../shared/base-sapien/client/shared-components/BaseComponent";
@@ -11,7 +11,7 @@ import DealStructure from "./DealStructure";
 const { Grid, Segment } = Semantic;
 const { Row, Column } = Grid;
 
-export default class SalesRound extends BaseComponent<RouteComponentProps<any>, IRoundDataStore>
+export default class SalesRound extends BaseComponent<any, IRoundDataStore>
 {
     //----------------------------------------------------------------------
     //
@@ -31,7 +31,7 @@ export default class SalesRound extends BaseComponent<RouteComponentProps<any>, 
     //
     //----------------------------------------------------------------------
 
-    constructor(props: RouteComponentProps<any>) {
+    constructor(props: any) {
         super(props);
 
         this.state = this.controller.dataStore;
@@ -77,11 +77,11 @@ export default class SalesRound extends BaseComponent<RouteComponentProps<any>, 
                             <h1>round three: make the sale</h1>
                         </Row>
                     </Column>
-
-                    <Route path="/game/salesrounds" component={DealStructure} />
-                    <Route path="/game/salesrounds/DealStructure" component={DealStructure} />
-                    <Route path="/game/salesrounds/DealRenewal" component={DealRenewal} />
-
+                    <Switch>
+                        <Route path="/game/salesrounds/DealStructure" component={DealStructure} />
+                        <Route path="/game/salesrounds/DealRenewal" component={DealRenewal} />
+                        <Redirect exact from="/game/salesrounds" to="/game/salesrounds/DealStructure" />
+                    </Switch>
                 </Grid>
             </>
         } else {

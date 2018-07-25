@@ -1,20 +1,17 @@
 import * as React from "react";
 import { RoleName, JobName } from "../../../shared/models/UserModel";
-import { withRouter, RouteComponentProps } from 'react-router-dom';
 import EditableContentBlock from '../../../shared/base-sapien/client/shared-components/EditableContentBlock';
 import EditableQuestionBlock from '../../../shared/base-sapien/client/shared-components/EditableQuestionBlock';
 import * as Semantic from 'semantic-ui-react';
-import QuestionModel from "../../../shared/models/QuestionModel";
 import { IRoundDataStore } from '../../../shared/base-sapien/client/BaseRoundCtrl';
 import CustomerRoundCtrl from "./CustomerRoundCtrl";
 import BaseComponent from "../../../shared/base-sapien/client/shared-components/BaseComponent";
 import Decisions from '-!svg-react-loader?name=Icon!../../img/decisions.svg';
 
-
 const { Button, Grid, Form, Dimmer, Loader, Header } = Semantic;
 const { Row, Column } = Grid;
 
-class CustomerSub extends BaseComponent<RouteComponentProps<any>, IRoundDataStore>
+export default class CustomerSub extends BaseComponent<any, IRoundDataStore>
 {
     //----------------------------------------------------------------------
     //
@@ -34,7 +31,7 @@ class CustomerSub extends BaseComponent<RouteComponentProps<any>, IRoundDataStor
     //
     //----------------------------------------------------------------------
 
-    constructor(props: RouteComponentProps<any>) {
+    constructor(props: any) {
         super(props);
 
         this.state = this.controller.dataStore;
@@ -122,5 +119,3 @@ class CustomerSub extends BaseComponent<RouteComponentProps<any>, IRoundDataStor
     }
 
 }
-
-export default withRouter(CustomerSub);

@@ -1,7 +1,6 @@
 import * as React from "react";
 import PeopleRoundCtrl from "./PeopleRoundCtrl";
 import { RoleName, JobName } from "../../../shared/models/UserModel";
-import { withRouter, RouteComponentProps } from 'react-router-dom';
 import EditableContentBlock from '../../../shared/base-sapien/client/shared-components/EditableContentBlock';
 import EditableQuestionBlock from '../../../shared/base-sapien/client/shared-components/EditableQuestionBlock';
 import * as Semantic from 'semantic-ui-react';
@@ -12,7 +11,7 @@ import BaseComponent from "../../../shared/base-sapien/client/shared-components/
 const { Button, Grid, Menu, Segment, Form, Dimmer, Loader, Header } = Semantic;
 const { Row, Column } = Grid;
 
-export default class Hiring extends BaseComponent<RouteComponentProps<any>, IRoundDataStore>
+export default class Hiring extends BaseComponent<any, IRoundDataStore>
 {
     //----------------------------------------------------------------------
     //
@@ -32,7 +31,7 @@ export default class Hiring extends BaseComponent<RouteComponentProps<any>, IRou
     //
     //----------------------------------------------------------------------
 
-    constructor(props: RouteComponentProps<any>) {
+    constructor(props: any) {
         super(props);
         
         this.controller.ParentController = PeopleRoundCtrl.GetInstance();

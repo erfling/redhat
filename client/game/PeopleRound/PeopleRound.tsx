@@ -1,6 +1,6 @@
 import * as React from "react";
 import PeopleRoundCtrl from "./PeopleRoundCtrl";
-import { withRouter, RouteComponentProps } from 'react-router-dom';
+import { withRouter, RouteComponentProps, Switch, Redirect } from 'react-router-dom';
 import * as Semantic from 'semantic-ui-react';
 import { IRoundDataStore } from '../../../shared/base-sapien/client/BaseRoundCtrl';
 import BaseComponent from "../../../shared/base-sapien/client/shared-components/BaseComponent";
@@ -12,7 +12,7 @@ import Hiring from "./Hiring";
 const { Grid, Segment } = Semantic;
 const { Row, Column } = Grid;
 
-export default class PeopleRound extends BaseComponent<RouteComponentProps<any>, IRoundDataStore>
+export default class PeopleRound extends BaseComponent<any, IRoundDataStore>
 {
     //----------------------------------------------------------------------
     //
@@ -32,7 +32,7 @@ export default class PeopleRound extends BaseComponent<RouteComponentProps<any>,
     //
     //----------------------------------------------------------------------
 
-    constructor(props: RouteComponentProps<any>) {
+    constructor(props: any) {
         super(props);
         
         this.state = this.controller.dataStore;
@@ -77,9 +77,11 @@ export default class PeopleRound extends BaseComponent<RouteComponentProps<any>,
                             <h1>round one: build the team: {this.state.ApplicationState.MobileWidth}</h1>
                         </Row>
                     </Column>
-                        <Route exact path="/game/peopleround/" component={Priorities} />
+                    <Switch>
                         <Route path="/game/peopleround/priorities" component={Priorities} />
                         <Route path="/game/peopleround/hiring" component={Hiring} />                    
+                        <Redirect exact from="/game/peopleround/" to="/game/peopleround/priorities" />
+                    </Switch>
                 </Grid> 
             </>
         } else {

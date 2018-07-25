@@ -5,9 +5,7 @@ import GameModel from "../../shared/models/GameModel";
 import UserModel, { JobName } from "../../shared/models/UserModel";
 import { Grid, Menu, Button, Segment, Header } from 'semantic-ui-react';
 const { Row, Column } = Grid;
-import { Route, Switch, Redirect } from 'react-router'
-
-import { RouteComponentProps, withRouter } from "react-router";
+import { Route, Switch, Redirect } from 'react-router';
 import Circles from '-!svg-react-loader?name=Icon!../img/circles.svg';
 import { IControllerDataStore } from '../../shared/base-sapien/client/BaseClientCtrl';
 import BaseComponent from "../../shared/base-sapien/client/shared-components/BaseComponent";
@@ -23,7 +21,7 @@ import FinanceRound from "./FinanceRound/FinanceRound";
 import EngineeringRound from "./EngineeringRound/EngineeringRound";
 import CustomerRound from "./CustomerRound/CustomerRound";
 
-export default class Game extends BaseComponent<RouteComponentProps<any>, IControllerDataStore & { Game: GameModel } & { _mobileWidth: boolean }>
+export default class Game extends BaseComponent<any, IControllerDataStore & { Game: GameModel } & { _mobileWidth: boolean }>
 {
     //----------------------------------------------------------------------
     //
@@ -43,7 +41,7 @@ export default class Game extends BaseComponent<RouteComponentProps<any>, IContr
     //
     //----------------------------------------------------------------------
 
-    constructor(props: RouteComponentProps<any>) {
+    constructor(props: any) {
         super(props);
 
         this.state = this.controller.dataStore;
@@ -143,8 +141,8 @@ export default class Game extends BaseComponent<RouteComponentProps<any>, IContr
 
                 <Menu.Item
                     onClick={e => {
-                        this.controller.dataStore.ApplicationState.ShowQuestions = false;
-                        this.controller.dataStore.ApplicationState.ShowMessageList = !this.controller.dataStore.ApplicationState.ShowMessageList
+                        this.controller.dataStore.ApplicationState.ShowQuestions = this.controller.ChildController.dataStore.ShowQuestions = false;
+                        this.controller.dataStore.ApplicationState.ShowMessageList = this.controller.ChildController.dataStore.ShowMessageList = !this.controller.dataStore.ApplicationState.ShowMessageList
                     }}
                 >
                     <Info
@@ -155,8 +153,8 @@ export default class Game extends BaseComponent<RouteComponentProps<any>, IContr
                 <Menu.Item
                     active={this.controller.dataStore.ApplicationState.ShowMessageList}
                     onClick={e => {
-                            this.controller.dataStore.ApplicationState.ShowQuestions = false;
-                            this.controller.dataStore.ApplicationState.ShowMessageList = !this.controller.dataStore.ApplicationState.ShowMessageList
+                            this.controller.dataStore.ApplicationState.ShowQuestions = this.controller.ChildController.dataStore.ShowQuestions = false;
+                            this.controller.dataStore.ApplicationState.ShowMessageList = this.controller.ChildController.dataStore.ShowMessageList = !this.controller.dataStore.ApplicationState.ShowMessageList
                         }}
                     >
                     <Inbox
@@ -169,7 +167,7 @@ export default class Game extends BaseComponent<RouteComponentProps<any>, IContr
                         active={this.controller.dataStore.ApplicationState.ShowQuestions}
                         onClick={e => {
                             this.controller.dataStore.ApplicationState.ShowMessageList = false;
-                            this.controller.dataStore.ApplicationState.ShowQuestions = !this.controller.dataStore.ApplicationState.ShowQuestions
+                            this.controller.dataStore.ApplicationState.ShowQuestions = this.controller.ChildController.dataStore.ShowQuestions = !this.controller.dataStore.ApplicationState.ShowQuestions
                         }}
                     >
                         <Decisions
@@ -270,6 +268,8 @@ export default class Game extends BaseComponent<RouteComponentProps<any>, IContr
                         SelectFunc={(m) => {
                             this.controller.dataStore.ApplicationState.ShowMessageList = false;
                             this.controller.dataStore.ApplicationState.SelectedMessage = this.controller.ChildController.dataStore.SelectedMessage = m;
+                            console.log("CHILD CONTROLLER ON MESSAGE SELECT", this.controller.ChildController);
+
                         }}
                     />
                 </div>

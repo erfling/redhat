@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Grid, Table, Modal, Button, Segment, Label, Header, Icon, Form, Input, Dropdown, Popup } from 'semantic-ui-react';
 const { Row, Column } = Grid;
-import { RouteComponentProps, withRouter, Redirect } from "react-router";
+import { withRouter, Redirect } from "react-router";
 import GameManagementCtrl from './GameManagementCtrl';
 import AdminViewModel from '../../shared/models/AdminViewModel';
 import UserModel from "../../shared/models/UserModel";
@@ -10,7 +10,7 @@ import GameModal from './GameModal'
 import BaseComponent from "../../shared/base-sapien/client/shared-components/BaseComponent";
 import { Link } from "react-router-dom";
 
-class GameList extends BaseComponent<RouteComponentProps<any>, IControllerDataStore & {Admin: AdminViewModel, ShowGameModal: boolean}>
+class GameList extends BaseComponent<any, IControllerDataStore & {Admin: AdminViewModel, ShowGameModal: boolean}>
 {
     //----------------------------------------------------------------------
     //
@@ -30,7 +30,7 @@ class GameList extends BaseComponent<RouteComponentProps<any>, IControllerDataSt
     //
     //----------------------------------------------------------------------
 
-    constructor(props: RouteComponentProps<any>) {
+    constructor(props: any) {
         super(props);
         
         this.state = this.controller.dataStore;

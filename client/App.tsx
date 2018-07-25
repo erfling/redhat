@@ -1,21 +1,19 @@
 import * as React from "react";
 import { Sidebar, Menu, Button, Icon, Popup, MenuItem, Grid } from 'semantic-ui-react';
 import ApplicationCtrl from './ApplicationCtrl';
-import { RouteComponentProps, withRouter, Switch, Route, Redirect } from "react-router";
-import { BrowserRouter, Link } from 'react-router-dom'
-import DataStore from '../shared/base-sapien/client/DataStore'
+import { Switch, Route, Redirect } from "react-router";
+import { Link } from 'react-router-dom';
 import SapienToast from '../shared/base-sapien/client/shared-components/SapienToast'
 import GameCtrl from "./game/GameCtrl";
 import { IControllerDataStore } from '../shared/base-sapien/client/BaseClientCtrl';
 import { RoleName, JobName } from '../shared/models/UserModel';
 import BaseComponent from "../shared/base-sapien/client/shared-components/BaseComponent";
 import BaseRoundCtrl from "../shared/base-sapien/client/BaseRoundCtrl";
-import ComponentVO from "../shared/base-sapien/client/ComponentsVO";
 import Admin from './admin/Admin';
 import Game from "./game/Game";
 import Login from "./login/Login";
 
-export default class App extends BaseComponent<RouteComponentProps<any>, IControllerDataStore>
+export default class App extends BaseComponent<any, IControllerDataStore>
 {
     //----------------------------------------------------------------------
     //
@@ -35,7 +33,7 @@ export default class App extends BaseComponent<RouteComponentProps<any>, IContro
     //
     //----------------------------------------------------------------------
 
-    constructor(props: RouteComponentProps<any>) {
+    constructor(props: any) {
         super(props);
 
         this.state = this.controller.dataStore;

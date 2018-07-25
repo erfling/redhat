@@ -1,6 +1,6 @@
 import * as React from "react";
 import WelcomeCtrl from "./WelcomeCtrl";
-import { withRouter, RouteComponentProps , Redirect} from 'react-router-dom';
+import { Redirect} from 'react-router-dom';
 import * as Semantic from 'semantic-ui-react';
 import { IRoundDataStore } from '../../../shared/base-sapien/client/BaseRoundCtrl';
 import BaseComponent from "../../../shared/base-sapien/client/shared-components/BaseComponent";
@@ -9,11 +9,10 @@ import { Route, Switch } from 'react-router';
 import Intro from "./Intro";
 import PlayerLogin from "./PlayerLogin";
 
-
 const { Button, Grid, Menu, Segment } = Semantic;
 const { Row, Column } = Grid;
 
-export default class Welcome extends BaseComponent<RouteComponentProps<any>, IRoundDataStore>
+export default class Welcome extends BaseComponent<any, IRoundDataStore>
 {
     //----------------------------------------------------------------------
     //
@@ -33,7 +32,7 @@ export default class Welcome extends BaseComponent<RouteComponentProps<any>, IRo
     //
     //----------------------------------------------------------------------
 
-    constructor(props: RouteComponentProps<any>) {
+    constructor(props: any) {
         super(props);
         this.state = this.controller.dataStore;
     }
@@ -71,7 +70,6 @@ export default class Welcome extends BaseComponent<RouteComponentProps<any>, IRo
                             <Route path="/game/welcome/intro" component={Intro} />
                             <Route path="/game/welcome/playerlogin" component={PlayerLogin} /> 
                             <Redirect exact from="/game/welcome/" to="/game/welcome/intro" />
-  
                         </Switch>                 
                     </Grid>
                 </Column>

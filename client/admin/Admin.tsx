@@ -2,7 +2,6 @@ import * as React from "react";
 import { Grid, Sidebar, Menu, Segment } from 'semantic-ui-react';
 const { Row, Column } = Grid;
 import { RouteComponentProps, withRouter, Switch, Route, Redirect } from "react-router";
-import { BrowserRouter } from 'react-router-dom';
 import AdminCtrl from './AdminCtrl';
 import AdminViewModel from '../../shared/models/AdminViewModel';
 import { IControllerDataStore } from "../../shared/base-sapien/client/BaseClientCtrl";
@@ -12,7 +11,7 @@ import GameList from "./GameList";
 import { RoleName } from "../../shared/models/UserModel";
 import GameDetail from "./GameDetail";
 
-export default class Admin extends BaseComponent<RouteComponentProps<any>, IControllerDataStore & {Admin: AdminViewModel} >
+export default class Admin extends BaseComponent<any, IControllerDataStore & {Admin: AdminViewModel} >
 {
     //----------------------------------------------------------------------
     //
@@ -33,7 +32,7 @@ export default class Admin extends BaseComponent<RouteComponentProps<any>, ICont
     //
     //----------------------------------------------------------------------
 
-    constructor(props: RouteComponentProps<any>) {
+    constructor(props: any) {
         super(props);
         
         this.state = this.controller.dataStore;

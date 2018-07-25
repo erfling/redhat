@@ -147,7 +147,7 @@ export default class GameCtrl extends BaseClientCtrl<IControllerDataStore & {Gam
             
             setTimeout(() => {
                 this.pollForGameStateChange.bind(this)(this.dataStore.ApplicationState.CurrentTeam.GameId);
-            }, 2000);
+            }, 3500);
             
         }).catch(() => {
             setTimeout(() => {

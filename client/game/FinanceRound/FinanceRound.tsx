@@ -1,6 +1,6 @@
 import * as React from "react";
 import FinanceRoundCtrl from "./FinanceRoundCtrl";
-import { withRouter, RouteComponentProps, Route } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
 import * as Semantic from 'semantic-ui-react';
 import { IRoundDataStore } from '../../../shared/base-sapien/client/BaseRoundCtrl';
 import BaseComponent from "../../../shared/base-sapien/client/shared-components/BaseComponent";
@@ -12,7 +12,7 @@ import Bid from "./Bid";
 const { Grid, Segment } = Semantic;
 const { Row, Column } = Grid;
 
-export default class FinanceRound extends BaseComponent<RouteComponentProps<any>, IRoundDataStore>
+export default class FinanceRound extends BaseComponent<any, IRoundDataStore>
 {
     //----------------------------------------------------------------------
     //
@@ -32,7 +32,7 @@ export default class FinanceRound extends BaseComponent<RouteComponentProps<any>
     //
     //----------------------------------------------------------------------
 
-    constructor(props: RouteComponentProps<any>) {
+    constructor(props: any) {
         super(props);
 
         this.state = this.controller.dataStore;
@@ -78,11 +78,12 @@ export default class FinanceRound extends BaseComponent<RouteComponentProps<any>
                             <h1>round four: finance</h1>
                         </Row>
                     </Column>
-
-                    <Route path="/game/financeround" component={Pricing} />
-                    <Route path="/game/financeround/Pricing" component={Pricing} />
-                    <Route path="/game/financeround/Bid" component={Bid} />                
-                    <Route path="/game/financeround/AcquisitionStructure" component={AcquisitionStructure} />
+                    <Switch>
+                        <Route path="/game/financeround/Pricing" component={Pricing} />
+                        <Route path="/game/financeround/Bid" component={Bid} />                
+                        <Route path="/game/financeround/AcquisitionStructure" component={AcquisitionStructure} />
+                        <Redirect exact from="/game/financeround" to="/game/financeround/Pricing" />
+                    </Switch>
 
                 </Grid>
             </>

@@ -1,13 +1,13 @@
 import * as React from "react";
-import { RouteComponentProps, withRouter, Route, Redirect, Switch } from "react-router";
+import { Route, Redirect, Switch } from "react-router";
 import LoginCtrl from './LoginCtrl';
 import { Grid, Menu, Container, Button } from 'semantic-ui-react';
 import { IControllerDataStore } from "../../shared/base-sapien/client/BaseClientCtrl";
 import BaseComponent from "../../shared/base-sapien/client/shared-components/BaseComponent";
-import ComponentVO from '../../shared/base-sapien/client/ComponentsVO';
 import AdminLogin from "./AdminLogin";
 import Join from "./Join";
-export default class Login extends BaseComponent<RouteComponentProps<any>, IControllerDataStore>
+
+export default class Login extends BaseComponent<any, IControllerDataStore>
 {
     //----------------------------------------------------------------------
     //
@@ -27,7 +27,7 @@ export default class Login extends BaseComponent<RouteComponentProps<any>, ICont
     //
     //----------------------------------------------------------------------
 
-    constructor(props: RouteComponentProps<any>) {
+    constructor(props: any) {
         super(props);
 
         this.state = this.controller.dataStore;

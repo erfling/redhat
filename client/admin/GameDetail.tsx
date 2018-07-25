@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Button, Segment, Label, Header, Icon, Form, Input, Dropdown, Popup, Card, Grid, Loader, Dimmer, Modal } from 'semantic-ui-react';
 const { Row, Column } = Grid;
-import { RouteComponentProps, withRouter } from "react-router";
+import { withRouter } from "react-router";
 import GameManagementCtrl from './GameManagementCtrl';
 import AdminViewModel from '../../shared/models/AdminViewModel';
 import UserModel, { RoleName } from "../../shared/models/UserModel";
@@ -11,7 +11,7 @@ import GameModal from './GameModal'
 import DeleteTeamModal from './DeleteTeamModal'
 import BaseComponent from "../../shared/base-sapien/client/shared-components/BaseComponent";
 
-class GameDetail extends BaseComponent<RouteComponentProps<any>, IControllerDataStore & {Admin: AdminViewModel, ShowUserModal: boolean, ShowGameModal: boolean, ShowTeamDeleteModal: boolean}>
+class GameDetail extends BaseComponent<any, IControllerDataStore & {Admin: AdminViewModel, ShowUserModal: boolean, ShowGameModal: boolean, ShowTeamDeleteModal: boolean}>
 {
     //----------------------------------------------------------------------
     //
@@ -31,7 +31,7 @@ class GameDetail extends BaseComponent<RouteComponentProps<any>, IControllerData
     //
     //----------------------------------------------------------------------
 
-    constructor(props: RouteComponentProps<any>) {
+    constructor(props: any) {
         super(props);
 
         this.state = this.controller.dataStore;

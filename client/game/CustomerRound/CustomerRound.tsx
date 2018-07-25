@@ -1,6 +1,6 @@
 import * as React from "react";
 import CustomerRoundCtrl from "./CustomerRoundCtrl";
-import { withRouter, RouteComponentProps, Route } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
 import * as Semantic from 'semantic-ui-react';
 import { IRoundDataStore } from '../../../shared/base-sapien/client/BaseRoundCtrl';
 import BaseComponent from "../../../shared/base-sapien/client/shared-components/BaseComponent";
@@ -10,7 +10,7 @@ import CustomerSub from "./CustomerSub";
 const { Grid, Segment } = Semantic;
 const { Row, Column } = Grid;
 
-class CustomerRound extends BaseComponent<RouteComponentProps<any>, IRoundDataStore>
+export default class CustomerRound extends BaseComponent<any, IRoundDataStore>
 {
     //----------------------------------------------------------------------
     //
@@ -30,7 +30,7 @@ class CustomerRound extends BaseComponent<RouteComponentProps<any>, IRoundDataSt
     //
     //----------------------------------------------------------------------
 
-    constructor(props: RouteComponentProps<any>) {
+    constructor(props: any) {
         super(props);
 
         this.state = this.controller.dataStore;
@@ -76,8 +76,11 @@ class CustomerRound extends BaseComponent<RouteComponentProps<any>, IRoundDataSt
                             <h1>round five: customer round</h1>
                         </Row>
                     </Column>
-                    <Route path="/game/customerround" component={CustomerSub} />
-                    <Route path="/game/customerround/customersub" component={CustomerSub} />                          
+                    <Switch>
+                        <Route path="/game/customerround/customersub" component={CustomerSub} />
+                        <Redirect exact from="/game/customerround" to="/game/customerround/customersub" />
+                    </Switch>
+                                           
                 </Grid>
             </>
         } else {
@@ -86,5 +89,3 @@ class CustomerRound extends BaseComponent<RouteComponentProps<any>, IRoundDataSt
     }
 
 }
-
-export default withRouter(CustomerRound);

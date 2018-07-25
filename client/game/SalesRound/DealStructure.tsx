@@ -1,6 +1,5 @@
 import * as React from "react";
 import { RoleName, JobName } from "../../../shared/models/UserModel";
-import { withRouter, RouteComponentProps } from 'react-router-dom';
 import EditableContentBlock from '../../../shared/base-sapien/client/shared-components/EditableContentBlock';
 import EditableQuestionBlock from '../../../shared/base-sapien/client/shared-components/EditableQuestionBlock';
 import * as Semantic from 'semantic-ui-react';
@@ -12,7 +11,7 @@ import Decisions from '-!svg-react-loader?name=Icon!../../img/decisions.svg';
 const { Button, Grid, Form, Dimmer, Loader, Header } = Semantic;
 const { Row, Column } = Grid;
 
-export default class DealStructure extends BaseComponent<RouteComponentProps<any>, IRoundDataStore>
+export default class DealStructure extends BaseComponent<any, IRoundDataStore>
 {
     //----------------------------------------------------------------------
     //
@@ -32,7 +31,7 @@ export default class DealStructure extends BaseComponent<RouteComponentProps<any
     //
     //----------------------------------------------------------------------
 
-    constructor(props: RouteComponentProps<any>) {
+    constructor(props: any) {
         super(props);
 
         this.controller.ParentController = SalesRoundCtrl.GetInstance();
@@ -58,6 +57,10 @@ export default class DealStructure extends BaseComponent<RouteComponentProps<any
 
         if (this.state) {
             return <>
+                <h1>HELLO</h1>
+                <pre>{thisSubRound && JSON.stringify(thisSubRound, null, 2)}</pre>
+                <pre>{this.state.ApplicationState && JSON.stringify(this.state.ApplicationState.CurrentUser.Job, null, 2)}</pre>
+                <pre>{thisSubRound && JSON.stringify(thisSubRound.Questions, null, 2)}</pre>
                 {this.state.ApplicationState.CurrentUser.Job == JobName.MANAGER && thisSubRound != null && thisSubRound.Questions &&
                     <div
                         className={(this.state.ApplicationState.ShowQuestions ? 'show ' : 'hide ') + (this.state.ApplicationState.MobileWidth ? "mobile-messages decisions" : "wide-messages decisions")}

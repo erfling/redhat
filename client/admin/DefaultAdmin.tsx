@@ -1,11 +1,11 @@
 import * as React from "react";
-import { RouteComponentProps, withRouter} from "react-router";
+import { withRouter} from "react-router";
 import AdminCtrl from './AdminCtrl';
 import {IControllerDataStore} from '../../shared/base-sapien/client/BaseClientCtrl';
 import AdminViewModel from '../../shared/models/AdminViewModel';
 import BaseComponent from "../../shared/base-sapien/client/shared-components/BaseComponent";
 
-class DefaultAdmin extends BaseComponent<RouteComponentProps<any>, IControllerDataStore & {Admin: AdminViewModel}>
+class DefaultAdmin extends BaseComponent<any, IControllerDataStore & {Admin: AdminViewModel}>
 {
     //----------------------------------------------------------------------
     //
@@ -25,7 +25,7 @@ class DefaultAdmin extends BaseComponent<RouteComponentProps<any>, IControllerDa
     //
     //----------------------------------------------------------------------
 
-    constructor(props: RouteComponentProps<any>) {
+    constructor(props: any) {
         super(props);
         
         this.state = this.controller.dataStore;

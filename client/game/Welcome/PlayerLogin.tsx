@@ -1,6 +1,5 @@
 import * as React from "react";
 import WelcomeCtrl from "./WelcomeCtrl";
-import { withRouter, RouteComponentProps } from 'react-router-dom';
 import * as Semantic from 'semantic-ui-react';
 const { Button, Grid, Form, Dimmer, Loader, Message } = Semantic;
 const { Row, Column } = Grid;
@@ -8,7 +7,7 @@ import IntroLogo from '-!svg-react-loader?name=Icon!../../img/intro-logo.svg';
 import { IRoundDataStore } from "../../../shared/base-sapien/client/BaseRoundCtrl";
 import BaseComponent from "../../../shared/base-sapien/client/shared-components/BaseComponent";
 
-export default class PlayerLogin extends BaseComponent<RouteComponentProps<any>, IRoundDataStore>
+export default class PlayerLogin extends BaseComponent<any, IRoundDataStore>
 {
     //----------------------------------------------------------------------
     //
@@ -28,7 +27,7 @@ export default class PlayerLogin extends BaseComponent<RouteComponentProps<any>,
     //
     //----------------------------------------------------------------------
 
-    constructor(props: RouteComponentProps<any>) {
+    constructor(props: any) {
         super(props);
 
         this.controller.ParentController = WelcomeCtrl.GetInstance();
