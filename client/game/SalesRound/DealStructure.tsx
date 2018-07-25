@@ -54,7 +54,7 @@ export default class DealStructure extends BaseComponent<any, IRoundDataStore>
 
     render() {
         const thisSubRound = this.state.Round.SubRounds.filter(s => s.Name.toUpperCase() == DealStructure.CLASS_NAME.toUpperCase())[0]
-
+        
         if (this.state) {
             return <>
                 {this.state.ApplicationState.CurrentUser.Job == JobName.MANAGER && thisSubRound != null && thisSubRound.Questions &&
