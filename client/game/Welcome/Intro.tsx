@@ -56,7 +56,6 @@ export default class Intro extends BaseComponent<RouteComponentProps<any>, IRoun
         const thisSubRound = this.state.Round.SubRounds.filter(s => s.Name.toUpperCase() == Intro.CLASS_NAME.toUpperCase())[0]
         if (this.state) {
             return <>
-            <h1>IN INTRO</h1>
                 <Column>
                     <Row>
                         <Header
