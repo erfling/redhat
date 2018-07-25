@@ -56,8 +56,7 @@ export default class Admin extends BaseComponent<RouteComponentProps<any>, ICont
 
     render() {
         if (this.state && this.state.ApplicationState){
-            return <>
-                <h1>Admin</h1>
+            return <div style={{padding: '20px'}}>
                 <Switch>
                     {!this.state.ApplicationState.CurrentUser || this.state.ApplicationState.CurrentUser.Role != RoleName.ADMIN &&
                         <Redirect to="/login/admin"/>
@@ -68,7 +67,7 @@ export default class Admin extends BaseComponent<RouteComponentProps<any>, ICont
                     <Redirect exact from="/admin" to="/admin/userlist"/>
 
                 </Switch>
-            </>;
+            </div>;
         }
 
         return <Segment
