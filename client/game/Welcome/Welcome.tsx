@@ -5,7 +5,7 @@ import * as Semantic from 'semantic-ui-react';
 import { IRoundDataStore } from '../../../shared/base-sapien/client/BaseRoundCtrl';
 import BaseComponent from "../../../shared/base-sapien/client/shared-components/BaseComponent";
 import GameCtrl from "../GameCtrl";
-import { Route } from 'react-router'; 
+import { Route, Switch } from 'react-router'; 
 import Intro from "./Intro";
 import PlayerLogin from "./PlayerLogin";
 
@@ -58,9 +58,12 @@ export default class Welcome extends BaseComponent<RouteComponentProps<any>, IRo
             return <>
                 <Column mobile={16} tablet={12} computer={8} largeScreen={6}>
                     <Grid>
-                        <Route exact path="/game/welcome/" component={Intro} />
-                        <Route path="/game/welcome/intro" component={Intro} />
-                        <Route path="/game/welcome/playerlogin" component={PlayerLogin} />                    
+                        <h1>IN WELCOME</h1>
+                        <Switch>
+                            <Redirect exact from="/game/welcome/" to="/game/welcome/intro" />
+                            <Route path="/game/welcome/intro" component={Intro} />
+                            <Route path="/game/welcome/playerlogin" component={PlayerLogin} />   
+                        </Switch>                 
                     </Grid>
                 </Column>
             </>

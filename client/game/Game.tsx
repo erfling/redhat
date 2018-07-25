@@ -247,6 +247,7 @@ export default class Game extends BaseComponent<RouteComponentProps<any>, IContr
                                 </Segment>
                             </div>
                             }
+                            <h1>IN GAME</h1>
                             <Switch>
                                 <Redirect from="/game" to="/game/welcome"/>
                                 <Route path="/game/welcome" component={Welcome} />
