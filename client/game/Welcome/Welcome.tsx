@@ -58,7 +58,6 @@ export default class Welcome extends BaseComponent<RouteComponentProps<any>, IRo
             return <>
                 <Column mobile={16} tablet={12} computer={8} largeScreen={6}>
                     <Grid>
-                        <h1>IN WELCOME</h1>
                         <Switch>
                             <Route path="/game/welcome/intro" component={Intro} />
                             <Route path="/game/welcome/playerlogin" component={PlayerLogin} /> 
