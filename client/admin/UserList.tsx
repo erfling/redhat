@@ -56,7 +56,7 @@ export default class UserList extends BaseComponent<RouteComponentProps<any>, IC
 
     render() {
         return <>
-
+            <h1>userlist</h1>
             {this.state.Admin.DeletionUser &&
                 <Modal open={this.state.Admin.DeletionUser != null} basic onClose={e => this.controller.closeModal()}>
                     <Modal.Header color="red"><Icon name="remove user"/>Delete User</Modal.Header>

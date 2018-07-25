@@ -51,7 +51,6 @@ export default class AdminLogin extends BaseComponent<RouteComponentProps<any>, 
     render() {
 
         return <>
-            <h1>hey</h1>
             <Row>
                 <Column wide={6} computer={8} tablet={6} mobile={16}> 
                     <Form>
