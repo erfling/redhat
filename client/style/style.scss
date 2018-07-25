@@ -298,11 +298,7 @@ SEMANTIC MOBILE FIX
     display: block !important;
     transition: margin-left .3s cubic-bezier(0.42, 0, 0.12, 1.23);
 }
-.hide{
-    margin-left: 250vh !important;
-    position: fixed !important;
-    width: 100vw !important;
-}
+
 .decisions{
     padding-bottom: 20vh !important;
     background-image: url('../img/decisions-muted.png'); 
@@ -471,4 +467,11 @@ SEMANTIC MOBILE FIX
         box-shadow: none !important;
     }
 
+}
+
+.hide{
+    margin-left: 250vh !important;
+    position: fixed !important;
+    width: 100vw !important;
+    display: none !important;
 }
