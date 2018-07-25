@@ -78,7 +78,7 @@ export default class Game extends BaseComponent<RouteComponentProps<any>, IContr
     * Calculate & Update state of new dimensions
     */
     updateDimensions() {
-        //if(this.controller.ChildController)
+        if(this.controller.ChildController)
             this.controller.dataStore.ApplicationState.MobileWidth = this.controller.ChildController.dataStore.ApplicationState.MobileWidth = window.outerWidth < 767
     }
 
