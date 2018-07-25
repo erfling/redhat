@@ -54,8 +54,6 @@ export default class Admin extends BaseComponent<RouteComponentProps<any>, ICont
 
     render() {
         if (this.state && this.controller.ComponentFistma){
-            const DashBoardComponent = this.controller.ComponentFistma.currentState;
-            console.log("DB COMPONENT", DashBoardComponent.WrappedComponent.name)
             return <>
                 <h1>Admin</h1>
                 <Switch>
