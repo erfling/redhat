@@ -61,11 +61,7 @@ export default class PeopleRoundCtrl extends BaseRoundCtrl<IRoundDataStore>
         console.log("SCORE:", score);
         // build response //
         //const response = new ResponseModel();
-        response.Score = score;
-        response.TeamId = this.dataStore.ApplicationState.CurrentTeam._id;
-        response.QuestionId = question._id;
-        response.RoundId = round._id;
-        response.GameId = this.dataStore.ApplicationState.CurrentTeam.GameId;
+        
         // save response //
         this.SaveResponse(response, question, round);
     }

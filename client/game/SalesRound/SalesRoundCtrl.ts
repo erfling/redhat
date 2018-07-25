@@ -93,4 +93,9 @@ export default class SalesRoundCtrl extends BaseRoundCtrl<IRoundDataStore>
     }
 
 
+    public Set3BPossibleAnswers(round: RoundModel){
+
+    }
+
+
 }
