@@ -16,8 +16,8 @@ import LongPoll from '../shared/base-sapien/api/LongPoll';
 import RoundChangeMapping from '../shared/models/RoundChangeMapping';
 import { JobName } from '../shared/models/UserModel';
 
-export class AppServer {
-
+export class AppServer
+{
     public static app = express();
     public static LongPoll = new LongPoll(AppServer.app);
     public static port = AppServer.normalizePort(80);
@@ -31,7 +31,6 @@ export class AppServer {
         let bind = (typeof AppServer.port === 'string') ? 'Pipe ' + AppServer.port : 'Port ' + AppServer.port;
 
         console.log(error);
-
         switch (error.code) {
             case 'EACCES':
                 console.error(`${bind} requires elevated privileges`);
@@ -54,16 +53,13 @@ export class AppServer {
     }
 
     public static StartServer() {
-
         AppServer.httpServer.listen(AppServer.port);
         AppServer.httpServer
             .on('error', AppServer.onError)
             .on('listening', AppServer.onListening);
-
     }
 
     static onListening(): void {
-
         const MONGO_URI: string = 'mongodb://localhost:27017/red-hat';
         mongoose.set('debug', true);
 
@@ -73,40 +69,29 @@ export class AppServer {
             console.log(r);
         });
 
-
         const router: express.Router = express.Router();
         AppServer.app.use(bodyParser.urlencoded({ extended: true }))
             .use(bodyParser.json());
 
         AuthUtils.SET_UP_PASSPORT();
 
-        /*
-            setInterval( () => { 
-                LP.publish("/sapien/api/gameplay/listenforgameadvance", {test: "might as well try an object for no good reason"})
-            }, 5000);
         
-        AppServer.LongPoll.create("/listenforgameadvance/:gameid", async (req, res, next) => {
+        /*AppServer.LongPoll.create("/listenforgameadvance/:gameid", async (req, res, next) => {
             req.id = req.params.gameid;
-
-
-            const game = await monGameModel.findById(req.id).then(r => r ? Object.assign(new GameModel(), r) : null);
-            next();
+            const game = await monGameModel.findById(req.id).then(r => r ? Object.assign(new GameModel(), r.toJSON()) : null);
             
-            if(game){
-               
-               if(!game.CurrentRound || !game.CurrentRound.ParentRound){
+            if (game) {
+               if (!game.CurrentRound || !game.CurrentRound.ParentRound) {
                    next();
-               } else if (!req.query || req.query.ParentRound != game.CurrentRound.ParentRound || req.query.ChildRound != game.CurrentRound.ChildRound){
-                   res.json(game.CurrentRound)
+               } else if (!req.query || req.query.ParentRound != game.CurrentRound.ParentRound || req.query.ChildRound != game.CurrentRound.ChildRound) {
+                   res.json(game.CurrentRound);
                } else {
                    next();
                }
             } else {
                 next();
             }
-
         });*/
-
        
         //GZIP large resources in production
         /*
@@ -127,20 +112,18 @@ export class AppServer {
                     console.log("GZIP ON: ", req.url)
                     next();
                 })
-        }
-        */
+        }*/
+        
         AppServer.app.get("/listenforgameadvance/:gameid", async (req, res, next) => {
             const gameId = req.params.gameid;
-
-            try{
+            try {
                 const game = await monGameModel.findById(gameId).then(r => r ? Object.assign(new GameModel(), r.toJSON()) : null);
-                
-                if(game){ 
-                    console.log("FOUND GAME", game)             
-                    res.json(game.CurrentRound)               
+                if (game) { 
+                    console.log("FOUND GAME", game);
+                    res.json(game.CurrentRound);
                 }
             } catch(err) {
-                console.log(err)
+                console.log(err);
             }
         });
 
@@ -178,7 +161,6 @@ export class AppServer {
                                         mapping.UserJobs[pid] = i % 2 ? JobName.INTEGRATED_SYSTEMS : JobName.CHIPCO;
                                     }
                                 }
-
                             })
                         } else {
                             console.log("BUILDING MAPPING");
@@ -207,7 +189,7 @@ export class AppServer {
                     const gameSave = await monGameModel.findByIdAndUpdate(req.params.gameid, { CurrentRound: req.body, HasBeenManager: game.HasBeenManager });
                     if (gameSave) {
                         var mapperydoo = (newMapping && newMapping.ParentRound.length) ? newMapping : oldMapping;
-                       // AppServer.LongPoll.publishToId("/listenforgameadvance/:gameid", req.params.gameid, mapperydoo);
+                        //AppServer.LongPoll.publishToId("/listenforgameadvance/:gameid", req.params.gameid, mapperydoo);
                         res.json("long poll publish hit");
                     }
                 }

@@ -119,18 +119,21 @@ export default class GameCtrl extends BaseClientCtrl<IControllerDataStore & {Gam
     //  Methods
     //
     //----------------------------------------------------------------------
+
+    private _timeOut;
+
     public async pollForGameStateChange(gameId: string){
         if(!this.dataStore.ApplicationState.CurrentTeam)return;
         //console.log("polling for game state", this.dataStore.ApplicationState.CurrentTeam)
 
         let url = "/listenforgameadvance/" + this.dataStore.ApplicationState.CurrentTeam.GameId;
-        if(this.dataStore.ApplicationState.CurrentTeam.CurrentRound){
+        if (this.dataStore.ApplicationState.CurrentTeam.CurrentRound) {
             url = url + "?ParentRound=" + this.dataStore.ApplicationState.CurrentTeam.CurrentRound.ParentRound || "" + "&ChildRound=" + this.dataStore.ApplicationState.CurrentTeam.CurrentRound.ChildRound || "";
         }
 
         await SapienServerCom.GetData(null, null, url).then((r: RoundChangeMapping) => {
             //set the team's current location to the new location
-            //console.log("GOT THIS BACK FROM LONG POLL", r);
+            console.log("GOT THIS BACK FROM LONG POLL", r);
             this.component.props.history.push("/game/" + r.ParentRound.toLowerCase() + "/" + r.ChildRound.toLowerCase());
 
             if (this.dataStore.ApplicationState.CurrentTeam.CurrentRound.ParentRound.toUpperCase() != r.ParentRound.toUpperCase()){
@@ -145,15 +148,18 @@ export default class GameCtrl extends BaseClientCtrl<IControllerDataStore & {Gam
             }
             this._childController = this._getTargetController(r.ParentRound);
             
-            setTimeout(() => {
+            clearTimeout(this._timeOut);
+            this._timeOut = setTimeout(() => {
                 this.pollForGameStateChange.bind(this)(this.dataStore.ApplicationState.CurrentTeam.GameId);
             }, 3500);
-            
+           // this.pollForGameStateChange(this.dataStore.ApplicationState.CurrentTeam.GameId);
+           return;
         }).catch(() => {
-            setTimeout(() => {
+            clearTimeout(this._timeOut);
+            this._timeOut = setTimeout(() => {
                 this.pollForGameStateChange.bind(this)(this.dataStore.ApplicationState.CurrentTeam.GameId);
-            }, 2000);
-            
+            }, 2500);
+            console.log("FART!");
         })
     }
 
