@@ -76,11 +76,11 @@ export default class SalesRound extends BaseComponent<any, IRoundDataStore>
                         >
                             <h1>round three: make the sale</h1>
                         </Row>
-                    </Column>
+                    </Column>                    
                     <Switch>
-                        <Route path="/game/salesrounds/dealstructure" component={DealStructure} />
-                        <Route path="/game/salesrounds/dealrenewal" component={DealRenewal} />
-                        <Redirect exact from="/game/salesrounds" to="/game/salesrounds/dealstructure" />
+                        <Route path="/game/salesround/dealstructure" component={DealStructure} />
+                        <Route path="/game/salesround/dealrenewal" component={DealRenewal} />
+                        <Redirect from="/game/salesround" to="/game/salesround/dealstructure" />
                     </Switch>
                 </Grid>
             </>
