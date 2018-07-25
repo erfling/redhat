@@ -63,9 +63,10 @@ export default class Login extends BaseComponent<RouteComponentProps<any>, ICont
                     columns={16}
                 >
                     <Switch>
-                        <Redirect from="/login" exact to="/login/admin" />
                         <Route path="/login/admin" component={AdminLogin} />
                         <Route path="/login/join" component={Join} />
+                        <Redirect from="/login" exact to="/login/admin" />
+
                     </Switch>
                 </Grid>
         </Container>;
