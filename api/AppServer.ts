@@ -15,7 +15,6 @@ import GamePlayCtrl from './controllers/GamePlayCtrl';
 import LongPoll from '../shared/base-sapien/api/LongPoll';
 import RoundChangeMapping from '../shared/models/RoundChangeMapping';
 import { JobName } from '../shared/models/UserModel';
-import { SliderValueObj } from '../shared/entity-of-the-state/ValueObj';
 import QuestionModel, { ComparisonLabel } from '../shared/models/QuestionModel';
 import ResponseModel from '../shared/models/ResponseModel';
 

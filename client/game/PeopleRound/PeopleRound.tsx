@@ -1,6 +1,6 @@
 import * as React from "react";
 import PeopleRoundCtrl from "./PeopleRoundCtrl";
-import { withRouter, RouteComponentProps, Switch, Redirect } from 'react-router-dom';
+import { Switch, Redirect } from 'react-router-dom';
 import * as Semantic from 'semantic-ui-react';
 import { IRoundDataStore } from '../../../shared/base-sapien/client/BaseRoundCtrl';
 import BaseComponent from "../../../shared/base-sapien/client/shared-components/BaseComponent";
@@ -8,7 +8,6 @@ import GameCtrl from "../GameCtrl";
 import { Route } from 'react-router-dom';
 import Priorities from "./Priorities";
 import Hiring from "./Hiring";
-import FeedBackWrapper from '../FeedBackWrapper';
 
 const { Grid, Segment } = Semantic;
 const { Row, Column } = Grid;

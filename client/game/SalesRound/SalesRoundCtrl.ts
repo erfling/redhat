@@ -11,7 +11,6 @@ import ResponseModel, { ResponseFetcher } from '../../../shared/models/ResponseM
 import ValueObj, { SliderValueObj } from '../../../shared/entity-of-the-state/ValueObj';
 import SubRoundModel from '../../../shared/models/SubRoundModel';
 import SapienServerCom from '../../../shared/base-sapien/client/SapienServerCom';
-import DealRenewal from './DealRenewal';
 import MessageModel from '../../../shared/models/MessageModel';
 import ApplicationCtrl from '../../ApplicationCtrl';
 import TeamModel from '../../../shared/models/TeamModel';
@@ -65,7 +64,6 @@ export default class SalesRoundCtrl extends BaseRoundCtrl<IRoundDataStore & {Fee
     public getContentBySubRound(): void {
         var subroundName = window.location.pathname.split("/").filter(str => str.length).pop().toUpperCase();
         if(subroundName == "DEALRENEWAL"){
-
             SapienServerCom.GetData(new SubRoundModel(), null, SapienServerCom.BASE_REST_URL + "rounds/subround/" + subroundName + "/" + this.dataStore.ApplicationState.CurrentUser.Job + "/" + this.dataStore.ApplicationState.CurrentTeam._id).then((r: SubRoundModel) => {
                 const sr = Object.assign(new SubRoundModel(), r);
                 this.dataStore.Round.SubRounds = this.dataStore.Round.SubRounds.filter(sr => sr._id != r._id).concat(sr);
@@ -81,7 +79,6 @@ export default class SalesRoundCtrl extends BaseRoundCtrl<IRoundDataStore & {Fee
         } else {
             super.getContentBySubRound();
         }
-
     }
 
     handleResponseChange(q: QuestionModel, r: ResponseModel, questions: QuestionModel[]) {
@@ -116,7 +113,6 @@ export default class SalesRoundCtrl extends BaseRoundCtrl<IRoundDataStore & {Fee
         this.updateResponse(q, r);
 
         console.log("BUILT OUT RESPONSE",this.Response.Answer, this._responseMap);
-
     }
 
     _getPrice(){
@@ -152,7 +148,6 @@ export default class SalesRoundCtrl extends BaseRoundCtrl<IRoundDataStore & {Fee
         this.SaveResponse(this.Response, question, subround).then(
            (r) => this.MapResponsesToQuestions(r, r.Questions[0].Response)
         )
-        
     }
 
     public getResponsesByRound(r: SubRoundModel): void {
@@ -165,7 +160,6 @@ export default class SalesRoundCtrl extends BaseRoundCtrl<IRoundDataStore & {Fee
         SapienServerCom.SaveData(fetcher, SapienServerCom.BASE_REST_URL + "gameplay/roundresponses/").then((responses: ResponseModel[])=> {
             return r = this.MapResponsesToQuestions(r, responses[0])
         });
-
     }
 
     public MapResponsesToQuestions(subRound: SubRoundModel, resp: ResponseModel){
@@ -216,6 +210,5 @@ export default class SalesRoundCtrl extends BaseRoundCtrl<IRoundDataStore & {Fee
             this.dataStore.Feedback = r
         )
     }
-
 
 }

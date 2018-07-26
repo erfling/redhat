@@ -13,10 +13,8 @@ import BaseRoundCtrl from '../../shared/base-sapien/client/BaseRoundCtrl';
 import PeopleRoundCtrl from './PeopleRound/PeopleRoundCtrl';
 import EngineeringRoundCtrl from './EngineeringRound/EngineeringRoundCtrl';
 import WelcomeCtrl from './Welcome/WelcomeCtrl';
-import ApplicationCtrl from '../ApplicationCtrl';
 import ComponentsVO from '../../shared/base-sapien/client/ComponentsVO';
 import SalesRoundCtrl from './SalesRound/SalesRoundCtrl';
-import FinanceRound from './FinanceRound/FinanceRound';
 import FinanceRoundCtrl from './FinanceRound/FinanceRoundCtrl';
 import CustomerRoundCtrl from './CustomerRound/CustomerRoundCtrl';
 
@@ -33,7 +31,6 @@ export default class GameCtrl extends BaseClientCtrl<IControllerDataStore & {Gam
     private _childController: BaseRoundCtrl<any>;
 
     public ChildController: BaseClientCtrl<any>;
-
 
     //----------------------------------------------------------------------
     //
