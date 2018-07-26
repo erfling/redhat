@@ -7,8 +7,9 @@ import { IRoundDataStore } from '../../../shared/base-sapien/client/BaseRoundCtr
 import EngineeringRoundCtrl from "./EngineeringRoundCtrl";
 import BaseComponent from "../../../shared/base-sapien/client/shared-components/BaseComponent";
 import Decisions from '-!svg-react-loader?name=Icon!../../img/decisions.svg';
+import FeedBackWrapper from "../FeedBackWrapper";
 
-const { Button, Grid, Form, Dimmer, Loader, Header } = Semantic;
+const { Button, Grid, Form, Dimmer, Loader, Header, Table } = Semantic;
 const { Row, Column } = Grid;
 
 export default class EngineeringSub extends BaseComponent<any, IRoundDataStore>
@@ -102,7 +103,8 @@ export default class EngineeringSub extends BaseComponent<any, IRoundDataStore>
                             )}
                         </Form>
                     </div>
-                }                {thisSubRound && this.state.ApplicationState.SelectedMessage &&
+                }                
+                {thisSubRound && this.state.ApplicationState.SelectedMessage && !this.state.ApplicationState.ShowFeedBack &&
                     <EditableContentBlock
                         IsEditable={this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN}
                         SubRoundId={thisSubRound._id}
@@ -110,6 +112,48 @@ export default class EngineeringSub extends BaseComponent<any, IRoundDataStore>
                         Message={this.state.ApplicationState.SelectedMessage}
                     />
                 }
+
+                {(true || this.state.ApplicationState.ShowFeedBack) && thisSubRound && thisSubRound.Questions[0].Response && thisSubRound.Questions[0].Response.Answer &&
+                    <FeedBackWrapper
+                        RoundName="Round 2 Feedback"
+                    >
+                        <Table striped>
+                            <Table.Header>
+                                <Table.Row>
+                                    <Table.HeaderCell>Question</Table.HeaderCell>
+                                    <Table.HeaderCell>Answer</Table.HeaderCell>
+                                    <Table.HeaderCell>Feedback</Table.HeaderCell>
+                                </Table.Row>
+                            </Table.Header>
+
+                            <Table.Body>
+                                {thisSubRound.Questions.map((q, i) =>
+                                    q.PossibleAnswers.map((pa, j) => {
+                                        return <Table.Row key={j}>
+                                                    <Table.Cell>{pa.label}</Table.Cell>
+                                                    <Table.Cell>{q.Response.Answer[j].data}</Table.Cell>
+                                                    <Table.Cell>
+                                                        {q.Response.Answer[j].data == "true" ?
+                                                            (j == 0) ? "Giving in to ChipCo threatens to undermine the openness of OpenVM. It's good in the short term, perhaps, but in the long term limits participation across the platform." :
+                                                            (j == 1) ? "1 true" :
+                                                            (j == 2) ? "2 true" :
+                                                            "3 true"
+                                                        :
+                                                            (j == 0) ? "Smart. Easy to over-react to the needs of a single contributor." :
+                                                            (j == 1) ? "1 false" :
+                                                            (j == 2) ? "2 false" :
+                                                            "3 false"
+                                                        }
+                                                    </Table.Cell>
+                                                </Table.Row>
+                                    })
+                                )}
+
+                            </Table.Body>
+
+                        </Table>
+                    </FeedBackWrapper> 
+                }  
             </>;
         } else {
             return <Dimmer active>
