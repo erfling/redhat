@@ -118,7 +118,10 @@ export default class DealStructure extends BaseComponent<any, IRoundDataStore & 
                     <FeedBackWrapper
                         RoundName="Rouind 3A Feedback"
                     >
-                        {this.state.Feedback && <pre>{JSON.stringify(this.state.Feedback, null, 2)}</pre>}
+                        {this.state.Feedback && 
+                         <h1>adsf</h1>
+                        }
+
                     </FeedBackWrapper>
                 }
             </>;
