@@ -134,9 +134,10 @@ export default class GameCtrl extends BaseClientCtrl<IControllerDataStore & {Gam
         await SapienServerCom.GetData(null, null, url).then((r: RoundChangeMapping) => {
             //set the team's current location to the new location
             console.log("GOT THIS BACK FROM LONG POLL", r);
-            this.component.props.history.push("/game/" + r.ParentRound.toLowerCase() + "/" + r.ChildRound.toLowerCase());
 
-            if (this.dataStore.ApplicationState.CurrentTeam.CurrentRound.ParentRound.toUpperCase() != r.ParentRound.toUpperCase()){
+            if (this.dataStore.ApplicationState.CurrentTeam.CurrentRound.ParentRound.toUpperCase() != r.ParentRound.toUpperCase() || this.dataStore.ApplicationState.CurrentTeam.CurrentRound.ChildRound.toUpperCase() != r.ChildRound.toUpperCase()){
+
+                this.component.props.history.push("/game/" + r.ParentRound.toLowerCase() + "/" + r.ChildRound.toLowerCase());
                 const team = this.dataStore.ApplicationState.CurrentTeam = JSON.parse(localStorage.getItem("RH_TEAM"));
                 team.CurrentRound = r;
                 localStorage.setItem("RH_TEAM", JSON.stringify(team));

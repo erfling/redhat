@@ -26,5 +26,8 @@ export default class TeamModel extends BaseModel
     @dbProp(String)
     GameId: string;
 
-    CurrentRound: RoundChangeMapping;
+    CurrentRound: Partial<RoundChangeMapping> = {
+        ParentRound: "",
+        ChildRound: ""
+    };
 }

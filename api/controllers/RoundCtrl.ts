@@ -156,10 +156,9 @@ class RoundRouter
 
                         if(matchingAnswer){
 
-                            let min = Math.round(20000 * ( Math.pow( (( matchingAnswer.data * 1000 )/466.667 ), -0.5) ) / 6);
+                            let min = Math.round(200000 * ( Math.pow( (( matchingAnswer.data )/466.666666666666666666666666666666666666666666667 ), -0.5) ) / 6000);
 
                             quantityQuestion.PossibleAnswers[0] = Object.assign(quantityQuestion.PossibleAnswers[0], {
-                                //(20000 * (( matchingAnswer.data /466.667)Math.pow(-0.5))/6
                                 min: min,//parseInt((response.Answer as SliderValueObj).data) * ,
                                 max: min * 2
                             })

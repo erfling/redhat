@@ -150,6 +150,7 @@ export default class SalesRoundCtrl extends BaseRoundCtrl<IRoundDataStore>
     }
 
     public MapResponsesToQuestions(subRound: SubRoundModel, resp: ResponseModel){
+        this.Response = resp;
         subRound.Questions.forEach(q => {
             q.Response = new ResponseModel();
             q.Response.Score = 0;

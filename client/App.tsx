@@ -143,6 +143,15 @@ export default class App extends BaseComponent<any, IControllerDataStore>
 
                                 {this.props.location && this.props.location.pathname.toUpperCase().indexOf("GAME") && <>
                                     <Menu.Item>
+                                    <Menu.Item
+                                            name='Show Feedback'
+                                            onClick={e => {
+                                                e.preventDefault();
+                                                this.controller.dataStore.ApplicationState.ShowMenu = false;
+                                                (GameCtrl.GetInstance().ChildController as BaseRoundCtrl<any>).dataStore.ApplicationState.ShowFeedBack = !(GameCtrl.GetInstance().ChildController as BaseRoundCtrl<any>).dataStore.ShowFeedBack;
+                                            }}
+                                        >
+                                        </Menu.Item>
                                         <Menu.Header>Go to:</Menu.Header>
                                         <Menu.Item
                                             name='1A'

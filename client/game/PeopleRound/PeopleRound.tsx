@@ -8,6 +8,7 @@ import GameCtrl from "../GameCtrl";
 import { Route } from 'react-router-dom';
 import Priorities from "./Priorities";
 import Hiring from "./Hiring";
+import FeedBackWrapper from '../FeedBackWrapper';
 
 const { Grid, Segment } = Semantic;
 const { Row, Column } = Grid;
@@ -64,25 +65,34 @@ export default class PeopleRound extends BaseComponent<any, IRoundDataStore>
     render() {
         if (this.state && this.controller.ComponentFistma) {
             return <>
-                <Grid>
-                    <Column
-                        className="content-block"
-                        width={16}
-                    >
-                        <Row
-                            style={{
-                                marginBottom: '-10px'
-                            }}
+                {!this.state.ApplicationState.ShowFeedBack &&
+                    <Grid>
+                        <Column
+                            className="content-block"
+                            width={16}
                         >
-                            <h1>round one: build the team: {this.state.ApplicationState.MobileWidth}</h1>
-                        </Row>
-                    </Column>
-                    <Switch>
-                        <Route path="/game/peopleround/priorities" component={Priorities} />
-                        <Route path="/game/peopleround/hiring" component={Hiring} />                    
-                        <Redirect exact from="/game/peopleround/" to="/game/peopleround/priorities" />
-                    </Switch>
-                </Grid> 
+                            <Row
+                                style={{
+                                    marginBottom: '-10px'
+                                }}
+                            >
+                                <h1>round one: build the team: {this.state.ApplicationState.MobileWidth}</h1>
+                            </Row>
+                        </Column>
+                        <Switch>
+                            <Route path="/game/peopleround/priorities" component={Priorities} />
+                            <Route path="/game/peopleround/hiring" component={Hiring} />                    
+                            <Redirect exact from="/game/peopleround/" to="/game/peopleround/priorities" />
+                        </Switch>
+                    </Grid>       
+                }
+                {this.state.ApplicationState.ShowFeedBack &&
+                    <FeedBackWrapper
+                        RoundName={this.props.location.pathname.toUpperCase().indexOf("PRIORITES") != -1 ? "Round 1A" : "Round 1B"}
+                    >
+                        Your FeedBack
+                    </FeedBackWrapper> 
+                }             
             </>
         } else {
             return <Segment loading></Segment>
