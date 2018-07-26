@@ -106,7 +106,7 @@ export default class Priorities extends BaseComponent<any, IRoundDataStore>
                         </Form>
                     </div>
                 }
-                {thisSubRound && this.state.ApplicationState.SelectedMessage && !this.state.ApplicationState.ShowFeedBack &&
+                {thisSubRound && this.state.ApplicationState.SelectedMessage && !this.state.ApplicationState.ShowFeedback &&
                     <EditableContentBlock
                         IsEditable={this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN}
                         SubRoundId={thisSubRound._id}
@@ -115,7 +115,7 @@ export default class Priorities extends BaseComponent<any, IRoundDataStore>
                     />
                 }
 
-                {this.state.ApplicationState.ShowFeedBack &&
+                {this.state.ApplicationState.ShowFeedback &&
                     <FeedBackWrapper
                         RoundName={this.props.location.pathname.toUpperCase().indexOf("PRIORITES") != -1 ? "Round 1A" : "Round 1B"}
                     >

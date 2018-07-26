@@ -63,7 +63,7 @@ export default class DealStructure extends BaseComponent<any, IRoundDataStore & 
 
         if (this.state) {
             return <>
-                {!this.state.ApplicationState.ShowFeedBack && this.state.ApplicationState.CurrentUser.Job == JobName.MANAGER && thisSubRound != null && thisSubRound.Questions &&
+                {!this.state.ApplicationState.ShowFeedback && this.state.ApplicationState.CurrentUser.Job == JobName.MANAGER && thisSubRound != null && thisSubRound.Questions &&
                     <div
                         className={(this.state.ApplicationState.ShowQuestions ? 'show ' : 'hide ') + (this.state.ApplicationState.MobileWidth ? "mobile-messages decisions" : "wide-messages decisions")}
                     >
@@ -110,7 +110,7 @@ export default class DealStructure extends BaseComponent<any, IRoundDataStore & 
                         </Form>
                     </div>
                 }
-                {!this.state.ApplicationState.ShowFeedBack && thisSubRound && this.state.ApplicationState.SelectedMessage &&
+                {!this.state.ApplicationState.ShowFeedback && thisSubRound && this.state.ApplicationState.SelectedMessage &&
                     <EditableContentBlock
                         IsEditable={this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN}
                         SubRoundId={thisSubRound._id}
@@ -118,7 +118,7 @@ export default class DealStructure extends BaseComponent<any, IRoundDataStore & 
                         Message={this.state.ApplicationState.SelectedMessage}
                     />
                 }
-                {this.state.ApplicationState.ShowFeedBack &&
+                {this.state.ApplicationState.ShowFeedback &&
                     <FeedBackWrapper
                         RoundName="Rouind 3A Feedback"
                     >

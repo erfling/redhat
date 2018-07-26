@@ -175,11 +175,11 @@ class RoundRouter
                         res.json(round);
 
                     } else {
-                        res.json("COULDN'T FIND MATCHING RESPONSE")
+                        res.send("COULDN'T FIND MATCHING RESPONSE")
                     }
 
                 } else {
-                    res.json("COULDN'T FIND MATCHING RESPONSE")
+                    res.send("COULDN'T FIND MATCHING RESPONSE")
                 }
 
             }
@@ -280,18 +280,23 @@ class RoundRouter
         try{
             //get all the teams in the game
             const game:GameModel = await monGameModel.findById(GameId).populate('Teams').then(g => g ? Object.assign(new GameModel(), g.toJSON()): null)
-            if(!game)throw new Error("no game");
             console.log("FOUDN THIS GAME",game)
             //get all the response for the relevant round in this game
             const responses = await monResponseModel.find({GameId, RoundId}).then(r => r ? r.map(resp => Object.assign(new ResponseModel(), resp.toJSON())): null);
-            if(!responses)throw new Error("no responses");
-            console.log("FOUDN THESE RESPONSES",responses)
+            console.log("FOUDN THESE RESPONSES",responses);
 
-            let teamsWithResponses: TeamModel[] = game.Teams.map(t => {
-                t.Responses = responses.filter(r => r.TeamId == t._id.toString())
-                return t;
-            })
+            let teamsWithResponses: TeamModel[];
+            if(responses){
+                teamsWithResponses = game.Teams.map(t => {
+                    t.Responses = responses.filter(r => r.TeamId == t._id.toString())
+                    return t;
+                });
+            } else {
+                teamsWithResponses = game.Teams;
+            }
 
+            if (!teamsWithResponses) throw new Error("painis");
+            
             res.json(teamsWithResponses)
 
         }catch(err){

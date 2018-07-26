@@ -104,7 +104,7 @@ export default class EngineeringSub extends BaseComponent<any, IRoundDataStore>
                         </Form>
                     </div>
                 }                
-                {thisSubRound && this.state.ApplicationState.SelectedMessage && !this.state.ApplicationState.ShowFeedBack &&
+                {thisSubRound && this.state.ApplicationState.SelectedMessage && !this.state.ApplicationState.ShowFeedback &&
                     <EditableContentBlock
                         IsEditable={this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN}
                         SubRoundId={thisSubRound._id}
@@ -113,7 +113,7 @@ export default class EngineeringSub extends BaseComponent<any, IRoundDataStore>
                     />
                 }
 
-                {this.state.ApplicationState.ShowFeedBack && thisSubRound && thisSubRound.Questions[0].Response && thisSubRound.Questions[0].Response.Answer &&
+                {this.state.ApplicationState.ShowFeedback && thisSubRound && thisSubRound.Questions[0].Response && thisSubRound.Questions[0].Response.Answer &&
                     <FeedBackWrapper
                         RoundName="Round 2 Feedback"
                     >
