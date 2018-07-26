@@ -7,6 +7,7 @@ import * as Semantic from 'semantic-ui-react';
 import { IRoundDataStore } from '../../../shared/base-sapien/client/BaseRoundCtrl';
 import BaseComponent from "../../../shared/base-sapien/client/shared-components/BaseComponent";
 import Decisions from '-!svg-react-loader?name=Icon!../../img/decisions.svg';
+import FeedBackWrapper from "../FeedBackWrapper";
 
 const { Button, Grid, Menu, Segment, Form, Dimmer, Loader, Header } = Semantic;
 const { Row, Column } = Grid;
@@ -105,7 +106,7 @@ export default class Priorities extends BaseComponent<any, IRoundDataStore>
                         </Form>
                     </div>
                 }
-                {thisSubRound && this.state.ApplicationState.SelectedMessage &&
+                {thisSubRound && this.state.ApplicationState.SelectedMessage && !this.state.ApplicationState.ShowFeedBack &&
                     <EditableContentBlock
                         IsEditable={this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN}
                         SubRoundId={thisSubRound._id}
@@ -113,6 +114,14 @@ export default class Priorities extends BaseComponent<any, IRoundDataStore>
                         Message={this.state.ApplicationState.SelectedMessage}
                     />
                 }
+
+                {this.state.ApplicationState.ShowFeedBack &&
+                    <FeedBackWrapper
+                        RoundName={this.props.location.pathname.toUpperCase().indexOf("PRIORITES") != -1 ? "Round 1A" : "Round 1B"}
+                    >
+                        Your FeedBack
+                    </FeedBackWrapper> 
+                }   
             </>;
         } else {
             return <Segment loading>
