@@ -12,6 +12,7 @@ import BaseRoundCtrl from "../shared/base-sapien/client/BaseRoundCtrl";
 import Admin from './admin/Admin';
 import Game from "./game/Game";
 import Login from "./login/Login";
+import SalesRoundCtrl from "./game/SalesRound/SalesRoundCtrl";
 
 export default class App extends BaseComponent<any, IControllerDataStore>
 {
@@ -149,6 +150,8 @@ export default class App extends BaseComponent<any, IControllerDataStore>
                                                 e.preventDefault();
                                                 this.controller.dataStore.ApplicationState.ShowMenu = false;
                                                 (GameCtrl.GetInstance().ChildController as BaseRoundCtrl<any>).dataStore.ApplicationState.ShowFeedBack = !(GameCtrl.GetInstance().ChildController as BaseRoundCtrl<any>).dataStore.ShowFeedBack;
+                                                if ("GetFeedback" in GameCtrl.GetInstance().ChildController) (GameCtrl.GetInstance().ChildController as SalesRoundCtrl).GetFeedback((GameCtrl.GetInstance().ChildController as SalesRoundCtrl).dataStore.SubRound._id);
+
                                             }}
                                         >
                                         </Menu.Item>

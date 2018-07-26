@@ -10,6 +10,9 @@ import { monResponseModel } from './GamePlayCtrl';
 import ResponseModel from '../../shared/models/ResponseModel';
 import ValueObj, { SliderValueObj } from '../../shared/entity-of-the-state/ValueObj';
 import { QuestionType, ComparisonLabel } from '../../shared/models/QuestionModel';
+import { monGameModel } from './GameCtrl';
+import TeamModel from '../../shared/models/TeamModel';
+import GameModel from '../../shared/models/GameModel';
 
 const messageSchObj = SchemaBuilder.fetchSchema(MessageModel);
 const monMessageSchema = new mongoose.Schema(messageSchObj);
@@ -269,6 +272,36 @@ class RoundRouter
         }
     }
 
+    public async GetRound3FeedBack(req: Request, res: Response){
+        console.log("called it")
+        const GameId = req.params.gameid;
+        const RoundId = req.params.roundid;
+
+        try{
+            //get all the teams in the game
+            const game:GameModel = await monGameModel.findById(GameId).populate('Teams').then(g => g ? Object.assign(new GameModel(), g.toJSON()): null)
+            if(!game)throw new Error("no game");
+            console.log("FOUDN THIS GAME",game)
+            //get all the response for the relevant round in this game
+            const responses = await monResponseModel.find({GameId, RoundId}).then(r => r ? r.map(resp => Object.assign(new ResponseModel(), resp.toJSON())): null);
+            if(!responses)throw new Error("no responses");
+            console.log("FOUDN THESE RESPONSES",responses)
+
+            let teamsWithResponses: TeamModel[] = game.Teams.map(t => {
+                t.Responses = responses.filter(r => r.TeamId == t._id.toString())
+                return t;
+            })
+
+            res.json(teamsWithResponses)
+
+        }catch(err){
+            console.log(err)
+            res.send("couldn't build response list")
+        }
+
+
+    }
+
     private _getMessageProp(job: JobName): keyof UserModel {
         switch(job){
             case JobName.MANAGER:
@@ -291,6 +324,10 @@ class RoundRouter
         this.router.post("/",    
             (req, res, next) => AuthUtils.IS_USER_AUTHORIZED(req, res, next, PERMISSION_LEVELS.PLAYER), 
             this.SaveRound.bind(this)
+        );
+        this.router.get("/round3responses/:gameid/:roundid",    
+            //(req, res, next) => AuthUtils.IS_USER_AUTHORIZED(req, res, next, PERMISSION_LEVELS.PLAYER), 
+            this.GetRound3FeedBack.bind(this)
         );
         this.router.post("/subround", 
             (req, res, next) => AuthUtils.IS_USER_AUTHORIZED(req, res, next, PERMISSION_LEVELS.PLAYER), 

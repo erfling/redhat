@@ -16,6 +16,7 @@ export enum ComparisonLabel{
     PRICE = "PRICE",
     PRICE_PER_CUSTOMER = "PRICE_PER_CUSTOMER",
     PROJECT_MANAGEMENT = "PROJECT_MANAGEMENT",    
+    CSAT = "CSAT",    
 }
 
 export default class QuestionModel extends BaseModel
@@ -37,7 +38,6 @@ export default class QuestionModel extends BaseModel
 
     @dbProp([SliderValueObj])
     public PossibleAnswers: SliderValueObj[] = [];
-
 
     //Maker for question this quesitno is paired with in another round, if it is paired.
     @dbProp(String)

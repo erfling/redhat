@@ -7,11 +7,12 @@ import { IRoundDataStore } from '../../../shared/base-sapien/client/BaseRoundCtr
 import SalesRoundCtrl from "./SalesRoundCtrl";
 import BaseComponent from "../../../shared/base-sapien/client/shared-components/BaseComponent";
 import Decisions from '-!svg-react-loader?name=Icon!../../img/decisions.svg';
+import TeamModel from "../../../shared/models/TeamModel";
 
 const { Button, Grid, Form, Dimmer, Loader, Header } = Semantic;
 const { Row, Column } = Grid;
 
-export default class DealRenewal extends BaseComponent<any, IRoundDataStore>
+export default class DealRenewal extends BaseComponent<any, IRoundDataStore & {Feedback: TeamModel[]}>
 {
     //----------------------------------------------------------------------
     //

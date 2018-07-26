@@ -7,11 +7,13 @@ import { IRoundDataStore } from '../../../shared/base-sapien/client/BaseRoundCtr
 import SalesRoundCtrl from "./SalesRoundCtrl";
 import BaseComponent from "../../../shared/base-sapien/client/shared-components/BaseComponent";
 import Decisions from '-!svg-react-loader?name=Icon!../../img/decisions.svg';
+import FeedBackWrapper from '../FeedBackWrapper';
+import TeamModel from "../../../shared/models/TeamModel";
 
 const { Button, Grid, Form, Dimmer, Loader, Header } = Semantic;
 const { Row, Column } = Grid;
 
-export default class DealStructure extends BaseComponent<any, IRoundDataStore>
+export default class DealStructure extends BaseComponent<any, IRoundDataStore & {Feedback: TeamModel[]}>
 {
     //----------------------------------------------------------------------
     //
@@ -57,7 +59,7 @@ export default class DealStructure extends BaseComponent<any, IRoundDataStore>
         
         if (this.state) {
             return <>
-                {this.state.ApplicationState.CurrentUser.Job == JobName.MANAGER && thisSubRound != null && thisSubRound.Questions &&
+                {!this.state.ApplicationState.ShowFeedBack && this.state.ApplicationState.CurrentUser.Job == JobName.MANAGER && thisSubRound != null && thisSubRound.Questions &&
                     <div
                         className={(this.state.ApplicationState.ShowQuestions ? 'show ' : 'hide ') + (this.state.ApplicationState.MobileWidth ? "mobile-messages decisions" : "wide-messages decisions")}
                     >
@@ -104,13 +106,20 @@ export default class DealStructure extends BaseComponent<any, IRoundDataStore>
                         </Form>
                     </div>
                 }               
-                {thisSubRound && this.state.ApplicationState.SelectedMessage &&
+                {!this.state.ApplicationState.ShowFeedBack && thisSubRound && this.state.ApplicationState.SelectedMessage &&
                     <EditableContentBlock
                         IsEditable={this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN}
                         SubRoundId={thisSubRound._id}
                         onSaveHandler={this.controller.updateContent.bind(this.controller)}
                         Message={this.state.ApplicationState.SelectedMessage}
                     />
+                }
+                {this.state.ApplicationState.ShowFeedBack &&
+                    <FeedBackWrapper
+                        RoundName="Rouind 3A Feedback"
+                    >
+                        {this.state.Feedback && <pre>{JSON.stringify(this.state.Feedback, null, 2)}</pre>}
+                    </FeedBackWrapper>
                 }
             </>;
         } else {

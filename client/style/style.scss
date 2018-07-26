@@ -115,11 +115,19 @@ SEMANTIC MOBILE FIX
   
 .ui.modal {
     margin-top: 0;
+    &.intverted{
+        .header{
+            color: white;
+        }
+    }
 }
 .ui.modal > .content{
     box-sizing: border-box;
 }
-
+.ui.modal {
+    margin-top: 0;
+    top: 10%;
+}
 /**
 *
 *   CALENDAR STYLES

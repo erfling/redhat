@@ -133,7 +133,6 @@ export default class GameCtrl extends BaseClientCtrl<IControllerDataStore & {Gam
 
         await SapienServerCom.GetData(null, null, url).then((r: RoundChangeMapping) => {
             //set the team's current location to the new location
-            console.log("GOT THIS BACK FROM LONG POLL", r);
 
             if (this.dataStore.ApplicationState.CurrentTeam.CurrentRound.ParentRound.toUpperCase() != r.ParentRound.toUpperCase() || this.dataStore.ApplicationState.CurrentTeam.CurrentRound.ChildRound.toUpperCase() != r.ChildRound.toUpperCase()){
 
@@ -146,6 +145,8 @@ export default class GameCtrl extends BaseClientCtrl<IControllerDataStore & {Gam
                 const targetJob = r.UserJobs && r.UserJobs[this.dataStore.ApplicationState.CurrentUser._id] ? r.UserJobs[this.dataStore.ApplicationState.CurrentUser._id] : JobName.IC;
 
                 this.dataStore.ApplicationState.CurrentUser.Job = targetJob;
+
+                if (this.ChildController && this.ChildController.hasOwnProperty("GetFeedback"))(this.ChildController as SalesRoundCtrl).GetFeedback((this.ChildController as SalesRoundCtrl).dataStore.SubRound._id);
             }
             this._childController = this._getTargetController(r.ParentRound);
             

@@ -14,8 +14,9 @@ import SapienServerCom from '../../../shared/base-sapien/client/SapienServerCom'
 import DealRenewal from './DealRenewal';
 import MessageModel from '../../../shared/models/MessageModel';
 import ApplicationCtrl from '../../ApplicationCtrl';
+import TeamModel from '../../../shared/models/TeamModel';
 
-export default class SalesRoundCtrl extends BaseRoundCtrl<IRoundDataStore>
+export default class SalesRoundCtrl extends BaseRoundCtrl<IRoundDataStore & {Feedback: TeamModel[]}>
 {
     //----------------------------------------------------------------------
     //
@@ -103,6 +104,10 @@ export default class SalesRoundCtrl extends BaseRoundCtrl<IRoundDataStore>
                         label: ComparisonLabel.PRICE_PER_CUSTOMER,
                         data: this._getPrice()
                     }, 
+                    {
+                        label: ComparisonLabel.CSAT,
+                        data: this._getCSAT()
+                    },
                     r.Answer[0]
                 ]
             ),
@@ -121,6 +126,19 @@ export default class SalesRoundCtrl extends BaseRoundCtrl<IRoundDataStore>
         return Math.round(price);
     }
 
+    _getCSAT(){
+        let csat = 0;
+        if(this._getPrice()){
+            csat = Math.pow(250/this._getPrice(), .5);
+            if (this._responseMap && this._responseMap[ComparisonLabel.PROJECT_MANAGEMENT] && (this._responseMap[ComparisonLabel.PROJECT_MANAGEMENT].data == true || this._responseMap[ComparisonLabel.PROJECT_MANAGEMENT].data == true.toString())){
+                
+                console.log("PROJECT MANAGEMENT", this._responseMap[ComparisonLabel.PROJECT_MANAGEMENT]);
+                csat *= 1.1;
+            }
+        }
+        return csat;
+    }
+
     SaveResponses(subround: SubRoundModel, question: QuestionModel){
         subround.Questions.forEach(q => {
             let response = q.Response;
@@ -132,7 +150,9 @@ export default class SalesRoundCtrl extends BaseRoundCtrl<IRoundDataStore>
             this.dataStore.ApplicationState.FormIsSubmitting = response.IsSaving = true;
         })
 
-        this.SaveResponse(this.Response, question, subround)
+        this.SaveResponse(this.Response, question, subround).then(
+           (r) => this.MapResponsesToQuestions(r, r.Questions[0].Response)
+        )
         
     }
 
@@ -150,6 +170,8 @@ export default class SalesRoundCtrl extends BaseRoundCtrl<IRoundDataStore>
     }
 
     public MapResponsesToQuestions(subRound: SubRoundModel, resp: ResponseModel){
+        if(!resp) return
+
         this.Response = resp;
         subRound.Questions.forEach(q => {
             q.Response = new ResponseModel();
@@ -180,13 +202,21 @@ export default class SalesRoundCtrl extends BaseRoundCtrl<IRoundDataStore>
         this.dataStore = {
             Round: new RoundModel(),
             ApplicationState: DataStore.ApplicationState,
-            ComponentFistma: this.ComponentFistma
+            ComponentFistma: this.ComponentFistma,
+            Feedback: null,
+            SubRound: null
+
         };
         this.dataStore.Round.Name = "SALES";
 
         this.getContentBySubRound();
     }
 
+    public GetFeedback(srID){
+        return SapienServerCom.GetData(null, null, SapienServerCom.BASE_REST_URL + "rounds/round3responses" + "/" + this.dataStore.ApplicationState.CurrentTeam.GameId + "/" + srID).then(r =>
+            this.dataStore.Feedback = r
+        )
+    }
 
 
 }
