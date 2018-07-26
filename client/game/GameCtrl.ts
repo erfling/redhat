@@ -146,7 +146,10 @@ export default class GameCtrl extends BaseClientCtrl<IControllerDataStore & {Gam
 
                 this.dataStore.ApplicationState.CurrentUser.Job = targetJob;
 
+            } else {
                 if (this.ChildController && this.ChildController.hasOwnProperty("GetFeedback"))(this.ChildController as SalesRoundCtrl).GetFeedback((this.ChildController as SalesRoundCtrl).dataStore.SubRound._id);
+                (this.ChildController as BaseRoundCtrl<any>).dataStore.ApplicationState.ShowFeedback = r.ShowFeedback;
+                (this.ChildController as BaseRoundCtrl<any>).dataStore.ApplicationState.ShowRateUsers = r.ShowRateUsers;
             }
             this._childController = this._getTargetController(r.ParentRound);
             
@@ -198,6 +201,17 @@ export default class GameCtrl extends BaseClientCtrl<IControllerDataStore & {Gam
 
         console.log("DATASTORE APPLICATION:", DataStore.ApplicationState);
         this.pollForGameStateChange(this.dataStore.ApplicationState.CurrentTeam.GameId);
+    }
+
+    public getParentRound(): string{
+        var pathname = location.pathname.split("/").filter(item => item.length);
+        if(pathname.indexOf("game") == -1)return "";
+        return pathname[pathname.length - 2];
+    }
+
+    public getChildRound(): string{
+        if(location.pathname.indexOf("game") == -1)return "";
+        return location.pathname.split("/").filter(item => item.length).pop();
     }
 
 }

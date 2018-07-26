@@ -144,15 +144,19 @@ export default class App extends BaseComponent<any, IControllerDataStore>
 
                                 {this.props.location && this.props.location.pathname.toUpperCase().indexOf("GAME") && <>
                                     <Menu.Item>
-                                    <Menu.Item
+                                        <Menu.Item
                                             name='Show Feedback'
                                             onClick={e => {
-                                                e.preventDefault();
-                                                this.controller.dataStore.ApplicationState.ShowMenu = false;
-                                                (GameCtrl.GetInstance().ChildController as BaseRoundCtrl<any>).dataStore.ApplicationState.ShowFeedBack = !(GameCtrl.GetInstance().ChildController as BaseRoundCtrl<any>).dataStore.ShowFeedBack;
-                                                if ("GetFeedback" in GameCtrl.GetInstance().ChildController) (GameCtrl.GetInstance().ChildController as SalesRoundCtrl).GetFeedback((GameCtrl.GetInstance().ChildController as SalesRoundCtrl).dataStore.SubRound._id);
-
-                                            }}
+                                                e.preventDefault();                                              
+                                                    e.preventDefault();
+                                                    this.controller.dataStore.ApplicationState.ShowMenu = false;
+                                                    GameCtrl.GetInstance().goToMapping({
+                                                        ParentRound: GameCtrl.GetInstance().getParentRound(),
+                                                        ChildRound: GameCtrl.GetInstance().getChildRound(),
+                                                        ShowFeedback: true,
+                                                        ShowRateUsers: false
+                                                    })                                            
+                                                }}
                                         >
                                         </Menu.Item>
                                         <Menu.Header>Go to:</Menu.Header>

@@ -147,7 +147,7 @@ export class AppServer
                     mapping.UserJobs = {};
 
                     //make sure the current mapping has the correct child round
-                    var oldMapping: RoundChangeMapping = await monMappingModel.findOneAndUpdate({ GameId: game._id, ParentRound: mapping.ParentRound }, {ChildRound: mapping.ChildRound}).then(r => r ? Object.assign(new RoundChangeMapping(), r.toJSON()) : null);
+                    var oldMapping: RoundChangeMapping = await monMappingModel.findOneAndUpdate({ GameId: game._id, ParentRound: mapping.ParentRound }, mapping, {new: true}).then(r => r ? Object.assign(new RoundChangeMapping(), r.toJSON()) : null);
                     console.log("OLD MAPPING",oldMapping);
                     if (!oldMapping) {
                         if (mapping.ParentRound.toLowerCase() == "engineeringround") {
@@ -189,9 +189,9 @@ export class AppServer
                         throw new Error("Couldn't make mapping")
                     }
                     // Update Game object on DB
-                    const gameSave = await monGameModel.findByIdAndUpdate(req.params.gameid, { CurrentRound: req.body, HasBeenManager: game.HasBeenManager });
+                    var mapperydoo = (newMapping && newMapping.ParentRound.length) ? newMapping : oldMapping;
+                    const gameSave = await monGameModel.findByIdAndUpdate(req.params.gameid, { CurrentRound: mapperydoo, HasBeenManager: game.HasBeenManager });
                     if (gameSave) {
-                        var mapperydoo = (newMapping && newMapping.ParentRound.length) ? newMapping : oldMapping;
                         //AppServer.LongPoll.publishToId("/listenforgameadvance/:gameid", req.params.gameid, mapperydoo);
                         res.json("long poll publish hit");
                     }

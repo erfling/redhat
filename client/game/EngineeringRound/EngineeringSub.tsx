@@ -113,7 +113,7 @@ export default class EngineeringSub extends BaseComponent<any, IRoundDataStore>
                     />
                 }
 
-                {(true || this.state.ApplicationState.ShowFeedBack) && thisSubRound && thisSubRound.Questions[0].Response && thisSubRound.Questions[0].Response.Answer &&
+                {this.state.ApplicationState.ShowFeedBack && thisSubRound && thisSubRound.Questions[0].Response && thisSubRound.Questions[0].Response.Answer &&
                     <FeedBackWrapper
                         RoundName="Round 2 Feedback"
                     >

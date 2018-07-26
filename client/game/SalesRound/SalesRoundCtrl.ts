@@ -70,7 +70,7 @@ export default class SalesRoundCtrl extends BaseRoundCtrl<IRoundDataStore & {Fee
                 const sr = Object.assign(new SubRoundModel(), r);
                 this.dataStore.Round.SubRounds = this.dataStore.Round.SubRounds.filter(sr => sr._id != r._id).concat(sr);
                 const messageProp = this._getMessageProp(this.dataStore.ApplicationState.CurrentUser.Job)
-                this.dataStore.ApplicationState.SelectedMessage = DataStore.ApplicationState.SelectedMessage = (sr[messageProp] as MessageModel[]).filter(m => m.IsDefault)[0] || null;
+                if (messageProp) this.dataStore.ApplicationState.SelectedMessage = DataStore.ApplicationState.SelectedMessage = (sr[messageProp] as MessageModel[]).filter(m => m.IsDefault)[0] || null;
                 DataStore.ApplicationState.CurrentMessages = this.dataStore.ApplicationState.CurrentMessages = ApplicationCtrl.GetInstance().dataStore.ApplicationState.CurrentMessages = this.getMessagesByJob(this.dataStore.ApplicationState.CurrentUser.Job, sr._id)
                 
                 console.log("GOT THIS BACK FOR 3B", sr, r);
@@ -85,7 +85,6 @@ export default class SalesRoundCtrl extends BaseRoundCtrl<IRoundDataStore & {Fee
     }
 
     handleResponseChange(q: QuestionModel, r: ResponseModel, questions: QuestionModel[]) {
-
         this._responseMap[q.ComparisonLabel] = r.Answer[0];
         r.ComparisonLabel = q.ComparisonLabel;
         (r.Answer as SliderValueObj).label = q.ComparisonLabel.toLowerCase();
