@@ -171,6 +171,7 @@ export default class Game extends BaseComponent<any, IControllerDataStore & { Ga
                         }}
                     >
                         <Decisions
+                            style={{marginTop: '-9px'}}
                             className="ui circular image"
                         />
                         <strong>Decisions</strong>

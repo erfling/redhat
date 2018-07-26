@@ -87,19 +87,20 @@ export default class DealStructure extends BaseComponent<any, IRoundDataStore>
                                         }}
                                         IsEditable={this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN}
                                     />
-                                    <Button
-                                        content='Submit'
-                                        icon='checkmark'
-                                        labelPosition='right'
-                                        color="blue"
-                                        loading={q.Response ? q.Response.IsSaving : false}
-                                        onClick={e => {
-                                            this.controller.SaveResponse(q.Response, q, thisSubRound)
-                                        }}
-                                    />
+                                    
                                 </Row>
                             }
                             )}
+                            <Button
+                                content='Submit'
+                                icon='checkmark'
+                                labelPosition='right'
+                                color="blue"
+                                loading={thisSubRound.Questions[0].Response ? thisSubRound.Questions[0].Response.IsSaving : false}
+                                onClick={e => {
+                                   this.controller.SaveResponses(thisSubRound, thisSubRound.Questions[0])                                    
+                                }}
+                            />
                         </Form>
                     </div>
                 }               

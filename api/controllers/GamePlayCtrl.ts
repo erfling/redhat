@@ -3,8 +3,9 @@ import * as mongoose from 'mongoose';
 import SchemaBuilder from '../SchemaBuilder';
 import ResponseModel, { ResponseFetcher } from '../../shared/models/ResponseModel';
 import { monTeamModel } from './TeamCtrl';
-import ValueObj from '../../shared/entity-of-the-state/ValueObj';
+import ValueObj, { SliderValueObj } from '../../shared/entity-of-the-state/ValueObj';
 import { monQModel } from './RoundCtrl';
+import SubRoundModel from '../../shared/models/SubRoundModel';
 
 const schObj = SchemaBuilder.fetchSchema(ResponseModel);
 const monSchema = new mongoose.Schema(schObj);
@@ -167,12 +168,31 @@ class GamePlayRouter
         }
     }
 
+    public async SaveRound3Response(req: Request, res: Response){
+        const subround: SubRoundModel = Object.assign(new SubRoundModel(), req.body as SubRoundModel);
+        console.log(subround);
+        try{
+
+            let questions = subround.Questions;
+            for(let i = 0; i < questions.length; i++){
+                let response = questions[i].Response;
+                
+            }
+
+            res.json();
+        }
+        catch{
+
+        }
+    }
+
     public routes(){
         //this.router.all("*", cors());
         this.router.get("/", this.GetRounds.bind(this));
         this.router.post("/response", this.SaveResponse.bind(this));
         this.router.post("/1bresponse", this.Save1BResponse.bind(this), this.SaveResponse.bind(this));
         this.router.post("/roundresponses", this.GetTeamResponsesByRound.bind(this));
+        this.router.post("/3response", this.SaveRound3Response.bind(this));
         
     }
 }

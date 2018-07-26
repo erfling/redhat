@@ -6,6 +6,10 @@ import SubRoundModel from '../../shared/models/SubRoundModel';
 import MessageModel from '../../shared/models/MessageModel';
 import UserModel, { JobName } from '../../shared/models/UserModel';
 import AuthUtils, { PERMISSION_LEVELS } from '../AuthUtils';
+import { monResponseModel } from './GamePlayCtrl';
+import ResponseModel from '../../shared/models/ResponseModel';
+import ValueObj, { SliderValueObj } from '../../shared/entity-of-the-state/ValueObj';
+import { QuestionType, ComparisonLabel } from '../../shared/models/QuestionModel';
 
 const messageSchObj = SchemaBuilder.fetchSchema(MessageModel);
 const monMessageSchema = new mongoose.Schema(messageSchObj);
@@ -128,6 +132,61 @@ class RoundRouter
         
     }
 
+    public async GetSubRound3B(req: Request, res: Response):Promise<any> {
+        
+        const ID = req.params.subround;
+        const TeamId = req.params.TeamId
+        const job = this._getMessageProp(req.params.job);
+
+        console.log("3B3B3B3BTRYING TO GET ROUND WITH NAME: ", ID);
+        try {
+            let round: SubRoundModel = await monSubRoundModel.findOne({Name: ID}).populate("Questions").populate(job).then(r => r ? Object.assign(new SubRoundModel(), r.toJSON()) : null);
+            if (!round) {
+              res.status(400).json({ error: 'No round' });
+            } else {
+                const quantityQuestion = round.Questions.filter(q => q.ComparisonLabel == ComparisonLabel.QUANTITY)[0] || null;
+
+                if(quantityQuestion){
+                    let response:ResponseModel = await monResponseModel.findOne({QuestionId: quantityQuestion.SiblingQuestionId, TeamId}).then(r => r ? Object.assign(new ResponseModel(), r.toJSON()) : null)
+
+                //get 3A responses for team
+                //old school for loop because await makes it await
+                    if (response){
+                        let matchingAnswer = (response.Answer as SliderValueObj[]).filter(a => a.label == ComparisonLabel.PRICE_PER_CUSTOMER)[0] || null;
+
+                        if(matchingAnswer){
+
+                            let min = Math.round(20000 * ( Math.pow( (( matchingAnswer.data * 1000 )/466.667 ), -0.5) ) / 6);
+
+                            quantityQuestion.PossibleAnswers[0] = Object.assign(quantityQuestion.PossibleAnswers[0], {
+                                //(20000 * (( matchingAnswer.data /466.667)Math.pow(-0.5))/6
+                                min: min,//parseInt((response.Answer as SliderValueObj).data) * ,
+                                max: min * 2
+                            })
+                        }
+
+                        round.Questions = round.Questions.map(q => {
+                            return q.ComparisonLabel && q.ComparisonLabel == ComparisonLabel.QUANTITY ? quantityQuestion : q;
+                        });
+
+
+                        res.json(round);
+
+                    } else {
+                        res.json("COULDN'T FIND MATCHING RESPONSE")
+                    }
+
+                } else {
+                    res.json("COULDN'T FIND MATCHING RESPONSE")
+                }
+
+            }
+        } catch(err) {
+            ( err: any ) => res.status(500).json({ error: err });
+        }
+        
+    }
+
     public async SaveRound(req: Request, res: Response):Promise<any> {
         const roundToSave = req.body as RoundModel;
         console.log(roundToSave, roundToSave.Name, roundToSave.Name.length);
@@ -229,6 +288,7 @@ class RoundRouter
         this.router.get("/", this.GetRounds.bind(this));
         this.router.get("/:round", this.GetRound.bind(this));
         this.router.get("/subround/:subround/:job", this.GetSubRound.bind(this));
+        this.router.get("/subround/:subround/:job/:TeamId", this.GetSubRound3B.bind(this));
         this.router.post("/",    
             (req, res, next) => AuthUtils.IS_USER_AUTHORIZED(req, res, next, PERMISSION_LEVELS.PLAYER), 
             this.SaveRound.bind(this)

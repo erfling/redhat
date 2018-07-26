@@ -1,6 +1,6 @@
 import ValueObj from "../entity-of-the-state/ValueObj";
 import PossibleAnswer from "./PossibleAnswerModel";
-import QuestionModel from "./QuestionModel";
+import QuestionModel, { ComparisonLabel } from "./QuestionModel";
 import { Type } from "class-transformer";
 import BaseModel, { dbProp } from "../base-sapien/models/BaseModel";
 
@@ -19,7 +19,8 @@ export default class ResponseModel extends BaseModel
     //----------------------------------------------------------------------
 
     @dbProp([{label: String, data: String}])
-    private _Answer: ValueObj[] | ValueObj = [new ValueObj()];
+    public Answer: ValueObj[] | ValueObj = [new ValueObj()];
+    /*
     public set Answer(answer: ValueObj[] | ValueObj) {
         this._Answer = answer;
     }
@@ -38,6 +39,7 @@ export default class ResponseModel extends BaseModel
             return a;
         }) as ValueObj[] : null;
     }
+    */
     
     @dbProp(String)
     public QuestionId: string;
@@ -62,6 +64,8 @@ export default class ResponseModel extends BaseModel
 
     //Maker for question this response's question is paired with in another round, if it is paired.
     @dbProp(String)
-    public SiblingQuestionId: String = null;
+    public SiblingQuestionId: string = null;
 
+    @dbProp(String)
+    public ComparisonLabel: ComparisonLabel;
 }

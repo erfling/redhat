@@ -6,9 +6,14 @@ import DataStore from '../../../shared/base-sapien/client/DataStore';
 import ComponentsVO from '../../../shared/base-sapien/client/ComponentsVO';
 import RoundModel from '../../../shared/models/RoundModel';
 import FiStMa from '../../../shared/entity-of-the-state/FiStMa';
-import QuestionModel, { QuestionType } from '../../../shared/models/QuestionModel';
-import ResponseModel from '../../../shared/models/ResponseModel';
-import ValueObj from '../../../shared/entity-of-the-state/ValueObj';
+import QuestionModel, { QuestionType, ComparisonLabel } from '../../../shared/models/QuestionModel';
+import ResponseModel, { ResponseFetcher } from '../../../shared/models/ResponseModel';
+import ValueObj, { SliderValueObj } from '../../../shared/entity-of-the-state/ValueObj';
+import SubRoundModel from '../../../shared/models/SubRoundModel';
+import SapienServerCom from '../../../shared/base-sapien/client/SapienServerCom';
+import DealRenewal from './DealRenewal';
+import MessageModel from '../../../shared/models/MessageModel';
+import ApplicationCtrl from '../../ApplicationCtrl';
 
 export default class SalesRoundCtrl extends BaseRoundCtrl<IRoundDataStore>
 {
@@ -19,6 +24,9 @@ export default class SalesRoundCtrl extends BaseRoundCtrl<IRoundDataStore>
     //----------------------------------------------------------------------
 
     private static _instance: SalesRoundCtrl;
+
+    private _responseMap: any = {};
+    public Response: ResponseModel = new ResponseModel();
 
     //----------------------------------------------------------------------
     //
@@ -53,24 +61,110 @@ export default class SalesRoundCtrl extends BaseRoundCtrl<IRoundDataStore>
     //
     //----------------------------------------------------------------------
 
-    handleResponseChange(q: QuestionModel, r: ResponseModel, questions: QuestionModel[]){
+    public getContentBySubRound(): void {
+        var subroundName = window.location.pathname.split("/").filter(str => str.length).pop().toUpperCase();
+        if(subroundName == "DEALRENEWAL"){
 
-        console.log("PASSED ANSWER", r.Answer)
-
-        //special case for handling answer that disables other answers
-        if(q.Text.toUpperCase().indexOf("UNLIMITED ") != -1 ){
-
-            //this.dataStore.Round.Questions.
-            questions.forEach(q => {
-                if(q.Type == QuestionType.SLIDER)q.PossibleAnswers[0].disabled = (r.Answer as ValueObj).data == true.toString();//toString because DB requires single type for all response answers, so string makes the most sense
-            });
-
+            SapienServerCom.GetData(new SubRoundModel(), null, SapienServerCom.BASE_REST_URL + "rounds/subround/" + subroundName + "/" + this.dataStore.ApplicationState.CurrentUser.Job + "/" + this.dataStore.ApplicationState.CurrentTeam._id).then((r: SubRoundModel) => {
+                const sr = Object.assign(new SubRoundModel(), r);
+                this.dataStore.Round.SubRounds = this.dataStore.Round.SubRounds.filter(sr => sr._id != r._id).concat(sr);
+                const messageProp = this._getMessageProp(this.dataStore.ApplicationState.CurrentUser.Job)
+                this.dataStore.ApplicationState.SelectedMessage = DataStore.ApplicationState.SelectedMessage = (sr[messageProp] as MessageModel[]).filter(m => m.IsDefault)[0] || null;
+                DataStore.ApplicationState.CurrentMessages = this.dataStore.ApplicationState.CurrentMessages = ApplicationCtrl.GetInstance().dataStore.ApplicationState.CurrentMessages = this.getMessagesByJob(this.dataStore.ApplicationState.CurrentUser.Job, sr._id)
+                
+                console.log("GOT THIS BACK FOR 3B", sr, r);
+                return sr;
+                //return this.MapResponsesToQuestions(sr, sr.Questions[0].Response);
+            }).then(this.getResponsesByRound.bind(this));
+        
+        } else {
+            super.getContentBySubRound();
         }
 
-        this.updateResponse(q, r)
     }
 
-    protected _setUpFistma(reactComp: Component){
+    handleResponseChange(q: QuestionModel, r: ResponseModel, questions: QuestionModel[]) {
+
+        this._responseMap[q.ComparisonLabel] = r.Answer[0];
+        r.ComparisonLabel = q.ComparisonLabel;
+        (r.Answer as SliderValueObj).label = q.ComparisonLabel.toLowerCase();
+
+        var finalAnswer:Partial<SliderValueObj>[] = Object.keys(this._responseMap).map(label => {
+            return {
+                label,
+                data: this._responseMap[label].data
+            }
+        })
+
+        this.Response = Object.assign(this.Response, {
+            Answer: finalAnswer.concat(
+                [
+                    {
+                        label: ComparisonLabel.PRICE_PER_CUSTOMER,
+                        data: this._getPrice()
+                    }, 
+                    r.Answer[0]
+                ]
+            ),
+        });
+        //(this.Response.Answer as SliderValueObj[]).push((r.Answer as SliderValueObj));
+
+        this.updateResponse(q, r);
+
+        console.log("BUILT OUT RESPONSE",this.Response.Answer, this._responseMap);
+
+    }
+
+    _getPrice(){
+        var initialPrice = this._responseMap[ComparisonLabel.PRICE] && this._responseMap[ComparisonLabel.QUANTITY] ? (this._responseMap[ComparisonLabel.PRICE].data / this._responseMap[ComparisonLabel.QUANTITY].data * 1000 ) : 0;
+        var price = this._responseMap[ComparisonLabel.PROJECT_MANAGEMENT] && (this._responseMap[ComparisonLabel.PROJECT_MANAGEMENT].data == true || this._responseMap[ComparisonLabel.PROJECT_MANAGEMENT].data == true.toString()) ? initialPrice * 1.1 : initialPrice;
+        return Math.round(price);
+    }
+
+    SaveResponses(subround: SubRoundModel, question: QuestionModel){
+        subround.Questions.forEach(q => {
+            let response = q.Response;
+            response.Score = 0;
+            response.TeamId = this.dataStore.ApplicationState.CurrentTeam._id;
+            response.QuestionId = q._id;
+            response.RoundId = subround._id;
+            response.GameId = this.dataStore.ApplicationState.CurrentTeam.GameId;
+            this.dataStore.ApplicationState.FormIsSubmitting = response.IsSaving = true;
+        })
+
+        this.SaveResponse(this.Response, question, subround)
+        
+    }
+
+    public getResponsesByRound(r: SubRoundModel): void {
+        const fetcher: ResponseFetcher = {
+            RoundId: r._id,
+            TeamId: this.dataStore.ApplicationState.CurrentTeam._id,
+            GameId: this.dataStore.ApplicationState.CurrentTeam.GameId
+        }
+
+        SapienServerCom.SaveData(fetcher, SapienServerCom.BASE_REST_URL + "gameplay/roundresponses/").then((responses: ResponseModel[])=> {
+            return r = this.MapResponsesToQuestions(r, responses[0])
+        });
+
+    }
+
+    public MapResponsesToQuestions(subRound: SubRoundModel, resp: ResponseModel){
+        subRound.Questions.forEach(q => {
+            q.Response = new ResponseModel();
+            q.Response.Score = 0;
+            q.Response.TeamId = this.dataStore.ApplicationState.CurrentTeam._id;
+            q.Response.QuestionId = q._id;
+            q.Response.RoundId = subRound._id;
+            q.Response.GameId = this.dataStore.ApplicationState.CurrentTeam.GameId;
+            (q.Response.Answer as ValueObj) = (resp.Answer as ValueObj[]).filter(a => a.label == q.ComparisonLabel)[0] || new ValueObj();
+        })
+
+        console.log("MAPPED SR", subRound, resp)
+        return subRound;
+    }
+
+    protected _setUpFistma(reactComp: Component) {
         this.component = reactComp;
         var compStates = {
             sub1: ComponentsVO.DealStructure,
@@ -81,7 +175,7 @@ export default class SalesRoundCtrl extends BaseRoundCtrl<IRoundDataStore>
         this.ComponentFistma.addTransition(compStates.sub1);
         this.ComponentFistma.addTransition(compStates.sub2);
         this.ComponentFistma.addOnEnter("*", this.getContentBySubRound.bind(this));
-        
+
         this.dataStore = {
             Round: new RoundModel(),
             ApplicationState: DataStore.ApplicationState,
@@ -92,10 +186,6 @@ export default class SalesRoundCtrl extends BaseRoundCtrl<IRoundDataStore>
         this.getContentBySubRound();
     }
 
-
-    public Set3BPossibleAnswers(round: RoundModel){
-
-    }
 
 
 }

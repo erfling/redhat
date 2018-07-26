@@ -15,6 +15,9 @@ import GamePlayCtrl from './controllers/GamePlayCtrl';
 import LongPoll from '../shared/base-sapien/api/LongPoll';
 import RoundChangeMapping from '../shared/models/RoundChangeMapping';
 import { JobName } from '../shared/models/UserModel';
+import { SliderValueObj } from '../shared/entity-of-the-state/ValueObj';
+import QuestionModel, { ComparisonLabel } from '../shared/models/QuestionModel';
+import ResponseModel from '../shared/models/ResponseModel';
 
 export class AppServer {
 
@@ -220,6 +223,92 @@ export class AppServer {
             .use('/', express.static("dist"))
             .use('*', express.static("dist"))
             .use('**', express.static("dist"))
+    }
+/**
+ * 
+ * {
+    "_id" : ObjectId("5b5618fc176b81cae6bacabc"),
+    "Type" : "SLIDER",
+    "Text" : "Quantity",
+    "SubText" : null,
+    "PossibleAnswers" : [ 
+        {
+            "label" : "",
+            "data" : "",
+            "min" : 200,
+            "max" : 400,
+            "interval" : 10,
+            "unit" : "k users"
+        }
+    ]
+}
+
+{
+    "_id" : ObjectId("5b563b10e09494dbc165dea3"),
+    "Type" : "SLIDER",
+    "Text" : "Price",
+    "SubText" : "",
+    "PossibleAnswers" : [ 
+        {
+            "label" : "",
+            "data" : "",
+            "min" : 100,
+            "max" : 180,
+            "interval" : 10,
+            "unit" : "M",
+            "preunit" : "$"
+        }
+    ]
+}
+
+{
+    "_id" : ObjectId("5b564603e09494dbc165e273"),
+    "Type" : "TOGGLE",
+    "Text" : "Unlimited licensing",
+    "SubText" : null,
+    "PossibleAnswers" : [ 
+        {
+            "label" : "$200M",
+            "data" : "200"
+        }
+    ]
+}
+
+{
+    "_id" : ObjectId("5b564afee09494dbc165e40a"),
+    "Type" : "MULTIPLE_CHOICE",
+    "Text" : "Project Management",
+    "SubText" : "In order to meet the customer budget, you can choose to omit project management from the given solution.",
+    "PossibleAnswers" : [ 
+        {
+            "label" : "Yes",
+            "data" : "1"
+        }, 
+        {
+            "label" : "No",
+            "data" : "0"
+        }
+    ]
+}
+ */
+    GetScore(subRoundName, responses: ResponseModel[]){
+        subRoundName.toUpperCase();
+        switch(subRoundName){
+    
+            case "DEALSTRUCTURE":
+            case "DEALRENEWAL":
+                let comparitors;
+                responses.forEach(r => {
+                    //(q.Response.Answer as SliderValueObj)
+                    if(r.ComparisonLabel)comparitors[r.ComparisonLabel] = r;
+                })
+                var price = 0;
+                if(comparitors[ComparisonLabel.QUANTITY] && comparitors[ComparisonLabel.PRICE]){
+                    responses[0].Score = comparitors[ComparisonLabel.QUANTITY] / comparitors[ComparisonLabel.PRICE];
+
+                }
+    
+        }
     }
 
 }

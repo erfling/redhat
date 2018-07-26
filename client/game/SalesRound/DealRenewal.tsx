@@ -83,23 +83,24 @@ export default class DealRenewal extends BaseComponent<any, IRoundDataStore>
                                         SubRoundId={thisSubRound._id}
                                         onChangeHander={r => {
                                             console.log(r);
-                                            this.controller.updateResponse(q, r)
+                                            this.controller.handleResponseChange(q, r, thisSubRound.Questions)
                                         }}
                                         IsEditable={this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN}
                                     />
-                                    <Button
-                                        content='Submit'
-                                        icon='checkmark'
-                                        labelPosition='right'
-                                        color="blue"
-                                        loading={q.Response ? q.Response.IsSaving : false}
-                                        onClick={e => {
-                                            this.controller.SaveResponse(q.Response, q, thisSubRound)
-                                        }}
-                                    />
+                                    
                                 </Row>
                             }
                             )}
+                            <Button
+                                content='Submit'
+                                icon='checkmark'
+                                labelPosition='right'
+                                color="blue"
+                                loading={thisSubRound.Questions[0].Response ? thisSubRound.Questions[0].Response.IsSaving : false}
+                                onClick={e => {
+                                   this.controller.SaveResponses(thisSubRound, thisSubRound.Questions[0])                                    
+                                }}
+                            />
                         </Form>
                     </div>
                 }               

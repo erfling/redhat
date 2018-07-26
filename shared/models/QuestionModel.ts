@@ -11,6 +11,12 @@ export enum QuestionType {
     NUMBER = "NUMBER"
 }
 
+export enum ComparisonLabel{
+    QUANTITY = "QUANTITY",
+    PRICE = "PRICE",
+    PRICE_PER_CUSTOMER = "PRICE_PER_CUSTOMER",
+    PROJECT_MANAGEMENT = "PROJECT_MANAGEMENT",    
+}
 
 export default class QuestionModel extends BaseModel
 {
@@ -32,10 +38,14 @@ export default class QuestionModel extends BaseModel
     @dbProp([SliderValueObj])
     public PossibleAnswers: SliderValueObj[] = [];
 
-    Response: ResponseModel = new ResponseModel();
 
     //Maker for question this quesitno is paired with in another round, if it is paired.
     @dbProp(String)
     public SiblingQuestionId: string = null;
+
+    @dbProp(String)
+    public ComparisonLabel: ComparisonLabel;
+
+    Response: ResponseModel = Object.assign(new ResponseModel(), {ComparisonLabel: this.ComparisonLabel || null});
 
 }
