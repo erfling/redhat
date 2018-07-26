@@ -9,11 +9,15 @@ import BaseComponent from "../../../shared/base-sapien/client/shared-components/
 import Decisions from '-!svg-react-loader?name=Icon!../../img/decisions.svg';
 import FeedBackWrapper from '../FeedBackWrapper';
 import TeamModel from "../../../shared/models/TeamModel";
+import { Table } from "semantic-ui-react";
+import { ComparisonLabel } from "../../../shared/models/QuestionModel";
+import MathUtil from '../../../shared/entity-of-the-state/MathUtil'
+import { SliderValueObj } from "../../../shared/entity-of-the-state/ValueObj";
 
 const { Button, Grid, Form, Dimmer, Loader, Header } = Semantic;
 const { Row, Column } = Grid;
 
-export default class DealStructure extends BaseComponent<any, IRoundDataStore & {Feedback: TeamModel[]}>
+export default class DealStructure extends BaseComponent<any, IRoundDataStore & { Feedback: TeamModel[] }>
 {
     //----------------------------------------------------------------------
     //
@@ -56,7 +60,7 @@ export default class DealStructure extends BaseComponent<any, IRoundDataStore & 
 
     render() {
         const thisSubRound = this.state.Round.SubRounds.filter(s => s.Name.toUpperCase() == DealStructure.CLASS_NAME.toUpperCase())[0]
-        
+
         if (this.state) {
             return <>
                 {!this.state.ApplicationState.ShowFeedBack && this.state.ApplicationState.CurrentUser.Job == JobName.MANAGER && thisSubRound != null && thisSubRound.Questions &&
@@ -73,7 +77,7 @@ export default class DealStructure extends BaseComponent<any, IRoundDataStore & 
                                 />
                                 Decisions
                             </Header>
-                                            
+
                             {thisSubRound.Questions.map((q, i) => {
                                 return <Row
                                     key={"question-" + i.toString()}
@@ -89,7 +93,7 @@ export default class DealStructure extends BaseComponent<any, IRoundDataStore & 
                                         }}
                                         IsEditable={this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN}
                                     />
-                                    
+
                                 </Row>
                             }
                             )}
@@ -100,12 +104,12 @@ export default class DealStructure extends BaseComponent<any, IRoundDataStore & 
                                 color="blue"
                                 loading={thisSubRound.Questions[0].Response ? thisSubRound.Questions[0].Response.IsSaving : false}
                                 onClick={e => {
-                                   this.controller.SaveResponses(thisSubRound, thisSubRound.Questions[0])                                    
+                                    this.controller.SaveResponses(thisSubRound, thisSubRound.Questions[0])
                                 }}
                             />
                         </Form>
                     </div>
-                }               
+                }
                 {!this.state.ApplicationState.ShowFeedBack && thisSubRound && this.state.ApplicationState.SelectedMessage &&
                     <EditableContentBlock
                         IsEditable={this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN}
@@ -118,8 +122,35 @@ export default class DealStructure extends BaseComponent<any, IRoundDataStore & 
                     <FeedBackWrapper
                         RoundName="Rouind 3A Feedback"
                     >
-                        {this.state.Feedback && 
-                         <h1>adsf</h1>
+                        {this.state.Feedback &&
+                            <Table striped>
+                                <Table.Header>
+                                    <Table.Row>
+                                        <Table.HeaderCell>Team</Table.HeaderCell>
+                                        <Table.HeaderCell>Price Per Customer</Table.HeaderCell>
+                                        <Table.HeaderCell>Customer Satisfaction</Table.HeaderCell>
+                                    </Table.Row>
+                                </Table.Header>
+
+                                <Table.Body>
+                                    {this.state.Feedback.map((t, i) => {
+                                        return <Table.Row key={i}>
+                                            <Table.Cell>
+                                                Team {i + 1}
+                                            </Table.Cell>
+                                            <Table.Cell>
+                                                ${(t.Responses[0].Answer as SliderValueObj[]).filter(r => r.label == ComparisonLabel.PRICE_PER_CUSTOMER).map(a => a.data) || 'N/A'}
+                                            </Table.Cell>
+                                            <Table.Cell>
+                                                {(t.Responses[0].Answer as SliderValueObj[]).filter(r => r.label == ComparisonLabel.CSAT).map(a => MathUtil.roundTo(a.data,2)  + '%') || 'N/A'}
+                                            </Table.Cell>
+                                        </Table.Row>
+                                    }
+                                    )}
+
+                                </Table.Body>
+
+                            </Table>
                         }
 
                     </FeedBackWrapper>
@@ -132,4 +163,5 @@ export default class DealStructure extends BaseComponent<any, IRoundDataStore & 
         }
     }
 
-}
+}//                                                ${t.Responses[0].Answer[0].filter(r => r.Answer[0].label == ComparisonLabel.PRICE_PER_CUSTOMER).map(a => a.data) || 'N/A'}
+//                                                {t.Responses[0].Answer[0].filter(r => r.Answer[0].label == ComparisonLabel.CSAT).map(a => MathUtil.roundTo(a.data,2)  + '%') || 'N/A'}

@@ -44,8 +44,13 @@ export default class QuestionModel extends BaseModel
     public SiblingQuestionId: string = null;
 
     @dbProp(String)
+    public RatingMarker: string = null;
+
+    @dbProp(String)
     public ComparisonLabel: ComparisonLabel;
 
     Response: ResponseModel = Object.assign(new ResponseModel(), {ComparisonLabel: this.ComparisonLabel || null});
+
+
 
 }
