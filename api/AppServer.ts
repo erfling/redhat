@@ -146,7 +146,16 @@ export class AppServer
                     mapping.UserJobs = {};
 
                     //make sure the current mapping has the correct child round
-                    var oldMapping: RoundChangeMapping = await monMappingModel.findOneAndUpdate({ GameId: game._id, ParentRound: mapping.ParentRound }, mapping, {new: true}).then(r => r ? Object.assign(new RoundChangeMapping(), r.toJSON()) : null);
+                    var oldMapping: RoundChangeMapping = await monMappingModel.findOneAndUpdate({ GameId: game._id, ParentRound: mapping.ParentRound }, {
+                        ChildRound: mapping.ChildRound,
+                        ShowRateUsers: mapping.ShowRateUsers, // object where keys are user's _id as string & values are one of JobName enum values
+                        ShowFeedback: mapping.ShowFeedback, // object where keys are user's _id as string & values are one of JobName enum values
+                        ShowIndividualFeedback: mapping.ShowIndividualFeedback
+                    }, {new: true}, function(err, doc){
+                        if(err){
+
+                            console.log("Something wrong when updating data!", err);
+                        }} ).then(r => r ? Object.assign(new RoundChangeMapping(), r.toJSON()) : null);
                     console.log("OLD MAPPING",oldMapping);
                     if (!oldMapping) {
                         if (mapping.ParentRound.toLowerCase() == "engineeringround") {
@@ -170,13 +179,23 @@ export class AppServer
                                 console.log("TEAM ", t)
                                 for (let i = 0; i < t.Players.length; i++) {
                                     let pid = t.Players[i].toString();
-                                    if (game.HasBeenManager.indexOf(pid) == -1 /*&& *this isn't round 5 for a 4 player team*/) {
+                                    if (game.HasBeenManager.indexOf(pid) == -1) {
                                         game.HasBeenManager.push(pid);
                                         mapping.UserJobs[pid] = JobName.MANAGER;
                                         console.log("HEY< YOU",pid, mapping)
                                         break;
                                     }
                                 }
+
+                                //make sure each team has a manager, even if all the team members have been manager 
+                                if(t.Players.every(p => {
+                                    console.log("examing", p,mapping.UserJobs[p._id.toString()])
+                                    return mapping.UserJobs[p._id.toString()] != JobName.MANAGER
+                                })){
+                                    console.log("DIDN'T FIND MANAGER FOR ", t)
+                                    mapping.UserJobs[t.Players[0]._id.toString()] = JobName.MANAGER;
+                                }
+
                             })
                         }
 

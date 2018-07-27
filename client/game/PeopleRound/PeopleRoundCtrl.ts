@@ -97,7 +97,6 @@ export default class PeopleRoundCtrl extends BaseRoundCtrl<IRoundDataStore>
         this.ComponentFistma = new FiStMa(compStates, compStates.sub1);
         this.ComponentFistma.addTransition(compStates.sub1);
         this.ComponentFistma.addTransition(compStates.sub2);
-        this.ComponentFistma.addOnEnter("*", this.getContentBySubRound.bind(this));
         
         this.dataStore = {
             Round: new RoundModel(),
@@ -108,7 +107,6 @@ export default class PeopleRoundCtrl extends BaseRoundCtrl<IRoundDataStore>
         };
         this.dataStore.Round.Name = "PEOPLE";
 
-        this.getContentBySubRound();
     }
 
 }

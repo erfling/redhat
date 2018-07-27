@@ -17,6 +17,7 @@ import ComponentsVO from '../../shared/base-sapien/client/ComponentsVO';
 import SalesRoundCtrl from './SalesRound/SalesRoundCtrl';
 import FinanceRoundCtrl from './FinanceRound/FinanceRoundCtrl';
 import CustomerRoundCtrl from './CustomerRound/CustomerRoundCtrl';
+import ApplicationCtrl from '../ApplicationCtrl';
 
 export default class GameCtrl extends BaseClientCtrl<IControllerDataStore & {Game: GameModel, _mobileWidth: boolean}>
 {
@@ -130,7 +131,9 @@ export default class GameCtrl extends BaseClientCtrl<IControllerDataStore & {Gam
 
         await SapienServerCom.GetData(null, null, url).then((r: RoundChangeMapping) => {
             //set the team's current location to the new location
+            const targetJob = r.UserJobs && r.UserJobs[this.dataStore.ApplicationState.CurrentUser._id] ? r.UserJobs[this.dataStore.ApplicationState.CurrentUser._id] : JobName.IC;
 
+            
             if (this.dataStore.ApplicationState.CurrentTeam.CurrentRound.ParentRound.toUpperCase() != r.ParentRound.toUpperCase() || this.dataStore.ApplicationState.CurrentTeam.CurrentRound.ChildRound.toUpperCase() != r.ChildRound.toUpperCase()){
 
                 this.component.props.history.push("/game/" + r.ParentRound.toLowerCase() + "/" + r.ChildRound.toLowerCase());
@@ -138,18 +141,18 @@ export default class GameCtrl extends BaseClientCtrl<IControllerDataStore & {Gam
                 team.CurrentRound = r;
                 localStorage.setItem("RH_TEAM", JSON.stringify(team));
 
-                //console.log("<<<<<<<<<<<<TEAM IS NOW>>>>>>>>>>>>", this.dataStore.ApplicationState.CurrentTeam, JSON.parse(localStorage.getItem("RH_TEAM")));
-                const targetJob = r.UserJobs && r.UserJobs[this.dataStore.ApplicationState.CurrentUser._id] ? r.UserJobs[this.dataStore.ApplicationState.CurrentUser._id] : JobName.IC;
-
-                this.dataStore.ApplicationState.CurrentUser.Job = targetJob;
-
             } else {
                 if (this.ChildController && this.ChildController.hasOwnProperty("GetFeedback"))(this.ChildController as SalesRoundCtrl).GetFeedback((this.ChildController as SalesRoundCtrl).dataStore.SubRound._id);
                 (this.ChildController as BaseRoundCtrl<any>).dataStore.ApplicationState.ShowFeedback = r.ShowFeedback;
                 (this.ChildController as BaseRoundCtrl<any>).dataStore.ApplicationState.ShowRateUsers = r.ShowRateUsers;
             }
-            this._childController = this._getTargetController(r.ParentRound);
-            
+
+            if(targetJob != this.ChildController.dataStore.ApplicationState.CurrentUser.Job){
+                this.dataStore.ApplicationState.CurrentUser.Job = this.ChildController.dataStore.ApplicationState.CurrentUser.Job = targetJob;
+                ApplicationCtrl.GetInstance().addToast("You are now playing the role of " + this.ChildController.dataStore.ApplicationState.CurrentUser.Job, "info");
+                (this.ChildController as BaseRoundCtrl<any>).getContentBySubRound();
+            }
+
             clearTimeout(this._timeOut);
             this._timeOut = setTimeout(() => {
                 this.pollForGameStateChange.bind(this)(this.dataStore.ApplicationState.CurrentTeam.GameId);
@@ -161,7 +164,7 @@ export default class GameCtrl extends BaseClientCtrl<IControllerDataStore & {Gam
             this._timeOut = setTimeout(() => {
                 this.pollForGameStateChange.bind(this)(this.dataStore.ApplicationState.CurrentTeam.GameId);
             }, 2500);
-            console.log("FART!");
+            console.log("bad connection!");
         })
     }
 

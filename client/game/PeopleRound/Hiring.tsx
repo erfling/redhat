@@ -52,6 +52,7 @@ export default class Hiring extends BaseComponent<any, IRoundDataStore>
     //
     //----------------------------------------------------------------------
 
+
     render() {
         const thisSubRound = this.state.Round.SubRounds.filter(s => s.Name.toUpperCase() == Hiring.CLASS_NAME.toUpperCase())[0];
         

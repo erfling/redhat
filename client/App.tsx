@@ -365,7 +365,8 @@ export default class App extends BaseComponent<any, IControllerDataStore>
 
                 {this.state.ApplicationState.Toasts &&
                     <div className="toast-holder">
-                        {this.state.ApplicationState.Toasts.filter(t => !t.Killed).map(t => <SapienToast
+                        {this.state.ApplicationState.Toasts.filter(t => !t.Killed).map((t,i) => <SapienToast
+                            key={i}
                             Toast={t}
                         />)}
                     </div>

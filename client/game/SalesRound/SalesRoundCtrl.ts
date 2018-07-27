@@ -14,6 +14,7 @@ import SapienServerCom from '../../../shared/base-sapien/client/SapienServerCom'
 import MessageModel from '../../../shared/models/MessageModel';
 import ApplicationCtrl from '../../ApplicationCtrl';
 import TeamModel from '../../../shared/models/TeamModel';
+import GameCtrl from '../GameCtrl';
 
 export default class SalesRoundCtrl extends BaseRoundCtrl<IRoundDataStore & {Feedback: TeamModel[]}>
 {
@@ -68,9 +69,19 @@ export default class SalesRoundCtrl extends BaseRoundCtrl<IRoundDataStore & {Fee
                 const sr = Object.assign(new SubRoundModel(), r);
                 this.dataStore.Round.SubRounds = this.dataStore.Round.SubRounds.filter(sr => sr._id != r._id).concat(sr);
                 const messageProp = this._getMessageProp(this.dataStore.ApplicationState.CurrentUser.Job)
-                if (messageProp) this.dataStore.ApplicationState.SelectedMessage = DataStore.ApplicationState.SelectedMessage = (sr[messageProp] as MessageModel[]).filter(m => m.IsDefault)[0] || null;
-                DataStore.ApplicationState.CurrentMessages = this.dataStore.ApplicationState.CurrentMessages = ApplicationCtrl.GetInstance().dataStore.ApplicationState.CurrentMessages = this.getMessagesByJob(this.dataStore.ApplicationState.CurrentUser.Job, sr._id)
                 
+
+                DataStore.ApplicationState.CurrentMessages 
+                    = this.dataStore.ApplicationState.CurrentMessages 
+                    = ApplicationCtrl.GetInstance().dataStore.ApplicationState.CurrentMessages
+                    = GameCtrl.GetInstance().ChildController.dataStore.ApplicationState.CurrentMessages 
+                    = this.getMessagesByJob(this.dataStore.ApplicationState.CurrentUser.Job, sr._id);
+
+                if (messageProp) this.dataStore.ApplicationState.SelectedMessage 
+                    = DataStore.ApplicationState.SelectedMessage 
+                    = GameCtrl.GetInstance().ChildController.dataStore.ApplicationState.SelectedMessage
+                    = DataStore.ApplicationState.CurrentMessages.filter(m => m.IsDefault)[0] || null;
+
                 console.log("GOT THIS BACK FOR 3B", sr, r);
                 return sr;
                 //return this.MapResponsesToQuestions(sr, sr.Questions[0].Response);
@@ -202,7 +213,6 @@ export default class SalesRoundCtrl extends BaseRoundCtrl<IRoundDataStore & {Fee
         };
         this.dataStore.Round.Name = "SALES";
 
-        this.getContentBySubRound();
     }
 
     public GetFeedback(srID){
