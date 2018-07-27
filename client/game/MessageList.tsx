@@ -46,8 +46,8 @@ export default class MessageList extends React.Component<MessageProps, { Message
                         onClick={e => this.props.SelectFunc(m)}
                         className={!m.IsRead ? "bold" : ""}
                     >
-                        {m.Title && <List.Header>{m.Title} | {m._id}</List.Header>}
-                        {!m.Title && <List.Header>{this._stripHtml(m.Content).slice(0, 40) + "..."} | {m._id}</List.Header>}
+                        {m.Title && <List.Header>{m.Title}</List.Header>}
+                        {!m.Title && <List.Header>{this._stripHtml(m.Content).slice(0, 40) + "..."}</List.Header>}
                         <List.Description>{this._stripHtml(m.Content).slice( m.Title ? 0 : 41, m.Title ? 40 : 80 ) + "..."}</List.Description>
                     </List.Content>
                 
