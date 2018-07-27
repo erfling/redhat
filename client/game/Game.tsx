@@ -20,6 +20,8 @@ import SalesRound from "./SalesRound/SalesRound";
 import FinanceRound from "./FinanceRound/FinanceRound";
 import EngineeringRound from "./EngineeringRound/EngineeringRound";
 import CustomerRound from "./CustomerRound/CustomerRound";
+import ApplicationCtrl from "../ApplicationCtrl";
+import DataStore from "../../shared/base-sapien/client/DataStore";
 
 export default class Game extends BaseComponent<any, IControllerDataStore & { Game: GameModel } & { _mobileWidth: boolean }>
 {
@@ -68,23 +70,45 @@ export default class Game extends BaseComponent<any, IControllerDataStore & { Ga
             console.log("FOUND LOCATION SEARCH", this.props.location.search);
         }
 
-        this.updateDimensions();
-        window.addEventListener("resize", this.updateDimensions.bind(this));
+        this._updateDimensionsAndHandleClickOff();
+        window.addEventListener("resize", this._updateDimensionsAndHandleClickOff.bind(this));
     }
 
     /**
     * Calculate & Update state of new dimensions
     */
-    updateDimensions() {
+    private _updateDimensionsAndHandleClickOff() {
         if(this.controller.ChildController)
-            this.controller.dataStore.ApplicationState.MobileWidth = this.controller.ChildController.dataStore.ApplicationState.MobileWidth = window.outerWidth < 767
+            this.controller.dataStore.ApplicationState.MobileWidth = this.controller.ChildController.dataStore.ApplicationState.MobileWidth = window.outerWidth < 767;
+        
+        document.body.addEventListener("click", (e) => {
+
+            var classes = [];
+            var a = e.target as HTMLElement;
+            while (a) {
+                if(a.classList)classes = classes.concat(a.classList.toString().split(" "));
+                a = a.parentNode as HTMLElement;
+            }
+
+            if(classes.indexOf("mobile-messages") == -1 && classes.indexOf("message-list") == -1 && classes.indexOf("game-nav") == -1){
+                this._toggleBodyScroll()
+                DataStore.ApplicationState.ShowMessageList = this.controller.ChildController.dataStore.ApplicationState.ShowMessageList = ApplicationCtrl.GetInstance().dataStore.ApplicationState.ShowMessageList = false;
+                this.controller.ChildController.dataStore.ApplicationState.ShowQuestions = false;
+            }
+        })
+        
+    }
+
+    private _toggleBodyScroll(){
+        //why dont this work?
+        if (this.state.ApplicationState.MobileWidth) document.body.style.overflow = document.body.style.overflow == "auto" ? "hidden" : "auto";
     }
 
     /**
      * Remove event listener
      */
     componentWillUnmount() {
-        window.removeEventListener("resize", this.updateDimensions.bind(this));
+        window.removeEventListener("resize", this._updateDimensionsAndHandleClickOff.bind(this));
     }
 
     renderGameMenu() {
@@ -106,20 +130,35 @@ export default class Game extends BaseComponent<any, IControllerDataStore & { Ga
                 <Menu.Item
                     header>
                     <Info
-                        onClick={e => this.controller.dataStore.ApplicationState.ShowMessageList = !this.controller.dataStore.ApplicationState.ShowMessageList}
+                        onClick={e => {
+                                this._toggleBodyScroll()
+                                this.controller.dataStore.ApplicationState.ShowQuestions = this.controller.ChildController.dataStore.ShowQuestions = false;
+                                this.controller.dataStore.ApplicationState.ShowMessageList = !this.controller.dataStore.ApplicationState.ShowMessageList
+                            }
+                        }
                     />
                 </Menu.Item>
                 <Menu.Item
                     header>
                     <Inbox
-                        onClick={e => this.controller.dataStore.ApplicationState.ShowMessageList = !this.controller.dataStore.ApplicationState.ShowMessageList}
+                        onClick={e => {
+                                this._toggleBodyScroll()
+                                this.controller.dataStore.ApplicationState.ShowQuestions = this.controller.ChildController.dataStore.ShowQuestions = false;
+                                this.controller.dataStore.ApplicationState.ShowMessageList = !this.controller.dataStore.ApplicationState.ShowMessageList
+                            }
+                        }
                     />
                 </Menu.Item>
                 {this.state.ApplicationState.CurrentUser.Job == JobName.MANAGER &&
                     <Menu.Item
                         header>
                         <Decisions
-                            onClick={e => this.controller.dataStore.ApplicationState.ShowQuestions = !this.controller.dataStore.ApplicationState.ShowQuestions}
+                            style={{marginTop: '-9px'}}
+                            onClick={e => {
+                                    this._toggleBodyScroll()
+                                    this.controller.dataStore.ApplicationState.ShowQuestions = !this.controller.dataStore.ApplicationState.ShowQuestions
+                                }
+                            }
                         />
                     </Menu.Item>
                 }
@@ -141,6 +180,7 @@ export default class Game extends BaseComponent<any, IControllerDataStore & { Ga
 
                 <Menu.Item
                     onClick={e => {
+                        this._toggleBodyScroll()
                         this.controller.dataStore.ApplicationState.ShowQuestions = this.controller.ChildController.dataStore.ShowQuestions = false;
                         this.controller.dataStore.ApplicationState.ShowMessageList = this.controller.ChildController.dataStore.ShowMessageList = !this.controller.dataStore.ApplicationState.ShowMessageList
                     }}
@@ -153,6 +193,7 @@ export default class Game extends BaseComponent<any, IControllerDataStore & { Ga
                 <Menu.Item
                     active={this.controller.dataStore.ApplicationState.ShowMessageList}
                     onClick={e => {
+                            this._toggleBodyScroll()
                             this.controller.dataStore.ApplicationState.ShowQuestions = this.controller.ChildController.dataStore.ShowQuestions = false;
                             this.controller.dataStore.ApplicationState.ShowMessageList = this.controller.ChildController.dataStore.ShowMessageList = !this.controller.dataStore.ApplicationState.ShowMessageList
                         }}
@@ -166,12 +207,12 @@ export default class Game extends BaseComponent<any, IControllerDataStore & { Ga
                     <Menu.Item
                         active={this.controller.dataStore.ApplicationState.ShowQuestions}
                         onClick={e => {
+                            this._toggleBodyScroll()
                             this.controller.dataStore.ApplicationState.ShowMessageList = false;
                             this.controller.dataStore.ApplicationState.ShowQuestions = this.controller.ChildController.dataStore.ShowQuestions = !this.controller.dataStore.ApplicationState.ShowQuestions
                         }}
                     >
                         <Decisions
-                            style={{marginTop: '-9px'}}
                             className="ui circular image"
                         />
                         <strong>Decisions</strong>
