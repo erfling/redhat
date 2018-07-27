@@ -64,35 +64,29 @@ export class LoginCtrlClass
             }
             console.log(game.Teams);
 
-            var oldMapping: RoundChangeMapping = await monMappingModel.findOne({ GameId: game._id, ParentRound: "peopleround", ChildRound: "priorities"}).then(r => r ? Object.assign(new RoundChangeMapping(), r) : null)
-            const mapping = new RoundChangeMapping();
-            if(!oldMapping.UserJobs) {
+            var mapping: RoundChangeMapping = await monMappingModel.findOne({ GameId: game._id.toString(), ParentRound: "peopleround", ChildRound: "priorities"}).then(r => r ? Object.assign(new RoundChangeMapping(), r) : new RoundChangeMapping());
+            if(!mapping.UserJobs) {
+                mapping.GameId = game._id.toString();
+                game.HasBeenManager = [];
+                mapping.UserJobs = {};
                 game.Teams.forEach(t => {
                     console.log("TEAM ", t)
-                    for (let i = 0; i < t.Players.length; i++) {
-                        let pid = t.Players[i].toString();
-                        if (game.HasBeenManager.indexOf(pid) == -1) {
-                            game.HasBeenManager.push(pid);
-                            mapping.UserJobs[pid] = JobName.MANAGER;
-                            console.log("HEY< YOU",pid, mapping)
-                            break;
-                        }
-                    }
-
-                    //make sure each team has a manager, even if all the team members have been manager 
-                    if(t.Players.every(p => {
-                        console.log("examing", p,mapping.UserJobs[p._id.toString()])
-                        return mapping.UserJobs[p._id.toString()] != JobName.MANAGER
-                    })){
-                        console.log("DIDN'T FIND MANAGER FOR ", t)
-                        mapping.UserJobs[t.Players[0]._id.toString()] = JobName.MANAGER;
-                    }
-
+                    let pid = t.Players[0].toString();
+                    mapping.UserJobs[pid] = JobName.MANAGER;
+                    game.HasBeenManager.push(pid);
                 })
 
-                const newMapping = await monMappingModel.findOneAndUpdate({ParentRound: "peopleround", ChildRound: "priorities"}, {UserJobs: mapping.UserJobs},{new: true}).then(r => r ? Object.assign(new RoundChangeMapping(), r) : null)
+                let newMapping: RoundChangeMapping;
+                if(!mapping._id){
+                    newMapping = await monMappingModel.create({ParentRound: "peopleround", ChildRound: "priorities", UserJobs: mapping.UserJobs}).then(r => r ? Object.assign(new RoundChangeMapping(), r.toJSON()) : null)
+                } else {
+                    newMapping = await monMappingModel.findOneAndUpdate({ParentRound: "peopleround", ChildRound: "priorities"}, {UserJobs: mapping.UserJobs},{new: true}).then(r => r ? Object.assign(new RoundChangeMapping(), r.toJSON()) : null)
+                }
+                
+                console.log("new MAPPING IS", newMapping)
+
                 if(newMapping){
-                    const updatedGame = await monGameModel.findByIdAndUpdate(game._id, {CurrentRound: newMapping});
+                    const updatedGame = await monGameModel.findByIdAndUpdate(game._id, {CurrentRound: newMapping, HasBeenManager: game.HasBeenManager});
                 }
             }
 
