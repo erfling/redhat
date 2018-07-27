@@ -1,12 +1,13 @@
+import { JobName } from './../../shared/models/UserModel';
 import { Router, Request, Response, NextFunction } from 'express';
 import UserModel, { RoleName } from '../../shared/models/UserModel';
 import * as Passport from 'passport';
 import * as jwt from 'jsonwebtoken';
-import { monTeamModel } from './TeamCtrl'
-import { monGameModel } from './GameCtrl';
+import { monGameModel, monMappingModel } from './GameCtrl';
 import GameModel from '../../shared/models/GameModel';
 import { monUserModel } from './UserCtrl';
 import TeamModel from '../../shared/models/TeamModel';
+import RoundChangeMapping from '../../shared/models/RoundChangeMapping';
 
 //this class is exported for use in other routers
 export class LoginCtrlClass
@@ -51,8 +52,6 @@ export class LoginCtrlClass
         //const dbRoundModel = new monRoundModel(roundToSave); 
         
         //get the game
-
-        
         try{
             const game: GameModel = await monGameModel.findOne({GamePIN: loginInfo.GamePIN}).populate(
                 {
@@ -60,15 +59,48 @@ export class LoginCtrlClass
                 }
             ).then(r => Object.assign( new GameModel(), JSON.parse( JSON.stringify( r.toJSON() ) ) ) )
 
-            if(!game){
+            if (!game) {
                 throw("We couldn't find the game you're trying to join. Please try again.")
             }
-    
             console.log(game.Teams);
+
+            var oldMapping: RoundChangeMapping = await monMappingModel.findOne({ GameId: game._id, ParentRound: "peopleround", ChildRound: "priorities"}).then(r => r ? Object.assign(new RoundChangeMapping(), r) : null)
+            const mapping = new RoundChangeMapping();
+            if(!oldMapping.UserJobs) {
+                game.Teams.forEach(t => {
+                    console.log("TEAM ", t)
+                    for (let i = 0; i < t.Players.length; i++) {
+                        let pid = t.Players[i].toString();
+                        if (game.HasBeenManager.indexOf(pid) == -1) {
+                            game.HasBeenManager.push(pid);
+                            mapping.UserJobs[pid] = JobName.MANAGER;
+                            console.log("HEY< YOU",pid, mapping)
+                            break;
+                        }
+                    }
+
+                    //make sure each team has a manager, even if all the team members have been manager 
+                    if(t.Players.every(p => {
+                        console.log("examing", p,mapping.UserJobs[p._id.toString()])
+                        return mapping.UserJobs[p._id.toString()] != JobName.MANAGER
+                    })){
+                        console.log("DIDN'T FIND MANAGER FOR ", t)
+                        mapping.UserJobs[t.Players[0]._id.toString()] = JobName.MANAGER;
+                    }
+
+                })
+
+                const newMapping = await monMappingModel.findOneAndUpdate({ParentRound: "peopleround", ChildRound: "priorities"}, {UserJobs: mapping.UserJobs},{new: true}).then(r => r ? Object.assign(new RoundChangeMapping(), r) : null)
+                if(newMapping){
+                    const updatedGame = await monGameModel.findByIdAndUpdate(game._id, {CurrentRound: newMapping});
+                }
+            }
+
+            //const updatedGame 
 
             const user:UserModel = await monUserModel.findOne({Email: loginInfo.Email}).then(r => Object.assign(new UserModel(),JSON.parse( JSON.stringify( r.toJSON() ) ) ) );
 
-            if(!user){
+            if (!user) {
                 throw('no user')
             }
             console.log(user, game.Teams)
@@ -79,18 +111,15 @@ export class LoginCtrlClass
 
                 return team.Players.indexOf(user._id) != -1
             })[0] || null;
-            console.log("TEAM IS: ", team)
+            console.log("TEAM IS: ", team);
 
-            
-
-            if(!team){
+            if (!team) {
                 throw("no team");
             }
 
             const token = jwt.sign(JSON.stringify(user), 'zigwagytywu');
 
             return res.json({user, token, team});
-            
         }
         catch (err){
             res
