@@ -1,7 +1,5 @@
 import ValueObj from "../entity-of-the-state/ValueObj";
-import PossibleAnswer from "./PossibleAnswerModel";
-import QuestionModel, { ComparisonLabel } from "./QuestionModel";
-import { Type } from "class-transformer";
+import { ComparisonLabel } from "./QuestionModel";
 import BaseModel, { dbProp } from "../base-sapien/models/BaseModel";
 
 export interface ResponseFetcher{
@@ -20,26 +18,6 @@ export default class ResponseModel extends BaseModel
 
     @dbProp([{label: String, data: String}])
     public Answer: ValueObj[] | ValueObj = [new ValueObj()];
-    /*
-    public set Answer(answer: ValueObj[] | ValueObj) {
-        this._Answer = answer;
-    }
-    public get Answer() {
-        if (this._Answer && Array.isArray(this._Answer) && this._Answer.length == 1) {
-            if (typeof this._Answer[0].data != "number" && !isNaN(parseFloat(this._Answer[0].data))) {
-                this._Answer[0].data = parseFloat(this._Answer[0].data);
-            }
-            return this._Answer[0];            
-        }
-
-        return (this._Answer && this._Answer) ? (this._Answer as ValueObj[]).map(a => {
-            if (typeof a.data != "number" && !isNaN(parseFloat(a.data))){
-                a.data = parseFloat(a.data);
-            }
-            return a;
-        }) as ValueObj[] : null;
-    }
-    */
     
     @dbProp(String)
     public QuestionId: string;
@@ -55,12 +33,6 @@ export default class ResponseModel extends BaseModel
 
     @dbProp(Number)
     public Score: number = 0;
-    
-    @Type(() => PossibleAnswer)
-    public PossibleAnswer: PossibleAnswer = new PossibleAnswer();
-
-    @Type(() => QuestionModel)
-    public Question: QuestionModel = null;
 
     //Maker for question this response's question is paired with in another round, if it is paired.
     @dbProp(String)

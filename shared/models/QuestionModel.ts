@@ -1,4 +1,4 @@
-import ValueObj, {SliderValueObj} from "../entity-of-the-state/ValueObj";
+import {SliderValueObj} from "../entity-of-the-state/ValueObj";
 import BaseModel, { dbProp } from "../base-sapien/models/BaseModel";
 import ResponseModel from "./ResponseModel";
 
