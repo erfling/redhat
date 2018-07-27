@@ -111,8 +111,8 @@ class GameCtrl {
                 if (!game.GamePIN) game.GamePIN = MathUtil.randomXDigits(4);
 
                 const mapping = new RoundChangeMapping();
-                mapping.ChildRound = "intro";
-                mapping.ParentRound = "welcome"
+                mapping.ChildRound = "priorities";
+                mapping.ParentRound = "peopleround"
                 game.CurrentRound = mapping;
                 const newGame = await monGameModel.create(game).then(r => r);
                 if (newGame) {
