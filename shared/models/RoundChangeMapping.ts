@@ -20,4 +20,7 @@ export default class RoundChangeMapping extends BaseModel {
 
     @dbProp(Boolean)
     ShowFeedback?: boolean = false; // object where keys are user's _id as string & values are one of JobName enum values
+
+    @dbProp(Boolean)
+    ShowIndividualFeedback?: boolean = false;
 }
