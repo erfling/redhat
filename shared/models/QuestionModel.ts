@@ -51,6 +51,4 @@ export default class QuestionModel extends BaseModel
 
     Response: ResponseModel = Object.assign(new ResponseModel(), {ComparisonLabel: this.ComparisonLabel || null});
 
-
-
 }
