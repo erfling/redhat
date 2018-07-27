@@ -96,7 +96,7 @@ export class AppServer
         });*/
        
         //GZIP large resources in production
-        
+        /*
         console.log("ENVIRONMENT IS:", process.env.NODE_ENV)
         if (process.env.NODE_ENV && process.env.NODE_ENV.indexOf("prod") != -1) {
             AppServer.app
@@ -115,7 +115,7 @@ export class AppServer
                     next();
                 })
         }
-        
+        */
         AppServer.app.get("/listenforgameadvance/:gameid", async (req, res, next) => {
             const gameId = req.params.gameid;
             try {
@@ -201,6 +201,29 @@ export class AppServer
 
                         mapping.GameId = game._id;
                         var newMapping:RoundChangeMapping = await monMappingModel.create(mapping).then(r => Object.assign(new RoundChangeMapping(), r.toJSON()))
+                    } else if(!oldMapping.UserJobs) {
+                        game.Teams.forEach(t => {
+                            console.log("TEAM ", t)
+                            for (let i = 0; i < t.Players.length; i++) {
+                                let pid = t.Players[i].toString();
+                                if (game.HasBeenManager.indexOf(pid) == -1) {
+                                    game.HasBeenManager.push(pid);
+                                    mapping.UserJobs[pid] = JobName.MANAGER;
+                                    console.log("HEY< YOU",pid, mapping)
+                                    break;
+                                }
+                            }
+
+                            //make sure each team has a manager, even if all the team members have been manager 
+                            if(t.Players.every(p => {
+                                console.log("examing", p,mapping.UserJobs[p._id.toString()])
+                                return mapping.UserJobs[p._id.toString()] != JobName.MANAGER
+                            })){
+                                console.log("DIDN'T FIND MANAGER FOR ", t)
+                                mapping.UserJobs[t.Players[0]._id.toString()] = JobName.MANAGER;
+                            }
+
+                        })
                     }
 
                     if (( !newMapping || !newMapping.ParentRound.length ) && !oldMapping) {
