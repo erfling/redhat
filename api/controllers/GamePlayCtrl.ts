@@ -88,8 +88,10 @@ class GamePlayRouter
 
     public async SaveResponse(req: Request, res: Response){
         const response: ResponseModel = Object.assign(new ResponseModel(), req.body as ResponseModel);
-        console.log(response);
+
         try{
+            response.Score = response.resolveScore();
+
             if(!response._id || !response._id.length) {
                 delete response._id
                 var SaveResponse = await monResponseModel.create(response).then(r => r.toObject() as ResponseModel);
