@@ -90,7 +90,7 @@ export default class Game extends BaseComponent<any, IControllerDataStore & { Ga
                 a = a.parentNode as HTMLElement;
             }
 
-            if(classes.indexOf("mobile-messages") == -1 && classes.indexOf("message-list") == -1 && classes.indexOf("game-nav") == -1){
+            if(classes.indexOf("decisions") == -1 && classes.indexOf("mobile-messages") == -1 && classes.indexOf("message-list") == -1 && classes.indexOf("game-nav") == -1){
                 this._toggleBodyScroll()
                 DataStore.ApplicationState.ShowMessageList = this.controller.ChildController.dataStore.ApplicationState.ShowMessageList = ApplicationCtrl.GetInstance().dataStore.ApplicationState.ShowMessageList = false;
                 this.controller.ChildController.dataStore.ApplicationState.ShowQuestions = false;
