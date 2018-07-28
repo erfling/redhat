@@ -46,6 +46,7 @@ export default class ResponseModel extends BaseModel
         const ans: ValueObj[] = this.Answer as ValueObj[];
         var maxScore: number = 0;
         var score: number = 0;
+        var ratio: number = 0;
 
         ans.forEach((val) => {
             if (val.maxPoints != null && !isNaN(parseFloat(val.data))) {
@@ -57,7 +58,12 @@ export default class ResponseModel extends BaseModel
                     // normalizedScore as percent in min/max range
                     let min = val["min"] ? val["min"] : val.minPoints;
                     let max = val["max"] ? val["max"] : val.maxPoints;
-                    var ratio = (parseFloat(val.data) - min) / (max - min);
+                    if (val.idealValue != null) {
+                        var idealValDiff = Math.abs(parseFloat(val.idealValue) - parseFloat(val.data));
+                        ratio = 1 - (idealValDiff - min) / (max - min);
+                    } else {
+                        ratio = (parseFloat(val.data) - min) / (max - min);
+                    }
                     score += val.maxPoints * ratio;
                 } else if (val.data === "true" || val.data === true || val.data === "false" || val.data === false) {
                     if (val.idealValue != null) {
