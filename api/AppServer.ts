@@ -121,7 +121,6 @@ export class AppServer
             try {
                 const game = await monGameModel.findById(gameId).then(r => r ? Object.assign(new GameModel(), r.toJSON()) : null);
                 if (game) { 
-                    console.log("FOUND GAME", game);
                     res.json(game.CurrentRound);
                 }
             } catch(err) {
