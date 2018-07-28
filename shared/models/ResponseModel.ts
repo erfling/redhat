@@ -16,7 +16,7 @@ export default class ResponseModel extends BaseModel
     //
     //----------------------------------------------------------------------
 
-    @dbProp([{label: String, data: String}])
+    @dbProp([{label: String, data: String, minPoints: Number, maxPoints: Number, idealValue: String}])
     public Answer: ValueObj[] | ValueObj = [new ValueObj()];
     
     @dbProp(String)
