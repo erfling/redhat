@@ -47,13 +47,13 @@ export default class ResponseModel extends BaseModel
         var maxScore: number = 0;
         var score: number = 0;
         var ratio: number = 0;
-
         ans.forEach((val) => {
+
             if (val.maxPoints != null && !isNaN(parseFloat(val.data))) {
                 maxScore += val.maxPoints;
-            } else console.warn("Where the hell is 'maxPoints' for", val);
+            } else console.log("Where the hell is 'maxPoints' for", val);
 
-            if (val.data != null) {
+            if (val.data != undefined) {
                 if (!isNaN(parseFloat(val.data))) {
                     // normalizedScore as percent in min/max range
                     let min = val["min"] ? val["min"] : val.minPoints;
@@ -66,11 +66,13 @@ export default class ResponseModel extends BaseModel
                     }
                     score += val.maxPoints * ratio;
                 } else if (val.data === "true" || val.data === true || val.data === "false" || val.data === false) {
+                    console.log("WE GOT THIS IDEAL VALUE",val );
                     if (val.idealValue != null) {
                         score += (val.data == val.idealValue) ? val.maxPoints : val.minPoints;
+                        console.log("SCORE IS, AS OF NOW: ", score, " | MAX SCORE IS: " ,maxScore)
                     }
                 } else {
-                    console.warn("Not sure what type scoring for 'data' that doesn't resolve to number or bool!");
+                    console.log("Not sure what type scoring for 'data' that doesn't resolve to number or bool!");
                 }
             } else if (val.label != null) {
                 // I assume we do string-matching against possible answers...
