@@ -4,6 +4,8 @@ import { Type } from "class-transformer";
 import "reflect-metadata";
 import ResponseModel from './ResponseModel';
 import MessageModel from './MessageModel'
+import { SliderValueObj } from '../entity-of-the-state/ValueObj';
+import GameModel from './GameModel';
 
 export interface ContentShape{
     data: any,
@@ -65,6 +67,19 @@ export default class SubRoundModel extends BaseModel
 
     public Responses: ResponseModel[] = [];
     
+    private _Score: number;
+    public get Score(){
+
+        this._Score = this.Responses.reduce((prev, curr) => {
+            return prev + curr.Score;
+        }, 0);
+
+        return this._Score;
+    }
+
+    public set Score(score: number){
+        this._Score = score;
+    }
 
     //----------------------------------------------------------------------
     //
