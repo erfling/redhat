@@ -50,7 +50,7 @@ export default class ResponseModel extends BaseModel
         ans.forEach((val) => {
             if (val.maxPoints != null && !isNaN(parseFloat(val.data))) {
                 maxScore += val.maxPoints;
-            } else console.log("Where the hell is 'maxPoints' for", val);
+            } else console.warn("Where the hell is 'maxPoints' for", val);
 
             if (val.data != null) {
                 if (!isNaN(parseFloat(val.data))) {
@@ -64,13 +64,13 @@ export default class ResponseModel extends BaseModel
                         score += (val.data == val.idealValue) ? val.maxPoints : val.minPoints;
                     }
                 } else {
-                    console.log("Not sure what type scoring for 'data' that doesn't resolve to number or bool!");
+                    console.warn("Not sure what type scoring for 'data' that doesn't resolve to number or bool!");
                 }
             } else if (val.label != null) {
                 // I assume we do string-matching against possible answers...
 
             } else {
-                console.log("Neither 'data' nor 'label' exists, so can't score!");
+                console.warn("Neither 'data' nor 'label' exists, so can't score!");
             }
         });
 
