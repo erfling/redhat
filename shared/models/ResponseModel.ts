@@ -1,4 +1,4 @@
-import ValueObj from "../entity-of-the-state/ValueObj";
+import { SliderValueObj } from './../entity-of-the-state/ValueObj';
 import { ComparisonLabel } from "./QuestionModel";
 import BaseModel, { dbProp } from "../base-sapien/models/BaseModel";
 
@@ -17,7 +17,7 @@ export default class ResponseModel extends BaseModel
     //----------------------------------------------------------------------
 
     @dbProp([{label: String, data: String, minPoints: Number, maxPoints: Number, idealValue: String}])
-    public Answer: ValueObj[] | ValueObj = [new ValueObj()];
+    public Answer: SliderValueObj[] | SliderValueObj = [new SliderValueObj()];
     
     @dbProp(String)
     public QuestionId: string;
@@ -43,13 +43,12 @@ export default class ResponseModel extends BaseModel
 
 
     public resolveScore(): number {
-        const ans: ValueObj[] = this.Answer as ValueObj[];
+        const ans: SliderValueObj[] = this.Answer as SliderValueObj[];
         var maxScore: number = 0;
         var score: number = 0;
         var ratio: number = 0;
         ans.forEach((val) => {
-
-            if (val.maxPoints != null && !isNaN(parseFloat(val.data))) {
+            if (val.maxPoints != undefined && !isNaN(val.maxPoints)) {
                 maxScore += val.maxPoints;
             } else console.log("Where the hell is 'maxPoints' for", val);
 
@@ -58,7 +57,7 @@ export default class ResponseModel extends BaseModel
                     // normalizedScore as percent in min/max range
                     let min = val["min"] ? val["min"] : val.minPoints;
                     let max = val["max"] ? val["max"] : val.maxPoints;
-                    if (val.idealValue != null) {
+                    if (val.idealValue != undefined) {
                         var idealValDiff = Math.abs(parseFloat(val.idealValue) - parseFloat(val.data));
                         ratio = 1 - (idealValDiff - min) / (max - min);
                     } else {
@@ -67,18 +66,18 @@ export default class ResponseModel extends BaseModel
                     score += val.maxPoints * ratio;
                 } else if (val.data === "true" || val.data === true || val.data === "false" || val.data === false) {
                     console.log("WE GOT THIS IDEAL VALUE",val );
-                    if (val.idealValue != null) {
+                    if (val.idealValue != undefined) {
                         score += (val.data == val.idealValue) ? val.maxPoints : val.minPoints;
                         console.log("SCORE IS, AS OF NOW: ", score, " | MAX SCORE IS: " ,maxScore)
                     }
                 } else {
                     console.log("Not sure what type scoring for 'data' that doesn't resolve to number or bool!");
                 }
-            } else if (val.label != null) {
+            } else if (val.label != undefined) {
                 // I assume we do string-matching against possible answers...
 
             } else {
-                console.warn("Neither 'data' nor 'label' exists, so can't score!");
+                console.log("Neither 'data' nor 'label' exists, so can't score!");
             }
         });
 
