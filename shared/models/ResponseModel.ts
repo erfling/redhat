@@ -59,7 +59,7 @@ export default class ResponseModel extends BaseModel
                     let max = val["max"] ? val["max"] : val.maxPoints;
                     if (val.idealValue != undefined) {
                         var idealValDiff = Math.abs(parseFloat(val.idealValue) - parseFloat(val.data));
-                        ratio = 1 - (idealValDiff - min) / (max - min);
+                        ratio = 1 - (idealValDiff - min) / (val.idealValue - min);
                     } else {
                         ratio = (parseFloat(val.data) - min) / (max - min);
                     }
