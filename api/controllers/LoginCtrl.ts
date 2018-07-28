@@ -64,7 +64,9 @@ export class LoginCtrlClass
             }
             console.log(game.Teams);
 
-            var mapping: RoundChangeMapping = await monMappingModel.findOne({ GameId: game._id.toString(), ParentRound: "peopleround", ChildRound: "priorities"}).then(r => r ? Object.assign(new RoundChangeMapping(), r) : new RoundChangeMapping());
+            var mapping: RoundChangeMapping = await monMappingModel.findOne({ GameId: game._id.toString(), ParentRound: "peopleround", ChildRound: "priorities"}).then(r => r ? Object.assign(new RoundChangeMapping(), r.toJSON()) : new RoundChangeMapping());
+            console.log("THIS MAPPING WAS FOUND",mapping)
+            
             if(!mapping.UserJobs) {
                 mapping.GameId = game._id.toString();
                 game.HasBeenManager = [];
@@ -78,9 +80,9 @@ export class LoginCtrlClass
 
                 let newMapping: RoundChangeMapping;
                 if(!mapping._id){
-                    newMapping = await monMappingModel.create({ParentRound: "peopleround", ChildRound: "priorities", UserJobs: mapping.UserJobs}).then(r => r ? Object.assign(new RoundChangeMapping(), r.toJSON()) : null)
+                    newMapping = await monMappingModel.create(Object.assign(mapping, {ParentRound: "peopleround", ChildRound: "priorities"})).then(r => r ? Object.assign(new RoundChangeMapping(), r.toJSON()) : null)
                 } else {
-                    newMapping = await monMappingModel.findOneAndUpdate({ParentRound: "peopleround", ChildRound: "priorities"}, {UserJobs: mapping.UserJobs},{new: true}).then(r => r ? Object.assign(new RoundChangeMapping(), r.toJSON()) : null)
+                    newMapping = await monMappingModel.findOneAndUpdate({ParentRound: "peopleround", ChildRound: "priorities"}, mapping, {new: true}).then(r => r ? Object.assign(new RoundChangeMapping(), r.toJSON()) : null)
                 }
                 
                 console.log("new MAPPING IS", newMapping)
