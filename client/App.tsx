@@ -285,6 +285,7 @@ export default class App extends BaseComponent<any, IControllerDataStore>
                                                         CurrentUser: Object.assign(this.state.ApplicationState.CurrentUser, { Job: JobName.IC })
                                                     })
                                                 }))
+                                                GameCtrl.GetInstance().LockedInJob = JobName.IC;
 
                                                 GameCtrl.GetInstance().dataStoreChange();
                                                 (GameCtrl.GetInstance().ChildController as BaseRoundCtrl<any>).getContentBySubRound();
@@ -296,12 +297,13 @@ export default class App extends BaseComponent<any, IControllerDataStore>
                                             onClick={e => {
                                                 e.preventDefault();
                                                 this.controller.dataStore.ApplicationState.ShowMenu = false;
-
+                                                
                                                 this.setState(Object.assign(this.state, {
                                                     ApplicationState: Object.assign(this.state.ApplicationState, {
                                                         CurrentUser: Object.assign(this.state.ApplicationState.CurrentUser, { Job: JobName.MANAGER })
                                                     })
                                                 }))
+                                                GameCtrl.GetInstance().LockedInJob = JobName.MANAGER;
 
                                                 console.log("BASE CONTROLLER IN APP IS:", (GameCtrl.GetInstance().ChildController as BaseRoundCtrl<any>))
 
@@ -321,6 +323,7 @@ export default class App extends BaseComponent<any, IControllerDataStore>
                                                         CurrentUser: Object.assign(this.state.ApplicationState.CurrentUser, { Job: JobName.CHIPCO })
                                                     })
                                                 }))
+                                                GameCtrl.GetInstance().LockedInJob = JobName.CHIPCO;
 
                                                 GameCtrl.GetInstance().dataStoreChange();
                                                 (GameCtrl.GetInstance().ChildController as BaseRoundCtrl<any>).getContentBySubRound();
@@ -337,6 +340,7 @@ export default class App extends BaseComponent<any, IControllerDataStore>
                                                         CurrentUser: Object.assign(this.state.ApplicationState.CurrentUser, { Job: JobName.INTEGRATED_SYSTEMS })
                                                     })
                                                 }))
+                                                GameCtrl.GetInstance().LockedInJob = JobName.INTEGRATED_SYSTEMS;
                                                 GameCtrl.GetInstance().dataStoreChange();
                                                 (GameCtrl.GetInstance().ChildController as BaseRoundCtrl<any>).getContentBySubRound();
 

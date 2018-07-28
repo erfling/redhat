@@ -3,7 +3,7 @@ import FiStMa from '../../shared/entity-of-the-state/FiStMa';
 import GameModel from '../../shared/models/GameModel';
 import { Component } from 'react';
 import RoundModel from '../../shared/models/RoundModel';
-import UserModel, { JobName } from '../../shared/models/UserModel';
+import UserModel, { JobName, RoleName } from '../../shared/models/UserModel';
 import RoundChangeMapping from '../../shared/models/RoundChangeMapping';
 import BaseClientCtrl, {IControllerDataStore} from '../../shared/base-sapien/client/BaseClientCtrl';
 import DataStore from '../../shared/base-sapien/client/DataStore';
@@ -32,6 +32,8 @@ export default class GameCtrl extends BaseClientCtrl<IControllerDataStore & {Gam
     private _childController: BaseRoundCtrl<any>;
 
     public ChildController: BaseClientCtrl<any>;
+
+    public LockedInJob: JobName;
 
     //----------------------------------------------------------------------
     //
@@ -147,7 +149,7 @@ export default class GameCtrl extends BaseClientCtrl<IControllerDataStore & {Gam
                 (this.ChildController as BaseRoundCtrl<any>).dataStore.ApplicationState.ShowRateUsers = r.ShowRateUsers;
             }
 
-            if(targetJob != this.ChildController.dataStore.ApplicationState.CurrentUser.Job){
+            if(targetJob != this.ChildController.dataStore.ApplicationState.CurrentUser.Job && !this.LockedInJob){
                 this.dataStore.ApplicationState.CurrentUser.Job = this.ChildController.dataStore.ApplicationState.CurrentUser.Job = targetJob;
                 ApplicationCtrl.GetInstance().addToast("You are now playing the role of " + this.ChildController.dataStore.ApplicationState.CurrentUser.Job, "info");
                 (this.ChildController as BaseRoundCtrl<any>).getContentBySubRound();
