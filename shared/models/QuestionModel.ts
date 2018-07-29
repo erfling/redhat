@@ -12,6 +12,12 @@ export enum QuestionType {
     TEXTAREA = "TEXTAREA"
 }
 
+export enum RatingType {
+    IC_RATING = "IC_RATING",
+    MANAGER_RATING = "MANAGER_RATING",
+    TEAM_RATING = "TEAM_RATING",
+}
+
 export enum ComparisonLabel{
     QUANTITY = "QUANTITY",
     PRICE = "PRICE",
@@ -37,7 +43,7 @@ export default class QuestionModel extends BaseModel
     @dbProp(String)
     public Type: QuestionType = QuestionType.MULTIPLE_CHOICE;
 
-    @dbProp([SliderValueObj])
+    @dbProp([{label: String, data: String, minPoints: Number, maxPoints: Number, idealValue: String, min: Number, max: Number}])
     public PossibleAnswers: SliderValueObj[] = [];
 
     //Maker for question this quesitno is paired with in another round, if it is paired.
@@ -45,7 +51,7 @@ export default class QuestionModel extends BaseModel
     public SiblingQuestionId: string = null;
 
     @dbProp(String)
-    public RatingMarker: string = null;
+    public RatingMarker: RatingType = null;
 
     @dbProp(String)
     public ComparisonLabel: ComparisonLabel;
