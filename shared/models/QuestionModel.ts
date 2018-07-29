@@ -8,7 +8,8 @@ export enum QuestionType {
     TOGGLE ="TOGGLE",
     CHECKBOX ="CHECKBOX",
     SLIDER = "SLIDER",
-    NUMBER = "NUMBER"
+    NUMBER = "NUMBER",
+    TEXTAREA = "TEXTAREA"
 }
 
 export enum ComparisonLabel{

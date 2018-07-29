@@ -86,7 +86,8 @@ export default class ResponseModel extends BaseModel
 
         if (score > maxScore) console.log("Something fugged up! Score", score, "is higher than response's maxScore", maxScore);
 
-        return score;
+        //TODO: SHOULD WE DO RONDING HERE? I AM FOR NOW.
+        return MathUtil.roundTo(score, 2);
     }
 
 }

@@ -132,6 +132,7 @@ export default class GameCtrl extends BaseClientCtrl<IControllerDataStore & {Gam
         }
 
         await SapienServerCom.GetData(null, null, url).then((r: RoundChangeMapping) => {
+            console.log("got git!!!!!!!!!");
             //set the team's current location to the new location
             const targetJob = r.UserJobs && r.UserJobs[this.dataStore.ApplicationState.CurrentUser._id] ? r.UserJobs[this.dataStore.ApplicationState.CurrentUser._id] : JobName.IC;
 
@@ -155,13 +156,26 @@ export default class GameCtrl extends BaseClientCtrl<IControllerDataStore & {Gam
                 (this.ChildController as BaseRoundCtrl<any>).getContentBySubRound();
             }
 
+            if(r.CurrentHighestBid && (!this.dataStore.ApplicationState.CurrentTeam.CurrentRound.CurrentHighestBid || this.dataStore.ApplicationState.CurrentTeam.CurrentRound.CurrentHighestBid.data != r.CurrentHighestBid.data)){
+                        this.dataStore.ApplicationState.CurrentTeam.CurrentRound.CurrentHighestBid = this.ChildController.dataStore.ApplicationState.CurrentTeam.CurrentHighestBid = r.CurrentHighestBid;
+                        if(this.dataStore.ApplicationState.CurrentTeam.toString() == r.CurrentHighestBid.label){                            
+                            ApplicationCtrl.GetInstance().addToast("Your team now has the high bid for BlueKite has increased to $" + r.CurrentHighestBid.data + "Bil.");
+
+                        } else {
+                            ApplicationCtrl.GetInstance().addToast("Team " + r.CurrentHighestBid.label + " now has the high bid for BlueKite has increased to $" + r.CurrentHighestBid.data + "Bil.", "info");
+                        }
+                        localStorage.setItem("RH_TEAM", JSON.stringify(this.ChildController.dataStore.ApplicationState.CurrentTeam));
+
+            }
+
             clearTimeout(this._timeOut);
+            let time = location.pathname.toUpperCase().indexOf('/BID') == -1 ? 3500 : 1500;
             this._timeOut = setTimeout(() => {
                 this.pollForGameStateChange.bind(this)(this.dataStore.ApplicationState.CurrentTeam.GameId);
-            }, 3500);
-           // this.pollForGameStateChange(this.dataStore.ApplicationState.CurrentTeam.GameId);
+            }, time); 
            return;
-        }).catch(() => {
+        }).catch((err) => {
+            console.log("CAUGHT ERROR", err)
             clearTimeout(this._timeOut);
             this._timeOut = setTimeout(() => {
                 this.pollForGameStateChange.bind(this)(this.dataStore.ApplicationState.CurrentTeam.GameId);

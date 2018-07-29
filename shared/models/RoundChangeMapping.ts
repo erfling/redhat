@@ -1,6 +1,7 @@
 import { JobName } from './UserModel';
 import { dbProp } from './../base-sapien/models/BaseModel';
 import BaseModel from '../base-sapien/models/BaseModel';
+import { SliderValueObj } from '../entity-of-the-state/ValueObj';
 
 export default class RoundChangeMapping extends BaseModel {
     @dbProp(String)
@@ -23,4 +24,7 @@ export default class RoundChangeMapping extends BaseModel {
 
     @dbProp(Boolean)
     ShowIndividualFeedback?: boolean = false;
+
+    @dbProp({label: String, data: String, minPoints: Number, maxPoints: Number, idealValue: String})
+    CurrentHighestBid?: SliderValueObj;
 }

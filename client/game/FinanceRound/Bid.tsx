@@ -52,15 +52,41 @@ export default class Bid extends BaseComponent<any, IRoundDataStore>
     //
     //----------------------------------------------------------------------
 
+    displayBids() {
+        return <Semantic.Segment
+                className="bid-wrapper"
+            >
+                <Header as={this.state.ApplicationState.MobileWidth ? 'h4' : 'h2'}>
+                    <Semantic.Icon name='users' />
+                    <Header.Content>Highest Bidder: Team {this.state.ApplicationState.CurrentTeam.CurrentRound.CurrentHighestBid.label}</Header.Content>
+                </Header>
+
+                <Header as={this.state.ApplicationState.MobileWidth ? 'h4' : 'h2'}>
+                    <Semantic.Icon name='arrow up' />
+                    <Header.Content>Highest Bid: ${this.state.ApplicationState.CurrentTeam.CurrentRound.CurrentHighestBid.data} Bil.</Header.Content>
+                </Header>
+            </Semantic.Segment>
+    }
+
     render() {
         const thisSubRound = this.state.Round.SubRounds.filter(s => s.Name.toUpperCase() == Bid.CLASS_NAME.toUpperCase())[0]
 
+
         if (this.state) {
             return <>
+                {!this.state.ApplicationState.ShowQuestions && !this.state.ApplicationState.ShowMessageList && this.state.ApplicationState.CurrentTeam && this.state.ApplicationState.CurrentTeam.CurrentRound && this.state.ApplicationState.CurrentTeam.CurrentRound.CurrentHighestBid &&
+                    <Column
+                        width={16}
+                        className="content-block"
+                    >
+                        {this.displayBids()}
+                    </Column>
+                }                
+
                 {this.state.ApplicationState.CurrentUser.Job == JobName.MANAGER && thisSubRound != null && thisSubRound.Questions &&
                     <div
                         className={(this.state.ApplicationState.ShowQuestions ? 'show ' : 'hide ') + (this.state.ApplicationState.MobileWidth ? "mobile-messages decisions" : "wide-messages decisions")}
-                    >
+                    >                        
                         <Form
                             style={{ width: '100%' }}
                         >
@@ -71,7 +97,7 @@ export default class Bid extends BaseComponent<any, IRoundDataStore>
                                 />
                                 Decisions
                             </Header>
-                                            
+
                             {thisSubRound.Questions.map((q, i) => {
                                 return <Row
                                     key={"question-" + i.toString()}
@@ -94,15 +120,20 @@ export default class Bid extends BaseComponent<any, IRoundDataStore>
                                         color="blue"
                                         loading={q.Response ? q.Response.IsSaving : false}
                                         onClick={e => {
-                                            this.controller.SaveResponse(q.Response, q, thisSubRound)
+                                            this.controller.SaveBid(q.Response, q, thisSubRound)
                                         }}
                                     />
                                 </Row>
                             }
                             )}
-                        </Form>
+                        </Form>                        
+                        {this.state.ApplicationState.CurrentTeam && this.state.ApplicationState.CurrentTeam.CurrentRound && this.state.ApplicationState.CurrentTeam.CurrentRound.CurrentHighestBid &&
+                            this.displayBids()
+                        }
                     </div>
-                }               
+                }
+
+                
                 {thisSubRound && this.state.ApplicationState.SelectedMessage &&
                     <EditableContentBlock
                         IsEditable={this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN}

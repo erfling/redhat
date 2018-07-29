@@ -237,6 +237,7 @@ SEMANTIC MOBILE FIX
     bottom: 0;
     position: fixed;
     right:5px;
+    z-index: 100000;
     .sapien-toast{
         padding: 1em ;
         border-radius:3px;
@@ -482,4 +483,10 @@ SEMANTIC MOBILE FIX
     position: fixed !important;
     width: 100vw !important;
     display: none !important;
+}
+
+.bid-wrapper{    
+    background: white;
+    width: 100%;
+    padding: 40px 30px !important;
 }

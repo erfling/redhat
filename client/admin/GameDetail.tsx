@@ -258,7 +258,7 @@ class GameDetail extends BaseComponent<any, IControllerDataStore & {Admin: Admin
                                                     icon="check"
                                                     color="blue"
                                                     content="Save"
-                                                    onClick={e => this.controller.saveTeam(this.state.Admin.SelectedGame.Teams[i])}
+                                                    onClick={e => this.controller.saveTeam(Object.assign(this.state.Admin.SelectedGame.Teams[i], {Number: i + 1}))}
                                                 >
                                                 </Button>
                                             }

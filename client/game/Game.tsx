@@ -253,7 +253,6 @@ export default class Game extends BaseComponent<any, IControllerDataStore & { Ga
                 <Column mobile={16} tablet={14} computer={14} largeScreen={12}>
                     <Grid>
 
-                        {locality.indexOf("WELCOME") == -1 &&
                             <Column
                                 width={16}                                
                             >
@@ -261,7 +260,7 @@ export default class Game extends BaseComponent<any, IControllerDataStore & { Ga
                                     className="top-logo"
                                 />
                             </Column>
-                        }
+                        
                         <Column
                             width={this.state.ApplicationState.MobileWidth ? 16 : 12}
                             style={{

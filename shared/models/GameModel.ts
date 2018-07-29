@@ -3,6 +3,7 @@ import TeamModel from "../models/TeamModel";
 import { Type } from 'class-transformer';
 import UserModel from './UserModel';
 import RoundChangeMapping from './RoundChangeMapping';
+import { SliderValueObj } from "../entity-of-the-state/ValueObj";
 
 export default class GameModel extends BaseModel
 {
@@ -22,7 +23,7 @@ export default class GameModel extends BaseModel
     @dbProp(String)
     public Location: string = "";
 
-    @dbProp({GameId: String, ParentRound: String, ChildRound: String, UserJobs: {} })
+    @dbProp(RoundChangeMapping)
     public CurrentRound: RoundChangeMapping = new RoundChangeMapping();
 
     @dbProp(String)

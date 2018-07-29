@@ -6,6 +6,12 @@ import DataStore from '../../../shared/base-sapien/client/DataStore'
 import ComponentsVO from '../../../shared/base-sapien/client/ComponentsVO';
 import RoundModel from '../../../shared/models/RoundModel';
 import FiStMa from '../../../shared/entity-of-the-state/FiStMa';
+import ResponseModel from '../../../shared/models/ResponseModel';
+import QuestionModel from '../../../shared/models/QuestionModel';
+import SubRoundModel from '../../../shared/models/SubRoundModel';
+import GameCtrl from '../GameCtrl';
+import SapienServerCom from '../../../shared/base-sapien/client/SapienServerCom';
+import ApplicationCtrl from '../../ApplicationCtrl';
 
 export default class FinanceRoundCtrl extends BaseRoundCtrl<IRoundDataStore>
 {
@@ -50,6 +56,30 @@ export default class FinanceRoundCtrl extends BaseRoundCtrl<IRoundDataStore>
     //
     //----------------------------------------------------------------------
 
+    public SaveBid( response: ResponseModel, question: QuestionModel, round: SubRoundModel ):Promise<SubRoundModel> {
+        console.log("ROUND IS:", round, question, GameCtrl.GetInstance().dataStore);
+        response.Score = 0;
+        response.TeamId = this.dataStore.ApplicationState.CurrentTeam._id;
+        response.QuestionId = question._id;
+        response.RoundId = round._id;
+        response.GameId = this.dataStore.ApplicationState.CurrentTeam.GameId;
+        this.dataStore.ApplicationState.FormIsSubmitting = response.IsSaving = true;
+        return SapienServerCom.SaveData(response, SapienServerCom.BASE_REST_URL + "gameplay/bid").then(r => {
+            console.log(r);
+            question.Response = Object.assign(new ResponseModel(), r);
+            round.Responses = round.Responses.map(resp => resp._id == r._id ? Object.assign(new ResponseModel(), r) : resp);
+            this.dataStore.ApplicationState.FormIsSubmitting = false;
+
+            ApplicationCtrl.GetInstance().addToast("Your response has been saved.")
+
+            return round;
+        }).catch(() => {
+            ApplicationCtrl.GetInstance().addToast("Your response could not be saved.", "danger")
+
+            return round;
+        })
+    }
+
     protected _setUpFistma(reactComp: Component){
         this.component = reactComp;
         var compStates = {
@@ -59,9 +89,6 @@ export default class FinanceRoundCtrl extends BaseRoundCtrl<IRoundDataStore>
         };
         
         this.ComponentFistma = new FiStMa(compStates, compStates.sub1);
-        this.ComponentFistma.addTransition(compStates.sub1);
-        this.ComponentFistma.addTransition(compStates.sub2);
-        this.ComponentFistma.addTransition(compStates.sub3);
         
         this.dataStore = {
             Round: new RoundModel(),

@@ -16,6 +16,9 @@ export default class TeamModel extends BaseModel
     @dbProp(String)
     Name: string = "";
 
+    @dbProp(Number)
+    Number: number = 1;
+
     @dbProp([ObjectID])
     @Type(() => UserModel)
     public Players: UserModel[] = [];
