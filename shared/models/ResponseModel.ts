@@ -66,17 +66,16 @@ export default class ResponseModel extends BaseModel
 
             if (val.data != undefined) {
                 if (!isNaN(parseFloat(val.data))) {
-                    // normalizedScore as percent in min/max range
-
+                    // get min/max
                     let min = val["min"] ? val["min"] : val.minPoints;
                     let max = val["max"] ? val["max"] : val.maxPoints;
+                    // normalized ratio of idealValue and data in min/max range
                     if (val.idealValue != undefined) {
-                        var idealValDiff = Math.abs(parseFloat(val.idealValue) - parseFloat(val.data));
-                        ratio = 1 - (idealValDiff - min) / (parseFloat(val.idealValue) - min);
+                        ratio = 1 - Math.abs((parseFloat(val.idealValue) - min) / (max - min) - (parseFloat(val.data) - min) / (max - min));
                     } else {
                         ratio = (parseFloat(val.data) - min) / (max - min);
                     }
-
+                    // range-clip awarded points
                     score += MathUtil.rangeClip(val.maxPoints * ratio, val.minPoints, val.maxPoints);
                 } else if (val.data === "true" || val.data === true || val.data === "false" || val.data === false) {
                     console.log("WE GOT THIS IDEAL VALUE",val );
