@@ -29,6 +29,9 @@ export default class ResponseModel extends BaseModel
     @dbProp(String)
     public TeamId: string;
 
+    @dbProp(Number)
+    public TeamNumber: number;
+
     @dbProp(String)
     public RoundId: string;
 
@@ -38,6 +41,14 @@ export default class ResponseModel extends BaseModel
     //Maker for question this response's question is paired with in another round, if it is paired.
     @dbProp(String)
     public SiblingQuestionId: string = null;
+
+    //questions often rate other teams' performance
+    @dbProp(String)
+    public TargetTeamId: string = null;
+
+    //questions often rate other users' performance
+    @dbProp(String)
+    public TargetUserId: string = null;
 
     @dbProp(String)
     public ComparisonLabel: ComparisonLabel;

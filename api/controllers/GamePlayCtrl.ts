@@ -4,7 +4,7 @@ import SchemaBuilder from '../SchemaBuilder';
 import ResponseModel, { ResponseFetcher } from '../../shared/models/ResponseModel';
 import { monTeamModel } from './TeamCtrl';
 import ValueObj, { SliderValueObj } from '../../shared/entity-of-the-state/ValueObj';
-import { monQModel } from './RoundCtrl';
+import { monQModel, monSubRoundModel } from './RoundCtrl';
 import SubRoundModel from '../../shared/models/SubRoundModel';
 import { monGameModel } from './GameCtrl';
 import RoundChangeMapping from '../../shared/models/RoundChangeMapping';
@@ -240,9 +240,37 @@ class GamePlayRouter {
         }
     }
 
+    public async getTeamsFor4BRating(req: Request, res: Response){
+        
+
+        try{
+
+            const GameId = req.params.gameid;
+            //const RoundId = req.params.roudid;
+
+            //do this a better way.
+            const RoundId = await monSubRoundModel.findOne({Name: "PRICING"}).then(r => r ? r._id : null)
+            if(!RoundId)  throw new Error("No subuound found");
+
+            const responses: ResponseModel[] = await monResponseModel.find( { GameId, RoundId } ).then(r => r ? r.map(r => Object.assign(new ResponseModel(), r.toJSON())) : []);
+
+            if (!responses || !responses.length) throw new Error("No responses found")
+
+            res.json(responses);
+
+        }
+        catch(err){
+            console.log(err);
+            res.status(500);
+            res.send("couldn't get resposnes")
+        }
+
+    }
+
     public routes() {
         //this.router.all("*", cors());
         this.router.get("/", this.GetRounds.bind(this));
+        this.router.get("/get4bresponses/:gameid", this.getTeamsFor4BRating.bind(this));
         this.router.post("/response", this.SaveResponse.bind(this));
         this.router.post("/1bresponse", this.Save1BResponse.bind(this), this.SaveResponse.bind(this));
         this.router.post("/roundresponses", this.GetTeamResponsesByRound.bind(this));

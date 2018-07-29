@@ -134,7 +134,7 @@ export class AppServer
             .use('/sapien/api/auth', LoginCtrl)
             .use('/sapien/api/team', TeamCtrl)
             .use('/sapien/api/user', UserCtrl)
-            .use('/sapien/api/gameplay', Passport.authenticate('jwt', { session: false }), GamePlayCtrl)
+            .use('/sapien/api/gameplay', /*Passport.authenticate('jwt', { session: false }),*/ GamePlayCtrl)
             .post('/sapien/api/facilitation/round/:gameid', Passport.authenticate('jwt', { session: false }), async (req, res) => {
                 console.log("HIT HERe",req.body);
                 try {

@@ -80,6 +80,10 @@ export default class FinanceRoundCtrl extends BaseRoundCtrl<IRoundDataStore>
         })
     }
 
+    public Get4BResponsesForRating(){
+        return SapienServerCom.GetData(null, null, SapienServerCom.BASE_REST_URL + "gameplay/get4bresponses" + "/" + this.dataStore.ApplicationState.CurrentTeam.GameId)
+    }
+
     protected _setUpFistma(reactComp: Component){
         this.component = reactComp;
         var compStates = {
