@@ -17,7 +17,7 @@ export default class ResponseModel extends BaseModel
     //
     //----------------------------------------------------------------------
 
-    @dbProp([{label: String, data: String, minPoints: Number, maxPoints: Number, idealValue: String}])
+    @dbProp([{label: String, data: String, minPoints: Number, maxPoints: Number, idealValue: String, min: Number, max: Number}])
     public Answer: SliderValueObj[] | SliderValueObj = [new SliderValueObj()];
     
     @dbProp(String)
