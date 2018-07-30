@@ -56,9 +56,9 @@ export default class PeopleRoundCtrl extends BaseRoundCtrl<IRoundDataStore>
 
 
         (response.Answer as ValueObj[]).forEach((val, index) => {
-            var distFromExpected:number = Math.abs( parseInt(val.idealValue) - (index + 1) );
-            if (distFromExpected < 2) score += 1 - distFromExpected;
-            console.log(val, val.label, "Dist:",distFromExpected, "Dist < 2:", distFromExpected < 2, 2 - distFromExpected);
+            var distFromExpected:number = Math.abs( parseFloat(val.idealValue) - index );
+            if (distFromExpected < 2) score += 2 - distFromExpected;
+            console.log(val.label, "Dist:",distFromExpected, "Dist < 2:", distFromExpected < 2, 2 - distFromExpected);
         });
         console.log("SCORE:", score);
 
