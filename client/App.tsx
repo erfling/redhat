@@ -120,6 +120,9 @@ export default class App extends BaseComponent<any, IControllerDataStore>
                                 inverted
                                 fixed="left"
                                 className="admin-sidebar"
+                                style={{
+                                    paddingBottom: '10vh'
+                                }}
                             >
                                 <Menu.Item>
                                     <Menu.Header>Administer</Menu.Header>
