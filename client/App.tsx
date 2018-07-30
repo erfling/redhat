@@ -254,7 +254,7 @@ export default class App extends BaseComponent<any, IControllerDataStore>
                                                 this.controller.dataStore.ApplicationState.ShowMenu = false;
                                                 GameCtrl.GetInstance().goToMapping({
                                                     ParentRound: "FinanceRound",
-                                                    ChildRound: "Bid"
+                                                    ChildRound: "TeamRating"
                                                 })
                                             }}
                                         >
@@ -266,7 +266,7 @@ export default class App extends BaseComponent<any, IControllerDataStore>
                                                 this.controller.dataStore.ApplicationState.ShowMenu = false;
                                                 GameCtrl.GetInstance().goToMapping({
                                                     ParentRound: "FinanceRound",
-                                                    ChildRound: "TeamRating"
+                                                    ChildRound: "Bid"
                                                 })
                                             }}
                                         >
