@@ -116,7 +116,7 @@ export default class Game extends BaseComponent<any, IControllerDataStore & { Ga
             return <Menu
                 widths={this.state.ApplicationState.CurrentUser.Job == JobName.MANAGER ? 3 : 2}
                 color="blue"
-                fixed="bottom"
+                fixed="top"
                 className="game-nav"
                 borderless
                 inverted
@@ -250,7 +250,7 @@ export default class Game extends BaseComponent<any, IControllerDataStore & { Ga
                         width: '570px'
                     }}
                 />
-                <Column mobile={16} tablet={14} computer={10} largeScreen={8}>
+                <Column mobile={16} tablet={16} computer={10} largeScreen={8}>
                     <Grid>
                             {location.pathname.toUpperCase().indexOf("WELCOME") == -1 &&
                                 <Column
