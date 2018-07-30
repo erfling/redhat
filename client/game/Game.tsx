@@ -90,11 +90,12 @@ export default class Game extends BaseComponent<any, IControllerDataStore & { Ga
                 a = a.parentNode as HTMLElement;
             }
 
-            DataStore.ApplicationState.ShowMessageList = this.controller.ChildController.dataStore.ApplicationState.ShowMessageList = ApplicationCtrl.GetInstance().dataStore.ApplicationState.ShowMessageList = false;
-            this._toggleBodyScroll()
 
             if(classes.indexOf("decisions") == -1 && classes.indexOf("mobile-messages") == -1 && classes.indexOf("message-list") == -1 && classes.indexOf("game-nav") == -1){
                 this.controller.ChildController.dataStore.ApplicationState.ShowQuestions = false;
+                DataStore.ApplicationState.ShowMessageList = this.controller.ChildController.dataStore.ApplicationState.ShowMessageList = ApplicationCtrl.GetInstance().dataStore.ApplicationState.ShowMessageList = false;
+                this._toggleBodyScroll()
+
             }
         })
         
@@ -102,9 +103,12 @@ export default class Game extends BaseComponent<any, IControllerDataStore & { Ga
 
     private _toggleBodyScroll(){
         //why dont this work?
-        setTimeout(() => {
-            document.body.style.overflow = (this.state.ApplicationState.MobileWidth && (this.state.ApplicationState.ShowQuestions || this.state.ApplicationState.ShowMessageList)) ? "hidden" : "auto";
-        },20)
+        console.log("calling this")
+        if (this.state.ApplicationState.MobileWidth){ 
+            setTimeout(() => {
+                document.body.style.overflow = (this.state.ApplicationState.MobileWidth && (this.state.ApplicationState.ShowQuestions || this.state.ApplicationState.ShowMessageList)) ? "hidden" : "auto";
+            },20)
+        }
     }
 
     /**
@@ -135,9 +139,10 @@ export default class Game extends BaseComponent<any, IControllerDataStore & { Ga
                     header>
                     <Info
                         onClick={e => {
+                            this.controller.dataStore.ApplicationState.ShowQuestions = this.controller.ChildController.dataStore.ShowQuestions = false;
+                                this.controller.dataStore.ApplicationState.ShowMessageList = !this.controller.dataStore.ApplicationState.ShowMessageList;
                                 this._toggleBodyScroll()
-                                this.controller.dataStore.ApplicationState.ShowQuestions = this.controller.ChildController.dataStore.ShowQuestions = false;
-                                this.controller.dataStore.ApplicationState.ShowMessageList = !this.controller.dataStore.ApplicationState.ShowMessageList
+                                
                             }
                         }
                     />
@@ -146,9 +151,10 @@ export default class Game extends BaseComponent<any, IControllerDataStore & { Ga
                     header>
                     <Inbox
                         onClick={e => {
-                                this._toggleBodyScroll()
                                 this.controller.dataStore.ApplicationState.ShowQuestions = this.controller.ChildController.dataStore.ShowQuestions = false;
-                                this.controller.dataStore.ApplicationState.ShowMessageList = !this.controller.dataStore.ApplicationState.ShowMessageList
+                                this.controller.dataStore.ApplicationState.ShowMessageList = !this.controller.dataStore.ApplicationState.ShowMessageList;
+                                this._toggleBodyScroll();
+
                             }
                         }
                     />
@@ -159,8 +165,11 @@ export default class Game extends BaseComponent<any, IControllerDataStore & { Ga
                         <Decisions
                             style={{marginTop: '-9px'}}
                             onClick={e => {
-                                    this._toggleBodyScroll()
-                                    this.controller.dataStore.ApplicationState.ShowQuestions = !this.controller.dataStore.ApplicationState.ShowQuestions
+                                    this.controller.dataStore.ApplicationState.ShowQuestions = this.controller.ChildController.dataStore.ShowQuestions = false;
+                                    this.controller.dataStore.ApplicationState.ShowMessageList = !this.controller.dataStore.ApplicationState.ShowMessageList;
+                                    this._toggleBodyScroll();
+
+                                    
                                 }
                             }
                         />
@@ -184,9 +193,11 @@ export default class Game extends BaseComponent<any, IControllerDataStore & { Ga
 
                 <Menu.Item
                     onClick={e => {
-                        this._toggleBodyScroll()
+                        var test = !this.controller.dataStore.ApplicationState.ShowMessageList;  
                         this.controller.dataStore.ApplicationState.ShowQuestions = this.controller.ChildController.dataStore.ShowQuestions = false;
-                        this.controller.dataStore.ApplicationState.ShowMessageList = this.controller.ChildController.dataStore.ShowMessageList = !this.controller.dataStore.ApplicationState.ShowMessageList
+                        this.controller.dataStore.ApplicationState.ShowMessageList = this.controller.ChildController.dataStore.ShowMessageList = test;
+                        this._toggleBodyScroll()
+
                     }}
                 >
                     <Info
@@ -197,9 +208,10 @@ export default class Game extends BaseComponent<any, IControllerDataStore & { Ga
                 <Menu.Item
                     active={this.controller.dataStore.ApplicationState.ShowMessageList}
                     onClick={e => {
-                            this._toggleBodyScroll()
+                            var test = !this.controller.dataStore.ApplicationState.ShowMessageList;
                             this.controller.dataStore.ApplicationState.ShowQuestions = this.controller.ChildController.dataStore.ShowQuestions = false;
-                            this.controller.dataStore.ApplicationState.ShowMessageList = this.controller.ChildController.dataStore.ShowMessageList = !this.controller.dataStore.ApplicationState.ShowMessageList
+                            this.controller.dataStore.ApplicationState.ShowMessageList = this.controller.ChildController.dataStore.ShowMessageList = test;
+                            this._toggleBodyScroll()
                         }}
                     >
                     <Inbox
@@ -211,9 +223,9 @@ export default class Game extends BaseComponent<any, IControllerDataStore & { Ga
                     <Menu.Item
                         active={this.controller.dataStore.ApplicationState.ShowQuestions}
                         onClick={e => {
-                            this._toggleBodyScroll()
                             this.controller.dataStore.ApplicationState.ShowMessageList = false;
-                            this.controller.dataStore.ApplicationState.ShowQuestions = this.controller.ChildController.dataStore.ShowQuestions = !this.controller.dataStore.ApplicationState.ShowQuestions
+                            this.controller.dataStore.ApplicationState.ShowQuestions = this.controller.ChildController.dataStore.ShowQuestions = !this.controller.dataStore.ApplicationState.ShowQuestions;
+                            this._toggleBodyScroll()
                         }}
                     >
                         <Decisions
