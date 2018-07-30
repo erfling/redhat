@@ -71,7 +71,7 @@ export default class Intro extends BaseComponent<any, IRoundDataStore>
                         />
                     </Row>
 
-                    {thisSubRound && this.state.ApplicationState.SelectedMessage &&
+                    {thisSubRound && this.state.ApplicationState.SelectedMessage && !this.state.ApplicationState.ShowFeedback &&
                         <EditableContentBlock
                             IsEditable={this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN}
                             SubRoundId={thisSubRound._id}

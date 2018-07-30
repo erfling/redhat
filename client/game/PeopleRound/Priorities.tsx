@@ -106,54 +106,12 @@ export default class Priorities extends BaseComponent<any, IRoundDataStore>
                         </Form>
                     </div>
                 }
-                {thisSubRound && this.state.ApplicationState.SelectedMessage && !this.state.ApplicationState.ShowFeedback &&
-                    <EditableContentBlock
-                        IsEditable={this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN}
-                        SubRoundId={thisSubRound._id}
-                        onSaveHandler={this.controller.updateContent.bind(this.controller)}
-                        Message={this.state.ApplicationState.SelectedMessage}
-                    />
-                }
 
                 {this.state.ApplicationState.ShowFeedback && thisSubRound && thisSubRound.Questions[0].Response && thisSubRound.Questions[0].Response.Answer &&
                     <FeedBackWrapper
                         RoundName="Round 2 Feedback"
-                    >
-                        <Table striped>
-                            <Table.Header>
-                                <Table.Row>
-                                    <Table.HeaderCell>Question</Table.HeaderCell>
-                                    <Table.HeaderCell>Answer</Table.HeaderCell>
-                                    <Table.HeaderCell>Feedback</Table.HeaderCell>
-                                </Table.Row>
-                            </Table.Header>
-
-                            <Table.Body>
-                                {thisSubRound.Questions.map((q, i) =>
-                                    q.PossibleAnswers.map((pa, j) => {
-                                        return <Table.Row key={j}>
-                                                    <Table.Cell>{pa.label}</Table.Cell>
-                                                    <Table.Cell>{q.Response.Answer[j].data}</Table.Cell>
-                                                    <Table.Cell>
-                                                        {q.Response.Answer[j].data == "true" ?
-                                                            (j == 0) ? "Giving in to ChipCo threatens to undermine the openness of OpenVM. It's good in the short term, perhaps, but in the long term limits participation across the platform." :
-                                                            (j == 1) ? "1 true" :
-                                                            (j == 2) ? "2 true" :
-                                                            "3 true"
-                                                        :
-                                                            (j == 0) ? "Smart. Easy to over-react to the needs of a single contributor." :
-                                                            (j == 1) ? "1 false" :
-                                                            (j == 2) ? "2 false" :
-                                                            "3 false"
-                                                        }
-                                                    </Table.Cell>
-                                                </Table.Row>
-                                    })
-                                )}
-
-                            </Table.Body>
-
-                        </Table>
+                        Blurb="For each role, different criteria are most important. For sales, a long-term strategic view and experience in the financial services vertical are necessary. For engineering, it is important to be able to negotiate both internally and with the upstream community, while also having a strong understanding of emerging technologies. For services, it is most critical that the candidate has financial services experience, and also a grasp of emerging technologies."              >
+                        
                     </FeedBackWrapper> 
                 }  
                 {this.state.ApplicationState.ShowRateUsers && this.state.RatingQuestions && <div
@@ -200,7 +158,17 @@ export default class Priorities extends BaseComponent<any, IRoundDataStore>
                         )}
                     </Form>
                 </div>
-                }  
+                }
+                
+                {thisSubRound && this.state.ApplicationState.SelectedMessage && !this.state.ApplicationState.ShowFeedback && !this.state.ApplicationState.ShowFeedback &&
+                    <EditableContentBlock
+                        IsEditable={this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN}
+                        SubRoundId={thisSubRound._id}
+                        onSaveHandler={this.controller.updateContent.bind(this.controller)}
+                        Message={this.state.ApplicationState.SelectedMessage}
+                    />
+                }
+
             </>;
         } else {
             return <Segment loading>

@@ -11,7 +11,7 @@ import RoundChangeMapping from '../../shared/models/RoundChangeMapping';
 import TeamModel from '../../shared/models/TeamModel';
 import Game from '../../client/game/Game';
 import GameModel from '../../shared/models/GameModel';
-import QuestionModel from '../../shared/models/QuestionModel';
+import QuestionModel, { QuestionType } from '../../shared/models/QuestionModel';
 import { groupBy } from 'lodash';
 import { Label } from 'semantic-ui-react';
 import UserModel, { JobName } from '../../shared/models/UserModel';
@@ -99,7 +99,10 @@ class GamePlayRouter {
         const response: ResponseModel = Object.assign(new ResponseModel(), req.body as ResponseModel);
 
         try {
-            response.Score = response.resolveScore();
+
+            const question = await monQModel.findById(response.QuestionId).then(q => q.toJSON());
+
+            if(question.Type != QuestionType.PRIORITY)response.Score = response.resolveScore();
 
             let queryObj: any = { GameId: response.GameId, TeamId: response.TeamId, QuestionId: response.QuestionId }
 
@@ -115,6 +118,7 @@ class GamePlayRouter {
 
             console.log("HEY!!!!", oldResponse);
             if (!oldResponse) {
+                delete response._id;
                 var SaveResponse = await monResponseModel.create(response).then(r => r.toObject() as ResponseModel);
             } else {
                 var SaveResponse = await monResponseModel.findOneAndUpdate({ GameId: response.GameId, TeamId: response.TeamId, QuestionId: response.QuestionId }, response, { new: true }).then(r => r.toObject() as ResponseModel);
@@ -389,6 +393,34 @@ class GamePlayRouter {
             res.send("couldn't get resposnes")
         }
 
+    }
+
+    public async getScores(req: Request, res: Response){
+        try{
+
+            const RoundId = req.params.roundid;
+            const GameId = req.params.GameId;
+
+            //get all teams' responses for the round, then group them by team
+            const responses: ResponseModel[] = await monResponseModel.find({ RoundId, QuestionId: GameId }).then(bids => bids ? bids.map(b => Object.assign(new ResponseModel(), b.toJSON())) : []);
+
+
+            let groupedResponses = groupBy(responses, "TeamId");
+
+
+
+            //sum the scores for all responses
+            
+
+
+            //put scores into proper format for client consumption
+
+        }
+        catch (err) {
+            console.log(err);
+            res.status(500);
+            res.send("couldn't get resposnes")
+        }
     }
 
     public routes() {

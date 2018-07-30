@@ -51,7 +51,6 @@ export default class PlayerLogin extends BaseComponent<any, IRoundDataStore>
     render() {
         if (this.state) {
             return <>
-            <h1>Login</h1>
                 <Column width={16}>
                     <Grid>
                         <Column mobile={16} tablet={12} computer={8} largeScreen={6} 
@@ -69,7 +68,7 @@ export default class PlayerLogin extends BaseComponent<any, IRoundDataStore>
                             <Row>
                                 <Form>
                                     <Form.Field>
-                                        <Semantic.Label basic>Email</Semantic.Label>
+                                        <Semantic.Label style={{background: 'none'}} basic>Email</Semantic.Label>
                                         <Semantic.Input
                                             onChange={(e, semanticStuff) => this.controller.dataStore.ApplicationState.CurrentUser.Email = semanticStuff.value}
                                             ref="EMAIL"
@@ -77,7 +76,7 @@ export default class PlayerLogin extends BaseComponent<any, IRoundDataStore>
                                         />
                                     </Form.Field>
                                     <Form.Field>
-                                        <Semantic.Label basic>PIN</Semantic.Label>
+                                        <Semantic.Label style={{background: 'none'}} basic>PIN</Semantic.Label>
                                         <Semantic.Input
                                             onChange={(e, semanticStuff) => this.controller.dataStore.ApplicationState.CurrentGame.GamePIN = parseInt(semanticStuff.value)}
                                         />
