@@ -53,12 +53,17 @@ export default class PeopleRoundCtrl extends BaseRoundCtrl<IRoundDataStore>
             response = new ResponseModel();
             response.Answer = question.PossibleAnswers;
         }
+
+
         (response.Answer as ValueObj[]).forEach((val, index) => {
             var distFromExpected:number = Math.abs( parseFloat(val.idealValue) - index );
             if (distFromExpected < 2) score += 2 - distFromExpected;
             console.log(val.label, "Dist:",distFromExpected, "Dist < 2:", distFromExpected < 2, 2 - distFromExpected);
         });
         console.log("SCORE:", score);
+
+        response.Score = (score/28) * 3;
+
         // build response //
         //const response = new ResponseModel();
         

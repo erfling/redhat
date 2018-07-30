@@ -250,9 +250,9 @@ export default class Game extends BaseComponent<any, IControllerDataStore & { Ga
                         width: '570px'
                     }}
                 />
-                <Column mobile={16} tablet={14} computer={14} largeScreen={12}>
+                <Column mobile={16} tablet={14} computer={10} largeScreen={8}>
                     <Grid>
-                            {this.props.location.pathname.toUpperCase().indexOf("WELCOME") != -1 &&
+                            {location.pathname.toUpperCase().indexOf("WELCOME") == -1 &&
                                 <Column
                                     width={16}                                
                                 >

@@ -104,17 +104,8 @@ export default class TeamRating extends BaseComponent<any, IRoundDataStore>
                             )}
                         </Form>
                     </div>
-                }
-
+                }                
                 
-                {thisSubRound && this.state.ApplicationState.SelectedMessage &&
-                    <EditableContentBlock
-                        IsEditable={this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN}
-                        SubRoundId={thisSubRound._id}
-                        onSaveHandler={this.controller.updateContent.bind(this.controller)}
-                        Message={this.state.ApplicationState.SelectedMessage}
-                    />
-                }
                 {this.state.ApplicationState.ShowFeedback && thisSubRound && thisSubRound.Questions[0].Response && thisSubRound.Questions[0].Response.Answer &&
                     <FeedBackWrapper
                         RoundName="Round 2 Feedback"
@@ -201,6 +192,16 @@ export default class TeamRating extends BaseComponent<any, IRoundDataStore>
                     </Form>
                 </div>
                 }
+
+                {thisSubRound && this.state.ApplicationState.SelectedMessage && !this.state.ApplicationState.ShowFeedback &&
+                    <EditableContentBlock
+                        IsEditable={this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN}
+                        SubRoundId={thisSubRound._id}
+                        onSaveHandler={this.controller.updateContent.bind(this.controller)}
+                        Message={this.state.ApplicationState.SelectedMessage}
+                    />
+                }
+
             </>;
         } else {
             return <Dimmer active>

@@ -109,14 +109,7 @@ export default class DealStructure extends BaseComponent<any, IRoundDataStore & 
                         </Form>
                     </div>
                 }
-                {!this.state.ApplicationState.ShowFeedback && thisSubRound && this.state.ApplicationState.SelectedMessage &&
-                    <EditableContentBlock
-                        IsEditable={this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN}
-                        SubRoundId={thisSubRound._id}
-                        onSaveHandler={this.controller.updateContent.bind(this.controller)}
-                        Message={this.state.ApplicationState.SelectedMessage}
-                    />
-                }
+
                 {this.state.ApplicationState.ShowFeedback &&
                     <FeedBackWrapper
                         RoundName="Rouind 3A Feedback"
@@ -153,6 +146,16 @@ export default class DealStructure extends BaseComponent<any, IRoundDataStore & 
                         }
 
                     </FeedBackWrapper>
+                }
+
+                           
+                {thisSubRound && this.state.ApplicationState.SelectedMessage && !this.state.ApplicationState.ShowFeedback &&
+                    <EditableContentBlock
+                        IsEditable={this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN}
+                        SubRoundId={thisSubRound._id}
+                        onSaveHandler={this.controller.updateContent.bind(this.controller)}
+                        Message={this.state.ApplicationState.SelectedMessage}
+                    />
                 }
             </>;
         } else {
