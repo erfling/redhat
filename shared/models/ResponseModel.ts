@@ -81,7 +81,7 @@ export default class ResponseModel extends BaseModel
                     }
                     // range-clip awarded points
                     score += MathUtil.rangeClip(val.maxPoints * ratio, val.minPoints, val.maxPoints);
-                    //console.log("data:", val.data, "idealVal:", val.idealValue, "maxPoints:", val.maxPoints, "score:", score);
+                    console.log("data:", val.data, "idealVal:", val.idealValue, "ratio:", ratio, "maxPoints:", val.maxPoints, "score:", score);
                 } else if (val.data === "true" || val.data === true || val.data === "false" || val.data === false) {
                     console.log("WE GOT THIS IDEAL VALUE",val );
                     if (val.idealValue != undefined) {
