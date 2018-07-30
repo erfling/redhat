@@ -99,10 +99,11 @@ class GamePlayRouter {
         const response: ResponseModel = Object.assign(new ResponseModel(), req.body as ResponseModel);
 
         try {
-
             const question = await monQModel.findById(response.QuestionId).then(q => q.toJSON());
 
-            if(question.Type != QuestionType.PRIORITY)response.Score = response.resolveScore();
+            if (question.Type != QuestionType.TEXTAREA) {
+                response.Score = response.resolveScore();
+            }
 
             let queryObj: any = { GameId: response.GameId, TeamId: response.TeamId, QuestionId: response.QuestionId }
 
@@ -126,8 +127,7 @@ class GamePlayRouter {
             console.log(SaveResponse);
 
             res.json(SaveResponse);
-        }
-        catch{
+        } catch {
 
         }
     }
