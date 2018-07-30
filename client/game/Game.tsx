@@ -90,9 +90,10 @@ export default class Game extends BaseComponent<any, IControllerDataStore & { Ga
                 a = a.parentNode as HTMLElement;
             }
 
+            DataStore.ApplicationState.ShowMessageList = this.controller.ChildController.dataStore.ApplicationState.ShowMessageList = ApplicationCtrl.GetInstance().dataStore.ApplicationState.ShowMessageList = false;
+            this._toggleBodyScroll()
+
             if(classes.indexOf("decisions") == -1 && classes.indexOf("mobile-messages") == -1 && classes.indexOf("message-list") == -1 && classes.indexOf("game-nav") == -1){
-                this._toggleBodyScroll()
-                DataStore.ApplicationState.ShowMessageList = this.controller.ChildController.dataStore.ApplicationState.ShowMessageList = ApplicationCtrl.GetInstance().dataStore.ApplicationState.ShowMessageList = false;
                 this.controller.ChildController.dataStore.ApplicationState.ShowQuestions = false;
             }
         })
@@ -101,7 +102,9 @@ export default class Game extends BaseComponent<any, IControllerDataStore & { Ga
 
     private _toggleBodyScroll(){
         //why dont this work?
-        if (this.state.ApplicationState.MobileWidth) document.body.style.overflow = document.body.style.overflow == "auto" ? "hidden" : "auto";
+        setTimeout(() => {
+            document.body.style.overflow = (this.state.ApplicationState.MobileWidth && (this.state.ApplicationState.ShowQuestions || this.state.ApplicationState.ShowMessageList)) ? "hidden" : "auto";
+        },20)
     }
 
     /**
@@ -109,6 +112,7 @@ export default class Game extends BaseComponent<any, IControllerDataStore & { Ga
      */
     componentWillUnmount() {
         window.removeEventListener("resize", this._updateDimensionsAndHandleClickOff.bind(this));
+        window.removeEventListener("click", this._updateDimensionsAndHandleClickOff.bind(this));
     }
 
     renderGameMenu() {
