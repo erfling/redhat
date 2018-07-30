@@ -8,6 +8,7 @@ import GameCtrl from "../GameCtrl";
 import Pricing from "./Pricing";
 import AcquisitionStructure from "./AcquisitionStructure";
 import Bid from "./Bid";
+import TeamRating from "./TeamRating";
 
 const { Grid, Segment } = Semantic;
 const { Row, Column } = Grid;
@@ -80,6 +81,7 @@ export default class FinanceRound extends BaseComponent<any, IRoundDataStore>
                     </Column>
                     <Switch>
                         <Route path="/game/financeround/pricing" component={Pricing} />
+                        <Route path="/game/financeround/teamrating" component={TeamRating} />
                         <Route path="/game/financeround/bid" component={Bid} />                
                         <Route path="/game/financeround/acquisitionstructure" component={AcquisitionStructure} />
                         <Redirect exact from="/game/financeround" to="/game/financeround/pricing" />

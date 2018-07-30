@@ -4,7 +4,7 @@ import EditableContentBlock from '../../../shared/base-sapien/client/shared-comp
 import EditableQuestionBlock from '../../../shared/base-sapien/client/shared-components/EditableQuestionBlock';
 import * as Semantic from 'semantic-ui-react';
 import { IRoundDataStore } from '../../../shared/base-sapien/client/BaseRoundCtrl';
-import CustomerRoundCtrl from "./CustomerRoundCtrl";
+import FinanceRoundCtrl from "./FinanceRoundCtrl";
 import BaseComponent from "../../../shared/base-sapien/client/shared-components/BaseComponent";
 import Decisions from '-!svg-react-loader?name=Icon!../../img/decisions.svg';
 import FeedBackWrapper from "../FeedBackWrapper";
@@ -12,7 +12,7 @@ import FeedBackWrapper from "../FeedBackWrapper";
 const { Button, Grid, Form, Dimmer, Loader, Header, Table } = Semantic;
 const { Row, Column } = Grid;
 
-export default class CustomerSub extends BaseComponent<any, IRoundDataStore>
+export default class TeamRating extends BaseComponent<any, IRoundDataStore>
 {
     //----------------------------------------------------------------------
     //
@@ -20,11 +20,11 @@ export default class CustomerSub extends BaseComponent<any, IRoundDataStore>
     //
     //----------------------------------------------------------------------
 
-    public static CLASS_NAME = "CustomerSub";
+    public static CLASS_NAME = "TeamRating";
 
-    public static CONTROLLER = CustomerRoundCtrl;
+    public static CONTROLLER = FinanceRoundCtrl;
 
-    controller: CustomerRoundCtrl = CustomerRoundCtrl.GetInstance();
+    controller: FinanceRoundCtrl = FinanceRoundCtrl.GetInstance();
 
     //----------------------------------------------------------------------
     //
@@ -35,6 +35,7 @@ export default class CustomerSub extends BaseComponent<any, IRoundDataStore>
     constructor(props: any) {
         super(props);
 
+        this.controller.ParentController = FinanceRoundCtrl.GetInstance();
         this.state = this.controller.dataStore;
     }
 
@@ -51,16 +52,17 @@ export default class CustomerSub extends BaseComponent<any, IRoundDataStore>
     //  Methods
     //
     //----------------------------------------------------------------------
-
     render() {
-        const thisSubRound = this.state.Round.SubRounds.filter(s => s.Name.toUpperCase() == CustomerSub.CLASS_NAME.toUpperCase())[0]
+        const thisSubRound = this.state.Round.SubRounds.filter(s => s.Name.toUpperCase() == TeamRating.CLASS_NAME.toUpperCase())[0]
+
 
         if (this.state) {
-            return <>
-                {(this.state.ApplicationState.CurrentUser.Job == JobName.MANAGER && thisSubRound != null && thisSubRound.Questions) &&
+            return <>            
+
+                {this.state.ApplicationState.CurrentUser.Job == JobName.MANAGER && thisSubRound != null && thisSubRound.Questions &&
                     <div
                         className={(this.state.ApplicationState.ShowQuestions ? 'show ' : 'hide ') + (this.state.ApplicationState.MobileWidth ? "mobile-messages decisions" : "wide-messages decisions")}
-                    >
+                    >                        
                         <Form
                             style={{ width: '100%' }}
                         >
@@ -101,12 +103,10 @@ export default class CustomerSub extends BaseComponent<any, IRoundDataStore>
                             }
                             )}
                         </Form>
-
-
-
-
                     </div>
                 }
+
+                
                 {thisSubRound && this.state.ApplicationState.SelectedMessage &&
                     <EditableContentBlock
                         IsEditable={this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN}

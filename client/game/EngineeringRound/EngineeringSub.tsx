@@ -154,6 +154,51 @@ export default class EngineeringSub extends BaseComponent<any, IRoundDataStore>
                         </Table>
                     </FeedBackWrapper> 
                 }  
+                {this.state.ApplicationState.ShowRateUsers && this.state.RatingQuestions && <div
+                    className={'show ' + (this.state.ApplicationState.MobileWidth ? "mobile-messages decisions" : "wide-messages decisions")}
+                >
+                    <Form
+                        style={{ width: '100%' }}
+                    >
+                        <Header>
+                            <Decisions
+                                className="ui circular image"
+                                style={{ width: '40px' }}
+                            />
+                            Decisions
+                            </Header>
+
+                        {this.state.RatingQuestions.map((q, i) => {
+                            return <Row
+                                key={"question-" + i.toString()}
+                            >
+                                <EditableQuestionBlock
+                                    Question={q}
+                                    idx={i}
+                                    key={i}
+                                    SubRoundId={thisSubRound._id}
+                                    onChangeHander={r => {
+                                        console.log(r);
+                                        this.controller.updateResponse(q, r)
+                                    }}
+                                    IsEditable={this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN}
+                                />
+                                <Button
+                                    content='Submit'
+                                    icon='checkmark'
+                                    labelPosition='right'
+                                    color="blue"
+                                    loading={q.Response ? q.Response.IsSaving : false}
+                                    onClick={e => {
+                                        this.controller.SaveResponse(q.Response, q, thisSubRound)
+                                    }}
+                                />
+                            </Row>
+                        }
+                        )}
+                    </Form>
+                </div>
+                }
             </>;
         } else {
             return <Dimmer active>

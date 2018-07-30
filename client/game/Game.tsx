@@ -252,15 +252,15 @@ export default class Game extends BaseComponent<any, IControllerDataStore & { Ga
                 />
                 <Column mobile={16} tablet={14} computer={14} largeScreen={12}>
                     <Grid>
-
-                            <Column
-                                width={16}                                
-                            >
-                                <IntroLogo
-                                    className="top-logo"
-                                />
-                            </Column>
-                        
+                            {this.props.location.pathname.toUpperCase().indexOf("WELCOME") != -1 &&
+                                <Column
+                                    width={16}                                
+                                >
+                                    <IntroLogo
+                                        className="top-logo"
+                                    />
+                                </Column>
+                            }
                         <Column
                             width={this.state.ApplicationState.MobileWidth ? 16 : 12}
                             style={{

@@ -9,12 +9,11 @@ import BaseComponent from "../../../shared/base-sapien/client/shared-components/
 import Decisions from '-!svg-react-loader?name=Icon!../../img/decisions.svg';
 import FeedBackWrapper from '../FeedBackWrapper';
 import TeamModel from "../../../shared/models/TeamModel";
-import { Table } from "semantic-ui-react";
 import { ComparisonLabel } from "../../../shared/models/QuestionModel";
 import MathUtil from '../../../shared/entity-of-the-state/MathUtil'
 import { SliderValueObj } from "../../../shared/entity-of-the-state/ValueObj";
 
-const { Button, Grid, Form, Dimmer, Loader, Header } = Semantic;
+const { Button, Grid, Form, Dimmer, Loader, Header, Table } = Semantic;
 const { Row, Column } = Grid;
 
 export default class DealStructure extends BaseComponent<any, IRoundDataStore & { Feedback: TeamModel[] }>

@@ -63,6 +63,7 @@ export default class FinanceRoundCtrl extends BaseRoundCtrl<IRoundDataStore>
         response.QuestionId = question._id;
         response.RoundId = round._id;
         response.GameId = this.dataStore.ApplicationState.CurrentTeam.GameId;
+        response.Answer[0].label = "BID";
         this.dataStore.ApplicationState.FormIsSubmitting = response.IsSaving = true;
         return SapienServerCom.SaveData(response, SapienServerCom.BASE_REST_URL + "gameplay/bid").then(r => {
             console.log(r);
@@ -80,8 +81,17 @@ export default class FinanceRoundCtrl extends BaseRoundCtrl<IRoundDataStore>
         })
     }
 
-    public Get4BResponsesForRating(){
-        return SapienServerCom.GetData(null, null, SapienServerCom.BASE_REST_URL + "gameplay/get4bresponses" + "/" + this.dataStore.ApplicationState.CurrentTeam.GameId)
+    public async getResponsesByRound(r: SubRoundModel): Promise<SubRoundModel> {
+        if(this.component.props.location.pathname.indexOf("teamrating") != -1){
+
+            await SapienServerCom.GetData(null, null, SapienServerCom.BASE_REST_URL + "gameplay/get4bresponses" + "/" + this.dataStore.ApplicationState.CurrentTeam.GameId).then((responses: QuestionModel[])=> {
+                return r.Questions = responses;
+            });
+
+        } else {
+            await super.getResponsesByRound(r);
+        }
+        return r
     }
 
     protected _setUpFistma(reactComp: Component){
@@ -98,7 +108,8 @@ export default class FinanceRoundCtrl extends BaseRoundCtrl<IRoundDataStore>
             Round: new RoundModel(),
             ApplicationState: DataStore.ApplicationState,
             ComponentFistma: this.ComponentFistma,
-            SubRound: null
+            SubRound: null,
+            RatingQuestions: null
 
         };
         this.dataStore.Round.Name = "FINANCE";

@@ -161,16 +161,18 @@ export default class SalesRoundCtrl extends BaseRoundCtrl<IRoundDataStore & {Fee
         )
     }
 
-    public getResponsesByRound(r: SubRoundModel): void {
+    public async getResponsesByRound(r: SubRoundModel): Promise<SubRoundModel> {
         const fetcher: ResponseFetcher = {
             RoundId: r._id,
             TeamId: this.dataStore.ApplicationState.CurrentTeam._id,
             GameId: this.dataStore.ApplicationState.CurrentTeam.GameId
         }
 
-        SapienServerCom.SaveData(fetcher, SapienServerCom.BASE_REST_URL + "gameplay/roundresponses/").then((responses: ResponseModel[])=> {
+        await SapienServerCom.SaveData(fetcher, SapienServerCom.BASE_REST_URL + "gameplay/roundresponses/").then((responses: ResponseModel[])=> {
             return r = this.MapResponsesToQuestions(r, responses[0])
         });
+
+        return r;
     }
 
     public MapResponsesToQuestions(subRound: SubRoundModel, resp: ResponseModel){
@@ -208,7 +210,8 @@ export default class SalesRoundCtrl extends BaseRoundCtrl<IRoundDataStore & {Fee
             ApplicationState: DataStore.ApplicationState,
             ComponentFistma: this.ComponentFistma,
             Feedback: null,
-            SubRound: null
+            SubRound: null,
+            RatingQuestions: null
 
         };
         this.dataStore.Round.Name = "SALES";
