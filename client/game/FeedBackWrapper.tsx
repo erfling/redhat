@@ -32,7 +32,8 @@ export default class FeedBackWrapper extends React.Component<FeedBackProps, { Me
 
         const { RoundName } = this.props
 
-        return <div
+        return <Column
+            width={16}
             className="feedback"
         >   
             <Header>
@@ -48,9 +49,9 @@ export default class FeedBackWrapper extends React.Component<FeedBackProps, { Me
                 <Label color='blue' attached="top left">
                     <Icon size='big' name="lightbulb outline"/> Final Thoughts
                 </Label>
-                <p style={{marginTop: '2.5em !important'}}>{this.props.Blurb}</p>
+                <p style={{marginTop: '2.5em'}}>{this.props.Blurb}</p>
             </Segment>}
-        </div>
+        </Column>
     }
 
 }
