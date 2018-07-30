@@ -9,7 +9,7 @@ import AuthUtils, { PERMISSION_LEVELS } from '../AuthUtils';
 import { monResponseModel } from './GamePlayCtrl';
 import ResponseModel from '../../shared/models/ResponseModel';
 import ValueObj, { SliderValueObj } from '../../shared/entity-of-the-state/ValueObj';
-import { QuestionType, ComparisonLabel } from '../../shared/models/QuestionModel';
+import QuestionModel, { QuestionType, ComparisonLabel } from '../../shared/models/QuestionModel';
 import { monGameModel } from './GameCtrl';
 import TeamModel from '../../shared/models/TeamModel';
 import GameModel from '../../shared/models/GameModel';
@@ -28,7 +28,7 @@ schObj.SubRounds = [{ type: mongoose.Schema.Types.ObjectId, ref: "subround" }];
 const monSchema = new mongoose.Schema(schObj);
 export const monRoundModel = mongoose.model("round", monSchema);
 
-const qSchObj = SchemaBuilder.fetchSchema(SubRoundModel);
+const qSchObj = SchemaBuilder.fetchSchema(QuestionModel);
 const qSubSchema = new mongoose.Schema(qSchObj);
 export const monQModel = mongoose.model("question", qSubSchema);
 

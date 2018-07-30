@@ -11,6 +11,11 @@ import RoundChangeMapping from '../../shared/models/RoundChangeMapping';
 import TeamModel from '../../shared/models/TeamModel';
 import Game from '../../client/game/Game';
 import GameModel from '../../shared/models/GameModel';
+import QuestionModel from '../../shared/models/QuestionModel';
+import { groupBy } from 'lodash';
+import { Label } from 'semantic-ui-react';
+import UserModel, { JobName } from '../../shared/models/UserModel';
+import { RatingType } from '../../shared/models/QuestionModel';
 
 const schObj = SchemaBuilder.fetchSchema(ResponseModel);
 const monSchema = new mongoose.Schema(schObj);
@@ -96,7 +101,17 @@ class GamePlayRouter {
         try {
             response.Score = response.resolveScore();
 
-            const oldResponse = await monResponseModel.findOne({ GameId: response.GameId, TeamId: response.TeamId, QuestionId: response.QuestionId }).then(r => r ? r.toJSON() : null);
+            let queryObj: any = { GameId: response.GameId, TeamId: response.TeamId, QuestionId: response.QuestionId }
+
+            if (response.TargetTeamId) {
+                queryObj.TargetTeamId = response.TargetTeamId;
+            }
+
+            if (response.TargetUserId) {
+                queryObj.TargetUserId = response.TargetUserId;
+            }
+
+            const oldResponse = await monResponseModel.findOne(queryObj).then(r => r ? r.toJSON() : null);
 
             console.log("HEY!!!!", oldResponse);
             if (!oldResponse) {
@@ -219,20 +234,20 @@ class GamePlayRouter {
                 console.log("BID IS", submittedBidValue)
 
                 const CurrentHighestBid: Partial<ValueObj> = {
-                        data: submittedBidValue.toString(),
-                        label: team.Number.toString()
-                    }
-                
+                    data: submittedBidValue.toString(),
+                    label: team.Number.toString()
+                }
+
 
                 const game = await monGameModel.findById(team.GameId).then(g => g ? Object.assign(new GameModel(), g.toJSON()) : null)
 
-                let gameForUpdate = Object.assign(game, { CurrentRound: Object.assign(game.CurrentRound, {CurrentHighestBid}) })
+                let gameForUpdate = Object.assign(game, { CurrentRound: Object.assign(game.CurrentRound, { CurrentHighestBid }) })
 
                 const updatedGame = await monGameModel.findByIdAndUpdate(team.GameId, gameForUpdate);
             }
 
             next();
-            
+
         } catch (err) {
             console.log(err);
             res.status(500)
@@ -240,26 +255,135 @@ class GamePlayRouter {
         }
     }
 
-    public async getTeamsFor4BRating(req: Request, res: Response){
-        
+    public async getTeamsFor4BRating(req: Request, res: Response) {
 
-        try{
+
+        try {
 
             const GameId = req.params.gameid;
-            //const RoundId = req.params.roudid;
 
             //do this a better way.
-            const RoundId = await monSubRoundModel.findOne({Name: "PRICING"}).then(r => r ? r._id : null)
-            if(!RoundId)  throw new Error("No subuound found");
+            const RoundId = await monSubRoundModel.findOne({ Name: "PRICING" }).then(r => r ? r._id : null)
+            if (!RoundId) throw new Error("No subuound found");
 
-            const responses: ResponseModel[] = await monResponseModel.find( { GameId, RoundId } ).then(r => r ? r.map(r => Object.assign(new ResponseModel(), r.toJSON())) : []);
+            const responses: ResponseModel[] = await monResponseModel.find({ GameId, RoundId }).then(r => r ? r.map(r => Object.assign(new ResponseModel(), r.toJSON())) : []);
 
             if (!responses || !responses.length) throw new Error("No responses found")
 
-            res.json(responses);
+            //group the responses by team
+            let groupedResponses = groupBy(responses, "TeamId");
+
+            //get the questions for this round.
+            let questions: QuestionModel[] = await monQModel.find({ RatingMarker: "TEAM_RATING" }).then(q => q ? q.map(quest => Object.assign(new QuestionModel, quest.toJSON())) : []);
+
+            //now map over the responses, building out questions for each team.
+            let finalQuestions: QuestionModel[] = [];
+
+            Object.keys(groupedResponses).map(k => {
+                console.log(groupedResponses[k]);
+
+                let bidResponse = groupedResponses[k].filter(r => r.Answer && r.Answer[0] && r.Answer[0].label && r.Answer[0].label.toUpperCase() == "PRICING")[0] || null;
+                let rationaleResponsee = groupedResponses[k].filter(r => r.Answer && r.Answer[0] && r.Answer[0].label && r.Answer[0].label.toUpperCase() == "EXPLANATION")[0] || null;
+
+                finalQuestions = finalQuestions.concat(
+                    questions.map(q => {
+                        return Object.assign(q, {
+
+                            Text: q.Text + " " + groupedResponses[k][0].TeamNumber + " bid" + bidResponse.Answer[0].preunit + bidResponse.Answer[0].data + bidResponse.Answer[0].unit,
+                            TargetTeamId: k,
+                            SubText: rationaleResponsee ? rationaleResponsee.Answer[0].data : "",
+                            test: "adsf"
+                        })
+                    })
+                )
+            });
+
+            res.json(finalQuestions);
 
         }
-        catch(err){
+        catch (err) {
+            console.log(err);
+            res.status(500);
+            res.send("couldn't get resposnes")
+        }
+
+    }
+
+    public async GetPlayerRatingsQuestions(req: Request, res: Response) {
+
+
+        try {
+
+            const team: TeamModel = Object.assign(new TeamModel(), req.body);
+
+
+            //get the game so we can determine which players is the manager
+            const game: GameModel = await monGameModel.findById(team.GameId).then(g => g ? g.toJSON() : null)
+            if (!game) throw new Error("no game");
+            let jobMap = game.CurrentRound.UserJobs;
+
+            //get the players so we can rate each one
+            const players: UserModel[] = await monTeamModel.findById(team._id).populate("Players").then(t => t ? t.toObject().Players.map(p => Object.assign(new UserModel(), p)) : null)
+
+            //get the id of the current subround
+            const subround = await monSubRoundModel.findOne().then(r => r ? r.toJSON() : null)
+            if (!subround) throw new Error("no subround");
+            //get the individual rating questions
+            let questions: QuestionModel[] = await monQModel.find()
+                .where('RatingMarker')
+                .in([RatingType.IC_RATING, RatingType.MANAGER_RATING])
+                .then(qs => qs ? qs.map(q => Object.assign(new QuestionModel(), q.toJSON())) : null);
+
+            let finalQuestions = questions.map(q => {
+                //let job: JobName = jobMap[p._id.toString()];
+
+                //let marker: RatingType = job == JobName.MANAGER ? RatingType.MANAGER_RATING : RatingType.IC_RATING;
+
+
+                if (q.RatingMarker == RatingType.MANAGER_RATING){
+                    let mgr = players.filter(p => jobMap[p._id.toString()] == JobName.MANAGER)[0];
+                    return Object.assign(q, {
+                        SubText: "How did " + mgr.Name + " perform as a manager?",
+                        PossibleAnswers:  q.PossibleAnswers.map((pa, i) => Object.assign( pa, 
+                            {
+                                    label: mgr.Name + "_" + i,
+                                    idealValue: '0',
+                                    maxScore: 3,
+                                    minScore: 1,
+                                    min: 0,
+                                    max: 10,
+                                    targetObjId: mgr._id.toString(),
+                                    targetObjClass: "User"
+                            })
+                        )
+                            
+                    })
+                }
+                //chipco and integrated systems players get the same questions as ICs
+                else{
+                    return Object.assign(q, {
+                        PossibleAnswers: players.filter(p => jobMap[p._id.toString()] != JobName.MANAGER).map((p,i) => {
+                            return {
+                                label: p.Name,
+                                idealValue: '0',
+                                maxScore: 3,
+                                minScore: 1,
+                                targetObjId: p._id.toString(),
+                                targetObjClass: "User",
+                                data: i
+                            }
+                        })
+                    })
+                }
+
+
+                return q;
+            })     
+
+            res.json(finalQuestions);
+
+        }
+        catch (err) {
             console.log(err);
             res.status(500);
             res.send("couldn't get resposnes")
@@ -271,6 +395,7 @@ class GamePlayRouter {
         //this.router.all("*", cors());
         this.router.get("/", this.GetRounds.bind(this));
         this.router.get("/get4bresponses/:gameid", this.getTeamsFor4BRating.bind(this));
+        this.router.post("/rateplayers", this.GetPlayerRatingsQuestions.bind(this));
         this.router.post("/response", this.SaveResponse.bind(this));
         this.router.post("/1bresponse", this.Save1BResponse.bind(this), this.SaveResponse.bind(this));
         this.router.post("/roundresponses", this.GetTeamResponsesByRound.bind(this));

@@ -4,14 +4,14 @@ import EditableContentBlock from '../../../shared/base-sapien/client/shared-comp
 import EditableQuestionBlock from '../../../shared/base-sapien/client/shared-components/EditableQuestionBlock';
 import * as Semantic from 'semantic-ui-react';
 import { IRoundDataStore } from '../../../shared/base-sapien/client/BaseRoundCtrl';
-import CustomerRoundCtrl from "./CustomerRoundCtrl";
+import FinanceRoundCtrl from "./FinanceRoundCtrl";
 import BaseComponent from "../../../shared/base-sapien/client/shared-components/BaseComponent";
 import Decisions from '-!svg-react-loader?name=Icon!../../img/decisions.svg';
 
 const { Button, Grid, Form, Dimmer, Loader, Header } = Semantic;
 const { Row, Column } = Grid;
 
-export default class CustomerSub extends BaseComponent<any, IRoundDataStore>
+export default class TeamRating extends BaseComponent<any, IRoundDataStore>
 {
     //----------------------------------------------------------------------
     //
@@ -19,11 +19,11 @@ export default class CustomerSub extends BaseComponent<any, IRoundDataStore>
     //
     //----------------------------------------------------------------------
 
-    public static CLASS_NAME = "CustomerSub";
+    public static CLASS_NAME = "TeamRating";
 
-    public static CONTROLLER = CustomerRoundCtrl;
+    public static CONTROLLER = FinanceRoundCtrl;
 
-    controller: CustomerRoundCtrl = CustomerRoundCtrl.GetInstance();
+    controller: FinanceRoundCtrl = FinanceRoundCtrl.GetInstance();
 
     //----------------------------------------------------------------------
     //
@@ -34,6 +34,7 @@ export default class CustomerSub extends BaseComponent<any, IRoundDataStore>
     constructor(props: any) {
         super(props);
 
+        this.controller.ParentController = FinanceRoundCtrl.GetInstance();
         this.state = this.controller.dataStore;
     }
 
@@ -50,16 +51,17 @@ export default class CustomerSub extends BaseComponent<any, IRoundDataStore>
     //  Methods
     //
     //----------------------------------------------------------------------
-
     render() {
-        const thisSubRound = this.state.Round.SubRounds.filter(s => s.Name.toUpperCase() == CustomerSub.CLASS_NAME.toUpperCase())[0]
+        const thisSubRound = this.state.Round.SubRounds.filter(s => s.Name.toUpperCase() == TeamRating.CLASS_NAME.toUpperCase())[0]
+
 
         if (this.state) {
-            return <>
-                {(this.state.ApplicationState.CurrentUser.Job == JobName.MANAGER && thisSubRound != null && thisSubRound.Questions) &&
+            return <>            
+
+                {this.state.ApplicationState.CurrentUser.Job == JobName.MANAGER && thisSubRound != null && thisSubRound.Questions &&
                     <div
                         className={(this.state.ApplicationState.ShowQuestions ? 'show ' : 'hide ') + (this.state.ApplicationState.MobileWidth ? "mobile-messages decisions" : "wide-messages decisions")}
-                    >
+                    >                        
                         <Form
                             style={{ width: '100%' }}
                         >
@@ -100,12 +102,10 @@ export default class CustomerSub extends BaseComponent<any, IRoundDataStore>
                             }
                             )}
                         </Form>
-
-
-
-
                     </div>
                 }
+
+                
                 {thisSubRound && this.state.ApplicationState.SelectedMessage &&
                     <EditableContentBlock
                         IsEditable={this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN}
@@ -113,51 +113,6 @@ export default class CustomerSub extends BaseComponent<any, IRoundDataStore>
                         onSaveHandler={this.controller.updateContent.bind(this.controller)}
                         Message={this.state.ApplicationState.SelectedMessage}
                     />
-                }
-                {this.state.ApplicationState.ShowRateUsers && this.state.RatingQuestions && <div
-                    className={'show ' + (this.state.ApplicationState.MobileWidth ? "mobile-messages decisions" : "wide-messages decisions")}
-                >
-                    <Form
-                        style={{ width: '100%' }}
-                    >
-                        <Header>
-                            <Decisions
-                                className="ui circular image"
-                                style={{ width: '40px' }}
-                            />
-                            Decisions
-                            </Header>
-
-                        {this.state.RatingQuestions.map((q, i) => {
-                            return <Row
-                                key={"question-" + i.toString()}
-                            >
-                                <EditableQuestionBlock
-                                    Question={q}
-                                    idx={i}
-                                    key={i}
-                                    SubRoundId={thisSubRound._id}
-                                    onChangeHander={r => {
-                                        console.log(r);
-                                        this.controller.updateResponse(q, r)
-                                    }}
-                                    IsEditable={this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN}
-                                />
-                                <Button
-                                    content='Submit'
-                                    icon='checkmark'
-                                    labelPosition='right'
-                                    color="blue"
-                                    loading={q.Response ? q.Response.IsSaving : false}
-                                    onClick={e => {
-                                        this.controller.SaveResponse(q.Response, q, thisSubRound)
-                                    }}
-                                />
-                            </Row>
-                        }
-                        )}
-                    </Form>
-                </div>
                 }
             </>;
         } else {

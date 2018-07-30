@@ -69,7 +69,7 @@ export default class PlayerLogin extends BaseComponent<any, IRoundDataStore>
                             <Row>
                                 <Form>
                                     <Form.Field>
-                                        <Semantic.Label>Email</Semantic.Label>
+                                        <Semantic.Label basic>Email</Semantic.Label>
                                         <Semantic.Input
                                             onChange={(e, semanticStuff) => this.controller.dataStore.ApplicationState.CurrentUser.Email = semanticStuff.value}
                                             ref="EMAIL"
@@ -77,7 +77,7 @@ export default class PlayerLogin extends BaseComponent<any, IRoundDataStore>
                                         />
                                     </Form.Field>
                                     <Form.Field>
-                                        <Semantic.Label>PIN</Semantic.Label>
+                                        <Semantic.Label basic>PIN</Semantic.Label>
                                         <Semantic.Input
                                             onChange={(e, semanticStuff) => this.controller.dataStore.ApplicationState.CurrentGame.GamePIN = parseInt(semanticStuff.value)}
                                         />

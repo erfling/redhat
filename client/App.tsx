@@ -153,8 +153,23 @@ export default class App extends BaseComponent<any, IControllerDataStore>
                                                     GameCtrl.GetInstance().goToMapping({
                                                         ParentRound: GameCtrl.GetInstance().getParentRound(),
                                                         ChildRound: GameCtrl.GetInstance().getChildRound(),
-                                                        ShowFeedback: true,
+                                                        ShowFeedback: !this.state.ApplicationState.ShowFeedback,
                                                         ShowRateUsers: false
+                                                    })                                            
+                                                }}
+                                        >
+                                        </Menu.Item>
+                                        <Menu.Item
+                                            name='Show User Ratings'
+                                            onClick={e => {
+                                                e.preventDefault();                                              
+                                                    e.preventDefault();
+                                                    this.controller.dataStore.ApplicationState.ShowMenu = false;
+                                                    GameCtrl.GetInstance().goToMapping({
+                                                        ParentRound: GameCtrl.GetInstance().getParentRound(),
+                                                        ChildRound: GameCtrl.GetInstance().getChildRound(),
+                                                        ShowFeedback: false,
+                                                        ShowRateUsers: !this.state.ApplicationState.ShowRateUsers
                                                     })                                            
                                                 }}
                                         >
@@ -246,6 +261,18 @@ export default class App extends BaseComponent<any, IControllerDataStore>
                                         </Menu.Item>
                                         <Menu.Item
                                             name="4C"
+                                            onClick={e => {
+                                                e.preventDefault();
+                                                this.controller.dataStore.ApplicationState.ShowMenu = false;
+                                                GameCtrl.GetInstance().goToMapping({
+                                                    ParentRound: "FinanceRound",
+                                                    ChildRound: "TeamRating"
+                                                })
+                                            }}
+                                        >
+                                        </Menu.Item>
+                                        <Menu.Item
+                                            name="4D"
                                             onClick={e => {
                                                 e.preventDefault();
                                                 this.controller.dataStore.ApplicationState.ShowMenu = false;
