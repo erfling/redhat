@@ -52,7 +52,6 @@ export default class FeedBackWrapper extends React.Component<FeedBackProps, any>
                     <Table.Header>
                         <Table.Row>
                             <Table.HeaderCell>Team</Table.HeaderCell>
-                            <Table.HeaderCell>Subround Score</Table.HeaderCell>
                             <Table.HeaderCell>Round Score</Table.HeaderCell>
                             <Table.HeaderCell>Game Score</Table.HeaderCell>
                         </Table.Row>
@@ -64,7 +63,6 @@ export default class FeedBackWrapper extends React.Component<FeedBackProps, any>
                                 <Table.Cell>
                                         {s.Label}
                                 </Table.Cell>
-                                <Table.Cell >{s.TotalSubroundScore}</Table.Cell>
                                 <Table.Cell >{s.TotalRoundScore}</Table.Cell>
                                 <Table.Cell >{s.TotalGameScore}</Table.Cell>
                             </Table.Row>
