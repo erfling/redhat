@@ -109,8 +109,10 @@ export default class AcquisitionStructure extends BaseComponent<any, IRoundDataS
                     <FeedBackWrapper
                         TeamId={this.state.ApplicationState.CurrentTeam._id}
                         Scores={this.state.Scores}
-                        RoundName="Round 5 Feedback"
-                        Blurb="You made a judgement call to work around the current policy by offering to provide one Technical Account Manager to RHK Bank. In this next decision, you had to make another judgement call that could violate the policy even further. While it is important to keep this client happy, you must also make a decision that doesn't ultimately cost Source Stream valuable resources - both in people and money. The most appropriate decision is to allow RHK Bank to retain the one TAM, and not to offer a discount."
+                        RoundName="Round 4D"
+                        Blurb="Given Source Stream's ambition to grow in the Asia Pacific region, the Singapore footprint is attractive. The London location would be redundant to Source Stream's current headquarters.
+                        \nThe BlueKite brand is well-known and represents a compelling and unique success story, not unlike Source Stream's. In addition, allowing BlueKite to retain its brand aligns with Source Stream's culture of autonomy and transparency. 
+                        \nWhile concessions around one location and the brand are short-term wins for BlueKite, HR and IT systems must be centralized to enable long-term stability."
                     >
                         
                     </FeedBackWrapper> 

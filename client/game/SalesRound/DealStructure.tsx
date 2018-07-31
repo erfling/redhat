@@ -114,8 +114,8 @@ export default class DealStructure extends BaseComponent<any, IRoundDataStore & 
                     <FeedBackWrapper
                         TeamId={this.state.ApplicationState.CurrentTeam._id}
                         Scores={this.state.Scores}
-                        RoundName="Round 5 Feedback"
-                        Blurb="You made a judgement call to work around the current policy by offering to provide one Technical Account Manager to RHK Bank. In this next decision, you had to make another judgement call that could violate the policy even further. While it is important to keep this client happy, you must also make a decision that doesn't ultimately cost Source Stream valuable resources - both in people and money. The most appropriate decision is to allow RHK Bank to retain the one TAM, and not to offer a discount."
+                        RoundName="Round 3A"
+                        Blurb="Your goal is both to make a lucrative deal for Source Stream, and also to keep RHK Bank happy. You must balance the short-term deal payoff with the longer-term satisfaction of the customer. Teams that received a customer satisfaction score of 90+ recieve a glowing testimonial from RHK Bank. Pricing and quantity ranges have changed based on your previous decisions."
                     >
                         
                     </FeedBackWrapper> 

@@ -110,8 +110,8 @@ export default class TeamRating extends BaseComponent<any, IRoundDataStore>
                     <FeedBackWrapper
                         TeamId={this.state.ApplicationState.CurrentTeam._id}
                         Scores={this.state.Scores}
-                        RoundName="Round 5 Feedback"
-                        Blurb="You made a judgement call to work around the current policy by offering to provide one Technical Account Manager to RHK Bank. In this next decision, you had to make another judgement call that could violate the policy even further. While it is important to keep this client happy, you must also make a decision that doesn't ultimately cost Source Stream valuable resources - both in people and money. The most appropriate decision is to allow RHK Bank to retain the one TAM, and not to offer a discount."
+                        RoundName="Round 4B"
+                        Blurb="Unfortunately the BlueKite board, made up of venture capital firms, has rejected the deal saying that it is not high enough. You will now take part in a live auction. Use the information you have gathered in the previous round, specifically what you have seen the market is willing to pay to purchase BlueKite. Beware of overpaying, as your board will reject any deal that is too high."
                     >
                         
                     </FeedBackWrapper> 

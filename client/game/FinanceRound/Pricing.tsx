@@ -109,8 +109,8 @@ export default class Pricing extends BaseComponent<any, IRoundDataStore>
                     <FeedBackWrapper
                         TeamId={this.state.ApplicationState.CurrentTeam._id}
                         Scores={this.state.Scores}
-                        RoundName="Round 5 Feedback"
-                        Blurb="You made a judgement call to work around the current policy by offering to provide one Technical Account Manager to RHK Bank. In this next decision, you had to make another judgement call that could violate the policy even further. While it is important to keep this client happy, you must also make a decision that doesn't ultimately cost Source Stream valuable resources - both in people and money. The most appropriate decision is to allow RHK Bank to retain the one TAM, and not to offer a discount."
+                        RoundName="Round 4A"
+                        Blurb="Your bid amount and your ability to influence Fiona determined which team was able to purchase BlueKite."
                     >
                         
                     </FeedBackWrapper> 

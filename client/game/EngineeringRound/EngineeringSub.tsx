@@ -109,43 +109,10 @@ export default class EngineeringSub extends BaseComponent<any, IRoundDataStore>
                     <FeedBackWrapper
                         TeamId={this.state.ApplicationState.CurrentTeam._id}
                         Scores={this.state.Scores}
-                        RoundName="Round 2 Feedback"
+                        RoundName="Round 2"
+                        Blurb="Giving in to a single player threatens to undermine the openness of OpenVM. It's good in the short term, perhaps, but in the long term limits participation across the platform."
                     >
-                        <Table striped>
-                            <Table.Header>
-                                <Table.Row>
-                                    <Table.HeaderCell>Question</Table.HeaderCell>
-                                    <Table.HeaderCell>Answer</Table.HeaderCell>
-                                    <Table.HeaderCell>Feedback</Table.HeaderCell>
-                                </Table.Row>
-                            </Table.Header>
-
-                            <Table.Body>
-                                {thisSubRound.Questions.map((q, i) =>
-                                    q.PossibleAnswers.map((pa, j) => {
-                                        return <Table.Row key={j}>
-                                                    <Table.Cell>{pa.label}</Table.Cell>
-                                                    <Table.Cell>{q.Response.Answer[j].data}</Table.Cell>
-                                                    <Table.Cell>
-                                                        {q.Response.Answer[j].data == "true" ?
-                                                            (j == 0) ? "Giving in to ChipCo threatens to undermine the openness of OpenVM. It's good in the short term, perhaps, but in the long term limits participation across the platform." :
-                                                            (j == 1) ? "1 true" :
-                                                            (j == 2) ? "2 true" :
-                                                            "3 true"
-                                                        :
-                                                            (j == 0) ? "Smart. Easy to over-react to the needs of a single contributor." :
-                                                            (j == 1) ? "1 false" :
-                                                            (j == 2) ? "2 false" :
-                                                            "3 false"
-                                                        }
-                                                    </Table.Cell>
-                                                </Table.Row>
-                                    })
-                                )}
-
-                            </Table.Body>
-
-                        </Table>
+                        
                     </FeedBackWrapper> 
                 }  
                 {this.state.ApplicationState.ShowRateUsers && this.state.RatingQuestions && <div
@@ -212,3 +179,38 @@ export default class EngineeringSub extends BaseComponent<any, IRoundDataStore>
     }
 
 }
+/**<Table striped>
+                            <Table.Header>
+                                <Table.Row>
+                                    <Table.HeaderCell>Question</Table.HeaderCell>
+                                    <Table.HeaderCell>Answer</Table.HeaderCell>
+                                    <Table.HeaderCell>Feedback</Table.HeaderCell>
+                                </Table.Row>
+                            </Table.Header>
+
+                            <Table.Body>
+                                {thisSubRound.Questions.map((q, i) =>
+                                    q.PossibleAnswers.map((pa, j) => {
+                                        return <Table.Row key={j}>
+                                                    <Table.Cell>{pa.label}</Table.Cell>
+                                                    <Table.Cell>{q.Response.Answer[j].data}</Table.Cell>
+                                                    <Table.Cell>
+                                                        {q.Response.Answer[j].data == "true" ?
+                                                            (j == 0) ? "Giving in to ChipCo threatens to undermine the openness of OpenVM. It's good in the short term, perhaps, but in the long term limits participation across the platform." :
+                                                            (j == 1) ? "1 true" :
+                                                            (j == 2) ? "2 true" :
+                                                            "3 true"
+                                                        :
+                                                            (j == 0) ? "Smart. Easy to over-react to the needs of a single contributor." :
+                                                            (j == 1) ? "1 false" :
+                                                            (j == 2) ? "2 false" :
+                                                            "3 false"
+                                                        }
+                                                    </Table.Cell>
+                                                </Table.Row>
+                                    })
+                                )}
+
+                            </Table.Body>
+
+                        </Table> */

@@ -15,6 +15,7 @@ import MessageModel from '../../../shared/models/MessageModel';
 import ApplicationCtrl from '../../ApplicationCtrl';
 import TeamModel from '../../../shared/models/TeamModel';
 import GameCtrl from '../GameCtrl';
+import MathUtil from '../../../shared/entity-of-the-state/MathUtil'
 
 export default class SalesRoundCtrl extends BaseRoundCtrl<IRoundDataStore & {Feedback: TeamModel[]}>
 {
@@ -121,9 +122,9 @@ export default class SalesRoundCtrl extends BaseRoundCtrl<IRoundDataStore & {Fee
             Score: this._getScore(questions)
         });
         //(this.Response.Answer as SliderValueObj[]).push((r.Answer as SliderValueObj));
-        this.updateResponse(q, r);
+       // this.updateResponse(q, r);
 
-        console.log("BUILT OUT RESPONSE",this.Response.Answer, this._responseMap);
+        console.log("BUILT OUT RESPONSE",this.Response, this._responseMap);
     }
 
     _getPrice(){
@@ -151,7 +152,7 @@ export default class SalesRoundCtrl extends BaseRoundCtrl<IRoundDataStore & {Fee
         let maxPrice = this._responseMap[ComparisonLabel.PRICE] ? this._responseMap[ComparisonLabel.PRICE].max : 0;
         let maxQuant = this._responseMap[ComparisonLabel.QUANTITY] ? this._responseMap[ComparisonLabel.QUANTITY].max : 0;
         let maxMoney = maxPrice * maxQuant
-        let score =   this._responseMap[ComparisonLabel.PRICE].data * this._responseMap[ComparisonLabel.QUANTITY].data / maxMoney;
+        let score = MathUtil.roundTo(this._responseMap[ComparisonLabel.PRICE].data * this._responseMap[ComparisonLabel.QUANTITY].data / maxMoney,2) * 10;
 
         console.warn( maxPrice, maxQuant,maxMoney, this._getPrice() * this._responseMap[ComparisonLabel.QUANTITY].data, score, this._responseMap)
         return score;
@@ -172,7 +173,7 @@ export default class SalesRoundCtrl extends BaseRoundCtrl<IRoundDataStore & {Fee
 
         this.Response.SkipScoring = true;
         this.SaveResponse(this.Response, question, subround).then(
-           (r) => this.MapResponsesToQuestions(r, r.Questions[0].Response)
+           (r) => this.MapResponsesToQuestions(r, this.Response)
         )
     }
 
