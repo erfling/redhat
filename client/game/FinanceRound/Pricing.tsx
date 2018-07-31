@@ -151,7 +151,7 @@ export default class Pricing extends BaseComponent<any, IRoundDataStore>
                                     color="blue"
                                     loading={q.Response ? q.Response.IsSaving : false}
                                     onClick={e => {
-                                        this.controller.SaveResponse(q.Response, q, thisSubRound)
+                                        this.controller.SavePlayerRating(q.Response, q, thisSubRound)
                                     }}
                                 />
                             </Row>

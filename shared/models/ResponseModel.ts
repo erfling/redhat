@@ -49,11 +49,11 @@ export default class ResponseModel extends BaseModel
 
     //questions often rate other teams' performance
     @dbProp(String)
-    public TargetTeamId: string = null;
+    public targetObjId: string = null;
 
     //questions often rate other users' performance
     @dbProp(String)
-    public TargetUserId: string = null;
+    public targetObjClass: string = null;
 
     @dbProp(String)
     public ComparisonLabel: ComparisonLabel;
