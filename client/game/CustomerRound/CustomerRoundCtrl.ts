@@ -68,7 +68,8 @@ export default class CustomerRoundCtrl extends BaseRoundCtrl<IRoundDataStore>
             ApplicationState: DataStore.ApplicationState,
             ComponentFistma: this.ComponentFistma,
             SubRound: null,
-            RatingQuestions: null
+            RatingQuestions: null,
+            Scores: null
         };
         this.dataStore.Round.Name = "CUSTOMER";
 

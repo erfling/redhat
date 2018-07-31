@@ -134,10 +134,12 @@ export default class Bid extends BaseComponent<any, IRoundDataStore>
                     </div>
                 }
 
-                {this.state.ApplicationState.ShowFeedback && thisSubRound && thisSubRound.Questions[0].Response && thisSubRound.Questions[0].Response.Answer &&
+                {this.state.ApplicationState.ShowFeedback && thisSubRound && thisSubRound.Questions[0].Response && thisSubRound.Questions[0].Response.Answer && this.state.Scores &&
                     <FeedBackWrapper
-                        RoundName="Round 2 Feedback"
-                        Blurb="The winning team chose to bid at a price that was acceptable to both boards. The teams that bid too low or paid over market value have been penalized."
+                        TeamId={this.state.ApplicationState.CurrentTeam._id}
+                        Scores={this.state.Scores}
+                        RoundName="Round 5 Feedback"
+                        Blurb="You made a judgement call to work around the current policy by offering to provide one Technical Account Manager to RHK Bank. In this next decision, you had to make another judgement call that could violate the policy even further. While it is important to keep this client happy, you must also make a decision that doesn't ultimately cost Source Stream valuable resources - both in people and money. The most appropriate decision is to allow RHK Bank to retain the one TAM, and not to offer a discount."
                     >
                         
                     </FeedBackWrapper> 

@@ -107,13 +107,17 @@ export default class Priorities extends BaseComponent<any, IRoundDataStore>
                     </div>
                 }
 
-                {this.state.ApplicationState.ShowFeedback &&
+                {this.state.ApplicationState.ShowFeedback && thisSubRound && thisSubRound.Questions[0].Response && thisSubRound.Questions[0].Response.Answer && this.state.Scores &&
                     <FeedBackWrapper
-                        RoundName="Round 2 Feedback"
-                        Blurb="For each role, different criteria are most important. For sales, a long-term strategic view and experience in the financial services vertical are necessary. For engineering, it is important to be able to negotiate both internally and with the upstream community, while also having a strong understanding of emerging technologies. For services, it is most critical that the candidate has financial services experience, and also a grasp of emerging technologies."              >
+                        TeamId={this.state.ApplicationState.CurrentTeam._id}
+                        Scores={this.state.Scores}
+                        RoundName="Round 5 Feedback"
+                        Blurb="You made a judgement call to work around the current policy by offering to provide one Technical Account Manager to RHK Bank. In this next decision, you had to make another judgement call that could violate the policy even further. While it is important to keep this client happy, you must also make a decision that doesn't ultimately cost Source Stream valuable resources - both in people and money. The most appropriate decision is to allow RHK Bank to retain the one TAM, and not to offer a discount."
+                    >
                         
                     </FeedBackWrapper> 
-                }  
+                }
+                
                 {this.state.ApplicationState.ShowRateUsers && this.state.RatingQuestions && <div
                     className={'show ' + (this.state.ApplicationState.MobileWidth ? "mobile-messages decisions" : "wide-messages decisions")}
                 >

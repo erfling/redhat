@@ -61,7 +61,8 @@ export default class FinanceRoundCtrl extends BaseRoundCtrl<IRoundDataStore>
         response.Score = 0;
         response.TeamId = this.dataStore.ApplicationState.CurrentTeam._id;
         response.QuestionId = question._id;
-        response.RoundId = round._id;
+        response.RoundId = round.RoundId;
+        response.SubRoundId = round._id;
         response.GameId = this.dataStore.ApplicationState.CurrentTeam.GameId;
         response.Answer[0].label = "BID";
         this.dataStore.ApplicationState.FormIsSubmitting = response.IsSaving = true;
@@ -109,7 +110,8 @@ export default class FinanceRoundCtrl extends BaseRoundCtrl<IRoundDataStore>
             ApplicationState: DataStore.ApplicationState,
             ComponentFistma: this.ComponentFistma,
             SubRound: null,
-            RatingQuestions: null
+            RatingQuestions: null,
+            Scores: null
 
         };
         this.dataStore.Round.Name = "FINANCE";

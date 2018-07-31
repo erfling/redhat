@@ -151,7 +151,8 @@ export default class SalesRoundCtrl extends BaseRoundCtrl<IRoundDataStore & {Fee
             response.Score = 0;
             response.TeamId = this.dataStore.ApplicationState.CurrentTeam._id;
             response.QuestionId = q._id;
-            response.RoundId = subround._id;
+            response.RoundId = subround.RoundId;
+            response.SubRoundId = subround._id;
             response.GameId = this.dataStore.ApplicationState.CurrentTeam.GameId;
             this.dataStore.ApplicationState.FormIsSubmitting = response.IsSaving = true;
         })
@@ -163,7 +164,7 @@ export default class SalesRoundCtrl extends BaseRoundCtrl<IRoundDataStore & {Fee
 
     public async getResponsesByRound(r: SubRoundModel): Promise<SubRoundModel> {
         const fetcher: ResponseFetcher = {
-            RoundId: r._id,
+            SubRoundId: r._id,
             TeamId: this.dataStore.ApplicationState.CurrentTeam._id,
             GameId: this.dataStore.ApplicationState.CurrentTeam.GameId
         }
@@ -211,7 +212,8 @@ export default class SalesRoundCtrl extends BaseRoundCtrl<IRoundDataStore & {Fee
             ComponentFistma: this.ComponentFistma,
             Feedback: null,
             SubRound: null,
-            RatingQuestions: null
+            RatingQuestions: null,
+            Scores: null
 
         };
         this.dataStore.Round.Name = "SALES";

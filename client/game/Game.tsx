@@ -92,8 +92,8 @@ export default class Game extends BaseComponent<any, IControllerDataStore & { Ga
 
 
             if(classes.indexOf("decisions") == -1 && classes.indexOf("mobile-messages") == -1 && classes.indexOf("message-list") == -1 && classes.indexOf("game-nav") == -1){
-                this.controller.ChildController.dataStore.ApplicationState.ShowQuestions = false;
-                DataStore.ApplicationState.ShowMessageList = this.controller.ChildController.dataStore.ApplicationState.ShowMessageList = ApplicationCtrl.GetInstance().dataStore.ApplicationState.ShowMessageList = false;
+                this.controller.ChildController.dataStore.ApplicationState.ShowMessageList = false;
+                DataStore.ApplicationState.ShowQuestions = this.controller.ChildController.dataStore.ApplicationState.ShowQuestions = ApplicationCtrl.GetInstance().dataStore.ApplicationState.ShowQuestions = false;
                 this._toggleBodyScroll()
 
             }
@@ -165,11 +165,10 @@ export default class Game extends BaseComponent<any, IControllerDataStore & { Ga
                         <Decisions
                             style={{marginTop: '-9px'}}
                             onClick={e => {
-                                    this.controller.dataStore.ApplicationState.ShowQuestions = this.controller.ChildController.dataStore.ShowQuestions = false;
-                                    this.controller.dataStore.ApplicationState.ShowMessageList = !this.controller.dataStore.ApplicationState.ShowMessageList;
+                                    this.controller.dataStore.ApplicationState.ShowMessageList = this.controller.ChildController.dataStore.ShowMessageList = false;
+                                    this.controller.dataStore.ApplicationState.ShowQuestions = !this.controller.dataStore.ApplicationState.ShowQuestions;
                                     this._toggleBodyScroll();
 
-                                    
                                 }
                             }
                         />

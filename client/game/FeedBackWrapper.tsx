@@ -1,21 +1,25 @@
 import * as React from "react";
-import { Grid, Button, TextArea, Input, Label, Form, Header, Icon, Radio, Checkbox, List, Segment, } from 'semantic-ui-react'
+import { Grid, Button, TextArea, Input, Label, Form, Header, Icon, Radio, Checkbox, List, Segment, Table, } from 'semantic-ui-react'
 const { Column, Row } = Grid;
-import MessageModel from '../../shared/models/MessageModel';
+import FeedBackModel from '../../shared/models/FeedBackModel';
 
 import Inbox from '-!svg-react-loader?name=Icon!../img/inbox.svg';
 
 interface FeedBackProps {
     RoundName: string;
     Blurb?: string;
+    Scores: FeedBackModel[];
+    TeamId: string;
 }
 
-export default class FeedBackWrapper extends React.Component<FeedBackProps, { Messages: MessageModel }>
+export default class FeedBackWrapper extends React.Component<FeedBackProps, any>
 {
     constructor(props: FeedBackProps) {
         props = props || {
             RoundName: null,
-            Blurb: null
+            Blurb: null,
+            Scores:null,
+            TeamId: null
         }
         super(props);
 
@@ -32,6 +36,8 @@ export default class FeedBackWrapper extends React.Component<FeedBackProps, { Me
 
         const { RoundName } = this.props
 
+        const {Scores, TeamId} = this.props;
+
         return <Column
             width={16}
             className="feedback"
@@ -41,6 +47,30 @@ export default class FeedBackWrapper extends React.Component<FeedBackProps, { Me
             </Header>
 
             {this.props.children}
+
+            <Table striped>
+                    <Table.Header>
+                        <Table.Row>
+                            <Table.HeaderCell>Team</Table.HeaderCell>
+                            <Table.HeaderCell>Subround Score</Table.HeaderCell>
+                            <Table.HeaderCell>Round Score</Table.HeaderCell>
+                            <Table.HeaderCell>Game Score</Table.HeaderCell>
+                        </Table.Row>
+                    </Table.Header>
+
+                    <Table.Body>
+                        {Scores && Scores.map((s, i) =>
+                            <Table.Row key={i}>
+                                <Table.Cell textAlign="center">
+                                        {s.Label}
+                                </Table.Cell>
+                                <Table.Cell textAlign="right">{s.TotalSubroundScore}</Table.Cell>
+                                <Table.Cell textAlign="right">{s.TotalRoundScore}</Table.Cell>
+                                <Table.Cell textAlign="right">{s.TotalGameScore}</Table.Cell>
+                            </Table.Row>
+                        )}
+                    </Table.Body>
+                </Table>
             
             {this.props.Blurb && <Segment 
                 raised

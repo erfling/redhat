@@ -22,5 +22,8 @@ export default class ScoreHolder{
     TotalRoundScore: number;
     TotalSubroundScore: number;
     TotalGameScore: number;
+    TargetModel: string;
+    TargetObjectId: string;
+    Label: string;
 
 }

@@ -105,8 +105,10 @@ export default class EngineeringSub extends BaseComponent<any, IRoundDataStore>
                     </div>
                 }                
                 
-                {this.state.ApplicationState.ShowFeedback && thisSubRound && thisSubRound.Questions[0].Response && thisSubRound.Questions[0].Response.Answer &&
+                {this.state.ApplicationState.ShowFeedback && thisSubRound && thisSubRound.Questions[0].Response && thisSubRound.Questions[0].Response.Answer && this.state.Scores &&
                     <FeedBackWrapper
+                        TeamId={this.state.ApplicationState.CurrentTeam._id}
+                        Scores={this.state.Scores}
                         RoundName="Round 2 Feedback"
                     >
                         <Table striped>

@@ -4,7 +4,7 @@ import BaseModel, { dbProp } from "../base-sapien/models/BaseModel";
 import MathUtil from '../entity-of-the-state/MathUtil';
 
 export interface ResponseFetcher{
-    RoundId: string;
+    SubRoundId: string;
     TeamId: string;
     GameId: string;
 }
@@ -33,6 +33,9 @@ export default class ResponseModel extends BaseModel
 
     @dbProp(Number)
     public TeamNumber: number;
+
+    @dbProp(String)
+    public SubRoundId: string;
 
     @dbProp(String)
     public RoundId: string;

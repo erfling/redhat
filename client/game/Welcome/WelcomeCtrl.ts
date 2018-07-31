@@ -91,7 +91,8 @@ export default class WelcomeCtrl extends BaseRoundCtrl<IRoundDataStore>
             ApplicationState: DataStore.ApplicationState,
             ComponentFistma: this.ComponentFistma,
             SubRound: null,
-            RatingQuestions: null
+            RatingQuestions: null,
+            Scores: null
 
         };        
         this.dataStore.Round.Name = "WELCOME";

@@ -15,6 +15,8 @@ import QuestionModel, { QuestionType } from '../../shared/models/QuestionModel';
 import { groupBy } from 'lodash';
 import { Label } from 'semantic-ui-react';
 import UserModel, { JobName } from '../../shared/models/UserModel';
+import FeedBackModel from '../../shared/models/FeedBackModel';
+
 import { RatingType } from '../../shared/models/QuestionModel';
 
 const schObj = SchemaBuilder.fetchSchema(ResponseModel);
@@ -196,7 +198,7 @@ class GamePlayRouter {
     public async GetTeamResponsesByRound(req: Request, res: Response) {
         const fetcher = req.body as ResponseFetcher;
         try {
-            const responses = await monResponseModel.find({ TeamId: fetcher.TeamId, GameId: fetcher.GameId, RoundId: fetcher.RoundId }).then(r => r.map(resp => resp.toObject() as ResponseModel))
+            const responses = await monResponseModel.find({ TeamId: fetcher.TeamId, GameId: fetcher.GameId, SubRoundId: fetcher.SubRoundId }).then(r => r.map(resp => resp.toObject() as ResponseModel))
             res.json(responses)
         } catch (err) {
             res.json(err)
@@ -406,23 +408,43 @@ class GamePlayRouter {
     public async getScores(req: Request, res: Response){
         try{
 
+            const SubRoundId = req.params.subroundid;
             const RoundId = req.params.roundid;
-            const GameId = req.params.GameId;
+            const GameId = req.params.gameid;
 
             //get all teams' responses for the round, then group them by team
-            const responses: ResponseModel[] = await monResponseModel.find({ RoundId, QuestionId: GameId }).then(bids => bids ? bids.map(b => Object.assign(new ResponseModel(), b.toJSON())) : []);
+            const responses: ResponseModel[] = await monResponseModel.find({ GameId }).then(bids => bids ? bids.map(b => Object.assign(new ResponseModel(), b.toJSON())) : []);
+
+            const teams: TeamModel[] = await monTeamModel.find({GameId}).then(t => t ? t.map(team => team.toJSON()) : []);
 
 
             let groupedResponses = groupBy(responses, "TeamId");
 
+            console.log(groupedResponses);
 
+            const scores = Object.keys(groupedResponses).map(k => {
+                let score = new FeedBackModel();
+                
+                score.TotalGameScore = groupedResponses[k].reduce((totalScore, r: ResponseModel) => {
+                    return totalScore + r.Score;
+                },0);
 
-            //sum the scores for all responses
-            
+                score.TotalRoundScore = groupedResponses[k].filter(r => r.RoundId == RoundId).reduce((totalScore, r: ResponseModel) => {
+                    return totalScore + r.Score;
+                },0);
 
+                score.TotalSubroundScore = groupedResponses[k].filter(r => r.SubRoundId == SubRoundId).reduce((totalScore, r: ResponseModel) => {
+                    return totalScore + r.Score;
+                },0);
 
-            //put scores into proper format for client consumption
+                score.TargetObjectId = k;
+                score.Label = "Team " + teams.filter(t => t._id.toString() == k)[0].Number.toString();
+                score.TargetModel = "TeamModel";
 
+                return score;
+            });
+
+            res.json(scores);
         }
         catch (err) {
             console.log(err);
@@ -441,7 +463,7 @@ class GamePlayRouter {
         this.router.post("/roundresponses", this.GetTeamResponsesByRound.bind(this));
         this.router.post("/bid", this.SubmitBid.bind(this), this.SaveResponse.bind(this));
         this.router.post("/3response", this.SaveRound3Response.bind(this));
-
+        this.router.get("/getscores/:subroundid/:roundid/:gameid", this.getScores.bind(this))
     }
 }
 

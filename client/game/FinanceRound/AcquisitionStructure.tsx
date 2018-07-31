@@ -105,12 +105,12 @@ export default class AcquisitionStructure extends BaseComponent<any, IRoundDataS
                     </div>
                 }               
                 
-                {this.state.ApplicationState.ShowFeedback && thisSubRound && thisSubRound.Questions[0].Response && thisSubRound.Questions[0].Response.Answer &&
+                {this.state.ApplicationState.ShowFeedback && thisSubRound && thisSubRound.Questions[0].Response && thisSubRound.Questions[0].Response.Answer && this.state.Scores &&
                     <FeedBackWrapper
-                        RoundName="Round 2 Feedback"
-                        Blurb="Given Source Stream's ambition to grow in the Asia Pacific region, the Singapore footprint is attractive. The London location would be redundant to Source Stream's current headquarters.The BlueKite brand is well-known and represents a compelling and unique success story, not unlike Source Stream's. In addition, allowing BlueKite to retain its brand aligns with Source Stream's culture of autonomy and transparency. 
-                        
-                        While concessions around one location and the brand are short-term wins for BlueKite, HR and IT systems must be centralized to enable long-term stability. "
+                        TeamId={this.state.ApplicationState.CurrentTeam._id}
+                        Scores={this.state.Scores}
+                        RoundName="Round 5 Feedback"
+                        Blurb="You made a judgement call to work around the current policy by offering to provide one Technical Account Manager to RHK Bank. In this next decision, you had to make another judgement call that could violate the policy even further. While it is important to keep this client happy, you must also make a decision that doesn't ultimately cost Source Stream valuable resources - both in people and money. The most appropriate decision is to allow RHK Bank to retain the one TAM, and not to offer a discount."
                     >
                         
                     </FeedBackWrapper> 

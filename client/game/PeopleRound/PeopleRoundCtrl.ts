@@ -10,6 +10,7 @@ import SubRoundModel from '../../../shared/models/SubRoundModel';
 import DataStore from '../../../shared/base-sapien/client/DataStore'
 import SapienServerCom from '../../../shared/base-sapien/client/SapienServerCom';
 import ComponentsVO from '../../../shared/base-sapien/client/ComponentsVO';
+import ApplicationCtrl from '../../ApplicationCtrl';
 
 export default class PeopleRoundCtrl extends BaseRoundCtrl<IRoundDataStore>
 {
@@ -74,12 +75,14 @@ export default class PeopleRoundCtrl extends BaseRoundCtrl<IRoundDataStore>
         resp.SiblingQuestionId = question.SiblingQuestionId;
         resp.TeamId = this.dataStore.ApplicationState.CurrentTeam._id;
         resp.QuestionId = question._id;
-        resp.RoundId = round._id;
+        resp.RoundId = round.RoundId;
+        resp.SubRoundId = round._id;
         resp.GameId = this.dataStore.ApplicationState.CurrentTeam.GameId;
         // save response //
         return SapienServerCom.SaveData(resp, SapienServerCom.BASE_REST_URL + "gameplay/1bresponse").then(r => {
             console.log(r);
             round.Responses = round.Responses.map(resp => resp._id == r._id ? Object.assign(new ResponseModel(), r) : resp);
+            ApplicationCtrl.GetInstance().addToast("Your response has been saved");
             return round;
         });
     }
@@ -106,7 +109,8 @@ export default class PeopleRoundCtrl extends BaseRoundCtrl<IRoundDataStore>
             ApplicationState: DataStore.ApplicationState,
             ComponentFistma: this.ComponentFistma,
             SubRound: null,
-            RatingQuestions: null
+            RatingQuestions: null,
+            Scores: null
 
         };
         this.dataStore.Round.Name = "PEOPLE";
