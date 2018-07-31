@@ -54,7 +54,6 @@ export default class PeopleRoundCtrl extends BaseRoundCtrl<IRoundDataStore>
             response.Answer = question.PossibleAnswers;
         }
 
-
         (response.Answer as ValueObj[]).forEach((val, index) => {
             val.data = index.toString(); // write index to val.data for scoring
             var distFromExpected:number = Math.abs( parseFloat(val.idealValue) - index );

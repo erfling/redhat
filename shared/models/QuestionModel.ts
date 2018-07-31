@@ -43,7 +43,7 @@ export default class QuestionModel extends BaseModel
     @dbProp(String)
     public Type: QuestionType = QuestionType.MULTIPLE_CHOICE;
 
-    @dbProp([{label: String, data: String, minPoints: Number, maxPoints: Number, idealValue: String, min: Number, max: Number}])
+    @dbProp([{label: String, data: Object, minPoints: Number, maxPoints: Number, idealValue: Object, min: Number, max: Number}])
     public PossibleAnswers: SliderValueObj[] = [];
 
     //Maker for question this quesitno is paired with in another round, if it is paired.
