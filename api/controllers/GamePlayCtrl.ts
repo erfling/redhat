@@ -283,10 +283,10 @@ class GamePlayRouter {
             const GameId = req.params.gameid;
 
             //do this a better way.
-            const RoundId = await monSubRoundModel.findOne({ Name: "PRICING" }).then(r => r ? r._id : null)
-            if (!RoundId) throw new Error("No subuound found");
+            const SubRoundId = await monSubRoundModel.findOne({ Name: "PRICING" }).then(r => r ? r._id : null)
+            if (!SubRoundId) throw new Error("No subuound found");
 
-            const responses: ResponseModel[] = await monResponseModel.find({ GameId, RoundId }).then(r => r ? r.map(r => Object.assign(new ResponseModel(), r.toJSON())) : []);
+            const responses: ResponseModel[] = await monResponseModel.find({ GameId, SubRoundId }).then(r => r ? r.map(r => Object.assign(new ResponseModel(), r.toJSON())) : []);
 
             if (!responses || !responses.length) throw new Error("No responses found")
 
@@ -303,7 +303,7 @@ class GamePlayRouter {
                 console.log(groupedResponses[k]);
 
                 let bidResponse = groupedResponses[k].filter(r => r.Answer && r.Answer[0] && r.Answer[0].label && r.Answer[0].label.toUpperCase() == "PRICING")[0] || null;
-                let rationaleResponsee = groupedResponses[k].filter(r => r.Answer && r.Answer[0] && r.Answer[0].label && r.Answer[0].label.toUpperCase() == "EXPLANATION")[0] || null;
+                let rationaleResponse = groupedResponses[k].filter(r => r.Answer && r.Answer[0] && r.Answer[0].label && r.Answer[0].label.toUpperCase() == "EXPLANATION")[0] || null;
 
                 finalQuestions = finalQuestions.concat(
                     questions.map(q => {
@@ -311,7 +311,7 @@ class GamePlayRouter {
 
                             Text: q.Text + " " + groupedResponses[k][0].TeamNumber + " bid" + bidResponse.Answer[0].preunit + bidResponse.Answer[0].data + bidResponse.Answer[0].unit,
                             TargetTeamId: k,
-                            SubText: rationaleResponsee ? rationaleResponsee.Answer[0].data : "",
+                            SubText: rationaleResponse ? rationaleResponse.Answer[0].data : "",
                             test: "adsf"
                         })
                     })
