@@ -107,7 +107,8 @@ export default class ResponseModel extends BaseModel
 
         //TODO: SHOULD WE DO RONDING HERE? I AM FOR NOW.
         //return MathUtil.roundTo(score, 2);
-        return Number(score.toFixed(2));
+        //return Number(score.toFixed(2));
+        return score;
     }
 
 }

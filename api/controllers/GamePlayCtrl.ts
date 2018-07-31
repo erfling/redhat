@@ -188,14 +188,6 @@ class GamePlayRouter {
 
             // Now that response object has idealValues, calculate its score as you would and other multiple-choice
             response.Score = response.resolveScore();
-
-            /*if ((response.Answer as ValueObj).label == question.PossibleAnswers[0].label) {
-                req.body.Score = 4;
-            } else if ((response.Answer as ValueObj).label == question.PossibleAnswers[1].label) {
-                req.body.Score = question.PossibleAnswers[1].Distance == question.PossibleAnswers[0].Distance1 ? 4 : 1;
-            } else if ((response.Answer as ValueObj).label == question.PossibleAnswers[2].label) {
-                req.body.Score = question.PossibleAnswers[2].Distance == question.PossibleAnswers[1].Distance1 ? 1 : 0;
-            }*/
             
             next();
         } catch (err) {
@@ -499,15 +491,15 @@ class GamePlayRouter {
                 let score = new FeedBackModel();
                 
                 score.TotalGameScore = groupedResponses[k].reduce((totalScore, r: ResponseModel) => {
-                    return totalScore + r.Score;
+                    return Number((totalScore + r.Score).toFixed(2));
                 },0);
 
                 score.TotalRoundScore = groupedResponses[k].filter(r => r.RoundId == RoundId).reduce((totalScore, r: ResponseModel) => {
-                    return totalScore + r.Score;
+                    return Number((totalScore + r.Score).toFixed(2));
                 },0);
 
                 score.TotalSubroundScore = groupedResponses[k].filter(r => r.SubRoundId == SubRoundId).reduce((totalScore, r: ResponseModel) => {
-                    return totalScore + r.Score;
+                    return Number((totalScore + r.Score).toFixed(2));
                 },0);
 
                 score.TargetObjectId = k;
@@ -545,15 +537,15 @@ class GamePlayRouter {
                 let score = new FeedBackModel();
 
                 score.TotalGameScore = responses.reduce((totalScore, r: ResponseModel) => {
-                    return totalScore + r.Score;
+                    return Number((totalScore + r.Score).toFixed(2));
                 },0);
 
                 score.TotalRoundScore = responses.filter(r => r.RoundId == RoundId).reduce((totalScore, r: ResponseModel) => {
-                    return totalScore + r.Score;
+                    return Number((totalScore + r.Score).toFixed(2));
                 },0);
 
                 score.TotalSubroundScore = responses.filter(r => r.SubRoundId == SubRoundId).reduce((totalScore, r: ResponseModel) => {
-                    return totalScore + r.Score;
+                    return Number((totalScore + r.Score).toFixed(2));
                 },0);
 
                 let user = Object.assign(new UserModel(), users.filter(u => u._id.toString() == k)[0])
