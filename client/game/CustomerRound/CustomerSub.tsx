@@ -111,42 +111,9 @@ export default class CustomerSub extends BaseComponent<any, IRoundDataStore>
                 {this.state.ApplicationState.ShowFeedback && thisSubRound && thisSubRound.Questions[0].Response && thisSubRound.Questions[0].Response.Answer &&
                     <FeedBackWrapper
                         RoundName="Round 2 Feedback"
+                        Blurb="You made a judgement call to work around the current policy by offering to provide one Technical Account Manager to RHK Bank. In this next decision, you had to make another judgement call that could violate the policy even further. While it is important to keep this client happy, you must also make a decision that doesn't ultimately cost Source Stream valuable resources - both in people and money. The most appropriate decision is to allow RHK Bank to retain the one TAM, and not to offer a discount."
                     >
-                        <Table striped>
-                            <Table.Header>
-                                <Table.Row>
-                                    <Table.HeaderCell>Question</Table.HeaderCell>
-                                    <Table.HeaderCell>Answer</Table.HeaderCell>
-                                    <Table.HeaderCell>Feedback</Table.HeaderCell>
-                                </Table.Row>
-                            </Table.Header>
-
-                            <Table.Body>
-                                {thisSubRound.Questions.map((q, i) =>
-                                    q.PossibleAnswers.map((pa, j) => {
-                                        return <Table.Row key={j}>
-                                                    <Table.Cell>{pa.label}</Table.Cell>
-                                                    <Table.Cell>{q.Response.Answer[j].data}</Table.Cell>
-                                                    <Table.Cell>
-                                                        {q.Response.Answer[j].data == "true" ?
-                                                            (j == 0) ? "Giving in to ChipCo threatens to undermine the openness of OpenVM. It's good in the short term, perhaps, but in the long term limits participation across the platform." :
-                                                            (j == 1) ? "1 true" :
-                                                            (j == 2) ? "2 true" :
-                                                            "3 true"
-                                                        :
-                                                            (j == 0) ? "Smart. Easy to over-react to the needs of a single contributor." :
-                                                            (j == 1) ? "1 false" :
-                                                            (j == 2) ? "2 false" :
-                                                            "3 false"
-                                                        }
-                                                    </Table.Cell>
-                                                </Table.Row>
-                                    })
-                                )}
-
-                            </Table.Body>
-
-                        </Table>
+                        
                     </FeedBackWrapper> 
                 }  
                 {this.state.ApplicationState.ShowRateUsers && this.state.RatingQuestions && <div

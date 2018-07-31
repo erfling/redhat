@@ -109,6 +109,7 @@ export default class Hiring extends BaseComponent<any, IRoundDataStore>
                 {this.state.ApplicationState.ShowFeedback && thisSubRound && thisSubRound.Questions[0].Response && thisSubRound.Questions[0].Response.Answer &&
                     <FeedBackWrapper
                         RoundName="Round 2 Feedback"
+                        Blurb="For each role, different criteria are most important. For sales, a long-term strategic view and experience in the financial services vertical are necessary. For engineering, it is important to be able to negotiate both internally and with the upstream community, while also having a strong understanding of emerging technologies. For services, it is most critical that the candidate has financial services experience, and also a grasp of emerging technologies."
                     >
                         <Table striped>
                             <Table.Header>
