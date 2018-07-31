@@ -73,7 +73,7 @@ export default class CustomerRound extends BaseComponent<any, IRoundDataStore>
                                 marginBottom: '-10px'
                             }}
                         >
-                            <h1>round five: customer round</h1>
+                            <h1>Round Five<br/> Customer Round</h1>
                         </Row>
                     </Column>
                     <Switch>

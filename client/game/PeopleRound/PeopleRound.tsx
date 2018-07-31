@@ -74,7 +74,7 @@ export default class PeopleRound extends BaseComponent<any, IRoundDataStore>
                                 marginBottom: '-10px'
                             }}
                         >
-                            <h1>round one: build the team: {this.state.ApplicationState.MobileWidth}</h1>
+                            <h1>Round One: <br/>Build the Team: {this.state.ApplicationState.MobileWidth}</h1>
                         </Row>
                     </Column>
                     <Switch>

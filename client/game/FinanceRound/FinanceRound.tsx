@@ -76,7 +76,7 @@ export default class FinanceRound extends BaseComponent<any, IRoundDataStore>
                                 marginBottom: '-10px'
                             }}
                         >
-                            <h1>round four: finance</h1>
+                            <h1>Round Four<br/> Finance</h1>
                         </Row>
                     </Column>
                     <Switch>
