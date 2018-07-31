@@ -136,7 +136,10 @@ export default class GameCtrl extends BaseClientCtrl<IControllerDataStore & {Gam
             //set the team's current location to the new location
             const targetJob = r.UserJobs && r.UserJobs[this.dataStore.ApplicationState.CurrentUser._id] ? r.UserJobs[this.dataStore.ApplicationState.CurrentUser._id] : JobName.IC;
 
-            if (r.ShowFeedback != undefined && (this.dataStore.ApplicationState.ShowFeedback == undefined || this.dataStore.ApplicationState.ShowFeedback != r.ShowFeedback))this.dataStore.ApplicationState.ShowFeedback = this.ChildController.dataStore.ApplicationState.ShowFeedback = r.ShowFeedback;
+            if (r.ShowFeedback != undefined && (this.dataStore.ApplicationState.ShowFeedback == undefined || this.dataStore.ApplicationState.ShowFeedback != r.ShowFeedback)){
+                this.dataStore.ApplicationState.ShowFeedback = this.ChildController.dataStore.ApplicationState.ShowFeedback = r.ShowFeedback;
+                (this.ChildController as BaseRoundCtrl<any>).getScores();
+            }
             if (r.ShowRateUsers != undefined && (this.dataStore.ApplicationState.ShowRateUsers == undefined || this.dataStore.ApplicationState.ShowFeedback != r.ShowRateUsers))this.dataStore.ApplicationState.ShowRateUsers = this.ChildController.dataStore.ApplicationState.ShowRateUsers = r.ShowRateUsers;
 
             if (this.dataStore.ApplicationState.CurrentTeam.CurrentRound.ParentRound.toUpperCase() != r.ParentRound.toUpperCase() || this.dataStore.ApplicationState.CurrentTeam.CurrentRound.ChildRound.toUpperCase() != r.ChildRound.toUpperCase()){
@@ -174,6 +177,7 @@ export default class GameCtrl extends BaseClientCtrl<IControllerDataStore & {Gam
                         localStorage.setItem("RH_TEAM", JSON.stringify(this.ChildController.dataStore.ApplicationState.CurrentTeam));
 
             }
+
 
             clearTimeout(this._timeOut);
             let time = location.pathname.toUpperCase().indexOf('/BID') == -1 ? 3500 : 1500;
