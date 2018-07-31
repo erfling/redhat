@@ -107,13 +107,8 @@ class GamePlayRouter {
 
             let queryObj: any = { GameId: response.GameId, TeamId: response.TeamId, QuestionId: response.QuestionId }
 
-            if (response.TargetTeamId) {
-                queryObj.TargetTeamId = response.TargetTeamId;
-            }
-
-            if (response.TargetUserId) {
-                queryObj.TargetUserId = response.TargetUserId;
-            }
+            if (response.TargetTeamId) queryObj.TargetTeamId = response.TargetTeamId;
+            if (response.TargetUserId) queryObj.TargetUserId = response.TargetUserId;
 
             const oldResponse = await monResponseModel.findOne(queryObj).then(r => r ? r.toJSON() : null);
 
@@ -134,54 +129,67 @@ class GamePlayRouter {
 
     //Special case, since 1b responses depend on 1A responses
     public async Save1BResponse(req: Request, res: Response, next) {
-        console.log("WE DONE CALLED THIS")
         const response: ResponseModel = Object.assign(new ResponseModel(), req.body as ResponseModel);
 
         try {
-
             //get 1A response for comparison
-            const OneAResponse = await monResponseModel.findOne({
+            const OneAResponse: ResponseModel = await monResponseModel.findOne({
                 GameId: response.GameId,
                 TeamId: response.TeamId,
                 QuestionId: response.SiblingQuestionId
-            }).then(r => Object.assign(new ResponseModel(), r.toObject()));
-
-
-            //get the possible answer matching our response
-            const question = await monQModel.findById(response.QuestionId).then(r => Object.assign(new ResponseModel(), r.toObject()));
+            }).then(r => Object.assign(new ResponseModel(), r.toJSON()));
             console.log("RESPONSE", response, OneAResponse);
-            //score 
-
-            question.PossibleAnswers = (question.PossibleAnswers as ValueObj[]).map((pa, i) => {
-                let total: number = 0;
-                //find out how far each possible answer is from the 1AResponse
-                OneAResponse.Answer.forEach((a, j) => {
-                    total += Math.abs(i - j);
-                })
-                return Object.assign(pa, { Distance: total })
-            }).sort((a, b) => {
-                if (a.Distance > b.Distance) {
-                    return 1;
-                } else if (a.Distance < b.Distance) {
-                    return -1;
+            
+            //get the possible answer matching our response
+            const question: QuestionModel = await monQModel.findById(response.QuestionId).then(r => Object.assign(new QuestionModel(), r.toJSON()));
+            var bestCandidate: ValueObj;
+            // for each of question's possibleAnswers (which are the candidates for the job)...
+            question.PossibleAnswers.forEach(pa => {
+                var skillScore = 0;
+                // for each candidate's data (which maps which skills they're best at)
+                if (pa.data && Array.isArray(pa.data)) {
+                    (pa.data as any[]).forEach(paData => {
+                        if (paData.data != undefined && !isNaN(paData.data)) {
+                            // find what index the skill was ranked in 1a's response
+                            var OneAPriorityIndex = (OneAResponse.Answer as ValueObj[]).findIndex(ans => ans.label == paData.Label);
+                            if (OneAPriorityIndex > -1) {
+                                // Add to candidate's skill score according to skill priority provided in 1a.
+                                // So, the 1st priority has a skill score of the number of priorities (7), the 2nd has a skill score of number of priorities - 1 (6), etc.
+                                skillScore += paData.data * ((OneAResponse.Answer as ValueObj[]).length - OneAPriorityIndex);
+                            }
+                        }
+                    })
+                    pa["skillScore"] = skillScore;
+                    if (!bestCandidate || bestCandidate["skillScore"] < skillScore) {
+                        // store best candidate so far, according to skillScore
+                        bestCandidate = pa;
+                    }
+                } else {
+                    console.log("DOOKIE:", pa);
                 }
-                return 0;
-            })
-            console.log("HELLO", OneAResponse.Answer, question.PossibleAnswers);
+            });
+            
+            // set response answer's idealValues based on whether thay're the best candidate
+            (response.Answer as ValueObj[]).forEach(ans => {
+                ans.idealValue = String(ans.label == bestCandidate.label);
+            });
 
-            if ((response.Answer as ValueObj).label == question.PossibleAnswers[0].label) {
+            // Now that response object has idealValues, calculate its score as you would and other multiple-choice
+            response.Score = response.resolveScore();
+
+            /*if ((response.Answer as ValueObj).label == question.PossibleAnswers[0].label) {
                 req.body.Score = 4;
             } else if ((response.Answer as ValueObj).label == question.PossibleAnswers[1].label) {
                 req.body.Score = question.PossibleAnswers[1].Distance == question.PossibleAnswers[0].Distance1 ? 4 : 1;
             } else if ((response.Answer as ValueObj).label == question.PossibleAnswers[2].label) {
                 req.body.Score = question.PossibleAnswers[2].Distance == question.PossibleAnswers[1].Distance1 ? 1 : 0;
-            }
-
+            }*/
+            
             next();
-        }
-        catch (err) {
+        } catch (err) {
             console.log(err);
-            res.json("no sir")
+            res.status(500);
+            res.json("no sir");
         }
     }
 
