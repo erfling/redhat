@@ -330,12 +330,8 @@ class GamePlayRouter {
     }
 
     public async GetPlayerRatingsQuestions(req: Request, res: Response) {
-
-
         try {
-
             const team: TeamModel = Object.assign(new TeamModel(), req.body);
-
 
             //get the game so we can determine which players is the manager
             const game: GameModel = await monGameModel.findById(team.GameId).then(g => g ? g.toJSON() : null)
@@ -356,9 +352,7 @@ class GamePlayRouter {
 
             let finalQuestions = questions.map(q => {
                 //let job: JobName = jobMap[p._id.toString()];
-
                 //let marker: RatingType = job == JobName.MANAGER ? RatingType.MANAGER_RATING : RatingType.IC_RATING;
-
 
                 if (q.RatingMarker == RatingType.MANAGER_RATING){
                     let mgr = players.filter(p => jobMap[p._id.toString()] == JobName.MANAGER)[0];
@@ -367,27 +361,25 @@ class GamePlayRouter {
                         PossibleAnswers:  q.PossibleAnswers.map((pa, i) => Object.assign( pa, 
                             {
                                     label: mgr.Name + "_" + i,
-                                    idealValue: '0',
-                                    maxScore: 3,
-                                    minScore: 1,
+                                    idealValue: 0,
+                                    maxPoints: 3,
+                                    minPoints: 1,
                                     min: 0,
                                     max: 10,
                                     targetObjId: mgr._id.toString(),
                                     targetObjClass: "User"
                             })
                         )
-                            
                     })
-                }
-                //chipco and integrated systems players get the same questions as ICs
-                else{
+                } else {
+                    //chipco and integrated systems players get the same questions as ICs
                     return Object.assign(q, {
                         PossibleAnswers: players.filter(p => jobMap[p._id.toString()] != JobName.MANAGER).map((p,i) => {
                             return {
                                 label: p.Name,
-                                idealValue: '0',
-                                maxScore: 3,
-                                minScore: 1,
+                                idealValue: 0,
+                                maxPoints: 3,
+                                minPoints: 1,
                                 targetObjId: p._id.toString(),
                                 targetObjClass: "User",
                                 data: i
@@ -396,24 +388,20 @@ class GamePlayRouter {
                     })
                 }
 
-
                 return q;
             })     
 
             res.json(finalQuestions);
 
-        }
-        catch (err) {
+        } catch (err) {
             console.log(err);
             res.status(500);
             res.send("couldn't get resposnes")
         }
-
     }
 
     public async getScores(req: Request, res: Response){
-        try{
-
+        try {
             const SubRoundId = req.params.subroundid;
             const RoundId = req.params.roundid;
             const GameId = req.params.gameid;
