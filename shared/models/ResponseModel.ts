@@ -71,14 +71,14 @@ export default class ResponseModel extends BaseModel
             } else console.log("Where the hell is 'maxPoints' for", val);
 
             if (val.data != undefined) {
-                if (!isNaN(parseFloat(val.data))) {
+                if (!isNaN(Number(val.data))) {
                     // get min/max
                     var min = (val["min"] ? val["min"] : val.minPoints) + 1;
                     var max = (val["max"] ? val["max"] : val.maxPoints) + 1;
-                    var data = parseFloat(val.data) + 1;
+                    var data = Number(val.data) + 1;
                     // normalized ratio of idealValue and data in min/max range
                     if (val.idealValue != undefined) {
-                        var idealValue = parseFloat(val.idealValue) + 1;
+                        var idealValue = Number(val.idealValue) + 1;
                         ratio = 1 - Math.abs((idealValue - min) / (max - min) - (data - min) / (max - min));
                     } else {
                         ratio = (data - min) / (max - min);

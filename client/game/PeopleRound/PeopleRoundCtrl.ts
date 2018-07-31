@@ -48,8 +48,7 @@ export default class PeopleRoundCtrl extends BaseRoundCtrl<IRoundDataStore>
     //----------------------------------------------------------------------
 
     public Save1AResponse( response: ResponseModel, question: QuestionModel, round: SubRoundModel ) {
-        // calculate score //
-        var score:number = 0;
+        // build response
         if (!response) {
             response = new ResponseModel();
             response.Answer = question.PossibleAnswers;
@@ -57,14 +56,7 @@ export default class PeopleRoundCtrl extends BaseRoundCtrl<IRoundDataStore>
 
         (response.Answer as ValueObj[]).forEach((val, index) => {
             val.data = index.toString(); // write index to val.data for scoring
-            var distFromExpected:number = Math.abs( parseFloat(val.idealValue) - index );
-            if (distFromExpected < 2) score += 2 - distFromExpected;
-            console.log(val.label, "Dist:",distFromExpected, "Dist < 2:", distFromExpected < 2, 2 - distFromExpected);
         });
-        console.log("SCORE:", score);
-
-        // build response //
-        //const response = new ResponseModel();
         
         // save response //
         this.SaveResponse(response, question, round);
@@ -114,7 +106,6 @@ export default class PeopleRoundCtrl extends BaseRoundCtrl<IRoundDataStore>
 
         };
         this.dataStore.Round.Name = "PEOPLE";
-
     }
 
 }
