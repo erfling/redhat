@@ -77,7 +77,7 @@ export default class ResponseModel extends BaseModel
                     var max = (val["max"] ? val["max"] : val.maxPoints) + 1;
                     var data = Number(val.data) + 1;
                     // normalized ratio of idealValue and data in min/max range
-                    if (val.idealValue != undefined) {
+                    if (val.idealValue != undefined && !isNaN(Number(val.data))) {
                         var idealValue = Number(val.idealValue) + 1;
                         ratio = 1 - Math.abs((idealValue - min) / (max - min) - (data - min) / (max - min));
                     } else {
