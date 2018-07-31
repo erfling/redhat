@@ -105,7 +105,7 @@ export default class AcquisitionStructure extends BaseComponent<any, IRoundDataS
                     </div>
                 }               
                 
-                {this.state.ApplicationState.ShowFeedback && thisSubRound && thisSubRound.Questions[0].Response && thisSubRound.Questions[0].Response.Answer && this.state.Scores &&
+                {this.state.ApplicationState.ShowFeedback && thisSubRound && this.state.Scores &&
                     <FeedBackWrapper
                         TeamId={this.state.ApplicationState.CurrentTeam._id}
                         Scores={this.state.Scores}
