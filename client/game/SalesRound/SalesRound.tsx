@@ -74,7 +74,7 @@ export default class SalesRound extends BaseComponent<any, IRoundDataStore>
                                 marginBottom: '-10px'
                             }}
                         >
-                            <h1>Round Three<br/> Make the Sale</h1>
+                            <h1>ROUND THREE<br/> Make the Sale</h1>
                         </Row>
                     </Column>                    
                     <Switch>
