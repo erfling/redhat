@@ -48,7 +48,7 @@ export default class FeedBackWrapper extends React.Component<FeedBackProps, any>
 
             {this.props.children}
 
-            <Table striped>
+            <Table striped celled>
                     <Table.Header>
                         <Table.Row>
                             <Table.HeaderCell>Team</Table.HeaderCell>
@@ -61,12 +61,12 @@ export default class FeedBackWrapper extends React.Component<FeedBackProps, any>
                     <Table.Body>
                         {Scores && Scores.map((s, i) =>
                             <Table.Row key={i}>
-                                <Table.Cell textAlign="center">
+                                <Table.Cell>
                                         {s.Label}
                                 </Table.Cell>
-                                <Table.Cell textAlign="right">{s.TotalSubroundScore}</Table.Cell>
-                                <Table.Cell textAlign="right">{s.TotalRoundScore}</Table.Cell>
-                                <Table.Cell textAlign="right">{s.TotalGameScore}</Table.Cell>
+                                <Table.Cell >{s.TotalSubroundScore}</Table.Cell>
+                                <Table.Cell >{s.TotalRoundScore}</Table.Cell>
+                                <Table.Cell >{s.TotalGameScore}</Table.Cell>
                             </Table.Row>
                         )}
                     </Table.Body>
