@@ -74,7 +74,7 @@ export default class EngineeringRound extends BaseComponent<any, IRoundDataStore
                                 marginBottom: '-10px'
                             }}
                         >
-                            <h1>Round Two<br/> Build the Solution</h1>
+                            <h1>ROUND TWO<br/> Build the Solution</h1>
                         </Row>
                     </Column>
                     <Switch>
