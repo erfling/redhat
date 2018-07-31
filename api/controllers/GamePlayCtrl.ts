@@ -101,10 +101,14 @@ class GamePlayRouter {
         const response: ResponseModel = Object.assign(new ResponseModel(), req.body as ResponseModel);
 
         try {
-            const question = await monQModel.findById(response.QuestionId).then(q => q.toJSON());
+            
+            if(!response.SkipScoring){
+                const question = await monQModel.findById(response.QuestionId).then(q => q.toJSON());
 
-            if (question.Type != QuestionType.TEXTAREA) {
-                response.Score = response.resolveScore();
+                console.log(question);
+                if (question.Type != QuestionType.TEXTAREA) {
+                    response.Score = response.resolveScore();
+                }
             }
 
             let queryObj: any = { GameId: response.GameId, TeamId: response.TeamId, QuestionId: response.QuestionId }
@@ -124,8 +128,10 @@ class GamePlayRouter {
             console.log(SaveResponse);
 
             res.json(SaveResponse);
-        } catch {
-
+        } catch (err){
+            console.log("ERROR SAVING RESPONSE", err)
+            res.status(500);
+            res.send("response not saved")
         }
     }
 

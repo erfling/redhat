@@ -58,6 +58,7 @@ export default class ResponseModel extends BaseModel
     @dbProp(String)
     public ComparisonLabel: ComparisonLabel;
 
+    public SkipScoring: boolean = false;
 
     public resolveScore(): number {
         const ans: SliderValueObj[] = this.Answer as SliderValueObj[];

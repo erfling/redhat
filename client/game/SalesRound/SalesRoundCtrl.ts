@@ -118,9 +118,9 @@ export default class SalesRoundCtrl extends BaseRoundCtrl<IRoundDataStore & {Fee
                     r.Answer[0]
                 ]
             ),
+            Score: this._getScore(questions)
         });
         //(this.Response.Answer as SliderValueObj[]).push((r.Answer as SliderValueObj));
-
         this.updateResponse(q, r);
 
         console.log("BUILT OUT RESPONSE",this.Response.Answer, this._responseMap);
@@ -145,8 +145,20 @@ export default class SalesRoundCtrl extends BaseRoundCtrl<IRoundDataStore & {Fee
         return csat;
     }
 
+    _getScore(questions: QuestionModel[]){
+
+        //determine the max possible score
+        let maxPrice = this._responseMap[ComparisonLabel.PRICE] ? this._responseMap[ComparisonLabel.PRICE].max : 0;
+        let maxQuant = this._responseMap[ComparisonLabel.QUANTITY] ? this._responseMap[ComparisonLabel.QUANTITY].max : 0;
+        let maxMoney = maxPrice * maxQuant
+        let score =   this._responseMap[ComparisonLabel.PRICE].data * this._responseMap[ComparisonLabel.QUANTITY].data / maxMoney;
+
+        console.warn( maxPrice, maxQuant,maxMoney, this._getPrice() * this._responseMap[ComparisonLabel.QUANTITY].data, score, this._responseMap)
+        return score;
+    }
+
     SaveResponses(subround: SubRoundModel, question: QuestionModel){
-        subround.Questions.forEach(q => {
+       /*
             let response = q.Response;
             response.Score = 0;
             response.TeamId = this.dataStore.ApplicationState.CurrentTeam._id;
@@ -155,8 +167,10 @@ export default class SalesRoundCtrl extends BaseRoundCtrl<IRoundDataStore & {Fee
             response.SubRoundId = subround._id;
             response.GameId = this.dataStore.ApplicationState.CurrentTeam.GameId;
             this.dataStore.ApplicationState.FormIsSubmitting = response.IsSaving = true;
-        })
+        
+*/
 
+        this.Response.SkipScoring = true;
         this.SaveResponse(this.Response, question, subround).then(
            (r) => this.MapResponsesToQuestions(r, r.Questions[0].Response)
         )
