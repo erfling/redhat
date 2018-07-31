@@ -153,7 +153,7 @@ export default class AcquisitionStructure extends BaseComponent<any, IRoundDataS
                                     color="blue"
                                     loading={q.Response ? q.Response.IsSaving : false}
                                     onClick={e => {
-                                        this.controller.SaveResponse(q.Response, q, thisSubRound)
+                                        this.controller.SavePlayerRating(q.Response, q, thisSubRound)
                                     }}
                                 />
                             </Row>
