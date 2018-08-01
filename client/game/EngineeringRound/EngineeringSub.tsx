@@ -108,6 +108,7 @@ export default class EngineeringSub extends BaseComponent<any, IRoundDataStore>
                 
                 {this.state.ApplicationState.ShowFeedback && thisSubRound && this.state.Scores &&
                     <FeedBackWrapper
+                        UserId={this.state.ApplicationState.CurrentUser._id}
                         TeamId={this.state.ApplicationState.CurrentTeam._id}
                         Scores={this.state.Scores}
                         RoundName="Round 2"
@@ -119,6 +120,7 @@ export default class EngineeringSub extends BaseComponent<any, IRoundDataStore>
 
                 {this.state.ApplicationState.ShowIndividualFeedback && thisSubRound && this.state.UserScores &&
                     <FeedBackWrapper
+                        UserId={this.state.ApplicationState.CurrentUser._id}
                         TeamId={this.state.ApplicationState.CurrentTeam._id}
                         Scores={this.state.UserScores}
                         RoundName="Round 1"                        

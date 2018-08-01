@@ -4,12 +4,15 @@ const { Column, Row } = Grid;
 import FeedBackModel from '../../shared/models/FeedBackModel';
 
 import Inbox from '-!svg-react-loader?name=Icon!../img/inbox.svg';
+import ValueObj, { SliderValueObj } from "../../shared/entity-of-the-state/ValueObj";
+import ResponseModel from "../../shared/models/ResponseModel";
 
 interface FeedBackProps {
     RoundName: string;
     Blurb?: string;
     Scores: FeedBackModel[];
     TeamId: string;
+    UserId: string;
 }
 
 export default class FeedBackWrapper extends React.Component<FeedBackProps, any>
@@ -19,7 +22,8 @@ export default class FeedBackWrapper extends React.Component<FeedBackProps, any>
             RoundName: null,
             Blurb: null,
             Scores:null,
-            TeamId: null
+            TeamId: null,
+            UserId: null
         }
         super(props);
 
@@ -30,6 +34,21 @@ export default class FeedBackWrapper extends React.Component<FeedBackProps, any>
         var tmp = document.createElement("DIV");
         tmp.innerHTML = htmlString;
         return tmp.textContent || tmp.innerText || "";
+    }
+
+    private _getIndividualFeedback(){
+        let userResponses: ResponseModel[] = [];
+        //get the responses for the user
+        if(this.props.UserId && this.props.Scores){
+            this.props.Scores.forEach(s => {
+                s.IndividualFeedBack.forEach(r => {
+                    if(r.targetObjId == this.props.UserId)
+                        userResponses.push(r)
+                })
+            })
+            //return this.props.Scores.filter(s => s.TargetObjectId == this.props.UserId);
+        }
+        return userResponses;
     }
 
     render() {
@@ -47,6 +66,20 @@ export default class FeedBackWrapper extends React.Component<FeedBackProps, any>
             </Header>
 
             {this.props.children}
+
+            {this._getIndividualFeedback() && this._getIndividualFeedback().map(r => {
+                if((r.Answer as SliderValueObj[]).length){
+                    return <>
+                    {(r.Answer as SliderValueObj[]).map(a => {
+                        return <Header>{a.label}: {a.data}</Header>
+                    })}
+                    </>
+                }else{
+
+                }
+            })}
+
+            <pre>{this._getIndividualFeedback() && JSON.stringify(this._getIndividualFeedback(), null, 2)}</pre>
 
             <Table striped celled>
                     <Table.Header>

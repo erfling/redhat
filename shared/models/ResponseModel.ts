@@ -60,6 +60,9 @@ export default class ResponseModel extends BaseModel
 
     public SkipScoring: boolean = false;
 
+    @dbProp(String)
+    public DisplayLabel: string = null;
+
     public resolveScore(): number {
         const ans: SliderValueObj[] = this.Answer as SliderValueObj[];
         var maxScore: number = 0;

@@ -356,7 +356,6 @@ class GamePlayRouter {
                         SubText: "How did " + mgr.Name + " perform as a manager?",
                         PossibleAnswers:  q.PossibleAnswers.map((pa, i) => Object.assign( pa, 
                             {
-                                    label: mgr.Name + "_" + i,
                                     idealValue: 0,
                                     maxPoints: 3,
                                     minPoints: 1,
@@ -414,7 +413,7 @@ class GamePlayRouter {
                     delete rating._id;
                     rating.targetObjClass = "UserModel";
                     rating.targetObjId = answer.targetObjId;
-
+                    rating.DisplayLabel = question.Text;
                     rating.Score = answers.length - i;
 
                     var oldResponse = await monResponseModel.findOne({
@@ -442,6 +441,28 @@ class GamePlayRouter {
 
 
                 }
+            } else {
+                let queryObj: any = { GameId: response.GameId, TeamId: response.TeamId, QuestionId: response.QuestionId }
+
+                const oldResponse = await monResponseModel.findOne(queryObj).then(r => r ? r.toJSON() : null);
+    
+                response.targetObjClass = "UserModel";
+                response.targetObjId = (response.Answer as SliderValueObj[])[0].targetObjId;
+                response.DisplayLabel = question.Text;
+
+                console.log("HEY!!!!", response);
+
+
+    
+                if (!oldResponse) {
+                    delete response._id;
+                    var SaveResponse = await monResponseModel.create(response).then(r => r.toObject() as ResponseModel);
+                } else {
+                    delete response._id;
+                    var SaveResponse = await monResponseModel.findOneAndUpdate({ GameId: response.GameId, TeamId: response.TeamId, QuestionId: response.QuestionId }, response, { new: true }).then(r => r.toObject() as ResponseModel);
+                }
+                console.log(SaveResponse);
+    
             }
 
             res.json(response)
@@ -510,7 +531,7 @@ class GamePlayRouter {
             });
 
             scores = scores.sort((s1,s2) => {
-                return s1.TotalGameScore != s1.TotalGameScore ? s1.TotalGameScore > s1.TotalGameScore ? 1 : -1 : 0;
+                return s1.TotalGameScore != s2.TotalGameScore ? s1.TotalGameScore > s2.TotalGameScore ? 1 : -1 : 0;
             })
 
             res.json(scores);
@@ -552,16 +573,25 @@ class GamePlayRouter {
                     return Number((totalScore + r.Score).toFixed(2));
                 },0);
 
+
+                
                 let user = Object.assign(new UserModel(), users.filter(u => u._id.toString() == k)[0])
 
                 score.TargetObjectId = k;
                 score.Label = user.Name;
-                score.TargetModel = "UserModel";    
+                score.TargetModel = "UserModel";
+                
+                score.IndividualFeedBack = [];
+                groupedResponses[k].filter(r => r.RoundId == RoundId).map(r => {
+                    console.log("response!!!!!!!!!!!", r)
+                    score.IndividualFeedBack.push(r);
+                    return r;
+                });
                 return score;        
             });
 
             scores = scores.sort((s1,s2) => {
-                return s1.TotalGameScore != s1.TotalGameScore ? s1.TotalGameScore > s1.TotalGameScore ? 1 : -1 : 0;
+                return s1.TotalGameScore != s2.TotalGameScore ? s2.TotalGameScore > s1.TotalGameScore ? 1 : -1 : 0;
             })
 
             res.json(scores);
