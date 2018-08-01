@@ -147,10 +147,11 @@ export default class App extends BaseComponent<any, IControllerDataStore>
 
                                 {this.props.location && this.props.location.pathname.toUpperCase().indexOf("GAME") && <>
                                     <Menu.Item>
-                                        <Menu.Item
-                                            name='Show Feedback'
-                                            onClick={e => {
-                                                e.preventDefault();                                              
+                                        <Menu.Item>
+                                            <Menu.Item
+                                                name='Show Feedback'
+                                                onClick={e => {
+                                                    e.preventDefault();
                                                     e.preventDefault();
                                                     this.controller.dataStore.ApplicationState.ShowMenu = false;
                                                     GameCtrl.GetInstance().goToMapping({
@@ -158,14 +159,14 @@ export default class App extends BaseComponent<any, IControllerDataStore>
                                                         ChildRound: GameCtrl.GetInstance().getChildRound(),
                                                         ShowFeedback: !this.state.ApplicationState.ShowFeedback,
                                                         ShowRateUsers: false
-                                                    })                                            
+                                                    })
                                                 }}
-                                        >
-                                        </Menu.Item>
-                                        <Menu.Item
-                                            name='Show User Ratings'
-                                            onClick={e => {
-                                                e.preventDefault();                                              
+                                            >
+                                            </Menu.Item>
+                                            <Menu.Item
+                                                name='Rate Users'
+                                                onClick={e => {
+                                                    e.preventDefault();
                                                     e.preventDefault();
                                                     this.controller.dataStore.ApplicationState.ShowMenu = false;
                                                     GameCtrl.GetInstance().goToMapping({
@@ -173,209 +174,232 @@ export default class App extends BaseComponent<any, IControllerDataStore>
                                                         ChildRound: GameCtrl.GetInstance().getChildRound(),
                                                         ShowFeedback: false,
                                                         ShowRateUsers: !this.state.ApplicationState.ShowRateUsers
-                                                    })                                            
+                                                    })
                                                 }}
-                                        >
+                                            >
+                                            </Menu.Item>
+                                            <Menu.Item
+                                                name='User Ratings'
+                                                onClick={e => {
+                                                    e.preventDefault();
+                                                    e.preventDefault();
+                                                    this.controller.dataStore.ApplicationState.ShowMenu = false;
+                                                    GameCtrl.GetInstance().goToMapping({
+                                                        ParentRound: GameCtrl.GetInstance().getParentRound(),
+                                                        ChildRound: GameCtrl.GetInstance().getChildRound(),
+                                                        ShowFeedback: false,
+                                                        ShowIndividualFeedback: !this.state.ApplicationState.ShowIndividualFeedback
+                                                    })
+                                                }}
+                                            >
+                                            </Menu.Item>
                                         </Menu.Item>
-                                        <Menu.Header>Go to:</Menu.Header>
-                                        <Menu.Item
-                                            name='1A'
-                                            onClick={e => {
-                                                e.preventDefault();
-                                                this.controller.dataStore.ApplicationState.ShowMenu = false;
-                                                GameCtrl.GetInstance().goToMapping({
-                                                    ParentRound: "peopleround",
-                                                    ChildRound: "priorities"
-                                                })
-                                            }}
-                                        >
-                                        </Menu.Item>
-                                        <Menu.Item
-                                            name='1B'
-                                            onClick={e => {
-                                                e.preventDefault();
-                                                this.controller.dataStore.ApplicationState.ShowMenu = false;
-                                                GameCtrl.GetInstance().goToMapping({
-                                                    ParentRound: "peopleround",
-                                                    ChildRound: "hiring"
-                                                })
-                                            }}
-                                        >
-                                        </Menu.Item>
-                                        <Menu.Item
-                                            name='2'
-                                            onClick={e => {
-                                                e.preventDefault();
-                                                this.controller.dataStore.ApplicationState.ShowMenu = false;
-                                                GameCtrl.GetInstance().goToMapping({
-                                                    ParentRound: "engineeringround",
-                                                    ChildRound: "engineeringsub"
-                                                })
-                                            }}
-                                        >
-                                        </Menu.Item>
-                                        <Menu.Item
-                                            name='3A'
-                                            onClick={e => {
-                                                e.preventDefault();
-                                                this.controller.dataStore.ApplicationState.ShowMenu = false;
-                                                GameCtrl.GetInstance().goToMapping({
-                                                    ParentRound: "SalesRound",
-                                                    ChildRound: "DealStructure"
-                                                })
-                                            }}
-                                        >
-                                        </Menu.Item>
-                                        <Menu.Item
-                                            name='3B'
-                                            onClick={e => {
-                                                e.preventDefault();
-                                                this.controller.dataStore.ApplicationState.ShowMenu = false;
-                                                GameCtrl.GetInstance().goToMapping({
-                                                    ParentRound: "SalesRound",
-                                                    ChildRound: "DealRenewal"
-                                                })
-                                            }}
-                                        >
-                                        </Menu.Item>
-                                        <Menu.Item
-                                            name='4A'
-                                            onClick={e => {
-                                                e.preventDefault();
-                                                this.controller.dataStore.ApplicationState.ShowMenu = false;
-                                                GameCtrl.GetInstance().goToMapping({
-                                                    ParentRound: "FinanceRound",
-                                                    ChildRound: "Pricing"
-                                                })
-                                            }}
-                                        >
-                                        </Menu.Item>
-                                        <Menu.Item
-                                            name="4B"
-                                            onClick={e => {
-                                                e.preventDefault();
-                                                this.controller.dataStore.ApplicationState.ShowMenu = false;
-                                                GameCtrl.GetInstance().goToMapping({
-                                                    ParentRound: "FinanceRound",
-                                                    ChildRound: "TeamRating"
-                                                })
-                                            }}
-                                        >
-                                        </Menu.Item>
-                                        <Menu.Item
-                                            name="4C"
-                                            onClick={e => {
-                                                e.preventDefault();
-                                                this.controller.dataStore.ApplicationState.ShowMenu = false;
-                                                GameCtrl.GetInstance().goToMapping({
-                                                    ParentRound: "FinanceRound",
-                                                    ChildRound: "Bid"
-                                                })
-                                            }}
-                                        >
-                                        </Menu.Item>
-                                        <Menu.Item
-                                            name="4D"
-                                            onClick={e => {
-                                                e.preventDefault();
-                                                this.controller.dataStore.ApplicationState.ShowMenu = false;
-                                                GameCtrl.GetInstance().goToMapping({
-                                                    ParentRound: "FinanceRound",
-                                                    ChildRound: "AcquisitionStructure"
-                                                })
-                                            }}
-                                        >
+                                        <Menu.Item>
+                                            <Menu.Item>
+                                                <Menu.Header>Go to:</Menu.Header>
+                                                <Menu.Item
+                                                    name='1A'
+                                                    onClick={e => {
+                                                        e.preventDefault();
+                                                        this.controller.dataStore.ApplicationState.ShowMenu = false;
+                                                        GameCtrl.GetInstance().goToMapping({
+                                                            ParentRound: "peopleround",
+                                                            ChildRound: "priorities"
+                                                        })
+                                                    }}
+                                                >
+                                                </Menu.Item>
+                                                <Menu.Item
+                                                    name='1B'
+                                                    onClick={e => {
+                                                        e.preventDefault();
+                                                        this.controller.dataStore.ApplicationState.ShowMenu = false;
+                                                        GameCtrl.GetInstance().goToMapping({
+                                                            ParentRound: "peopleround",
+                                                            ChildRound: "hiring"
+                                                        })
+                                                    }}
+                                                >
+                                                </Menu.Item>
+                                                <Menu.Item
+                                                    name='2'
+                                                    onClick={e => {
+                                                        e.preventDefault();
+                                                        this.controller.dataStore.ApplicationState.ShowMenu = false;
+                                                        GameCtrl.GetInstance().goToMapping({
+                                                            ParentRound: "engineeringround",
+                                                            ChildRound: "engineeringsub"
+                                                        })
+                                                    }}
+                                                >
+                                                </Menu.Item>
+                                                <Menu.Item
+                                                    name='3A'
+                                                    onClick={e => {
+                                                        e.preventDefault();
+                                                        this.controller.dataStore.ApplicationState.ShowMenu = false;
+                                                        GameCtrl.GetInstance().goToMapping({
+                                                            ParentRound: "SalesRound",
+                                                            ChildRound: "DealStructure"
+                                                        })
+                                                    }}
+                                                >
+                                                </Menu.Item>
+                                                <Menu.Item
+                                                    name='3B'
+                                                    onClick={e => {
+                                                        e.preventDefault();
+                                                        this.controller.dataStore.ApplicationState.ShowMenu = false;
+                                                        GameCtrl.GetInstance().goToMapping({
+                                                            ParentRound: "SalesRound",
+                                                            ChildRound: "DealRenewal"
+                                                        })
+                                                    }}
+                                                >
+                                                </Menu.Item>
+                                                <Menu.Item
+                                                    name='4A'
+                                                    onClick={e => {
+                                                        e.preventDefault();
+                                                        this.controller.dataStore.ApplicationState.ShowMenu = false;
+                                                        GameCtrl.GetInstance().goToMapping({
+                                                            ParentRound: "FinanceRound",
+                                                            ChildRound: "Pricing"
+                                                        })
+                                                    }}
+                                                >
+                                                </Menu.Item>
+                                                <Menu.Item
+                                                    name="4B"
+                                                    onClick={e => {
+                                                        e.preventDefault();
+                                                        this.controller.dataStore.ApplicationState.ShowMenu = false;
+                                                        GameCtrl.GetInstance().goToMapping({
+                                                            ParentRound: "FinanceRound",
+                                                            ChildRound: "TeamRating"
+                                                        })
+                                                    }}
+                                                >
+                                                </Menu.Item>
+                                                <Menu.Item
+                                                    name="4C"
+                                                    onClick={e => {
+                                                        e.preventDefault();
+                                                        this.controller.dataStore.ApplicationState.ShowMenu = false;
+                                                        GameCtrl.GetInstance().goToMapping({
+                                                            ParentRound: "FinanceRound",
+                                                            ChildRound: "Bid"
+                                                        })
+                                                    }}
+                                                >
+                                                </Menu.Item>
+                                                <Menu.Item
+                                                    name="4D"
+                                                    onClick={e => {
+                                                        e.preventDefault();
+                                                        this.controller.dataStore.ApplicationState.ShowMenu = false;
+                                                        GameCtrl.GetInstance().goToMapping({
+                                                            ParentRound: "FinanceRound",
+                                                            ChildRound: "AcquisitionStructure"
+                                                        })
+                                                    }}
+                                                >
+                                                </Menu.Item>
+
+                                                <Menu.Item
+                                                    name="5"
+                                                    onClick={e => {
+                                                        e.preventDefault();
+                                                        this.controller.dataStore.ApplicationState.ShowMenu = false;
+                                                        GameCtrl.GetInstance().goToMapping({
+                                                            ParentRound: "CustomerRound",
+                                                            ChildRound: "CustomerSub"
+                                                        })
+                                                    }}
+                                                >
+                                                </Menu.Item>
+
+                                            </Menu.Item>
                                         </Menu.Item>
 
-                                        <Menu.Item
-                                            name="5"
-                                            onClick={e => {
-                                                e.preventDefault();
-                                                this.controller.dataStore.ApplicationState.ShowMenu = false;
-                                                GameCtrl.GetInstance().goToMapping({
-                                                    ParentRound: "CustomerRound",
-                                                    ChildRound: "CustomerSub"
-                                                })
-                                            }}
-                                        >
-                                        </Menu.Item>
 
                                     </Menu.Item>
                                     <Menu.Item>
                                         <Menu.Header>Play As</Menu.Header>
+                                        <Menu.Item>
+                                            <MenuItem
+                                                name={JobName.IC}
+                                                onClick={e => {
+                                                    e.preventDefault();
+                                                    this.controller.dataStore.ApplicationState.ShowMenu = false;
 
-                                        <MenuItem
-                                            name={JobName.IC}
-                                            onClick={e => {
-                                                e.preventDefault();
-                                                this.controller.dataStore.ApplicationState.ShowMenu = false;
+                                                    this.setState(Object.assign(this.state, {
+                                                        ApplicationState: Object.assign(this.state.ApplicationState, {
+                                                            CurrentUser: Object.assign(this.state.ApplicationState.CurrentUser, { Job: JobName.IC })
+                                                        })
+                                                    }))
+                                                    GameCtrl.GetInstance().LockedInJob = JobName.IC;
 
-                                                this.setState(Object.assign(this.state, {
-                                                    ApplicationState: Object.assign(this.state.ApplicationState, {
-                                                        CurrentUser: Object.assign(this.state.ApplicationState.CurrentUser, { Job: JobName.IC })
-                                                    })
-                                                }))
-                                                GameCtrl.GetInstance().LockedInJob = JobName.IC;
+                                                    GameCtrl.GetInstance().dataStoreChange();
+                                                    (GameCtrl.GetInstance().ChildController as BaseRoundCtrl<any>).getContentBySubRound();
+                                                    //(GameCtrl.GetInstance()._getTargetController((GameCtrl.GetInstance().dataStore.ComponentFistma.currentState as any).WrappedComponent.CLASS_NAME) as any).getContentBySubRound()
+                                                }}
+                                            />
+                                            <MenuItem
+                                                name={JobName.MANAGER}
+                                                onClick={e => {
+                                                    e.preventDefault();
+                                                    this.controller.dataStore.ApplicationState.ShowMenu = false;
 
-                                                GameCtrl.GetInstance().dataStoreChange();
-                                                (GameCtrl.GetInstance().ChildController as BaseRoundCtrl<any>).getContentBySubRound();
-                                                //(GameCtrl.GetInstance()._getTargetController((GameCtrl.GetInstance().dataStore.ComponentFistma.currentState as any).WrappedComponent.CLASS_NAME) as any).getContentBySubRound()
-                                            }}
-                                        />
-                                        <MenuItem
-                                            name={JobName.MANAGER}
-                                            onClick={e => {
-                                                e.preventDefault();
-                                                this.controller.dataStore.ApplicationState.ShowMenu = false;
-                                                
-                                                this.setState(Object.assign(this.state, {
-                                                    ApplicationState: Object.assign(this.state.ApplicationState, {
-                                                        CurrentUser: Object.assign(this.state.ApplicationState.CurrentUser, { Job: JobName.MANAGER })
-                                                    })
-                                                }))
-                                                GameCtrl.GetInstance().LockedInJob = JobName.MANAGER;
+                                                    this.setState(Object.assign(this.state, {
+                                                        ApplicationState: Object.assign(this.state.ApplicationState, {
+                                                            CurrentUser: Object.assign(this.state.ApplicationState.CurrentUser, { Job: JobName.MANAGER })
+                                                        })
+                                                    }))
+                                                    GameCtrl.GetInstance().LockedInJob = JobName.MANAGER;
 
-                                                console.log("BASE CONTROLLER IN APP IS:", (GameCtrl.GetInstance().ChildController as BaseRoundCtrl<any>))
+                                                    console.log("BASE CONTROLLER IN APP IS:", (GameCtrl.GetInstance().ChildController as BaseRoundCtrl<any>))
 
-                                                GameCtrl.GetInstance().dataStoreChange();
-                                                (GameCtrl.GetInstance().ChildController as BaseRoundCtrl<any>).getContentBySubRound();
+                                                    GameCtrl.GetInstance().dataStoreChange();
+                                                    (GameCtrl.GetInstance().ChildController as BaseRoundCtrl<any>).getContentBySubRound();
 
-                                            }}
-                                        />
-                                        <MenuItem
-                                            name={JobName.CHIPCO}
-                                            onClick={e => {
-                                                e.preventDefault();
-                                                this.controller.dataStore.ApplicationState.ShowMenu = false;
+                                                }}
+                                            />
+                                            <MenuItem
+                                                name={JobName.CHIPCO}
+                                                onClick={e => {
+                                                    e.preventDefault();
+                                                    this.controller.dataStore.ApplicationState.ShowMenu = false;
 
-                                                this.setState(Object.assign(this.state, {
-                                                    ApplicationState: Object.assign(this.state.ApplicationState, {
-                                                        CurrentUser: Object.assign(this.state.ApplicationState.CurrentUser, { Job: JobName.CHIPCO })
-                                                    })
-                                                }))
-                                                GameCtrl.GetInstance().LockedInJob = JobName.CHIPCO;
+                                                    this.setState(Object.assign(this.state, {
+                                                        ApplicationState: Object.assign(this.state.ApplicationState, {
+                                                            CurrentUser: Object.assign(this.state.ApplicationState.CurrentUser, { Job: JobName.CHIPCO })
+                                                        })
+                                                    }))
+                                                    GameCtrl.GetInstance().LockedInJob = JobName.CHIPCO;
 
-                                                GameCtrl.GetInstance().dataStoreChange();
-                                                (GameCtrl.GetInstance().ChildController as BaseRoundCtrl<any>).getContentBySubRound();
+                                                    GameCtrl.GetInstance().dataStoreChange();
+                                                    (GameCtrl.GetInstance().ChildController as BaseRoundCtrl<any>).getContentBySubRound();
 
-                                            }}
-                                        />
-                                        <MenuItem
-                                            name={JobName.INTEGRATED_SYSTEMS}
-                                            onClick={e => {
-                                                e.preventDefault();
+                                                }}
+                                            />
+                                            <MenuItem
+                                                name={JobName.INTEGRATED_SYSTEMS}
+                                                onClick={e => {
+                                                    e.preventDefault();
 
-                                                this.setState(Object.assign(this.state, {
-                                                    ApplicationState: Object.assign(this.state.ApplicationState, {
-                                                        CurrentUser: Object.assign(this.state.ApplicationState.CurrentUser, { Job: JobName.INTEGRATED_SYSTEMS })
-                                                    })
-                                                }))
-                                                GameCtrl.GetInstance().LockedInJob = JobName.INTEGRATED_SYSTEMS;
-                                                GameCtrl.GetInstance().dataStoreChange();
-                                                (GameCtrl.GetInstance().ChildController as BaseRoundCtrl<any>).getContentBySubRound();
+                                                    this.setState(Object.assign(this.state, {
+                                                        ApplicationState: Object.assign(this.state.ApplicationState, {
+                                                            CurrentUser: Object.assign(this.state.ApplicationState.CurrentUser, { Job: JobName.INTEGRATED_SYSTEMS })
+                                                        })
+                                                    }))
+                                                    GameCtrl.GetInstance().LockedInJob = JobName.INTEGRATED_SYSTEMS;
+                                                    GameCtrl.GetInstance().dataStoreChange();
+                                                    (GameCtrl.GetInstance().ChildController as BaseRoundCtrl<any>).getContentBySubRound();
 
-                                            }}
-                                        />
+                                                }}
+                                            />
+                                        </Menu.Item>
                                     </Menu.Item>
                                 </>
                                 }
@@ -391,9 +415,9 @@ export default class App extends BaseComponent<any, IControllerDataStore>
                         }}
                     >
                         <Switch>
-                            <Redirect exact from="/" to="/game"/>
-                            <Route path="/game" component={Game} />                            
-                            <Route path="/login" component={Login} />                            
+                            <Redirect exact from="/" to="/game" />
+                            <Route path="/game" component={Game} />
+                            <Route path="/login" component={Login} />
                             <Route path="/admin" component={Admin} />
                         </Switch>
                     </div>
@@ -402,7 +426,7 @@ export default class App extends BaseComponent<any, IControllerDataStore>
 
                 {this.state.ApplicationState.Toasts &&
                     <div className="toast-holder">
-                        {this.state.ApplicationState.Toasts.filter(t => !t.Killed).map((t,i) => <SapienToast
+                        {this.state.ApplicationState.Toasts.filter(t => !t.Killed).map((t, i) => <SapienToast
                             key={i}
                             Toast={t}
                         />)}

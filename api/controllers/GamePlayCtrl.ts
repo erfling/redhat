@@ -487,7 +487,7 @@ class GamePlayRouter {
 
             console.log(groupedResponses);
 
-            const scores = Object.keys(groupedResponses).map(k => {
+            var scores = Object.keys(groupedResponses).map(k => {
                 let score = new FeedBackModel();
                 
                 score.TotalGameScore = groupedResponses[k].reduce((totalScore, r: ResponseModel) => {
@@ -508,6 +508,10 @@ class GamePlayRouter {
 
                 return score;
             });
+
+            scores = scores.sort((s1,s2) => {
+                return s1.TotalGameScore != s1.TotalGameScore ? s1.TotalGameScore > s1.TotalGameScore ? 1 : -1 : 0;
+            })
 
             res.json(scores);
         }
@@ -532,19 +536,19 @@ class GamePlayRouter {
             let groupedResponses = groupBy(responses, "targetObjId");
 
             console.log(groupedResponses);
-            const scores = Object.keys(groupedResponses).map(k => {
+            var scores = Object.keys(groupedResponses).map(k => {
 
                 let score = new FeedBackModel();
 
-                score.TotalGameScore = responses.reduce((totalScore, r: ResponseModel) => {
+                score.TotalGameScore = groupedResponses[k].reduce((totalScore, r: ResponseModel) => {
                     return Number((totalScore + r.Score).toFixed(2));
                 },0);
 
-                score.TotalRoundScore = responses.filter(r => r.RoundId == RoundId).reduce((totalScore, r: ResponseModel) => {
+                score.TotalRoundScore = groupedResponses[k].filter(r => r.RoundId == RoundId).reduce((totalScore, r: ResponseModel) => {
                     return Number((totalScore + r.Score).toFixed(2));
                 },0);
 
-                score.TotalSubroundScore = responses.filter(r => r.SubRoundId == SubRoundId).reduce((totalScore, r: ResponseModel) => {
+                score.TotalSubroundScore = groupedResponses[k].filter(r => r.SubRoundId == SubRoundId).reduce((totalScore, r: ResponseModel) => {
                     return Number((totalScore + r.Score).toFixed(2));
                 },0);
 
@@ -555,6 +559,10 @@ class GamePlayRouter {
                 score.TargetModel = "UserModel";    
                 return score;        
             });
+
+            scores = scores.sort((s1,s2) => {
+                return s1.TotalGameScore != s1.TotalGameScore ? s1.TotalGameScore > s1.TotalGameScore ? 1 : -1 : 0;
+            })
 
             res.json(scores);
         }

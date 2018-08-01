@@ -51,7 +51,7 @@ export default class FeedBackWrapper extends React.Component<FeedBackProps, any>
             <Table striped celled>
                     <Table.Header>
                         <Table.Row>
-                            <Table.HeaderCell>Team</Table.HeaderCell>
+                            <Table.HeaderCell/>
                             <Table.HeaderCell>Round Score</Table.HeaderCell>
                             <Table.HeaderCell>Game Score</Table.HeaderCell>
                         </Table.Row>

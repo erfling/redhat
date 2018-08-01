@@ -228,7 +228,8 @@ export default class SalesRoundCtrl extends BaseRoundCtrl<IRoundDataStore & {Fee
             Feedback: null,
             SubRound: null,
             RatingQuestions: null,
-            Scores: null
+            Scores: null,
+            UserScores: null
 
         };
         this.dataStore.Round.Name = "SALES";

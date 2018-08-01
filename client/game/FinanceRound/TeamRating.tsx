@@ -115,7 +115,16 @@ export default class TeamRating extends BaseComponent<any, IRoundDataStore>
                     >
                         
                     </FeedBackWrapper> 
-                }   
+                }
+                {this.state.ApplicationState.ShowIndividualFeedback && thisSubRound && this.state.UserScores &&
+                    <FeedBackWrapper
+                        TeamId={this.state.ApplicationState.CurrentTeam._id}
+                        Scores={this.state.UserScores}
+                        RoundName="Round 1"                        
+                    >
+                        
+                    </FeedBackWrapper> 
+                }  
                 {this.state.ApplicationState.ShowRateUsers && this.state.RatingQuestions && <div
                     className={'show ' + (this.state.ApplicationState.MobileWidth ? "mobile-messages decisions" : "wide-messages decisions")}
                 >
@@ -152,7 +161,7 @@ export default class TeamRating extends BaseComponent<any, IRoundDataStore>
                                     color="blue"
                                     loading={q.Response ? q.Response.IsSaving : false}
                                     onClick={e => {
-                                        this.controller.SaveResponse(q.Response, q, thisSubRound)
+                                        this.controller.SavePlayerRating(q.Response, q, thisSubRound)
                                     }}
                                 />
                             </Row>

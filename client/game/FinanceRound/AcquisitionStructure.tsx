@@ -111,12 +111,24 @@ export default class AcquisitionStructure extends BaseComponent<any, IRoundDataS
                         Scores={this.state.Scores}
                         RoundName="Round 4D"
                         Blurb="Given Source Stream's ambition to grow in the Asia Pacific region, the Singapore footprint is attractive. The London location would be redundant to Source Stream's current headquarters.
-                        \nThe BlueKite brand is well-known and represents a compelling and unique success story, not unlike Source Stream's. In addition, allowing BlueKite to retain its brand aligns with Source Stream's culture of autonomy and transparency. 
-                        \nWhile concessions around one location and the brand are short-term wins for BlueKite, HR and IT systems must be centralized to enable long-term stability."
+                        The BlueKite brand is well-known and represents a compelling and unique success story, not unlike Source Stream's. In addition, allowing BlueKite to retain its brand aligns with Source Stream's culture of autonomy and transparency. 
+                        While concessions around one location and the brand are short-term wins for BlueKite, HR and IT systems must be centralized to enable long-term stability."
                     >
                         
                     </FeedBackWrapper> 
                 }  
+
+                {this.state.ApplicationState.ShowIndividualFeedback && thisSubRound && this.state.UserScores &&
+                    <FeedBackWrapper
+                        TeamId={this.state.ApplicationState.CurrentTeam._id}
+                        Scores={this.state.UserScores}
+                        RoundName="Round 1"                        
+                    >
+                        
+                    </FeedBackWrapper> 
+                }
+
+
                 {this.state.ApplicationState.ShowRateUsers && this.state.RatingQuestions && <div
                     className={'show ' + (this.state.ApplicationState.MobileWidth ? "mobile-messages decisions" : "wide-messages decisions")}
                 >
@@ -163,7 +175,7 @@ export default class AcquisitionStructure extends BaseComponent<any, IRoundDataS
                 </div>
                 }
 
-                {thisSubRound && this.state.ApplicationState.SelectedMessage && !this.state.ApplicationState.ShowFeedback &&
+                {thisSubRound && this.state.ApplicationState.SelectedMessage && !this.state.ApplicationState.ShowFeedback && !this.state.ApplicationState.ShowIndividualFeedback &&
                     <EditableContentBlock
                         IsEditable={this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN}
                         SubRoundId={thisSubRound._id}

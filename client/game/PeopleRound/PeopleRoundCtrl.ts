@@ -102,7 +102,8 @@ export default class PeopleRoundCtrl extends BaseRoundCtrl<IRoundDataStore>
             ComponentFistma: this.ComponentFistma,
             SubRound: null,
             RatingQuestions: null,
-            Scores: null
+            Scores: null,
+            UserScores: null
 
         };
         this.dataStore.Round.Name = "PEOPLE";

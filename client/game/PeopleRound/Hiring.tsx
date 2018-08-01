@@ -111,13 +111,24 @@ export default class Hiring extends BaseComponent<any, IRoundDataStore>
                         TeamId={this.state.ApplicationState.CurrentTeam._id}
                         Scores={this.state.Scores}
                         RoundName="Round 1"
-                        Blurb="You set hiring criteria in Round 1A, and your score reflects the degree to which you adhered to your criteria when you made your hiring decisions.\n\n
+                        Blurb="You set hiring criteria in Round 1A, and your score reflects the degree to which you adhered to your criteria when you made your hiring decisions.
                         For each role, different criteria are most important. For sales, a long-term strategic view and experience in the financial services vertical are necessary. For engineering, it is important to be able to negotiate both internally and with the upstream community, while also having a strong understanding of emerging technologies. For services, it is most critical that the candidate has financial services experience, and also a grasp of emerging technologies."
                     >
                         
                     </FeedBackWrapper> 
                 }  
                 
+                {this.state.ApplicationState.ShowIndividualFeedback && thisSubRound && this.state.UserScores &&
+                    <FeedBackWrapper
+                        TeamId={this.state.ApplicationState.CurrentTeam._id}
+                        Scores={this.state.UserScores}
+                        RoundName="Round 1"                        
+                    >
+                        
+                    </FeedBackWrapper> 
+                }  
+
+
                 {this.state.ApplicationState.ShowRateUsers && this.state.RatingQuestions && <div
                     className={'show ' + (this.state.ApplicationState.MobileWidth ? "mobile-messages decisions" : "wide-messages decisions")}
                 >
@@ -164,7 +175,7 @@ export default class Hiring extends BaseComponent<any, IRoundDataStore>
                 </div>
                 }
 
-                {thisSubRound && this.state.ApplicationState.SelectedMessage && !this.state.ApplicationState.ShowFeedback &&
+                {thisSubRound && this.state.ApplicationState.SelectedMessage && !this.state.ApplicationState.ShowFeedback && !this.state.ApplicationState.ShowIndividualFeedback &&
                     <EditableContentBlock
                         IsEditable={this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN}
                         SubRoundId={thisSubRound._id}
