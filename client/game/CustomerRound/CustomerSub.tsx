@@ -8,6 +8,7 @@ import CustomerRoundCtrl from "./CustomerRoundCtrl";
 import BaseComponent from "../../../shared/base-sapien/client/shared-components/BaseComponent";
 import Decisions from '-!svg-react-loader?name=Icon!../../img/decisions.svg';
 import FeedBackWrapper from "../FeedBackWrapper";
+import { RatingType } from "../../../shared/models/QuestionModel";
 
 const { Button, Grid, Form, Dimmer, Loader, Header, Table } = Semantic;
 const { Row, Column } = Grid;
@@ -129,7 +130,7 @@ export default class CustomerSub extends BaseComponent<any, IRoundDataStore>
                     </FeedBackWrapper> 
                 }
 
-                
+
                 {this.state.ApplicationState.ShowRateUsers && this.state.RatingQuestions && <div
                     className={'show ' + (this.state.ApplicationState.MobileWidth ? "mobile-messages decisions" : "wide-messages decisions")}
                 >
@@ -144,7 +145,9 @@ export default class CustomerSub extends BaseComponent<any, IRoundDataStore>
                             Decisions
                             </Header>
 
-                        {this.state.RatingQuestions.map((q, i) => {
+                        {this.state.RatingQuestions.filter(q => {
+                            return q.RatingMarker == RatingType.MANAGER_RATING ? this.state.ApplicationState.CurrentUser.Job != JobName.MANAGER : this.state.ApplicationState.CurrentUser.Job == JobName.MANAGER
+                        }).map((q, i) => {
                             return <Row
                                 key={"question-" + i.toString()}
                             >

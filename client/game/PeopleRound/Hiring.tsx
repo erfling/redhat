@@ -8,6 +8,7 @@ import { IRoundDataStore } from '../../../shared/base-sapien/client/BaseRoundCtr
 import Decisions from '-!svg-react-loader?name=Icon!../../img/decisions.svg';
 import BaseComponent from "../../../shared/base-sapien/client/shared-components/BaseComponent";
 import FeedBackWrapper from "../FeedBackWrapper";
+import { RatingType } from "../../../shared/models/QuestionModel";
 
 const { Button, Grid, Menu, Segment, Form, Dimmer, Loader, Header, Table } = Semantic;
 const { Row, Column } = Grid;
@@ -143,7 +144,9 @@ export default class Hiring extends BaseComponent<any, IRoundDataStore>
                             Decisions
                             </Header>
 
-                        {this.state.RatingQuestions.map((q, i) => {
+                        {this.state.RatingQuestions.filter(q => {
+                            return q.RatingMarker == RatingType.MANAGER_RATING ? this.state.ApplicationState.CurrentUser.Job != JobName.MANAGER : this.state.ApplicationState.CurrentUser.Job == JobName.MANAGER
+                        }).map((q, i) => {
                             return <Row
                                 key={"question-" + i.toString()}
                             >

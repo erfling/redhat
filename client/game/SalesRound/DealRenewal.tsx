@@ -9,6 +9,7 @@ import BaseComponent from "../../../shared/base-sapien/client/shared-components/
 import Decisions from '-!svg-react-loader?name=Icon!../../img/decisions.svg';
 import TeamModel from "../../../shared/models/TeamModel";
 import FeedBackWrapper from "../FeedBackWrapper";
+import { RatingType } from "../../../shared/models/QuestionModel";
 
 const { Button, Grid, Form, Dimmer, Loader, Header, Table } = Semantic;
 const { Row, Column } = Grid;
@@ -142,7 +143,9 @@ export default class DealRenewal extends BaseComponent<any, IRoundDataStore & {F
                             Decisions
                             </Header>
 
-                        {this.state.RatingQuestions.map((q, i) => {
+                        {this.state.RatingQuestions.filter(q => {
+                            return q.RatingMarker == RatingType.MANAGER_RATING ? this.state.ApplicationState.CurrentUser.Job != JobName.MANAGER : this.state.ApplicationState.CurrentUser.Job == JobName.MANAGER
+                        }).map((q, i) => {
                             return <Row
                                 key={"question-" + i.toString()}
                             >
