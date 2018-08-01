@@ -104,7 +104,7 @@ class GamePlayRouter {
         const response: ResponseModel = Object.assign(new ResponseModel(), req.body as ResponseModel);
 
         try {
-            
+            console.log("SHOULD IGNORE SCOING IF ROUND 4", response)
             if(!response.SkipScoring){
                 const question = await monQModel.findById(response.QuestionId).then(q => q.toJSON());
 
