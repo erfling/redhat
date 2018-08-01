@@ -41,10 +41,12 @@ export default class FeedBackWrapper extends React.Component<FeedBackProps, any>
         //get the responses for the user
         if(this.props.UserId && this.props.Scores){
             this.props.Scores.forEach(s => {
-                s.IndividualFeedBack.forEach(r => {
-                    if(r.targetObjId == this.props.UserId)
-                        userResponses.push(r)
-                })
+                if(s.IndividualFeedBack){
+                    s.IndividualFeedBack.forEach(r => {
+                        if(r.targetObjId == this.props.UserId)
+                            userResponses.push(r)
+                    })
+                }
             })
             //return this.props.Scores.filter(s => s.TargetObjectId == this.props.UserId);
         }
