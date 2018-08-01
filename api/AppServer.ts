@@ -144,6 +144,9 @@ export class AppServer
                     //TODO: get rid of magic string
                     mapping.UserJobs = {};
 
+                    mapping.ParentRound = mapping.ParentRound.toLowerCase();
+                    mapping.ChildRound = mapping.ChildRound.toLowerCase();
+
                     //make sure the current mapping has the correct child round
                     var oldMapping: RoundChangeMapping = await monMappingModel.findOneAndUpdate({ GameId: game._id, ParentRound: mapping.ParentRound }, {
                         ChildRound: mapping.ChildRound,
@@ -192,7 +195,7 @@ export class AppServer
                                     return mapping.UserJobs[p._id.toString()] != JobName.MANAGER
                                 })){
                                     console.log("DIDN'T FIND MANAGER FOR ", t)
-                                    mapping.UserJobs[t.Players[0]._id.toString()] = JobName.MANAGER;
+                                    mapping.UserJobs[t.Players[Math.floor(Math.random() * t.Players.length) + 1]._id.toString()] = JobName.MANAGER;
                                 }
 
                             })
