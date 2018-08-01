@@ -301,11 +301,13 @@ class GamePlayRouter {
                 let bidResponse = groupedResponses[k].filter(r => r.Answer && r.Answer[0] && r.Answer[0].label && r.Answer[0].label.toUpperCase() == "PRICING")[0] || null;
                 let rationaleResponse = groupedResponses[k].filter(r => r.Answer && r.Answer[0] && r.Answer[0].label && r.Answer[0].label.toUpperCase() == "EXPLANATION")[0] || null;
 
+
+
                 finalQuestions = finalQuestions.concat(
                     questions.map(q => {
                         return Object.assign(q, {
 
-                            Text: q.Text + " " + groupedResponses[k][0].TeamNumber + " bid" + bidResponse.Answer[0].preunit + bidResponse.Answer[0].data + bidResponse.Answer[0].unit,
+                            Text: q.Text + " " + rationaleResponse.TeamNumber + " bid" + " $" + bidResponse.Answer[0].data + " Bil.",
                             TargetTeamId: k,
                             SubText: rationaleResponse ? rationaleResponse.Answer[0].data : "",
                             test: "adsf"
