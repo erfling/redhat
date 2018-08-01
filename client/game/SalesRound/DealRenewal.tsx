@@ -114,7 +114,7 @@ export default class DealRenewal extends BaseComponent<any, IRoundDataStore & {F
                         TeamId={this.state.ApplicationState.CurrentTeam._id}
                         Scores={this.state.Scores}
                         RoundName="Round 3B"
-                        Blurb="Is there 3a feedback?"
+                        Blurb="Your goal is both to make a lucrative deal for Source Stream, and also to keep RHK Bank happy. You must balance the short-term deal payoff with the longer-term satisfaction of the customer. Teams that received a customer satisfaction score of 90+ recieve a glowing testimonial from RHK Bank. Pricing and quantity ranges have changed based on your previous decisions."
                     >
                         
                     </FeedBackWrapper> 
@@ -125,7 +125,7 @@ export default class DealRenewal extends BaseComponent<any, IRoundDataStore & {F
                         UserId={this.state.ApplicationState.CurrentUser._id}
                         TeamId={this.state.ApplicationState.CurrentTeam._id}
                         Scores={this.state.UserScores}
-                        RoundName="Round 1"                        
+                        RoundName="Round 3"                        
                     >
                         
                     </FeedBackWrapper> 
