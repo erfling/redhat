@@ -195,7 +195,7 @@ export class AppServer
                                     return mapping.UserJobs[p._id.toString()] != JobName.MANAGER
                                 })){
                                     console.log("DIDN'T FIND MANAGER FOR ", t)
-                                    mapping.UserJobs[t.Players[Math.floor(Math.random() * t.Players.length) + 1]._id.toString()] = JobName.MANAGER;
+                                    mapping.UserJobs[t.Players[Math.floor(Math.random() * t.Players.length)]._id.toString()] = JobName.MANAGER;
                                 }
 
                             })
