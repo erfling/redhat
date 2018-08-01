@@ -108,7 +108,6 @@ export default class AcquisitionStructure extends BaseComponent<any, IRoundDataS
                 
                 {this.state.ApplicationState.ShowFeedback && thisSubRound && this.state.Scores &&
                     <FeedBackWrapper
-                        UserId={this.state.ApplicationState.CurrentUser._id}
                         TeamId={this.state.ApplicationState.CurrentTeam._id}
                         Scores={this.state.Scores}
                         RoundName="Round 4D"
@@ -122,7 +121,7 @@ export default class AcquisitionStructure extends BaseComponent<any, IRoundDataS
 
                 {this.state.ApplicationState.ShowIndividualFeedback && thisSubRound && this.state.UserScores &&
                     <FeedBackWrapper
-                        UserId={this.state.ApplicationState.CurrentUser._id}
+                        User={this.state.ApplicationState.CurrentUser}
                         TeamId={this.state.ApplicationState.CurrentTeam._id}
                         Scores={this.state.UserScores}
                         RoundName="Round 1"                        
