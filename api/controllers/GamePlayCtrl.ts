@@ -363,7 +363,7 @@ class GamePlayRouter {
                                     min: 0,
                                     max: 10,
                                     targetObjId: mgr._id.toString(),
-                                    targetObjClass: "User"
+                                    targetObjClass: "UserModel"
                             })
                         )
                     })
@@ -377,7 +377,7 @@ class GamePlayRouter {
                                 maxPoints: 3,
                                 minPoints: 1,
                                 targetObjId: p._id.toString(),
-                                targetObjClass: "User",
+                                targetObjClass: "UserModel",
                                 data: i
                             }
                         })
