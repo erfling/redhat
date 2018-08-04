@@ -123,16 +123,20 @@ export default class GameCtrl extends BaseClientCtrl<IControllerDataStore & {Gam
     private _timeOut;
 
     public async pollForGameStateChange(gameId: string){
+
+
+        console.error("CURRENT TEAM:::::>>>>>>>>>", this.dataStore.ApplicationState.CurrentTeam);
+
         if(!this.dataStore.ApplicationState.CurrentTeam)return;
         //console.log("polling for game state", this.dataStore.ApplicationState.CurrentTeam)
 
         let url = "/listenforgameadvance/" + this.dataStore.ApplicationState.CurrentTeam.GameId;
         if (this.dataStore.ApplicationState.CurrentTeam.CurrentRound) {
-            url = url + "?ParentRound=" + this.dataStore.ApplicationState.CurrentTeam.CurrentRound.ParentRound || "" + "&ChildRound=" + this.dataStore.ApplicationState.CurrentTeam.CurrentRound.ChildRound || "";
+            url = url + "?ParentRound=" + this.dataStore.ApplicationState.CurrentTeam.CurrentRound.ParentRound + "&ChildRound=" + this.dataStore.ApplicationState.CurrentTeam.CurrentRound.ChildRound;
+            //url = url + "?ParentRound=" + this.dataStore.ApplicationState.CurrentTeam.CurrentRound.ParentRound || "" + "&ChildRound=" + this.dataStore.ApplicationState.CurrentTeam.CurrentRound.ChildRound || "";
         }
 
         await SapienServerCom.GetData(null, null, url).then((r: RoundChangeMapping) => {
-            console.log("got git!!!!!!!!!");
             //set the team's current location to the new location
             const targetJob = r.UserJobs && r.UserJobs[this.dataStore.ApplicationState.CurrentUser._id] ? r.UserJobs[this.dataStore.ApplicationState.CurrentUser._id] : JobName.IC;
 

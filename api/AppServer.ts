@@ -78,14 +78,14 @@ export class AppServer
         AuthUtils.SET_UP_PASSPORT();
 
         
-        /*AppServer.LongPoll.create("/listenforgameadvance/:gameid", async (req, res, next) => {
+        AppServer.LongPoll.create("/listenforgameadvance/:gameid", async (req, res, next) => {
             req.id = req.params.gameid;
             const game = await monGameModel.findById(req.id).then(r => r ? Object.assign(new GameModel(), r.toJSON()) : null);
-            
+            console.log("we are here", req.params, game)
             if (game) {
                if (!game.CurrentRound || !game.CurrentRound.ParentRound) {
                    next();
-               } else if (!req.query || req.query.ParentRound != game.CurrentRound.ParentRound || req.query.ChildRound != game.CurrentRound.ChildRound) {
+               } else if (!req.query || !req.query.ParentRound || !req.query.ChildRound || req.query.ParentRound.toUpperCase() != game.CurrentRound.ParentRound.toUpperCase() || req.query.ChildRound.toUpperCase() != game.CurrentRound.ChildRound.toUpperCase()) {
                    res.json(game.CurrentRound);
                } else {
                    next();
@@ -93,7 +93,7 @@ export class AppServer
             } else {
                 next();
             }
-        });*/
+        });
        
         //GZIP large resources in production
         /*
@@ -116,6 +116,7 @@ export class AppServer
                 })
         }
         */
+       /*
         AppServer.app.get("/listenforgameadvance/:gameid", async (req, res, next) => {
             const gameId = req.params.gameid;
             try {
@@ -126,7 +127,7 @@ export class AppServer
             } catch(err) {
                 console.log(err);
             }
-        });
+        });*/
 
         AppServer.app.use('/', AppServer.router)
             .use('/sapien/api/rounds', RoundController)
@@ -235,7 +236,7 @@ export class AppServer
                     var mapperydoo = (newMapping && newMapping.ParentRound.length) ? newMapping : oldMapping;
                     const gameSave = await monGameModel.findByIdAndUpdate(req.params.gameid, { CurrentRound: mapperydoo, HasBeenManager: game.HasBeenManager });
                     if (gameSave) {
-                        //AppServer.LongPoll.publishToId("/listenforgameadvance/:gameid", req.params.gameid, mapperydoo);
+                        AppServer.LongPoll.publishToId("/listenforgameadvance/:gameid", req.params.gameid, mapperydoo);
                         res.json("long poll publish hit");
                     }
                 }
