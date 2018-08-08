@@ -63,7 +63,7 @@ export class AppServer
 
     static onListening(): void {
         const MONGO_URI: string = 'mongodb://localhost:27017/red-hat';
-        //mongoose.set('debug', true);
+        mongoose.set('debug', true);
 
         var connection = mongoose.connect(MONGO_URI || process.env.MONGODB_URI).then((connection) => {
             //console.log(typeof connection, connection);
@@ -130,7 +130,7 @@ export class AppServer
         });*/
 
         AppServer.app.use('/', AppServer.router)
-            .use('/sapien/api/rounds', RoundController)
+            .use('/sapien/api/rounds', Passport.authenticate('jwt', { session: false }), RoundController)
             .use('/sapien/api/' + GameModel.REST_URL, GameCtrl)
             .use('/sapien/api/auth', LoginCtrl)
             .use('/sapien/api/team', TeamCtrl)

@@ -134,16 +134,19 @@ export default class Bid extends BaseComponent<any, IRoundDataStore>
                     </div>
                 }
 
-                {this.state.ApplicationState.ShowFeedback && thisSubRound && this.state.Scores &&
+                {this.state.ApplicationState.ShowFeedback && thisSubRound && this.state.Scores && <>
                     <FeedBackWrapper
                         TeamId={this.state.ApplicationState.CurrentTeam._id}
                         Scores={this.state.Scores}
-                        RoundName="Round 3C"
-                        Blurb="The winning team chose to bid at a price that was acceptable to both boards. The teams that bid too low or paid over market value have been penalized."
+                        IsEditable={this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN}
+                        SubRoundId={thisSubRound._id}
+                        onSaveHandler={this.controller.saveFeedback.bind(this.controller)}
+                        RoundName="Round 4C"
+                        Feedback={this.controller.filterFeedBack(this.state.Scores, this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN)}
                     >
-                        
                     </FeedBackWrapper> 
-                }
+                    </>
+                } 
                 
                 {thisSubRound && this.state.ApplicationState.SelectedMessage && !this.state.ApplicationState.ShowFeedback &&
                     <EditableContentBlock

@@ -106,15 +106,18 @@ export default class Pricing extends BaseComponent<any, IRoundDataStore>
                     </div>
                 }               
                 
-                {this.state.ApplicationState.ShowFeedback && thisSubRound && this.state.Scores &&
+                {this.state.ApplicationState.ShowFeedback && thisSubRound && this.state.Scores && <>
                     <FeedBackWrapper
                         TeamId={this.state.ApplicationState.CurrentTeam._id}
                         Scores={this.state.Scores}
+                        IsEditable={this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN}
+                        SubRoundId={thisSubRound._id}
+                        onSaveHandler={this.controller.saveFeedback.bind(this.controller)}
                         RoundName="Round 4A"
-                        Blurb="Your bid amount and your ability to influence Fiona determined which team was able to purchase BlueKite."
+                        Feedback={this.controller.filterFeedBack(this.state.Scores, this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN)}
                     >
-                        
                     </FeedBackWrapper> 
+                    </>
                 }  
                 {this.state.ApplicationState.ShowRateUsers && this.state.RatingQuestions && <div
                     className={'show ' + (this.state.ApplicationState.MobileWidth ? "mobile-messages decisions" : "wide-messages decisions")}

@@ -5,13 +5,27 @@ body{
     /*background: linear-gradient(#CCEAF2, #a9ebfd);*/
 }
 
-h1, h2, h3, h4, h5, p, .header, ul, ul li, strong{
+h1, h2, h3, h4, h5, p, .ui.header, ul, ul li, strong{
     font-family: 'Nexa', 'Helvetica Neue', Arial, Helvetica, sans-serif !important;
-    color: #0088B9 !important;
+    color: #0088B9;
 }
-h1, h2, h3, h4, h5, .header, ul, ul li{
+h1, h2, h3, h4, h5, .ui.header, ul, ul li{
     font-weight: 300;
 }
+
+.ui.inverted {
+    h1, h2, h3, h4, h5, p, .ui.header, ul, ul li, strong{
+        color: white;
+    }
+    
+}
+.ql-editor{
+    h1, h2, h3, h4, h5, p, .ui.header, ul, ul li, strong{
+        font-family: 'Nexa', 'Helvetica Neue', Arial, Helvetica, sans-serif !important;
+        color: #0088B9;
+    }
+}
+
 .bold{
     font-weight: bold;
 }

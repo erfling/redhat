@@ -14,13 +14,14 @@ import RoundChangeMapping from '../../shared/models/RoundChangeMapping';
 import TeamModel from '../../shared/models/TeamModel';
 import Game from '../../client/game/Game';
 import GameModel from '../../shared/models/GameModel';
-import QuestionModel, { QuestionType } from '../../shared/models/QuestionModel';
+import QuestionModel, { QuestionType, ComparisonLabel } from '../../shared/models/QuestionModel';
 import { groupBy } from 'lodash';
 import { Label } from 'semantic-ui-react';
 import UserModel, { JobName } from '../../shared/models/UserModel';
 import FeedBackModel from '../../shared/models/FeedBackModel';
 
 import { RatingType } from '../../shared/models/QuestionModel';
+import SubRoundFeedback, { ValueDemomination } from '../../shared/models/SubRoundFeedback';
 
 const schObj = SchemaBuilder.fetchSchema(ResponseModel);
 const monSchema = new mongoose.Schema(schObj);
@@ -128,7 +129,7 @@ class GamePlayRouter {
             } else {
                 delete response._id;
                 var SaveResponse = await monResponseModel.findOneAndUpdate({ GameId: response.GameId, TeamId: response.TeamId, QuestionId: response.QuestionId }, response, { new: true }).then(r => r.toObject() as ResponseModel);
-            }
+        }
             console.log(SaveResponse);
 
             res.json(SaveResponse);
@@ -502,9 +503,13 @@ class GamePlayRouter {
             const GameId = req.params.gameid;
 
             //get all teams' responses for the round, then group them by team
-            const responses: ResponseModel[] = await monResponseModel.find({ GameId }).then(bids => bids ? bids.map(b => Object.assign(new ResponseModel(), b.toJSON())) : []);
+            const responses: ResponseModel[] = await monResponseModel.find({ GameId }).then(responses => responses ? responses.map(b => Object.assign(new ResponseModel(), b.toJSON())) : []);
 
             const teams: TeamModel[] = await monTeamModel.find({GameId}).then(t => t ? t.map(team => team.toJSON()) : []);
+
+            const subround: SubRoundModel = await monSubRoundModel.findById(SubRoundId).populate("FeedBack").then(sr => sr ? Object.assign(new SubRoundModel(), sr.toJSON()) : null);
+
+            console.log("OUR SUBROUND IS:", subround);
 
             let groupedResponses = groupBy(responses, "TeamId");
 
@@ -529,6 +534,29 @@ class GamePlayRouter {
                 score.Label = "Team " + teams.filter(t => t._id.toString() == k)[0].Number.toString();
                 score.TargetModel = "TeamModel";
 
+                score.TeamsFeedBack = subround ? subround.FeedBack : null;
+
+                //special case for round three feedback
+                if(subround && subround.Name == "DEALRENEWAL" ||  subround.Name == "DEALSTRUCTURE" ){
+                    let round3Response = groupedResponses[k].filter(r => r.SubRoundId == SubRoundId)[0];
+                    
+                    let posOrNeg;
+                    for(let i = 0; i < (round3Response.Answer as SliderValueObj[]).length; i++){
+                        let ans = (round3Response.Answer as SliderValueObj[])[i];
+                        
+                        if (ans.label == ComparisonLabel.CSAT && Number(ans.data) >= 90){
+                            //team gets positive feedback, so we filter out negative
+                            posOrNeg = ValueDemomination.NEGATIVE;
+
+                        } else if (ans.label == ComparisonLabel.PRICE_PER_CUSTOMER && Number(ans.data) >= 750){
+                            //team gets negative feedback, so we filter out positive
+                            posOrNeg = ValueDemomination.POSITIVE;
+                        }
+                    }
+
+                    score.TeamsFeedBack = score.TeamsFeedBack.filter(fb => fb.ValueDemomination != posOrNeg);
+                }
+                
                 return score;
             });
 

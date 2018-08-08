@@ -106,18 +106,19 @@ export default class AcquisitionStructure extends BaseComponent<any, IRoundDataS
                     </div>
                 }               
                 
-                {this.state.ApplicationState.ShowFeedback && thisSubRound && this.state.Scores &&
+                {this.state.ApplicationState.ShowFeedback && thisSubRound && this.state.Scores && <>
                     <FeedBackWrapper
                         TeamId={this.state.ApplicationState.CurrentTeam._id}
                         Scores={this.state.Scores}
-                        RoundName="Round 4D"
-                        Blurb="Given Source Stream's ambition to grow in the Asia Pacific region, the Singapore footprint is attractive. The London location would be redundant to Source Stream's current headquarters.
-                        The BlueKite brand is well-known and represents a compelling and unique success story, not unlike Source Stream's. In addition, allowing BlueKite to retain its brand aligns with Source Stream's culture of autonomy and transparency. 
-                        While concessions around one location and the brand are short-term wins for BlueKite, HR and IT systems must be centralized to enable long-term stability."
+                        IsEditable={this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN}
+                        SubRoundId={thisSubRound._id}
+                        onSaveHandler={this.controller.saveFeedback.bind(this.controller)}
+                        RoundName="Round 4"
+                        Feedback={this.controller.filterFeedBack(this.state.Scores, this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN)}
                     >
-                        
                     </FeedBackWrapper> 
-                }  
+                    </>
+                } 
 
                 {this.state.ApplicationState.ShowIndividualFeedback && thisSubRound && this.state.UserScores &&
                     <FeedBackWrapper

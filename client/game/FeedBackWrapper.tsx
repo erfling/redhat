@@ -8,6 +8,9 @@ import ValueObj, { SliderValueObj } from "../../shared/entity-of-the-state/Value
 import ResponseModel from "../../shared/models/ResponseModel";
 import UserModel, { JobName } from "../../shared/models/UserModel";
 import DataStore from '../../shared/base-sapien/client/DataStore';
+import SubRoundFeedback, { ValueDemomination } from "../../shared/models/SubRoundFeedback";
+import EditableContentBlock from "../../shared/base-sapien/client/shared-components/EditableContentBlock";
+import MessageModel from "../../shared/models/MessageModel";
 
 interface FeedBackProps {
     RoundName: string;
@@ -15,6 +18,11 @@ interface FeedBackProps {
     Scores: FeedBackModel[];
     TeamId: string;
     User?: UserModel;
+    Feedback?: SubRoundFeedback[];
+    Message?:  MessageModel | SubRoundFeedback,
+    SubRoundId?: string;
+    onSaveHandler?(message: MessageModel, subroundId: string): void;
+    IsEditable?: boolean, 
 }
 
 export default class FeedBackWrapper extends React.Component<FeedBackProps, any>
@@ -25,7 +33,8 @@ export default class FeedBackWrapper extends React.Component<FeedBackProps, any>
             Blurb: null,
             Scores: null,
             TeamId: null,
-            User: null
+            User: null,
+            Feedback: null
         }
         super(props);
 
@@ -125,16 +134,30 @@ export default class FeedBackWrapper extends React.Component<FeedBackProps, any>
                 </Table.Body>
             </Table>
 
-            {this.props.Blurb && <Segment
-                raised
-                className="feed-back-blurb"
-            >
-                <Label color='blue' attached="top left">
-                    <Icon size='big' name="lightbulb outline" /> Final Thoughts
-                </Label>
-                <p style={{ marginTop: '2.5em' }}>{this.props.Blurb}</p>
-            </Segment>}
+            {this.props.Scores && <>
+                {this.props.Feedback.map((fb, i) => <Segment
+                        key={i}
+                        color={fb.ValueDemomination == ValueDemomination.NEGATIVE ? "red" : fb.ValueDemomination == ValueDemomination.POSITIVE ? "green" : "blue"}
+                        inverted={fb.ValueDemomination == ValueDemomination.NEGATIVE || fb.ValueDemomination == ValueDemomination.POSITIVE}
+                    >
+                        <EditableContentBlock
+                            Message={fb}
+                            SubRoundId={this.props.SubRoundId}
+                            onSaveHandler={this.props.onSaveHandler}
+                            IsEditable={this.props.IsEditable}
+                        />
+
+                    </Segment>
+                )}
+            </>
+            }
+            
         </Column>
     }
 
 }
+/** 
+ *  message:  MessageModel | SubRoundFeedback,
+    SubRoundId: string;
+    onSaveHandler(message: MessageModel, subroundId: string): void;
+    IsEditable: boolean, */

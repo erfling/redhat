@@ -87,12 +87,16 @@ export default abstract class AuthUtils {
      * @param permittedRoles Defaults to lowest permission level
      */
     public static IS_USER_AUTHORIZED ( req: any, res:any, next: NextFunction,  permittedRoles: RoleName[] = [RoleName.PLAYER] ): void {
-        console.log("REQUEST IN MIDDLEWARE:", permittedRoles);
+        console.log("REQUEST IN MIDDLEWARE:", permittedRoles, req.headers);
         if(!req.user)req.user = {Role: RoleName.PLAYER}
+
+        console.log("USER ATTEMPTING SAVE:", req.user);
+
         if(permittedRoles.indexOf( req.user.Role ) != -1) {
             next();
         } else {
-            res.send("Unauthorized")
+            res.status(401)
+               .send("failed")
         }
 
     }

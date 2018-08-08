@@ -110,16 +110,19 @@ export default class DealStructure extends BaseComponent<any, IRoundDataStore & 
                     </div>
                 }
 
-                {this.state.ApplicationState.ShowFeedback && thisSubRound && this.state.Scores &&
+                {this.state.ApplicationState.ShowFeedback && thisSubRound && this.state.Scores && <>
                     <FeedBackWrapper
                         TeamId={this.state.ApplicationState.CurrentTeam._id}
                         Scores={this.state.Scores}
-                        RoundName="Round 3A"
-                        Blurb="Your goal is both to make a lucrative deal for Source Stream, and also to keep RHK Bank happy. You must balance the short-term deal payoff with the longer-term satisfaction of the customer. Teams that received a customer satisfaction score of 90+ recieve a glowing testimonial from RHK Bank. Pricing and quantity ranges have changed based on your previous decisions."
+                        IsEditable={this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN}
+                        SubRoundId={thisSubRound._id}
+                        onSaveHandler={this.controller.saveFeedback.bind(this.controller)}
+                        RoundName="Round 1"
+                        Feedback={this.controller.filterFeedBack(this.state.Scores, this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN)}
                     >
-                        
                     </FeedBackWrapper> 
-                }
+                    </>
+                } 
 
                            
                 {thisSubRound && this.state.ApplicationState.SelectedMessage && !this.state.ApplicationState.ShowFeedback &&

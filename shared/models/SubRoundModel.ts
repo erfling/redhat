@@ -5,7 +5,7 @@ import "reflect-metadata";
 import ResponseModel from './ResponseModel';
 import MessageModel from './MessageModel'
 import { SliderValueObj } from '../entity-of-the-state/ValueObj';
-import GameModel from './GameModel';
+import SubRoundFeedback, { ValueDemomination } from './SubRoundFeedback';
 
 export interface ContentShape{
     data: any,
@@ -44,12 +44,6 @@ export default class SubRoundModel extends BaseModel
     @dbProp(Number)
     public RoundIdx: number = 0;
 
-    @dbProp(String)
-    public IndividualContributorContent: string = "";
-    
-    @dbProp(String)
-    public LeaderContent: string = "";
-
     @dbProp(MessageModel)
     public LeaderMessages: MessageModel[];
 
@@ -62,8 +56,25 @@ export default class SubRoundModel extends BaseModel
     @dbProp(MessageModel)
     public IntegratedSystemsMessages: MessageModel[];
 
+
+    @dbProp(SubRoundFeedback)
+    private _FeedBack: SubRoundFeedback[] = [];
+    get FeedBack(){
+        //all rounds have the potential to have three types of feedback
+        if(this._FeedBack.every(fb => fb.ValueDemomination != ValueDemomination.NEUTRAL)) this._FeedBack.push(Object.assign(new SubRoundFeedback(), {ValueDemomination: ValueDemomination.NEUTRAL}));
+        if(this._FeedBack.every(fb => fb.ValueDemomination != ValueDemomination.NEGATIVE)) this._FeedBack.push(Object.assign(new SubRoundFeedback(), {ValueDemomination: ValueDemomination.NEGATIVE}));
+        if(this._FeedBack.every(fb => fb.ValueDemomination != ValueDemomination.POSITIVE)) this._FeedBack.push(Object.assign(new SubRoundFeedback(), {ValueDemomination: ValueDemomination.POSITIVE}));
+
+        return this._FeedBack;
+    }
+    set FeedBack(feedBack: SubRoundFeedback[]){
+        this._FeedBack = feedBack;
+    }
+
+
     @Type(() => QuestionModel)
     public Questions: QuestionModel[] = [];
+    
 
     public Responses: ResponseModel[] = [];
     

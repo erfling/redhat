@@ -103,7 +103,6 @@ export default class Game extends BaseComponent<any, IControllerDataStore & { Ga
 
     private _toggleBodyScroll(){
         //why dont this work?
-        console.log("calling this")
         if (this.state.ApplicationState.MobileWidth){ 
             setTimeout(() => {
                 document.body.style.overflow = (this.state.ApplicationState.MobileWidth && (this.state.ApplicationState.ShowQuestions || this.state.ApplicationState.ShowMessageList)) ? "hidden" : "auto";

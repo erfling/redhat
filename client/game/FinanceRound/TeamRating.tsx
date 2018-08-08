@@ -106,16 +106,19 @@ export default class TeamRating extends BaseComponent<any, IRoundDataStore>
                     </div>
                 }                
                 
-                {this.state.ApplicationState.ShowFeedback && thisSubRound && this.state.Scores &&
+                {this.state.ApplicationState.ShowFeedback && thisSubRound && this.state.Scores && <>
                     <FeedBackWrapper
                         TeamId={this.state.ApplicationState.CurrentTeam._id}
                         Scores={this.state.Scores}
-                        RoundName="Round 4B"
-                        Blurb="Unfortunately the BlueKite board, made up of venture capital firms, has rejected the deal saying that it is not high enough. You will now take part in a live auction. Use the information you have gathered in the previous round, specifically what you have seen the market is willing to pay to purchase BlueKite. Beware of overpaying, as your board will reject any deal that is too high."
+                        IsEditable={this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN}
+                        SubRoundId={thisSubRound._id}
+                        onSaveHandler={this.controller.saveFeedback.bind(this.controller)}
+                        RoundName="Round 1"
+                        Feedback={this.controller.filterFeedBack(this.state.Scores, this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN)}
                     >
-                        
                     </FeedBackWrapper> 
-                }
+                    </>
+                } 
                 {this.state.ApplicationState.ShowIndividualFeedback && thisSubRound && this.state.UserScores &&
                     <FeedBackWrapper
                         User={this.state.ApplicationState.CurrentUser}

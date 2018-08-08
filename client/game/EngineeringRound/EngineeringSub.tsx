@@ -106,16 +106,19 @@ export default class EngineeringSub extends BaseComponent<any, IRoundDataStore>
                     </div>
                 }                
                 
-                {this.state.ApplicationState.ShowFeedback && thisSubRound && this.state.Scores &&
+                {this.state.ApplicationState.ShowFeedback && thisSubRound && this.state.Scores && <>
                     <FeedBackWrapper
                         TeamId={this.state.ApplicationState.CurrentTeam._id}
                         Scores={this.state.Scores}
+                        IsEditable={this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN}
+                        SubRoundId={thisSubRound._id}
+                        onSaveHandler={this.controller.saveFeedback.bind(this.controller)}
                         RoundName="Round 2"
-                        Blurb="Giving in to a single player threatens to undermine the openness of OpenVM. It's good in the short term, perhaps, but in the long term limits participation across the platform."
+                        Feedback={this.controller.filterFeedBack(this.state.Scores, this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN)}
                     >
-                        
                     </FeedBackWrapper> 
-                }  
+                    </>
+                }   
 
                 {this.state.ApplicationState.ShowIndividualFeedback && thisSubRound && this.state.UserScores &&
                     <FeedBackWrapper

@@ -13,11 +13,16 @@ import QuestionModel, { QuestionType, ComparisonLabel } from '../../shared/model
 import { monGameModel } from './GameCtrl';
 import TeamModel from '../../shared/models/TeamModel';
 import GameModel from '../../shared/models/GameModel';
+import SubRoundFeedback, { ValueDemomination } from '../../shared/models/SubRoundFeedback';
 
 const messageSchObj = SchemaBuilder.fetchSchema(MessageModel);
 const monMessageSchema = new mongoose.Schema(messageSchObj);
 export const monMessageModel = mongoose.model("message", monMessageSchema);
 
+
+const feedBackSchemaObj = SchemaBuilder.fetchSchema(SubRoundFeedback);
+const monFeedbackSchema = new mongoose.Schema(feedBackSchemaObj);
+export const monFeedbackModel = mongoose.model("feedback", monFeedbackSchema);
 
 const schObj = SchemaBuilder.fetchSchema(RoundModel);
 schObj.SubRounds = [{ type: mongoose.Schema.Types.ObjectId, ref: "subround" }];
@@ -38,6 +43,7 @@ subSchObj.LeaderMessages = [{ type: mongoose.Schema.Types.ObjectId, ref: "messag
 subSchObj.ICMessages = [{ type: mongoose.Schema.Types.ObjectId, ref: "message" }];
 subSchObj.ChipCoMessages = [{ type: mongoose.Schema.Types.ObjectId, ref: "message" }];
 subSchObj.IntegratedSystemsMessages = [{ type: mongoose.Schema.Types.ObjectId, ref: "message" }];
+subSchObj.FeedBack = [{ type: mongoose.Schema.Types.ObjectId, ref: "feedback" }];
 
 const monSubSchema = new mongoose.Schema(subSchObj);
 
@@ -307,6 +313,42 @@ class RoundRouter
 
     }
 
+    public async SaveFeedback(req: Request, res: Response, next: NextFunction){
+        const feedBack = req.body as SubRoundFeedback;
+
+        try{
+            
+            let savedFeedback;
+            if (!feedBack._id){
+                savedFeedback = await monFeedbackModel.create(feedBack).then(r => r ? Object.assign(new SubRoundFeedback(), r.toJSON()) : null)
+                //update our subround
+                const sr: SubRoundModel = await monSubRoundModel.findById(savedFeedback.RoundId).populate("Feedback").then(r =>  r.toJSON());
+
+                sr.FeedBack.push(savedFeedback);
+                sr.FeedBack = sr.FeedBack.sort(fb => {
+                    if(fb.ValueDemomination == ValueDemomination.NEUTRAL) return -1;
+                
+                    return fb.ValueDemomination == ValueDemomination.POSITIVE ? 1 : 0;
+                }).map(fb => fb._id);
+
+                const updatedSr = await monSubRoundModel.findByIdAndUpdate(savedFeedback.RoundId, sr);
+
+
+            } else {
+                savedFeedback = await monFeedbackModel.findByIdAndUpdate(feedBack._id, feedBack).then(r => r ? Object.assign(new SubRoundFeedback(), r.toJSON()) : null)
+            }
+
+            if(!savedFeedback) throw new Error("Couldn't save feedback");            
+
+            res.json(savedFeedback);
+
+        }
+        catch(err){
+            console.log(err);
+            res.status(500).send("couldn't save the feedback")
+        }
+    }
+
     private _getMessageProp(job: JobName): keyof UserModel {
         switch(job){
             case JobName.MANAGER:
@@ -329,6 +371,10 @@ class RoundRouter
         this.router.post("/",    
             (req, res, next) => AuthUtils.IS_USER_AUTHORIZED(req, res, next, PERMISSION_LEVELS.PLAYER), 
             this.SaveRound.bind(this)
+        );
+        this.router.post("/savefeedback",    
+            (req, res, next) => AuthUtils.IS_USER_AUTHORIZED(req, res, next, PERMISSION_LEVELS.ADMIN), 
+            this.SaveFeedback.bind(this)
         );
         this.router.get("/round3responses/:gameid/:roundid",    
             //(req, res, next) => AuthUtils.IS_USER_AUTHORIZED(req, res, next, PERMISSION_LEVELS.PLAYER), 
