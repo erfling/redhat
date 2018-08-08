@@ -178,15 +178,14 @@ class RoundRouter
                             return q.ComparisonLabel && q.ComparisonLabel == ComparisonLabel.QUANTITY ? quantityQuestion : q;
                         });
 
-
                         res.json(round);
 
                     } else {
-                        res.send("COULDN'T FIND MATCHING RESPONSE")
+                        throw new Error("COULDN'T FIND MATCHING RESPONSE")
                     }
 
                 } else {
-                    res.send("COULDN'T FIND MATCHING RESPONSE")
+                    throw new Error("COULDN'T FIND MATCHING RESPONSE")
                 }
 
             }
