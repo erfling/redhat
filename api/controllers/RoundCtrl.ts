@@ -1,3 +1,4 @@
+import { Label } from 'semantic-ui-react';
 import { Router, Request, Response, NextFunction } from 'express';
 import * as mongoose from 'mongoose';
 import RoundModel from '../../shared/models/RoundModel';
@@ -108,10 +109,10 @@ class RoundRouter
 
     public async GetRound(req: Request, res: Response):Promise<any> {
         
-        const ID = req.params.round;
-        console.log("TRYING TO GET ROUND WITH NAME: ", ID);
+        const Name = req.params.round;
+        console.log("TRYING TO GET ROUND WITH NAME: ", Name);
         try {
-            let round = await monRoundModel.findOne({Name: ID});
+            let round = await monRoundModel.findOne({ Name });
             if (!round) {
               res.status(400).json({ error: 'No round' });
             } else {
@@ -209,8 +210,9 @@ class RoundRouter
             }
             res.json(savedRound);
         }
-        catch{
-
+        catch (err){
+            console.log(err);
+            res.status(500).json("Didn't save round")
         }
     }
 
