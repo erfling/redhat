@@ -17,7 +17,7 @@ h1, h2, h3, h4, h5, .ui.header, ul, ul li{
     h1, h2, h3, h4, h5, p, .ui.header, ul, ul li, strong{
         color: white;
     }
-    
+
 }
 .ql-editor{
     h1, h2, h3, h4, h5, p, .ui.header, ul, ul li, strong{
@@ -507,4 +507,21 @@ SEMANTIC MOBILE FIX
     background: white;
     width: 100%;
     padding: 40px 30px !important;
+}
+
+.nav-instruction.ui.popup{
+    background: #0088b9;
+    color: white;
+    border-color: #0088b9;
+    &:before{
+        background: #0088b9 !important;
+        border-color: #0088b9 !important;
+        box-shadow: 1px -1px 0 0 transparent !important;
+    }
+    &.side{
+
+    }
+    &.top{
+
+    }
 }

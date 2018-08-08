@@ -19,7 +19,9 @@ import FinanceRoundCtrl from './FinanceRound/FinanceRoundCtrl';
 import CustomerRoundCtrl from './CustomerRound/CustomerRoundCtrl';
 import ApplicationCtrl from '../ApplicationCtrl';
 
-export default class GameCtrl extends BaseClientCtrl<IControllerDataStore & {Game: GameModel, _mobileWidth: boolean}>
+
+
+export default class GameCtrl extends BaseClientCtrl<IControllerDataStore & {Game: GameModel, _mobileWidth: boolean, ShowGameInfoPopup: boolean, ShowDecisionPopup: boolean, ShowInboxPopup: boolean}>
 {
     //----------------------------------------------------------------------
     //
@@ -234,11 +236,38 @@ export default class GameCtrl extends BaseClientCtrl<IControllerDataStore & {Gam
             ApplicationState: DataStore.ApplicationState,
             ComponentFistma: this.ComponentFistma,
             Game: new GameModel(),
-            _mobileWidth: window.innerWidth < 767
+            _mobileWidth: window.innerWidth < 767,
+            ShowDecisionPopup: false,
+            ShowGameInfoPopup: false,
+            ShowInboxPopup: false
         };
 
         console.log("DATASTORE APPLICATION:", DataStore.ApplicationState);
         this.pollForGameStateChange(this.dataStore.ApplicationState.CurrentTeam.GameId);
+
+        setTimeout(() => {
+            this.dataStore.ShowGameInfoPopup = true;
+        }, 1000)
+
+        setTimeout(() => {
+            this.dataStore.ShowInboxPopup = true;
+        }, 1300)
+
+        setTimeout(() => {
+            this.dataStore.ShowDecisionPopup = true;
+        }, 1600)
+
+        setTimeout(() => {
+            this.dataStore.ShowGameInfoPopup = false;
+        }, 6000)
+
+        setTimeout(() => {
+            this.dataStore.ShowInboxPopup = false;
+        }, 6300)
+
+        setTimeout(() => {
+            this.dataStore.ShowDecisionPopup = false;
+        }, 6600)
     }
 
     public getParentRound(): string{
