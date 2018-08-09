@@ -193,8 +193,8 @@ class GamePlayRouter {
             next();
         } catch (err) {
             console.log(err);
-            res.status(500);
-            res.json("no sir");
+            res.status(500)
+               .json("no sir");
         }
     }
 
