@@ -1,1 +1,1 @@
-{"options":{},"indexes":[{"v":2,"key":{"_id":1},"name":"_id_","ns":"red-hat.users"},{"v":2,"unique":true,"key":{"Email":1},"name":"Email_1","ns":"red-hat.users","background":true}],"uuid":"261e1cbc0700496884217b193c2b097c"}
+{"options":{},"indexes":[{"v":2,"key":{"_id":1},"name":"_id_","ns":"red-hat.users"},{"v":2,"unique":true,"key":{"Email":1},"name":"Email_1","ns":"red-hat.users","background":true}]}
