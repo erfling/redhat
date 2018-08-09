@@ -3,7 +3,7 @@ import WelcomeCtrl from "./WelcomeCtrl";
 import * as Semantic from 'semantic-ui-react';
 const { Button, Grid, Form, Dimmer, Loader, Message } = Semantic;
 const { Row, Column } = Grid;
-import IntroLogo from '-!svg-react-loader?name=Icon!../../img/intro-logo.svg';
+import IntroLogo from '-!svg-react-loader?name=Icon!../../img/intro-logo-blue-circles.svg';
 import { IRoundDataStore } from "../../../shared/base-sapien/client/BaseRoundCtrl";
 import BaseComponent from "../../../shared/base-sapien/client/shared-components/BaseComponent";
 

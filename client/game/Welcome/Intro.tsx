@@ -9,7 +9,7 @@ const { Row, Column } = Grid;
 import { IRoundDataStore } from '../../../shared/base-sapien/client/BaseRoundCtrl';
 import BaseComponent from "../../../shared/base-sapien/client/shared-components/BaseComponent";
 
-import IntroLogo from '-!svg-react-loader?name=Icon!../../img/intro-logo.svg';
+import IntroLogo from '-!svg-react-loader?name=Icon!../../img/intro-logo-blue-circles.svg';
 
 export default class Intro extends BaseComponent<any, IRoundDataStore>
 {

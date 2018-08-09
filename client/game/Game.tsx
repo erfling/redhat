@@ -6,14 +6,14 @@ import UserModel, { JobName } from "../../shared/models/UserModel";
 import { Grid, Menu, Button, Segment, Header, Popup } from 'semantic-ui-react';
 const { Row, Column } = Grid;
 import { Route, Switch, Redirect } from 'react-router';
-import Circles from '-!svg-react-loader?name=Icon!../img/circles.svg';
+import Circles from '-!svg-react-loader?name=Icon!../img/circles-blue.svg';
 import { IControllerDataStore } from '../../shared/base-sapien/client/BaseClientCtrl';
 import BaseComponent from "../../shared/base-sapien/client/shared-components/BaseComponent";
 import Info from '-!svg-react-loader?name=Icon!../img/info.svg';
 import Decisions from '-!svg-react-loader?name=Icon!../img/decisions.svg';
 import Inbox from '-!svg-react-loader?name=Icon!../img/inbox.svg';
 import MessageList from './MessageList'
-import IntroLogo from '-!svg-react-loader?name=Icon!../img/intro-logo.svg';
+import IntroLogo from '-!svg-react-loader?name=Icon!../img/intro-logo-blue-circles.svg';
 import PeopleRound from "./PeopleRound/PeopleRound";
 import Welcome from "./Welcome/Welcome";
 import SalesRound from "./SalesRound/SalesRound";

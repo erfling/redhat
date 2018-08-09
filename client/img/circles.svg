@@ -1,1 +1,24 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 289 289"><title>circles</title><path d="M192.29,144.5A47.79,47.79,0,1,1,144.5,96.71h0a47.78,47.78,0,0,1,47.79,47.77h0Z" style="fill:none;stroke:#fff;stroke-miterlimit:10"/><path d="M208.38,144.5A63.88,63.88,0,1,1,144.5,80.62h0A63.88,63.88,0,0,1,208.38,144.5Z" style="fill:none;stroke:#fff;stroke-miterlimit:10;opacity:0.800000011920929;isolation:isolate"/><circle cx="144.49" cy="144.49" r="79.66" style="fill:none;stroke:#fff;stroke-miterlimit:10;opacity:0.6000000238418579;isolation:isolate"/><circle cx="144.49" cy="144.49" r="95.74" style="fill:none;stroke:#fff;stroke-miterlimit:10;opacity:0.4000000059604645;isolation:isolate"/><circle cx="144.5" cy="144.5" r="111.83" style="fill:none;stroke:#fff;stroke-miterlimit:10;opacity:0.20000000298023224;isolation:isolate"/><circle cx="144.5" cy="144.5" r="127.6" style="fill:none;stroke:#fff;stroke-miterlimit:10;opacity:0.10000000149011612;isolation:isolate"/><circle cx="144.5" cy="144.5" r="144" style="fill:none;stroke:#fff;stroke-miterlimit:10;opacity:0.05000000074505806;isolation:isolate"/></svg>
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 22.1.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 289 289" style="enable-background:new 0 0 289 289;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:none;stroke:#FFFFFF;stroke-miterlimit:10;}
+	.st1{opacity:0.8;fill:none;stroke:#FFFFFF;stroke-miterlimit:10;enable-background:new    ;}
+	.st2{opacity:0.6;fill:none;stroke:#FFFFFF;stroke-miterlimit:10;enable-background:new    ;}
+	.st3{opacity:0.4;fill:none;stroke:#FFFFFF;stroke-miterlimit:10;enable-background:new    ;}
+	.st4{opacity:0.2;fill:none;stroke:#FFFFFF;stroke-miterlimit:10;enable-background:new    ;}
+	.st5{opacity:0.1;fill:none;stroke:#FFFFFF;stroke-miterlimit:10;enable-background:new    ;}
+	.st6{opacity:5.000000e-02;fill:none;stroke:#FFFFFF;stroke-miterlimit:10;enable-background:new    ;}
+</style>
+<title>circles</title>
+<path class="st0" d="M192.3,144.5c0,26.4-21.4,47.8-47.8,47.8s-47.8-21.4-47.8-47.8s21.4-47.8,47.8-47.8c0,0,0,0,0,0l0,0
+	C170.9,96.7,192.3,118.1,192.3,144.5C192.3,144.5,192.3,144.5,192.3,144.5L192.3,144.5L192.3,144.5z"/>
+<path class="st1" d="M208.4,144.5c0,35.3-28.6,63.9-63.9,63.9s-63.9-28.6-63.9-63.9s28.6-63.9,63.9-63.9l0,0l0,0
+	C179.8,80.6,208.4,109.2,208.4,144.5z"/>
+<circle class="st2" cx="144.5" cy="144.5" r="79.7"/>
+<circle class="st3" cx="144.5" cy="144.5" r="95.7"/>
+<circle class="st4" cx="144.5" cy="144.5" r="111.8"/>
+<circle class="st5" cx="144.5" cy="144.5" r="127.6"/>
+<circle class="st6" cx="144.5" cy="144.5" r="144"/>
+</svg>
