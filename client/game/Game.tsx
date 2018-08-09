@@ -284,7 +284,8 @@ export default class Game extends BaseComponent<any, IControllerDataStore & { Ga
                         position: 'fixed',
                         bottom: '60px',
                         right: '-210px',
-                        width: '380px'
+                        width: '380px',
+                        opacity: .4
                     }}
                 />
                 <Circles
@@ -292,7 +293,8 @@ export default class Game extends BaseComponent<any, IControllerDataStore & { Ga
                         position: 'fixed',
                         bottom: '-250px',
                         left: '-280px',
-                        width: '570px'
+                        width: '570px',
+                        opacity: .4
                     }}
                 />
                 <Column mobile={16} tablet={16} computer={10} largeScreen={8}>
