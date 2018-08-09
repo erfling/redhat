@@ -300,6 +300,9 @@ export default class Game extends BaseComponent<any, IControllerDataStore & { Ga
                         {location.pathname.toUpperCase().indexOf("WELCOME") == -1 &&
                             <Column
                                 width={16}
+                                style={{
+                                    paddingTop: this.state.ApplicationState.MobileWidth ? "15px" : "0"
+                                }}
                             >
                                 <IntroLogo
                                     className="top-logo"
