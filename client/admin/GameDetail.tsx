@@ -110,7 +110,9 @@ class GameDetail extends BaseComponent<any, IControllerDataStore & {Admin: Admin
                     <Header as="h3">
                         <Icon name="user" />Facilitator: {this.state.Admin.SelectedGame.Facilitator.FirstName + " " + this.state.Admin.SelectedGame.Facilitator.LastName}
                     </Header>
-                    
+                    <Header as="h3">
+                        <Icon name="key" />PIN: {this.state.Admin.SelectedGame.GamePIN}
+                    </Header>
                 </>
                 }
             </Segment>
