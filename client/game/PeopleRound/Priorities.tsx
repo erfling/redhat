@@ -8,6 +8,7 @@ import { IRoundDataStore } from '../../../shared/base-sapien/client/BaseRoundCtr
 import BaseComponent from "../../../shared/base-sapien/client/shared-components/BaseComponent";
 import Decisions from '-!svg-react-loader?name=Icon!../../img/decisions.svg';
 import FeedBackWrapper from "../FeedBackWrapper";
+import GameCtrl from "../GameCtrl";
 
 const { Button, Grid, Menu, Segment, Form, Dimmer, Loader, Header, Table } = Semantic;
 const { Row, Column } = Grid;
@@ -52,6 +53,18 @@ export default class Priorities extends BaseComponent<any, IRoundDataStore>
     //  Methods
     //
     //----------------------------------------------------------------------
+
+    componentDidMount(){
+        super.componentDidMount();
+        
+        setTimeout(() => {
+            GameCtrl.GetInstance().dataStore.ShowDecisionPopup = true;
+        }, 1600)
+
+        setTimeout(() => {
+            GameCtrl.GetInstance().dataStore.ShowDecisionPopup = false;
+        }, 6600)
+    }
 
     render() {
         const thisSubRound = this.state.Round.SubRounds.filter(s => s.Name.toUpperCase() == Priorities.CLASS_NAME.toUpperCase())[0];

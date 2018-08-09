@@ -12,6 +12,7 @@ import TeamModel from "../../../shared/models/TeamModel";
 import { ComparisonLabel } from "../../../shared/models/QuestionModel";
 import MathUtil from '../../../shared/entity-of-the-state/MathUtil'
 import { SliderValueObj } from "../../../shared/entity-of-the-state/ValueObj";
+import GameCtrl from "../GameCtrl";
 
 const { Button, Grid, Form, Dimmer, Loader, Header, Table } = Semantic;
 const { Row, Column } = Grid;
@@ -49,7 +50,17 @@ export default class DealStructure extends BaseComponent<any, IRoundDataStore & 
     //
     //----------------------------------------------------------------------
 
+    componentDidMount(){
+        super.componentDidMount();
+        
+        setTimeout(() => {
+            GameCtrl.GetInstance().dataStore.ShowDecisionPopup = true;
+        }, 1600)
 
+        setTimeout(() => {
+            GameCtrl.GetInstance().dataStore.ShowDecisionPopup = false;
+        }, 6600)
+    }
 
     //----------------------------------------------------------------------
     //

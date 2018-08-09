@@ -9,6 +9,7 @@ import BaseComponent from "../../../shared/base-sapien/client/shared-components/
 import Decisions from '-!svg-react-loader?name=Icon!../../img/decisions.svg';
 import FeedBackWrapper from "../FeedBackWrapper";
 import { RatingType } from "../../../shared/models/QuestionModel";
+import GameCtrl from "../GameCtrl";
 
 const { Button, Grid, Form, Dimmer, Loader, Header, Table } = Semantic;
 const { Row, Column } = Grid;
@@ -46,6 +47,17 @@ export default class CustomerSub extends BaseComponent<any, IRoundDataStore>
     //----------------------------------------------------------------------
 
 
+    componentDidMount(){
+        super.componentDidMount();
+        
+        setTimeout(() => {
+            GameCtrl.GetInstance().dataStore.ShowDecisionPopup = true;
+        }, 1600)
+
+        setTimeout(() => {
+            GameCtrl.GetInstance().dataStore.ShowDecisionPopup = false;
+        }, 6600)
+    }
 
     //----------------------------------------------------------------------
     //

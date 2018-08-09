@@ -59,6 +59,26 @@ export default class PeopleRound extends BaseComponent<any, IRoundDataStore>
             GameCtrl.GetInstance().dataStoreDeepProxy.addOnChange(this.controller.dataStoreChange.bind(this.controller))
             console.log("BASE CONTROLLER IN BASE COMPONENT IS:", (GameCtrl.GetInstance().ChildController));
         }
+        
+        setTimeout(() => {
+            GameCtrl.GetInstance().dataStore.ShowGameInfoPopup = true;
+        }, 1000)
+
+        setTimeout(() => {
+            GameCtrl.GetInstance().dataStore.ShowInboxPopup = true;
+        }, 1300)
+
+        
+
+        setTimeout(() => {
+            GameCtrl.GetInstance().dataStore.ShowGameInfoPopup = false;
+        }, 6000)
+
+        setTimeout(() => {
+            GameCtrl.GetInstance().dataStore.ShowInboxPopup = false;
+        }, 6300)
+
+        
     }
 
     render() {

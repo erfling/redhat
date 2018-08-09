@@ -244,30 +244,6 @@ export default class GameCtrl extends BaseClientCtrl<IControllerDataStore & {Gam
 
         console.log("DATASTORE APPLICATION:", DataStore.ApplicationState);
         this.pollForGameStateChange(this.dataStore.ApplicationState.CurrentTeam.GameId);
-
-        setTimeout(() => {
-            this.dataStore.ShowGameInfoPopup = true;
-        }, 1000)
-
-        setTimeout(() => {
-            this.dataStore.ShowInboxPopup = true;
-        }, 1300)
-
-        setTimeout(() => {
-            this.dataStore.ShowDecisionPopup = true;
-        }, 1600)
-
-        setTimeout(() => {
-            this.dataStore.ShowGameInfoPopup = false;
-        }, 6000)
-
-        setTimeout(() => {
-            this.dataStore.ShowInboxPopup = false;
-        }, 6300)
-
-        setTimeout(() => {
-            this.dataStore.ShowDecisionPopup = false;
-        }, 6600)
     }
 
     public getParentRound(): string{
