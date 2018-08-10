@@ -1,1 +1,1 @@
-{"options":{},"indexes":[{"v":2,"key":{"_id":1},"name":"_id_","ns":"red-hat.games"},{"v":2,"unique":true,"key":{"GamePIN":1},"name":"GamePIN_1","ns":"red-hat.games","background":true}]}
+{"options":{},"indexes":[{"v":2,"key":{"_id":1},"name":"_id_","ns":"red-hat.games"},{"v":2,"unique":true,"key":{"GamePIN":1},"name":"GamePIN_1","ns":"red-hat.games","background":true}],"uuid":"961fe130c8344200889458cf06936fca"}
