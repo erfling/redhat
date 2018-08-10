@@ -63,20 +63,23 @@ export default class SalesRoundCtrl extends BaseRoundCtrl<IRoundDataStore & {Fee
     //
     //----------------------------------------------------------------------
 
+    //overrides BaseRoundCtrl's getContentBySubRound because of special Sales Round question parsing
     public getContentBySubRound(): void {
         var subroundName = window.location.pathname.split("/").filter(str => str.length).pop().toUpperCase();
         if(subroundName == "DEALRENEWAL"){
-            SapienServerCom.GetData(new SubRoundModel(), null, SapienServerCom.BASE_REST_URL + "rounds/subround/" + subroundName + "/" + this.dataStore.ApplicationState.CurrentUser.Job + "/" + this.dataStore.ApplicationState.CurrentTeam._id).then((r: SubRoundModel) => {
+
+            let url: string = SapienServerCom.BASE_REST_URL + "rounds/subround/" + subroundName + "/" + this.dataStore.ApplicationState.CurrentTeam.GameId + "/" + this.dataStore.ApplicationState.CurrentUser._id + "/" + this.dataStore.ApplicationState.CurrentUser.Job
+            
+            SapienServerCom.GetData(new SubRoundModel(), null, url).then((r: SubRoundModel) => {
                 const sr = Object.assign(new SubRoundModel(), r);
                 this.dataStore.Round.SubRounds = this.dataStore.Round.SubRounds.filter(sr => sr._id != r._id).concat(sr);
-                const messageProp = this._getMessageProp(this.dataStore.ApplicationState.CurrentUser.Job)
-                
+                const messageProp = this._getMessageProp(this.dataStore.ApplicationState.CurrentUser.Job);               
 
                 DataStore.ApplicationState.CurrentMessages 
                     = this.dataStore.ApplicationState.CurrentMessages 
                     = ApplicationCtrl.GetInstance().dataStore.ApplicationState.CurrentMessages
                     = GameCtrl.GetInstance().ChildController.dataStore.ApplicationState.CurrentMessages 
-                    = this.getMessagesByJob(this.dataStore.ApplicationState.CurrentUser.Job, sr._id);
+                    = sr.DisplayMessages;
 
                 if (messageProp) this.dataStore.ApplicationState.SelectedMessage 
                     = DataStore.ApplicationState.SelectedMessage 
