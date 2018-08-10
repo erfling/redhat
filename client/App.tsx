@@ -130,17 +130,27 @@ export default class App extends BaseComponent<any, IControllerDataStore>
                                         <Menu.Item
                                             name='Manage Users'
                                         >
-                                            <Link to="/admin/userlist">Manage Users</Link>
+                                            <Link 
+                                                to="/admin/userlist"
+                                                onClick={() => this.controller.dataStore.ApplicationState.ShowMenu = false}
+                                            >
+                                                Manage Users
+                                            </Link>
                                         </Menu.Item>
                                         <Menu.Item
                                             name='Manage Games'
                                         >
-                                            <Link to="/admin/gamelist">Manage Games</Link>
+                                            <Link 
+                                                to="/admin/gamelist"
+                                                onClick={() => this.controller.dataStore.ApplicationState.ShowMenu = false}
+                                            >Manage Games</Link>
                                         </Menu.Item>
                                         <Menu.Item
                                             name='Edit Game Content'
                                         >
-                                            <Link to="/game/welcome">Game Content</Link>
+                                            <Link to="/game/welcome"
+                                                onClick={() => this.controller.dataStore.ApplicationState.ShowMenu = false}
+                                            >Game Content</Link>
                                         </Menu.Item>
                                     </Menu.Menu>
                                 </Menu.Item>
