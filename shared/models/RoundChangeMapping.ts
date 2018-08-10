@@ -8,6 +8,9 @@ export default class RoundChangeMapping extends BaseModel {
     GameId: string = "";
 
     @dbProp(String)
+    RoundId: string = "";
+
+    @dbProp(String)
     ParentRound: string = "";
 
     @dbProp(String)

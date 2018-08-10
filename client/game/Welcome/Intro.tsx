@@ -71,12 +71,12 @@ export default class Intro extends BaseComponent<any, IRoundDataStore>
                         />
                     </Row>
 
-                    {thisSubRound && thisSubRound && thisSubRound.ICMessages &&
+                    {thisSubRound && thisSubRound && thisSubRound.DisplayMessages &&
                         <EditableContentBlock
                             IsEditable={this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN}
                             SubRoundId={thisSubRound._id}
                             onSaveHandler={this.controller.updateContent.bind(this.controller)}
-                            Message={thisSubRound.ICMessages[0]}
+                            Message={thisSubRound.DisplayMessages[0]}
                         />
                     }
                     

@@ -45,17 +45,18 @@ export default class SubRoundModel extends BaseModel
     public RoundIdx: number = 0;
 
     @dbProp(MessageModel)
-    public LeaderMessages: MessageModel[];
+    public LeaderMessages: MessageModel[] = [];
 
     @dbProp(MessageModel)
-    public ICMessages: MessageModel[];
+    public ICMessages: MessageModel[] = [];
 
     @dbProp(MessageModel)
-    public ChipCoMessages: MessageModel[];
+    public ChipCoMessages: MessageModel[] = [];
 
     @dbProp(MessageModel)
-    public IntegratedSystemsMessages: MessageModel[];
-
+    public IntegratedSystemsMessages: MessageModel[] = [];
+    
+    public DisplayMessages: MessageModel[] = [];
 
     @dbProp(SubRoundFeedback)
     private _FeedBack: SubRoundFeedback[] = [];
@@ -91,6 +92,12 @@ export default class SubRoundModel extends BaseModel
     public set Score(score: number){
         this._Score = score;
     }
+
+    @dbProp(String)
+    public PrevSubRound: string | SubRoundModel;
+
+    @dbProp(String)
+    public NextSubRound: string | SubRoundModel;
 
     //----------------------------------------------------------------------
     //

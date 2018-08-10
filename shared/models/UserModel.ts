@@ -66,8 +66,8 @@ export default class UserModel extends BaseModel
     @dbProp(MessageModel)
     public ReceivedMessages: MessageModel[];
     
-    @dbProp(MessageModel)
-    public ReadMessages: MessageModel[];
+    @dbProp([String])
+    public ReadMessages: string[] = [];
 
 
 }

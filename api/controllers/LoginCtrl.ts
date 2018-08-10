@@ -8,6 +8,7 @@ import GameModel from '../../shared/models/GameModel';
 import { monUserModel } from './UserCtrl';
 import TeamModel from '../../shared/models/TeamModel';
 import RoundChangeMapping from '../../shared/models/RoundChangeMapping';
+import { monRoundModel } from './RoundCtrl';
 
 //this class is exported for use in other routers
 export class LoginCtrlClass
@@ -65,6 +66,8 @@ export class LoginCtrlClass
             console.log(game.Teams);
 
             var mapping: RoundChangeMapping = await monMappingModel.findOne({ GameId: game._id.toString(), ParentRound: "peopleround", ChildRound: "priorities"}).then(r => r ? Object.assign(new RoundChangeMapping(), r.toJSON()) : new RoundChangeMapping());
+            const round = await monRoundModel.findOne({Name: mapping.ParentRound.toUpperCase()}).then(r => r.toJSON())
+            let RoundId = round._id;
             console.log("THIS MAPPING WAS FOUND",mapping)
             
             if(!mapping.UserJobs) {
@@ -80,9 +83,9 @@ export class LoginCtrlClass
 
                 let newMapping: RoundChangeMapping;
                 if(!mapping._id){
-                    newMapping = await monMappingModel.create(Object.assign(mapping, {ParentRound: "peopleround", ChildRound: "priorities"})).then(r => r ? Object.assign(new RoundChangeMapping(), r.toJSON()) : null)
+                    newMapping = await monMappingModel.create(Object.assign(mapping, {ParentRound: "peopleround", ChildRound: "priorities", RoundId})).then(r => r ? Object.assign(new RoundChangeMapping(), r.toJSON()) : null)
                 } else {
-                    newMapping = await monMappingModel.findOneAndUpdate({ParentRound: "peopleround", ChildRound: "priorities"}, mapping, {new: true}).then(r => r ? Object.assign(new RoundChangeMapping(), r.toJSON()) : null)
+                    newMapping = await monMappingModel.findOneAndUpdate({ParentRound: "peopleround", ChildRound: "priorities", RoundId}, mapping, {new: true}).then(r => r ? Object.assign(new RoundChangeMapping(), r.toJSON()) : null)
                 }
                 
                 console.log("new MAPPING IS", newMapping)

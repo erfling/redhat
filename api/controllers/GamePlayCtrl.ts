@@ -629,15 +629,38 @@ class GamePlayRouter {
         catch (err) {
             console.log(err);
             res.status(500);
-            res.send("couldn't get resposnes")
+            res.send("couldn't get responses")
         }
     }
 
+    public async ReadMessage(req: Request, res: Response){
+        
+        try{
+            const userId = req.params.userid;
+            const messageId = req.params.messageid;
+            
+            let user: UserModel = await monUserModel.findById(userId).then(u => u ? Object.assign(new UserModel(), u.toJSON()): null);
+            
+            if (!user) throw new Error("couldn't get user");
+            if (user.ReadMessages.indexOf(messageId) == -1) {
+                user.ReadMessages.push(messageId);
+                user = await monUserModel.findByIdAndUpdate(userId, {ReadMessages: user.ReadMessages}, {new: true}).then(u => u ? Object.assign(new UserModel(), u.toJSON()): null);
+            }
+
+            res.json(user);
+        }
+        catch(err){
+            console.log(err);
+            res.status(500)
+                .send("couldn't mark message read")
+        }
+    }
 
     public routes() {
         //this.router.all("*", cors());
         this.router.get("/", this.GetRounds.bind(this));
         this.router.get("/get4bresponses/:gameid", this.getTeamsFor4BRating.bind(this));
+        this.router.get("/readmessage/:messageid/:userid", this.ReadMessage.bind(this));
         this.router.post("/rateplayers", this.GetPlayerRatingsQuestions.bind(this));
         this.router.post("/response", this.SaveResponse.bind(this));
         this.router.post("/1bresponse", this.Save1BResponse.bind(this), this.SaveResponse.bind(this));

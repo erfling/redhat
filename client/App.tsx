@@ -410,10 +410,8 @@ export default class App extends BaseComponent<any, IControllerDataStore>
 
                     }
                     <div
-                        className={"source-stream" + (this.state && this.state.ApplicationState.CurrentUser && this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN ? " admin-body" : "")}
-                        style={{
-                            paddingTop: (this.state && this.state.ApplicationState.CurrentUser && this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN) ? this.state.ApplicationState.MobileWidth ? "104px" : "70px" : "0px"
-                        }}
+                        className={"source-stream " + (this.state && this.state.ApplicationState.CurrentUser && this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN ? " admin-body " : " ") + (this.state.ApplicationState.MobileWidth ? "mobile" : "")}
+                        
                     >
                         <Switch>
                             <Redirect exact from="/" to="/game" />

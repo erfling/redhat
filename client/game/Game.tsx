@@ -3,7 +3,7 @@ import * as React from "react";
 import GameCtrl from "./GameCtrl";
 import GameModel from "../../shared/models/GameModel";
 import UserModel, { JobName } from "../../shared/models/UserModel";
-import { Grid, Menu, Button, Segment, Header, Popup } from 'semantic-ui-react';
+import { Grid, Menu, Button, Segment, Header, Popup, Label } from 'semantic-ui-react';
 const { Row, Column } = Grid;
 import { Route, Switch, Redirect } from 'react-router';
 import Circles from '-!svg-react-loader?name=Icon!../img/circles-blue.svg';
@@ -23,7 +23,7 @@ import CustomerRound from "./CustomerRound/CustomerRound";
 import ApplicationCtrl from "../ApplicationCtrl";
 import DataStore from "../../shared/base-sapien/client/DataStore";
 
-export default class Game extends BaseComponent<any, IControllerDataStore & { Game: GameModel, _mobileWidth: boolean, ShowGameInfoPopup: boolean, ShowDecisionPopup: boolean, ShowInboxPopup: boolean }>
+export default class Game extends BaseComponent<any, IControllerDataStore & { Game: GameModel, _mobileWidth: boolean, ShowGameInfoPopup: boolean, ShowDecisionPopup: boolean, ShowInboxPopup: boolean; GrowMessageIndicator: boolean }>
 {
     //----------------------------------------------------------------------
     //
@@ -157,6 +157,20 @@ export default class Game extends BaseComponent<any, IControllerDataStore & { Ga
                         }
                         }
                     />
+                    {this.state.ApplicationState.UnreadMessages > 0 &&
+                        <Label circular 
+                            size="large"
+                            className={"message-indicator" + (this.state.GrowMessageIndicator ? " grow" : "")}
+                            style={{
+                                marginLeft: '0px',
+                                background: '#f5fafc',
+                                color:'#db2828',
+                            }}
+                            
+
+                            content={this.state.ApplicationState.UnreadMessages}
+                        />
+                    }
                 </Menu.Item>
                 {this.state.ApplicationState.CurrentUser.Job == JobName.MANAGER &&
                     <Menu.Item
@@ -229,7 +243,21 @@ export default class Game extends BaseComponent<any, IControllerDataStore & { Ga
                             <Inbox
                                 className="ui circular image"
                             />
-                            <strong>Inbox</strong>
+                            <strong>
+                                Inbox
+                                {this.state.ApplicationState.UnreadMessages > 0 &&
+                                    <Label circular 
+                                        size="large"
+                                        className={"message-indicator" + (this.state.GrowMessageIndicator ? " grow" : "")}
+                                        style={{
+                                            marginLeft: "8px",
+                                            background: '#f5fafc',
+                                            color:'#db2828',
+                                        }}
+                                        content={this.state.ApplicationState.UnreadMessages}
+                                    />
+                                }
+                            </strong>
                         </Menu.Item>
                     }
                     open={this.state.ShowInboxPopup}
@@ -285,7 +313,7 @@ export default class Game extends BaseComponent<any, IControllerDataStore & { Ga
                         bottom: '60px',
                         right: '-210px',
                         width: '380px',
-                        opacity: .4
+                        opacity: .7
                     }}
                 />
                 <Circles
@@ -294,7 +322,7 @@ export default class Game extends BaseComponent<any, IControllerDataStore & { Ga
                         bottom: '-250px',
                         left: '-280px',
                         width: '570px',
-                        opacity: .4
+                        opacity: .7
                     }}
                 />
                 <Column mobile={16} tablet={16} computer={10} largeScreen={8}>
@@ -326,11 +354,14 @@ export default class Game extends BaseComponent<any, IControllerDataStore & { Ga
                                     }}
                                 >
                                     <MessageList
-                                        Messages={this.state.ApplicationState.CurrentMessages}
+                                        Messages={this.state.ApplicationState.CurrentMessages.map(m => {
+                                            return this.state.ApplicationState.CurrentUser.ReadMessages.indexOf(m._id) == -1 ? Object.assign(m, {IsRead: false}) : Object.assign( m, {IsRead: true} );
+                                        })}
                                         Show={this.state.ApplicationState.ShowMessageList}
                                         SelectFunc={(m) => {
                                             this.controller.dataStore.ApplicationState.ShowMessageList = false;
                                             this.controller.dataStore.ApplicationState.SelectedMessage = m;
+                                            this.controller.ReadMessage(m._id);
                                         }}
                                     />
                                 </Segment>
@@ -354,13 +385,14 @@ export default class Game extends BaseComponent<any, IControllerDataStore & { Ga
                     className={"mobile-messages" + " " + (this.state.ApplicationState.ShowMessageList ? "show" : "hide")}
                 >
                     <MessageList
-                        Messages={this.state.ApplicationState.CurrentMessages}
+                        Messages={this.state.ApplicationState.CurrentMessages.map(m => {
+                            return this.state.ApplicationState.CurrentUser.ReadMessages.indexOf(m._id) == -1 ? Object.assign(m, {IsRead: false}) : Object.assign( m, {IsRead: true} );
+                        })}
                         Show={this.state.ApplicationState.ShowMessageList}
                         SelectFunc={(m) => {
                             this.controller.dataStore.ApplicationState.ShowMessageList = false;
                             this.controller.dataStore.ApplicationState.SelectedMessage = this.controller.ChildController.dataStore.SelectedMessage = m;
-                            console.log("CHILD CONTROLLER ON MESSAGE SELECT", this.controller.ChildController);
-
+                            this.controller.ReadMessage(m._id)
                         }}
                     />
                 </div>

@@ -1,9 +1,13 @@
 @import '../font/stylesheet.css';
 
 body{
-    background: #CCEAF2;
-    /*background: linear-gradient(#CCEAF2, #a9ebfd);*/
+    /*background: #CCEAF2;
+    background: linear-gradient(#CCEAF2, #a9ebfd);*/
     background: white;
+    background:rgba(204, 234, 242, 0.08);
+    background: #CCEAF2;
+    background: #dbeef5;
+    background: rgba(0, 136, 185, 0.04);
 }
 
 h1, h2, h3, h4, h5, p, .ui.header, ul, ul li, strong{
@@ -36,9 +40,9 @@ p, ul li, blockquote{
 
 ul li{
     list-style: outside;
-    margin-left: 10px;
-    margin-bottom: 5px;
-    margin-top: 5px;
+    margin-left: 30px;
+    margin-bottom: 10px;
+    margin-top: 10px;
 }
 .game-wrapper{
     .column{
@@ -81,6 +85,9 @@ a{
     color: #0088B9;
     padding-bottom: 40px;
     min-height: 100vh;
+    &.mobile{
+        padding-top: 84px;
+    }
 }
 .admin-header + .source-stream{
     padding-top:50px;
@@ -93,6 +100,9 @@ a{
     }
     .admin-header + .source-stream{
         padding-top:40px;
+    }
+    &.mobile{
+        padding-top: 104px;
     }
 }
 
@@ -318,6 +328,14 @@ SEMANTIC MOBILE FIX
     }
     background-position: center 50%;
     background-repeat: no-repeat;
+
+    .list{
+        .item{
+            padding-top: 11px !important;
+            padding-bottom: 12px !important;
+            
+        }
+    }
 }
 .wide-messages{
     min-height: 100vh;
@@ -325,6 +343,7 @@ SEMANTIC MOBILE FIX
     background-repeat: no-repeat;
     display: block !important;
     transition: margin-left .3s cubic-bezier(0.42, 0, 0.12, 1.23);
+    box-shadow: 0 3px 10px 0px rgba(0,0,0,.2);
 }
 
 .decisions{
@@ -409,8 +428,17 @@ SEMANTIC MOBILE FIX
         font-size: 1.2em;
         padding:10px !important;
         border-top: 1px solid rgba(34,36,38,.15) !important;
-        &:nth-of-type(even){
+        &.read{
             background: #eee;
+            color: #555;
+            .content {
+                .header, .description{
+                    color: #989898;
+                }
+            }
+        }
+        .bold{
+            color: black;
         }
         background: rgba(255,255,255,.8);
         .description{
@@ -431,6 +459,7 @@ SEMANTIC MOBILE FIX
 }
 
 .game-nav{
+    box-shadow: 0 0 11px 0px rgba(0,0,0,.1) !important;
     strong{
         margin-left: 5px;
     }
@@ -524,5 +553,27 @@ SEMANTIC MOBILE FIX
     }
     &.top{
 
+    }
+}
+
+p:nth-of-type(even) {
+    /* 
+    padding-bottom: 3em;
+    border: none; 
+    border-bottom: 2px dashed #0088b93d;
+    */
+}
+
+@keyframes scaleUpAndDown {
+    0%   {transform: scale(1);}
+    25%  {transform: scale(1.3);}
+    50%  {transform: scale(1);}
+    100% {transform: scale(1.3);}
+}
+.message-indicator{
+    box-shadow: 0 0 10px 0 rgba(0,0,0,.3);
+    &.grow{
+        animation-name: scaleUpAndDown;
+        animation-duration: .375s;    
     }
 }

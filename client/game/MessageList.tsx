@@ -39,12 +39,12 @@ export default class MessageList extends React.Component<MessageProps, { Message
                     style={{width:'40px'}}/>Inbox
             </Header>
             <List divided verticalAlign='middle'>
-                {this.props.Messages && this.props.Messages.filter(m => m._id).map((m, i) => <List.Item
+                {this.props.Messages && this.props.Messages.filter(m => m._id).reverse().map((m, i) => <List.Item
                     key={i}
+                    className={!m.IsRead ? "bold" : "read"}
                 >
                     <List.Content
                         onClick={e => this.props.SelectFunc(m)}
-                        className={!m.IsRead ? "bold" : ""}
                     >
                         {m.Title && <List.Header>{m.Title}</List.Header>}
                         {!m.Title && <List.Header>{this._stripHtml(m.Content).slice(0, 40) + "..."}</List.Header>}

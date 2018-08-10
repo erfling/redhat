@@ -21,7 +21,7 @@ import ApplicationCtrl from '../ApplicationCtrl';
 
 
 
-export default class GameCtrl extends BaseClientCtrl<IControllerDataStore & {Game: GameModel, _mobileWidth: boolean, ShowGameInfoPopup: boolean, ShowDecisionPopup: boolean, ShowInboxPopup: boolean}>
+export default class GameCtrl extends BaseClientCtrl<IControllerDataStore & {Game: GameModel, _mobileWidth: boolean, ShowGameInfoPopup: boolean, ShowDecisionPopup: boolean, ShowInboxPopup: boolean; GrowMessageIndicator: boolean}>
 {
     //----------------------------------------------------------------------
     //
@@ -122,6 +122,34 @@ export default class GameCtrl extends BaseClientCtrl<IControllerDataStore & {Gam
     //
     //----------------------------------------------------------------------
 
+    public async ReadMessage(messageId: string){
+        return SapienServerCom.GetData(null, null, SapienServerCom.BASE_REST_URL + "gameplay" + "/readmessage/" + messageId + "/" + this.dataStore.ApplicationState.CurrentUser._id).then((user: UserModel) => {
+            if(!user) throw new Error("didn't save user");
+            let u = Object.assign(new UserModel(), user, {Job: this.dataStore.ApplicationState.CurrentUser.Job});
+            this.dataStore.ApplicationState.CurrentUser = this.ChildController.dataStore.ApplicationState.CurrentUser = u;
+            localStorage.setItem("RH_USER", JSON.stringify(u));
+            this.getMessageCount();
+        })
+        .catch((err) => {
+            console.error(err)
+        })
+    }
+
+    public getMessageCount(){
+        let count = 0;
+        this.dataStore.ApplicationState.CurrentMessages.forEach(m => {
+            console.log("counting message", count, this.dataStore.ApplicationState.CurrentUser.ReadMessages.indexOf(m._id))
+            if (this.dataStore.ApplicationState.CurrentUser.ReadMessages.indexOf(m._id) == -1) count++;
+        })
+        this.dataStore.ApplicationState.UnreadMessages = count;
+        if(count > 0){
+            this.dataStore.GrowMessageIndicator = true;
+            setTimeout(() => {
+                this.dataStore.GrowMessageIndicator = false;
+            }, 8750)
+        }
+    }
+
     private _timeOut;
 
     public async pollForGameStateChange(gameId: string){
@@ -129,7 +157,7 @@ export default class GameCtrl extends BaseClientCtrl<IControllerDataStore & {Gam
 
         console.error("CURRENT TEAM:::::>>>>>>>>>", this.dataStore.ApplicationState.CurrentTeam);
 
-        if(!this.dataStore.ApplicationState.CurrentTeam)return;
+        if(!this.dataStore.ApplicationState.CurrentTeam || !this.dataStore.ApplicationState.CurrentTeam.GameId)return;
         //console.log("polling for game state", this.dataStore.ApplicationState.CurrentTeam)
 
         let url = "/listenforgameadvance/" + this.dataStore.ApplicationState.CurrentTeam.GameId;
@@ -192,18 +220,18 @@ export default class GameCtrl extends BaseClientCtrl<IControllerDataStore & {Gam
             }
 
 
-            clearTimeout(this._timeOut);
-            let time = location.pathname.toUpperCase().indexOf('/BID') == -1 ? 3500 : 1500;
-            this._timeOut = setTimeout(() => {
+            //clearTimeout(this._timeOut);
+            //let time = location.pathname.toUpperCase().indexOf('/BID') == -1 ? 3500 : 1500;
+            //this._timeOut = setTimeout(() => {
                 this.pollForGameStateChange.bind(this)(this.dataStore.ApplicationState.CurrentTeam.GameId);
-            }, time); 
+            //}, time); 
            return;
         }).catch((err) => {
             console.log("CAUGHT ERROR", err)
-            clearTimeout(this._timeOut);
-            this._timeOut = setTimeout(() => {
+            //clearTimeout(this._timeOut);
+            //this._timeOut = setTimeout(() => {
                 this.pollForGameStateChange.bind(this)(this.dataStore.ApplicationState.CurrentTeam.GameId);
-            }, 2500);
+            //}, 2500);
             console.log("bad connection!");
         })
     }
@@ -239,7 +267,8 @@ export default class GameCtrl extends BaseClientCtrl<IControllerDataStore & {Gam
             _mobileWidth: window.innerWidth < 767,
             ShowDecisionPopup: false,
             ShowGameInfoPopup: false,
-            ShowInboxPopup: false
+            ShowInboxPopup: false,
+            GrowMessageIndicator: false
         };
 
         console.log("DATASTORE APPLICATION:", DataStore.ApplicationState);
