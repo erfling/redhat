@@ -112,6 +112,7 @@ class GamePlayRouter {
                 console.log(question);
                 if (question.Type != QuestionType.TEXTAREA) {
                     response.Score = response.resolveScore();
+                    response.MaxScore = response.resolveMaxScore();
                 }
             }
 
