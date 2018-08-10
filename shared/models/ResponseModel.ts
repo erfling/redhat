@@ -114,4 +114,11 @@ export default class ResponseModel extends BaseModel
         return score;
     }
 
+    public resolveMaxScore(){
+        const answers: SliderValueObj[] = this.Answer as SliderValueObj[];
+        return answers.reduce((maxScoreSoFar, ans) => {
+            return ans.maxPoints ? ans.maxPoints + maxScoreSoFar : maxScoreSoFar;
+        },0)
+    }
+
 }
