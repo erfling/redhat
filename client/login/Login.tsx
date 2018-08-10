@@ -35,7 +35,7 @@ export default class Login extends BaseComponent<any, IControllerDataStore>
 
     componentDidMount() {
         super.componentDidMount();
-        this.props.history.push("/" + this.constructor.name.toLowerCase());
+
     }
 
     //----------------------------------------------------------------------
