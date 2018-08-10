@@ -43,6 +43,9 @@ export default class ResponseModel extends BaseModel
     @dbProp(Number)
     public Score: number = 0;
 
+    @dbProp(Number)
+    public MaxScore: number = 0;
+
     //Maker for question this response's question is paired with in another round, if it is paired.
     @dbProp(String)
     public SiblingQuestionId: string = null;
@@ -58,6 +61,7 @@ export default class ResponseModel extends BaseModel
     @dbProp(String)
     public ComparisonLabel: ComparisonLabel;
 
+    @dbProp(Boolean)
     public SkipScoring: boolean = false;
 
     @dbProp(String)
@@ -116,7 +120,7 @@ export default class ResponseModel extends BaseModel
 
     public resolveMaxScore(){
         const answers: SliderValueObj[] = this.Answer as SliderValueObj[];
-        return answers.reduce((maxScoreSoFar, ans) => {
+        return this.MaxScore = answers.reduce((maxScoreSoFar, ans) => {
             return ans.maxPoints ? ans.maxPoints + maxScoreSoFar : maxScoreSoFar;
         },0)
     }
