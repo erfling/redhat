@@ -2,7 +2,7 @@
 import * as React from "react";
 import GameCtrl from "./GameCtrl";
 import GameModel from "../../shared/models/GameModel";
-import UserModel, { JobName } from "../../shared/models/UserModel";
+import UserModel, { JobName, RoleName } from "../../shared/models/UserModel";
 import { Grid, Menu, Button, Segment, Header, Popup, Label } from 'semantic-ui-react';
 const { Row, Column } = Grid;
 import { Route, Switch, Redirect } from 'react-router';
@@ -104,6 +104,7 @@ export default class Game extends BaseComponent<any, IControllerDataStore & { Ga
     private _toggleBodyScroll() {
         //why dont this work?
         if (this.state.ApplicationState.MobileWidth) {
+            console.warn("MOBILE WIDTH!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
             setTimeout(() => {
                 document.body.style.overflow = (this.state.ApplicationState.MobileWidth && (this.state.ApplicationState.ShowQuestions || this.state.ApplicationState.ShowMessageList)) ? "hidden" : "auto";
             }, 20)
@@ -153,9 +154,7 @@ export default class Game extends BaseComponent<any, IControllerDataStore & { Ga
                             this.controller.dataStore.ApplicationState.ShowQuestions = this.controller.ChildController.dataStore.ShowQuestions = false;
                             this.controller.dataStore.ApplicationState.ShowMessageList = !this.controller.dataStore.ApplicationState.ShowMessageList;
                             this._toggleBodyScroll();
-
-                        }
-                        }
+                        }}
                     />
                     {this.state.ApplicationState.UnreadMessages > 0 &&
                         <Label circular 
@@ -210,7 +209,8 @@ export default class Game extends BaseComponent<any, IControllerDataStore & { Ga
                                 var test = !this.controller.dataStore.ApplicationState.ShowMessageList;
                                 this.controller.dataStore.ApplicationState.ShowQuestions = this.controller.ChildController.dataStore.ShowQuestions = false;
                                 this.controller.dataStore.ApplicationState.ShowMessageList = this.controller.ChildController.dataStore.ShowMessageList = test;
-                                this._toggleBodyScroll()
+                                //this._toggleBodyScroll();
+                                window.scrollTo(0, 0);
                             }}
                             onMouseOver={() => this.controller.dataStore.ShowGameInfoPopup = true}
                             onMouseOut={() => this.controller.dataStore.ShowGameInfoPopup = false}
@@ -235,7 +235,9 @@ export default class Game extends BaseComponent<any, IControllerDataStore & { Ga
                                 var test = !this.controller.dataStore.ApplicationState.ShowMessageList;
                                 this.controller.dataStore.ApplicationState.ShowQuestions = this.controller.ChildController.dataStore.ShowQuestions = false;
                                 this.controller.dataStore.ApplicationState.ShowMessageList = this.controller.ChildController.dataStore.ShowMessageList = test;
-                                this._toggleBodyScroll()
+                                //this._toggleBodyScroll();
+                                window.scrollTo(0, 0);
+
                             }}
                             onMouseOver={() => this.controller.dataStore.ShowInboxPopup = true}
                             onMouseOut={() => this.controller.dataStore.ShowInboxPopup = false}                            
@@ -274,7 +276,8 @@ export default class Game extends BaseComponent<any, IControllerDataStore & { Ga
                         onClick={e => {
                             this.controller.dataStore.ApplicationState.ShowMessageList = false;
                             this.controller.dataStore.ApplicationState.ShowQuestions = this.controller.ChildController.dataStore.ShowQuestions = !this.controller.dataStore.ApplicationState.ShowQuestions;
-                            this._toggleBodyScroll()
+                            //this._toggleBodyScroll();
+                            window.scrollTo(0, 0);
                         }}
                         onMouseOver={() => this.controller.dataStore.ShowDecisionPopup = true}
                         onMouseOut={() => this.controller.dataStore.ShowDecisionPopup = false}   
@@ -331,7 +334,7 @@ export default class Game extends BaseComponent<any, IControllerDataStore & { Ga
                             <Column
                                 width={16}
                                 style={{
-                                    paddingTop: this.state.ApplicationState.MobileWidth ? "15px" : "0"
+                                    paddingTop: this.state.ApplicationState.MobileWidth ? this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN ? "50px" : "15px" : "0"
                                 }}
                             >
                                 <IntroLogo
@@ -367,6 +370,7 @@ export default class Game extends BaseComponent<any, IControllerDataStore & { Ga
                                 </Segment>
                             </div>
                             }
+
                             <Switch>
                                 <Route path="/game/welcome" component={Welcome} />
                                 <Route path="/game/peopleround" component={PeopleRound} />
@@ -375,8 +379,8 @@ export default class Game extends BaseComponent<any, IControllerDataStore & { Ga
                                 <Route path="/game/financeround" component={FinanceRound} />
                                 <Route path="/game/customerround" component={CustomerRound} />
                                 <Redirect exact from="/game" to="/game/welcome/intro" />
-                            </Switch>
-
+                            </Switch>                            
+                            
                         </Column>
                         {locality.indexOf("WELCOME") == -1 && this.renderGameMenu()}
                     </Grid>

@@ -12,7 +12,8 @@ export enum JobName {
     IC = "Individual Contributor",
     MANAGER = "Manager",
     CHIPCO = "ChipCo",
-    INTEGRATED_SYSTEMS = "Integrated Systems"
+    INTEGRATED_SYSTEMS = "Integrated Systems",
+    BLUE_KITE = "Attorney for Blue Kite"
 }
 
 export default class UserModel extends BaseModel

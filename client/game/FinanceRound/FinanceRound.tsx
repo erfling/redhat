@@ -55,11 +55,17 @@ export default class FinanceRound extends BaseComponent<any, IRoundDataStore>
 
     componentDidMount(){
         super.componentDidMount();
+        console.log("BASE CONTROLLER IN BASE COMPONENT IS:", (GameCtrl.GetInstance().ChildController));
+
         if(this.props.location && this.props.location.pathname && this.props.location.pathname.toLocaleUpperCase().indexOf("GAME") != -1){
             GameCtrl.GetInstance().ChildController = this.controller;
             GameCtrl.GetInstance().dataStoreDeepProxy.addOnChange(this.controller.dataStoreChange.bind(this.controller))
             console.log("BASE CONTROLLER IN BASE COMPONENT IS:", (GameCtrl.GetInstance().ChildController));
         }
+    }
+
+    componentWillUnmount(){
+        console.warn("FACILITATION WILL UNMOUNT")
     }
     
     render() {
