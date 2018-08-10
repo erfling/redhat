@@ -1,5 +1,5 @@
 import BaseModel, { dbProp } from "../base-sapien/models/BaseModel";
-import TeamModel from "../models/TeamModel";
+import TeamModel from "./TeamModel";
 import { Type } from 'class-transformer';
 import UserModel from './UserModel';
 import RoundChangeMapping from './RoundChangeMapping';

@@ -7,7 +7,7 @@ import { IRoundDataStore } from '../../../shared/base-sapien/client/BaseRoundCtr
 import CustomerRoundCtrl from "./CustomerRoundCtrl";
 import BaseComponent from "../../../shared/base-sapien/client/shared-components/BaseComponent";
 import Decisions from '-!svg-react-loader?name=Icon!../../img/decisions.svg';
-import FeedBackWrapper from "../FeedBackWrapper";
+import FeedBackWrapper from "../Scoring/FeedBackWrapper";
 import { RatingType } from "../../../shared/models/QuestionModel";
 import GameCtrl from "../GameCtrl";
 

@@ -1,5 +1,5 @@
-import { BaseShape } from './../base-sapien/models/BaseModel';
-import BaseModel, {dbProp} from '../../shared/base-sapien/models/BaseModel';
+import { BaseShape } from '../base-sapien/models/BaseModel';
+import BaseModel, {dbProp} from '../base-sapien/models/BaseModel';
 import ContentBlock from './ContentBlock'
 import QuestionModel from "./QuestionModel";
 import SubRoundModel from "./SubRoundModel";

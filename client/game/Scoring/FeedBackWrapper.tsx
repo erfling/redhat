@@ -1,16 +1,27 @@
 import * as React from "react";
 import { Grid, Button, TextArea, Input, Label, Form, Header, Icon, Radio, Checkbox, List, Segment, Table, } from 'semantic-ui-react'
 const { Column, Row } = Grid;
-import FeedBackModel from '../../shared/models/FeedBackModel';
+import FeedBackModel from '../../../shared/models/FeedBackModel';
 
 import Inbox from '-!svg-react-loader?name=Icon!../img/inbox.svg';
-import ValueObj, { SliderValueObj } from "../../shared/entity-of-the-state/ValueObj";
-import ResponseModel from "../../shared/models/ResponseModel";
-import UserModel, { JobName } from "../../shared/models/UserModel";
-import DataStore from '../../shared/base-sapien/client/DataStore';
-import SubRoundFeedback, { ValueDemomination } from "../../shared/models/SubRoundFeedback";
-import EditableContentBlock from "../../shared/base-sapien/client/shared-components/EditableContentBlock";
-import MessageModel from "../../shared/models/MessageModel";
+import ValueObj, { SliderValueObj } from "../../../shared/entity-of-the-state/ValueObj";
+import ResponseModel from "../../../shared/models/ResponseModel";
+import UserModel, { JobName } from "../../../shared/models/UserModel";
+import DataStore from '../../../shared/base-sapien/client/DataStore';
+import SubRoundFeedback, { ValueDemomination } from "../../../shared/models/SubRoundFeedback";
+import EditableContentBlock from "../../../shared/base-sapien/client/shared-components/EditableContentBlock";
+import MessageModel from "../../../shared/models/MessageModel";
+import {
+    XYPlot,
+    XAxis,
+    YAxis,
+    HorizontalGridLines,
+    VerticalGridLines,
+    LineSeries,
+    DiscreteColorLegend,
+    DiscreteColorLegendItem,
+    Hint
+} from 'react-vis';
 
 interface FeedBackProps {
     RoundName: string;

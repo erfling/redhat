@@ -1,5 +1,5 @@
 import { JobName } from './UserModel';
-import { dbProp } from './../base-sapien/models/BaseModel';
+import { dbProp } from '../base-sapien/models/BaseModel';
 import BaseModel from '../base-sapien/models/BaseModel';
 import { SliderValueObj } from '../entity-of-the-state/ValueObj';
 

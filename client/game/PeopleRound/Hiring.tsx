@@ -7,7 +7,7 @@ import * as Semantic from 'semantic-ui-react';
 import { IRoundDataStore } from '../../../shared/base-sapien/client/BaseRoundCtrl';
 import Decisions from '-!svg-react-loader?name=Icon!../../img/decisions.svg';
 import BaseComponent from "../../../shared/base-sapien/client/shared-components/BaseComponent";
-import FeedBackWrapper from "../FeedBackWrapper";
+import FeedBackWrapper from "../Scoring/FeedBackWrapper";
 import { RatingType } from "../../../shared/models/QuestionModel";
 
 const { Button, Grid, Menu, Segment, Form, Dimmer, Loader, Header, Table } = Semantic;

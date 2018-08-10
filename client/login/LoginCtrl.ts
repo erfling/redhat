@@ -1,5 +1,5 @@
 'use strict';
-import { IControllerDataStore } from './../../shared/base-sapien/client/BaseClientCtrl';
+import { IControllerDataStore } from '../../shared/base-sapien/client/BaseClientCtrl';
 import FiStMa from '../../shared/entity-of-the-state/FiStMa';
 import UserModel from '../../shared/models/UserModel';
 import SapienServerCom from '../../shared/base-sapien/client/SapienServerCom';
