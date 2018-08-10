@@ -1,6 +1,6 @@
 import * as express from 'express';
 import * as http from 'http';
-import RoundController from './controllers/RoundCtrl'
+import RoundController, { monRoundModel, monSubRoundModel } from './controllers/RoundCtrl'
 import * as mongoose from 'mongoose';
 import * as bodyParser from 'body-parser';
 import * as Passport from 'passport'
@@ -17,6 +17,8 @@ import RoundChangeMapping from '../shared/models/RoundChangeMapping';
 import { JobName } from '../shared/models/UserModel';
 import QuestionModel, { ComparisonLabel } from '../shared/models/QuestionModel';
 import ResponseModel from '../shared/models/ResponseModel';
+import RoundModel from '../shared/models/RoundModel';
+import SubRoundModel from '../shared/models/SubRoundModel';
 
 export class AppServer
 {
@@ -75,6 +77,8 @@ export class AppServer
         AppServer.app.use(bodyParser.urlencoded({ extended: true }))
             .use(bodyParser.json());
 
+        AppServer._setRoundAndSubroundOrder();
+
         AuthUtils.SET_UP_PASSPORT();
 
         
@@ -130,7 +134,8 @@ export class AppServer
         });*/
 
         AppServer.app.use('/', AppServer.router)
-            .use('/sapien/api/rounds', Passport.authenticate('jwt', { session: false }), RoundController)
+        //Passport.authenticate('jwt', { session: false }),
+            .use('/sapien/api/rounds',  RoundController)
             .use('/sapien/api/' + GameModel.REST_URL, GameCtrl)
             .use('/sapien/api/auth', LoginCtrl)
             .use('/sapien/api/team', TeamCtrl)
@@ -148,12 +153,15 @@ export class AppServer
                     mapping.ParentRound = mapping.ParentRound.toLowerCase();
                     mapping.ChildRound = mapping.ChildRound.toLowerCase();
 
+                    const round = await monRoundModel.findOne({Name: mapping.ParentRound.toUpperCase()}).then(r => r.toJSON())
+                    let RoundId = round._id;
                     //make sure the current mapping has the correct child round
                     var oldMapping: RoundChangeMapping = await monMappingModel.findOneAndUpdate({ GameId: game._id, ParentRound: mapping.ParentRound }, {
                         ChildRound: mapping.ChildRound,
                         ShowRateUsers: mapping.ShowRateUsers, // object where keys are user's _id as string & values are one of JobName enum values
                         ShowFeedback: mapping.ShowFeedback, // object where keys are user's _id as string & values are one of JobName enum values
-                        ShowIndividualFeedback: mapping.ShowIndividualFeedback
+                        ShowIndividualFeedback: mapping.ShowIndividualFeedback,
+                        RoundId       
                     }, {new: true}, function(err, doc){
                         if(err){
 
@@ -334,6 +342,41 @@ export class AppServer
 
                 }
     
+        }
+    }
+
+    private static async _setRoundAndSubroundOrder(){
+        try{
+            //do rounds
+            const rounds: RoundModel[] = await monRoundModel.find().populate("SubRounds").then(rs => rs ? rs.map(r => Object.assign(new RoundModel(), r.toJSON())) : null)
+            console.log("<<<<<<<<<<<ROUNDS>>>>>>>>>>>>>>>>>>>>>", rounds)
+            for(let i = 0; i < rounds.length; i ++){
+                let r = rounds[i];
+
+                for(let j = 0; j < r.SubRounds.length; j++){
+                    let sr = r.SubRounds[j];
+
+                    if (j == 0){
+                        sr.PrevSubRound = null;
+                        sr.NextSubRound = r.SubRounds[j + 1] ? r.SubRounds[j + 1]._id : null;
+                    } else if (j == r.SubRounds.length - 1){
+                        sr.PrevSubRound = r.SubRounds[j - 1] ? r.SubRounds[j - 1]._id : null;
+                        sr.NextSubRound = null;
+                    } else {
+                        sr.NextSubRound = r.SubRounds[j + 1] ? r.SubRounds[j + 1]._id : null;
+                        sr.PrevSubRound = r.SubRounds[j - 1] ? r.SubRounds[j - 1]._id : null;
+                    }
+
+                    const savedSr = await monSubRoundModel.findByIdAndUpdate(sr._id, sr);
+                    if (!savedSr) throw new Error(JSON.stringify({message: "Couldn't save subround: ", sr}));
+
+                }
+
+            }
+
+        } 
+        catch(err){
+            console.log(JSON.parse(err))
         }
     }
 
