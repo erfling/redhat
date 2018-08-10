@@ -574,5 +574,6 @@ p:nth-of-type(even) {
     box-shadow: 0 0 10px 0 rgba(0,0,0,.3);
     &.grow{
         animation-name: scaleUpAndDown;
+        animation-duration: 1.375s;    
     }
 }
