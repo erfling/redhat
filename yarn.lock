@@ -3249,7 +3249,7 @@ hoek@2.x.x:
   version "2.16.3"
   resolved "https://registry.yarnpkg.com/hoek/-/hoek-2.16.3.tgz#20bb7403d3cea398e91dc4710a8ff1b8274a25ed"
 
-hoek@4.x.x:
+hoek@4.2.1, hoek@4.x.x:
   version "4.2.1"
   resolved "https://registry.yarnpkg.com/hoek/-/hoek-4.2.1.tgz#9634502aa12c445dd5a7c5734b572bb8738aacbb"
 
@@ -6009,9 +6009,9 @@ react-typography@^0.16.5:
   version "0.16.13"
   resolved "https://registry.yarnpkg.com/react-typography/-/react-typography-0.16.13.tgz#94bdd2a9448823bc74d8ebf7465d86c7dbe20dcf"
 
-react-vis@^1.8.2:
-  version "1.9.3"
-  resolved "https://registry.yarnpkg.com/react-vis/-/react-vis-1.9.3.tgz#2e5ea8e6bfa0f03bf6e7954d4559b4fd0bc3987c"
+react-vis@^1.10.4:
+  version "1.10.4"
+  resolved "https://registry.yarnpkg.com/react-vis/-/react-vis-1.10.4.tgz#383a6dfb4ad2f5a8fbf686dc5419da3c7370bf6b"
   dependencies:
     d3-array "^1.2.0"
     d3-collection "^1.0.3"
@@ -6027,6 +6027,7 @@ react-vis@^1.8.2:
     d3-voronoi "^1.1.2"
     deep-equal "^1.0.1"
     global "^4.3.1"
+    hoek "4.2.1"
     prop-types "^15.5.8"
     react-motion "^0.5.2"
 

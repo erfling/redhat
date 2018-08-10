@@ -71,7 +71,7 @@
     "react-router-dom": "^4.2.2",
     "react-semantic-ui-range": "^0.6.1",
     "react-sortable-hoc": "^0.8.3",
-    "react-vis": "^1.8.2",
+    "react-vis": "^1.10.4",
     "react-wysiwyg-typescript": "^1.0.2",
     "reflect-metadata": "^0.1.12",
     "sanitize-html": "^1.18.2",
