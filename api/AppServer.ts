@@ -28,6 +28,7 @@ export class AppServer {
     public static port: string | number | boolean;
     public static router: express.Router = express.Router();
     public static WebServer: http.Server | https.Server = AppServer.getServer()
+    public static ForwardingServer: http.Server;
 
     private constructor() { }
 
@@ -39,6 +40,16 @@ export class AppServer {
                 if (!privateKey || !certificate)throw new Error("no cert or key found");
 
                 AppServer.port = AppServer.normalizePort(443);
+                
+                //set up server to forward insecure traffic to https
+                const port = AppServer.normalizePort(80);
+                const forwardApp = express();
+                AppServer.ForwardingServer = http.createServer(forwardApp);
+                AppServer.ForwardingServer.listen(port);
+                forwardApp.get('*', (req, res) => {
+                    console.log("HTTP INSECURE TRAFFIC");
+                    res.redirect('https://' + req.headers.host + req.url);
+                })
 
                 return https.createServer({ key: privateKey, cert: certificate }, AppServer.app);
             } else {
