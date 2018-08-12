@@ -328,7 +328,7 @@ export default class Game extends BaseComponent<any, IControllerDataStore & { Ga
                         opacity: .7
                     }}
                 />
-                <Column mobile={16} tablet={16} computer={10} largeScreen={8}>
+                <Column mobile={16} tablet={16} computer={12} largeScreen={10}>
                     <Grid>
                         {location.pathname.toUpperCase().indexOf("WELCOME") == -1 &&
                             <Column

@@ -577,3 +577,35 @@ p:nth-of-type(even) {
         animation-duration: 1.375s;    
     }
 }
+
+/***********************************
+*
+*   CHART STYLES
+*
+***********************************/
+.line-chart-wrapper{
+    background:#0088b9 !important;
+    border: none !important;
+    h1, h2, h3, h4, h5, p, .ui.header, ul, ul li, strong{
+        color: white;
+    }
+    path.domain{
+        stroke: rgba(210, 210, 210, 0.5) !important;
+    }
+    path.line, .recharts-line path{
+        stroke-width: 5px;
+    }
+    
+    .dataPoints, .recharts-line-dots{
+        circle{
+            stroke: #666 !important;
+            fill: white !important;
+            r: 5 !important;
+        }
+    }
+    text{
+        fill: white !important;
+        font-size: 1.1em !important;
+        font-family: 'Nexa', 'Helvetica Neue', Arial, Helvetica, sans-serif !important;
+    }
+}

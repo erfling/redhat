@@ -227,10 +227,10 @@ export default class GameCtrl extends BaseClientCtrl<IControllerDataStore & {Gam
            return;
         }).catch((err) => {
             console.log("CAUGHT ERROR", err)
-            //clearTimeout(this._timeOut);
-            //this._timeOut = setTimeout(() => {
+            clearTimeout(this._timeOut);
+            this._timeOut = setTimeout(() => {
                 this.pollForGameStateChange.bind(this)(this.dataStore.ApplicationState.CurrentTeam.GameId);
-            //}, 2500);
+            }, 2500);
             console.log("bad connection!");
         })
     }
