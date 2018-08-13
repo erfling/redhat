@@ -13,7 +13,7 @@ import EditableContentBlock from "../../../shared/base-sapien/client/shared-comp
 import MessageModel from "../../../shared/models/MessageModel";
 import MathUtil from "../../../shared/entity-of-the-state/MathUtil";
 
-import { LineChart, Line, Legend, Tooltip, CartesianGrid, XAxis, YAxis, ReferenceLine } from 'recharts';
+import { LineChart, Line, Legend, Tooltip, CartesianGrid, XAxis, YAxis, ReferenceLine, BarChart, Bar } from 'recharts';
 import TeamModel from "../../../shared/models/TeamModel";
 
 interface FeedBackProps {
@@ -76,7 +76,7 @@ export default class ScoringLineChart extends React.Component<any, { componentWi
   static Colors = ["#3b67c5", "#cd4c2d", "#f29e3c", "#499535", "#fff", "#00b5ad"];
   static MappedColors:any;
   static MockTeams = times(5, (i) => {
-    let team = Object.assign(new TeamModel(), { Name: "Team " + (i + 1).toString(), _id: i, Color: ScoringLineChart.Colors[i], Score: MathUtil.roundTo((Math.random() * 20), 2 ) });
+    let team = Object.assign(new TeamModel(), { Name: "Team " + (i + 1).toString(), _id: i, Color: ScoringLineChart.Colors[i], Score: MathUtil.roundTo((Math.random() * 20) + 2, 2 ) });
     return team;
   })
 
@@ -211,6 +211,26 @@ export default class ScoringLineChart extends React.Component<any, { componentWi
           })}
         </LineChart>
 
+      </Segment>
+
+      <Segment
+        style={{ paddingLeft: 0 }}
+        raised
+        className="line-chart-wrapper"
+      >
+          <BarChart
+            data={[this.getMockData()[0]]}
+            margin={{ top: 0, right: 20, bottom: 0, left: 0 }}
+            width={this.state.componentWidth - 20}
+            height={this.state.componentWidth / 1.5}
+          >
+            <XAxis padding={{ left: 0, right: 20 }} dataKey="name" />
+            <YAxis padding={{ top: 10, bottom: 0 }} />
+            <Legend verticalAlign="bottom" height={100}/>
+            {Object.keys(this.getMockData()[4]).filter((k, i) => i != 0).map((t,i) =>{ 
+              return <Bar dataKey={t} fill={this.getTeamColor(t)} label isAnimationActive={false}/>
+            })}
+          </BarChart>
       </Segment>
 
     </Column>

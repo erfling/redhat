@@ -618,6 +618,9 @@ p:nth-of-type(even) {
             margin-left:0 !important;
         }
     }
+    .recharts-text.recharts-label{
+        stroke: #303030;
+    }
     .mobile-tooltip{
         ul li{
             margin-bottom:0 !important;

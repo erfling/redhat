@@ -86,7 +86,7 @@ export default class FeedBackWrapper extends React.Component<FeedBackProps, any>
             className="feedback"
         >
             <Header>
-                <Icon name="volume up" />{RoundName} Feedback
+                <Icon name="announcement" />{RoundName} Feedback
             </Header>
 
             {this.props.children}
