@@ -288,7 +288,7 @@ export default class Game extends BaseComponent<any, IControllerDataStore & { Ga
                         <strong>Decisions</strong>
                     </Menu.Item>}
                      open={this.state.ShowDecisionPopup}
-                     content="Managers enter decisions for their team."
+                     content="Managers enter decisions for your team."
                      position='left center'
                      className="nav-instruction side"
                  />
