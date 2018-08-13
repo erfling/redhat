@@ -24,7 +24,7 @@
     "@types/react-router": "^4.0.21",
     "@types/react-router-dom": "^4.2.3",
     "@types/react-sortable-hoc": "^0.6.3",
-    "@types/recharts": "^1.0.26",
+    "@types/recharts": "^1.1.0",
     "@types/sanitize-html": "^1.14.0",
     "@types/seedrandom": "^2.4.27",
     "@types/socket.io": "^1.4.31",

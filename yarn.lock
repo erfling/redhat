@@ -285,7 +285,7 @@
   dependencies:
     csstype "^2.2.0"
 
-"@types/recharts@^1.0.26":
+"@types/recharts@^1.1.0":
   version "1.0.26"
   resolved "https://registry.yarnpkg.com/@types/recharts/-/recharts-1.0.26.tgz#d4d3b19215b6e019bbd319c181a9219701cc8f87"
   dependencies:

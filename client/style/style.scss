@@ -572,6 +572,7 @@ p:nth-of-type(even) {
 }
 .message-indicator{
     box-shadow: 0 0 10px 0 rgba(0,0,0,.3);
+    border: 1px solid #f5fafc !important;
     &.grow{
         animation-name: scaleUpAndDown;
         animation-duration: 1.375s;    
@@ -583,9 +584,13 @@ p:nth-of-type(even) {
 *   CHART STYLES
 *
 ***********************************/
+.feedback{
+    padding-right:0 !important;
+}
 .line-chart-wrapper{
     background:#0088b9 !important;
     border: none !important;
+    position:relative;
     h1, h2, h3, h4, h5, p, .ui.header, ul, ul li, strong{
         color: white;
     }
@@ -600,12 +605,44 @@ p:nth-of-type(even) {
         circle{
             stroke: #666 !important;
             fill: white !important;
-            r: 5 !important;
+            r: 5;
         }
     }
     text{
         fill: white !important;
         font-size: 1.1em !important;
         font-family: 'Nexa', 'Helvetica Neue', Arial, Helvetica, sans-serif !important;
+    }
+    .recharts-tooltip-item-list{
+        li{
+            margin-left:0 !important;
+        }
+    }
+    .mobile-tooltip{
+        ul li{
+            margin-bottom:0 !important;
+            display: inline-block;
+            font-weight: bold;
+            margin-left: 3px !important;
+            color: white;
+            list-style-type: none;
+            &:nth-of-type(2){
+                margin-left:-30px
+            }
+            &:first-child{
+                display: block;
+                text-align: center;
+            }
+            .ui.label{
+                width: 100px;
+                box-sizing: border-box;
+            }
+        }
+        
+    }
+    ul.recharts-default-legend{
+        li{
+            margin-left: 5px !important;
+        }
     }
 }

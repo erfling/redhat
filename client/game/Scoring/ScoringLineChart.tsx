@@ -13,7 +13,7 @@ import EditableContentBlock from "../../../shared/base-sapien/client/shared-comp
 import MessageModel from "../../../shared/models/MessageModel";
 import MathUtil from "../../../shared/entity-of-the-state/MathUtil";
 
-import { LineChart, Line, Legend, Tooltip, CartesianGrid, XAxis, YAxis } from 'recharts';
+import { LineChart, Line, Legend, Tooltip, CartesianGrid, XAxis, YAxis, ReferenceLine } from 'recharts';
 import TeamModel from "../../../shared/models/TeamModel";
 
 interface FeedBackProps {
@@ -28,8 +28,19 @@ interface FeedBackProps {
   onSaveHandler?(message: MessageModel, subroundId: string): void;
   IsEditable?: boolean,
 }
-
-export default class ScoringLineChart extends React.Component<any, { componentWidth: number, showToolTip: boolean }>
+class CustomizedDot extends React.Component<any, any> {
+  static Payload;
+  componentDidUpdate(){
+    CustomizedDot.Payload = this.props.payload;
+  }
+  render() {
+      const { cx, cy } = this.props;
+      return (
+          <circle cx={cx} cy={cy} r={7} stroke="black" strokeWidth={3} fill="none" />
+      );
+  }
+};
+export default class ScoringLineChart extends React.Component<any, { componentWidth: number, showToolTip: boolean; roundScores: any; opacity: any }>
 {
   constructor(props: FeedBackProps) {
     props = props || {
@@ -43,7 +54,7 @@ export default class ScoringLineChart extends React.Component<any, { componentWi
     super(props);
     const initialWidth = window.innerWidth > 0 ? window.innerWidth : 500;
     //this.state = //Object.assign(this.props, {showToolTip: false, windowWidth: initialWidth - 100})
-    this.state = { showToolTip: false, componentWidth: initialWidth - 100 };
+    this.state = { showToolTip: false, componentWidth: initialWidth - 100, roundScores: null, opacity:{} };
   }
 
   componentDidMount() {
@@ -62,163 +73,26 @@ export default class ScoringLineChart extends React.Component<any, { componentWi
   }
 
   static rounds = ["Round 1", "Round 2", "Round 3", "Round 4", "Round 5"];
-  static MockTeams = times(5, (i) => Object.assign(new TeamModel(), { Name: "Team " + (i + 1).toString() }))
+  static Colors = ["#3b67c5", "#cd4c2d", "#f29e3c", "#499535", "#fff", "#00b5ad"];
+  static MappedColors:any;
+  static MockTeams = times(5, (i) => {
+    let team = Object.assign(new TeamModel(), { Name: "Team " + (i + 1).toString(), _id: i, Color: ScoringLineChart.Colors[i], Score: MathUtil.roundTo((Math.random() * 20), 2 ) });
+    return team;
+  })
+
   static MockData;
 
   getMockData() {
     if (!ScoringLineChart.MockData) {
       ScoringLineChart.MockData = times(5, (i) => {
-        console.error(i);
-
         let roundDatum = {
-          name: "Rnd " + (i + i).toString()
+          name: "Rnd " + (i + 1).toString()
         }
-        ScoringLineChart.MockTeams.forEach(t => roundDatum[t.Name] = MathUtil.roundTo(Math.random() * 20, 1))
+        ScoringLineChart.MockTeams.forEach(t => roundDatum[t.Name] = MathUtil.roundTo(t.Score, 2) * i + (Math.floor(Math.random() * 20)));
         return roundDatum;
       })
     }
     return ScoringLineChart.MockData;
-    /*
-      return [
-          [
-            {
-              MaxScore: 20,
-              Score: 16.68
-            },
-            {
-              MaxScore: 20,
-              Score: 10.75
-            },
-            {
-              MaxScore: 20,
-              Score: 15.84
-            },
-            {
-              MaxScore: 20,
-              Score: 13.9
-            },
-            {
-              MaxScore: 20,
-              Score: 13.88
-            },
-            {
-              MaxScore: 20,
-              Score: 12.21
-            }
-          ],
-          [
-            {
-              MaxScore: 20,
-              Score: 1.86
-            },
-            {
-              MaxScore: 20,
-              Score: 0.25
-            },
-            {
-              MaxScore: 20,
-              Score: 16.31
-            },
-            {
-              MaxScore: 20,
-              Score: 7.75
-            },
-            {
-              MaxScore: 20,
-              Score: 4.88
-            },
-            {
-              MaxScore: 20,
-              Score: 14.48
-            }
-          ],
-          [
-            {
-              MaxScore: 20,
-              Score: 13.06
-            },
-            {
-              MaxScore: 20,
-              Score: 2.44
-            },
-            {
-              MaxScore: 20,
-              Score: 18.52
-            },
-            {
-              MaxScore: 20,
-              Score: 16.6
-            },
-            {
-              MaxScore: 20,
-              Score: 12.73
-            },
-            {
-              MaxScore: 20,
-              Score: 13
-            }
-          ],
-          [
-            {
-              MaxScore: 20,
-              Score: 3.67
-            },
-            {
-              MaxScore: 20,
-              Score: 5.27
-            },
-            {
-              MaxScore: 20,
-              Score: 14.48
-            },
-            {
-              MaxScore: 20,
-              Score: 13.79
-            },
-            {
-              MaxScore: 20,
-              Score: 2.54
-            },
-            {
-              MaxScore: 20,
-              Score: 0.01
-            }
-          ],
-          [
-            {
-              MaxScore: 20,
-              Score: 4.22
-            },
-            {
-              MaxScore: 20,
-              Score: 4.77
-            },
-            {
-              MaxScore: 20,
-              Score: 0.26
-            },
-            {
-              MaxScore: 20,
-              Score: 10.85
-            },
-            {
-              MaxScore: 20,
-              Score: 6.92
-            },
-            {
-              MaxScore: 20,
-              Score: 19
-            }
-          ]
-        ].map((s, i) => {
-          return s.map((score, j) => {
-            return {
-              x: ScoringLineChart.rounds[j],
-              y: score.Score,
-              teamName: "Team " + (i + 1).toString()
-            }
-        })
-      })*/
   }
 
   mouseOverHandler(d, e) {
@@ -237,9 +111,34 @@ export default class ScoringLineChart extends React.Component<any, { componentWi
   mouseOutHandler() {
 
   }
+
+  getTeamColor(teamName){
+    let team = ScoringLineChart.MockTeams.filter(t => t.Name == teamName)[0] || null;
+    if(team)return team.Color;
+    return "white";
+  }
+
+  handleMouseEnter(o) {
+    const { dataKey } = o;
+    const { opacity } = this.state;
+    
+  	this.setState({
+    	opacity: { ...opacity, [dataKey]: 0.5 },
+    });
+  }
+  
+  handleMouseLeave(o) {
+  	const { dataKey } = o;
+    const { opacity } = this.state;
+    
+  	this.setState({
+    	opacity: { ...opacity, [dataKey]: 1 },
+    });
+  }
+
   //TODO: mobile tooltip stuff
   render() {
-
+    console.log("render")
     const { Scores, TeamId } = this.props;
     const chartXLabels: string[] = ScoringLineChart.rounds;
     const colors = ["#3b67c5", "#cd4c2d", "#f29e3c", "#499535", "#fff", "#00b5ad"]
@@ -248,7 +147,7 @@ export default class ScoringLineChart extends React.Component<any, { componentWi
       className="feedback chart-wrapper"
     >
       <Segment
-        style={{paddingLeft: 0}}
+        style={{ paddingLeft: 0 }}
         raised
         className="line-chart-wrapper"
       >
@@ -257,25 +156,59 @@ export default class ScoringLineChart extends React.Component<any, { componentWi
         >
           Round by round Scores
         </Header>
+        <Row className="mobile-tooltip">
+          <ul>
+            {this.state.roundScores && Object.keys(this.state.roundScores).sort((a, b) => {
+              let sortVal = 0;
+              if(this.state.roundScores[a] > this.state.roundScores[b]){
+                sortVal = -1;
+              } else if (this.state.roundScores[a] < this.state.roundScores[b]) {
+                sortVal = 1;
+              }
+              return sortVal;
+            }).map((k, i) => {
+              return <li
+              >
+                {i == 0 && 
+                  <h2>Scores Through {this.state.roundScores[k]}</h2>
+                }
 
+                {i != 0 &&
+                  <Label style={{background: i == 0 ? 'transparent' : this.getTeamColor(k), border: 'none', fontWeight: 'bold'}}>
+                    {i}. {k.toUpperCase()}: {this.state.roundScores[k]}
+                  </Label>
+                }
+              </li>
+            })
+            }
+          </ul>
+        </Row>
 
         <LineChart
           margin={{ top: 0, right: 20, bottom: 0, left: 0 }}
           width={this.state.componentWidth - 20}
           height={this.state.componentWidth / 1.5}
-          data={this.getMockData()}          
-        >        
-          <XAxis padding={{left: 0, right: 20}} dataKey="name" />
-          <YAxis padding={{top:10, bottom:0}}/>
-          <Legend verticalAlign="bottom" height={100}/>
-          <Tooltip/>
-          {this.getMockData().map((d, i) => <Line
+          data={this.getMockData()}
+        >
+          <XAxis padding={{ left: 0, right: 20 }} dataKey="name" />
+          <YAxis padding={{ top: 10, bottom: 0 }} />
+          <Legend verticalAlign="bottom" height={100} onMouseEnter={this.handleMouseEnter} onMouseLeave={this.handleMouseLeave}/>
+          <Tooltip  wrapperStyle={{display: 'none'}}/>
+          {this.state.roundScores && <ReferenceLine x={this.state.roundScores.name} stroke="white" strokeWidth={2} strokeDasharray="3 1" opacity={.5}/>}
+          {this.getMockData().map((d, i) => {
+          return <Line
+            opacity={this.state.opacity ? this.state.opacity[ScoringLineChart.MockTeams[i].Name] : .75}
+            animationDuration={750}
+            animationEasing="ease"
             key={i}
             dataKey={ScoringLineChart.MockTeams[i].Name}
-            stroke={colors[i]}
-            activeDot={(d,i) => {console.warn(d,i)}}
-
-          />)}
+            stroke={this.getTeamColor(Object.keys(d)[i+1])}
+            activeDot={(d, i) => {
+              console.warn("active dot",d);
+              this.setState({ roundScores: d.payload }); 
+            }}            
+          />
+          })}
         </LineChart>
 
       </Segment>
@@ -284,6 +217,7 @@ export default class ScoringLineChart extends React.Component<any, { componentWi
   }
 
 }
+
 /** onMouseEnter={this.mouseOverHandler.bind(this)}
           onMouseLeave={() => this.setState({ showToolTip: false })}
  * <Legend
