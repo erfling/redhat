@@ -10,9 +10,10 @@ import Circles from '-!svg-react-loader?name=Icon!../img/circles-blue.svg';
 import { IControllerDataStore } from '../../shared/base-sapien/client/BaseClientCtrl';
 import BaseComponent from "../../shared/base-sapien/client/shared-components/BaseComponent";
 import Info from '-!svg-react-loader?name=Icon!../img/info.svg';
+import Rubiks from '-!svg-react-loader?name=Icon!../img/Problem_Based_Learning.svg';
 import Decisions from '-!svg-react-loader?name=Icon!../img/decisions.svg';
 import Inbox from '-!svg-react-loader?name=Icon!../img/inbox.svg';
-import MessageList from './MessageList'
+import MessageList from './MessageList';
 import IntroLogo from '-!svg-react-loader?name=Icon!../img/intro-logo-blue-circles.svg';
 import PeopleRound from "./PeopleRound/PeopleRound";
 import Welcome from "./Welcome/Welcome";
@@ -137,14 +138,20 @@ export default class Game extends BaseComponent<any, IControllerDataStore & { Ga
 
                 <Menu.Item
                     header>
-                    <Info
+                    <Rubiks
+                        style={{
+                            background: '#0087b9',
+                            fill: "white"
+                        }}
                         onClick={e => {
                             this.controller.dataStore.ApplicationState.ShowQuestions = this.controller.ChildController.dataStore.ShowQuestions = false;
-                            this.controller.dataStore.ApplicationState.ShowMessageList = !this.controller.dataStore.ApplicationState.ShowMessageList;
-                            this._toggleBodyScroll()
+                            this.controller.dataStore.ApplicationState.ShowMessageList = false;
+                            this._toggleBodyScroll();
+                            this.controller.dataStore.ApplicationState.ShowQuestions = this.controller.ChildController.dataStore.ShowQuestions = false;
+                            this.controller.dataStore.ApplicationState.ShowMessageList = this.controller.ChildController.dataStore.ShowMessageList = false;
+                            this.controller.viewDefaultMessage();
 
-                        }
-                        }
+                        }}
                     />
                 </Menu.Item>
                 <Menu.Item
@@ -206,19 +213,23 @@ export default class Game extends BaseComponent<any, IControllerDataStore & { Ga
                         <Menu.Item
                             style={{ position: 'relative' }}
                             onClick={e => {
-                                var test = !this.controller.dataStore.ApplicationState.ShowMessageList;
                                 this.controller.dataStore.ApplicationState.ShowQuestions = this.controller.ChildController.dataStore.ShowQuestions = false;
-                                this.controller.dataStore.ApplicationState.ShowMessageList = this.controller.ChildController.dataStore.ShowMessageList = test;
+                                this.controller.dataStore.ApplicationState.ShowMessageList = this.controller.ChildController.dataStore.ShowMessageList = false;
+                                this.controller.viewDefaultMessage();
                                 //this._toggleBodyScroll();
                                 window.scrollTo(0, 0);
                             }}
                             onMouseOver={() => this.controller.dataStore.ShowGameInfoPopup = true}
                             onMouseOut={() => this.controller.dataStore.ShowGameInfoPopup = false}
                         >
-                            <Info
+                            <Rubiks
+                                style={{
+                                    background: '#0087b9',
+                                    fill: "white"
+                                }}
                                 className="ui circular image"
                             />
-                            <strong>Game Info</strong>
+                            <strong>Challenge</strong>
                         </Menu.Item>
                     }
                     open={this.state.ShowGameInfoPopup}
@@ -357,7 +368,7 @@ export default class Game extends BaseComponent<any, IControllerDataStore & { Ga
                                     }}
                                 >
                                     <MessageList
-                                        Messages={this.state.ApplicationState.CurrentMessages.map(m => {
+                                        Messages={this.state.ApplicationState.CurrentMessages.filter(m => !m.IsDefault).map(m => {
                                             return this.state.ApplicationState.CurrentUser.ReadMessages.indexOf(m._id) == -1 ? Object.assign(m, {IsRead: false}) : Object.assign( m, {IsRead: true} );
                                         })}
                                         Show={this.state.ApplicationState.ShowMessageList}
@@ -389,7 +400,7 @@ export default class Game extends BaseComponent<any, IControllerDataStore & { Ga
                     className={"mobile-messages" + " " + (this.state.ApplicationState.ShowMessageList ? "show" : "hide")}
                 >
                     <MessageList
-                        Messages={this.state.ApplicationState.CurrentMessages.map(m => {
+                        Messages={this.state.ApplicationState.CurrentMessages.filter(m => !m.IsDefault).map(m => {
                             return this.state.ApplicationState.CurrentUser.ReadMessages.indexOf(m._id) == -1 ? Object.assign(m, {IsRead: false}) : Object.assign( m, {IsRead: true} );
                         })}
                         Show={this.state.ApplicationState.ShowMessageList}

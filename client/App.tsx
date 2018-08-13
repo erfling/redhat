@@ -38,26 +38,6 @@ export default class App extends BaseComponent<any, IControllerDataStore>
         super(props);
 
         this.state = this.controller.dataStore;
-
-        /*
-        document.addEventListener("oTransitionEnd", function(e){
-            _handleEndTrastion(e);                      
-        });
-
-        document.addEventListener("transitionend", function(e){
-            _handleEndTrastion(e);                      
-        });         
-
-        function _handleEndTrastion(e: Event){
-            if((e.target as HTMLElement).classList.contains("wide-messages")){
-                console.log(e, (e.target as HTMLElement).classList);
-                (e.target as HTMLElement).style.position = (e.target as HTMLElement).classList.contains('hide') ? "fixed" : "relative"
-                if((e.target as HTMLElement).classList.contains("decisions")){
-                    (e.target as HTMLElement).style.marginTop = (e.target as HTMLElement).classList.contains('hide') ? "0" : "-50px";
-                }
-            }  
-        }
-        */
     }
 
     //----------------------------------------------------------------------
@@ -426,7 +406,7 @@ export default class App extends BaseComponent<any, IControllerDataStore>
                         {location.pathname.indexOf("test") != -1 && <h1>
                             THIS IS THE TEST SITE
                         </h1>}
-                        
+
                         <Switch>
                             <Redirect exact from="/" to="/game" />
                             <Route path="/game" component={Game} />

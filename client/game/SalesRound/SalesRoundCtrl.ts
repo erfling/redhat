@@ -124,8 +124,6 @@ export default class SalesRoundCtrl extends BaseRoundCtrl<IRoundDataStore & {Fee
             ),
             Score: this._getScore(questions)
         });
-        //(this.Response.Answer as SliderValueObj[]).push((r.Answer as SliderValueObj));
-       // this.updateResponse(q, r);
 
         console.log("BUILT OUT RESPONSE",this.Response, this._responseMap);
     }

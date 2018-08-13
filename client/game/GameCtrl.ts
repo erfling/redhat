@@ -285,4 +285,14 @@ export default class GameCtrl extends BaseClientCtrl<IControllerDataStore & {Gam
         return location.pathname.split("/").filter(item => item.length).pop();
     }
 
+    public viewDefaultMessage(){
+
+        let selectedMessage = this.ChildController.dataStore.ApplicationState.CurrentMessages.filter(m => m.IsDefault && (this.ChildController as BaseRoundCtrl<any>).dataStore.SubRound[(this.ChildController as BaseRoundCtrl<any>)._getMessageProp(this.dataStore.ApplicationState.CurrentUser.Job)].indexOf(m._id) != -1)[0] || null
+
+        if(selectedMessage)
+            DataStore.ApplicationState.SelectedMessage
+            = this.dataStore.ApplicationState.SelectedMessage
+            = this.ChildController.dataStore.ApplicationState.SelectedMessage = selectedMessage;
+    }
+
 }
