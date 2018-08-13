@@ -423,6 +423,10 @@ export default class App extends BaseComponent<any, IControllerDataStore>
                         className={"source-stream " + (this.state && this.state.ApplicationState.CurrentUser && this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN ? " admin-body " : " ") + (this.state.ApplicationState.MobileWidth ? "mobile" : "")}
                         
                     >
+                        {location.pathname.indexOf("test") != -1 && <h1>
+                            THIS IS THE TEST SITE
+                        </h1>}
+                        
                         <Switch>
                             <Redirect exact from="/" to="/game" />
                             <Route path="/game" component={Game} />
