@@ -11,8 +11,9 @@ import FeedBackWrapper from '../Scoring/FeedBackWrapper';
 import TeamModel from "../../../shared/models/TeamModel";
 import { ComparisonLabel } from "../../../shared/models/QuestionModel";
 import MathUtil from '../../../shared/entity-of-the-state/MathUtil'
-import { SliderValueObj } from "../../../shared/entity-of-the-state/ValueObj";
+import ValueObj, { SliderValueObj } from "../../../shared/entity-of-the-state/ValueObj";
 import GameCtrl from "../GameCtrl";
+import { Icon } from "semantic-ui-react";
 
 const { Button, Grid, Form, Dimmer, Loader, Header, Table } = Semantic;
 const { Row, Column } = Grid;
@@ -50,9 +51,9 @@ export default class DealStructure extends BaseComponent<any, IRoundDataStore & 
     //
     //----------------------------------------------------------------------
 
-    componentDidMount(){
+    componentDidMount() {
         super.componentDidMount();
-        
+
         setTimeout(() => {
             GameCtrl.GetInstance().dataStore.ShowDecisionPopup = true;
         }, 1600)
@@ -128,15 +129,47 @@ export default class DealStructure extends BaseComponent<any, IRoundDataStore & 
                         IsEditable={this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN}
                         SubRoundId={thisSubRound._id}
                         onSaveHandler={this.controller.saveFeedback.bind(this.controller)}
-                        RoundName="Round 1"
+                        RoundName="Round 2"
                         Feedback={this.controller.filterFeedBack(this.state.Scores, this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN)}
                     >
-                    </FeedBackWrapper> 
-                    </>
-                } 
+                        {this.state.ApplicationState.SubroundResponses && 
+                        <>
+                            <Table striped celled>
+                                <Table.Header>
+                                    <Table.Row>
+                                        <Table.HeaderCell>
+                                            <Semantic.Label 
+                                                ribbon color="blue"
+                                            >
+                                                <Icon name="attention"/> Important Data
+                                            </Semantic.Label>
+                                        </Table.HeaderCell>
+                                        <Table.HeaderCell>Price Per Customer</Table.HeaderCell>
+                                        <Table.HeaderCell>Customer Satisfaction</Table.HeaderCell>
+                                    </Table.Row>
+                                </Table.Header>
 
-                           
-                {thisSubRound && !this.state.ApplicationState.ShowMessageList  && !this.state.ApplicationState.ShowQuestions && this.state.ApplicationState.SelectedMessage && !this.state.ApplicationState.ShowFeedback &&
+                                <Table.Body>
+                                    {this.state.ApplicationState.SubroundResponses.map((r, i) =>
+                                        <Table.Row key={i}>
+                                            <Table.Cell>
+                                                {r.TeamNumber}
+                                            </Table.Cell>
+                                            <Table.Cell>{(r.Answer as ValueObj[]).filter(a => a.label == ComparisonLabel.PRICE_PER_CUSTOMER) ? (r.Answer as ValueObj[]).filter(a => a.label == ComparisonLabel.PRICE_PER_CUSTOMER)[0].data : null}</Table.Cell>
+                                            <Table.Cell>{(r.Answer as ValueObj[]).filter(a => a.label == ComparisonLabel.CSAT) ? Math.round( (r.Answer as ValueObj[]).filter(a => a.label == ComparisonLabel.CSAT)[0].data * 1000)/10  : null}</Table.Cell>
+                                        </Table.Row>
+                                    )}
+                                </Table.Body>
+                            </Table>
+                        </>
+                        }
+
+                    </FeedBackWrapper>
+                </>
+                }
+
+
+                {thisSubRound && !this.state.ApplicationState.ShowMessageList && !this.state.ApplicationState.ShowQuestions && this.state.ApplicationState.SelectedMessage && !this.state.ApplicationState.ShowFeedback &&
                     <EditableContentBlock
                         IsEditable={this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN}
                         SubRoundId={thisSubRound._id}
