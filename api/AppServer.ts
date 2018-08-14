@@ -110,11 +110,8 @@ export class AppServer {
             MONGO_URI = 'mongodb://localhost:27017/red-hat';
         }
 
-
         mongoose.set('debug', true);
-
         var connection = mongoose.connect(MONGO_URI || process.env.MONGODB_URI).then((connection) => {
-            //console.log(typeof connection, connection);
         }).catch((r) => {
             console.log(r);
         });
@@ -146,7 +143,7 @@ export class AppServer {
         });
 
         //GZIP large resources in production
-        /*
+        
         console.log("ENVIRONMENT IS:", process.env.NODE_ENV)
         if (process.env.NODE_ENV && process.env.NODE_ENV.indexOf("prod") != -1) {
             AppServer.app
@@ -165,7 +162,7 @@ export class AppServer {
                     next();
                 })
         }
-        */
+        
         /*
          AppServer.app.get("/listenforgameadvance/:gameid", async (req, res, next) => {
              const gameId = req.params.gameid;

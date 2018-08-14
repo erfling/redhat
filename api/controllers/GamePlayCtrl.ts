@@ -209,6 +209,22 @@ class GamePlayRouter {
         }
     }
 
+    public async GetGameResponsesBySubround(req: Request, res: Response){
+        try{
+            let GameId = req.params.gameid;
+            let SubRoundId = req.params.subroundid;
+
+            const responses = await monResponseModel.find({GameId, SubRoundId});
+
+            if(!responses) throw new Error("NO RESPONSES");
+            res.json(responses);
+        }
+        catch(err){
+            console.log(err)
+            res.status(500).send("couldn't get responses")
+        }
+    }
+
     public async SaveRound3Response(req: Request, res: Response) {
         const subround: SubRoundModel = Object.assign(new SubRoundModel(), req.body as SubRoundModel);
         console.log(subround);
@@ -454,9 +470,6 @@ class GamePlayRouter {
                 response.targetObjId = (response.Answer as SliderValueObj[])[0].targetObjId;
                 response.DisplayLabel = question.Text;
 
-                console.log("HEY!!!!", response);
-
-
     
                 if (!oldResponse) {
                     delete response._id;
@@ -470,26 +483,7 @@ class GamePlayRouter {
             }
 
             res.json(response)
-            /*
-            var olderMasterResponse = await monResponseModel.findOne({
-                    SubRoundId: response.SubRoundId,
-                    QuestionId: response.QuestionId
-
-                }).then(r => r ? r.toJSON() : null);
-
-            if(olderMasterResponse){
-                console.log("UPDATING OLD RESPONSE")
-                var newResposne = await monResponseModel.findOneAndUpdate({
-                    SubRoundId: response.SubRoundId,
-                    QuestionId: response.QuestionId
-
-                }, response).then(r => r ? r.toJSON() : null);
-            } else {
-                var newResposne = await monResponseModel.create(response).then(r => r ? r.toJSON() : null);
-            }
-
-            if (newResposne) res.json(newResposne);
-            */
+           
         }catch(err){
             console.log(err);
             res.status(500);
@@ -660,6 +654,7 @@ class GamePlayRouter {
     public routes() {
         //this.router.all("*", cors());
         this.router.get("/", this.GetRounds.bind(this));
+        this.router.get("/responses/:gameid/:subroundid", this.GetGameResponsesBySubround.bind(this));
         this.router.get("/get4bresponses/:gameid", this.getTeamsFor4BRating.bind(this));
         this.router.get("/readmessage/:messageid/:userid", this.ReadMessage.bind(this));
         this.router.post("/rateplayers", this.GetPlayerRatingsQuestions.bind(this));

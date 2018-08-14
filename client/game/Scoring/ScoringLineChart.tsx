@@ -237,39 +237,3 @@ export default class ScoringLineChart extends React.Component<any, { componentWi
   }
 
 }
-
-/** onMouseEnter={this.mouseOverHandler.bind(this)}
-          onMouseLeave={() => this.setState({ showToolTip: false })}
- * <Legend
-                data={this.getMockData().reduce(function(prev, curr) {
-                  return prev.concat(curr[0]);
-                })}
-                config={colors.map(c => {return {color: c}})}
-                dataId="teamName"
-                horizontal
-              />
- * 
- * ={(this.state.componentWidth) > 350 ? true : false}
- *  message:  MessageModel | SubRoundFeedback,
-    SubRoundId: string;
-    onSaveHandler(message: MessageModel, subroundId: string): void;
-    IsEditable: boolean,  <HorizontalGridLines
-                    tickValues={[2, 4, 6, 8, 10]}
-                    style={{ stroke: '#666' }}
-                />
-                <XAxis
-                    tickValues={[0, 1, 2]}
-                    tickFormat={(tick: number) => chartXLabels[tick]}
-                    style={{ stroke: '#666' }}
-                />
-                <YAxis
-                    tickValues={[2, 4, 6, 8, 10]}
-                />
-                 {this.getMockData().map((s, i, arr) => {
-                    return <LineChart
-                        label="test"
-                        className="chart-line"
-                        color={colors[i]}
-                        data={s.map((s, i: number) => { return { x: i + 1, y: s.MaxScore } })}
-                    />
-                })}*/

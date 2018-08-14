@@ -58,15 +58,6 @@ export default class EngineeringRound extends BaseComponent<any, IRoundDataStore
             GameCtrl.GetInstance().dataStoreDeepProxy.addOnChange(this.controller.dataStoreChange.bind(this.controller))
             console.log("BASE CONTROLLER IN BASE COMPONENT IS:", (GameCtrl.GetInstance().ChildController));
         }
-        
-        setTimeout(() => {
-            GameCtrl.GetInstance().dataStore.ShowDecisionPopup = true;
-        }, 1600)
-
-        setTimeout(() => {
-            GameCtrl.GetInstance().dataStore.ShowDecisionPopup = false;
-        }, 6600)
-        
     }
     
     render() {

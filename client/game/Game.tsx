@@ -10,9 +10,10 @@ import Circles from '-!svg-react-loader?name=Icon!../img/circles-blue.svg';
 import { IControllerDataStore } from '../../shared/base-sapien/client/BaseClientCtrl';
 import BaseComponent from "../../shared/base-sapien/client/shared-components/BaseComponent";
 import Info from '-!svg-react-loader?name=Icon!../img/info.svg';
+import Rubiks from '-!svg-react-loader?name=Icon!../img/Problem_Based_Learning.svg';
 import Decisions from '-!svg-react-loader?name=Icon!../img/decisions.svg';
 import Inbox from '-!svg-react-loader?name=Icon!../img/inbox.svg';
-import MessageList from './MessageList'
+import MessageList from './MessageList';
 import IntroLogo from '-!svg-react-loader?name=Icon!../img/intro-logo-blue-circles.svg';
 import PeopleRound from "./PeopleRound/PeopleRound";
 import Welcome from "./Welcome/Welcome";
@@ -91,7 +92,7 @@ export default class Game extends BaseComponent<any, IControllerDataStore & { Ga
             }
 
 
-            if (classes.indexOf("decisions") == -1 && classes.indexOf("mobile-messages") == -1 && classes.indexOf("message-list") == -1 && classes.indexOf("game-nav") == -1) {
+            if (classes.indexOf("toast-holder") == -1 && classes.indexOf("decisions") == -1 && classes.indexOf("mobile-messages") == -1 && classes.indexOf("message-list") == -1 && classes.indexOf("game-nav") == -1) {
                 this.controller.ChildController.dataStore.ApplicationState.ShowMessageList = false;
                 DataStore.ApplicationState.ShowQuestions = this.controller.ChildController.dataStore.ApplicationState.ShowQuestions = ApplicationCtrl.GetInstance().dataStore.ApplicationState.ShowQuestions = false;
                 this._toggleBodyScroll()
@@ -104,7 +105,6 @@ export default class Game extends BaseComponent<any, IControllerDataStore & { Ga
     private _toggleBodyScroll() {
         //why dont this work?
         if (this.state.ApplicationState.MobileWidth) {
-            console.warn("MOBILE WIDTH!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
             setTimeout(() => {
                 document.body.style.overflow = (this.state.ApplicationState.MobileWidth && (this.state.ApplicationState.ShowQuestions || this.state.ApplicationState.ShowMessageList)) ? "hidden" : "auto";
             }, 20)
@@ -135,56 +135,124 @@ export default class Game extends BaseComponent<any, IControllerDataStore & { Ga
                     margin: 0 //clear semantic-ui style
                 }}>
 
-                <Menu.Item
-                    header>
-                    <Info
-                        onClick={e => {
-                            this.controller.dataStore.ApplicationState.ShowQuestions = this.controller.ChildController.dataStore.ShowQuestions = false;
-                            this.controller.dataStore.ApplicationState.ShowMessageList = !this.controller.dataStore.ApplicationState.ShowMessageList;
-                            this._toggleBodyScroll()
-
-                        }
-                        }
-                    />
-                </Menu.Item>
-                <Menu.Item
-                    header>
-                    <Inbox
-                        onClick={e => {
-                            this.controller.dataStore.ApplicationState.ShowQuestions = this.controller.ChildController.dataStore.ShowQuestions = false;
-                            this.controller.dataStore.ApplicationState.ShowMessageList = !this.controller.dataStore.ApplicationState.ShowMessageList;
-                            this._toggleBodyScroll();
-                        }}
-                    />
-                    {this.state.ApplicationState.UnreadMessages > 0 &&
-                        <Label circular 
-                            size="large"
-                            className={"message-indicator" + (this.state.GrowMessageIndicator ? " grow" : "")}
-                            style={{
-                                marginLeft: '0px',
-                                background: '#f5fafc',
-                                color:'#db2828',
-                            }}
-                            
-
-                            content={this.state.ApplicationState.UnreadMessages}
-                        />
-                    }
-                </Menu.Item>
-                {this.state.ApplicationState.CurrentUser.Job == JobName.MANAGER &&
-                    <Menu.Item
-                        header>
-                        <Decisions
-                            style={{ marginTop: '-9px' }}
+                <Popup
+                    trigger={
+                        <Menu.Item
+                            style={{ position: 'relative' }}
                             onClick={e => {
+                                this.controller.viewDefaultMessage();
                                 this.controller.dataStore.ApplicationState.ShowMessageList = this.controller.ChildController.dataStore.ShowMessageList = false;
-                                this.controller.dataStore.ApplicationState.ShowQuestions = !this.controller.dataStore.ApplicationState.ShowQuestions;
+                                this.controller.ChildController.dataStore.ShowQuestions = false;
+                                window.scrollTo(0, 0);
                                 this._toggleBodyScroll();
+                            }}
+                        >
+                            <Rubiks
+                                className="ui circular image"
+                            />
+                        </Menu.Item>
+                    }
+                    open={this.state.ShowGameInfoPopup}
+                    position='bottom right'
+                    className="nav-instruction"                    
+                    style={{
+                        marginLeft:'40px'
+                    }}
+                >
 
-                            }
-                            }
-                        />
-                    </Menu.Item>
+                    <div className="dismiss-header"
+                        onClick={(e) => {
+                            e.preventDefault();
+                            this.controller.dataStore.ShowGameInfoPopup = false
+                            this.controller.dataStore.ShowInboxPopup = true;
+                        }}
+                    >
+                        x
+                    </div>
+                    View Your Challenge
+                </Popup>
+
+                <Popup
+                    trigger={
+                        <Menu.Item
+                            active={this.controller.dataStore.ApplicationState.ShowMessageList}
+                            onClick={e => {
+                                var test = !this.controller.dataStore.ApplicationState.ShowMessageList;
+                                this.controller.dataStore.ApplicationState.ShowQuestions = this.controller.ChildController.dataStore.ShowQuestions = false;
+                                this.controller.dataStore.ApplicationState.ShowMessageList = this.controller.ChildController.dataStore.ShowMessageList = test;
+                                this._toggleBodyScroll();
+                                window.scrollTo(0, 0);
+
+                            }}
+                        >
+                            <Inbox
+                                className="ui circular image"
+                            />
+                            <strong>
+                                {this.state.ApplicationState.UnreadMessages > 0 &&
+                                    <Label circular
+                                        size="large"
+                                        className={"message-indicator" + (this.state.GrowMessageIndicator ? " grow" : "")}
+                                        style={{
+                                            marginLeft: "8px",
+                                            background: '#f5fafc',
+                                            color: '#db2828',
+                                        }}
+                                        content={this.state.ApplicationState.UnreadMessages}
+                                    />
+                                }
+                            </strong>
+                        </Menu.Item>
+                    }
+                    open={this.state.ShowInboxPopup}
+                    position='bottom center'
+                    className="nav-instruction"
+                >
+                    <div className="dismiss-header"
+
+                        onClick={(e) => {
+                            e.preventDefault();
+                            this.controller.dataStore.ShowInboxPopup = false;
+                            this.controller.dataStore.ShowDecisionPopup = true;
+                        }}
+                    >
+                        x
+                    </div>
+                    You have important new messages.
+                </Popup>
+                {this.state.ApplicationState.CurrentUser.Job == JobName.MANAGER &&
+                
+                    <Popup
+                        trigger={
+                            <Menu.Item
+                                active={this.controller.dataStore.ApplicationState.ShowQuestions}
+                                onClick={e => {
+                                    this.controller.dataStore.ApplicationState.ShowMessageList = false;
+                                    this.controller.dataStore.ApplicationState.ShowQuestions = this.controller.ChildController.dataStore.ShowQuestions = !this.controller.dataStore.ApplicationState.ShowQuestions;
+                                    //this._toggleBodyScroll();
+                                    window.scrollTo(0, 0);
+                                }}
+                            >
+                                <Decisions
+                                    className="ui circular image"
+                                />
+                            </Menu.Item>}
+                        open={this.state.ShowDecisionPopup}
+                        position="bottom right"
+                        className="nav-instruction top-nav-last bottom left"
+                    >
+                        <div className="dismiss-header"
+
+                            onClick={(e) => {
+                                e.preventDefault();
+                                this.controller.dataStore.ShowDecisionPopup = false;
+                            }}
+                        >
+                            x
+                    </div>
+                        As manager, you enter decisions for your team.
+                </Popup>
+                
                 }
             </Menu>
         }
@@ -206,26 +274,40 @@ export default class Game extends BaseComponent<any, IControllerDataStore & { Ga
                         <Menu.Item
                             style={{ position: 'relative' }}
                             onClick={e => {
-                                var test = !this.controller.dataStore.ApplicationState.ShowMessageList;
                                 this.controller.dataStore.ApplicationState.ShowQuestions = this.controller.ChildController.dataStore.ShowQuestions = false;
-                                this.controller.dataStore.ApplicationState.ShowMessageList = this.controller.ChildController.dataStore.ShowMessageList = test;
+                                this.controller.dataStore.ApplicationState.ShowMessageList = this.controller.ChildController.dataStore.ShowMessageList = false;
+                                this.controller.viewDefaultMessage();
+                                this.controller.ChildController.dataStore.ShowQuestions = false;
                                 //this._toggleBodyScroll();
                                 window.scrollTo(0, 0);
                             }}
-                            onMouseOver={() => this.controller.dataStore.ShowGameInfoPopup = true}
-                            onMouseOut={() => this.controller.dataStore.ShowGameInfoPopup = false}
                         >
-                            <Info
+                            <Rubiks
+                                style={{
+                                    background: '#0087b9',
+                                    fill: "white"
+                                }}
                                 className="ui circular image"
                             />
-                            <strong>Game Info</strong>
+                            <strong>Challenge</strong>
                         </Menu.Item>
                     }
                     open={this.state.ShowGameInfoPopup}
-                    content="Follow your progress"
                     position='left center'
                     className="nav-instruction side"
-                />
+                >
+
+                    <div className="dismiss-header"
+                        onClick={(e) => {
+                            e.preventDefault();
+                            this.controller.dataStore.ShowGameInfoPopup = false
+                            this.controller.dataStore.ShowInboxPopup = true;
+                        }}
+                    >
+                        x
+                    </div>
+                    View Your Challenge
+                </Popup>
 
                 <Popup
                     trigger={
@@ -239,8 +321,6 @@ export default class Game extends BaseComponent<any, IControllerDataStore & { Ga
                                 window.scrollTo(0, 0);
 
                             }}
-                            onMouseOver={() => this.controller.dataStore.ShowInboxPopup = true}
-                            onMouseOut={() => this.controller.dataStore.ShowInboxPopup = false}                            
                         >
                             <Inbox
                                 className="ui circular image"
@@ -248,13 +328,13 @@ export default class Game extends BaseComponent<any, IControllerDataStore & { Ga
                             <strong>
                                 Inbox
                                 {this.state.ApplicationState.UnreadMessages > 0 &&
-                                    <Label circular 
+                                    <Label circular
                                         size="large"
                                         className={"message-indicator" + (this.state.GrowMessageIndicator ? " grow" : "")}
                                         style={{
                                             marginLeft: "8px",
                                             background: '#f5fafc',
-                                            color:'#db2828',
+                                            color: '#db2828',
                                         }}
                                         content={this.state.ApplicationState.UnreadMessages}
                                     />
@@ -263,37 +343,57 @@ export default class Game extends BaseComponent<any, IControllerDataStore & { Ga
                         </Menu.Item>
                     }
                     open={this.state.ShowInboxPopup}
-                    content="You have important new messages."
                     position='left center'
-                    className="nav-instruction side"
-                />
+                    className="nav-instruction side sapien-toast"
+                >
+                    <div className="dismiss-header"
+
+                        onClick={(e) => {
+                            e.preventDefault();
+                            this.controller.dataStore.ShowInboxPopup = false;
+                            this.controller.dataStore.ShowDecisionPopup = true;
+                        }}
+                    >
+                        x
+                    </div>
+                    You have important new messages.
+                </Popup>
 
                 {this.state.ApplicationState.CurrentUser.Job == JobName.MANAGER &&
-                 <Popup
-                 trigger={
-                    <Menu.Item
-                        active={this.controller.dataStore.ApplicationState.ShowQuestions}
-                        onClick={e => {
-                            this.controller.dataStore.ApplicationState.ShowMessageList = false;
-                            this.controller.dataStore.ApplicationState.ShowQuestions = this.controller.ChildController.dataStore.ShowQuestions = !this.controller.dataStore.ApplicationState.ShowQuestions;
-                            //this._toggleBodyScroll();
-                            window.scrollTo(0, 0);
-                        }}
-                        onMouseOver={() => this.controller.dataStore.ShowDecisionPopup = true}
-                        onMouseOut={() => this.controller.dataStore.ShowDecisionPopup = false}   
+                    <Popup
+                        trigger={
+                            <Menu.Item
+                                active={this.controller.dataStore.ApplicationState.ShowQuestions}
+                                onClick={e => {
+                                    this.controller.dataStore.ApplicationState.ShowMessageList = false;
+                                    this.controller.dataStore.ApplicationState.ShowQuestions = this.controller.ChildController.dataStore.ShowQuestions = !this.controller.dataStore.ApplicationState.ShowQuestions;
+                                    //this._toggleBodyScroll();
+                                    window.scrollTo(0, 0);
+
+                                }}
+                            >
+                                <Decisions
+                                    className="ui circular image"
+                                />
+                                <strong>Decisions</strong>
+                            </Menu.Item>}
+                        open={this.state.ShowDecisionPopup}
+                        position='left center'
+                        className="nav-instruction side"
                     >
-                        <Decisions
-                            className="ui circular image"
-                        />
-                        <strong>Decisions</strong>
-                    </Menu.Item>}
-                     open={this.state.ShowDecisionPopup}
-                     content="Managers enter decisions for your team."
-                     position='left center'
-                     className="nav-instruction side"
-                 />
-                    }
-                    
+                        <div className="dismiss-header"
+
+                            onClick={(e) => {
+                                e.preventDefault();
+                                this.controller.dataStore.ShowDecisionPopup = false;
+                            }}
+                        >
+                            x
+                        </div>
+                        As manager, you enter decisions for your team.
+                    </Popup>
+                }
+
             </Menu>
         </Grid.Column>
     }
@@ -357,8 +457,8 @@ export default class Game extends BaseComponent<any, IControllerDataStore & { Ga
                                     }}
                                 >
                                     <MessageList
-                                        Messages={this.state.ApplicationState.CurrentMessages.map(m => {
-                                            return this.state.ApplicationState.CurrentUser.ReadMessages.indexOf(m._id) == -1 ? Object.assign(m, {IsRead: false}) : Object.assign( m, {IsRead: true} );
+                                        Messages={this.state.ApplicationState.CurrentMessages.filter(m => !m.IsDefault).map(m => {
+                                            return this.state.ApplicationState.CurrentUser.ReadMessages.indexOf(m._id) == -1 ? Object.assign(m, { IsRead: false }) : Object.assign(m, { IsRead: true });
                                         })}
                                         Show={this.state.ApplicationState.ShowMessageList}
                                         SelectFunc={(m) => {
@@ -379,8 +479,8 @@ export default class Game extends BaseComponent<any, IControllerDataStore & { Ga
                                 <Route path="/game/financeround" component={FinanceRound} />
                                 <Route path="/game/customerround" component={CustomerRound} />
                                 <Redirect exact from="/game" to="/game/welcome/intro" />
-                            </Switch>                            
-                            
+                            </Switch>
+
                         </Column>
                         {locality.indexOf("WELCOME") == -1 && this.renderGameMenu()}
                     </Grid>
@@ -389,8 +489,8 @@ export default class Game extends BaseComponent<any, IControllerDataStore & { Ga
                     className={"mobile-messages" + " " + (this.state.ApplicationState.ShowMessageList ? "show" : "hide")}
                 >
                     <MessageList
-                        Messages={this.state.ApplicationState.CurrentMessages.map(m => {
-                            return this.state.ApplicationState.CurrentUser.ReadMessages.indexOf(m._id) == -1 ? Object.assign(m, {IsRead: false}) : Object.assign( m, {IsRead: true} );
+                        Messages={this.state.ApplicationState.CurrentMessages.filter(m => !m.IsDefault).map(m => {
+                            return this.state.ApplicationState.CurrentUser.ReadMessages.indexOf(m._id) == -1 ? Object.assign(m, { IsRead: false }) : Object.assign(m, { IsRead: true });
                         })}
                         Show={this.state.ApplicationState.ShowMessageList}
                         SelectFunc={(m) => {

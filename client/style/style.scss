@@ -3,11 +3,11 @@
 body{
     /*background: #CCEAF2;
     background: linear-gradient(#CCEAF2, #a9ebfd);*/
-    background: white;
     background:rgba(204, 234, 242, 0.08);
     background: #CCEAF2;
     background: #dbeef5;
     background: rgba(0, 136, 185, 0.04);
+    background: white;
 }
 
 h1, h2, h3, h4, h5, p, .ui.header, ul, ul li, strong{
@@ -105,8 +105,6 @@ a{
         padding-top: 104px;
     }
 }
-
-
 
 .content-block{
     text-align: left;
@@ -268,7 +266,8 @@ SEMANTIC MOBILE FIX
     right:5px;
     z-index: 100000;
     .sapien-toast{
-        padding: 1em ;
+        padding: 1em;
+        padding-left:25px;
         border-radius:3px;
         max-width: 280px;
         width: 25vh;
@@ -280,6 +279,11 @@ SEMANTIC MOBILE FIX
         text-align: center;
         margin-left: 0;
         margin-bottom: 7px;
+        position: relative;
+        .dismiss-header{
+            position: absolute;
+            cursor: pointer;
+        }
         &:last-child{
             margin-bottom: 9vh;
         }
@@ -317,9 +321,6 @@ SEMANTIC MOBILE FIX
     }
 }
 
-
-
-
 .wide-messages, .mobile-messages{
     background: url('../img/inbox-muted.png') white;
     background-size: 45%;
@@ -337,6 +338,7 @@ SEMANTIC MOBILE FIX
         }
     }
 }
+
 .wide-messages{
     min-height: 100vh;
     background-position: center 340px;
@@ -354,7 +356,7 @@ SEMANTIC MOBILE FIX
         position: relative !important;
         width: 100%;
         margin-top: -51px;
-        padding: 40px 20px;
+        padding: 20px 20px 40px;
         left:0;
     }
     form{
@@ -543,6 +545,7 @@ SEMANTIC MOBILE FIX
     background: #0088b9;
     color: white;
     border-color: #0088b9;
+    padding-left: 25px;
     &:before{
         background: #0088b9 !important;
         border-color: #0088b9 !important;
@@ -553,6 +556,19 @@ SEMANTIC MOBILE FIX
     }
     &.top{
 
+    }
+    .dismiss-header{
+        position: absolute;
+        margin-left: -15px;
+        cursor: pointer;
+    }
+    &.top-nav-last{
+        margin-top:69px;
+        margin-left: 110px !important;
+        &::before{
+            top: 0%; 
+            right: 30px;
+        }
     }
 }
 

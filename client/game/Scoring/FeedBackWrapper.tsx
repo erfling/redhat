@@ -11,18 +11,6 @@ import SubRoundFeedback, { ValueDemomination } from "../../../shared/models/SubR
 import EditableContentBlock from "../../../shared/base-sapien/client/shared-components/EditableContentBlock";
 import MessageModel from "../../../shared/models/MessageModel";
 
-import {
-    XYPlot,
-    XAxis,
-    YAxis,
-    HorizontalGridLines,
-    VerticalGridLines,
-    LineSeries,
-    DiscreteColorLegend,
-    DiscreteColorLegendItem,
-    Hint
-} from 'react-vis';
-
 interface FeedBackProps {
     RoundName: string;
     Blurb?: string;
@@ -33,7 +21,7 @@ interface FeedBackProps {
     Message?:  MessageModel | SubRoundFeedback,
     SubRoundId?: string;
     onSaveHandler?(message: MessageModel, subroundId: string): void;
-    IsEditable?: boolean, 
+    IsEditable?: boolean,
 }
 
 export default class FeedBackWrapper extends React.Component<FeedBackProps, any>
