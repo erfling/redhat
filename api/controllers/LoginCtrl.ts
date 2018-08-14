@@ -65,7 +65,7 @@ export class LoginCtrlClass
             }
             console.log(game.Teams);
 
-            var mapping: RoundChangeMapping = await monMappingModel.findOne({ GameId: game._id.toString(), ParentRound: "peopleround", ChildRound: "priorities"}).then(r => r ? Object.assign(new RoundChangeMapping(), r.toJSON()) : new RoundChangeMapping());
+            var mapping: RoundChangeMapping = await monMappingModel.findOne({ GameId: game._id.toString(), ParentRound: "peopleround", ChildRound: "priorities"}).then(r => r ? Object.assign(new RoundChangeMapping(), r.toJSON()) : Object.assign(new RoundChangeMapping(), { GameId: game._id.toString(), ParentRound: "peopleround", ChildRound: "priorities"}));
             const round = await monRoundModel.findOne({Name: mapping.ParentRound.toUpperCase()}).then(r => r.toJSON())
             let RoundId = round._id;
             console.log("THIS MAPPING WAS FOUND",mapping)
