@@ -10,6 +10,7 @@ export default class SubRoundScore extends BaseModel
 
     @dbProp(String)
     public TeamId: string = "";
+
     @dbProp(String)
     public RoundId: string="";
 
@@ -19,21 +20,13 @@ export default class SubRoundScore extends BaseModel
     @dbProp(String)
     public GameId: string = "";
   
-    @dbProp(String)
-    public RawScore: string = "";
+    @dbProp(Number)
+    public RawScore: number = 0;
 
-    @dbProp(String)
-    public MaxRawScore: string = "";   
+    @dbProp(Number)
+    public MaxRawScore: number = 0;   
    
    
-    //----------------------------------------------------------------------
-    //
-    //  Constructor
-    //
-    //----------------------------------------------------------------------
 
-    constructor() {
-        super();
-    }
 
 }

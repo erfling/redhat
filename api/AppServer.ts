@@ -9,7 +9,7 @@ import LoginCtrl from './controllers/LoginCtrl';
 import { monMappingModel } from './controllers/GameCtrl';
 import UserCtrl from './controllers/UserCtrl';
 import AuthUtils from './AuthUtils';
-import GameCtrl, { monGameModel } from './controllers/GameCtrl';
+import GameCtrl, { monGameModel,  monSubRoundScoreModel  } from './controllers/GameCtrl';
 import GameModel from '../shared/models/GameModel'
 import TeamCtrl from './controllers/TeamCtrl';
 import GamePlayCtrl from './controllers/GamePlayCtrl';
@@ -21,6 +21,8 @@ import ResponseModel from '../shared/models/ResponseModel';
 import RoundModel from '../shared/models/RoundModel';
 import SubRoundModel from '../shared/models/SubRoundModel';
 import * as fs from 'fs';
+import SubRoundScore from '../shared/models/SubRoundScore';
+
 
 export class AppServer {
     public static app = express();
@@ -190,6 +192,7 @@ export class AppServer {
                 try {
                     const mapping: RoundChangeMapping = Object.assign(new RoundChangeMapping(), req.body);
                     const game: GameModel = await monGameModel.findById(req.params.gameid).populate("Teams").then(g => Object.assign(new GameModel(), g.toJSON()));
+                                        
                     //Pick role for each player on each team
                     //TODO: get rid of magic string
                     mapping.UserJobs = {};
@@ -282,16 +285,49 @@ export class AppServer {
                         })
                     }
 
+
+
+
+
                     if ((!newMapping || !newMapping.ParentRound.length) && !oldMapping) {
                         throw new Error("Couldn't make mapping")
                     }
                     // Update Game object on DB
+                    
+                    
+
+                    // Score calculating
+
+                    var Name = mapping.ChildRound.toUpperCase();
+                    var subRound: SubRoundModel = await monSubRoundModel.findOne({Name})
+                    .then(sr => Object.assign(new SubRoundModel(), sr.toJSON())); //.then()
+                    
+                    var subroundScoreModel: SubRoundScore = await monSubRoundScoreModel.findOneAndUpdate(SubRoundScore, new SubRoundScore(), { upsert: true, new: true, setDefaultsOnInsert: true })
+                    .then(sr => Object.assign(new SubRoundScore(), sr.toJSON()));
+
+                    
+                    //var subRoundScore: SubRoundScore
+               
+
+                // Find the document
+            
+                    //var newMapping: RoundChangeMapping = await monMappingModel.create(mapping).then(r => Object.assign(new RoundChangeMapping(), r.toJSON()))
+                    //.findById(req.params.gameid).populate("Teams").then(g => Object.assign(new GameModel(), g.toJSON()));
+
+
+
+
+
+
                     var mapperydoo = (newMapping && newMapping.ParentRound.length) ? newMapping : oldMapping;
                     const gameSave = await monGameModel.findByIdAndUpdate(req.params.gameid, { CurrentRound: mapperydoo, HasBeenManager: game.HasBeenManager });
                     if (gameSave) {
                         AppServer.LongPoll.publishToId("/listenforgameadvance/:gameid", req.params.gameid, mapperydoo);
                         res.json("long poll publish hit");
                     }
+
+
+
                 }
                 catch (err) {
                     console.log(err)

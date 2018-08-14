@@ -121,6 +121,9 @@ export class LoginCtrlClass
             return res.json({user, token, team});
         }
         catch (err){
+            console.log("LoginCtrl ");
+            
+            console.log(err);
             res
                 .status(500)
                 .send(err)
