@@ -53,14 +53,6 @@ export default class DealStructure extends BaseComponent<any, IRoundDataStore & 
 
     componentDidMount() {
         super.componentDidMount();
-
-        setTimeout(() => {
-            GameCtrl.GetInstance().dataStore.ShowDecisionPopup = true;
-        }, 1600)
-
-        setTimeout(() => {
-            GameCtrl.GetInstance().dataStore.ShowDecisionPopup = false;
-        }, 6600)
     }
 
     //----------------------------------------------------------------------
