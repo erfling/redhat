@@ -22,6 +22,7 @@ import FeedBackModel from '../../shared/models/FeedBackModel';
 
 import { RatingType } from '../../shared/models/QuestionModel';
 import SubRoundFeedback, { ValueDemomination } from '../../shared/models/SubRoundFeedback';
+import { AppServer } from '../AppServer';
 
 const schObj = SchemaBuilder.fetchSchema(ResponseModel);
 const monSchema = new mongoose.Schema(schObj);
@@ -278,6 +279,8 @@ class GamePlayRouter {
                 let gameForUpdate = Object.assign(game, { CurrentRound: Object.assign(game.CurrentRound, { CurrentHighestBid }) })
 
                 const updatedGame = await monGameModel.findByIdAndUpdate(team.GameId, gameForUpdate);
+                AppServer.LongPoll.publishToId("/listenforgameadvance/:gameid", response.GameId, gameForUpdate.CurrentRound);
+
             }
 
             next();
