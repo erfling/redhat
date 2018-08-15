@@ -314,24 +314,21 @@ class GamePlayRouter {
             let finalQuestions: QuestionModel[] = [];
 
             Object.keys(groupedResponses).map(k => {
-                console.log(groupedResponses[k]);
+                console.log("GROUPED RESPONSES FOR TEAM WITH ID: ", k, groupedResponses[k]);
 
                 let bidResponse = groupedResponses[k].filter(r => r.Answer && r.Answer[0] && r.Answer[0].label && r.Answer[0].label.toUpperCase() == "PRICING")[0] || null;
                 let rationaleResponse = groupedResponses[k].filter(r => r.Answer && r.Answer[0] && r.Answer[0].label && r.Answer[0].label.toUpperCase() == "EXPLANATION")[0] || null;
 
-
-
-                finalQuestions = finalQuestions.concat(
-                    questions.map(q => {
-                        return Object.assign(q, {
-
-                            Text: q.Text + " " + rationaleResponse.TeamNumber + " bid" + " $" + bidResponse.Answer[0].data + " Bil.",
-                            TargetTeamId: k,
-                            SubText: rationaleResponse ? rationaleResponse.Answer[0].data : "",
-                            test: "adsf"
-                        })
+                let teamQuestions = questions.map(q => {
+                    
+                    return Object.assign({}, q, {
+                        Text: q.Text + " " + rationaleResponse.TeamNumber + " bid" + " $" + bidResponse.Answer[0].data + " Bil.",
+                        TargetTeamId: k,
+                        SubText: rationaleResponse ? rationaleResponse.Answer[0].data : "",
+                        test: "adsf"
                     })
-                )
+                })
+                finalQuestions = finalQuestions.concat(teamQuestions);
             });
 
             res.json(finalQuestions);
