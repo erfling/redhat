@@ -138,7 +138,7 @@ export default class GameCtrl extends BaseClientCtrl<IControllerDataStore & {Gam
     public getMessageCount(){
         let count = 0;
         this.dataStore.ApplicationState.CurrentMessages.forEach(m => {
-            if (this.dataStore.ApplicationState.CurrentUser.ReadMessages.indexOf(m._id) == -1) count++;
+            if (this.dataStore.ApplicationState.CurrentUser.ReadMessages.indexOf(m._id) == -1 && !m.IsDefault) count++;
         })
         this.dataStore.ApplicationState.UnreadMessages = count;
         if(count > 0){
