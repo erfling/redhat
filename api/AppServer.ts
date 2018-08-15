@@ -143,7 +143,7 @@ export class AppServer {
         });
 
         //GZIP large resources in production
-
+ /*
         console.log("ENVIRONMENT IS:", process.env.NODE_ENV)
         if (process.env.NODE_ENV && process.env.NODE_ENV.indexOf("prod") != -1) {
             AppServer.app
@@ -163,7 +163,7 @@ export class AppServer {
                 })
         }
 
-        /*
+       
          AppServer.app.get("/listenforgameadvance/:gameid", async (req, res, next) => {
              const gameId = req.params.gameid;
              try {
