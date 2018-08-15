@@ -504,8 +504,6 @@ class GamePlayRouter {
 
             const subround: SubRoundModel = await monSubRoundModel.findById(SubRoundId).populate("FeedBack").then(sr => sr ? Object.assign(new SubRoundModel(), sr.toJSON()) : null);
 
-            console.log("OUR SUBROUND IS:", subround);
-
             let groupedResponses = groupBy(responses, "TeamId");
 
             console.log(groupedResponses);

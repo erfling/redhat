@@ -281,6 +281,8 @@ SEMANTIC MOBILE FIX
         margin-bottom: 7px;
         position: relative;
         .dismiss-header{
+            top: 0;
+            margin-left: -20px;
             position: absolute;
             cursor: pointer;
         }

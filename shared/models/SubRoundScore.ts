@@ -26,7 +26,9 @@ export default class SubRoundScore extends BaseModel
     @dbProp(Number)
     public MaxRawScore: number = 0;   
    
-   
+    @dbProp(Number)
+    public NormalizedScore: number = 0;
+
 
 
 }

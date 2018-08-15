@@ -1,7 +1,7 @@
 import * as express from 'express';
 import * as http from 'http';
 import * as https from 'https';
-import RoundController, { monRoundModel, monSubRoundModel } from './controllers/RoundCtrl'
+import RoundController, { monRoundModel, monSubRoundModel, monQModel } from './controllers/RoundCtrl'
 import * as mongoose from 'mongoose';
 import * as bodyParser from 'body-parser';
 import * as Passport from 'passport'
@@ -9,10 +9,10 @@ import LoginCtrl from './controllers/LoginCtrl';
 import { monMappingModel } from './controllers/GameCtrl';
 import UserCtrl from './controllers/UserCtrl';
 import AuthUtils from './AuthUtils';
-import GameCtrl, { monGameModel,  monSubRoundScoreModel  } from './controllers/GameCtrl';
+import GameCtrl, { monGameModel, monSubRoundScoreModel } from './controllers/GameCtrl';
 import GameModel from '../shared/models/GameModel'
 import TeamCtrl from './controllers/TeamCtrl';
-import GamePlayCtrl from './controllers/GamePlayCtrl';
+import GamePlayCtrl, { monResponseModel } from './controllers/GamePlayCtrl';
 import LongPoll from '../shared/base-sapien/api/LongPoll';
 import RoundChangeMapping from '../shared/models/RoundChangeMapping';
 import { JobName } from '../shared/models/UserModel';
@@ -22,6 +22,7 @@ import RoundModel from '../shared/models/RoundModel';
 import SubRoundModel from '../shared/models/SubRoundModel';
 import * as fs from 'fs';
 import SubRoundScore from '../shared/models/SubRoundScore';
+import { SliderValueObj } from '../shared/entity-of-the-state/ValueObj';
 
 
 export class AppServer {
@@ -39,10 +40,10 @@ export class AppServer {
             if (AppServer._isProd()) {
                 var privateKey = fs.readFileSync('/sapien/certificates/planetsapien.com/privkey.pem', 'utf8').toString();
                 var certificate = fs.readFileSync('/sapien/certificates/planetsapien.com/fullchain.pem', 'utf8').toString();
-                if (!privateKey || !certificate)throw new Error("no cert or key found");
+                if (!privateKey || !certificate) throw new Error("no cert or key found");
 
                 AppServer.port = AppServer.normalizePort(443);
-                
+
                 //set up server to forward insecure traffic to https
                 const port = AppServer.normalizePort(80);
                 const forwardApp = express();
@@ -104,13 +105,13 @@ export class AppServer {
     private static onListening(): void {
 
         let MONGO_URI: string;
-        if(AppServer._isProd()) {
+        if (AppServer._isProd()) {
             MONGO_URI = 'mongodb://localhost:27017/red-hat';
         } else {
             MONGO_URI = 'mongodb://localhost:27017/red-hat';
         }
 
-        mongoose.set('debug', true);
+        //mongoose.set('debug', true);
         var connection = mongoose.connect(MONGO_URI || process.env.MONGODB_URI).then((connection) => {
         }).catch((r) => {
             console.log(r);
@@ -128,7 +129,6 @@ export class AppServer {
         AppServer.LongPoll.create("/listenforgameadvance/:gameid", async (req, res, next) => {
             req.id = req.params.gameid;
             const game = await monGameModel.findById(req.id).then(r => r ? Object.assign(new GameModel(), r.toJSON()) : null);
-            console.log("we are here", req.params, game)
             if (game) {
                 if (!game.CurrentRound || !game.CurrentRound.ParentRound) {
                     next();
@@ -143,7 +143,7 @@ export class AppServer {
         });
 
         //GZIP large resources in production
-        
+
         console.log("ENVIRONMENT IS:", process.env.NODE_ENV)
         if (process.env.NODE_ENV && process.env.NODE_ENV.indexOf("prod") != -1) {
             AppServer.app
@@ -162,7 +162,7 @@ export class AppServer {
                     next();
                 })
         }
-        
+
         /*
          AppServer.app.get("/listenforgameadvance/:gameid", async (req, res, next) => {
              const gameId = req.params.gameid;
@@ -189,7 +189,7 @@ export class AppServer {
                 try {
                     const mapping: RoundChangeMapping = Object.assign(new RoundChangeMapping(), req.body);
                     const game: GameModel = await monGameModel.findById(req.params.gameid).populate("Teams").then(g => Object.assign(new GameModel(), g.toJSON()));
-                                        
+
                     //Pick role for each player on each team
                     //TODO: get rid of magic string
                     mapping.UserJobs = {};
@@ -199,6 +199,8 @@ export class AppServer {
 
                     const round = await monRoundModel.findOne({ Name: mapping.ParentRound.toUpperCase() }).then(r => r.toJSON())
                     let RoundId = round._id;
+                    mapping.RoundId = round._id;
+
                     //make sure the current mapping has the correct child round
                     var oldMapping: RoundChangeMapping = await monMappingModel.findOneAndUpdate({ GameId: game._id, ParentRound: mapping.ParentRound }, {
                         ChildRound: mapping.ChildRound,
@@ -212,7 +214,6 @@ export class AppServer {
                             console.log("Something wrong when updating data!", err);
                         }
                     }).then(r => r ? Object.assign(new RoundChangeMapping(), r.toJSON()) : null);
-                    console.log("OLD MAPPING", oldMapping);
                     if (!oldMapping) {
                         if (mapping.ParentRound.toLowerCase() == "engineeringround") {
                             game.Teams.forEach(t => {
@@ -230,7 +231,6 @@ export class AppServer {
                                 }
                             })
                         } else {
-                            console.log("BUILDING MAPPING");
                             game.Teams.forEach(t => {
                                 console.log("TEAM ", t)
                                 for (let i = 0; i < t.Players.length; i++) {
@@ -259,7 +259,6 @@ export class AppServer {
                         var newMapping: RoundChangeMapping = await monMappingModel.create(mapping).then(r => Object.assign(new RoundChangeMapping(), r.toJSON()))
                     } else if (!oldMapping.UserJobs) {
                         game.Teams.forEach(t => {
-                            console.log("TEAM ", t)
                             for (let i = 0; i < t.Players.length; i++) {
                                 let pid = t.Players[i].toString();
                                 if (game.HasBeenManager.indexOf(pid) == -1) {
@@ -272,7 +271,6 @@ export class AppServer {
 
                             //make sure each team has a manager, even if all the team members have been manager 
                             if (t.Players.every(p => {
-                                console.log("examing", p, mapping.UserJobs[p._id.toString()])
                                 return mapping.UserJobs[p._id.toString()] != JobName.MANAGER
                             })) {
                                 console.log("DIDN'T FIND MANAGER FOR ", t)
@@ -290,24 +288,68 @@ export class AppServer {
                         throw new Error("Couldn't make mapping")
                     }
                     // Update Game object on DB
-                    
-                    
+
+
 
                     // Score calculating
+                    if (mapping.ShowFeedback) {
+                        //var Name = mapping.ChildRound.toUpperCase();
+                        var subRounds: SubRoundModel[] = await monSubRoundModel.find({ RoundId: mapping.RoundId })
+                            .populate("Questions")
+                            .then(srs => srs.map(sr => Object.assign(new SubRoundModel(), sr.toJSON()))); //.then()
 
-                    var Name = mapping.ChildRound.toUpperCase();
-                    var subRound: SubRoundModel = await monSubRoundModel.findOne({Name})
-                    .then(sr => Object.assign(new SubRoundModel(), sr.toJSON())); //.then()
-                    
-                    var subroundScoreModel: SubRoundScore = await monSubRoundScoreModel.findOneAndUpdate(SubRoundScore, new SubRoundScore(), { upsert: true, new: true, setDefaultsOnInsert: true })
-                    .then(sr => Object.assign(new SubRoundScore(), sr.toJSON()));
+                        //we need the PREVIOUS subround
 
-                    
+                        for (let j = 0; j < subRounds.length; j++) {
+                            let subRound = subRounds[j];
+                            console.log("J BE J:", j)
+                            for (let i = 0; i < game.Teams.length; i++) {
+                                let t = game.Teams[i];
+                                //get the team's responses in this subround
+                                const responses: ResponseModel[] = await monResponseModel.find({ TeamId: t._id, SubRoundId: subRound._id }).then(rs => rs ? rs.map(r => Object.assign(new ResponseModel(), r.toJSON())) : null)
+                                let questions = subRound.Questions;
+
+                                let MaxRawScore = 0;
+                                let RawScore = 0;
+
+                                questions.forEach(q => {
+                                    let relevantResponses = responses.filter(r => !r.SkipScoring && r.QuestionId == q._id.toString());
+                                    relevantResponses.forEach(r => {
+                                        RawScore += r.Score;                                        
+                                    });
+                                    ((q.PossibleAnswers as SliderValueObj[]).forEach(a => {
+                                        MaxRawScore += a.maxPoints;
+                                    }))
+                                })
+
+                                let srs = Object.assign(new SubRoundScore(), {
+                                    TeamId: t._id,
+                                    RawScore,
+                                    MaxRawScore,
+                                    GameId: game._id,
+                                    RoundId: subRound.RoundId,
+                                    SubRoundId: subRound._id
+                                });
+
+                                if(RawScore > 0 ){
+                                    srs.NormalizedScore = RawScore / MaxRawScore * 20 / subRounds.length
+                                } else {
+                                    srs.NormalizedScore = 0;
+                                }
+
+                                console.log("SRS:>>>>>>>>>>>>>", srs, MaxRawScore)
+                                var savedSubRoundScore: SubRoundScore = await monSubRoundScoreModel.findOneAndUpdate( { TeamId: t._id, SubRoundId: subRound._id }, srs, { upsert: true, new: true, setDefaultsOnInsert: true })
+                                    .then(sr => Object.assign(new SubRoundScore(), sr.toJSON()));
+                            }
+                        }
+                    }
+
+
                     //var subRoundScore: SubRoundScore
-               
 
-                // Find the document
-            
+
+                    // Find the document
+
                     //var newMapping: RoundChangeMapping = await monMappingModel.create(mapping).then(r => Object.assign(new RoundChangeMapping(), r.toJSON()))
                     //.findById(req.params.gameid).populate("Teams").then(g => Object.assign(new GameModel(), g.toJSON()));
 
@@ -403,7 +445,7 @@ export class AppServer {
         ]
     }
      */
-   
+
     private static async _setRoundAndSubroundOrder() {
         try {
             //do rounds
