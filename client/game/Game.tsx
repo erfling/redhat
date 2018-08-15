@@ -485,6 +485,7 @@ export default class Game extends BaseComponent<any, IControllerDataStore & { Ga
                         {locality.indexOf("WELCOME") == -1 && this.renderGameMenu()}
                     </Grid>
                 </Column>
+
                 {this.state.ApplicationState.CurrentMessages && this.state.ApplicationState.MobileWidth && < div
                     className={"mobile-messages" + " " + (this.state.ApplicationState.ShowMessageList ? "show" : "hide")}
                 >

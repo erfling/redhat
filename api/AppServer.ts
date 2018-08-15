@@ -132,7 +132,7 @@ export class AppServer {
             if (game) {
                 if (!game.CurrentRound || !game.CurrentRound.ParentRound) {
                     next();
-                } else if (!req.query || !req.query.ParentRound || !req.query.ChildRound || req.query.ParentRound.toUpperCase() != game.CurrentRound.ParentRound.toUpperCase() || req.query.ChildRound.toUpperCase() != game.CurrentRound.ChildRound.toUpperCase()) {
+                } else if (!req.query  || req.query.force || !req.query.ParentRound || !req.query.ChildRound || req.query.ParentRound.toUpperCase() != game.CurrentRound.ParentRound.toUpperCase() || req.query.ChildRound.toUpperCase() != game.CurrentRound.ChildRound.toUpperCase()) {
                     res.json(game.CurrentRound);
                 } else {
                     next();

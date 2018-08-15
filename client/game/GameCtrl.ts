@@ -151,19 +151,23 @@ export default class GameCtrl extends BaseClientCtrl<IControllerDataStore & {Gam
 
     private _timeOut;
 
-    public async pollForGameStateChange(gameId: string){
+    public async pollForGameStateChange(gameId: string, force: boolean = false){
 
 
         console.error("CURRENT TEAM:::::>>>>>>>>>", this.dataStore.ApplicationState.CurrentTeam);
 
         if(!this.dataStore.ApplicationState.CurrentTeam || !this.dataStore.ApplicationState.CurrentTeam.GameId)return;
         //console.log("polling for game state", this.dataStore.ApplicationState.CurrentTeam)
+        
+        this.dataStore.ApplicationState.Polling = true;
 
         let url = "/listenforgameadvance/" + this.dataStore.ApplicationState.CurrentTeam.GameId;
         if (this.dataStore.ApplicationState.CurrentTeam.CurrentRound) {
             url = url + "?ParentRound=" + this.dataStore.ApplicationState.CurrentTeam.CurrentRound.ParentRound + "&ChildRound=" + this.dataStore.ApplicationState.CurrentTeam.CurrentRound.ChildRound;
             //url = url + "?ParentRound=" + this.dataStore.ApplicationState.CurrentTeam.CurrentRound.ParentRound || "" + "&ChildRound=" + this.dataStore.ApplicationState.CurrentTeam.CurrentRound.ChildRound || "";
         }
+
+        if(force) url = url + "&force=true"
 
         await SapienServerCom.GetData(null, null, url).then((r: RoundChangeMapping) => {
             //set the team's current location to the new location
@@ -271,7 +275,7 @@ export default class GameCtrl extends BaseClientCtrl<IControllerDataStore & {Gam
         };
 
         console.log("DATASTORE APPLICATION:", DataStore.ApplicationState);
-        this.pollForGameStateChange(this.dataStore.ApplicationState.CurrentTeam.GameId);
+        //this.pollForGameStateChange(this.dataStore.ApplicationState.CurrentTeam.GameId);
     }
 
     public getParentRound(): string{
