@@ -218,7 +218,7 @@ export default class Game extends BaseComponent<any, IControllerDataStore & { Ga
                     >
                         x
                     </div>
-                    You have important new messages.
+                    Check for important new messages.
                 </Popup>
                 {this.state.ApplicationState.CurrentUser.Job == JobName.MANAGER &&
                 
@@ -356,7 +356,7 @@ export default class Game extends BaseComponent<any, IControllerDataStore & { Ga
                     >
                         x
                     </div>
-                    You have important new messages.
+                    Check for important new messages.
                 </Popup>
 
                 {this.state.ApplicationState.CurrentUser.Job == JobName.MANAGER &&
