@@ -145,7 +145,7 @@ export default class DealStructure extends BaseComponent<any, IRoundDataStore & 
                                     {this.state.ApplicationState.SubroundResponses.map((r, i) =>
                                         <Table.Row key={i}>
                                             <Table.Cell>
-                                                {r.TeamNumber}
+                                                Team {r.TeamNumber}
                                             </Table.Cell>
                                             <Table.Cell>{(r.Answer as ValueObj[]).filter(a => a.label == ComparisonLabel.PRICE_PER_CUSTOMER) ? (r.Answer as ValueObj[]).filter(a => a.label == ComparisonLabel.PRICE_PER_CUSTOMER)[0].data : null}</Table.Cell>
                                             <Table.Cell>{(r.Answer as ValueObj[]).filter(a => a.label == ComparisonLabel.CSAT) ? Math.round( (r.Answer as ValueObj[]).filter(a => a.label == ComparisonLabel.CSAT)[0].data * 1000)/10  : null}</Table.Cell>
