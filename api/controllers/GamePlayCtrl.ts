@@ -21,7 +21,7 @@ import UserModel, { JobName } from '../../shared/models/UserModel';
 import FeedBackModel from '../../shared/models/FeedBackModel';
 
 import { RatingType } from '../../shared/models/QuestionModel';
-import SubRoundFeedback, { ValueDemomination } from '../../shared/models/SubRoundFeedback';<<<<<<< HEAD
+import SubRoundFeedback, { ValueDemomination } from '../../shared/models/SubRoundFeedback';
 import SubRoundScore from '../../shared/models/SubRoundScore';
 import { AppServer } from '../AppServer';
 
