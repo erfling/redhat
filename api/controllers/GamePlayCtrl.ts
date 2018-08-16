@@ -509,26 +509,27 @@ class GamePlayRouter {
      */
     public async getSubRoundScores(req: Request, res: Response) {
 
-        
- const GameId = req.params.gameid;
+
+        const GameId = req.params.gameid;
         try {
 
-            console.log("{  GameId: %s,}",GameId);
-     
+            console.log("{  GameId: %s,}", GameId);
+
             const roundScores: SubRoundScore[] = await monSubRoundScoreModel.find({ GameId })
                 .then(srs => srs ? srs.map(
                     b => Object.assign(new SubRoundScore(), b.toJSON())) : []);
-     
-                    console.log(roundScores);
+
+            console.log(roundScores);
 
 
             res.json(roundScores);
 
         } catch (err) {
-            
+
             console.log(err);
             res.status(500);
-        }      
+        }
+
 
 
     }
