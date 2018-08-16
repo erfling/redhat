@@ -113,7 +113,7 @@ export default class EngineeringSub extends BaseComponent<any, IRoundDataStore>
                         IsEditable={this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN}
                         SubRoundId={thisSubRound._id}
                         onSaveHandler={this.controller.saveFeedback.bind(this.controller)}
-                        RoundName="Round 2"
+                        RoundName="Round 3"
                         Feedback={this.controller.filterFeedBack(this.state.Scores, this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN)}
                     >
                     </FeedBackWrapper> 
@@ -125,7 +125,7 @@ export default class EngineeringSub extends BaseComponent<any, IRoundDataStore>
                         User={this.state.ApplicationState.CurrentUser}
                         TeamId={this.state.ApplicationState.CurrentTeam._id}
                         Scores={this.state.UserScores}
-                        RoundName="Round 1"                        
+                        RoundName="Round 3"                        
                     >
                         
                     </FeedBackWrapper> 
@@ -179,7 +179,7 @@ export default class EngineeringSub extends BaseComponent<any, IRoundDataStore>
                 </div>
                 }
 
-                {thisSubRound && !this.state.ApplicationState.ShowMessageList  && !this.state.ApplicationState.ShowQuestions && this.state.ApplicationState.SelectedMessage && !this.state.ApplicationState.ShowFeedback && !this.state.ApplicationState.ShowFeedback && !this.state.ApplicationState.ShowIndividualFeedback &&
+                {thisSubRound && !this.state.ApplicationState.ShowMessageList  && !this.state.ApplicationState.ShowQuestions && this.state.ApplicationState.SelectedMessage && !this.state.ApplicationState.ShowFeedback &&  !this.state.ApplicationState.ShowIndividualFeedback &&
                     <EditableContentBlock
                         IsEditable={this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN}
                         SubRoundId={thisSubRound._id}

@@ -21,8 +21,9 @@ import UserModel, { JobName } from '../../shared/models/UserModel';
 import FeedBackModel from '../../shared/models/FeedBackModel';
 
 import { RatingType } from '../../shared/models/QuestionModel';
-import SubRoundFeedback, { ValueDemomination } from '../../shared/models/SubRoundFeedback';
+import SubRoundFeedback, { ValueDemomination } from '../../shared/models/SubRoundFeedback';<<<<<<< HEAD
 import SubRoundScore from '../../shared/models/SubRoundScore';
+import { AppServer } from '../AppServer';
 
 const schObj = SchemaBuilder.fetchSchema(ResponseModel);
 const monSchema = new mongoose.Schema(schObj);
@@ -284,6 +285,9 @@ class GamePlayRouter {
                 let gameForUpdate = Object.assign(game, { CurrentRound: Object.assign(game.CurrentRound, { CurrentHighestBid }) })
 
                 const updatedGame = await monGameModel.findByIdAndUpdate(team.GameId, gameForUpdate);
+                AppServer.LongPoll.publishToId("/listenforgameadvance/:gameid", response.GameId, gameForUpdate.CurrentRound);
+
+
             }
 
             next();
@@ -505,10 +509,11 @@ class GamePlayRouter {
      */
     public async getSubRoundScores(req: Request, res: Response) {
 
+        
+ const GameId = req.params.gameid;
         try {
 
-            const GameId = req.params.gameid;
-            console.log("{ GameId: %s,}",GameId);
+            console.log("{  GameId: %s,}",GameId);
      
             const roundScores: SubRoundScore[] = await monSubRoundScoreModel.find({ GameId })
                 .then(srs => srs ? srs.map(
@@ -543,7 +548,7 @@ class GamePlayRouter {
 
             let groupedResponses = groupBy(responses, "TeamId");
 
-            //console.log(groupedResponses);
+            console.log(groupedResponses);
 
             var scores = Object.keys(groupedResponses).map(k => {
                 let score = new FeedBackModel();
@@ -594,13 +599,11 @@ class GamePlayRouter {
                 return s1.TotalGameScore != s2.TotalGameScore ? s1.TotalGameScore > s2.TotalGameScore ? 1 : -1 : 0;
             })
 
-            console.log("scores ");
-            console.table(scores);
-
+         
             res.json(scores);
         }
         catch (err) {
-
+console.log(err);
             res.status(500);
             res.send("couldn't get resposnes")
         }

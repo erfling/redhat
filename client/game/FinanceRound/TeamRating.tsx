@@ -74,7 +74,7 @@ export default class TeamRating extends BaseComponent<any, IRoundDataStore>
                                 Decisions
                             </Header>
 
-                            {thisSubRound.Questions.map((q, i) => {
+                            {thisSubRound.Questions.filter(q => q.TargetTeamId != this.state.ApplicationState.CurrentTeam._id).map((q, i) => {
                                 return <Row
                                     key={"question-" + i.toString()}
                                 >

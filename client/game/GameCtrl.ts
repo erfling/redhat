@@ -138,7 +138,7 @@ export default class GameCtrl extends BaseClientCtrl<IControllerDataStore & {Gam
     public getMessageCount(){
         let count = 0;
         this.dataStore.ApplicationState.CurrentMessages.forEach(m => {
-            if (this.dataStore.ApplicationState.CurrentUser.ReadMessages.indexOf(m._id) == -1) count++;
+            if (this.dataStore.ApplicationState.CurrentUser.ReadMessages.indexOf(m._id) == -1 && !m.IsDefault) count++;
         })
         this.dataStore.ApplicationState.UnreadMessages = count;
         if(count > 0){
@@ -151,19 +151,23 @@ export default class GameCtrl extends BaseClientCtrl<IControllerDataStore & {Gam
 
     private _timeOut;
 
-    public async pollForGameStateChange(gameId: string){
+    public async pollForGameStateChange(gameId: string, force: boolean = false){
 
 
         console.error("CURRENT TEAM:::::>>>>>>>>>", this.dataStore.ApplicationState.CurrentTeam);
 
         if(!this.dataStore.ApplicationState.CurrentTeam || !this.dataStore.ApplicationState.CurrentTeam.GameId)return;
         //console.log("polling for game state", this.dataStore.ApplicationState.CurrentTeam)
+        
+        this.dataStore.ApplicationState.Polling = true;
 
         let url = "/listenforgameadvance/" + this.dataStore.ApplicationState.CurrentTeam.GameId;
         if (this.dataStore.ApplicationState.CurrentTeam.CurrentRound) {
             url = url + "?ParentRound=" + this.dataStore.ApplicationState.CurrentTeam.CurrentRound.ParentRound + "&ChildRound=" + this.dataStore.ApplicationState.CurrentTeam.CurrentRound.ChildRound;
             //url = url + "?ParentRound=" + this.dataStore.ApplicationState.CurrentTeam.CurrentRound.ParentRound || "" + "&ChildRound=" + this.dataStore.ApplicationState.CurrentTeam.CurrentRound.ChildRound || "";
         }
+
+        if(force) url = url + "&force=true"
 
         await SapienServerCom.GetData(null, null, url).then((r: RoundChangeMapping) => {
             //set the team's current location to the new location
@@ -198,13 +202,11 @@ export default class GameCtrl extends BaseClientCtrl<IControllerDataStore & {Gam
             //always be IC in login
             if(location.pathname.indexOf("welcome") != -1){
                 this.dataStore.ApplicationState.CurrentUser.Job = this.ChildController.dataStore.ApplicationState.CurrentUser.Job = JobName.IC;
-            } else if(targetJob != this.ChildController.dataStore.ApplicationState.CurrentUser.Job && !this.LockedInJob){
+            } else {
                 this.dataStore.ApplicationState.CurrentUser.Job = this.ChildController.dataStore.ApplicationState.CurrentUser.Job = targetJob;
                 ApplicationCtrl.GetInstance().addToast("You are now playing the role of " + this.ChildController.dataStore.ApplicationState.CurrentUser.Job, "info");
                 (this.ChildController as BaseRoundCtrl<any>).getContentBySubRound();
-            } 
-            
-            
+            }
 
             if(r.CurrentHighestBid && (!this.dataStore.ApplicationState.CurrentTeam.CurrentRound.CurrentHighestBid || this.dataStore.ApplicationState.CurrentTeam.CurrentRound.CurrentHighestBid.data != r.CurrentHighestBid.data)){
                         this.dataStore.ApplicationState.CurrentTeam.CurrentRound.CurrentHighestBid = this.ChildController.dataStore.ApplicationState.CurrentTeam.CurrentHighestBid = r.CurrentHighestBid;
@@ -271,7 +273,7 @@ export default class GameCtrl extends BaseClientCtrl<IControllerDataStore & {Gam
         };
 
         console.log("DATASTORE APPLICATION:", DataStore.ApplicationState);
-        this.pollForGameStateChange(this.dataStore.ApplicationState.CurrentTeam.GameId);
+        //this.pollForGameStateChange(this.dataStore.ApplicationState.CurrentTeam.GameId);
     }
 
     public getParentRound(): string{
