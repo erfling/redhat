@@ -453,7 +453,8 @@ export default class Game extends BaseComponent<any, IControllerDataStore & { Ga
                             >
                                 <Segment
                                     style={{
-                                        padding: 0
+                                        padding: 0,
+                                        background: 'transparent'
                                     }}
                                 >
                                     <MessageList
