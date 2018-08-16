@@ -125,6 +125,8 @@ export default class SalesRoundCtrl extends BaseRoundCtrl<IRoundDataStore & {Fee
             Score: this._getScore(questions)
         });
 
+        (this.Response.Answer as SliderValueObj[]).forEach(a => a.maxPoints = 2.5)
+
         console.log("BUILT OUT RESPONSE",this.Response, this._responseMap);
     }
 
@@ -153,7 +155,7 @@ export default class SalesRoundCtrl extends BaseRoundCtrl<IRoundDataStore & {Fee
         let maxPrice = this._responseMap[ComparisonLabel.PRICE] ? this._responseMap[ComparisonLabel.PRICE].max : 0;
         let maxQuant = this._responseMap[ComparisonLabel.QUANTITY] ? this._responseMap[ComparisonLabel.QUANTITY].max : 0;
         let maxMoney = maxPrice * maxQuant
-        let score = MathUtil.roundTo(this._responseMap[ComparisonLabel.PRICE].data * this._responseMap[ComparisonLabel.QUANTITY].data / maxMoney,2) * 10;
+        let score = MathUtil.roundTo(this._responseMap[ComparisonLabel.PRICE].data * this._responseMap[ComparisonLabel.QUANTITY].data / maxMoney, 2) * 10;
 
         console.warn( maxPrice, maxQuant,maxMoney, this._getPrice() * this._responseMap[ComparisonLabel.QUANTITY].data, score, this._responseMap)
         return score;
@@ -173,6 +175,7 @@ export default class SalesRoundCtrl extends BaseRoundCtrl<IRoundDataStore & {Fee
 */
 
         this.Response.SkipScoring = true;
+        this.Response.MaxScore = 10;
         this.SaveResponse(this.Response, question, subround).then(
            (r) => this.MapResponsesToQuestions(r, this.Response)
         )
