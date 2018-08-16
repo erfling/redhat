@@ -191,8 +191,7 @@ class RoundRouter {
                     let roundMapping = mappings.filter(m => m.RoundId == sr.RoundId)[0] || null;
 
                     if (i == 0) {
-                        let messages = sr[this._getMessageProp(Job)];
-                        currentMessageIds = messages;
+                        let messages = currentMessageIds = sr[this._getMessageProp(Job)];
                         messagesIds = messagesIds.concat(messages);
                     } else if (roundMapping) {
                         console.log("FOUND SOME CONTENT")
@@ -215,12 +214,17 @@ class RoundRouter {
                 let populatedMessages = await monMessageModel.find({ _id: { $in: messagesIds } }).then(messages => messages ? messages.map(m => Object.assign(new MessageModel(), m.toJSON())) : null)
 
                 populatedMessages = populatedMessages.map(m => {
-                    return Object.assign(m, {
-                        IsRead: currentMessageIds.indexOf(m._id) != -1
-                    })
-                })
 
-                console.log("SUBROUND IS", subRound);
+                    let IsRead = true;
+                    currentMessageIds.forEach(mid => {
+                        console.log(mid, m._id, typeof mid, typeof m._id, mid.toString() == m._id.toString())
+                        if(mid.toString() == m._id.toString()) IsRead = false;
+                    })
+                    return Object.assign(m, {
+                        IsRead
+                    })
+                })//.reverse();
+
                 subRound.DisplayMessages = populatedMessages;
 
                 if (!subRound || !subRoundsSoFar) {
@@ -244,26 +248,9 @@ class RoundRouter {
             previousSubround = await monSubRoundModel.findById(subRound.PrevSubRound)
                 .then(r => r.toJSON() as SubRoundModel);
         } else {
-
-            let round: RoundModel = await monRoundModel.findById(subRound.RoundId)
-                .populate(
-                    {
-                        path: "PrevRound",
-                        populate: {
-                            path: "SubRounds"
-                        }
-                    }
-                )
-                .then(r => r ? r.toJSON() as RoundModel : null);
-
-            if (!round.PrevRound) {
-                return subRoundsSoFar;
-            } else {
-                let previousSubround = round.PrevRound.SubRounds[round.PrevRound.SubRounds.length - 1];
-                return this.GetPreviousRounds(previousSubround, subRoundsSoFar);
-            }
-
+            return subRoundsSoFar;
         }
+
         return this.GetPreviousRounds(previousSubround, subRoundsSoFar);
 
     }

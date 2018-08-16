@@ -372,7 +372,26 @@ export class AppServer {
     private static async _setRoundAndSubroundOrder() {
         try {
             //do rounds
-            const rounds: RoundModel[] = await monRoundModel.find().populate("SubRounds").then(rs => rs ? rs.map(r => Object.assign(new RoundModel(), r.toJSON())) : null)
+            const rounds: RoundModel[] = await monRoundModel.find()
+                .populate("SubRounds")
+                .populate(
+                    {
+                        path: "PrevRound",
+                        populate: {
+                            path: "SubRounds"
+                        }
+                    }
+                )
+                .populate(
+                    {
+                        path: "NextRound",
+                        populate: {
+                            path: "SubRounds"
+                        }
+                    }
+                )
+                .then(rs => rs ? rs.map(r => Object.assign(new RoundModel(), r.toJSON())) : null);
+
             console.log("<<<<<<<<<<<ROUNDS>>>>>>>>>>>>>>>>>>>>>", rounds)
             let letters = ["A", "B", "C", "D", "E"]
             for (let i = 0; i < rounds.length; i++) {
@@ -382,18 +401,18 @@ export class AppServer {
                     let sr = r.SubRounds[j];
 
                     if (j == 0) {
-                        if (i == 0) {
+                        if (!r.PrevRound) {
                             sr.PrevSubRound = null;
                         } else {
-                            let prevSubrounds = rounds[i-1].SubRounds;
+                            let prevSubrounds = r.PrevRound.SubRounds;
                             sr.PrevSubRound = prevSubrounds ? prevSubrounds[prevSubrounds.length - 1]._id : null;
                         }            
                         sr.NextSubRound = r.SubRounds[j + 1] ? r.SubRounds[j + 1]._id : null;
                     } else if (j == r.SubRounds.length - 1) {
                         sr.PrevSubRound = r.SubRounds[j - 1] ? r.SubRounds[j - 1]._id : null;
 
-                        if(i < rounds.length - 1){
-                            let nextRound = rounds[i + 1];
+                        if(r.NextRound){
+                            let nextRound = r.NextRound;
                             sr.NextSubRound = nextRound.SubRounds[0]._id;
                         } else {
                             sr.NextSubRound = null;
