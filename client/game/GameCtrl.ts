@@ -20,7 +20,6 @@ import CustomerRoundCtrl from './CustomerRound/CustomerRoundCtrl';
 import ApplicationCtrl from '../ApplicationCtrl';
 
 
-
 export default class GameCtrl extends BaseClientCtrl<IControllerDataStore & {Game: GameModel, _mobileWidth: boolean, ShowGameInfoPopup: boolean, ShowDecisionPopup: boolean, ShowInboxPopup: boolean; GrowMessageIndicator: boolean}>
 {
     //----------------------------------------------------------------------
@@ -205,8 +204,10 @@ export default class GameCtrl extends BaseClientCtrl<IControllerDataStore & {Gam
             } else {
                 this.dataStore.ApplicationState.CurrentUser.Job = this.ChildController.dataStore.ApplicationState.CurrentUser.Job = targetJob;
                 ApplicationCtrl.GetInstance().addToast("You are now playing the role of " + this.ChildController.dataStore.ApplicationState.CurrentUser.Job, "info");
-                (this.ChildController as BaseRoundCtrl<any>).getContentBySubRound();
             }
+            
+            (this.ChildController as BaseRoundCtrl<any>).getContentBySubRound();
+            
 
             if(r.CurrentHighestBid && (!this.dataStore.ApplicationState.CurrentTeam.CurrentRound.CurrentHighestBid || this.dataStore.ApplicationState.CurrentTeam.CurrentRound.CurrentHighestBid.data != r.CurrentHighestBid.data)){
                         this.dataStore.ApplicationState.CurrentTeam.CurrentRound.CurrentHighestBid = this.ChildController.dataStore.ApplicationState.CurrentTeam.CurrentHighestBid = r.CurrentHighestBid;
