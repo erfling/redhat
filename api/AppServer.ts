@@ -106,7 +106,7 @@ export class AppServer {
 
         let MONGO_URI: string;
         if (AppServer._isProd()) {
-            MONGO_URI = 'mongodb://mbreeden:56vVVc#_F-:UBv>+@host1localhost:27017/red-hat';
+            MONGO_URI = 'mongodb://mbreeden:F5aJyDx4F9Ly@host1localhost:27017/red-hat';
         } else {
             MONGO_URI = 'mongodb://localhost:27017/red-hat';
         }
@@ -386,7 +386,7 @@ export class AppServer {
                             sr.PrevSubRound = null;
                         } else {
                             let prevSubrounds = rounds[i-1].SubRounds;
-                            sr.PrevSubRound = prevSubrounds && prevSubrounds[prevSubrounds.length - 1] ? prevSubrounds[prevSubrounds.length - 1]._id : null;
+                            sr.PrevSubRound = prevSubrounds ? prevSubrounds[prevSubrounds.length - 1]._id : null;
                         }            
                         sr.NextSubRound = r.SubRounds[j + 1] ? r.SubRounds[j + 1]._id : null;
                     } else if (j == r.SubRounds.length - 1) {
