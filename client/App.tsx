@@ -6,13 +6,14 @@ import { Link } from 'react-router-dom';
 import SapienToast from '../shared/base-sapien/client/shared-components/SapienToast'
 import GameCtrl from "./game/GameCtrl";
 import { IControllerDataStore } from '../shared/base-sapien/client/BaseClientCtrl';
-import { RoleName, JobName } from '../shared/models/UserModel';
+import { RoleName, JobName, JobName } from '../shared/models/UserModel';
 import BaseComponent from "../shared/base-sapien/client/shared-components/BaseComponent";
 import BaseRoundCtrl from "../shared/base-sapien/client/BaseRoundCtrl";
 import Admin from './admin/Admin';
 import Game from "./game/Game";
 import Login from "./login/Login";
 import SalesRoundCtrl from "./game/SalesRound/SalesRoundCtrl";
+import { Label } from "recharts";
 
 export default class App extends BaseComponent<any, IControllerDataStore>
 {
@@ -57,9 +58,11 @@ export default class App extends BaseComponent<any, IControllerDataStore>
 
 
     render() {
+
+       
         if (this.state) {
             return <>
-                {this.state && this.state.ApplicationState.CurrentUser && this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN &&
+                {this.state && this.state.ApplicationState.CurrentUser &&
 
                     <Menu
                         fixed="top"
@@ -69,16 +72,37 @@ export default class App extends BaseComponent<any, IControllerDataStore>
                             borderRadius: 0, //clear semantic-ui style
                             margin: 0 //clear semantic-ui style
                         }}>
-                        <Menu.Item>
-                            <Icon
-                                name={this.state.ApplicationState.ShowMenu ? 'cancel' : 'bars'}
-                                onClick={e => this.controller.dataStore.ApplicationState.ShowMenu = !this.controller.dataStore.ApplicationState.ShowMenu}
-                            />
-                        </Menu.Item>
-                        <Menu.Item
-                            position="right" header>
-                            {this.state.ApplicationState.CurrentUser.Name}
-                        </Menu.Item>
+
+                        {this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN &&
+                            <Menu.Item>
+                                <Icon
+                                    as="a"
+                                    name={this.state.ApplicationState.ShowMenu ? 'cancel' : 'bars'}
+                                    onClick={e => this.controller.dataStore.ApplicationState.ShowMenu = !this.controller.dataStore.ApplicationState.ShowMenu}
+                                />
+                            </Menu.Item>
+                        }
+
+
+                        {this.state.ApplicationState.CurrentUser.Job !== null &&
+
+                            <>
+                                <Menu.Item header>
+                                    {this.state.ApplicationState.CurrentUser.Name}
+                                </Menu.Item >
+
+                                <Menu.Item  header>
+                                    {this.state.ApplicationState.CurrentTeam.Name}
+                                </Menu.Item>
+
+                                <Menu.Item header>
+                                    {  this.state.ApplicationState.CurrentUser.Job }
+                                </Menu.Item>
+
+                            </>
+                        }
+
+
                         <Menu.Item
                             onClick={e => this.controller.signOut()}
                             position="right" header>
@@ -86,6 +110,7 @@ export default class App extends BaseComponent<any, IControllerDataStore>
                         </Menu.Item>
                     </Menu>
                 }
+          
                 <div
                     style={{ height: '100vh' }}
                 >
@@ -110,7 +135,7 @@ export default class App extends BaseComponent<any, IControllerDataStore>
                                         <Menu.Item
                                             name='Manage Users'
                                         >
-                                            <Link 
+                                            <Link
                                                 to="/admin/userlist"
                                                 onClick={() => this.controller.dataStore.ApplicationState.ShowMenu = false}
                                             >
@@ -120,7 +145,7 @@ export default class App extends BaseComponent<any, IControllerDataStore>
                                         <Menu.Item
                                             name='Manage Games'
                                         >
-                                            <Link 
+                                            <Link
                                                 to="/admin/gamelist"
                                                 onClick={() => this.controller.dataStore.ApplicationState.ShowMenu = false}
                                             >Manage Games</Link>
@@ -211,7 +236,7 @@ export default class App extends BaseComponent<any, IControllerDataStore>
                                                     }}
                                                 >
                                                 </Menu.Item>
-                                                
+
                                                 <Menu.Item
                                                     name='2A'
                                                     onClick={e => {
@@ -401,7 +426,7 @@ export default class App extends BaseComponent<any, IControllerDataStore>
                     }
                     <div
                         className={"source-stream " + (this.state && this.state.ApplicationState.CurrentUser && this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN ? " admin-body " : " ") + (this.state.ApplicationState.MobileWidth ? "mobile" : "")}
-                        
+
                     >
                         {location.pathname.indexOf("test") != -1 && <h1>
                             THIS IS THE TEST SITE
