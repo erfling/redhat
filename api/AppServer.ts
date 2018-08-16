@@ -106,7 +106,7 @@ export class AppServer {
 
         let MONGO_URI: string;
         if (AppServer._isProd()) {
-            MONGO_URI = 'mongodb://mbreeden:F5aJyDx4F9Ly@localhost:27017/red-hat';
+            MONGO_URI = 'mongodb://mbreeden:F5aJyDx4F9Ly@localhost:27017/red-hat?authSource=admin'; //F5aJyDx4F9Ly
         } else {
             MONGO_URI = 'mongodb://localhost:27017/red-hat';
         }
