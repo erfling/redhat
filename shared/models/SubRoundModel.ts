@@ -62,7 +62,10 @@ export default class SubRoundModel extends BaseModel
 
     @dbProp(MessageModel)
     public IntegratedSystemsMessages: MessageModel[] = [];
-    
+
+    @dbProp(MessageModel)
+    public BlueKiteMessages: MessageModel[] = [];
+
     public DisplayMessages: MessageModel[] = [];
 
     @dbProp(SubRoundFeedback)

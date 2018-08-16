@@ -184,23 +184,23 @@ class RoundRouter {
 
                 
 
-                let messagesIds: MessageModel[] = []
+                let messagesIds: MessageModel[] = [];
+                let currentMessageIds: string[];
                 subRoundsSoFar.forEach((sr, i) => {
                     console.log(sr.Name, " ", sr._id, " ", sr.RoundId, " ");
                     let roundMapping = mappings.filter(m => m.RoundId == sr.RoundId)[0] || null;
 
                     if (i == 0) {
-
-                        let messages = sr[this._getMessageProp(Job)];
-                        console.log("<<<<<<<<<>>>>>>>>>>>>>>>>>",Job, this._getMessageProp(Job), messages, sr.ICMessages, sr);
+                        let messages = currentMessageIds = sr[this._getMessageProp(Job)];
                         messagesIds = messagesIds.concat(messages);
-                        
                     } else if (roundMapping) {
                         console.log("FOUND SOME CONTENT")
                         let userJob = roundMapping.UserJobs[UserId] ? roundMapping.UserJobs[UserId] : JobName.IC;
-                        let messages = sr[this._getMessageProp(userJob)];
-                        console.log("SUBROUND IS", subRound);
-                        messagesIds = messagesIds.concat(messages)
+                        let messages = []// = sr[this._getMessageProp(userJob)];
+                        Object.keys(JobName).forEach((jn)=> {
+                            messages = messages.concat(sr[this._getMessageProp(JobName[jn])]);
+                        })
+                        messagesIds = messagesIds.concat(messages);
                         console.log("SUBROUND IS NOW", subRound);
 
                     } else {
@@ -211,9 +211,20 @@ class RoundRouter {
 
                 console.log("MESSAGES", messagesIds);
 
-                const populatedMessages = await monMessageModel.find({ _id: { $in: messagesIds } }).then(messages => messages ? messages.map(m => Object.assign(new MessageModel(), m.toJSON())) : null)
+                let populatedMessages = await monMessageModel.find({ _id: { $in: messagesIds } }).then(messages => messages ? messages.map(m => Object.assign(new MessageModel(), m.toJSON())) : null)
 
-                console.log("SUBROUND IS", subRound);
+                populatedMessages = populatedMessages.map(m => {
+
+                    let IsRead = true;
+                    currentMessageIds.forEach(mid => {
+                        console.log(mid, m._id, typeof mid, typeof m._id, mid.toString() == m._id.toString())
+                        if(mid.toString() == m._id.toString()) IsRead = false;
+                    })
+                    return Object.assign(m, {
+                        IsRead
+                    })
+                })//.reverse();
+
                 subRound.DisplayMessages = populatedMessages;
 
                 if (!subRound || !subRoundsSoFar) {
@@ -237,26 +248,9 @@ class RoundRouter {
             previousSubround = await monSubRoundModel.findById(subRound.PrevSubRound)
                 .then(r => r.toJSON() as SubRoundModel);
         } else {
-
-            let round: RoundModel = await monRoundModel.findById(subRound.RoundId)
-                .populate(
-                    {
-                        path: "PrevRound",
-                        populate: {
-                            path: "SubRounds"
-                        }
-                    }
-                )
-                .then(r => r ? r.toJSON() as RoundModel : null);
-
-            if (!round.PrevRound) {
-                return subRoundsSoFar;
-            } else {
-                let previousSubround = round.PrevRound.SubRounds[round.PrevRound.SubRounds.length - 1];
-                return this.GetPreviousRounds(previousSubround, subRoundsSoFar);
-            }
-
+            return subRoundsSoFar;
         }
+
         return this.GetPreviousRounds(previousSubround, subRoundsSoFar);
 
     }
@@ -477,6 +471,8 @@ class RoundRouter {
                 return 'ChipCoMessages'
             case JobName.INTEGRATED_SYSTEMS:
                 return 'IntegratedSystemsMessages'
+            case JobName.BLUE_KITE:
+                return 'BlueKiteMessages'
             default:
                 return 'ICMessages'
         }

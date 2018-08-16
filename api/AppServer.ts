@@ -106,7 +106,8 @@ export class AppServer {
 
         let MONGO_URI: string;
         if (AppServer._isProd()) {
-            MONGO_URI = 'mongodb://localhost:27017/red-hat';
+            MONGO_URI = 'mongodb://mbreeden:F5aJyDx4F9Ly@localhost:27017/red-hat?authSource=admin'; //F5aJyDx4F9Ly
+           // MONGO_URI = 'mongodb://localhost:27017/red-hat';
         } else {
             MONGO_URI = 'mongodb://localhost:27017/red-hat';
         }
@@ -332,7 +333,10 @@ export class AppServer {
                                     MaxRawScore,
                                     GameId: game._id,
                                     RoundId: subRound.RoundId,
-                                    SubRoundId: subRound._id
+                                    SubRoundId: subRound._id,
+                                    SubRoundLabel: subRound.Label,
+                                    RoundLabel: round.Label,
+                                    TeamLabel: "Team " + t.Number.toString()
                                 });
 
                                 if(RawScore > 0 ){
@@ -341,7 +345,6 @@ export class AppServer {
                                     srs.NormalizedScore = 0;
                                 }
 
-                                console.log("SRS:>>>>>>>>>>>>>", srs, MaxRawScore)
                                 var savedSubRoundScore: SubRoundScore = await monSubRoundScoreModel.findOneAndUpdate( { TeamId: t._id, SubRoundId: subRound._id }, srs, { upsert: true, new: true, setDefaultsOnInsert: true })
                                     .then(sr => Object.assign(new SubRoundScore(), sr.toJSON()));
                             }
@@ -354,8 +357,6 @@ export class AppServer {
                         AppServer.LongPoll.publishToId("/listenforgameadvance/:gameid", req.params.gameid, mapperydoo);
                         res.json("long poll publish hit");
                     }
-
-
 
                 }
                 catch (err) {
@@ -372,8 +373,28 @@ export class AppServer {
     private static async _setRoundAndSubroundOrder() {
         try {
             //do rounds
-            const rounds: RoundModel[] = await monRoundModel.find().populate("SubRounds").then(rs => rs ? rs.map(r => Object.assign(new RoundModel(), r.toJSON())) : null)
+            const rounds: RoundModel[] = await monRoundModel.find()
+                .populate("SubRounds")
+                .populate(
+                    {
+                        path: "PrevRound",
+                        populate: {
+                            path: "SubRounds"
+                        }
+                    }
+                )
+                .populate(
+                    {
+                        path: "NextRound",
+                        populate: {
+                            path: "SubRounds"
+                        }
+                    }
+                )
+                .then(rs => rs ? rs.map(r => Object.assign(new RoundModel(), r.toJSON())) : null);
+
             console.log("<<<<<<<<<<<ROUNDS>>>>>>>>>>>>>>>>>>>>>", rounds)
+            let letters = ["A", "B", "C", "D", "E"]
             for (let i = 0; i < rounds.length; i++) {
                 let r = rounds[i];
 
@@ -381,15 +402,29 @@ export class AppServer {
                     let sr = r.SubRounds[j];
 
                     if (j == 0) {
-                        sr.PrevSubRound = null;
+                        if (!r.PrevRound) {
+                            sr.PrevSubRound = null;
+                        } else {
+                            let prevSubrounds = r.PrevRound.SubRounds;
+                            sr.PrevSubRound = prevSubrounds ? prevSubrounds[prevSubrounds.length - 1]._id : null;
+                        }            
                         sr.NextSubRound = r.SubRounds[j + 1] ? r.SubRounds[j + 1]._id : null;
                     } else if (j == r.SubRounds.length - 1) {
                         sr.PrevSubRound = r.SubRounds[j - 1] ? r.SubRounds[j - 1]._id : null;
-                        sr.NextSubRound = null;
+
+                        if(r.NextRound){
+                            let nextRound = r.NextRound;
+                            sr.NextSubRound = nextRound.SubRounds[0]._id;
+                        } else {
+                            sr.NextSubRound = null;
+                        }
+
                     } else {
                         sr.NextSubRound = r.SubRounds[j + 1] ? r.SubRounds[j + 1]._id : null;
                         sr.PrevSubRound = r.SubRounds[j - 1] ? r.SubRounds[j - 1]._id : null;
                     }
+
+                    sr.Label = r.Label + letters[j];
 
                     const savedSr = await monSubRoundModel.findByIdAndUpdate(sr._id, sr);
                     if (!savedSr) throw new Error(JSON.stringify({ message: "Couldn't save subround: ", sr }));
