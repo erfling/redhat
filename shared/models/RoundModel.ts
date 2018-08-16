@@ -29,7 +29,13 @@ export default class RoundModel extends BaseModel
     @Type(() =>String)
     @dbProp(String)
     public Name: string = "";
-
+    
+     /** 
+     * Text Description of Round
+     */
+    @dbProp(String)
+    public Description: string = "";
+    
     @dbProp(String)
     public Label: string = "";
 
