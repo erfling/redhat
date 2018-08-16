@@ -313,12 +313,13 @@ export class AppServer {
                                 let RawScore = 0;
 
                                 questions.forEach(q => {
-                                    let relevantResponses = responses.filter(r => !r.SkipScoring && r.QuestionId == q._id.toString());
+                                    let relevantResponses = responses.filter(r => /*!r.SkipScoring && */ r.QuestionId == q._id.toString());
                                     relevantResponses.forEach(r => {
-                                        RawScore += r.Score;                                        
+                                        RawScore += r.Score;
+                                        if(r.MaxScore) MaxRawScore = r.MaxScore;                               
                                     });
                                     ((q.PossibleAnswers as SliderValueObj[]).forEach(a => {
-                                        MaxRawScore += a.maxPoints;
+                                        if (a.maxPoints) MaxRawScore += a.maxPoints;
                                     }))
                                 })
 
@@ -344,20 +345,6 @@ export class AppServer {
                         }
                     }
 
-
-                    //var subRoundScore: SubRoundScore
-
-
-                    // Find the document
-
-                    //var newMapping: RoundChangeMapping = await monMappingModel.create(mapping).then(r => Object.assign(new RoundChangeMapping(), r.toJSON()))
-                    //.findById(req.params.gameid).populate("Teams").then(g => Object.assign(new GameModel(), g.toJSON()));
-
-
-
-
-
-
                     var mapperydoo = (newMapping && newMapping.ParentRound.length) ? newMapping : oldMapping;
                     const gameSave = await monGameModel.findByIdAndUpdate(req.params.gameid, { CurrentRound: mapperydoo, HasBeenManager: game.HasBeenManager });
                     if (gameSave) {
@@ -378,73 +365,6 @@ export class AppServer {
             .use('*', express.static("dist"))
             .use('**', express.static("dist"))
     }
-    /**
-     * 
-     * {
-        "_id" : ObjectId("5b5618fc176b81cae6bacabc"),
-        "Type" : "SLIDER",
-        "Text" : "Quantity",
-        "SubText" : null,
-        "PossibleAnswers" : [ 
-            {
-                "label" : "",
-                "data" : "",
-                "min" : 200,
-                "max" : 400,
-                "interval" : 10,
-                "unit" : "k users"
-            }
-        ]
-    }
-    
-    {
-        "_id" : ObjectId("5b563b10e09494dbc165dea3"),
-        "Type" : "SLIDER",
-        "Text" : "Price",
-        "SubText" : "",
-        "PossibleAnswers" : [ 
-            {
-                "label" : "",
-                "data" : "",
-                "min" : 100,
-                "max" : 180,
-                "interval" : 10,
-                "unit" : "M",
-                "preunit" : "$"
-            }
-        ]
-    }
-    
-    {
-        "_id" : ObjectId("5b564603e09494dbc165e273"),
-        "Type" : "TOGGLE",
-        "Text" : "Unlimited licensing",
-        "SubText" : null,
-        "PossibleAnswers" : [ 
-            {
-                "label" : "$200M",
-                "data" : "200"
-            }
-        ]
-    }
-    
-    {
-        "_id" : ObjectId("5b564afee09494dbc165e40a"),
-        "Type" : "MULTIPLE_CHOICE",
-        "Text" : "Project Management",
-        "SubText" : "In order to meet the customer budget, you can choose to omit project management from the given solution.",
-        "PossibleAnswers" : [ 
-            {
-                "label" : "Yes",
-                "data" : "1"
-            }, 
-            {
-                "label" : "No",
-                "data" : "0"
-            }
-        ]
-    }
-     */
 
     private static async _setRoundAndSubroundOrder() {
         try {
