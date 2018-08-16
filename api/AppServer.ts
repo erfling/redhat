@@ -140,7 +140,7 @@ export class AppServer {
             } else {
                 next();
             }
-        });
+        }, {maxListeners: 500});
 
         //GZIP large resources in production
  /*
