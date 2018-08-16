@@ -137,7 +137,7 @@ export default class GameCtrl extends BaseClientCtrl<IControllerDataStore & {Gam
     public getMessageCount(){
         let count = 0;
         this.dataStore.ApplicationState.CurrentMessages.forEach(m => {
-            if (this.dataStore.ApplicationState.CurrentUser.ReadMessages.indexOf(m._id) == -1 && !m.IsDefault) count++;
+            if (!m.IsRead && !m.IsDefault) count++;
         })
         this.dataStore.ApplicationState.UnreadMessages = count;
         if(count > 0){
@@ -151,9 +151,7 @@ export default class GameCtrl extends BaseClientCtrl<IControllerDataStore & {Gam
     private _timeOut;
 
     public async pollForGameStateChange(gameId: string, force: boolean = false){
-
-
-        console.error("CURRENT TEAM:::::>>>>>>>>>", this.dataStore.ApplicationState.CurrentTeam);
+        console.warn("CURRENT TEAM:::::>>>>>>>>>", this.dataStore.ApplicationState.CurrentTeam);
 
         if(!this.dataStore.ApplicationState.CurrentTeam || !this.dataStore.ApplicationState.CurrentTeam.GameId)return;
         //console.log("polling for game state", this.dataStore.ApplicationState.CurrentTeam)
@@ -218,9 +216,9 @@ export default class GameCtrl extends BaseClientCtrl<IControllerDataStore & {Gam
                             ApplicationCtrl.GetInstance().addToast("Team " + r.CurrentHighestBid.label + " now has the high bid for BlueKite has increased to $" + r.CurrentHighestBid.data + "Bil.", "info");
                         }
                         localStorage.setItem("RH_TEAM", JSON.stringify(this.ChildController.dataStore.ApplicationState.CurrentTeam));
-
+            } else if (r.RoundId && r.RoundId.length) {
+                this.dataStore.ApplicationState.ShowQuestions = this.dataStore.ApplicationState.ShowMessageList = false;
             }
-
 
             //clearTimeout(this._timeOut);
             //let time = location.pathname.toUpperCase().indexOf('/BID') == -1 ? 3500 : 1500;
