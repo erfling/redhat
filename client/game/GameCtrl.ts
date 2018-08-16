@@ -201,7 +201,7 @@ export default class GameCtrl extends BaseClientCtrl<IControllerDataStore & {Gam
             //always be IC in login
             if(location.pathname.indexOf("welcome") != -1){
                 this.dataStore.ApplicationState.CurrentUser.Job = this.ChildController.dataStore.ApplicationState.CurrentUser.Job = JobName.IC;
-            } else {
+            } else if (this.ChildController.dataStore.ApplicationState.CurrentUser.Job != targetJob) {
                 this.dataStore.ApplicationState.CurrentUser.Job = this.ChildController.dataStore.ApplicationState.CurrentUser.Job = targetJob;
                 ApplicationCtrl.GetInstance().addToast("You are now playing the role of " + this.ChildController.dataStore.ApplicationState.CurrentUser.Job, "info");
             }

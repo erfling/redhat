@@ -155,9 +155,17 @@ export default class SalesRoundCtrl extends BaseRoundCtrl<IRoundDataStore & {Fee
         let maxPrice = this._responseMap[ComparisonLabel.PRICE] ? this._responseMap[ComparisonLabel.PRICE].max : 0;
         let maxQuant = this._responseMap[ComparisonLabel.QUANTITY] ? this._responseMap[ComparisonLabel.QUANTITY].max : 0;
         let maxMoney = maxPrice * maxQuant
-        let score = MathUtil.roundTo(this._responseMap[ComparisonLabel.PRICE].data * this._responseMap[ComparisonLabel.QUANTITY].data / maxMoney, 2) * 10;
+        let moneyScore = MathUtil.roundTo(this._responseMap[ComparisonLabel.PRICE].data * this._responseMap[ComparisonLabel.QUANTITY].data / maxMoney, 2);
 
-        console.warn( maxPrice, maxQuant,maxMoney, this._getPrice() * this._responseMap[ComparisonLabel.QUANTITY].data, score, this._responseMap)
+        let score = 0;
+        if(this._getPrice() && this._getPrice() < 750){
+            score = (moneyScore * 7) + (this._responseMap[ComparisonLabel.CSAT] ? this._responseMap[ComparisonLabel.CSAT] * 2 : 0);
+            score = this._responseMap[ComparisonLabel.CSAT] && this._responseMap[ComparisonLabel.CSAT] >= .9 ? score + 1 : score;
+        } 
+
+
+
+        console.warn( maxPrice, maxQuant,maxMoney, this._getPrice() * this._responseMap[ComparisonLabel.QUANTITY].data, moneyScore, this._responseMap)
         return score;
     }
 
@@ -176,6 +184,7 @@ export default class SalesRoundCtrl extends BaseRoundCtrl<IRoundDataStore & {Fee
 
         this.Response.SkipScoring = true;
         this.Response.MaxScore = 10;
+
         this.SaveResponse(this.Response, question, subround).then(
            (r) => this.MapResponsesToQuestions(r, this.Response)
         )
