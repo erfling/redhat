@@ -184,23 +184,24 @@ class RoundRouter {
 
                 
 
-                let messagesIds: MessageModel[] = []
+                let messagesIds: MessageModel[] = [];
+                let currentMessageIds: string[];
                 subRoundsSoFar.forEach((sr, i) => {
                     console.log(sr.Name, " ", sr._id, " ", sr.RoundId, " ");
                     let roundMapping = mappings.filter(m => m.RoundId == sr.RoundId)[0] || null;
 
                     if (i == 0) {
-
                         let messages = sr[this._getMessageProp(Job)];
-                        console.log("<<<<<<<<<>>>>>>>>>>>>>>>>>",Job, this._getMessageProp(Job), messages, sr.ICMessages, sr);
+                        currentMessageIds = messages;
                         messagesIds = messagesIds.concat(messages);
-                        
                     } else if (roundMapping) {
                         console.log("FOUND SOME CONTENT")
                         let userJob = roundMapping.UserJobs[UserId] ? roundMapping.UserJobs[UserId] : JobName.IC;
-                        let messages = sr[this._getMessageProp(userJob)];
-                        console.log("SUBROUND IS", subRound);
-                        messagesIds = messagesIds.concat(messages)
+                        let messages = []// = sr[this._getMessageProp(userJob)];
+                        Object.keys(JobName).forEach((jn)=> {
+                            messages = messages.concat(sr[this._getMessageProp(JobName[jn])]);
+                        })
+                        messagesIds = messagesIds.concat(messages);
                         console.log("SUBROUND IS NOW", subRound);
 
                     } else {
@@ -211,7 +212,13 @@ class RoundRouter {
 
                 console.log("MESSAGES", messagesIds);
 
-                const populatedMessages = await monMessageModel.find({ _id: { $in: messagesIds } }).then(messages => messages ? messages.map(m => Object.assign(new MessageModel(), m.toJSON())) : null)
+                let populatedMessages = await monMessageModel.find({ _id: { $in: messagesIds } }).then(messages => messages ? messages.map(m => Object.assign(new MessageModel(), m.toJSON())) : null)
+
+                populatedMessages = populatedMessages.map(m => {
+                    return Object.assign(m, {
+                        IsRead: currentMessageIds.indexOf(m._id) != -1
+                    })
+                })
 
                 console.log("SUBROUND IS", subRound);
                 subRound.DisplayMessages = populatedMessages;
@@ -477,6 +484,8 @@ class RoundRouter {
                 return 'ChipCoMessages'
             case JobName.INTEGRATED_SYSTEMS:
                 return 'IntegratedSystemsMessages'
+            case JobName.BLUE_KITE:
+                return 'BlueKiteMessages'
             default:
                 return 'ICMessages'
         }

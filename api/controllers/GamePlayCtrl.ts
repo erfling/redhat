@@ -519,6 +519,7 @@ class GamePlayRouter {
                 .then(srs => srs ? srs.map(
                     b => Object.assign(new SubRoundScore(), b.toJSON())) : []);
 
+            
             console.log(roundScores);
 
 
@@ -708,7 +709,7 @@ console.log(err);
         this.router.get("/getscores/:subroundid/:roundid/:gameid", this.getScores.bind(this)),
         this.router.get("/getuserscores/:subroundid/:roundid/:gameid", this.getUserScores.bind(this)),
         this.router.get("/getsubroundscores/:gameid", this.getSubRoundScores.bind(this)),
-            this.router.post("/response/rating", this.savePriorityRating.bind(this))
+        this.router.post("/response/rating", this.savePriorityRating.bind(this))
     }
 }
 

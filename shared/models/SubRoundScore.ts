@@ -29,6 +29,14 @@ export default class SubRoundScore extends BaseModel
     @dbProp(Number)
     public NormalizedScore: number = 0;
 
+    @dbProp(String)
+    public RoundLabel: string;
+
+    @dbProp(String)
+    public SubRoundLabel: string;
+
+    @dbProp(String)
+    public TeamLabel: string;
 
 
 }
