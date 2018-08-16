@@ -17,6 +17,7 @@ export interface ContentShape{
     type: string
 }
 
+
 export default class SubRoundModel extends BaseModel
 {
     //----------------------------------------------------------------------
@@ -37,6 +38,12 @@ export default class SubRoundModel extends BaseModel
     @Type(() =>String)
     @dbProp(String)
     public Name: string = "";
+
+    /** 
+     * Text Description of Subround
+     */
+    @dbProp(String)
+    public Description: string = "";
 
     @dbProp(String)
     public Label: string = "";

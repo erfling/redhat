@@ -9,10 +9,10 @@ import LoginCtrl from './controllers/LoginCtrl';
 import { monMappingModel } from './controllers/GameCtrl';
 import UserCtrl from './controllers/UserCtrl';
 import AuthUtils from './AuthUtils';
-import GameCtrl, { monGameModel, monSubRoundScoreModel } from './controllers/GameCtrl';
+import GameCtrl, { monGameModel } from './controllers/GameCtrl';
 import GameModel from '../shared/models/GameModel'
 import TeamCtrl from './controllers/TeamCtrl';
-import GamePlayCtrl, { monResponseModel } from './controllers/GamePlayCtrl';
+import GamePlayCtrl, { monResponseModel, monSubRoundScoreModel } from './controllers/GamePlayCtrl';
 import LongPoll from '../shared/base-sapien/api/LongPoll';
 import RoundChangeMapping from '../shared/models/RoundChangeMapping';
 import { JobName } from '../shared/models/UserModel';
@@ -184,6 +184,7 @@ export class AppServer {
             .use('/sapien/api/team', TeamCtrl)
             .use('/sapien/api/user', UserCtrl)
             .use('/sapien/api/gameplay', /*Passport.authenticate('jwt', { session: false }),*/ GamePlayCtrl)
+            
             .post('/sapien/api/facilitation/round/:gameid', Passport.authenticate('jwt', { session: false }), async (req, res) => {
                 console.log("HIT HERe", req.body);
                 try {
@@ -302,7 +303,9 @@ export class AppServer {
 
                         for (let j = 0; j < subRounds.length; j++) {
                             let subRound = subRounds[j];
+                           
                             console.log("J BE J:", j)
+                          
                             for (let i = 0; i < game.Teams.length; i++) {
                                 let t = game.Teams[i];
                                 //get the team's responses in this subround

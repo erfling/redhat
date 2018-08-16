@@ -13,9 +13,7 @@ const mappingSchObj = SchemaBuilder.fetchSchema(RoundChangeMapping);
 const monMappingSchema = new mongoose.Schema(mappingSchObj);
 export const monMappingModel = mongoose.model("roundchangemapping", monMappingSchema);
 
-const subRoundScoreSchema = SchemaBuilder.fetchSchema(SubRoundScore);
-const monSubRoundScoreSchema = new mongoose.Schema(subRoundScoreSchema);
-export const monSubRoundScoreModel = mongoose.model("subroundscore", monSubRoundScoreSchema);
+
 
 const schObj = SchemaBuilder.fetchSchema(GameModel);
 schObj.Facilitator = { type: mongoose.Schema.Types.ObjectId, ref: "user" }

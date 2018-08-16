@@ -22,10 +22,16 @@ import FeedBackModel from '../../shared/models/FeedBackModel';
 
 import { RatingType } from '../../shared/models/QuestionModel';
 import SubRoundFeedback, { ValueDemomination } from '../../shared/models/SubRoundFeedback';
+import SubRoundScore from '../../shared/models/SubRoundScore';
 
 const schObj = SchemaBuilder.fetchSchema(ResponseModel);
 const monSchema = new mongoose.Schema(schObj);
 export const monResponseModel = mongoose.model("response", monSchema);
+
+const subRoundScoreSchema = SchemaBuilder.fetchSchema(SubRoundScore);
+const monSubRoundScoreSchema = new mongoose.Schema(subRoundScoreSchema);
+export const monSubRoundScoreModel = mongoose.model("subroundscore", monSubRoundScoreSchema);
+
 
 class GamePlayRouter {
     //----------------------------------------------------------------------
@@ -106,7 +112,7 @@ class GamePlayRouter {
 
         try {
             console.log("SHOULD IGNORE SCOING IF ROUND 4", response)
-            if(!response.SkipScoring){
+            if (!response.SkipScoring) {
                 const question = await monQModel.findById(response.QuestionId).then(q => q.toJSON());
 
                 console.log(question);
@@ -130,11 +136,11 @@ class GamePlayRouter {
             } else {
                 delete response._id;
                 var SaveResponse = await monResponseModel.findOneAndUpdate({ GameId: response.GameId, TeamId: response.TeamId, QuestionId: response.QuestionId }, response, { new: true }).then(r => r.toObject() as ResponseModel);
-        }
+            }
             console.log(SaveResponse);
 
             res.json(SaveResponse);
-        } catch (err){
+        } catch (err) {
             console.log("ERROR SAVING RESPONSE", err)
             res.status(500);
             res.send("response not saved")
@@ -153,7 +159,7 @@ class GamePlayRouter {
                 QuestionId: response.SiblingQuestionId
             }).then(r => Object.assign(new ResponseModel(), r.toJSON()));
             console.log("RESPONSE", response, OneAResponse);
-            
+
             //get the possible answer matching our response
             const question: QuestionModel = await monQModel.findById(response.QuestionId).then(r => Object.assign(new QuestionModel(), r.toJSON()));
             var bestCandidate: ValueObj;
@@ -182,7 +188,7 @@ class GamePlayRouter {
                     console.log("DOOKIE:", pa);
                 }
             });
-            
+
             // set response answer's idealValues based on whether thay're the best candidate
             (response.Answer as ValueObj[]).forEach(ans => {
                 ans.idealValue = String(ans.label == bestCandidate.label);
@@ -190,12 +196,12 @@ class GamePlayRouter {
 
             // Now that response object has idealValues, calculate its score as you would and other multiple-choice
             response.Score = response.resolveScore();
-            
+
             next();
         } catch (err) {
             console.log(err);
             res.status(500)
-               .json("no sir");
+                .json("no sir");
         }
     }
 
@@ -209,17 +215,17 @@ class GamePlayRouter {
         }
     }
 
-    public async GetGameResponsesBySubround(req: Request, res: Response){
-        try{
+    public async GetGameResponsesBySubround(req: Request, res: Response) {
+        try {
             let GameId = req.params.gameid;
             let SubRoundId = req.params.subroundid;
 
-            const responses = await monResponseModel.find({GameId, SubRoundId});
+            const responses = await monResponseModel.find({ GameId, SubRoundId });
 
-            if(!responses) throw new Error("NO RESPONSES");
+            if (!responses) throw new Error("NO RESPONSES");
             res.json(responses);
         }
-        catch(err){
+        catch (err) {
             console.log(err)
             res.status(500).send("couldn't get responses")
         }
@@ -370,26 +376,26 @@ class GamePlayRouter {
                 //let job: JobName = jobMap[p._id.toString()];
                 //let marker: RatingType = job == JobName.MANAGER ? RatingType.MANAGER_RATING : RatingType.IC_RATING;
 
-                if (q.RatingMarker == RatingType.MANAGER_RATING){
+                if (q.RatingMarker == RatingType.MANAGER_RATING) {
                     let mgr = players.filter(p => jobMap[p._id.toString()] == JobName.MANAGER)[0];
                     return Object.assign(q, {
                         SubText: "How did " + mgr.Name + " perform as a manager?",
-                        PossibleAnswers:  q.PossibleAnswers.map((pa, i) => Object.assign( pa, 
+                        PossibleAnswers: q.PossibleAnswers.map((pa, i) => Object.assign(pa,
                             {
-                                    idealValue: 0,
-                                    maxPoints: 3,
-                                    minPoints: 1,
-                                    min: 0,
-                                    max: 10,
-                                    targetObjId: mgr._id.toString(),
-                                    targetObjClass: "UserModel"
+                                idealValue: 0,
+                                maxPoints: 3,
+                                minPoints: 1,
+                                min: 0,
+                                max: 10,
+                                targetObjId: mgr._id.toString(),
+                                targetObjClass: "UserModel"
                             })
                         )
                     })
                 } else {
                     //chipco and integrated systems players get the same questions as ICs
                     return Object.assign(q, {
-                        PossibleAnswers: players.filter(p => jobMap[p._id.toString()] != JobName.MANAGER).map((p,i) => {
+                        PossibleAnswers: players.filter(p => jobMap[p._id.toString()] != JobName.MANAGER).map((p, i) => {
                             return {
                                 label: p.Name,
                                 idealValue: 0,
@@ -404,7 +410,7 @@ class GamePlayRouter {
                 }
 
                 return q;
-            })     
+            })
 
             res.json(finalQuestions);
 
@@ -417,19 +423,19 @@ class GamePlayRouter {
 
     public async savePriorityRating(req: Request, res: Response, next: NextFunction) {
         const response: ResponseModel = Object.assign(new ResponseModel(), req.body as ResponseModel);
-        try{
+        try {
 
             const question = await monQModel.findById(response.QuestionId).then(q => q.toJSON())
-                
+
             const answers: SliderValueObj[] = response.Answer as SliderValueObj[];
 
-            if(question.Type == QuestionType.PRIORITY){
+            if (question.Type == QuestionType.PRIORITY) {
 
-                for(let i = 0; i < answers.length; i++){
+                for (let i = 0; i < answers.length; i++) {
                     let answer = answers[i];
                     let rating: ResponseModel = new ResponseModel();
 
-                    rating = Object.assign(response, {Answer: []});
+                    rating = Object.assign(response, { Answer: [] });
                     delete rating._id;
                     rating.targetObjClass = "UserModel";
                     rating.targetObjId = answer.targetObjId;
@@ -438,18 +444,18 @@ class GamePlayRouter {
 
                     var oldResponse = await monResponseModel.findOne({
 
-                            targetObjId: rating.targetObjId, 
-                            targetObjClass: rating.targetObjClass,
-                            SubRoundId: rating.SubRoundId,
-                            QuestionId: rating.QuestionId
+                        targetObjId: rating.targetObjId,
+                        targetObjClass: rating.targetObjClass,
+                        SubRoundId: rating.SubRoundId,
+                        QuestionId: rating.QuestionId
 
-                        }).then(r => r ? r.toJSON() : null);
+                    }).then(r => r ? r.toJSON() : null);
 
-                    if(oldResponse){
+                    if (oldResponse) {
                         console.log("UPDATING OLD RESPONSE")
                         await monResponseModel.findOneAndUpdate({
 
-                            targetObjId: rating.targetObjId, 
+                            targetObjId: rating.targetObjId,
                             targetObjClass: rating.targetObjClass,
                             SubRoundId: rating.SubRoundId,
                             QuestionId: rating.QuestionId
@@ -465,12 +471,12 @@ class GamePlayRouter {
                 let queryObj: any = { GameId: response.GameId, TeamId: response.TeamId, QuestionId: response.QuestionId }
 
                 const oldResponse = await monResponseModel.findOne(queryObj).then(r => r ? r.toJSON() : null);
-    
+
                 response.targetObjClass = "UserModel";
                 response.targetObjId = (response.Answer as SliderValueObj[])[0].targetObjId;
                 response.DisplayLabel = question.Text;
 
-    
+
                 if (!oldResponse) {
                     delete response._id;
                     var SaveResponse = await monResponseModel.create(response).then(r => r.toObject() as ResponseModel);
@@ -479,19 +485,50 @@ class GamePlayRouter {
                     var SaveResponse = await monResponseModel.findOneAndUpdate({ GameId: response.GameId, TeamId: response.TeamId, QuestionId: response.QuestionId }, response, { new: true }).then(r => r.toObject() as ResponseModel);
                 }
                 console.log(SaveResponse);
-    
+
             }
 
             res.json(response)
-           
-        }catch(err){
+
+        } catch (err) {
             console.log(err);
             res.status(500);
             res.send("couldn't save response for priotires")
         }
     }
 
-    public async getScores(req: Request, res: Response){
+
+    /**
+     * Returnss all Subround scores with the given ID
+     * @param req 
+     * @param res 
+     */
+    public async getSubRoundScores(req: Request, res: Response) {
+
+        try {
+
+            const GameId = req.params.gameid;
+            console.log("{ GameId: %s,}",GameId);
+     
+            const roundScores: SubRoundScore[] = await monSubRoundScoreModel.find({ GameId })
+                .then(srs => srs ? srs.map(
+                    b => Object.assign(new SubRoundScore(), b.toJSON())) : []);
+     
+                    console.log(roundScores);
+
+
+            res.json(roundScores);
+
+        } catch (err) {
+            
+            console.log(err);
+            res.status(500);
+        }      
+
+
+    }
+
+    public async getScores(req: Request, res: Response) {
         try {
             const SubRoundId = req.params.subroundid;
             const RoundId = req.params.roundid;
@@ -500,28 +537,28 @@ class GamePlayRouter {
             //get all teams' responses for the round, then group them by team
             const responses: ResponseModel[] = await monResponseModel.find({ GameId }).then(responses => responses ? responses.map(b => Object.assign(new ResponseModel(), b.toJSON())) : []);
 
-            const teams: TeamModel[] = await monTeamModel.find({GameId}).then(t => t ? t.map(team => team.toJSON()) : []);
+            const teams: TeamModel[] = await monTeamModel.find({ GameId }).then(t => t ? t.map(team => team.toJSON()) : []);
 
             const subround: SubRoundModel = await monSubRoundModel.findById(SubRoundId).populate("FeedBack").then(sr => sr ? Object.assign(new SubRoundModel(), sr.toJSON()) : null);
 
             let groupedResponses = groupBy(responses, "TeamId");
 
-            console.log(groupedResponses);
+            //console.log(groupedResponses);
 
             var scores = Object.keys(groupedResponses).map(k => {
                 let score = new FeedBackModel();
-                
+
                 score.TotalGameScore = groupedResponses[k].reduce((totalScore, r: ResponseModel) => {
                     return Number((totalScore + r.Score).toFixed(2));
-                },0);
+                }, 0);
 
                 score.TotalRoundScore = groupedResponses[k].filter(r => r.RoundId == RoundId).reduce((totalScore, r: ResponseModel) => {
                     return Number((totalScore + r.Score).toFixed(2));
-                },0);
+                }, 0);
 
                 score.TotalSubroundScore = groupedResponses[k].filter(r => r.SubRoundId == SubRoundId).reduce((totalScore, r: ResponseModel) => {
                     return Number((totalScore + r.Score).toFixed(2));
-                },0);
+                }, 0);
 
                 score.TargetObjectId = k;
                 score.Label = "Team " + teams.filter(t => t._id.toString() == k)[0].Number.toString();
@@ -530,18 +567,18 @@ class GamePlayRouter {
                 score.TeamsFeedBack = subround ? subround.FeedBack : null;
 
                 //special case for round three feedback
-                if(subround && subround.Name == "DEALRENEWAL" ||  subround.Name == "DEALSTRUCTURE" ){
+                if (subround && subround.Name == "DEALRENEWAL" || subround.Name == "DEALSTRUCTURE") {
                     let round3Response = groupedResponses[k].filter(r => r.SubRoundId == SubRoundId)[0];
-                    
+
                     let posOrNeg;
-                    for(let i = 0; i < (round3Response.Answer as SliderValueObj[]).length; i++){
+                    for (let i = 0; i < (round3Response.Answer as SliderValueObj[]).length; i++) {
                         let ans = (round3Response.Answer as SliderValueObj[])[i];
-                        
-                        if (ans.label == ComparisonLabel.CSAT && Number(ans.data) >= 90){
+
+                        if (ans.label == ComparisonLabel.CSAT && Number(ans.data) >= 90) {
                             //team gets positive feedback, so we filter out negative
                             posOrNeg = ValueDemomination.NEGATIVE;
 
-                        } else if (ans.label == ComparisonLabel.PRICE_PER_CUSTOMER && Number(ans.data) >= 750){
+                        } else if (ans.label == ComparisonLabel.PRICE_PER_CUSTOMER && Number(ans.data) >= 750) {
                             //team gets negative feedback, so we filter out positive
                             posOrNeg = ValueDemomination.POSITIVE;
                         }
@@ -549,24 +586,27 @@ class GamePlayRouter {
 
                     score.TeamsFeedBack = score.TeamsFeedBack.filter(fb => fb.ValueDemomination != posOrNeg);
                 }
-                
+
                 return score;
             });
 
-            scores = scores.sort((s1,s2) => {
+            scores = scores.sort((s1, s2) => {
                 return s1.TotalGameScore != s2.TotalGameScore ? s1.TotalGameScore > s2.TotalGameScore ? 1 : -1 : 0;
             })
+
+            console.log("scores ");
+            console.table(scores);
 
             res.json(scores);
         }
         catch (err) {
-            console.log(err);
+
             res.status(500);
             res.send("couldn't get resposnes")
         }
     }
 
-    public async getUserScores(req: Request, res: Response){
+    public async getUserScores(req: Request, res: Response) {
         try {
             const SubRoundId = req.params.subroundid;
             const RoundId = req.params.roundid;
@@ -586,34 +626,34 @@ class GamePlayRouter {
 
                 score.TotalGameScore = groupedResponses[k].reduce((totalScore, r: ResponseModel) => {
                     return Number((totalScore + r.Score).toFixed(2));
-                },0);
+                }, 0);
 
                 score.TotalRoundScore = groupedResponses[k].filter(r => r.RoundId == RoundId).reduce((totalScore, r: ResponseModel) => {
                     return Number((totalScore + r.Score).toFixed(2));
-                },0);
+                }, 0);
 
                 score.TotalSubroundScore = groupedResponses[k].filter(r => r.SubRoundId == SubRoundId).reduce((totalScore, r: ResponseModel) => {
                     return Number((totalScore + r.Score).toFixed(2));
-                },0);
+                }, 0);
 
 
-                
+
                 let user = Object.assign(new UserModel(), users.filter(u => u._id.toString() == k)[0])
 
                 score.TargetObjectId = k;
                 score.Label = user.Name;
                 score.TargetModel = "UserModel";
-                
+
                 score.IndividualFeedBack = [];
                 groupedResponses[k].filter(r => r.RoundId == RoundId).map(r => {
                     console.log("response!!!!!!!!!!!", r)
                     score.IndividualFeedBack.push(r);
                     return r;
                 });
-                return score;        
+                return score;
             });
 
-            scores = scores.sort((s1,s2) => {
+            scores = scores.sort((s1, s2) => {
                 return s1.TotalGameScore != s2.TotalGameScore ? s2.TotalGameScore > s1.TotalGameScore ? 1 : -1 : 0;
             })
 
@@ -626,23 +666,23 @@ class GamePlayRouter {
         }
     }
 
-    public async ReadMessage(req: Request, res: Response){
-        
-        try{
+    public async ReadMessage(req: Request, res: Response) {
+
+        try {
             const userId = req.params.userid;
             const messageId = req.params.messageid;
-            
-            let user: UserModel = await monUserModel.findById(userId).then(u => u ? Object.assign(new UserModel(), u.toJSON()): null);
-            
+
+            let user: UserModel = await monUserModel.findById(userId).then(u => u ? Object.assign(new UserModel(), u.toJSON()) : null);
+
             if (!user) throw new Error("couldn't get user");
             if (user.ReadMessages.indexOf(messageId) == -1) {
                 user.ReadMessages.push(messageId);
-                user = await monUserModel.findByIdAndUpdate(userId, {ReadMessages: user.ReadMessages}, {new: true}).then(u => u ? Object.assign(new UserModel(), u.toJSON()): null);
+                user = await monUserModel.findByIdAndUpdate(userId, { ReadMessages: user.ReadMessages }, { new: true }).then(u => u ? Object.assign(new UserModel(), u.toJSON()) : null);
             }
 
             res.json(user);
         }
-        catch(err){
+        catch (err) {
             console.log(err);
             res.status(500)
                 .send("couldn't mark message read")
@@ -663,7 +703,8 @@ class GamePlayRouter {
         this.router.post("/3response", this.SaveRound3Response.bind(this));
         this.router.get("/getscores/:subroundid/:roundid/:gameid", this.getScores.bind(this)),
         this.router.get("/getuserscores/:subroundid/:roundid/:gameid", this.getUserScores.bind(this)),
-        this.router.post("/response/rating", this.savePriorityRating.bind(this))
+        this.router.get("/getsubroundscores/:gameid", this.getSubRoundScores.bind(this)),
+            this.router.post("/response/rating", this.savePriorityRating.bind(this))
     }
 }
 
