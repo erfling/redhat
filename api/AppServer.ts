@@ -170,7 +170,7 @@ export class AppServer {
         }, {maxListeners: 500});
 
         //GZIP large resources in production
- /*
+ 
         console.log("ENVIRONMENT IS:", process.env.NODE_ENV)
         if (process.env.NODE_ENV && process.env.NODE_ENV.indexOf("prod") != -1) {
             AppServer.app
@@ -190,7 +190,7 @@ export class AppServer {
                 })
         }
 
-       
+       /*
          AppServer.app.get("/listenforgameadvance/:gameid", async (req, res, next) => {
              const gameId = req.params.gameid;
              try {
@@ -306,15 +306,13 @@ export class AppServer {
                             }
 
                         })
-                    }
+                    } 
+
 
                     if ((!newMapping || !newMapping.ParentRound.length) && !oldMapping) {
                         throw new Error("Couldn't make mapping")
                     }
                     // Update Game object on DB
-
-                
-                   
 
                     // Score calculating
                     if (mapping.ShowFeedback) {
@@ -365,12 +363,10 @@ export class AppServer {
 
                                     console.log(srs.SubRoundLabel.toLowerCase());
                                     console.log(srs.NormalizedScore); 
-                                    if ( srs.SubRoundLabel.toLowerCase()== '1a') {
-                                        
-                                        srs.NormalizedScore = RawScore / MaxRawScore * (.2 * 20) / subRounds.length;
-
+                                    if ( srs.SubRoundLabel.toLowerCase()== '1a') {                                        
+                                        srs.NormalizedScore = RawScore / MaxRawScore * (.2 * 20);
                                     } else if (srs.SubRoundLabel.toLowerCase() == '1b') {
-                                        srs.NormalizedScore = RawScore / MaxRawScore * (.8 * 20) / subRounds.length;
+                                        srs.NormalizedScore = RawScore / MaxRawScore * (.8 * 20);
                                 
                                     } else{
 
