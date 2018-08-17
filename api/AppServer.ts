@@ -25,6 +25,31 @@ import SubRoundScore from '../shared/models/SubRoundScore';
 import { SliderValueObj } from '../shared/entity-of-the-state/ValueObj';
 
 
+class SubRoundNormalizationRule
+{
+    public RoundId:string;
+    public SubRoundId:string;
+    public Label: string;
+    public weight: Number;
+}
+
+ class  SubRoundNormalizationInfo {
+    
+    //----------------------------------------------------------------------
+	//
+	//  Properties
+	//
+	//----------------------------------------------------------------------
+		
+    static readonly MAX_SCORE_ROUND = 20;
+
+    public static RoundWeights: SubRoundNormalizationRule[] = [{ RoundId:"1", SubRoundId:'a',  Label: '1a', weight: .2 },
+     {RoundId:"1", SubRoundId:'b', Label: '1b', weight: .8 }];
+    
+    
+    
+}
+
 export class AppServer {
     public static app = express();
     public static LongPoll = new LongPoll(AppServer.app);
@@ -187,7 +212,7 @@ export class AppServer {
             .use('/sapien/api/gameplay', /*Passport.authenticate('jwt', { session: false }),*/ GamePlayCtrl)
             
             .post('/sapien/api/facilitation/round/:gameid', Passport.authenticate('jwt', { session: false }), async (req, res) => {
-                console.log("HIT HERe", req.body);
+                //console.log("HIT HERe", req.body);
                 try {
                     const mapping: RoundChangeMapping = Object.assign(new RoundChangeMapping(), req.body);
                     const game: GameModel = await monGameModel.findById(req.params.gameid).populate("Teams").then(g => Object.assign(new GameModel(), g.toJSON()));
@@ -266,7 +291,7 @@ export class AppServer {
                                 if (game.HasBeenManager.indexOf(pid) == -1) {
                                     game.HasBeenManager.push(pid);
                                     mapping.UserJobs[pid] = JobName.MANAGER;
-                                    console.log("HEY< YOU", pid, mapping)
+                                    console.log("HEY < YOU", pid, mapping)
                                     break;
                                 }
                             }
@@ -282,16 +307,13 @@ export class AppServer {
                         })
                     }
 
-
-
-
-
                     if ((!newMapping || !newMapping.ParentRound.length) && !oldMapping) {
                         throw new Error("Couldn't make mapping")
                     }
                     // Update Game object on DB
 
-
+                
+                   
 
                     // Score calculating
                     if (mapping.ShowFeedback) {
@@ -304,9 +326,8 @@ export class AppServer {
 
                         for (let j = 0; j < subRounds.length; j++) {
                             let subRound = subRounds[j];
-                           
-                            console.log("J BE J:", j)
-                          
+
+                     
                             for (let i = 0; i < game.Teams.length; i++) {
                                 let t = game.Teams[i];
                                 //get the team's responses in this subround
@@ -320,7 +341,7 @@ export class AppServer {
                                     let relevantResponses = responses.filter(r => /*!r.SkipScoring && */ r.QuestionId == q._id.toString());
                                     relevantResponses.forEach(r => {
                                         RawScore += r.Score;
-                                        if(r.MaxScore) MaxRawScore = r.MaxScore;                               
+                                        if (r.MaxScore) MaxRawScore = r.MaxScore;
                                     });
                                     ((q.PossibleAnswers as SliderValueObj[]).forEach(a => {
                                         if (a.maxPoints) MaxRawScore += a.maxPoints;
@@ -340,13 +361,31 @@ export class AppServer {
                                 });
 
                                 if(RawScore > 0 ){
-                                    srs.NormalizedScore = RawScore / MaxRawScore * 20 / subRounds.length
+
+                                    console.log(srs.SubRoundLabel.toLowerCase());
+                                    console.log(srs.NormalizedScore); 
+                                    if ( srs.SubRoundLabel.toLowerCase()== '1a') {
+                                        
+                                        srs.NormalizedScore = RawScore / MaxRawScore * (.2 * 20) / subRounds.length;
+
+                                    } else if (srs.SubRoundLabel.toLowerCase() == '1b') {
+                                        srs.NormalizedScore = RawScore / MaxRawScore * (.8 * 20) / subRounds.length;
+                                
+                                    } else{
+
+                                       srs.NormalizedScore = RawScore / MaxRawScore * 20 / subRounds.length
+                        
+                                    }
+                                    console.log(srs.NormalizedScore); 
                                 } else {
+                                   
                                     srs.NormalizedScore = 0;
                                 }
 
-                                var savedSubRoundScore: SubRoundScore = await monSubRoundScoreModel.findOneAndUpdate( { TeamId: t._id, SubRoundId: subRound._id }, srs, { upsert: true, new: true, setDefaultsOnInsert: true })
-                                    .then(sr => Object.assign(new SubRoundScore(), sr.toJSON()));
+                                
+                                console.log(srs);
+                                
+                                var savedSubRoundScore: SubRoundScore = await monSubRoundScoreModel.findOneAndUpdate({ TeamId: t._id, SubRoundId: subRound._id }, srs, { upsert: true, new: true, setDefaultsOnInsert: true }).then(sr => Object.assign(new SubRoundScore(), sr.toJSON()));
                             }
                         }
                     }
@@ -357,9 +396,12 @@ export class AppServer {
                         AppServer.LongPoll.publishToId("/listenforgameadvance/:gameid", req.params.gameid, mapperydoo);
                         res.json("long poll publish hit");
                     }
+                                
+
 
                 }
                 catch (err) {
+                    console.log("exceopt");
                     console.log(err)
                     res.send(err)
                 }
@@ -369,6 +411,9 @@ export class AppServer {
             .use('*', express.static("dist"))
             .use('**', express.static("dist"))
     }
+
+
+
 
     private static async _setRoundAndSubroundOrder() {
         try {
@@ -393,7 +438,8 @@ export class AppServer {
                 )
                 .then(rs => rs ? rs.map(r => Object.assign(new RoundModel(), r.toJSON())) : null);
 
-            console.log("<<<<<<<<<<<ROUNDS>>>>>>>>>>>>>>>>>>>>>", rounds)
+            //console.log("<<<<<<<<<<<ROUNDS>>>>>>>>>>>>>>>>>>>>>", rounds)
+
             let letters = ["A", "B", "C", "D", "E"]
             for (let i = 0; i < rounds.length; i++) {
                 let r = rounds[i];
