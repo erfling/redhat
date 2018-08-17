@@ -178,7 +178,15 @@ export default class ScoringLineChart extends React.Component<ChartingProps, { c
     console.log("render")
     const { Scores, TeamId } = this.props;
     const chartXLabels: string[] = ScoringLineChart.rounds;
-    const colors = ["#3b67c5", "#cd4c2d", "#f29e3c", "#499535", "#fff", "#00b5ad"]
+    const colors = ["#3b67c5", "#cd4c2d", "#f29e3c", "#499535", "#fff", "#00b5ad"];
+
+    const data = [
+      {name: 'Team 1', round1a: 10, round1b: 7, amt: 2400},
+      {name: 'Team 2', round1a: 8, round1b: 5, amt: 2210},
+      {name: 'Team 3', round1a: 6, round1b: 6, amt: 2290},
+      {name: 'Team 4', round1a: 7.4, round1b: 3, amt: 2000},
+      {name: 'Team 5', round1a: 6.3, round1b: 7, amt: 2181}
+    ];
     return <Column
       width={16}
       className="feedback chart-wrapper"
@@ -206,13 +214,13 @@ export default class ScoringLineChart extends React.Component<ChartingProps, { c
             }).map((k, i) => {
               return <li
               >
-                {i == 0 &&
-                  <h2>Scores Through {this.state.roundScores[k]}</h2>
+                {k == "name" &&
+                  <h2>Scores Through Round {this.state.roundScores["name"]}</h2>
                 }
 
-                {i != 0 &&
+                {k != "name" &&
                   <Label style={{ background: i == 0 ? 'transparent' : this.getTeamColor(k), border: 'none', fontWeight: 'bold' }}>
-                    {i}. {k.toUpperCase()}: {this.state.roundScores[k]}
+                    {i}. {k.toUpperCase()}: {MathUtil.roundTo(this.state.roundScores[k],2)}
                   </Label>
                 }
               </li>
@@ -256,7 +264,7 @@ export default class ScoringLineChart extends React.Component<ChartingProps, { c
         className="line-chart-wrapper"
       >
         <BarChart
-          data={[this.getMockData()[0]]}
+          data={data}
           margin={{ top: 0, right: 20, bottom: 0, left: 0 }}
           width={this.state.componentWidth - 20}
           height={this.state.componentWidth / 1.5}
@@ -264,15 +272,14 @@ export default class ScoringLineChart extends React.Component<ChartingProps, { c
           <XAxis padding={{ left: 0, right: 20 }} dataKey="name" />
           <YAxis padding={{ top: 10, bottom: 0 }} />
           <Legend verticalAlign="bottom" height={100} />
-          {Object.keys(this.getMockData()[4]).filter((k, i) => i != 0).map((t, i) => {
-            return <Bar dataKey={t} fill={this.getTeamColor(t)} label isAnimationActive={false} />
-          })}
+          <Bar dataKey="round1a" stackId="a" fill="#8884d8" label />
+          <Bar dataKey="round1b" stackId="a" fill="#82ca9d" label />          
         </BarChart>
       </Segment>
-
-      <pre>{this.getLineChartData() && JSON.stringify(this.getLineChartData(), null, 2)}</pre>
-
     </Column>
   }
 
 }
+/**{Object.keys(this.getMockData()[4]).filter((k, i) => i != 0).map((t, i) => {
+            return <Bar dataKey={t} stackId={i} fill={this.getTeamColor(t)} label isAnimationActive={false} />                  
+          })} */
