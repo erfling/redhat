@@ -115,6 +115,7 @@ export default class EngineeringSub extends BaseComponent<any, IRoundDataStore>
                         onSaveHandler={this.controller.saveFeedback.bind(this.controller)}
                         RoundName="Round 3"
                         Feedback={this.controller.filterFeedBack(this.state.Scores, this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN)}
+                        ChartableScores={this.controller.dataStore.ApplicationState.ChartingScores}
                     >
                     </FeedBackWrapper> 
                     </>
