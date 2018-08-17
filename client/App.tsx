@@ -14,7 +14,6 @@ import Game from "./game/Game";
 import Login from "./login/Login";
 import SalesRoundCtrl from "./game/SalesRound/SalesRoundCtrl";
 import { Label } from "recharts";
-import MenuLogo from '-!svg-react-loader?name=Icon!./img/ss-logo.svg';
 
 export default class App extends BaseComponent<any, IControllerDataStore>
 {
@@ -73,7 +72,6 @@ export default class App extends BaseComponent<any, IControllerDataStore>
                             borderRadius: 0, //clear semantic-ui style
                             margin: 0 //clear semantic-ui style
                         }}>
-
                         {this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN &&
                             <Menu.Item
                                 position="left"
@@ -86,24 +84,26 @@ export default class App extends BaseComponent<any, IControllerDataStore>
                         }
 
                         <Menu.Menu
+                            position='right'
                             style={{padding: '0'}}
                         >
                             {this.state.ApplicationState.CurrentUser.Job !== null && this.state.ApplicationState.CurrentTeam &&
                                 <>
                                     <Menu.Item header
-                                        style={{color: '#0088b9'}}
+                                        style={{color: '#0088b9', paddingRight:0}}
+                                        
                                     >
                                         {this.state.ApplicationState.CurrentUser.Name}
                                     </Menu.Item >
 
                                     <Menu.Item header
-                                        style={{color: '#0088b9'}}
+                                        style={{color: '#0088b9', paddingRight:0}}
                                     >
                                         Team {this.state.ApplicationState.CurrentTeam.Number}
                                     </Menu.Item>
 
                                     <Menu.Item header
-                                        style={{color: '#0088b9'}}
+                                        style={{color: '#0088b9', borderRight: 'solid 1px #e7e7e7'}}
                                     >
                                         {this.state.ApplicationState.CurrentUser.Job}
                                     </Menu.Item>
