@@ -75,28 +75,19 @@ export default class App extends BaseComponent<any, IControllerDataStore>
                         }}>
 
                         {this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN &&
-                            <Menu.Item>
+                            <Menu.Item
+                                position="left"
+                                onClick={e => this.controller.dataStore.ApplicationState.ShowMenu = !this.controller.dataStore.ApplicationState.ShowMenu}
+                            >
                                 <Icon
-                                    as="a"
                                     name={this.state.ApplicationState.ShowMenu ? 'cancel' : 'bars'}
-                                    onClick={e => this.controller.dataStore.ApplicationState.ShowMenu = !this.controller.dataStore.ApplicationState.ShowMenu}
                                 />
                             </Menu.Item>
                         }
 
-                        <Menu.Item
+                        <Menu.Menu
+                            style={{padding: '0'}}
                         >
-                            <MenuLogo
-                                style={{
-                                    width: '44px'
-                                }}
-                            />
-                        </Menu.Item>
-
-
-
-
-                        <Menu.Item position="right">
                             {this.state.ApplicationState.CurrentUser.Job !== null && this.state.ApplicationState.CurrentTeam &&
                                 <>
                                     <Menu.Item header
@@ -127,8 +118,8 @@ export default class App extends BaseComponent<any, IControllerDataStore>
                                     Sign Out
                                 </Menu.Item>
                             }
-                        </Menu.Item>
-                        }
+                        </Menu.Menu>
+                        
 
 
 
