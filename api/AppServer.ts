@@ -361,7 +361,6 @@ export class AppServer {
                                 });
 
                                 if(RawScore > 0 ){
-<<<<<<< HEAD
 
                                     console.log(srs.SubRoundLabel.toLowerCase());
                                     console.log(srs.NormalizedScore); 
@@ -378,24 +377,16 @@ export class AppServer {
                         
                                     }
                                     console.log(srs.NormalizedScore); 
-=======
                                     srs.NormalizedScore = RawScore / MaxRawScore * 20 / subRounds.length;
->>>>>>> refs/remotes/origin/master
                                 } else {
                                    
                                     srs.NormalizedScore = 0;
                                 }
 
-<<<<<<< HEAD
                                 
                                 console.log(srs);
                                 
                                 var savedSubRoundScore: SubRoundScore = await monSubRoundScoreModel.findOneAndUpdate({ TeamId: t._id, SubRoundId: subRound._id }, srs, { upsert: true, new: true, setDefaultsOnInsert: true }).then(sr => Object.assign(new SubRoundScore(), sr.toJSON()));
-=======
-                                var savedSubRoundScore: SubRoundScore = await monSubRoundScoreModel.findOneAndUpdate( { TeamId: t._id, SubRoundId: subRound._id }, srs, { upsert: true, new: true, setDefaultsOnInsert: true })
-                                    .then(sr => Object.assign(new SubRoundScore(), sr.toJSON()));
-                                    
->>>>>>> refs/remotes/origin/master
                             }
                         }
                     }
