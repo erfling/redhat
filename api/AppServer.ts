@@ -175,6 +175,7 @@ export class AppServer {
         if (process.env.NODE_ENV && process.env.NODE_ENV.indexOf("prod") != -1) {
             AppServer.app
                 .get('*.js', function (req, res, next) {
+                    if(req.url.endsWith("/")) req.url = req.url.slice(0, -1);
                     req.url = req.url + '.gz';
                     res.set('Content-Encoding', 'gzip');
                     res.set('Content-Type', 'text/javascript');
@@ -182,6 +183,7 @@ export class AppServer {
                     next();
                 })
                 .get('*.css', function (req, res, next) {
+                    if(req.url.endsWith("/")) req.url = req.url.slice(0, -1);
                     req.url = req.url + '.gz';
                     res.set('Content-Encoding', 'gzip');
                     res.set('Content-Type', 'text/css');
