@@ -173,11 +173,11 @@ export default class ScoringLineChart extends React.Component<ChartingProps, { c
     const colors = ["#3b67c5", "#cd4c2d", "#f29e3c", "#499535", "#fff", "#00b5ad"];
 
     const data = [
-      {name: 'Team 1', round1a: 10, round1b: 7, amt: 2400},
-      {name: 'Team 2', round1a: 8, round1b: 5, amt: 2210},
-      {name: 'Team 3', round1a: 6, round1b: 6, amt: 2290},
-      {name: 'Team 4', round1a: 7.4, round1b: 3, amt: 2000},
-      {name: 'Team 5', round1a: 6.3, round1b: 7, amt: 2181}
+      {name: 'Team 1', "Round 1A": 10, "Round 1B": 7, amt: 2400},
+      {name: 'Team 2', "Round 1A": 8, "Round 1B": 5, amt: 2210},
+      {name: 'Team 3', "Round 1A": 6, "Round 1B": 6, amt: 2290},
+      {name: 'Team 4', "Round 1A": 7.4, "Round 1B": 3, amt: 2000},
+      {name: 'Team 5', "Round 1A": 6.3, "Round 1B": 7, amt: 2181}
     ];
     return <Column
       width={16}
