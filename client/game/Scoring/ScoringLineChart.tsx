@@ -264,8 +264,8 @@ export default class ScoringLineChart extends React.Component<ChartingProps, { c
           <XAxis padding={{ left: 0, right: 20 }} dataKey="name" />
           <YAxis padding={{ top: 10, bottom: 0 }} />
           <Legend verticalAlign="bottom" height={100} />
-          <Bar dataKey="round1a" stackId="a" fill={colors[1]} label />
-          <Bar dataKey="round1b" stackId="a" fill={colors[2]} label />          
+          <Bar dataKey="Round 1A" stackId="a" fill={colors[1]} label />
+          <Bar dataKey="Round 1B" stackId="a" fill={colors[2]} label />          
         </BarChart>
       </Segment>
     </Column>
