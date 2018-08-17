@@ -1,7 +1,7 @@
 import * as express from 'express';
 import * as http from 'http';
 import * as https from 'https';
-import RoundController, { monRoundModel, monSubRoundModel, monQModel } from './controllers/RoundCtrl'
+import RoundController, { monRoundModel, monSubRoundModel, monQModel, monMessageModel } from './controllers/RoundCtrl'
 import * as mongoose from 'mongoose';
 import * as bodyParser from 'body-parser';
 import * as Passport from 'passport'
@@ -15,7 +15,7 @@ import TeamCtrl from './controllers/TeamCtrl';
 import GamePlayCtrl, { monResponseModel, monSubRoundScoreModel } from './controllers/GamePlayCtrl';
 import LongPoll from '../shared/base-sapien/api/LongPoll';
 import RoundChangeMapping from '../shared/models/RoundChangeMapping';
-import { JobName } from '../shared/models/UserModel';
+import UserModel, { JobName } from '../shared/models/UserModel';
 import QuestionModel, { ComparisonLabel } from '../shared/models/QuestionModel';
 import ResponseModel from '../shared/models/ResponseModel';
 import RoundModel from '../shared/models/RoundModel';
@@ -23,6 +23,7 @@ import SubRoundModel from '../shared/models/SubRoundModel';
 import * as fs from 'fs';
 import SubRoundScore from '../shared/models/SubRoundScore';
 import { SliderValueObj } from '../shared/entity-of-the-state/ValueObj';
+import MessageModel from '../shared/models/MessageModel';
 
 
 class SubRoundNormalizationRule
@@ -148,7 +149,7 @@ export class AppServer {
             .use(bodyParser.json());
 
         AppServer._setRoundAndSubroundOrder();
-
+        AppServer.setMessageRoundLabels();
         AuthUtils.SET_UP_PASSPORT();
 
 
@@ -169,7 +170,7 @@ export class AppServer {
         }, {maxListeners: 500});
 
         //GZIP large resources in production
- /*
+ 
         console.log("ENVIRONMENT IS:", process.env.NODE_ENV)
         if (process.env.NODE_ENV && process.env.NODE_ENV.indexOf("prod") != -1) {
             AppServer.app
@@ -189,7 +190,7 @@ export class AppServer {
                 })
         }
 
-       
+       /*
          AppServer.app.get("/listenforgameadvance/:gameid", async (req, res, next) => {
              const gameId = req.params.gameid;
              try {
@@ -305,15 +306,13 @@ export class AppServer {
                             }
 
                         })
-                    }
+                    } 
+
 
                     if ((!newMapping || !newMapping.ParentRound.length) && !oldMapping) {
                         throw new Error("Couldn't make mapping")
                     }
                     // Update Game object on DB
-
-                
-                   
 
                     // Score calculating
                     if (mapping.ShowFeedback) {
@@ -364,12 +363,10 @@ export class AppServer {
 
                                     console.log(srs.SubRoundLabel.toLowerCase());
                                     console.log(srs.NormalizedScore); 
-                                    if ( srs.SubRoundLabel.toLowerCase()== '1a') {
-                                        
-                                        srs.NormalizedScore = RawScore / MaxRawScore * (.2 * 20) / subRounds.length;
-
+                                    if ( srs.SubRoundLabel.toLowerCase()== '1a') {                                        
+                                        srs.NormalizedScore = RawScore / MaxRawScore * (.2 * 20);
                                     } else if (srs.SubRoundLabel.toLowerCase() == '1b') {
-                                        srs.NormalizedScore = RawScore / MaxRawScore * (.8 * 20) / subRounds.length;
+                                        srs.NormalizedScore = RawScore / MaxRawScore * (.8 * 20);
                                 
                                     } else{
 
@@ -377,7 +374,10 @@ export class AppServer {
                         
                                     }
                                     console.log(srs.NormalizedScore); 
+<<<<<<< HEAD
                                     srs.NormalizedScore = RawScore / MaxRawScore * 20 / subRounds.length;
+=======
+>>>>>>> master
                                 } else {
                                    
                                     srs.NormalizedScore = 0;
@@ -483,6 +483,46 @@ export class AppServer {
         }
         catch (err) {
             console.log(JSON.parse(err))
+        }
+    }
+
+    public static async setMessageRoundLabels(){
+        const srs = await monSubRoundModel.find().then(srs => srs.map(sr => Object.assign(new SubRoundModel(), sr.toJSON())));
+
+        for(let i = 0 ; i < srs.length; i++){
+            let sr = srs[i];
+            let messages = [];
+            Object.keys(JobName).forEach((jn)=> {
+                messages = messages.concat(sr[AppServer._getMessageProp(JobName[jn])]);
+            })
+
+            console.log("MESSAGES?>?>?>?>?>?>?>?>?>?>?>?>?>?>?>?>", messages, sr)
+
+            //inflate messages for subround
+            let populatedMessages: MessageModel[] = await monMessageModel.find({ _id: { $in: messages } }).then(messages => messages ? messages.map(m => Object.assign(new MessageModel(), m.toJSON())) : null)
+
+            //set round ids and save
+            for(let j = 0; j < populatedMessages.length; j++){
+                let m = populatedMessages[j];
+                m.SubRoundLabel = sr.Label;
+                m.RoundId = sr._id;
+                await monMessageModel.findByIdAndUpdate(m._id, m);
+            }
+        }
+    }
+
+    static _getMessageProp(job: JobName): keyof SubRoundModel {
+        switch (job) {
+            case JobName.MANAGER:
+                return 'LeaderMessages'
+            case JobName.CHIPCO:
+                return 'ChipCoMessages'
+            case JobName.INTEGRATED_SYSTEMS:
+                return 'IntegratedSystemsMessages'
+            case JobName.BLUE_KITE:
+                return 'BlueKiteMessages'
+            default:
+                return 'ICMessages'
         }
     }
 

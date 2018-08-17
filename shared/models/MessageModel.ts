@@ -18,6 +18,9 @@ export default class MessageModel extends BaseModel
     public RoundId: string = "";
 
     @dbProp(String)
+    public SubRoundLabel: string = "";
+
+    @dbProp(String)
     public Title: string = "";
 
     @dbProp(String)

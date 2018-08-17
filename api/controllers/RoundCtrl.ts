@@ -223,6 +223,9 @@ class RoundRouter {
                     return Object.assign(m, {
                         IsRead
                     })
+                }).sort((a: MessageModel, b: MessageModel) => {
+                    if(a.SubRoundLabel == b.SubRoundLabel)return 0;
+                    return a.SubRoundLabel > b.SubRoundLabel ? -1 : 1
                 })//.reverse();
 
                 subRound.DisplayMessages = populatedMessages;
