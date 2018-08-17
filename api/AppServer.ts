@@ -340,13 +340,14 @@ export class AppServer {
                                 });
 
                                 if(RawScore > 0 ){
-                                    srs.NormalizedScore = RawScore / MaxRawScore * 20 / subRounds.length
+                                    srs.NormalizedScore = RawScore / MaxRawScore * 20 / subRounds.length;
                                 } else {
                                     srs.NormalizedScore = 0;
                                 }
 
                                 var savedSubRoundScore: SubRoundScore = await monSubRoundScoreModel.findOneAndUpdate( { TeamId: t._id, SubRoundId: subRound._id }, srs, { upsert: true, new: true, setDefaultsOnInsert: true })
                                     .then(sr => Object.assign(new SubRoundScore(), sr.toJSON()));
+                                    
                             }
                         }
                     }

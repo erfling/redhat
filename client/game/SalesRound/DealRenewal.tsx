@@ -117,6 +117,7 @@ export default class DealRenewal extends BaseComponent<any, IRoundDataStore & {F
                         onSaveHandler={this.controller.saveFeedback.bind(this.controller)}
                         RoundName="Round 2B"
                         Feedback={this.controller.filterFeedBack(this.state.Scores, this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN)}
+                        ChartableScores={this.controller.dataStore.ApplicationState.ChartingScores}
                     >
                     </FeedBackWrapper> 
                     </>

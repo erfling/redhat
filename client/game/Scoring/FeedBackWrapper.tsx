@@ -10,6 +10,7 @@ import DataStore from '../../../shared/base-sapien/client/DataStore';
 import SubRoundFeedback, { ValueDemomination } from "../../../shared/models/SubRoundFeedback";
 import EditableContentBlock from "../../../shared/base-sapien/client/shared-components/EditableContentBlock";
 import MessageModel from "../../../shared/models/MessageModel";
+import SubRoundScore from "../../../shared/models/SubRoundScore";
 
 interface FeedBackProps {
     RoundName: string;
@@ -22,6 +23,7 @@ interface FeedBackProps {
     SubRoundId?: string;
     onSaveHandler?(message: MessageModel, subroundId: string): void;
     IsEditable?: boolean,
+    ChartableScores?: SubRoundScore[]
 }
 
 export default class FeedBackWrapper extends React.Component<FeedBackProps, any>
@@ -33,7 +35,8 @@ export default class FeedBackWrapper extends React.Component<FeedBackProps, any>
             Scores: null,
             TeamId: null,
             User: null,
-            Feedback: null
+            Feedback: null,
+            ChartableScores: null
         }
         super(props);
 
@@ -63,6 +66,8 @@ export default class FeedBackWrapper extends React.Component<FeedBackProps, any>
         return userResponses;
     }
 
+
+
     render() {
 
         const { RoundName } = this.props
@@ -78,7 +83,13 @@ export default class FeedBackWrapper extends React.Component<FeedBackProps, any>
             </Header>
 
             {this.props.children}
-            <ScoringLineChart/>
+            {this.props.ChartableScores && 
+                <ScoringLineChart
+                    Scores={this.props.ChartableScores}
+                    TeamId={this.props.TeamId}
+                    PlayerId={this.props.User ? this.props.User._id : null} 
+                />
+            }
             {this.props.User &&
                 <Segment raised>
                     Individual Ratings
