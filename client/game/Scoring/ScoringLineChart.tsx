@@ -3,14 +3,6 @@ import { Grid, Button, TextArea, Input, Label, Form, Header, Icon, Radio, Checkb
 const { Column, Row } = Grid;
 import FeedBackModel from '../../../shared/models/FeedBackModel';
 import { times, groupBy } from 'lodash';
-import Inbox from '-!svg-react-loader?name=Icon!../img/inbox.svg';
-import ValueObj, { SliderValueObj } from "../../../shared/entity-of-the-state/ValueObj";
-import ResponseModel from "../../../shared/models/ResponseModel";
-import UserModel, { JobName } from "../../../shared/models/UserModel";
-import DataStore from '../../../shared/base-sapien/client/DataStore';
-import SubRoundFeedback, { ValueDemomination } from "../../../shared/models/SubRoundFeedback";
-import EditableContentBlock from "../../../shared/base-sapien/client/shared-components/EditableContentBlock";
-import MessageModel from "../../../shared/models/MessageModel";
 import MathUtil from "../../../shared/entity-of-the-state/MathUtil";
 
 import { LineChart, Line, Legend, Tooltip, CartesianGrid, XAxis, YAxis, ReferenceLine, BarChart, Bar } from 'recharts';
@@ -272,8 +264,8 @@ export default class ScoringLineChart extends React.Component<ChartingProps, { c
           <XAxis padding={{ left: 0, right: 20 }} dataKey="name" />
           <YAxis padding={{ top: 10, bottom: 0 }} />
           <Legend verticalAlign="bottom" height={100} />
-          <Bar dataKey="round1a" stackId="a" fill="#8884d8" label />
-          <Bar dataKey="round1b" stackId="a" fill="#82ca9d" label />          
+          <Bar dataKey="round1a" stackId="a" fill={colors[1]} label />
+          <Bar dataKey="round1b" stackId="a" fill={colors[2]} label />          
         </BarChart>
       </Segment>
     </Column>
