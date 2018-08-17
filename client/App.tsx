@@ -14,6 +14,7 @@ import Game from "./game/Game";
 import Login from "./login/Login";
 import SalesRoundCtrl from "./game/SalesRound/SalesRoundCtrl";
 import { Label } from "recharts";
+import MenuLogo from '-!svg-react-loader?name=Icon!./img/ss-logo.svg';
 
 export default class App extends BaseComponent<any, IControllerDataStore>
 {
@@ -59,10 +60,10 @@ export default class App extends BaseComponent<any, IControllerDataStore>
 
     render() {
 
-       
+
         if (this.state) {
             return <>
-                {this.state && this.state.ApplicationState.CurrentUser &&
+                {this.state && this.state.ApplicationState.CurrentUser && (this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN || location.pathname.indexOf("welcome") == -1) &&
 
                     <Menu
                         fixed="top"
@@ -83,34 +84,57 @@ export default class App extends BaseComponent<any, IControllerDataStore>
                             </Menu.Item>
                         }
 
+                        <Menu.Item
+                        >
+                            <MenuLogo
+                                style={{
+                                    width: '44px'
+                                }}
+                            />
+                        </Menu.Item>
 
-                        {this.state.ApplicationState.CurrentUser.Job !== null &&
 
-                            <>
-                                <Menu.Item header>
-                                    {this.state.ApplicationState.CurrentUser.Name}
-                                </Menu.Item >
 
-                                <Menu.Item  header>
-                                    {this.state.ApplicationState.CurrentTeam.Name}
+
+                        <Menu.Item position="right">
+                            {this.state.ApplicationState.CurrentUser.Job !== null && this.state.ApplicationState.CurrentTeam &&
+                                <>
+                                    <Menu.Item header
+                                        style={{color: '#0088b9'}}
+                                    >
+                                        {this.state.ApplicationState.CurrentUser.Name}
+                                    </Menu.Item >
+
+                                    <Menu.Item header
+                                        style={{color: '#0088b9'}}
+                                    >
+                                        Team {this.state.ApplicationState.CurrentTeam.Number}
+                                    </Menu.Item>
+
+                                    <Menu.Item header
+                                        style={{color: '#0088b9'}}
+                                    >
+                                        {this.state.ApplicationState.CurrentUser.Job}
+                                    </Menu.Item>
+                                </>
+                            }
+                            {this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN &&
+                                <Menu.Item
+                                    as="a"
+                                    onClick={e => this.controller.signOut()}
+                                    header
+                                >
+                                    Sign Out
                                 </Menu.Item>
-
-                                <Menu.Item header>
-                                    {  this.state.ApplicationState.CurrentUser.Job }
-                                </Menu.Item>
-
-                            </>
+                            }
+                        </Menu.Item>
                         }
 
 
-                        <Menu.Item
-                            onClick={e => this.controller.signOut()}
-                            position="right" header>
-                            Sign Out
-                        </Menu.Item>
+
                     </Menu>
                 }
-          
+
                 <div
                     style={{ height: '100vh' }}
                 >
