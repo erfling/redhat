@@ -226,8 +226,18 @@ export class AppServer {
                     mapping.ChildRound = mapping.ChildRound.toLowerCase();
 
                     const round = await monRoundModel.findOne({ Name: mapping.ParentRound.toUpperCase() }).then(r => r.toJSON())
+                    
+                    
+                    let SubRoundLabel: String = round.ChildRound.Label.toString().toUpperCase();
+
                     let RoundId = round._id;
                     mapping.RoundId = round._id;
+
+
+              
+                    console.log('---------------------------');
+                    console.dir({ "round": round, "subroundid": SubRoundLabel });
+
 
                     //make sure the current mapping has the correct child round
                     var oldMapping: RoundChangeMapping = await monMappingModel.findOneAndUpdate({ GameId: game._id, ParentRound: mapping.ParentRound }, {
