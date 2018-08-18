@@ -432,6 +432,22 @@ export default class App extends BaseComponent<any, IControllerDataStore>
 
                                                 }}
                                             />
+                                            <MenuItem
+                                                name={JobName.BLUE_KITE}
+                                                onClick={e => {
+                                                    e.preventDefault();
+
+                                                    this.setState(Object.assign(this.state, {
+                                                        ApplicationState: Object.assign(this.state.ApplicationState, {
+                                                            CurrentUser: Object.assign(this.state.ApplicationState.CurrentUser, { Job: JobName.INTEGRATED_SYSTEMS })
+                                                        })
+                                                    }))
+                                                    GameCtrl.GetInstance().LockedInJob = JobName.BLUE_KITE;
+                                                    GameCtrl.GetInstance().dataStoreChange();
+                                                    (GameCtrl.GetInstance().ChildController as BaseRoundCtrl<any>).getContentBySubRound();
+
+                                                }}
+                                            />
                                         </Menu.Item>
                                     </Menu.Item>
                                 </>
