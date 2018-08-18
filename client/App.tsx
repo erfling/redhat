@@ -439,7 +439,7 @@ export default class App extends BaseComponent<any, IControllerDataStore>
 
                                                     this.setState(Object.assign(this.state, {
                                                         ApplicationState: Object.assign(this.state.ApplicationState, {
-                                                            CurrentUser: Object.assign(this.state.ApplicationState.CurrentUser, { Job: JobName.INTEGRATED_SYSTEMS })
+                                                            CurrentUser: Object.assign(this.state.ApplicationState.CurrentUser, { Job: JobName.BLUE_KITE })
                                                         })
                                                     }))
                                                     GameCtrl.GetInstance().LockedInJob = JobName.BLUE_KITE;
