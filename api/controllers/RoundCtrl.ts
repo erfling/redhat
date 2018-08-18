@@ -176,7 +176,7 @@ class RoundRouter {
             } else {
 
                 const subRoundsSoFar = await this.GetPreviousRounds(subRound);
-                //console.table("SUBROUNDS SO FAR",subRoundsSoFar)
+                console.table("SUBROUNDS SO FAR",subRoundsSoFar)
                 const mappings: RoundChangeMapping[] = await monMappingModel.find({ GameId }).then(mappings => mappings ? mappings.map(m => m.toJSON() as RoundChangeMapping) : null)
 
                 if (!mappings) throw new Error("Coulnd't get game mappings");
@@ -201,7 +201,7 @@ class RoundRouter {
                             messages = messages.concat(sr[this._getMessageProp(JobName[jn])]);
                         })
                         messagesIds = messagesIds.concat(messages);
-                        console.log("SUBROUND IS NOW", subRound);
+                        //console.log("SUBROUND IS NOW", subRound);
 
                     } else {
                         console.log("coulnd't find mapping with round id:", sr.RoundId);
