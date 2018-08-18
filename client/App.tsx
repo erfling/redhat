@@ -84,26 +84,28 @@ export default class App extends BaseComponent<any, IControllerDataStore>
                         }
 
                         <Menu.Menu
-                            position={this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN ? 'right' : 'left'}
+                        
+                            position='right'
                             style={{padding: '0'}}
                         >
                             {this.state.ApplicationState.CurrentUser.Job !== null && this.state.ApplicationState.CurrentTeam &&
                                 <>
                                     <Menu.Item header
-                                        style={{color: '#0088b9', paddingRight:0}}
+                                        style={{ paddingRight:0}}
                                         
                                     >
+                                        {this.state.ApplicationState.CurrentUser.Role != RoleName.ADMIN && <Icon name="user outline"/> }
                                         {this.state.ApplicationState.CurrentUser.FirstName}
                                     </Menu.Item >
 
                                     <Menu.Item header
-                                        style={{color: '#0088b9', paddingRight:0}}
+                                        style={{ paddingRight:0}}
                                     >
                                         Team {this.state.ApplicationState.CurrentTeam.Number}
                                     </Menu.Item>
 
                                     <Menu.Item header
-                                        style={{color: '#0088b9', borderRight: 'solid 1px #e7e7e7'}}
+                                        style={{borderRight: this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN ? 'solid 1px #e7e7e7' : 'none'}}
                                     >
                                         {this.state.ApplicationState.CurrentUser.Job}
                                     </Menu.Item>
