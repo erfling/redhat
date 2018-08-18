@@ -384,10 +384,7 @@ export class AppServer {
                         
                                     }
                                     console.log(srs.NormalizedScore); 
-<<<<<<< HEAD
                                     srs.NormalizedScore = RawScore / MaxRawScore * 20 / subRounds.length;
-=======
->>>>>>> master
                                 } else {
                                    
                                     srs.NormalizedScore = 0;
