@@ -138,7 +138,7 @@ export class AppServer {
             MONGO_URI = 'mongodb://localhost:27017/red-hat';
         }
 
-        //mongoose.set('debug', true);
+        mongoose.set('debug', true);
         var connection = mongoose.connect(MONGO_URI || process.env.MONGODB_URI).then((connection) => {
         }).catch((r) => {
             console.log(r);
