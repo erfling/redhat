@@ -176,7 +176,7 @@ class RoundRouter {
             } else {
 
                 const subRoundsSoFar = await this.GetPreviousRounds(subRound);
-                console.table("SUBROUNDS SO FAR",subRoundsSoFar)
+                //console.table("SUBROUNDS SO FAR",subRoundsSoFar)
                 const mappings: RoundChangeMapping[] = await monMappingModel.find({ GameId }).then(mappings => mappings ? mappings.map(m => m.toJSON() as RoundChangeMapping) : null)
 
                 if (!mappings) throw new Error("Coulnd't get game mappings");
@@ -209,7 +209,7 @@ class RoundRouter {
 
                 })
 
-                console.log("MESSAGES", messagesIds);
+                //console.log("MESSAGES", messagesIds);
 
                 let populatedMessages = await monMessageModel.find({ _id: { $in: messagesIds } }).then(messages => messages ? messages.map(m => Object.assign(new MessageModel(), m.toJSON())) : null)
 
