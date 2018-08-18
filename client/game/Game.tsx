@@ -458,7 +458,7 @@ export default class Game extends BaseComponent<any, IControllerDataStore & { Ga
                                     }}
                                 >
                                     <MessageList
-                                        Messages={this.state.ApplicationState.CurrentMessages.filter( m => !m.IsDefault )}
+                                        Messages={this.state.ApplicationState.CurrentMessages.filter( m => !m.IsDefault ).reverse()}
                                         Show={this.state.ApplicationState.ShowMessageList}
                                         SelectFunc={(m) => {
                                             this.controller.dataStore.ApplicationState.ShowMessageList = false;
@@ -490,14 +490,13 @@ export default class Game extends BaseComponent<any, IControllerDataStore & { Ga
                     className={"mobile-messages" + " " + (this.state.ApplicationState.ShowMessageList ? "show" : "hide")}
                 >
                     <MessageList
-                        Messages={this.state.ApplicationState.CurrentMessages.filter(m => !m.IsDefault).map(m => {
-                            return this.state.ApplicationState.CurrentUser.ReadMessages.indexOf(m._id) == -1 ? Object.assign(m, { IsRead: false }) : Object.assign(m, { IsRead: true });
-                        })}
+                        Messages={this.state.ApplicationState.CurrentMessages.filter(m => !m.IsDefault).reverse()}
                         Show={this.state.ApplicationState.ShowMessageList}
                         SelectFunc={(m) => {
                             this.controller.dataStore.ApplicationState.ShowMessageList = false;
                             this.controller.dataStore.ApplicationState.SelectedMessage = this.controller.ChildController.dataStore.SelectedMessage = m;
-                            this.controller.ReadMessage(m._id)
+                            this.controller.ReadMessage(m._id);
+                            m.IsRead = true;
                         }}
                     />
                 </div>
