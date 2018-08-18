@@ -227,19 +227,16 @@ export class AppServer {
 
                     const round = await monRoundModel.findOne({ Name: mapping.ParentRound.toUpperCase() }).then(r => r.toJSON())
                     
-                    
-                    let SubRoundLabel: String = round.ChildRound.Label.toString().toUpperCase();
+                    let srModel:SubRoundModel = await monSubRoundModel.findOne({Name:mapping.ChildRound.toUpperCase()}).then(x => x.toJSON() );
+                    let SubRoundLabel: String = srModel.Label.toString().toUpperCase();
+
+                      
+                    console.log("Round is now %s", SubRoundLabel);
 
                     let RoundId = round._id;
                     mapping.RoundId = round._id;
 
-
-              
-                    console.log('---------------------------');
-                    console.dir({ "round": round, "subroundid": SubRoundLabel });
-
-
-                    //make sure the current mapping has the correct child round
+                                        //make sure the current mapping has the correct child round
                     var oldMapping: RoundChangeMapping = await monMappingModel.findOneAndUpdate({ GameId: game._id, ParentRound: mapping.ParentRound }, {
                         ChildRound: mapping.ChildRound,
                         ShowRateUsers: mapping.ShowRateUsers, // object where keys are user's _id as string & values are one of JobName enum values
@@ -252,13 +249,16 @@ export class AppServer {
                             console.log("Something wrong when updating data!", err);
                         }
                     }).then(r => r ? Object.assign(new RoundChangeMapping(), r.toJSON()) : null);
-                    if (!oldMapping) {
+                  
+               
+                    if (!oldMapping) {                     
+
                         if (mapping.ParentRound.toLowerCase() == "engineeringround") {
                             game.Teams.forEach(t => {
                                 var managerAssigned = false;
                                 for (let i = 0; i < t.Players.length; i++) {
                                     let pid = t.Players[i].toString();
-                                    console.log(typeof pid, pid)
+                                   // console.log(typeof pid, pid)
                                     if (game.HasBeenManager.indexOf(pid) == -1 && !managerAssigned) {
                                         game.HasBeenManager.push(pid);
                                         mapping.UserJobs[pid] = JobName.MANAGER;
@@ -269,55 +269,89 @@ export class AppServer {
                                 }
                             })
                         } else {
+                           //set another manager
                             game.Teams.forEach(t => {
-                                console.log("TEAM ", t)
+                             //   console.log("TEAM ", t)
                                 for (let i = 0; i < t.Players.length; i++) {
                                     let pid = t.Players[i].toString();
                                     if (game.HasBeenManager.indexOf(pid) == -1) {
                                         game.HasBeenManager.push(pid);
                                         mapping.UserJobs[pid] = JobName.MANAGER;
-                                        console.log("HEY< YOU", pid, mapping)
+                                    //    console.log("HEY< YOU", pid, mapping)
                                         break;
                                     }
                                 }
 
                                 //make sure each team has a manager, even if all the team members have been manager 
                                 if (t.Players.every(p => {
-                                    console.log("examing", p, mapping.UserJobs[p._id.toString()])
+                                    //console.log("examing", p, mapping.UserJobs[p._id.toString()])
                                     return mapping.UserJobs[p._id.toString()] != JobName.MANAGER
                                 })) {
-                                    console.log("DIDN'T FIND MANAGER FOR ", t)
+                                    //console.log("DIDN'T FIND MANAGER FOR ", t)
                                     mapping.UserJobs[t.Players[Math.floor(Math.random() * t.Players.length)]._id.toString()] = JobName.MANAGER;
                                 }
 
                             })
                         }
 
+                        
+                     
+                       
                         mapping.GameId = game._id;
                         var newMapping: RoundChangeMapping = await monMappingModel.create(mapping).then(r => Object.assign(new RoundChangeMapping(), r.toJSON()))
+
                     } else if (!oldMapping.UserJobs) {
+
                         game.Teams.forEach(t => {
                             for (let i = 0; i < t.Players.length; i++) {
                                 let pid = t.Players[i].toString();
                                 if (game.HasBeenManager.indexOf(pid) == -1) {
                                     game.HasBeenManager.push(pid);
                                     mapping.UserJobs[pid] = JobName.MANAGER;
-                                    console.log("HEY < YOU", pid, mapping)
+                                    //console.log("HEY < YOU", pid, mapping)
                                     break;
                                 }
                             }
 
                             //make sure each team has a manager, even if all the team members have been manager 
-                            if (t.Players.every(p => {
-                                return mapping.UserJobs[p._id.toString()] != JobName.MANAGER
-                            })) {
-                                console.log("DIDN'T FIND MANAGER FOR ", t)
+                            if (t.Players.filter(p => {
+                                mapping.UserJobs[p._id.toString()] != JobName.MANAGER
+                            })) 
+                            {
+                                //console.log("DIDN'T FIND MANAGER FOR ", t)
                                 mapping.UserJobs[t.Players[0]._id.toString()] = JobName.MANAGER;
                             }
 
                         })
+
+                    }                   
+                            
+                    
+                    
+                    console.log("Checking for Job BlueKite change subround, label is %s", SubRoundLabel);
+                                   
+    
+                   
+                    if (SubRoundLabel.toLowerCase() == "4d") {
+                        
+                        game.Teams.forEach(
+                     
+                            t => {
+                                console.log("filtering players without manager job");
+                                let pl: Array<UserModel> = t.Players.filter(p => mapping.UserJobs[p._id.toString()]  != JobName.MANAGER);
+                                let rIndex = Math.floor(Math.random() * pl.length);
+                                
+                                mapping.UserJobs[pl[rIndex]._id.toString()] = JobName.BLUE_KITE;
+                                console.log("Blue_kite winner is: %s, id: %s", rIndex, pl[rIndex]._id);
+                            });  
+                            
+                            let newMapping: RoundChangeMapping = await monMappingModel.findOneAndUpdate({ParentRound: mapping.ParentRound.toLowerCase()}, mapping, { upsert: true, new: true, setDefaultsOnInsert: true }).then(r => Object.assign(new RoundChangeMapping(), r.toJSON()));
+                          
                     } 
 
+                    console.log("Mapping",mapping.UserJobs);
+                    
+                    mapping.GameId = game._id;
 
                     if ((!newMapping || !newMapping.ParentRound.length) && !oldMapping) {
                         throw new Error("Couldn't make mapping")
@@ -371,8 +405,8 @@ export class AppServer {
 
                                 if(RawScore > 0 ){
 
-                                    console.log(srs.SubRoundLabel.toLowerCase());
-                                    console.log(srs.NormalizedScore); 
+                                    //console.log(srs.SubRoundLabel.toLowerCase());
+                                 //  console.log(srs.NormalizedScore); 
                                     if ( srs.SubRoundLabel.toLowerCase()== '1a') {                                        
                                         srs.NormalizedScore = RawScore / MaxRawScore * (.2 * 20);
                                     } else if (srs.SubRoundLabel.toLowerCase() == '1b') {
@@ -383,7 +417,7 @@ export class AppServer {
                                        srs.NormalizedScore = RawScore / MaxRawScore * 20 / subRounds.length
                         
                                     }
-                                    console.log(srs.NormalizedScore); 
+                                    //console.log(srs.NormalizedScore); 
                                     srs.NormalizedScore = RawScore / MaxRawScore * 20 / subRounds.length;
                                 } else {
                                    
@@ -391,7 +425,7 @@ export class AppServer {
                                 }
 
                                 
-                                console.log(srs);
+                                //console.log(srs);
                                 
                                 var savedSubRoundScore: SubRoundScore = await monSubRoundScoreModel.findOneAndUpdate({ TeamId: t._id, SubRoundId: subRound._id }, srs, { upsert: true, new: true, setDefaultsOnInsert: true }).then(sr => Object.assign(new SubRoundScore(), sr.toJSON()));
                             }
