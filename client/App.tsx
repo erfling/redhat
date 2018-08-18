@@ -84,7 +84,7 @@ export default class App extends BaseComponent<any, IControllerDataStore>
                         }
 
                         <Menu.Menu
-                            position='right'
+                            position={this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN ? 'right' : 'left'}
                             style={{padding: '0'}}
                         >
                             {this.state.ApplicationState.CurrentUser.Job !== null && this.state.ApplicationState.CurrentTeam &&
@@ -93,7 +93,7 @@ export default class App extends BaseComponent<any, IControllerDataStore>
                                         style={{color: '#0088b9', paddingRight:0}}
                                         
                                     >
-                                        {this.state.ApplicationState.CurrentUser.Name}
+                                        {this.state.ApplicationState.CurrentUser.FirstName}
                                     </Menu.Item >
 
                                     <Menu.Item header
@@ -440,7 +440,7 @@ export default class App extends BaseComponent<any, IControllerDataStore>
 
                     }
                     <div
-                        className={"source-stream " + (this.state && this.state.ApplicationState.CurrentUser && this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN ? " admin-body " : " ") + (this.state.ApplicationState.MobileWidth ? "mobile" : "")}
+                        className={"source-stream admin-body " + (this.state.ApplicationState.MobileWidth ? "mobile" : "")}
 
                     >
                         {location.pathname.indexOf("test") != -1 && <h1>

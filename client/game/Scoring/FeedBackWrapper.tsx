@@ -122,27 +122,7 @@ export default class FeedBackWrapper extends React.Component<FeedBackProps, any>
             }
 
 
-            <Table striped celled>
-                <Table.Header>
-                    <Table.Row>
-                        <Table.HeaderCell />
-                        <Table.HeaderCell>Round Score</Table.HeaderCell>
-                        <Table.HeaderCell>Game Score</Table.HeaderCell>
-                    </Table.Row>
-                </Table.Header>
-
-                <Table.Body>
-                    {Scores && Scores.map((s, i) =>
-                        <Table.Row key={i}>
-                            <Table.Cell>
-                                {s.Label}
-                            </Table.Cell>
-                            <Table.Cell >{s.TotalRoundScore}</Table.Cell>
-                            <Table.Cell >{s.TotalGameScore}</Table.Cell>
-                        </Table.Row>
-                    )}
-                </Table.Body>
-            </Table>
+            
 
             {this.props.Scores && this.props.Feedback && <>
                 {this.props.Feedback.map((fb, i) => <Segment
@@ -170,4 +150,25 @@ export default class FeedBackWrapper extends React.Component<FeedBackProps, any>
  *  message:  MessageModel | SubRoundFeedback,
     SubRoundId: string;
     onSaveHandler(message: MessageModel, subroundId: string): void;
-    IsEditable: boolean, */
+    IsEditable: boolean, 
+    <Table striped celled>
+                <Table.Header>
+                    <Table.Row>
+                        <Table.HeaderCell />
+                        <Table.HeaderCell>Round Score</Table.HeaderCell>
+                        <Table.HeaderCell>Game Score</Table.HeaderCell>
+                    </Table.Row>
+                </Table.Header>
+
+                <Table.Body>
+                    {Scores && Scores.map((s, i) =>
+                        <Table.Row key={i}>
+                            <Table.Cell>
+                                {s.Label}
+                            </Table.Cell>
+                            <Table.Cell >{s.TotalRoundScore}</Table.Cell>
+                            <Table.Cell >{s.TotalGameScore}</Table.Cell>
+                        </Table.Row>
+                    )}
+                </Table.Body>
+            </Table>*/

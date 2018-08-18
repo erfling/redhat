@@ -206,6 +206,7 @@ export class AppServer {
          });*/
 
         AppServer.app.use('/', AppServer.router)
+            .post('*', Passport.authenticate('jwt', { session: false }))
             //Passport.authenticate('jwt', { session: false }),
             .use('/sapien/api/rounds', RoundController)
             .use('/sapien/api/' + GameModel.REST_URL, GameCtrl)
