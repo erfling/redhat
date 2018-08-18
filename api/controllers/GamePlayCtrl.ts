@@ -509,26 +509,29 @@ class GamePlayRouter {
      */
     public async getSubRoundScores(req: Request, res: Response) {
 
-
+        const SubRoundLabel = req.params.subroundid;
         const GameId = req.params.gameid;
         try {
 
             console.log("{  GameId: %s,}", GameId);
 
-            const roundScores: SubRoundScore[] = await monSubRoundScoreModel.find({ GameId })
+            var roundScores: SubRoundScore[] = await monSubRoundScoreModel.find({ GameId })
                 .then(srs => srs ? srs.map(
                     b => Object.assign(new SubRoundScore(), b.toJSON())) : []);
 
             
             console.log(roundScores);
-
-
+            if (!roundScores) throw new Error();
+            roundScores = roundScores.filter(rs => {
+                console.log(rs.RoundLabel, SubRoundLabel,rs.RoundLabel <= SubRoundLabel);
+                return rs.RoundLabel <= SubRoundLabel;
+            });
             res.json(roundScores);
 
         } catch (err) {
 
             console.log(err);
-            res.status(500);
+            res.status(500).send("couldn't get subroundscores");
         }
 
 
@@ -708,7 +711,7 @@ console.log(err);
         this.router.post("/3response", this.SaveRound3Response.bind(this));
         this.router.get("/getscores/:subroundid/:roundid/:gameid", this.getScores.bind(this)),
         this.router.get("/getuserscores/:subroundid/:roundid/:gameid", this.getUserScores.bind(this)),
-        this.router.get("/getsubroundscores/:gameid", this.getSubRoundScores.bind(this)),
+        this.router.get("/getsubroundscores/:gameid/:subroundid", this.getSubRoundScores.bind(this)),
         this.router.post("/response/rating", this.savePriorityRating.bind(this))
     }
 }

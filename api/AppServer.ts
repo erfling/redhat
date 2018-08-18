@@ -138,7 +138,7 @@ export class AppServer {
             MONGO_URI = 'mongodb://localhost:27017/red-hat';
         }
 
-        //mongoose.set('debug', true);
+        mongoose.set('debug', true);
         var connection = mongoose.connect(MONGO_URI || process.env.MONGODB_URI).then((connection) => {
         }).catch((r) => {
             console.log(r);
@@ -175,6 +175,7 @@ export class AppServer {
         if (process.env.NODE_ENV && process.env.NODE_ENV.indexOf("prod") != -1) {
             AppServer.app
                 .get('*.js', function (req, res, next) {
+                    if(req.url.endsWith("/")) req.url = req.url.slice(0, -1);
                     req.url = req.url + '.gz';
                     res.set('Content-Encoding', 'gzip');
                     res.set('Content-Type', 'text/javascript');
@@ -182,6 +183,7 @@ export class AppServer {
                     next();
                 })
                 .get('*.css', function (req, res, next) {
+                    if(req.url.endsWith("/")) req.url = req.url.slice(0, -1);
                     req.url = req.url + '.gz';
                     res.set('Content-Encoding', 'gzip');
                     res.set('Content-Type', 'text/css');
@@ -204,6 +206,7 @@ export class AppServer {
          });*/
 
         AppServer.app.use('/', AppServer.router)
+            .post('*', Passport.authenticate('jwt', { session: false }))
             //Passport.authenticate('jwt', { session: false }),
             .use('/sapien/api/rounds', RoundController)
             .use('/sapien/api/' + GameModel.REST_URL, GameCtrl)

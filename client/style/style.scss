@@ -433,7 +433,7 @@ SEMANTIC MOBILE FIX
         padding:10px !important;
         border-top: 1px solid rgba(34,36,38,.15) !important;
         &.read{
-            background: #eee;
+            background: rgba(238, 238, 238, 0.2);
             color: #555;
             .content {
                 .header, .description{
@@ -444,7 +444,7 @@ SEMANTIC MOBILE FIX
         .bold{
             color: black;
         }
-        background: rgba(255,255,255,.8);
+        background: rgba(255,255,255,.3);
         .description{
             font-weight: normal;
         }

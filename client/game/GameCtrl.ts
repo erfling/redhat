@@ -172,7 +172,7 @@ export default class GameCtrl extends BaseClientCtrl<IControllerDataStore & {Gam
 
             if (r.ShowFeedback != undefined && (this.dataStore.ApplicationState.ShowFeedback == undefined || this.dataStore.ApplicationState.ShowFeedback != r.ShowFeedback)){
                 this.dataStore.ApplicationState.ShowFeedback = this.ChildController.dataStore.ApplicationState.ShowFeedback = r.ShowFeedback;
-                (this.ChildController as BaseRoundCtrl<any>).getScores();
+                if(this.ChildController.dataStore.SubRound)(this.ChildController as BaseRoundCtrl<any>).getScores();
             }
 
             if (r.ShowIndividualFeedback != undefined && (this.dataStore.ApplicationState.ShowIndividualFeedback == undefined || this.dataStore.ApplicationState.ShowIndividualFeedback != r.ShowIndividualFeedback)){

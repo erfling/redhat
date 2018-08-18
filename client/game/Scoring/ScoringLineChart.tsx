@@ -3,21 +3,13 @@ import { Grid, Button, TextArea, Input, Label, Form, Header, Icon, Radio, Checkb
 const { Column, Row } = Grid;
 import FeedBackModel from '../../../shared/models/FeedBackModel';
 import { times, groupBy } from 'lodash';
-import Inbox from '-!svg-react-loader?name=Icon!../img/inbox.svg';
-import ValueObj, { SliderValueObj } from "../../../shared/entity-of-the-state/ValueObj";
-import ResponseModel from "../../../shared/models/ResponseModel";
-import UserModel, { JobName } from "../../../shared/models/UserModel";
-import DataStore from '../../../shared/base-sapien/client/DataStore';
-import SubRoundFeedback, { ValueDemomination } from "../../../shared/models/SubRoundFeedback";
-import EditableContentBlock from "../../../shared/base-sapien/client/shared-components/EditableContentBlock";
-import MessageModel from "../../../shared/models/MessageModel";
 import MathUtil from "../../../shared/entity-of-the-state/MathUtil";
 
 import { LineChart, Line, Legend, Tooltip, CartesianGrid, XAxis, YAxis, ReferenceLine, BarChart, Bar } from 'recharts';
 import TeamModel from "../../../shared/models/TeamModel";
 import SubRoundScore from "../../../shared/models/SubRoundScore";
 
-interface ChartingProps{
+interface ChartingProps {
   Scores: SubRoundScore[];
   TeamId: string;
   PlayerId: string;
@@ -89,7 +81,6 @@ export default class ScoringLineChart extends React.Component<ChartingProps, { c
   }
 
   mouseOverHandler(d, e) {
-    console.log(d, e);
     this.setState({ showToolTip: true });
 
     /*
@@ -130,25 +121,25 @@ export default class ScoringLineChart extends React.Component<ChartingProps, { c
   }
 
 
-  getScoreSoFar(teamId, rounds: SubRoundScore[], roundNumber){
+  getScoreSoFar(teamId, rounds: SubRoundScore[], roundNumber) {
     let score = 0;
     score += rounds.filter((r) => {
       return r.TeamId == teamId && roundNumber >= r.RoundLabel;
     })
-    .reduce((score, r: SubRoundScore) => {
-      return r.NormalizedScore + score;
-    },0)
-    
+      .reduce((score, r: SubRoundScore) => {
+        return r.NormalizedScore + score;
+      }, 0)
+
     return score;
   }
 
-  getLineChartData() {    
+  getLineChartData() {
     if (this.props.Scores) {
 
       //get the scores round by round
       let roundScores = groupBy(this.props.Scores, "RoundLabel");
 
-      let finalScores = [];   
+      let finalScores = [];
       Object.keys(roundScores).forEach(k => {
 
         let scoreRow = {
@@ -158,7 +149,7 @@ export default class ScoringLineChart extends React.Component<ChartingProps, { c
         roundScores[k].forEach(s => {
           scoreRow[s.TeamLabel] = this.getScoreSoFar(s.TeamId, this.props.Scores, s.RoundLabel)
         })
-        
+
         finalScores.push(scoreRow);
       })
 
@@ -170,116 +161,141 @@ export default class ScoringLineChart extends React.Component<ChartingProps, { c
   getBarChartData() {
     if (this.props.Scores) {
 
-    } else return false;
+      //get the scores round by round
+      let roundScores = groupBy(this.props.Scores, "RoundLabel");
+      let sortedRounds = Object.keys(roundScores).sort((a, b) => {
+        return Number(a > b);
+      });
+
+      let mostRecentRound = sortedRounds[0]
+      //console.warn("most recent",mostRecentRound, sortedRounds, Array.isArray(sortedRounds));
+      let scoreRow: any = {
+        name: "Round " + mostRecentRound
+      };
+
+      let groupedTeamScores = groupBy(roundScores[mostRecentRound], "TeamLabel");
+      Object.keys(groupedTeamScores).forEach(k => {
+        scoreRow[k] = MathUtil.roundTo(groupedTeamScores[k].reduce((score, teamScoreObj) => {
+          return score + teamScoreObj.NormalizedScore
+        }, 0), 2)//this.getScoreSoFar(groupedTeamScores[k][0].TeamId, roundScores[mostRecentRound], mostRecentRound);
+      })
+
+
+      // return roundScores[mostRecentRound];
+      return [scoreRow];
+    }
   }
 
   //TODO: mobile tooltip stuff
   render() {
-    console.log("render")
     const { Scores, TeamId } = this.props;
     const chartXLabels: string[] = ScoringLineChart.rounds;
     const colors = ["#3b67c5", "#cd4c2d", "#f29e3c", "#499535", "#fff", "#00b5ad"];
 
-    const data = [
-      {name: 'Team 1', round1a: 10, round1b: 7, amt: 2400},
-      {name: 'Team 2', round1a: 8, round1b: 5, amt: 2210},
-      {name: 'Team 3', round1a: 6, round1b: 6, amt: 2290},
-      {name: 'Team 4', round1a: 7.4, round1b: 3, amt: 2000},
-      {name: 'Team 5', round1a: 6.3, round1b: 7, amt: 2181}
-    ];
     return <Column
       width={16}
       className="feedback chart-wrapper"
     >
-      <Segment
-        style={{ paddingLeft: 0 }}
-        raised
-        className="line-chart-wrapper"
-      >
-        <Header
-          textAlign="center"
+      {this.getBarChartData() &&
+        <Segment
+          style={{ paddingLeft: 0 }}
+          raised
+          className="line-chart-wrapper"
         >
-          Round by round Scores
-        </Header>
-        <Row className="mobile-tooltip">
-          <ul>
-            {this.state.roundScores && Object.keys(this.state.roundScores).sort((a, b) => {
-              let sortVal = 0;
-              if (this.state.roundScores[a] > this.state.roundScores[b]) {
-                sortVal = -1;
-              } else if (this.state.roundScores[a] < this.state.roundScores[b]) {
-                sortVal = 1;
+          <Header
+            textAlign="center"
+          >
+            Round {this.getBarChartData()[0].name} Scores
+          </Header>
+
+          <BarChart
+            data={this.getBarChartData()}
+            margin={{ top: 0, right: 20, bottom: 0, left: 0 }}
+            width={this.state.componentWidth - 20}
+            height={this.state.componentWidth / 1.5}
+            
+          >
+            <XAxis padding={{ left: 0, right: 20 }} />
+            <YAxis padding={{ top: 10, bottom: 0 }} domain={[0, 20]} />
+            <Legend verticalAlign="bottom" height={100} />
+            {Object.keys(this.getBarChartData()[0]).filter(k => k.toLowerCase().indexOf("team") != -1).map(k => {
+              return <Bar isAnimationActive={false} dataKey={k} fill={this.getTeamColor(k)} label />
+            })}
+
+          </BarChart>
+        </Segment>
+      }
+
+      {this.getLineChartData().length && this.getLineChartData().length > 1 &&
+
+        <Segment
+          style={{ paddingLeft: 0 }}
+          raised
+          className="line-chart-wrapper"
+        >
+          <Header
+            textAlign="center"
+          >
+            Round by round Scores
+          </Header>
+          <Row className="mobile-tooltip">
+            <ul>
+              {this.state.roundScores && Object.keys(this.state.roundScores).sort((a, b) => {
+                let sortVal = 0;
+                if (this.state.roundScores[a] > this.state.roundScores[b]) {
+                  sortVal = -1;
+                } else if (this.state.roundScores[a] < this.state.roundScores[b]) {
+                  sortVal = 1;
+                }
+                return sortVal;
+              }).map((k, i) => {
+                return <li
+                >
+                  {k == "name" &&
+                    <h2>Scores Through Round {this.state.roundScores["name"]}</h2>
+                  }
+
+                  {k != "name" &&
+                    <Label style={{ background: i == 0 ? 'transparent' : this.getTeamColor(k), border: 'none', fontWeight: 'bold' }}>
+                      {i}. {k.toUpperCase()}: {MathUtil.roundTo(this.state.roundScores[k], 2)}
+                    </Label>
+                  }
+                </li>
+              })
               }
-              return sortVal;
-            }).map((k, i) => {
-              return <li
-              >
-                {k == "name" &&
-                  <h2>Scores Through Round {this.state.roundScores["name"]}</h2>
-                }
+            </ul>
+          </Row>
 
-                {k != "name" &&
-                  <Label style={{ background: i == 0 ? 'transparent' : this.getTeamColor(k), border: 'none', fontWeight: 'bold' }}>
-                    {i}. {k.toUpperCase()}: {MathUtil.roundTo(this.state.roundScores[k],2)}
-                  </Label>
-                }
-              </li>
-            })
-            }
-          </ul>
-        </Row>
+          <LineChart
+            margin={{ top: 0, right: 20, bottom: 0, left: 0 }}
+            width={this.state.componentWidth - 20}
+            height={this.state.componentWidth / 1.5}
+            data={this.getLineChartData()}
+          >
+            <XAxis padding={{ left: 0, right: 20 }} />
+            <YAxis padding={{ top: 10, bottom: 0 }} domain={[0, 20]} />
+            <Legend verticalAlign="bottom" height={100} onMouseEnter={this.handleMouseEnter} onMouseLeave={this.handleMouseLeave} />
+            <Tooltip wrapperStyle={{ display: 'none' }} />
+            {this.state.roundScores && <ReferenceLine x={this.state.roundScores.name} stroke="white" strokeWidth={2} strokeDasharray="3 1" opacity={.5} />}
+            {this.getLineChartData().map((d, i) => {
+              return <Line
+                opacity={this.state.opacity ? this.state.opacity[ScoringLineChart.MockTeams[i].Name] : .75}
+                animationDuration={750}
+                animationEasing="ease"
+                key={i}
+                dataKey={"Team " + (i + 1).toString()}
+                stroke={this.getTeamColor(Object.keys(d)[i + 1])}
+                activeDot={(d, i) => {
+                  this.setState({ roundScores: d.payload });
+                }}
+              />
+            })}
+          </LineChart>
 
-        <LineChart
-          margin={{ top: 0, right: 20, bottom: 0, left: 0 }}
-          width={this.state.componentWidth - 20}
-          height={this.state.componentWidth / 1.5}
-          data={this.getLineChartData()}
-        >
-          <XAxis padding={{ left: 0, right: 20 }} dataKey="name" />
-          <YAxis padding={{ top: 10, bottom: 0 }} />
-          <Legend verticalAlign="bottom" height={100} onMouseEnter={this.handleMouseEnter} onMouseLeave={this.handleMouseLeave} />
-          <Tooltip wrapperStyle={{ display: 'none' }} />
-          {this.state.roundScores && <ReferenceLine x={this.state.roundScores.name} stroke="white" strokeWidth={2} strokeDasharray="3 1" opacity={.5} />}
-          {this.getLineChartData().map((d, i) => {
-            return <Line
-              opacity={this.state.opacity ? this.state.opacity[ScoringLineChart.MockTeams[i].Name] : .75}
-              animationDuration={750}
-              animationEasing="ease"
-              key={i}
-              dataKey={"Team " + (i + 1).toString()}
-              stroke={this.getTeamColor(Object.keys(d)[i + 1])}
-              activeDot={(d, i) => {
-                console.warn("active dot", d);
-                this.setState({ roundScores: d.payload });
-              }}
-            />
-          })}
-        </LineChart>
+        </Segment>
+      }
 
-      </Segment>
-
-      <Segment
-        style={{ paddingLeft: 0 }}
-        raised
-        className="line-chart-wrapper"
-      >
-        <BarChart
-          data={data}
-          margin={{ top: 0, right: 20, bottom: 0, left: 0 }}
-          width={this.state.componentWidth - 20}
-          height={this.state.componentWidth / 1.5}
-        >
-          <XAxis padding={{ left: 0, right: 20 }} dataKey="name" />
-          <YAxis padding={{ top: 10, bottom: 0 }} />
-          <Legend verticalAlign="bottom" height={100} />
-          <Bar dataKey="round1a" stackId="a" fill="#8884d8" label />
-          <Bar dataKey="round1b" stackId="a" fill="#82ca9d" label />          
-        </BarChart>
-      </Segment>
     </Column>
   }
 
 }
-/**{Object.keys(this.getMockData()[4]).filter((k, i) => i != 0).map((t, i) => {
-            return <Bar dataKey={t} stackId={i} fill={this.getTeamColor(t)} label isAnimationActive={false} />                  
-          })} */
