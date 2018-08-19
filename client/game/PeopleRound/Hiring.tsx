@@ -149,7 +149,7 @@ export default class Hiring extends BaseComponent<any, IRoundDataStore>
                             </Header>
 
                         {this.state.RatingQuestions.filter(q => {
-                            return q.RatingMarker == RatingType.MANAGER_RATING ? this.state.ApplicationState.CurrentUser.Job != JobName.MANAGER : this.state.ApplicationState.CurrentUser.Job == JobName.MANAGER
+                            return true//q.RatingMarker == RatingType.MANAGER_RATING ? this.state.ApplicationState.CurrentUser.Job != JobName.MANAGER : this.state.ApplicationState.CurrentUser.Job == JobName.MANAGER
                         }).map((q, i) => {
                             return <Row
                                 key={"question-" + i.toString()}
@@ -160,7 +160,7 @@ export default class Hiring extends BaseComponent<any, IRoundDataStore>
                                     key={i}
                                     SubRoundId={thisSubRound._id}
                                     onChangeHander={r => {
-                                        console.log(r);
+                                        console.log(r.Answer[0].targetObjId, q.SubText, q.PossibleAnswers[0].targetObjId);
                                         this.controller.updateResponse(q, r)
                                     }}
                                     IsEditable={this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN}
@@ -178,6 +178,7 @@ export default class Hiring extends BaseComponent<any, IRoundDataStore>
                             </Row>
                         }
                         )}
+                        <pre>{this.state.RatingQuestions && JSON.stringify(this.state.RatingQuestions, null, 2)}</pre>
                     </Form>
                 </div>
                 }

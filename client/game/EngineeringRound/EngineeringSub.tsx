@@ -140,7 +140,6 @@ export default class EngineeringSub extends BaseComponent<any, IRoundDataStore>
                         </FeedBackWrapper>
                     </>
                 }
-                <div>FARTS: {(userRatingsChart != null).toString()}</div>
                 <pre>{this.state.UserRatings && JSON.stringify(this.controller.getUserRatingsChartShaped(this.state.UserRatings), null, 2)}</pre>
 
 
@@ -151,8 +150,8 @@ export default class EngineeringSub extends BaseComponent<any, IRoundDataStore>
                             <CartesianGrid strokeDasharray="3 3"/>
                             <Tooltip/>
                             <Legend />
-                            {Object.keys(userRatingsChart).filter(v => v != 'name').map((v, i) => {
-                                return <Line type="monotone" dataKey={v} stroke="#8884d8" activeDot={{r: 8}}/>
+                            {Object.keys(this.state.UserRatings[0]).filter(v => ["Connection", "Trust", "Transparency", "Collaboration", "Meritocracy"].indexOf(v) != -1).map((v, i) => {
+                                return <Line dataKey={v} stroke="#8884d8" activeDot={{r: 8}}/>
                             })}
                         </LineChart>
                     </>
