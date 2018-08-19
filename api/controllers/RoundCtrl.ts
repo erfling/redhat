@@ -49,6 +49,7 @@ subSchObj.ChipCoMessages = [{ type: mongoose.Schema.Types.ObjectId, ref: "messag
 subSchObj.IntegratedSystemsMessages = [{ type: mongoose.Schema.Types.ObjectId, ref: "message" }];
 subSchObj.PrevSubRound = { type: mongoose.Schema.Types.ObjectId, ref: "subround" };
 subSchObj.NextSubRound = { type: mongoose.Schema.Types.ObjectId, ref: "subround" };
+//subSchObj.FeedBack = [{ type: mongoose.Schema.Types.ObjectId, ref: "feedback" }];
 
 const monSubSchema = new mongoose.Schema(subSchObj);
 
@@ -437,16 +438,16 @@ class RoundRouter {
 
             let savedFeedback;
             if (!feedBack._id) {
-                savedFeedback = await monFeedbackModel.create(feedBack).then(r => r ? Object.assign(new SubRoundFeedback(), r.toJSON()) : null)
+                savedFeedback = await monFeedbackModel.findOneAndUpdate({ValueDemomination: feedBack.ValueDemomination, RoundId: feedBack.RoundId},feedBack, {upsert: true}).then(r => r ? Object.assign(new SubRoundFeedback(), r.toJSON()) : null)
                 //update our subround
-                const sr: SubRoundModel = await monSubRoundModel.findById(savedFeedback.RoundId).populate("Feedback").then(r => r.toJSON());
+                const sr: SubRoundModel = await monSubRoundModel.findById(savedFeedback.RoundId).populate("FeedBack").then(r => Object.assign(new SubRoundModel(), r.toJSON()));
 
                 sr.FeedBack.push(savedFeedback);
-                sr.FeedBack = sr.FeedBack.sort(fb => {
+                sr.FeedBack = sr.FeedBack.filter(fb => fb._id).sort(fb => {
                     if (fb.ValueDemomination == ValueDemomination.NEUTRAL) return -1;
 
                     return fb.ValueDemomination == ValueDemomination.POSITIVE ? 1 : 0;
-                }).map(fb => fb._id);
+                })
 
                 const updatedSr = await monSubRoundModel.findByIdAndUpdate(savedFeedback.RoundId, sr);
 

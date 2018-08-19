@@ -532,11 +532,11 @@ class GamePlayRouter {
 
             const teams: TeamModel[] = await monTeamModel.find({ GameId }).then(t => t ? t.map(team => team.toJSON()) : []);
 
-            const subround: SubRoundModel = await monSubRoundModel.findById(SubRoundId).populate("FeedBack").then(sr => sr ? Object.assign(new SubRoundModel(), sr.toJSON()) : null);
+            const subround: SubRoundModel = await monSubRoundModel.findById(SubRoundId).then(sr => sr ? Object.assign(new SubRoundModel(), sr.toJSON()) : null);
 
             let groupedResponses = groupBy(responses, "TeamId");
 
-            console.log(groupedResponses);
+            //console.log(subround);
 
             var scores = Object.keys(groupedResponses).map(k => {
                 let score = new FeedBackModel();

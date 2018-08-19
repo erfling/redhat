@@ -68,7 +68,7 @@ export default class SubRoundModel extends BaseModel
 
     public DisplayMessages: MessageModel[] = [];
 
-    @dbProp(SubRoundFeedback)
+    @dbProp([SubRoundFeedback])
     private _FeedBack: SubRoundFeedback[] = [];
     get FeedBack(){
         //all rounds have the potential to have three types of feedback

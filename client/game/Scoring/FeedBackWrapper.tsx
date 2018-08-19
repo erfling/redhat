@@ -124,7 +124,7 @@ export default class FeedBackWrapper extends React.Component<FeedBackProps, any>
 
             
 
-            {this.props.Scores && this.props.Feedback && <>
+            {this.props.Feedback && <>
                 {this.props.Feedback.map((fb, i) => <Segment
                         key={i}
                         color={fb.ValueDemomination == ValueDemomination.NEGATIVE ? "red" : fb.ValueDemomination == ValueDemomination.POSITIVE ? "green" : "blue"}

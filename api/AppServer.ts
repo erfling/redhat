@@ -206,10 +206,10 @@ export class AppServer {
          });*/
 
         AppServer.app.use('/', AppServer.router)
-            .post('*', (req, res, next) => {
-                if(req.url.indexOf("login") == -1) return next();
-                Passport.authenticate('jwt', { session: false })
+            .post('/auth', (req, res, next) => {
+                next();
             })
+            .post('*', Passport.authenticate('jwt', { session: false }))
             //Passport.authenticate('jwt', { session: false }),
             .use('/sapien/api/rounds', RoundController)
             .use('/sapien/api/' + GameModel.REST_URL, GameCtrl)
@@ -348,7 +348,7 @@ export class AppServer {
                                 let rIndex = Math.floor(Math.random() * pl.length);
                                 
                                 mapping.UserJobs[pl[rIndex]._id.toString()] = JobName.BLUE_KITE;
-                                console.log("Blue_kite winner is: %s, id: %s", rIndex, pl[rIndex]._id);
+                                console.log("Blue_kite winner is: %s, id: %s,  name: %s", rIndex, pl[rIndex]._id, (pl[rIndex].FirstName + " " + pl[rIndex].LastName));
                             });  
                             
                             let newMapping: RoundChangeMapping = await monMappingModel.findOneAndUpdate({ParentRound: mapping.ParentRound.toLowerCase()}, mapping, { upsert: true, new: true, setDefaultsOnInsert: true }).then(r => Object.assign(new RoundChangeMapping(), r.toJSON()));
