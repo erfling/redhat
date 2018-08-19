@@ -442,7 +442,7 @@ class RoundRouter {
                 savedFeedback = await monFeedbackModel.findOneAndUpdate({ValueDemomination: feedBack.ValueDemomination, RoundId: feedBack.RoundId},feedBack, {upsert: true}).then(r => r ? Object.assign(new SubRoundFeedback(), r.toJSON()) : null)
                 //update our subround
                 const sr: SubRoundModel = await monSubRoundModel.findById(savedFeedback.RoundId).populate("FeedBack").then(r => Object.assign(new SubRoundModel(), r.toJSON()));
-
+                sr.FeedBack = sr.FeedBack.filter(fb => fb.Content != savedFeedback.Content)
                 sr.FeedBack.push(savedFeedback);
                 sr.FeedBack = sr.FeedBack.filter(fb => fb._id).sort(fb => {
                     if (fb.ValueDemomination == ValueDemomination.NEUTRAL) return -1;
