@@ -449,25 +449,30 @@ class GamePlayRouter {
 
                 }
             } else {
-                console.dir("HHHHHHHHHHHEEEEEEEEEEEEEEEEEEEEEEEEEEYYYYYYYYYYYYY",response)
-                let queryObj: any = { SubRoundId: response.SubRoundId, GameId: response.GameId, TeamId: response.TeamId, QuestionId: response.QuestionId, targetObjId: (response.Answer as SliderValueObj[])[0].targetObjId }
-
-                const oldResponse = await monResponseModel.findOne(queryObj).then(r => r ? r.toJSON() : null);
-
-                response.targetObjClass = "UserModel";
-                response.targetObjId = (response.Answer as SliderValueObj[])[0].targetObjId;
-                response.DisplayLabel = question.Text;
-
-
-                if (!oldResponse) {
-                    delete response._id;
-                    var SaveResponse = await monResponseModel.create(response).then(r => r.toObject() as ResponseModel);
-                } else {
-                    delete response._id;
-                    var SaveResponse = await monResponseModel.findOneAndUpdate({ GameId: response.GameId, TeamId: response.TeamId, QuestionId: response.QuestionId }, response, { new: true }).then(r => r.toObject() as ResponseModel);
+                let answers = response.Answer as SliderValueObj[];
+                for(var i = 0; i < answers.length; i ++){
+                    let ans = answers[i];
+                    console.dir("HHHHHHHHHHHEEEEEEEEEEEEEEEEEEEEEEEEEEYYYYYYYYYYYYY",response)
+                    let queryObj: any = { DisplayLabel: ans.label, SubRoundId: response.SubRoundId, GameId: response.GameId, TeamId: response.TeamId, QuestionId: response.QuestionId, targetObjId: (response.Answer as SliderValueObj[])[0].targetObjId }
+    
+                    const oldResponse = await monResponseModel.findOne(queryObj).then(r => r ? r.toJSON() : null);
+                    let r = Object.assign({}, response);
+                    r.targetObjClass = "UserModel";
+                    r.targetObjId = (response.Answer as SliderValueObj[])[0].targetObjId;
+                    r.DisplayLabel = ans.label;
+                    r.Answer = (r.Answer as SliderValueObj[]).filter(pa => pa.label == ans.label);
+                    r.Score = Number(ans.data);
+                    if (!oldResponse) {
+                        delete response._id;
+                        var SaveResponse = await monResponseModel.create(r).then(r => r.toObject() as ResponseModel);
+                    } else {
+                        delete response._id;
+                        var SaveResponse = await monResponseModel.findOneAndUpdate(queryObj, r, { new: true }).then(r => r.toObject() as ResponseModel);
+                    }
+                    console.log(SaveResponse);
+    
                 }
-                console.log(SaveResponse);
-
+                
             }
 
             res.json(response)
