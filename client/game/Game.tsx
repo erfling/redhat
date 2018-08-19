@@ -448,7 +448,7 @@ export default class Game extends BaseComponent<any, IControllerDataStore & { Ga
                                 paddingRight: !this.state.ApplicationState.MobileWidth && this.state.ApplicationState.ShowMessageList ? 0 : '1rem'
                             }}
                         >
-                            {this.state.ApplicationState.CurrentMessages && !this.state.ApplicationState.MobileWidth && <div
+                            {this.state.ApplicationState.CurrentMessages && !this.state.ApplicationState.MobileWidth && this.controller.ChildController && this.controller.ChildController.dataStore && this.controller.ChildController.dataStore.SubRound && <div
                                 className={"wide-messages " + (this.state.ApplicationState.ShowMessageList ? "show" : "hide")}
                             >
                                 <Segment
@@ -458,7 +458,7 @@ export default class Game extends BaseComponent<any, IControllerDataStore & { Ga
                                     }}
                                 >
                                     <MessageList
-                                        Messages={this.state.ApplicationState.CurrentMessages.filter( m => !m.IsDefault ).reverse()}
+                                        Messages={this.state.ApplicationState.CurrentMessages.filter( m => !m.IsDefault || (m.IsDefault && this.controller.ChildController && m.RoundId != this.controller.ChildController.dataStore.SubRound._id) ).reverse()}
                                         Show={this.state.ApplicationState.ShowMessageList}
                                         SelectFunc={(m) => {
                                             this.controller.dataStore.ApplicationState.ShowMessageList = false;
@@ -486,11 +486,11 @@ export default class Game extends BaseComponent<any, IControllerDataStore & { Ga
                     </Grid>
                 </Column>
 
-                {this.state.ApplicationState.CurrentMessages && this.state.ApplicationState.MobileWidth && < div
+                {this.state.ApplicationState.CurrentMessages && this.state.ApplicationState.MobileWidth && this.controller.ChildController && this.controller.ChildController.dataStore && this.controller.ChildController.dataStore.SubRound &&  <div
                     className={"mobile-messages" + " " + (this.state.ApplicationState.ShowMessageList ? "show" : "hide")}
                 >
                     <MessageList
-                        Messages={this.state.ApplicationState.CurrentMessages.filter(m => !m.IsDefault).reverse()}
+                        Messages={this.state.ApplicationState.CurrentMessages.filter( m => !m.IsDefault || (m.IsDefault && this.controller.ChildController && m.RoundId != this.controller.ChildController.dataStore.SubRound._id) ).reverse()}
                         Show={this.state.ApplicationState.ShowMessageList}
                         SelectFunc={(m) => {
                             this.controller.dataStore.ApplicationState.ShowMessageList = false;
