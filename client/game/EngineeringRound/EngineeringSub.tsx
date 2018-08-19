@@ -75,7 +75,7 @@ export default class EngineeringSub extends BaseComponent<any, IRoundDataStore>
                     {name: 'Round 1', "Question 1": 4000, "Question 2": 2400, "Question 3": 2400},
                     {name: 'Round 2', "Question 1": 2500, "Question 2": 1900, "Question 3": 2700}
                 ];*/
-                console.log(userRatings);
+                console.log("RATINGS!!!!!!!!!",userRatings);
                 console.log(userRatingsChart);
             });
            
@@ -158,8 +158,10 @@ export default class EngineeringSub extends BaseComponent<any, IRoundDataStore>
                     </>
                 }
 
+                <pre>{userRatingsChart && JSON.stringify(userRatingsChart, null, 2)}</pre>
+
+
                 {userRatingsChart && userRatingsChart.length && <>
-                    <pre>{JSON.stringify(userRatingsChart, null, 2)}</pre>
                         <LineChart width={600} height={300} data={userRatingsChart} margin={{top: 5, right: 30, left: 20, bottom: 5}}>
                             <XAxis dataKey="name"/>
                             <YAxis/>
@@ -190,6 +192,7 @@ export default class EngineeringSub extends BaseComponent<any, IRoundDataStore>
                         {this.state.RatingQuestions.filter(q => {
                             return q.RatingMarker == RatingType.MANAGER_RATING ? this.state.ApplicationState.CurrentUser.Job != JobName.MANAGER : this.state.ApplicationState.CurrentUser.Job == JobName.MANAGER
                         }).map((q, i) => {
+                            console.warn("q as passed",q);
                             return <Row
                                 key={"question-" + i.toString()}
                             >

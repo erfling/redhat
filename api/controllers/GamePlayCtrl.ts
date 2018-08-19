@@ -449,7 +449,8 @@ class GamePlayRouter {
 
                 }
             } else {
-                let queryObj: any = { GameId: response.GameId, TeamId: response.TeamId, QuestionId: response.QuestionId }
+                console.dir("HHHHHHHHHHHEEEEEEEEEEEEEEEEEEEEEEEEEEYYYYYYYYYYYYY",response)
+                let queryObj: any = { SubRoundId: response.SubRoundId, GameId: response.GameId, TeamId: response.TeamId, QuestionId: response.QuestionId, targetObjId: (response.Answer as SliderValueObj[])[0].targetObjId }
 
                 const oldResponse = await monResponseModel.findOne(queryObj).then(r => r ? r.toJSON() : null);
 
