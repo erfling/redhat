@@ -373,7 +373,8 @@ class GamePlayRouter {
                 //build the manager question
                 let job: JobName = jobMap[p._id.toString()];
                 //if(jobMap[p._id.toString()] == JobName.MANAGER){
-                question.PossibleAnswers = question.PossibleAnswers.map(pa => {
+                let q: QuestionModel = JSON.parse(JSON.stringify(question))
+                q.PossibleAnswers = question.PossibleAnswers.map(pa => {
                     return Object.assign({}, pa, {
                         idealValue: 0,
                         maxPoints: 3,
@@ -381,12 +382,14 @@ class GamePlayRouter {
                         min: 0,
                         max: 10,
                         targetObjId: p._id.toString(),
-                        targetObjClass: "UserModel"
+                        targetObjClass: "UserModel",
+                        category: (pa as any).Round || null
                     })
                 })
-                question.SubText =  "How did " + mgr.Name + " perform as a manager?";
-
-                return question;
+                q.RatingMarker = jobMap[p._id.toString()] == JobName.MANAGER ? RatingType.MANAGER_RATING : RatingType.IC_RATING;
+                q.SubText = jobMap[p._id.toString()] == JobName.MANAGER ? "How did " + p.Name + " perform as a manager?" : "How did " + p.Name + " do this round?";
+                q.Text = jobMap[p._id.toString()] != JobName.MANAGER && "";
+                return q;
 
             })
 
