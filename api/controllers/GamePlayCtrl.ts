@@ -1,6 +1,4 @@
 import { monUserModel } from './UserCtrl';
-import { Type } from 'class-transformer';
-import { Slider } from 'react-semantic-ui-range';
 import { Router, Request, Response, NextFunction } from 'express';
 import * as mongoose from 'mongoose';
 import SchemaBuilder from '../SchemaBuilder';
@@ -10,18 +8,14 @@ import ValueObj, { SliderValueObj } from '../../shared/entity-of-the-state/Value
 import { monQModel, monSubRoundModel } from './RoundCtrl';
 import SubRoundModel from '../../shared/models/SubRoundModel';
 import { monGameModel } from './GameCtrl';
-import RoundChangeMapping from '../../shared/models/RoundChangeMapping';
 import TeamModel from '../../shared/models/TeamModel';
-import Game from '../../client/game/Game';
 import GameModel from '../../shared/models/GameModel';
 import QuestionModel, { QuestionType, ComparisonLabel } from '../../shared/models/QuestionModel';
 import { groupBy } from 'lodash';
-import { Label } from 'semantic-ui-react';
 import UserModel, { JobName } from '../../shared/models/UserModel';
 import FeedBackModel from '../../shared/models/FeedBackModel';
-
+import { ValueDemomination } from '../../shared/models/SubRoundFeedback';
 import { RatingType } from '../../shared/models/QuestionModel';
-import SubRoundFeedback, { ValueDemomination } from '../../shared/models/SubRoundFeedback';
 import SubRoundScore from '../../shared/models/SubRoundScore';
 import { AppServer } from '../AppServer';
 
@@ -677,6 +671,54 @@ console.log(err);
         }
     }
 
+    public async GetUserRatingsSoFar(req: Request, res: Response) {
+        try {
+            const targetObjId = req.params.userid;
+            const SubRoundId = req.params.subroundid;
+
+            let currentSubRound: SubRoundModel = await monSubRoundModel.findById(SubRoundId).then(sr => sr ? Object.assign(new SubRoundModel(), sr.toJSON()) : null);
+            if( !currentSubRound)  throw new Error("Didn't get subround");
+
+            let subRounds: SubRoundModel[] = await monSubRoundModel.find().then(srs => srs ? srs.map(sr => Object.assign(new SubRoundModel(), sr.toJSON())) : null);
+            subRounds.sort((a, b) => {
+                if (a.Label < b.Label)
+                    return -1;
+                if (a.Label > b.Label)
+                    return 1;
+                return 0;
+            })
+            // sorted subRoundIds, truncated to include only currentSubRound or before
+            let subRoundIds: string[] = subRounds.filter(sr => sr.Label <= currentSubRound.Label).map(sr => sr._id);
+
+            let responses: ResponseModel[] = await monResponseModel.find({targetObjId, targetObjClass: "UserModel"}).then(rs => rs ? rs.map(r => Object.assign(new ResponseModel(), r.toJSON())) : null );
+            if (!responses) throw new Error("Didn't get responses");
+
+            // build array of unique DisplayLabel (rating criteria name) for the responses
+            let displayLabels: string[] = responses.reduce((allDisplayLabels: string[], response: ResponseModel) => {
+                if (!(response.DisplayLabel in allDisplayLabels)) {
+                    allDisplayLabels.push(response.DisplayLabel);
+                }
+                return allDisplayLabels;
+            }, []);
+
+            let orderedResponses: Array<{[key:string]:ResponseModel[]}> = [];
+            // Build orderedResponses based on already sorted subRoundIds, so orderedResponses are sorted too
+            for (var n = 0; n < subRoundIds.length; n++) {
+                orderedResponses[n] = {};
+                displayLabels.forEach(displayName => {
+                    orderedResponses[n][displayName] = responses.filter(r => r.SubRoundId == subRoundIds[n] && r.DisplayLabel == displayName);
+                })
+            }
+
+            res.json(orderedResponses);
+        } 
+        catch (err) {
+            console.log(err);
+            res.status(500)
+                .send("couldn't mark message read")
+        }
+    }
+
     public routes() {
         //this.router.all("*", cors());
         this.router.get("/", this.GetRounds.bind(this));
@@ -692,7 +734,8 @@ console.log(err);
         this.router.get("/getscores/:subroundid/:roundid/:gameid", this.getScores.bind(this)),
         this.router.get("/getuserscores/:subroundid/:roundid/:gameid", this.getUserScores.bind(this)),
         this.router.get("/getsubroundscores/:gameid/:subroundid", this.getSubRoundScores.bind(this)),
-        this.router.post("/response/rating", this.savePriorityRating.bind(this))
+        this.router.post("/response/rating", this.savePriorityRating.bind(this)),
+        this.router.get("/getuserrating/:userid/:subroundid", this.GetUserRatingsSoFar.bind(this))
     }
 }
 

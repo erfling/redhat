@@ -9,6 +9,7 @@ import BaseComponent from "../../../shared/base-sapien/client/shared-components/
 import Decisions from '-!svg-react-loader?name=Icon!../../img/decisions.svg';
 import FeedBackWrapper from "../Scoring/FeedBackWrapper";
 import { RatingType } from "../../../shared/models/QuestionModel";
+import { LineChart, Line, Legend, Tooltip, CartesianGrid, XAxis, YAxis, ReferenceLine, BarChart, Bar } from 'recharts';
 
 const { Button, Grid, Form, Dimmer, Loader, Header, Table } = Semantic;
 const { Row, Column } = Grid;
@@ -55,7 +56,30 @@ export default class EngineeringSub extends BaseComponent<any, IRoundDataStore>
     //----------------------------------------------------------------------
 
     render() {
-        const thisSubRound = this.state.Round.SubRounds.filter(s => s.Name.toUpperCase() == EngineeringSub.CLASS_NAME.toUpperCase())[0]
+        const thisSubRound = this.state.Round.SubRounds.filter(s => s.Name.toUpperCase() == EngineeringSub.CLASS_NAME.toUpperCase())[0];
+        let userRatingsChart: any[];
+        if (this.state.SubRound) {
+            this.controller.getUserRatingsSoFar().then(userRatings => {
+                userRatingsChart = userRatings.map((ratingCats, i) => {
+                    var rndObj = {name: 'Round ' + (i+1)};
+                    Object.keys(ratingCats).forEach(cat => {
+                        var scoreSum = ratingCats[cat].reduce((totalScore, response) => {
+                            return totalScore + response.Score;
+                        }, 0);
+                        rndObj[cat] = scoreSum / ratingCats[cat].length;
+                    });
+
+                    return rndObj;
+                })
+                /*const userRatingsChart = [
+                    {name: 'Round 1', "Question 1": 4000, "Question 2": 2400, "Question 3": 2400},
+                    {name: 'Round 2', "Question 1": 2500, "Question 2": 1900, "Question 3": 2700}
+                ];*/
+                console.log(userRatings);
+                console.log(userRatingsChart);
+            });
+           
+        }
 
         if (this.state) {
             return <>
@@ -122,14 +146,31 @@ export default class EngineeringSub extends BaseComponent<any, IRoundDataStore>
                 }   
 
                 {this.state.ApplicationState.ShowIndividualFeedback && thisSubRound && this.state.UserScores &&
-                    <FeedBackWrapper
-                        User={this.state.ApplicationState.CurrentUser}
-                        TeamId={this.state.ApplicationState.CurrentTeam._id}
-                        Scores={this.state.UserScores}
-                        RoundName="Round 3"                        
-                    >
-                        
-                    </FeedBackWrapper> 
+                    <>
+                        <FeedBackWrapper
+                            User={this.state.ApplicationState.CurrentUser}
+                            TeamId={this.state.ApplicationState.CurrentTeam._id}
+                            Scores={this.state.UserScores}
+                            RoundName="Round 3"                        
+                        >
+                            
+                        </FeedBackWrapper>
+                    </>
+                }
+
+                {userRatingsChart && userRatingsChart.length && <>
+                    <pre>{JSON.stringify(userRatingsChart, null, 2)}</pre>
+                        <LineChart width={600} height={300} data={userRatingsChart} margin={{top: 5, right: 30, left: 20, bottom: 5}}>
+                            <XAxis dataKey="name"/>
+                            <YAxis/>
+                            <CartesianGrid strokeDasharray="3 3"/>
+                            <Tooltip/>
+                            <Legend />
+                            {Object.keys(userRatingsChart).filter(v => v != 'name').map((v, i) => {
+                                return <Line type="monotone" dataKey={v} stroke="#8884d8" activeDot={{r: 8}}/>
+                            })}
+                        </LineChart>
+                    </>
                 }
 
                 {this.state.ApplicationState.ShowRateUsers && this.state.RatingQuestions && <div
