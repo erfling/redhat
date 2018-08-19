@@ -65,6 +65,7 @@ export default abstract class AuthUtils {
                     return done("No User Found");
                 }
                 catch (err) {
+                    console.log(err);
                     return done(err);
                 }
             }
