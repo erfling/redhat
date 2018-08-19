@@ -206,9 +206,6 @@ export class AppServer {
          });*/
 
         AppServer.app.use('/', AppServer.router)
-            .post('/auth', (req, res, next) => {
-                next();
-            })
             .post('*', Passport.authenticate('jwt', { session: false }))
             //Passport.authenticate('jwt', { session: false }),
             .use('/sapien/api/rounds', RoundController)

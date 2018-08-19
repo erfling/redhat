@@ -16,6 +16,7 @@ import TeamModel from '../../shared/models/TeamModel';
 import GameModel from '../../shared/models/GameModel';
 import SubRoundFeedback, { ValueDemomination } from '../../shared/models/SubRoundFeedback';
 import RoundChangeMapping from '../../shared/models/RoundChangeMapping';
+import * as Passport from 'passport'
 
 const messageSchObj = SchemaBuilder.fetchSchema(MessageModel);
 const monMessageSchema = new mongoose.Schema(messageSchObj);
@@ -489,24 +490,27 @@ class RoundRouter {
         this.router.get("/subround/:subround/:gameid/:userid/:job", this.GetMessages.bind(this));
         this.router.get("/subround/:subround/:job/:TeamId", this.GetSubRound3B.bind(this));
         this.router.post("/",
+            Passport.authenticate('jwt', { session: false }),
             (req, res, next) => AuthUtils.IS_USER_AUTHORIZED(req, res, next, PERMISSION_LEVELS.PLAYER),
             this.SaveRound.bind(this)
         );
         this.router.post("/savefeedback",
-        
+            Passport.authenticate('jwt', { session: false }),
             (req, res, next) => AuthUtils.IS_USER_AUTHORIZED(req, res, next, PERMISSION_LEVELS.ADMIN),
             this.SaveFeedback.bind(this)
         );
         this.router.get("/round3responses/:gameid/:roundid",
-            //(req, res, next) => AuthUtils.IS_USER_AUTHORIZED(req, res, next, PERMISSION_LEVELS.PLAYER), 
+            //(req, res, next) => AuthUtils.IS_USER_AUTHORIZED(req, res, next, PERMISSION_LEVELS.PLAYER),
             this.GetRound3FeedBack.bind(this)
         );
         this.router.post("/subround",
-            (req, res, next) => AuthUtils.IS_USER_AUTHORIZED(req, res, next, PERMISSION_LEVELS.PLAYER),
+            Passport.authenticate('jwt', { session: false }),
+            (req, res, next) => AuthUtils.IS_USER_AUTHORIZED(req, res, next, PERMISSION_LEVELS.ADMIN),
             this.SaveSubRound.bind(this)
         );
         this.router.post("/message",
-            (req, res, next) => AuthUtils.IS_USER_AUTHORIZED(req, res, next, PERMISSION_LEVELS.PLAYER),
+            Passport.authenticate('jwt', { session: false }),
+            (req, res, next) => AuthUtils.IS_USER_AUTHORIZED(req, res, next, PERMISSION_LEVELS.ADMIN),
             this.SaveMessage.bind(this)
         );
     }
