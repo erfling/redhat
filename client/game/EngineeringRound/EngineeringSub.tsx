@@ -57,28 +57,11 @@ export default class EngineeringSub extends BaseComponent<any, IRoundDataStore>
 
     render() {
         const thisSubRound = this.state.Round.SubRounds.filter(s => s.Name.toUpperCase() == EngineeringSub.CLASS_NAME.toUpperCase())[0];
-        let userRatingsChart: any[];
-        if (this.state.SubRound) {
-            this.controller.getUserRatingsSoFar().then(userRatings => {
-                userRatingsChart = userRatings.map((ratingCats, i) => {
-                    var rndObj = {name: 'Round ' + (i+1)};
-                    Object.keys(ratingCats).forEach(cat => {
-                        var scoreSum = ratingCats[cat].reduce((totalScore, response) => {
-                            return totalScore + response.Score;
-                        }, 0);
-                        rndObj[cat] = scoreSum / ratingCats[cat].length;
-                    });
-
-                    return rndObj;
-                })
-                /*const userRatingsChart = [
-                    {name: 'Round 1', "Question 1": 4000, "Question 2": 2400, "Question 3": 2400},
-                    {name: 'Round 2', "Question 1": 2500, "Question 2": 1900, "Question 3": 2700}
-                ];*/
-                console.log("RATINGS!!!!!!!!!",userRatings);
-                console.log(userRatingsChart);
-            });
-           
+        let userRatingsChart: any[] = ["test"];
+        if (this.state.SubRound && this.state.UserRatings) {
+           // this.controller.getUserRatingsSoFar().then(userRatings => {
+            userRatingsChart = this.controller.getUserRatingsChartShaped(this.state.UserRatings);
+            //})
         }
 
         if (this.state) {
@@ -157,11 +140,11 @@ export default class EngineeringSub extends BaseComponent<any, IRoundDataStore>
                         </FeedBackWrapper>
                     </>
                 }
+                <div>FARTS: {(userRatingsChart != null).toString()}</div>
+                <pre>{this.state.UserRatings && JSON.stringify(this.controller.getUserRatingsChartShaped(this.state.UserRatings), null, 2)}</pre>
 
-                <pre>{userRatingsChart && JSON.stringify(userRatingsChart, null, 2)}</pre>
 
-
-                {userRatingsChart && userRatingsChart.length && <>
+                {this.state.UserRatings && userRatingsChart.length && <>
                         <LineChart width={600} height={300} data={userRatingsChart} margin={{top: 5, right: 30, left: 20, bottom: 5}}>
                             <XAxis dataKey="name"/>
                             <YAxis/>

@@ -696,11 +696,19 @@ console.log(err);
                     return 1;
                 return 0;
             })
-            // sorted subRoundIds, truncated to include only currentSubRound or before
-            let subRoundIds: string[] = subRounds.filter(sr => sr.Label <= currentSubRound.Label).map(sr => sr._id);
-
             let responses: ResponseModel[] = await monResponseModel.find({targetObjId, targetObjClass: "UserModel"}).then(rs => rs ? rs.map(r => Object.assign(new ResponseModel(), r.toJSON())) : null );
             if (!responses) throw new Error("Didn't get responses");
+
+            // sorted subRoundIds, truncated to include only currentSubRound or before
+            let subRoundIds: string[] = subRounds.filter((sr) => {
+                console.log("DUDE:", sr.Label, currentSubRound.Label, sr.Label <= currentSubRound.Label, responses);
+                
+                return sr.Label <= currentSubRound.Label && responses.filter(r => { 
+                    console.log("PAINIS",r.RoundId, sr.RoundId, r.RoundId == sr.RoundId);
+                    return r.RoundId == sr.RoundId;
+                }).length;
+            }).map(sr => sr._id);
+            console.log(subRoundIds);
 
             // build array of unique DisplayLabel (rating criteria name) for the responses
             let displayLabels: string[] = responses.reduce((allDisplayLabels: string[], response: ResponseModel) => {

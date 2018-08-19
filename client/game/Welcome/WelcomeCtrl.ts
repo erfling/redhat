@@ -93,8 +93,8 @@ export default class WelcomeCtrl extends BaseRoundCtrl<IRoundDataStore>
             SubRound: null,
             RatingQuestions: null,
             Scores: null,
-            UserScores: null
-
+            UserScores: null,
+            UserRatings: null
         };        
         this.dataStore.Round.Name = "WELCOME";
     }
