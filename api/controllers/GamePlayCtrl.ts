@@ -371,49 +371,29 @@ class GamePlayRouter {
             const subround = await monSubRoundModel.findOne().then(r => r ? r.toJSON() : null)
             if (!subround) throw new Error("no subround");
             //get the individual rating questions
-            let questions: QuestionModel[] = await monQModel.find()
-                .where('RatingMarker')
-                .in([RatingType.IC_RATING, RatingType.MANAGER_RATING])
-                .then(qs => qs ? qs.map(q => Object.assign(new QuestionModel(), q.toJSON())) : null);
+            let question: QuestionModel = await monQModel.findOne({RatingMarker: RatingType.MANAGER_RATING})
+                .then(q => q ? Object.assign(new QuestionModel(), q.toJSON()) : null);
 
-            let finalQuestions = questions.map(q => {
-                //let job: JobName = jobMap[p._id.toString()];
-                //let marker: RatingType = job == JobName.MANAGER ? RatingType.MANAGER_RATING : RatingType.IC_RATING;
-
-                if (q.RatingMarker == RatingType.MANAGER_RATING) {
-                    let mgr = players.filter(p => jobMap[p._id.toString()] == JobName.MANAGER)[0];
-                    return Object.assign(q, {
-                        SubText: "How did " + mgr.Name + " perform as a manager?",
-                        PossibleAnswers: q.PossibleAnswers.map((pa, i) => Object.assign(pa,
-                            {
-                                idealValue: 0,
-                                maxPoints: 3,
-                                minPoints: 1,
-                                min: 0,
-                                max: 10,
-                                targetObjId: mgr._id.toString(),
-                                targetObjClass: "UserModel"
-                            })
-                        )
+            let mgr = players.filter(p => jobMap[p._id.toString()] == JobName.MANAGER)[0];
+            let finalQuestions: QuestionModel[] = players.map(p => {
+                //build the manager question
+                let job: JobName = jobMap[p._id.toString()];
+                //if(jobMap[p._id.toString()] == JobName.MANAGER){
+                question.PossibleAnswers = question.PossibleAnswers.map(pa => {
+                    return Object.assign({}, pa, {
+                        idealValue: 0,
+                        maxPoints: 3,
+                        minPoints: 1,
+                        min: 0,
+                        max: 10,
+                        targetObjId: p._id.toString(),
+                        targetObjClass: "UserModel"
                     })
-                } else {
-                    //chipco and integrated systems players get the same questions as ICs
-                    return Object.assign(q, {
-                        PossibleAnswers: players.filter(p => jobMap[p._id.toString()] != JobName.MANAGER).map((p, i) => {
-                            return {
-                                label: p.Name,
-                                idealValue: 0,
-                                maxPoints: 3,
-                                minPoints: 1,
-                                targetObjId: p._id.toString(),
-                                targetObjClass: "UserModel",
-                                data: i
-                            }
-                        })
-                    })
-                }
+                })
+                question.SubText =  "How did " + mgr.Name + " perform as a manager?";
 
-                return q;
+                return question;
+
             })
 
             res.json(finalQuestions);
