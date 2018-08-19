@@ -381,6 +381,7 @@ class GamePlayRouter {
                         minPoints: 1,
                         min: 0,
                         max: 10,
+                        data: "5",
                         targetObjId: p._id.toString(),
                         targetObjClass: "UserModel",
                         category: (pa as any).Round || null
