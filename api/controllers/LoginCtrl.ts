@@ -139,7 +139,7 @@ export class LoginCtrlClass
             Passport.authenticate('local', {session: false}, (err, user: UserModel, info) => {
                 console.log("ERROR IN AUTH METHOD", err);
                 if (err || !user) {
-                    return res.status(401).json({
+                    return res.status(501).json({
                         message: info ? info.message : 'Login failed',
                         user   : user
                     });
