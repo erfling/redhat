@@ -222,6 +222,7 @@ export default class ScoringLineChart extends React.Component<ChartingProps, { c
             width={this.state.componentWidth - 20}
             height={this.state.componentWidth / 1.5}            
           >
+            <XAxis padding={{ left: 0, right: 10 }} label="Round 1"/>
             <YAxis padding={{ top: 10, bottom: 0 }} domain={[0, 20]} />
             <Legend verticalAlign="bottom" height={100} />
             {Object.keys(this.getBarChartData()[0]).filter(k => k.toLowerCase().indexOf("team") != -1).map(k => {
