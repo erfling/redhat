@@ -40,6 +40,13 @@ export default class ScoringLineChart extends React.Component<ChartingProps, { c
     const initialWidth = window.innerWidth > 0 ? window.innerWidth : 500;
     //this.state = //Object.assign(this.props, {showToolTip: false, windowWidth: initialWidth - 100})
     this.state = { showToolTip: false, componentWidth: initialWidth - 100, roundScores: null, opacity: {} };
+
+    //wait and trigger resize even to size charts properly
+    setTimeout(() => {
+      var evt = window.document.createEvent('UIEvents'); 
+      evt.initUIEvent('resize', true, false, window, 0); 
+      window.dispatchEvent(evt);
+    },500)
   }
 
   componentDidMount() {
