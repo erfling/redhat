@@ -180,7 +180,6 @@ export default class Hiring extends BaseComponent<any, IRoundDataStore>
                             </Row>
                         }
                         )}
-                        <pre>{this.state.RatingQuestions && JSON.stringify(this.state.RatingQuestions, null, 2)}</pre>
                     </Form>
                 </div>
                 }
