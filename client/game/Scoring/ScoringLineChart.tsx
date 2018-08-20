@@ -58,9 +58,9 @@ export default class ScoringLineChart extends React.Component<ChartingProps, { c
   }
 
   static rounds = ["Round 1", "Round 2", "Round 3", "Round 4", "Round 5"];
-  static Colors = ["#3b67c5", "#cd4c2d", "#f29e3c", "#499535", "#fff", "#00b5ad"];
+  static Colors = ["#3b67c5", "#cd4c2d", "#f29e3c", "#499535", "#fff", "#00b5ad", "#cbeff9"];
   static MappedColors: any;
-  static MockTeams = times(5, (i) => {
+  static MockTeams = times(7, (i) => {
     let team = Object.assign(new TeamModel(), { Name: "Team " + (i + 1).toString(), _id: i, Color: ScoringLineChart.Colors[i], Score: MathUtil.roundTo((Math.random() * 20) + 2, 2) });
     return team;
   })
