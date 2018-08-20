@@ -193,7 +193,6 @@ export default class IndividualLineChart extends React.Component<ChartingProps, 
             width={this.state.componentWidth - 20}
             height={this.state.componentWidth / 1.5}            
           >
-            <XAxis padding={{ left: 0, right: 20 }} />
             <YAxis padding={{ top: 10, bottom: 0 }} domain={[0, 10]} dataKey="name" />
             {Object.keys(Data[Data.length - 1]).filter(k => k.toLowerCase().indexOf("name") == -1 && Data[Data.length - 1][k]).map((k, i) => {
               console.log("TRYING TO BUILD BARS", k, Data[Data.length - 1][k])
