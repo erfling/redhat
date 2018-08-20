@@ -59,9 +59,7 @@ export default class EngineeringSub extends BaseComponent<any, IRoundDataStore>
         const thisSubRound = this.state.Round.SubRounds.filter(s => s.Name.toUpperCase() == EngineeringSub.CLASS_NAME.toUpperCase())[0];
         let userRatingsChart: any[] = ["test"];
         if (this.state.SubRound && this.state.UserRatings) {
-           // this.controller.getUserRatingsSoFar().then(userRatings => {
             userRatingsChart = this.controller.getUserRatingsChartShaped(this.state.UserRatings);
-            //})
         }
 
         if (this.state) {

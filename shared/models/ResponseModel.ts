@@ -1,4 +1,4 @@
-import { SliderValueObj } from './../entity-of-the-state/ValueObj';
+import { SliderValueObj } from '../entity-of-the-state/ValueObj';
 import { ComparisonLabel } from "./QuestionModel";
 import BaseModel, { dbProp } from "../base-sapien/models/BaseModel";
 import MathUtil from '../entity-of-the-state/MathUtil';

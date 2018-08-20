@@ -9,6 +9,7 @@ import Decisions from '-!svg-react-loader?name=Icon!../../img/decisions.svg';
 import BaseComponent from "../../../shared/base-sapien/client/shared-components/BaseComponent";
 import FeedBackWrapper from "../Scoring/FeedBackWrapper";
 import { RatingType } from "../../../shared/models/QuestionModel";
+import IndividualLineChart from "../Scoring/IndividualLineChart";
 
 const { Button, Grid, Menu, Segment, Form, Dimmer, Loader, Header, Table } = Semantic;
 const { Row, Column } = Grid;
@@ -57,7 +58,10 @@ export default class Hiring extends BaseComponent<any, IRoundDataStore>
 
     render() {
         const thisSubRound = this.state.Round.SubRounds.filter(s => s.Name.toUpperCase() == Hiring.CLASS_NAME.toUpperCase())[0];
-        
+        let userRatingsChart;
+        if (this.state.SubRound && this.state.UserRatings) {
+            userRatingsChart = this.controller.getUserRatingsChartShaped(this.state.UserRatings);
+        }
         if (this.state) {
             return <>
                 {this.state.ApplicationState.CurrentUser.Job == JobName.MANAGER && thisSubRound != null && thisSubRound.Questions &&
@@ -121,16 +125,14 @@ export default class Hiring extends BaseComponent<any, IRoundDataStore>
                     </FeedBackWrapper> 
                     </>
                 }  
-                
-                {this.state.ApplicationState.ShowIndividualFeedback && thisSubRound && this.state.UserScores &&
-                    <FeedBackWrapper
-                        User={this.state.ApplicationState.CurrentUser}
-                        TeamId={this.state.ApplicationState.CurrentTeam._id}
+
+                {this.state.ApplicationState.ShowIndividualFeedback && this.state.UserRatings && userRatingsChart.length && thisSubRound && this.state.UserScores &&
+                    <IndividualLineChart
                         Scores={this.state.UserScores}
-                        RoundName="Round 1"                        
-                    >
-                        
-                    </FeedBackWrapper> 
+                        TeamId={this.state.ApplicationState.CurrentTeam._id}
+                        PlayerId={this.state.ApplicationState.CurrentUser._id}
+                        Data={userRatingsChart}
+                    />
                 }  
 
 
