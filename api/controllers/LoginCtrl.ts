@@ -58,7 +58,7 @@ export class LoginCtrlClass
                 {
                     path: "Teams",
                 }
-            ).then(r => Object.assign( new GameModel(), JSON.parse( JSON.stringify( r.toJSON() ) ) ) )
+            ).populate("Facilitator").then(r => Object.assign( new GameModel(), JSON.parse( JSON.stringify( r.toJSON() ) ) ) )
 
             if (!game) {
                 throw("We couldn't find the game you're trying to join. Please try again.")
@@ -104,12 +104,20 @@ export class LoginCtrlClass
             }
             console.log(user, game.Teams)
 
-            const team: TeamModel = game.Teams.filter(team => {
-                //let team = t.toJSON();
-                console.log(team.Players[3], user._id, typeof team.Players[3], typeof user._id, typeof "butt")
-
-                return team.Players.indexOf(user._id) != -1
-            })[0] || null;
+            let team: TeamModel;
+            if(game.Facilitator.Email == user.Email){
+                team = new TeamModel();
+                team.GameId = game._id;
+                team.Players = [user];
+            } else {
+                team = game.Teams.filter(team => {
+                    //let team = t.toJSON();
+                    console.log(team.Players[3], user._id, typeof team.Players[3], typeof user._id, typeof "butt")
+    
+                    return team.Players.indexOf(user._id) != -1
+                })[0] || null;
+            }
+            
             console.log("TEAM IS: ", team);
 
             if (!team) {
