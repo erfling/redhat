@@ -149,7 +149,7 @@ class GameDetail extends BaseComponent<any, IControllerDataStore & {Admin: Admin
                                     <Card.Content>
                                         <Card.Header>
                                             <Header>
-                                                Team {i + 1}
+                                                Team {t.Number}
                                             </Header>
                                         </Card.Header>
                                     </Card.Content>
