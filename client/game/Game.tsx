@@ -458,7 +458,7 @@ export default class Game extends BaseComponent<any, IControllerDataStore & { Ga
                                     }}
                                 >
                                     <MessageList
-                                        Messages={this.state.ApplicationState.CurrentMessages.filter( m => !m.IsDefault || (m.IsDefault && this.controller.ChildController && m.RoundId != this.controller.ChildController.dataStore.SubRound._id) ).reverse()}
+                                        Messages={this.state.ApplicationState.CurrentMessages.filter( m => !m.IsDefault /*|| (m.IsDefault && this.controller.ChildController && m.RoundId != this.controller.ChildController.dataStore.SubRound._id) */).reverse()}
                                         Show={this.state.ApplicationState.ShowMessageList}
                                         SelectFunc={(m) => {
                                             this.controller.dataStore.ApplicationState.ShowMessageList = false;
@@ -490,7 +490,7 @@ export default class Game extends BaseComponent<any, IControllerDataStore & { Ga
                     className={"mobile-messages" + " " + (this.state.ApplicationState.ShowMessageList ? "show" : "hide")}
                 >
                     <MessageList
-                        Messages={this.state.ApplicationState.CurrentMessages.filter( m => !m.IsDefault || (m.IsDefault && this.controller.ChildController && m.RoundId != this.controller.ChildController.dataStore.SubRound._id) ).reverse()}
+                        Messages={this.state.ApplicationState.CurrentMessages.filter( m => !m.IsDefault /*|| (m.IsDefault && this.controller.ChildController && m.RoundId != this.controller.ChildController.dataStore.SubRound._id) */).reverse()}
                         Show={this.state.ApplicationState.ShowMessageList}
                         SelectFunc={(m) => {
                             this.controller.dataStore.ApplicationState.ShowMessageList = false;
