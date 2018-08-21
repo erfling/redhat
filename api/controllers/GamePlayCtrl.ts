@@ -690,6 +690,8 @@ class GamePlayRouter {
 
             //let currentSubRound: SubRoundModel = await monSubRoundModel.findById(SubRoundId).then(sr => sr ? Object.assign(new SubRoundModel(), sr.toJSON()) : null);
             const team: TeamModel = await monTeamModel.findById(TeamId).then(t => t ? Object.assign(new TeamModel(), t) : null);
+            console.log("TEAM BE", team);
+
             const game = await monGameModel.findById(team.GameId).then(g => g ? Object.assign(new GameModel(), g) : null);
             const currentSubRound = await monSubRoundModel.find(game.CurrentRound.ChildRound.toLocaleUpperCase()).then(s => s ? Object.assign(new SubRoundModel(), s) : null)
             
@@ -739,7 +741,7 @@ class GamePlayRouter {
         catch (err) {
             console.log(err);
             res.status(500)
-                .send("couldn't mark message read")
+                .send("couldn't get user scores")
         }
     }
 
