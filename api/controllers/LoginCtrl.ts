@@ -109,6 +109,7 @@ export class LoginCtrlClass
                 team = new TeamModel();
                 team.GameId = game._id;
                 team.Players = [user];
+                team._id = game.Teams[0]._id
             } else {
                 team = game.Teams.filter(team => {
                     //let team = t.toJSON();

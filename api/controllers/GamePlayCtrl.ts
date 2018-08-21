@@ -386,6 +386,7 @@ class GamePlayRouter {
                         data: "5",
                         targetObjId: p._id.toString(),
                         targetObjClass: "UserModel",
+                        targetObjName: p.Name,
                         category: (pa as any).Round || null
                     })
                 })
@@ -758,6 +759,41 @@ class GamePlayRouter {
         }
     }
 
+    public async getFacilitatorResponsesByRound(req: Request, res: Response){
+        try{
+            const GameId = req.params.gameid;
+
+            const game: GameModel = await monGameModel.findById(GameId).populate("Teams").then(g => g ? Object.assign(new GameModel(), g.toJSON()) : null);
+
+            let mapping: RoundChangeMapping = game.CurrentRound;
+
+            let subround: SubRoundModel = await monSubRoundModel.findOne({Name: mapping.ChildRound.toLocaleUpperCase()}).then(sr => sr ? Object.assign(new SubRoundModel(), sr.toJSON()) : null);
+
+            //get the regular questions for the current roud
+            
+
+            //get the player rating questions for the current round
+            let responses: ResponseModel[] = await monResponseModel.find({GameId, SubRoundId: subround._id}).then(rs => rs ? rs.map(r => Object.assign(new ResponseModel, r.toJSON())): []);
+
+            let groupedResponses:any = {};
+
+            game.Teams.forEach(t => {
+                if (!groupedResponses["Team " + t.Number.toString()]) groupedResponses["Team " + t.Number.toString()] = responses.filter(r => {
+                    return r.TeamId == t._id;
+                })
+                
+            })
+
+            res.json(groupedResponses);
+
+        }
+        catch(err){
+            console.log(err);
+            res.status(500)
+                .send("couldn't get getFascillitatorResponsesByRound")
+        }
+    }
+
     public routes() {
         //this.router.all("*", cors());
         this.router.get("/", this.GetRounds.bind(this));
@@ -775,6 +811,7 @@ class GamePlayRouter {
             this.router.get("/getsubroundscores/:gameid/:subroundid", this.getSubRoundScores.bind(this)),
             this.router.post("/response/rating", this.savePriorityRating.bind(this)),
             this.router.get("/getuserrating/:userid/:teamid", this.GetUserRatingsSoFar.bind(this))
+            this.router.get("/getfacilitatorresponses/:gameid", this.getFacilitatorResponsesByRound.bind(this))
     }
 }
 
