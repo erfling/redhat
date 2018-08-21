@@ -174,7 +174,7 @@ export default class IndividualLineChart extends React.Component<ChartingProps, 
       width={16}
       className="feedback chart-wrapper"
     >
-      {this.getLineChartData().length && this.getLineChartData().length == 1 && this.getBarChartData() &&
+      {Data && Data.length == 1 && this.getBarChartData() &&
         <Segment
           style={{ paddingLeft: 0 }}
           raised
