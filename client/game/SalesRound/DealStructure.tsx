@@ -147,9 +147,7 @@ export default class DealStructure extends BaseComponent<any, IRoundDataStore & 
                                 </Table.Header>
 
                                 <Table.Body>
-                                    {this.state.ApplicationState.SubroundResponses.sort((a, b) => {
-                                        return a > b ? 0 : 1
-                                    }).map((r, i) =>
+                                    {this.state.ApplicationState.SubroundResponses.map((r, i) =>
                                         <Table.Row key={i}>
                                             <Table.Cell>
                                                 Team {r.TeamNumber}

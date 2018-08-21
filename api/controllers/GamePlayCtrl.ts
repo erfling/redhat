@@ -207,8 +207,15 @@ class GamePlayRouter {
     public async GetTeamResponsesByRound(req: Request, res: Response) {
         const fetcher = req.body as ResponseFetcher;
         try {
-            const responses = await monResponseModel.find({ TeamId: fetcher.TeamId, GameId: fetcher.GameId, SubRoundId: fetcher.SubRoundId }).then(r => r.map(resp => resp.toObject() as ResponseModel))
-            res.json(responses)
+            console.log("WE HERE< FOOL")
+            let responses: ResponseModel[] = await monResponseModel.find({ TeamId: fetcher.TeamId, GameId: fetcher.GameId, SubRoundId: fetcher.SubRoundId }).then(r => r.map(resp => resp.toJSON() as ResponseModel))
+            responses = responses.sort((a, b) => {
+                console.log(a);
+                if (!a.TeamNumber || !b.TeamNumber || a.TeamNumber == b.TeamNumber)return 0;
+                return a.TeamNumber > b.TeamNumber ? 1 : 0;
+            });
+            console.log(responses)
+            res.json(responses);
         } catch (err) {
             res.json(err)
         }
@@ -587,11 +594,6 @@ class GamePlayRouter {
                         let gotDeal = true;
                         for (let i = 0; i < (round3Response.Answer as SliderValueObj[]).length; i++) {
                             let ans = (round3Response.Answer as SliderValueObj[])[i];
-
-                            if (ans.label == ComparisonLabel.CSAT && Number(ans.data) >= .90) {
-                                //team gets positive feedback, so we filter out negative
-                                highCsat = true;
-                            }
                             
                             if (ans.label == ComparisonLabel.PRICE_PER_CUSTOMER && Number(ans.data) >= 800) {
                                 //team gets negative feedback, so we filter out positive
@@ -619,6 +621,9 @@ class GamePlayRouter {
 
                 return score;
             });
+
+
+
 
             scores = scores.sort((s1, s2) => {
                 return s1.TotalGameScore != s2.TotalGameScore ? s1.TotalGameScore > s2.TotalGameScore ? 1 : -1 : 0;
