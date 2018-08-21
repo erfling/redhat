@@ -219,8 +219,10 @@ export class AppServer {
                 //console.log("HIT HERe", req.body);
                 try {
                     const mapping: RoundChangeMapping = Object.assign(new RoundChangeMapping(), req.body);
-                    const game: GameModel = await monGameModel.findById(req.params.gameid).populate("Teams").then(g => Object.assign(new GameModel(), g.toJSON()));
+                    const game: GameModel = await monGameModel.findById(req.params.gameid).populate("Teams")
+                    .then(g => Object.assign(new GameModel(), g.toJSON()));
 
+                    console.log("Roundchange mapping: ", RoundChangeMapping)
                     //Pick role for each player on each team
                     //TODO: get rid of magic string
                     mapping.UserJobs = {};
@@ -230,11 +232,11 @@ export class AppServer {
 
                     const round = await monRoundModel.findOne({ Name: mapping.ParentRound.toUpperCase() }).then(r => r.toJSON())
                     
+                    console.log("Roundchange mapping: ", RoundChangeMapping)
                     let srModel:SubRoundModel = await monSubRoundModel.findOne({Name:mapping.ChildRound.toUpperCase()}).then(x => x.toJSON() );
                     let SubRoundLabel: String = srModel.Label.toString().toUpperCase();
 
                       
-                    console.log("Round is now %s", SubRoundLabel);
 
                     let RoundId = round._id;
                     mapping.RoundId = round._id;
@@ -373,7 +375,8 @@ export class AppServer {
                         for (let j = 0; j < subRounds.length; j++) {
                             let subRound = subRounds[j];
 
-                     
+                            console.log("subr is now %s", SubRoundLabel);
+
                             for (let i = 0; i < game.Teams.length; i++) {
                                 let t = game.Teams[i];
                                 //get the team's responses in this subround
@@ -491,7 +494,7 @@ export class AppServer {
 
                 for (let j = 0; j < r.SubRounds.length; j++) {
                     let sr = r.SubRounds[j];
-
+                    sr.RoundId = r._id.toString();
                     if (j == 0) {
                         if (!r.PrevRound) {
                             sr.PrevSubRound = null;
