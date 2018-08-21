@@ -675,4 +675,7 @@ p:nth-of-type(even) {
         border-bottom: 1px solid #ccc;
         background: #cbeff9;
     }
+    & > div{
+        padding: 20px;
+    }
 }
