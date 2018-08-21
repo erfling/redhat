@@ -134,7 +134,7 @@ class GamePlayRouter {
                 var SaveResponse = await monResponseModel.create(response).then(r => r.toObject() as ResponseModel);
             } else {
                 delete response._id;
-                var SaveResponse = await monResponseModel.findOneAndUpdate({ questionText: question.text, GameId: response.GameId, TeamId: response.TeamId, QuestionId: response.QuestionId }, response, { new: true }).then(r => r.toObject() as ResponseModel);
+                var SaveResponse = await monResponseModel.findOneAndUpdate({ questionText: question.Text, GameId: response.GameId, TeamId: response.TeamId, QuestionId: response.QuestionId }, response, { new: true }).then(r => r.toObject() as ResponseModel);
             }
             console.log(SaveResponse);
 
