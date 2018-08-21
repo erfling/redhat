@@ -150,7 +150,7 @@ export default class ScoringLineChart extends React.Component<ChartingProps, { c
       Object.keys(roundScores).forEach(k => {
 
         let scoreRow = {
-          name: k
+          name: "Rnd " + k
         }
 
         roundScores[k].forEach(s => {
@@ -247,7 +247,8 @@ export default class ScoringLineChart extends React.Component<ChartingProps, { c
           </Header>
           <Row className="mobile-tooltip">
             <ul>
-              {this.state.roundScores && Object.keys(this.state.roundScores).sort((a, b) => {
+              <li>{this.state.roundScores && this.state.roundScores[Object.keys(this.state.roundScores)[0]]}</li>
+              {this.state.roundScores && Object.keys(this.state.roundScores).filter((k, i) => i != 0).sort((a, b) => {
                 let sortVal = 0;
                 if (this.state.roundScores[a] > this.state.roundScores[b]) {
                   sortVal = -1;
@@ -258,15 +259,10 @@ export default class ScoringLineChart extends React.Component<ChartingProps, { c
               }).map((k, i) => {
                 return <li
                 >
-                  {k == "name" &&
-                    <h2>Scores Through Round {this.state.roundScores["name"]}</h2>
-                  }
-
-                  {k != "name" &&
-                    <Label style={{ background: i == 0 ? 'transparent' : this.getTeamColor(k), border: 'none', fontWeight: 'bold' }}>
-                      {i}. {k.toUpperCase()}: {MathUtil.roundTo(this.state.roundScores[k], 2)}
-                    </Label>
-                  }
+                  <Label style={{ background:this.getTeamColor(k), border: 'none', fontWeight: 'bold' }}>
+                    {i + 1}. {k.toUpperCase()}: {MathUtil.roundTo(this.state.roundScores[k], 2)}
+                  </Label>
+                  
                 </li>
               })
               }
@@ -279,7 +275,7 @@ export default class ScoringLineChart extends React.Component<ChartingProps, { c
             height={this.state.componentWidth / 1.5}
             data={this.getLineChartData()}
           >
-            <XAxis padding={{ left: 0, right: 20 }} />
+            <XAxis padding={{ left: 0, right: 20 }} dataKey={Object.keys(this.getLineChartData()[0])[0]}/>
             <YAxis padding={{ top: 10, bottom: 0 }} domain={[0, 20]} />
             <Legend verticalAlign="bottom" height={100} onMouseEnter={this.handleMouseEnter} onMouseLeave={this.handleMouseLeave} />
             <Tooltip wrapperStyle={{ display: 'none' }} />
