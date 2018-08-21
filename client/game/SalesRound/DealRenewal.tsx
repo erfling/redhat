@@ -9,7 +9,8 @@ import BaseComponent from "../../../shared/base-sapien/client/shared-components/
 import Decisions from '-!svg-react-loader?name=Icon!../../img/decisions.svg';
 import TeamModel from "../../../shared/models/TeamModel";
 import FeedBackWrapper from "../Scoring/FeedBackWrapper";
-import { RatingType } from "../../../shared/models/QuestionModel";
+import { RatingType, ComparisonLabel } from "../../../shared/models/QuestionModel";
+import ValueObj from "../../../shared/entity-of-the-state/ValueObj";
 
 const { Button, Grid, Form, Dimmer, Loader, Header, Table } = Semantic;
 const { Row, Column } = Grid;
@@ -119,6 +120,37 @@ export default class DealRenewal extends BaseComponent<any, IRoundDataStore & {F
                         Feedback={this.controller.filterFeedBack(this.state.Scores, this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN)}
                         ChartableScores={this.controller.dataStore.ApplicationState.ChartingScores}
                     >
+                    {this.state.ApplicationState.SubroundResponses && 
+                        <>
+                            <Table striped celled>
+                                <Table.Header>
+                                    <Table.Row>
+                                        <Table.HeaderCell>
+                                            <Semantic.Label 
+                                                ribbon color="blue"
+                                            >
+                                                <Semantic.Icon name="attention"/> Important Data
+                                            </Semantic.Label>
+                                        </Table.HeaderCell>
+                                        <Table.HeaderCell>Price Per Customer</Table.HeaderCell>
+                                        <Table.HeaderCell>Customer Satisfaction</Table.HeaderCell>
+                                    </Table.Row>
+                                </Table.Header>
+
+                                <Table.Body>
+                                    {this.state.ApplicationState.SubroundResponses.map((r, i) =>
+                                        <Table.Row key={i}>
+                                            <Table.Cell>
+                                                Team {r.TeamNumber}
+                                            </Table.Cell>
+                                            <Table.Cell>{(r.Answer as ValueObj[]).filter(a => a.label == ComparisonLabel.PRICE_PER_CUSTOMER).length ? (r.Answer as ValueObj[]).filter(a => a.label == ComparisonLabel.PRICE_PER_CUSTOMER)[0].data : null}</Table.Cell>
+                                            <Table.Cell>{(r.Answer as ValueObj[]).filter(a => a.label == ComparisonLabel.CSAT).length ? Math.round( (r.Answer as ValueObj[]).filter(a => a.label == ComparisonLabel.CSAT)[0].data * 1000)/10  : null}</Table.Cell>
+                                        </Table.Row>
+                                    )}
+                                </Table.Body>
+                            </Table>
+                        </>
+                        }
                     </FeedBackWrapper> 
                     </>
                 } 
