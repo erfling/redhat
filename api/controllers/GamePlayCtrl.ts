@@ -686,7 +686,7 @@ class GamePlayRouter {
     public async GetUserRatingsSoFar(req: Request, res: Response) {
         try {
             const targetObjId = req.params.userid;
-            const TeamId = req.params.subroundid;
+            const TeamId = req.params.teamid;
 
             //let currentSubRound: SubRoundModel = await monSubRoundModel.findById(SubRoundId).then(sr => sr ? Object.assign(new SubRoundModel(), sr.toJSON()) : null);
             const team: TeamModel = await monTeamModel.findById(TeamId).then(t => t ? Object.assign(new TeamModel(), t) : null);
