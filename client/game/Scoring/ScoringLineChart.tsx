@@ -65,6 +65,7 @@ export default class ScoringLineChart extends React.Component<ChartingProps, { c
     this.setState({ componentWidth: targetWidth });
   }
 
+  static places = ["1st", "2nd", "3rd", "4th", "5th", "6th", "8th", "9th", "10th", "11th", "12th"]
   static rounds = ["Round 1", "Round 2", "Round 3", "Round 4", "Round 5"];
   static Colors = ["#3b67c5", "#cd4c2d", "#f29e3c", "#499535", "#fff", "#00b5ad", "#cbeff9"];
   static MappedColors: any;
@@ -263,7 +264,7 @@ export default class ScoringLineChart extends React.Component<ChartingProps, { c
                 return <li
                 >
                   <Label style={{ background:this.getTeamColor(k), border: 'none', fontWeight: 'bold' }}>
-                    {i + 1}. {k.toUpperCase()}: <br/>{MathUtil.roundTo(this.state.roundScores[k], 2)}
+                    {ScoringLineChart.places[i]}. {k.toUpperCase()}: <br/>{MathUtil.roundTo(this.state.roundScores[k], 2)}
                   </Label>
                   
                 </li>
