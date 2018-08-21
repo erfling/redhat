@@ -486,7 +486,7 @@ class RoundRouter {
         this.router.get("/", this.GetRounds.bind(this));
         this.router.get("/:round", this.GetRound.bind(this));
         this.router.get("/subround/:subround/:gameid/:userid/:job", this.GetMessages.bind(this));
-        this.router.get("/subround/:subround/:job/:TeamId", this.GetSubRound3B.bind(this));
+        this.router.get("/get2bquestions/:TeamId", this.GetSubRound3B.bind(this));
         this.router.post("/",
             Passport.authenticate('jwt', { session: false }),
             (req, res, next) => AuthUtils.IS_USER_AUTHORIZED(req, res, next, PERMISSION_LEVELS.PLAYER),
