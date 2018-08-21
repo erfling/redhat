@@ -262,13 +262,11 @@ class RoundRouter {
 
     public async GetSubRound3B(req: Request, res: Response): Promise<any> {
 
-        const ID = req.params.subround;
         const TeamId = req.params.TeamId
-        const job = this._getMessageProp(req.params.job);
 
-        console.log("3B3B3B3BTRYING TO GET ROUND WITH NAME: ", ID);
+        console.log("3B3B3B3BTRYING TO GET ROUND WITH NAME: ", "DEALRENEWAL");
         try {
-            let round: SubRoundModel = await monSubRoundModel.findOne({ Name: ID }).populate("Questions").populate(job).then(r => r ? Object.assign(new SubRoundModel(), r.toJSON()) : null);
+            let round: SubRoundModel = await monSubRoundModel.findOne({ Name: "DEALRENEWAL" }).populate("Questions").then(r => r ? Object.assign(new SubRoundModel(), r.toJSON()) : null);
             if (!round) {
                 res.status(400).json({ error: 'No round' });
             } else {

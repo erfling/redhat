@@ -67,9 +67,14 @@ export default class SalesRoundCtrl extends BaseRoundCtrl<IRoundDataStore & {Fee
     public getContentBySubRound() {
         var subroundName = window.location.pathname.split("/").filter(str => str.length).pop().toUpperCase();
         if(subroundName == "DEALRENEWAL"){
-            let url = SapienServerCom.BASE_REST_URL + "rounds/subround/" + subroundName + "/" + this.dataStore.ApplicationState.CurrentUser.Job + "/" + this.dataStore.ApplicationState.CurrentTeam._id
-            return super.getContentBySubRound(url).then(this.getResponsesByRound.bind(this));
-        
+            return super.getContentBySubRound()
+                    .then((sr: SubRoundModel) => {
+                        return SapienServerCom.GetData(null, null, SapienServerCom.BASE_REST_URL + "get2bquestions/" + this.dataStore.ApplicationState.CurrentTeam._id ).then((subround: SubRoundModel) => {
+                            sr.Questions = this.dataStore.SubRound.Questions = subround.Questions;
+                            return sr;
+                        })
+                    })
+                    .then(this.getResponsesByRound.bind(this));        
         } else {
             return super.getContentBySubRound();
         }
