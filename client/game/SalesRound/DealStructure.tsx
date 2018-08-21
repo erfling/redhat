@@ -113,7 +113,7 @@ export default class DealStructure extends BaseComponent<any, IRoundDataStore & 
                         </Form>
                     </div>
                 }
-                <pre>{this.state.Scores && JSON.stringify(this.state.Scores, null, 2)}</pre>
+                <pre>{this.state.ApplicationState.SubroundResponses && JSON.stringify(this.state.ApplicationState.SubroundResponses, null, 2)}</pre>
                 {this.state.ApplicationState.ShowFeedback && thisSubRound && this.state.Scores && <>
                     <FeedBackWrapper
                         TeamId={this.state.ApplicationState.CurrentTeam._id}
