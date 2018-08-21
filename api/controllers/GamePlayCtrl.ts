@@ -689,11 +689,11 @@ class GamePlayRouter {
             const TeamId = req.params.teamid;
 
             //let currentSubRound: SubRoundModel = await monSubRoundModel.findById(SubRoundId).then(sr => sr ? Object.assign(new SubRoundModel(), sr.toJSON()) : null);
-            const team: TeamModel = await monTeamModel.findById(TeamId).then(t => t ? Object.assign(new TeamModel(), t) : null);
+            const team: TeamModel = await monTeamModel.findById(TeamId).then(t => t ? Object.assign(new TeamModel(), t.toJSON()) : null);
             console.log("TEAM BE", team);
 
-            const game = await monGameModel.findById(team.GameId).then(g => g ? Object.assign(new GameModel(), g) : null);
-            const currentSubRound = await monSubRoundModel.find(game.CurrentRound.ChildRound.toLocaleUpperCase()).then(s => s ? Object.assign(new SubRoundModel(), s) : null)
+            const game = await monGameModel.findById(team.GameId).then(g => g ? Object.assign(new GameModel(), g.toJSON()) : null);
+            const currentSubRound = await monSubRoundModel.findOne(game.CurrentRound.ChildRound.toLocaleUpperCase()).then(s => s ? Object.assign(new SubRoundModel(), s.toJSON()) : null)
             
             if (!currentSubRound) throw new Error("Didn't get subround");
 
