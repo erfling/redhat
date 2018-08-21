@@ -23,7 +23,8 @@ interface FeedBackProps {
     SubRoundId?: string;
     onSaveHandler?(message: MessageModel, subroundId: string): void;
     IsEditable?: boolean,
-    ChartableScores?: SubRoundScore[]
+    ChartableScores?: SubRoundScore[];
+    YaxisDomain?: number;
 }
 
 export default class FeedBackWrapper extends React.Component<FeedBackProps, any>

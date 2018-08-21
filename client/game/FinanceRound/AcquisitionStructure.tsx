@@ -116,6 +116,7 @@ export default class AcquisitionStructure extends BaseComponent<any, IRoundDataS
                         RoundName="Round 4"
                         Feedback={this.controller.filterFeedBack(this.state.Scores, this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN)}
                         ChartableScores={this.controller.dataStore.ApplicationState.ChartingScores}
+                        YaxisDomain={80}
                     >
                     </FeedBackWrapper> 
                     </>
