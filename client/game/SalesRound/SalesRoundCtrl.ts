@@ -131,7 +131,7 @@ export default class SalesRoundCtrl extends BaseRoundCtrl<IRoundDataStore & {Fee
                 csat *= 1.1;
             }
         }
-        return csat;
+        return csat + .15;
     }
 
     _getScore(questions: QuestionModel[]){
@@ -142,7 +142,7 @@ export default class SalesRoundCtrl extends BaseRoundCtrl<IRoundDataStore & {Fee
         let maxMoney = maxPrice * maxQuant
         let moneyScore = MathUtil.roundTo(this._responseMap[ComparisonLabel.PRICE].data * this._responseMap[ComparisonLabel.QUANTITY].data / maxMoney, 2);
         let score = 0;
-        if(this._getPrice() && this._getPrice() < 750 || (this.dataStore.SubRound && this.dataStore.SubRound.Label == "2B")){
+        if(this._getPrice() && this._getPrice() < 800 || (this.dataStore.SubRound && this.dataStore.SubRound.Label == "2B")){
             score = (moneyScore * 7)
             if(this._getCSAT() ){
                 score += this._getCSAT() * 2;
@@ -159,23 +159,14 @@ export default class SalesRoundCtrl extends BaseRoundCtrl<IRoundDataStore & {Fee
     }
 
     SaveResponses(subround: SubRoundModel, question: QuestionModel){
-       /*
-            let response = q.Response;
-            response.Score = 0;
-            response.TeamId = this.dataStore.ApplicationState.CurrentTeam._id;
-            response.QuestionId = q._id;
-            response.RoundId = subround.RoundId;
-            response.SubRoundId = subround._id;
-            response.GameId = this.dataStore.ApplicationState.CurrentTeam.GameId;
-            this.dataStore.ApplicationState.FormIsSubmitting = response.IsSaving = true;
-        
-*/
+       
         this.Response.SkipScoring = true;
         this.Response.MaxScore = 10;
 
         this.SaveResponse(this.Response, question, subround).then(
            (r) => this.MapResponsesToQuestions(r, this.Response)
         )
+        
     }
 
     public async getResponsesByRound(r: SubRoundModel): Promise<SubRoundModel> {
