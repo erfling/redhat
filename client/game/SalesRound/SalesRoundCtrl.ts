@@ -249,7 +249,7 @@ export default class SalesRoundCtrl extends BaseRoundCtrl<IRoundDataStore & {Fee
             return this.dataStore.Scores;
         })
         .then(this.getChartingScores.bind(this))
-        .then(this.GetFeedback.bind(this))
+        .then(this.getResponsesBySubround.bind(this))
     }
 
     public GetFeedback(){
