@@ -591,7 +591,7 @@ class GamePlayRouter {
 
                             } else if (ans.label == ComparisonLabel.PRICE_PER_CUSTOMER && Number(ans.data) >= 750) {
                                 //team gets negative feedback, so we filter out positive
-                                posOrNeg = ValueDemomination.POSITIVE;
+                                posOrNeg = ValueDemomination.NEGATIVE;
                             }
                         }
                     }
