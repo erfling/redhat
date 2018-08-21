@@ -10,7 +10,6 @@ import TeamModel from "../../../shared/models/TeamModel";
 import SubRoundScore from "../../../shared/models/SubRoundScore";
 
 interface ChartingProps {
-  Scores: any[];
   TeamId: string;
   PlayerId: string;
   Data: any[];
@@ -33,7 +32,6 @@ export default class IndividualLineChart extends React.Component<ChartingProps, 
 {
   constructor(props: ChartingProps) {
     props = props || {
-      Scores: null,
       TeamId: null,
       PlayerId: null,
       Data: null
@@ -112,69 +110,16 @@ export default class IndividualLineChart extends React.Component<ChartingProps, 
     return score;
   }
 
-  getLineChartData() {
-    if (this.props.Scores) {
-
-      //get the scores round by round
-      let roundScores = groupBy(this.props.Scores, "RoundLabel");
-
-      let finalScores = [];
-      Object.keys(roundScores).forEach(k => {
-
-        let scoreRow = {
-          name: k
-        }
-
-        roundScores[k].forEach(s => {
-          scoreRow[s.TeamLabel] = this.getScoreSoFar(s.TeamId, this.props.Scores, s.RoundLabel)
-        })
-
-        finalScores.push(scoreRow);
-      })
-
-      return finalScores;
-
-    }
-  }
-
-  getBarChartData() {
-    if (this.props.Scores) {
-
-      //get the scores round by round
-      let roundScores = groupBy(this.props.Scores, "RoundLabel");
-      let sortedRounds = Object.keys(roundScores).sort((a, b) => {
-        return Number(a > b);
-      });
-
-      let mostRecentRound = sortedRounds[0]
-      //console.warn("most recent",mostRecentRound, sortedRounds, Array.isArray(sortedRounds));
-      let scoreRow: any = {
-        name: "Round " + mostRecentRound
-      };
-
-      let groupedTeamScores = groupBy(roundScores[mostRecentRound], "TeamLabel");
-      Object.keys(groupedTeamScores).forEach(k => {
-        scoreRow[k] = MathUtil.roundTo(groupedTeamScores[k].reduce((score, teamScoreObj) => {
-          return score + teamScoreObj.NormalizedScore
-        }, 0), 2)//this.getScoreSoFar(groupedTeamScores[k][0].TeamId, roundScores[mostRecentRound], mostRecentRound);
-      })
-
-
-      // return roundScores[mostRecentRound];
-      return [scoreRow];
-    }
-  }
-
   //TODO: mobile tooltip stuff
   render() {
-    const { Scores, TeamId, Data } = this.props;
+    const {  TeamId, Data } = this.props;
     const colors = ["#3b67c5", "#cd4c2d", "#f29e3c", "#499535", "#fff", "#00b5ad", "#00afe0"];
 
     return <Column
       width={16}
       className="feedback chart-wrapper"
     >
-      {Data && Data.length == 1 && this.getBarChartData() &&
+      {Data && Data.length == 1 &&
         <Segment
           style={{ paddingLeft: 0 }}
           raised
