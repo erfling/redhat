@@ -69,7 +69,7 @@ export default class SalesRoundCtrl extends BaseRoundCtrl<IRoundDataStore & {Fee
         if(subroundName == "DEALRENEWAL"){
             return super.getContentBySubRound()
                     .then((sr: SubRoundModel) => {
-                        return SapienServerCom.GetData(null, null, SapienServerCom.BASE_REST_URL + "get2bquestions/" + this.dataStore.ApplicationState.CurrentTeam._id ).then((subround: SubRoundModel) => {
+                        return SapienServerCom.GetData(null, null, SapienServerCom.BASE_REST_URL + "rounds/get2bquestions/" + this.dataStore.ApplicationState.CurrentTeam._id ).then((subround: SubRoundModel) => {
                             sr.Questions = this.dataStore.SubRound.Questions = subround.Questions;
                             return sr;
                         })
