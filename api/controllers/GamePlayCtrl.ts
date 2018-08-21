@@ -365,7 +365,7 @@ class GamePlayRouter {
             const subround = await monSubRoundModel.findOne().then(r => r ? r.toJSON() : null)
             if (!subround) throw new Error("no subround");
             //get the individual rating questions
-            let question: QuestionModel = await monQModel.findOne({RatingMarker: RatingType.MANAGER_RATING})
+            let question: QuestionModel = await monQModel.findOne({ RatingMarker: RatingType.MANAGER_RATING })
                 .then(q => q ? Object.assign(new QuestionModel(), q.toJSON()) : null);
 
             let mgr = players.filter(p => jobMap[p._id.toString()] == JobName.MANAGER)[0];
@@ -451,11 +451,11 @@ class GamePlayRouter {
                 }
             } else {
                 let answers = response.Answer as SliderValueObj[];
-                for(var i = 0; i < answers.length; i ++){
+                for (var i = 0; i < answers.length; i++) {
                     let ans = answers[i];
-                    console.dir("HHHHHHHHHHHEEEEEEEEEEEEEEEEEEEEEEEEEEYYYYYYYYYYYYY",response)
+                    console.dir("HHHHHHHHHHHEEEEEEEEEEEEEEEEEEEEEEEEEEYYYYYYYYYYYYY", response)
                     let queryObj: any = { DisplayLabel: ans.label, SubRoundId: response.SubRoundId, GameId: response.GameId, TeamId: response.TeamId, QuestionId: response.QuestionId, targetObjId: (response.Answer as SliderValueObj[])[0].targetObjId }
-    
+
                     const oldResponse = await monResponseModel.findOne(queryObj).then(r => r ? r.toJSON() : null);
                     let r = Object.assign({}, response);
                     r.targetObjClass = "UserModel";
@@ -471,9 +471,9 @@ class GamePlayRouter {
                         var SaveResponse = await monResponseModel.findOneAndUpdate(queryObj, r, { new: true }).then(r => r.toObject() as ResponseModel);
                     }
                     console.log(SaveResponse);
-    
+
                 }
-                
+
             }
 
             res.json(response)
@@ -503,11 +503,11 @@ class GamePlayRouter {
                 .then(srs => srs ? srs.map(
                     b => Object.assign(new SubRoundScore(), b.toJSON())) : []);
 
-            
+
             console.log(roundScores);
             if (!roundScores) throw new Error();
             roundScores = roundScores.filter(rs => {
-                console.log(rs.RoundLabel, SubRoundLabel,rs.RoundLabel <= SubRoundLabel);
+                console.log(rs.RoundLabel, SubRoundLabel, rs.RoundLabel <= SubRoundLabel);
                 return rs.RoundLabel <= SubRoundLabel;
             });
             res.json(roundScores);
@@ -555,7 +555,7 @@ class GamePlayRouter {
                 }, 0);
 
                 score.TargetObjectId = k;
-                score.Label = "Team " + teams.filter(t => t._id.toString() == k)[0].Number.toString();
+                score.Label = "Team " + teams.filter(t => t._id.toString() == k)[0] ? "Team " + teams.filter(t => t._id.toString() == k)[0].Number.toString() : null;
                 score.TargetModel = "TeamModel";
 
                 score.TeamsFeedBack = subround ? subround.FeedBack : null;
@@ -565,16 +565,18 @@ class GamePlayRouter {
                     let round3Response = groupedResponses[k].filter(r => r.SubRoundId == SubRoundId)[0];
 
                     let posOrNeg;
-                    for (let i = 0; i < (round3Response.Answer as SliderValueObj[]).length; i++) {
-                        let ans = (round3Response.Answer as SliderValueObj[])[i];
+                    if (round3Response) {
+                        for (let i = 0; i < (round3Response.Answer as SliderValueObj[]).length; i++) {
+                            let ans = (round3Response.Answer as SliderValueObj[])[i];
 
-                        if (ans.label == ComparisonLabel.CSAT && Number(ans.data) >= 90) {
-                            //team gets positive feedback, so we filter out negative
-                            posOrNeg = ValueDemomination.NEGATIVE;
+                            if (ans.label == ComparisonLabel.CSAT && Number(ans.data) >= 90) {
+                                //team gets positive feedback, so we filter out negative
+                                posOrNeg = ValueDemomination.NEGATIVE;
 
-                        } else if (ans.label == ComparisonLabel.PRICE_PER_CUSTOMER && Number(ans.data) >= 750) {
-                            //team gets negative feedback, so we filter out positive
-                            posOrNeg = ValueDemomination.POSITIVE;
+                            } else if (ans.label == ComparisonLabel.PRICE_PER_CUSTOMER && Number(ans.data) >= 750) {
+                                //team gets negative feedback, so we filter out positive
+                                posOrNeg = ValueDemomination.POSITIVE;
+                            }
                         }
                     }
 
@@ -588,11 +590,11 @@ class GamePlayRouter {
                 return s1.TotalGameScore != s2.TotalGameScore ? s1.TotalGameScore > s2.TotalGameScore ? 1 : -1 : 0;
             })
 
-         
+
             res.json(scores);
         }
         catch (err) {
-console.log(err);
+            console.log(err);
             res.status(500);
             res.send("couldn't get resposnes")
         }
@@ -687,7 +689,7 @@ console.log(err);
             const SubRoundId = req.params.subroundid;
 
             let currentSubRound: SubRoundModel = await monSubRoundModel.findById(SubRoundId).then(sr => sr ? Object.assign(new SubRoundModel(), sr.toJSON()) : null);
-            if( !currentSubRound)  throw new Error("Didn't get subround");
+            if (!currentSubRound) throw new Error("Didn't get subround");
 
             let subRounds: SubRoundModel[] = await monSubRoundModel.find().then(srs => srs ? srs.map(sr => Object.assign(new SubRoundModel(), sr.toJSON())) : null);
             subRounds.sort((a, b) => {
@@ -697,15 +699,15 @@ console.log(err);
                     return 1;
                 return 0;
             })
-            let responses: ResponseModel[] = await monResponseModel.find({targetObjId, targetObjClass: "UserModel"}).then(rs => rs ? rs.map(r => Object.assign(new ResponseModel(), r.toJSON())) : null );
+            let responses: ResponseModel[] = await monResponseModel.find({ targetObjId, targetObjClass: "UserModel" }).then(rs => rs ? rs.map(r => Object.assign(new ResponseModel(), r.toJSON())) : null);
             if (!responses) throw new Error("Didn't get responses");
 
             // sorted subRoundIds, truncated to include only currentSubRound or before
             let subRoundIds: string[] = subRounds.filter((sr) => {
                 console.log("DUDE:", sr.Label, currentSubRound.Label, sr.Label <= currentSubRound.Label, responses);
-                
-                return sr.Label <= currentSubRound.Label && responses.filter(r => { 
-                    console.log("PAINIS",r.RoundId, sr.RoundId, r.RoundId == sr.RoundId);
+
+                return sr.Label <= currentSubRound.Label && responses.filter(r => {
+                    console.log("PAINIS", r.RoundId, sr.RoundId, r.RoundId == sr.RoundId);
                     return r.RoundId == sr.RoundId;
                 }).length;
             }).map(sr => sr._id);
@@ -719,7 +721,7 @@ console.log(err);
                 return allDisplayLabels;
             }, []);
 
-            let orderedResponses: Array<{[key:string]:ResponseModel[]}> = [];
+            let orderedResponses: Array<{ [key: string]: ResponseModel[] }> = [];
             // Build orderedResponses based on already sorted subRoundIds, so orderedResponses are sorted too
             for (var n = 0; n < subRoundIds.length; n++) {
                 orderedResponses[n] = {};
@@ -729,7 +731,7 @@ console.log(err);
             }
 
             res.json(orderedResponses);
-        } 
+        }
         catch (err) {
             console.log(err);
             res.status(500)
@@ -750,10 +752,10 @@ console.log(err);
         this.router.post("/bid", this.SubmitBid.bind(this), this.SaveResponse.bind(this));
         this.router.post("/3response", this.SaveRound3Response.bind(this));
         this.router.get("/getscores/:subroundid/:roundid/:gameid", this.getScores.bind(this)),
-        this.router.get("/getuserscores/:subroundid/:roundid/:gameid", this.getUserScores.bind(this)),
-        this.router.get("/getsubroundscores/:gameid/:subroundid", this.getSubRoundScores.bind(this)),
-        this.router.post("/response/rating", this.savePriorityRating.bind(this)),
-        this.router.get("/getuserrating/:userid/:subroundid", this.GetUserRatingsSoFar.bind(this))
+            this.router.get("/getuserscores/:subroundid/:roundid/:gameid", this.getUserScores.bind(this)),
+            this.router.get("/getsubroundscores/:gameid/:subroundid", this.getSubRoundScores.bind(this)),
+            this.router.post("/response/rating", this.savePriorityRating.bind(this)),
+            this.router.get("/getuserrating/:userid/:subroundid", this.GetUserRatingsSoFar.bind(this))
     }
 }
 
