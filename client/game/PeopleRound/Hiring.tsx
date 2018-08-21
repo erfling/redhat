@@ -128,7 +128,6 @@ export default class Hiring extends BaseComponent<any, IRoundDataStore>
 
                 {this.state.ApplicationState.ShowIndividualFeedback && this.state.UserRatings && userRatingsChart.length && thisSubRound && this.state.UserScores &&
                     <IndividualLineChart
-                        Scores={this.state.UserScores}
                         TeamId={this.state.ApplicationState.CurrentTeam._id}
                         PlayerId={this.state.ApplicationState.CurrentUser._id}
                         Data={userRatingsChart}
