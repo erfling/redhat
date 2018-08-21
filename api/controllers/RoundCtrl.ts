@@ -404,7 +404,7 @@ class RoundRouter {
             //get all the teams in the game
             const game: GameModel = await monGameModel.findById(GameId).populate('Teams').then(g => g ? Object.assign(new GameModel(), g.toJSON()) : null)
             let mapping: RoundChangeMapping = game.CurrentRound;
-            let round: RoundModel = await monRoundModel.findOne({Name: mapping.ParentRound.toUpperCase}).then(r => r ? Object.assign(new RoundModel(), r.toJSON()): null)
+            let round: RoundModel = await monRoundModel.findOne({Name: mapping.ParentRound.toUpperCase()}).then(r => r ? Object.assign(new RoundModel(), r.toJSON()): null)
             console.log("FOUDN THIS GAME", game)
             //get all the response for the relevant round in this game
             const responses = await monResponseModel.find({ GameId, RoundId: round._id }).then(r => r ? r.map(resp => Object.assign(new ResponseModel(), resp.toJSON())) : null);
