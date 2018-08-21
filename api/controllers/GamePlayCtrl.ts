@@ -605,6 +605,9 @@ class GamePlayRouter {
                                 return fb.ValueDemomination == ValueDemomination.NEGATIVE || fb.ValueDemomination == ValueDemomination.NEUTRAL;
                             } else if(highCsat) {
                                 return fb.ValueDemomination == ValueDemomination.POSITIVE || fb.ValueDemomination == ValueDemomination.NEUTRAL;
+                            } else {
+                                return fb.ValueDemomination == ValueDemomination.NEUTRAL;
+
                             }
 
                             return true;
