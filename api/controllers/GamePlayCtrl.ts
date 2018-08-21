@@ -593,7 +593,7 @@ class GamePlayRouter {
                                 highCsat = true;
                             }
                             
-                            if (ans.label == ComparisonLabel.PRICE_PER_CUSTOMER && Number(ans.data) >= 750) {
+                            if (ans.label == ComparisonLabel.PRICE_PER_CUSTOMER && Number(ans.data) >= 800) {
                                 //team gets negative feedback, so we filter out positive
                                 gotDeal = false;
                             }
