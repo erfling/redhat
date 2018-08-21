@@ -686,9 +686,13 @@ class GamePlayRouter {
     public async GetUserRatingsSoFar(req: Request, res: Response) {
         try {
             const targetObjId = req.params.userid;
-            const SubRoundId = req.params.subroundid;
+            const TeamId = req.params.subroundid;
 
-            let currentSubRound: SubRoundModel = await monSubRoundModel.findById(SubRoundId).then(sr => sr ? Object.assign(new SubRoundModel(), sr.toJSON()) : null);
+            //let currentSubRound: SubRoundModel = await monSubRoundModel.findById(SubRoundId).then(sr => sr ? Object.assign(new SubRoundModel(), sr.toJSON()) : null);
+            const team: TeamModel = await monTeamModel.findById(TeamId).then(t => t ? Object.assign(new TeamModel(), t) : null);
+            const game = await monGameModel.findById(team.GameId).then(g => g ? Object.assign(new GameModel(), g) : null);
+            const currentSubRound = await monSubRoundModel.find(game.CurrentRound.ChildRound.toLocaleUpperCase()).then(s => s ? Object.assign(new SubRoundModel(), s) : null)
+            
             if (!currentSubRound) throw new Error("Didn't get subround");
 
             let subRounds: SubRoundModel[] = await monSubRoundModel.find().then(srs => srs ? srs.map(sr => Object.assign(new SubRoundModel(), sr.toJSON())) : null);
@@ -755,7 +759,7 @@ class GamePlayRouter {
             this.router.get("/getuserscores/:subroundid/:roundid/:gameid", this.getUserScores.bind(this)),
             this.router.get("/getsubroundscores/:gameid/:subroundid", this.getSubRoundScores.bind(this)),
             this.router.post("/response/rating", this.savePriorityRating.bind(this)),
-            this.router.get("/getuserrating/:userid/:subroundid", this.GetUserRatingsSoFar.bind(this))
+            this.router.get("/getuserrating/:userid/:teamid", this.GetUserRatingsSoFar.bind(this))
     }
 }
 
