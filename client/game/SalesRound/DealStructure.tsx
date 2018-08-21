@@ -9,11 +9,12 @@ import BaseComponent from "../../../shared/base-sapien/client/shared-components/
 import Decisions from '-!svg-react-loader?name=Icon!../../img/decisions.svg';
 import FeedBackWrapper from '../Scoring/FeedBackWrapper';
 import TeamModel from "../../../shared/models/TeamModel";
-import { ComparisonLabel } from "../../../shared/models/QuestionModel";
+import { ComparisonLabel, RatingType } from "../../../shared/models/QuestionModel";
 import MathUtil from '../../../shared/entity-of-the-state/MathUtil'
 import ValueObj, { SliderValueObj } from "../../../shared/entity-of-the-state/ValueObj";
 import GameCtrl from "../GameCtrl";
 import { Icon } from "semantic-ui-react";
+import IndividualLineChart from "../Scoring/IndividualLineChart";
 
 const { Button, Grid, Form, Dimmer, Loader, Header, Table } = Semantic;
 const { Row, Column } = Grid;
@@ -63,7 +64,10 @@ export default class DealStructure extends BaseComponent<any, IRoundDataStore & 
 
     render() {
         const thisSubRound = this.state.Round.SubRounds.filter(s => s.Name.toUpperCase() == DealStructure.CLASS_NAME.toUpperCase())[0]
-
+        let userRatingsChart;
+        if (this.state.SubRound && this.state.UserRatings) {
+            userRatingsChart = this.controller.getUserRatingsChartShaped(this.state.UserRatings);
+        }
         if (this.state) {
             return <>
                 {!this.state.ApplicationState.ShowFeedback && this.state.ApplicationState.CurrentUser.Job == JobName.MANAGER && thisSubRound != null && thisSubRound.Questions &&
@@ -143,7 +147,9 @@ export default class DealStructure extends BaseComponent<any, IRoundDataStore & 
                                 </Table.Header>
 
                                 <Table.Body>
-                                    {this.state.ApplicationState.SubroundResponses.map((r, i) =>
+                                    {this.state.ApplicationState.SubroundResponses.sort((a, b) => {
+                                        return a > b ? 0 : 1
+                                    }).map((r, i) =>
                                         <Table.Row key={i}>
                                             <Table.Cell>
                                                 Team {r.TeamNumber}
@@ -161,7 +167,60 @@ export default class DealStructure extends BaseComponent<any, IRoundDataStore & 
                 </>
                 }
 
+                {this.state.ApplicationState.ShowIndividualFeedback && this.state.UserRatings && userRatingsChart && userRatingsChart.length && thisSubRound &&
+                    <IndividualLineChart
+                        TeamId={this.state.ApplicationState.CurrentTeam._id}
+                        PlayerId={this.state.ApplicationState.CurrentUser._id}
+                        Data={userRatingsChart}
+                    />
+                } 
+{this.state.ApplicationState.ShowRateUsers && this.state.RatingQuestions && <div
+                    className={'show ' + (this.state.ApplicationState.MobileWidth ? "mobile-messages decisions" : "wide-messages decisions")}
+                >
+                    <Form
+                        style={{ width: '100%' }}
+                    >
+                        <Header>
+                            <Decisions
+                                className="ui circular image"
+                                style={{ width: '40px' }}
+                            />
+                            Decisions
+                            </Header>
 
+                        {this.state.RatingQuestions.filter(q => {
+                            return q.RatingMarker == RatingType.MANAGER_RATING ? this.state.ApplicationState.CurrentUser.Job != JobName.MANAGER : this.state.ApplicationState.CurrentUser.Job == JobName.MANAGER
+                        }).map((q, i) => {
+                            return <Row
+                                key={"question-" + i.toString()}
+                            >
+                                <EditableQuestionBlock
+                                    Question={q}
+                                    idx={i}
+                                    key={i}
+                                    SubRoundId={thisSubRound._id}
+                                    onChangeHander={r => {
+                                        console.log(r);
+                                        this.controller.updateResponse(q, r)
+                                    }}
+                                    IsEditable={this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN}
+                                />
+                                <Button
+                                    content='Submit'
+                                    icon='checkmark'
+                                    labelPosition='right'
+                                    color="blue"
+                                    loading={q.Response ? q.Response.IsSaving : false}
+                                    onClick={e => {
+                                        this.controller.SavePlayerRating(q.Response, q, thisSubRound)
+                                    }}
+                                />
+                            </Row>
+                        }
+                        )}
+                    </Form>
+                </div>
+                }
                 {thisSubRound && !this.state.ApplicationState.ShowMessageList && !this.state.ApplicationState.ShowQuestions && this.state.ApplicationState.SelectedMessage && !this.state.ApplicationState.ShowFeedback &&
                     <EditableContentBlock
                         IsEditable={this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN}

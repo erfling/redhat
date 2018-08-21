@@ -11,6 +11,7 @@ import TeamModel from "../../../shared/models/TeamModel";
 import FeedBackWrapper from "../Scoring/FeedBackWrapper";
 import { RatingType, ComparisonLabel } from "../../../shared/models/QuestionModel";
 import ValueObj from "../../../shared/entity-of-the-state/ValueObj";
+import IndividualLineChart from "../Scoring/IndividualLineChart";
 
 const { Button, Grid, Form, Dimmer, Loader, Header, Table } = Semantic;
 const { Row, Column } = Grid;
@@ -58,7 +59,10 @@ export default class DealRenewal extends BaseComponent<any, IRoundDataStore & {F
 
     render() {
         const thisSubRound = this.state.Round.SubRounds.filter(s => s.Name.toUpperCase() == DealRenewal.CLASS_NAME.toUpperCase())[0]
-        
+        let userRatingsChart;
+        if (this.state.SubRound && this.state.UserRatings) {
+            userRatingsChart = this.controller.getUserRatingsChartShaped(this.state.UserRatings);
+        }
         if (this.state) {
             return <>
                 {this.state.ApplicationState.CurrentUser.Job == JobName.MANAGER && thisSubRound != null && thisSubRound.Questions &&
@@ -155,16 +159,13 @@ export default class DealRenewal extends BaseComponent<any, IRoundDataStore & {F
                     </>
                 } 
 
-                {this.state.ApplicationState.ShowIndividualFeedback && thisSubRound && this.state.UserScores &&
-                    <FeedBackWrapper
-                        User={this.state.ApplicationState.CurrentUser}
+                {this.state.ApplicationState.ShowIndividualFeedback && this.state.UserRatings && userRatingsChart && userRatingsChart.length && thisSubRound &&
+                    <IndividualLineChart
                         TeamId={this.state.ApplicationState.CurrentTeam._id}
-                        Scores={this.state.UserScores}
-                        RoundName="Round 3"                        
-                    >
-                        
-                    </FeedBackWrapper> 
-                }
+                        PlayerId={this.state.ApplicationState.CurrentUser._id}
+                        Data={userRatingsChart}
+                    />
+                }  
                   
                 {this.state.ApplicationState.ShowRateUsers && this.state.RatingQuestions && <div
                     className={'show ' + (this.state.ApplicationState.MobileWidth ? "mobile-messages decisions" : "wide-messages decisions")}
