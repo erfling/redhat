@@ -587,9 +587,11 @@ class GamePlayRouter {
 
                             if (ans.label == ComparisonLabel.CSAT && Number(ans.data) >= 90) {
                                 //team gets positive feedback, so we filter out negative
-                                posOrNeg = ValueDemomination.NEGATIVE;
+                                posOrNeg = ValueDemomination.POSITIVE;
 
-                            } else if (ans.label == ComparisonLabel.PRICE_PER_CUSTOMER && Number(ans.data) >= 750) {
+                            } 
+                            
+                            if (ans.label == ComparisonLabel.PRICE_PER_CUSTOMER && Number(ans.data) >= 750) {
                                 //team gets negative feedback, so we filter out positive
                                 posOrNeg = ValueDemomination.NEGATIVE;
                             }
