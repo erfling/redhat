@@ -14,7 +14,7 @@ import Game from "./game/Game";
 import Login from "./login/Login";
 import SalesRoundCtrl from "./game/SalesRound/SalesRoundCtrl";
 import { Label } from "recharts";
-
+import FacilitatoScores from './admin/FacilitatorScores';
 export default class App extends BaseComponent<any, IControllerDataStore>
 {
     //----------------------------------------------------------------------
@@ -448,6 +448,13 @@ export default class App extends BaseComponent<any, IControllerDataStore>
 
                                                 }}
                                             />
+                                            <MenuItem
+                                                name={RoleName.FACILITATOR}
+                                                onClick={e => {                                                   
+                                                    e.preventDefault();
+                                                    this.props.history.push("/facilitator")
+                                                }}
+                                            />
                                         </Menu.Item>
                                     </Menu.Item>
                                 </>
@@ -470,6 +477,7 @@ export default class App extends BaseComponent<any, IControllerDataStore>
                             <Route path="/game" component={Game} />
                             <Route path="/login" component={Login} />
                             <Route path="/admin" component={Admin} />
+                            {this.state.ApplicationState.CurrentUser && this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN && <Route path="/facilitator" component={FacilitatoScores} />}
                         </Switch>
                     </div>
 

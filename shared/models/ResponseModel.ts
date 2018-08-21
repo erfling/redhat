@@ -70,6 +70,9 @@ export default class ResponseModel extends BaseModel
     @dbProp(String)
     public targetObjName;
 
+    @dbProp(String)
+    public questionText: string;
+
     public resolveScore(): number {
         const ans: SliderValueObj[] = this.Answer as SliderValueObj[];
         var maxScore: number = 0;

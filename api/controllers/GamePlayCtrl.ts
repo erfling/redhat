@@ -108,9 +108,10 @@ class GamePlayRouter {
         const response: ResponseModel = Object.assign(new ResponseModel(), req.body as ResponseModel);
 
         try {
-            console.log("SHOULD IGNORE SCOING IF ROUND 4", response)
+            console.log("SHOULD IGNORE SCOING IF ROUND 4", response);
+            const question = await monQModel.findById(response.QuestionId).then(q => q.toJSON());
+
             if (!response.SkipScoring) {
-                const question = await monQModel.findById(response.QuestionId).then(q => q.toJSON());
 
                 console.log(question);
                 if (question.Type != QuestionType.TEXTAREA) {
@@ -129,10 +130,11 @@ class GamePlayRouter {
             console.log("HEY!!!!", oldResponse);
             if (!oldResponse) {
                 delete response._id;
+                response.questionText = question.Text;
                 var SaveResponse = await monResponseModel.create(response).then(r => r.toObject() as ResponseModel);
             } else {
                 delete response._id;
-                var SaveResponse = await monResponseModel.findOneAndUpdate({ GameId: response.GameId, TeamId: response.TeamId, QuestionId: response.QuestionId }, response, { new: true }).then(r => r.toObject() as ResponseModel);
+                var SaveResponse = await monResponseModel.findOneAndUpdate({ questionText: question.text, GameId: response.GameId, TeamId: response.TeamId, QuestionId: response.QuestionId }, response, { new: true }).then(r => r.toObject() as ResponseModel);
             }
             console.log(SaveResponse);
 
