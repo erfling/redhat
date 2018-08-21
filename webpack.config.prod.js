@@ -15,7 +15,7 @@ module.exports = {
       main:   './client/index.tsx',
       vendor: ['react', 'lodash', 'semantic-ui-react', 'react-router-dom', 'react-router', 'sanitize-html'],
     },
-    devtool: false,
+    devtool: 'inline-source-map',
     output: {
       path: ROOT_PATH +  '/dist/assets',
       publicPath: '/assets/',
