@@ -142,14 +142,12 @@ export default class SalesRoundCtrl extends BaseRoundCtrl<IRoundDataStore & {Fee
         let moneyScore = MathUtil.roundTo(this._responseMap[ComparisonLabel.PRICE].data * this._responseMap[ComparisonLabel.QUANTITY].data / maxMoney, 2);
 
         let score = 0;
-        if(this._getPrice() && this._getPrice() < 750){
+        if(this._getPrice() && this._getPrice() < 750 || (this.dataStore.SubRound && this.dataStore.SubRound.Label == "2B")){
             score = (moneyScore * 7) + (this._responseMap[ComparisonLabel.CSAT] ? this._responseMap[ComparisonLabel.CSAT] * 2 : 0);
             score = this._responseMap[ComparisonLabel.CSAT] && this._responseMap[ComparisonLabel.CSAT] >= .9 ? score + 1 : score;
         } 
 
-
-
-        console.warn( maxPrice, maxQuant,maxMoney, this._getPrice() * this._responseMap[ComparisonLabel.QUANTITY].data, moneyScore, this._responseMap)
+      console.warn( maxPrice, maxQuant,maxMoney, this._getPrice() * this._responseMap[ComparisonLabel.QUANTITY].data, moneyScore, this._responseMap)
         return score;
     }
 
