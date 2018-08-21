@@ -570,7 +570,8 @@ class GamePlayRouter {
                     return Number((totalScore + r.Score).toFixed(2));
                 }, 0);
 
-                score.TargetObjectId = k;
+                score.TargetObjectId
+                 = k;
                 score.Label = "Team " + teams.filter(t => t._id.toString() == k)[0] ? "Team " + teams.filter(t => t._id.toString() == k)[0].Number.toString() : null;
                 score.TargetModel = "TeamModel";
 
@@ -582,19 +583,32 @@ class GamePlayRouter {
 
                     let posOrNeg;
                     if (round3Response) {
+                        let highCsat = false;
+                        let gotDeal = true;
                         for (let i = 0; i < (round3Response.Answer as SliderValueObj[]).length; i++) {
                             let ans = (round3Response.Answer as SliderValueObj[])[i];
 
                             if (ans.label == ComparisonLabel.CSAT && Number(ans.data) >= .90) {
                                 //team gets positive feedback, so we filter out negative
-                                posOrNeg = ValueDemomination.NEGATIVE;
-                            } 
+                                highCsat = true;
+                            }
                             
                             if (ans.label == ComparisonLabel.PRICE_PER_CUSTOMER && Number(ans.data) >= 750) {
                                 //team gets negative feedback, so we filter out positive
-                                posOrNeg = ValueDemomination.POSITIVE;
+                                gotDeal = false;
                             }
                         }
+
+                        score.TeamsFeedBack = score.TeamsFeedBack.filter(fb => {
+
+                            if(!gotDeal){
+                                return fb.ValueDemomination == ValueDemomination.NEGATIVE || fb.ValueDemomination == ValueDemomination.NEUTRAL;
+                            } else if(highCsat) {
+                                return fb.ValueDemomination == ValueDemomination.POSITIVE || fb.ValueDemomination == ValueDemomination.NEUTRAL;
+                            }
+
+                            return true;
+                        })
                     }
 
                     score.TeamsFeedBack = score.TeamsFeedBack.filter(fb => fb.ValueDemomination != posOrNeg);
