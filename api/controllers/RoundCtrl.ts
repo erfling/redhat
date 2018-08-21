@@ -398,14 +398,16 @@ class RoundRouter {
     public async GetRound3FeedBack(req: Request, res: Response) {
         console.log("called it")
         const GameId = req.params.gameid;
-        const RoundId = req.params.roundid;
+        //const RoundId = req.params.roundid;
 
         try {
             //get all the teams in the game
             const game: GameModel = await monGameModel.findById(GameId).populate('Teams').then(g => g ? Object.assign(new GameModel(), g.toJSON()) : null)
+            let mapping: RoundChangeMapping = game.CurrentRound;
+            let round: RoundModel = await monRoundModel.findOne({Name: mapping.ParentRound.toUpperCase}).then(r => r ? Object.assign(new RoundModel(), r.toJSON()): null)
             console.log("FOUDN THIS GAME", game)
             //get all the response for the relevant round in this game
-            const responses = await monResponseModel.find({ GameId, RoundId }).then(r => r ? r.map(resp => Object.assign(new ResponseModel(), resp.toJSON())) : null);
+            const responses = await monResponseModel.find({ GameId, RoundId: round._id }).then(r => r ? r.map(resp => Object.assign(new ResponseModel(), resp.toJSON())) : null);
             console.log("FOUDN THESE RESPONSES", responses);
 
             let teamsWithResponses: TeamModel[];
@@ -497,7 +499,7 @@ class RoundRouter {
             (req, res, next) => AuthUtils.IS_USER_AUTHORIZED(req, res, next, PERMISSION_LEVELS.ADMIN),
             this.SaveFeedback.bind(this)
         );
-        this.router.get("/round3responses/:gameid/:roundid",
+        this.router.get("/round3responses/:gameid",
             //(req, res, next) => AuthUtils.IS_USER_AUTHORIZED(req, res, next, PERMISSION_LEVELS.PLAYER),
             this.GetRound3FeedBack.bind(this)
         );

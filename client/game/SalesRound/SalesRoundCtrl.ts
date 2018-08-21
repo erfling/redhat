@@ -74,7 +74,8 @@ export default class SalesRoundCtrl extends BaseRoundCtrl<IRoundDataStore & {Fee
                             return sr;
                         })
                     })
-                    .then(this.getResponsesByRound.bind(this));        
+                    .then(this.getResponsesByRound.bind(this))
+                    //.then(this.getScores);        
         } else {
             return super.getContentBySubRound();
         }
@@ -235,9 +236,24 @@ export default class SalesRoundCtrl extends BaseRoundCtrl<IRoundDataStore & {Fee
         this.dataStore.Round.Name = "SALES";
 
     }
+    public getScores(){
+        const url = SapienServerCom.BASE_REST_URL + "gameplay/getscores/" + this.dataStore.ApplicationState.CurrentTeam.GameId;
+        return SapienServerCom.GetData(null, null, url).then(r => {
+            console.log(r);
 
-    public GetFeedback(srID){
-        return SapienServerCom.GetData(null, null, SapienServerCom.BASE_REST_URL + "rounds/round3responses" + "/" + this.dataStore.ApplicationState.CurrentTeam.GameId + "/" + srID).then(r =>
+            //hide decisions and messages so feedback can be seen
+            DataStore.ApplicationState.ShowMessageList = this.dataStore.ApplicationState.ShowMessageList = ApplicationCtrl.GetInstance().dataStore.ApplicationState.ShowMessageList = false
+            DataStore.ApplicationState.ShowQuestions = this.dataStore.ApplicationState.ShowQuestions = ApplicationCtrl.GetInstance().dataStore.ApplicationState.ShowQuestions = false
+
+            this.dataStore.Scores = r;
+            return this.dataStore.Scores;
+        })
+        .then(this.getChartingScores.bind(this))
+        .then(this.GetFeedback.bind(this))
+    }
+
+    public GetFeedback(){
+        return SapienServerCom.GetData(null, null, SapienServerCom.BASE_REST_URL + "rounds/round3responses" + "/" + this.dataStore.ApplicationState.CurrentTeam.GameId + "/").then(r =>
             this.dataStore.Feedback = r
         )
     }

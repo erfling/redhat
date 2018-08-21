@@ -170,10 +170,10 @@ export default class GameCtrl extends BaseClientCtrl<IControllerDataStore & {Gam
             //set the team's current location to the new location
             const targetJob = r.UserJobs && r.UserJobs[this.dataStore.ApplicationState.CurrentUser._id] ? r.UserJobs[this.dataStore.ApplicationState.CurrentUser._id] : JobName.IC;
 
-            if (r.ShowFeedback != undefined && (this.dataStore.ApplicationState.ShowFeedback == undefined || this.dataStore.ApplicationState.ShowFeedback != r.ShowFeedback)){
-                this.dataStore.ApplicationState.ShowFeedback = this.ChildController.dataStore.ApplicationState.ShowFeedback = r.ShowFeedback;
-                if(this.ChildController.dataStore.SubRound)(this.ChildController as BaseRoundCtrl<any>).getScores();
+            if (r.ShowFeedback){
+                (this.ChildController as BaseRoundCtrl<any>).getScores.bind(this.ChildController)();
             }
+            this.dataStore.ApplicationState.ShowFeedback = this.ChildController.dataStore.ApplicationState.ShowFeedback = r.ShowFeedback;
 
             if (r.ShowIndividualFeedback/* != undefined && (this.dataStore.ApplicationState.ShowIndividualFeedback == undefined || this.dataStore.ApplicationState.ShowIndividualFeedback != r.ShowIndividualFeedback)*/){
                 //(this.ChildController as BaseRoundCtrl<any>).getIndividualScores();
@@ -191,7 +191,7 @@ export default class GameCtrl extends BaseClientCtrl<IControllerDataStore & {Gam
                 localStorage.setItem("RH_TEAM", JSON.stringify(team));
 
             } else {
-                if (this.ChildController && this.ChildController.hasOwnProperty("GetFeedback"))(this.ChildController as SalesRoundCtrl).GetFeedback((this.ChildController as SalesRoundCtrl).dataStore.SubRound._id);
+                if (this.ChildController && this.ChildController.hasOwnProperty("GetFeedback"))(this.ChildController as SalesRoundCtrl).GetFeedback();
                 (this.ChildController as BaseRoundCtrl<any>).dataStore.ApplicationState.ShowFeedback = r.ShowFeedback;
                 (this.ChildController as BaseRoundCtrl<any>).dataStore.ApplicationState.ShowRateUsers = r.ShowRateUsers;
             }

@@ -5,7 +5,7 @@ import SchemaBuilder from '../SchemaBuilder';
 import ResponseModel, { ResponseFetcher } from '../../shared/models/ResponseModel';
 import { monTeamModel } from './TeamCtrl';
 import ValueObj, { SliderValueObj } from '../../shared/entity-of-the-state/ValueObj';
-import { monQModel, monSubRoundModel } from './RoundCtrl';
+import { monQModel, monSubRoundModel, monRoundModel } from './RoundCtrl';
 import SubRoundModel from '../../shared/models/SubRoundModel';
 import { monGameModel } from './GameCtrl';
 import TeamModel from '../../shared/models/TeamModel';
@@ -18,6 +18,8 @@ import { ValueDemomination } from '../../shared/models/SubRoundFeedback';
 import { RatingType } from '../../shared/models/QuestionModel';
 import SubRoundScore from '../../shared/models/SubRoundScore';
 import { AppServer } from '../AppServer';
+import RoundChangeMapping from '../../shared/models/RoundChangeMapping';
+import RoundModel from '../../shared/models/RoundModel';
 
 const schObj = SchemaBuilder.fetchSchema(ResponseModel);
 const monSchema = new mongoose.Schema(schObj);
@@ -493,10 +495,11 @@ class GamePlayRouter {
      */
     public async getSubRoundScores(req: Request, res: Response) {
 
-        const SubRoundLabel = req.params.subroundid;
+        const Name = req.params.subroundid.toUpperCase();
         const GameId = req.params.gameid;
         try {
-
+            const subround: SubRoundModel = await monSubRoundModel.findOne({Name}).then(sr => sr ? Object.assign(new SubRoundModel(), sr.toJSON()) : null)
+            let SubRoundLabel = subround.Label;
             console.log("{  GameId: %s,}", GameId);
 
             var roundScores: SubRoundScore[] = await monSubRoundScoreModel.find({ GameId })
@@ -524,16 +527,26 @@ class GamePlayRouter {
 
     public async getScores(req: Request, res: Response) {
         try {
-            const SubRoundId = req.params.subroundid;
-            const RoundId = req.params.roundid;
+            //const SubRoundId = req.params.subroundid;
+            //const RoundId = req.params.roundid;
             const GameId = req.params.gameid;
 
+            const game: GameModel = await monGameModel.findById(GameId).then(g => g ? Object.assign(new GameModel(), g.toJSON()) : null)
+            let mapping: RoundChangeMapping = game.CurrentRound;
+
+            console.log(game, mapping)
+
+            const subround: SubRoundModel = await monSubRoundModel.findOne({Name: mapping.ChildRound.toUpperCase()}).then(sr => sr ? Object.assign(new SubRoundModel(), sr.toJSON()) : null)
+            const round: RoundModel = await monRoundModel.findById(subround.RoundId).then(sr => sr ? Object.assign(new RoundModel(), sr.toJSON()) : null)
+
+            let RoundId = round._id;
+            let SubRoundId = subround._id;
             //get all teams' responses for the round, then group them by team
             const responses: ResponseModel[] = await monResponseModel.find({ GameId }).then(responses => responses ? responses.map(b => Object.assign(new ResponseModel(), b.toJSON())) : []);
 
             const teams: TeamModel[] = await monTeamModel.find({ GameId }).then(t => t ? t.map(team => team.toJSON()) : []);
 
-            const subround: SubRoundModel = await monSubRoundModel.findById(SubRoundId).then(sr => sr ? Object.assign(new SubRoundModel(), sr.toJSON()) : null);
+            //const subround: SubRoundModel = await monSubRoundModel.findById(SubRoundId).then(sr => sr ? Object.assign(new SubRoundModel(), sr.toJSON()) : null);
 
             let groupedResponses = groupBy(responses, "TeamId");
 
@@ -596,7 +609,7 @@ class GamePlayRouter {
         catch (err) {
             console.log(err);
             res.status(500);
-            res.send("couldn't get resposnes")
+            res.send("couldn't get scores")
         }
     }
 
@@ -757,7 +770,7 @@ class GamePlayRouter {
         this.router.post("/roundresponses", this.GetTeamResponsesByRound.bind(this));
         this.router.post("/bid", this.SubmitBid.bind(this), this.SaveResponse.bind(this));
         this.router.post("/3response", this.SaveRound3Response.bind(this));
-        this.router.get("/getscores/:subroundid/:roundid/:gameid", this.getScores.bind(this)),
+        this.router.get("/getscores/:gameid", this.getScores.bind(this)),
             this.router.get("/getuserscores/:subroundid/:roundid/:gameid", this.getUserScores.bind(this)),
             this.router.get("/getsubroundscores/:gameid/:subroundid", this.getSubRoundScores.bind(this)),
             this.router.post("/response/rating", this.savePriorityRating.bind(this)),

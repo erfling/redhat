@@ -276,7 +276,7 @@ export default class ScoringLineChart extends React.Component<ChartingProps, { c
             data={this.getLineChartData()}
           >
             <XAxis padding={{ left: 0, right: 20 }} dataKey={Object.keys(this.getLineChartData()[0])[0]}/>
-            <YAxis padding={{ top: 10, bottom: 0 }} domain={[0, 20]} />
+            <YAxis padding={{ top: 10, bottom: 0 }} domain={[0, 20 * this.getLineChartData().length]} />
             <Legend verticalAlign="bottom" height={100} onMouseEnter={this.handleMouseEnter} onMouseLeave={this.handleMouseLeave} />
             <Tooltip wrapperStyle={{ display: 'none' }} />
             {this.state.roundScores && <ReferenceLine x={this.state.roundScores.name} stroke="white" strokeWidth={2} strokeDasharray="3 1" opacity={.5} />}
