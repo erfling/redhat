@@ -414,6 +414,7 @@ export class AppServer {
                                     relevantResponses.forEach(r => {
                                         RawScore += r.Score;
                                         if (r.MaxScore) {
+                                            console.log("MAX SCORE FOUND ON RESPONSE FOR QUESTION ", q.Text)
                                             skipMaxScoreQuestionIds.push(q._id);
                                             MaxRawScore = r.MaxScore;
                                         }
@@ -423,7 +424,12 @@ export class AppServer {
                                         ((q.PossibleAnswers as SliderValueObj[]).forEach(a => {
                                             if (a.maxPoints) MaxRawScore += a.maxPoints;
                                         }))
+                                    } else {
+                                        console.log("SKIPPING ", q.Text)
+
                                     }
+
+                                    console.log("MAX RAWSCORE IS: ", MaxRawScore)
                                     
                                 })
 
