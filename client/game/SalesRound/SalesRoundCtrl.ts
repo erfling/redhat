@@ -110,7 +110,7 @@ export default class SalesRoundCtrl extends BaseRoundCtrl<IRoundDataStore & {Fee
             Score: this._getScore(questions)
         });
 
-        (this.Response.Answer as SliderValueObj[]).forEach(a => a.maxPoints = 2.5)
+        (this.Response.Answer as SliderValueObj[]).forEach(a => a.maxPoints = 20 / (this.Response.Answer as SliderValueObj[]).length )
 
         console.log("BUILT OUT RESPONSE",this.Response, this._responseMap);
     }
@@ -155,7 +155,7 @@ export default class SalesRoundCtrl extends BaseRoundCtrl<IRoundDataStore & {Fee
         } 
 
       console.warn( "MAX PRICE: " + maxPrice, "MAX Q: " + maxQuant,"MAX MONEY: " + maxMoney, "GET PRICE: " + this._getPrice() * this._responseMap[ComparisonLabel.QUANTITY].data, moneyScore, this._responseMap)
-        return score;
+        return score * 2;
     }
 
     SaveResponses(subround: SubRoundModel, question: QuestionModel){
