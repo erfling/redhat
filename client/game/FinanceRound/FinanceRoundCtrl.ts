@@ -86,7 +86,7 @@ export default class FinanceRoundCtrl extends BaseRoundCtrl<IRoundDataStore>
         if(this.component.props.location.pathname.indexOf("teamrating") != -1){
 
             await SapienServerCom.GetData(null, null, SapienServerCom.BASE_REST_URL + "gameplay/get4bresponses" + "/" + this.dataStore.ApplicationState.CurrentTeam.GameId).then((responses: QuestionModel[])=> {
-                return r.Questions = responses;
+                return r.Questions = responses.filter(q => q.Text.indexOf("Team " + this.dataStore.ApplicationState.CurrentTeam.Number) == -1);
             });
 
         } else {
