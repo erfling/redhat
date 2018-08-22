@@ -408,15 +408,23 @@ export class AppServer {
                                 let MaxRawScore = 0;
                                 let RawScore = 0;
 
+                                let skipMaxScoreQuestionIds: string[] = [];
                                 questions.forEach(q => {
                                     let relevantResponses = responses.filter(r => /*!r.SkipScoring && */ r.QuestionId == q._id.toString());
                                     relevantResponses.forEach(r => {
                                         RawScore += r.Score;
-                                        if (r.MaxScore) MaxRawScore = r.MaxScore;
+                                        if (r.MaxScore) {
+                                            skipMaxScoreQuestionIds.push(q._id);
+                                            MaxRawScore = r.MaxScore;
+                                        }
                                     });
-                                    ((q.PossibleAnswers as SliderValueObj[]).forEach(a => {
-                                        if (a.maxPoints) MaxRawScore += a.maxPoints;
-                                    }))
+
+                                    if (skipMaxScoreQuestionIds.indexOf(q._id.toString()) == -1 ) {
+                                        ((q.PossibleAnswers as SliderValueObj[]).forEach(a => {
+                                            if (a.maxPoints) MaxRawScore += a.maxPoints;
+                                        }))
+                                    }
+                                    
                                 })
 
                                 let srs = Object.assign(new SubRoundScore(), {
@@ -431,7 +439,7 @@ export class AppServer {
                                     TeamLabel: "Team " + t.Number.toString()
                                 });
 
-                                if(RawScore > 0 ){
+                                if (RawScore > 0 ){
 
                                     //console.log(srs.SubRoundLabel.toLowerCase());
                                  //  console.log(srs.NormalizedScore); 
