@@ -469,7 +469,7 @@ export class AppServer {
                                     srs.NormalizedScore = 0;
                                 }
                                 
-                                console.log(srs);
+                                if(srs.TeamLabel.indexOf("2") != -1)console.log(srs);
                                 var oldScore: SubRoundScore = await monSubRoundScoreModel.findOne({ TeamId: t._id, SubRoundId: subRound._id }).then(sr => sr ? Object.assign(new SubRoundScore(), sr.toJSON()): null);
                                 if (oldScore && oldScore.BonusPoints) srs.NormalizedScore += oldScore.BonusPoints;
                                 var savedSubRoundScore: SubRoundScore = await monSubRoundScoreModel.findOneAndUpdate({ TeamId: t._id, SubRoundId: subRound._id }, srs, { upsert: true, new: true, setDefaultsOnInsert: true }).then(sr => Object.assign(new SubRoundScore(), sr.toJSON()));
