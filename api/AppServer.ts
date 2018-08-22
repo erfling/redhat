@@ -454,7 +454,7 @@ export class AppServer {
                                     } 
                                     //Round 3a is buggy, so add 10, because apparently that's better pedagogy than doubling
                                     else if( srs.SubRoundLabel.toLowerCase()== '3a' ) {
-
+                                        console.log("adding 10 for reasons");
                                         srs.NormalizedScore = (RawScore / MaxRawScore * 20 / subRounds.length) + 10                                        
 
                                     } else {
