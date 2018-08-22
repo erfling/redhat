@@ -420,13 +420,10 @@ export class AppServer {
                                         }
                                     });
 
-                                    if (skipMaxScoreQuestionIds.indexOf(q._id.toString()) == -1 ) {
+                                    if ( skipMaxScoreQuestionIds.indexOf(q._id.toString()) == -1 ) {
                                         ((q.PossibleAnswers as SliderValueObj[]).forEach(a => {
                                             if (a.maxPoints) MaxRawScore += a.maxPoints;
                                         }))
-                                    } else {
-                                        console.log("SKIPPING ", q.Text)
-
                                     }
 
                                     console.log("MAX RAWSCORE IS: ", MaxRawScore)
@@ -454,7 +451,13 @@ export class AppServer {
                                     } else if (srs.SubRoundLabel.toLowerCase() == '1b') {
                                         srs.NormalizedScore = RawScore / MaxRawScore * (.8 * 20);
                                 
-                                    } else{
+                                    } 
+                                    //Round 3a is buggy, so add 10, because apparently that's better pedagogy than doubling
+                                    else if( srs.SubRoundLabel.toLowerCase()== '3a' ) {
+
+                                        srs.NormalizedScore = (RawScore / MaxRawScore * 20 / subRounds.length) + 10                                        
+
+                                    } else {
 
                                        srs.NormalizedScore = RawScore / MaxRawScore * 20 / subRounds.length
                         
