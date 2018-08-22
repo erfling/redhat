@@ -10,6 +10,7 @@ import Decisions from '-!svg-react-loader?name=Icon!../../img/decisions.svg';
 import FeedBackWrapper from "../Scoring/FeedBackWrapper";
 import { RatingType } from "../../../shared/models/QuestionModel";
 import { LineChart, Line, Legend, Tooltip, CartesianGrid, XAxis, YAxis, ReferenceLine, BarChart, Bar } from 'recharts';
+import IndividualLineChart from "../Scoring/IndividualLineChart";
 
 const { Button, Grid, Form, Dimmer, Loader, Header, Table } = Semantic;
 const { Row, Column } = Grid;
@@ -142,19 +143,14 @@ export default class EngineeringSub extends BaseComponent<any, IRoundDataStore>
                 <pre>{this.state.UserRatings && JSON.stringify(this.controller.getUserRatingsChartShaped(this.state.UserRatings), null, 2)}</pre>
 
 
-                {this.state.UserRatings && userRatingsChart.length && <>
-                        <LineChart width={600} height={300} data={userRatingsChart} margin={{top: 5, right: 30, left: 20, bottom: 5}}>
-                            <XAxis dataKey="name"/>
-                            <YAxis/>
-                            <CartesianGrid strokeDasharray="3 3"/>
-                            <Tooltip/>
-                            <Legend />
-                            {Object.keys(this.state.UserRatings[0]).filter(v => ["Connection", "Trust", "Transparency", "Collaboration", "Meritocracy"].indexOf(v) != -1).map((v, i) => {
-                                return <Line dataKey={v} stroke="#8884d8" activeDot={{r: 8}}/>
-                            })}
-                        </LineChart>
-                    </>
-                }
+                {this.state.ApplicationState.ShowIndividualFeedback && this.state.UserRatings && userRatingsChart && userRatingsChart.length && thisSubRound &&
+                    <IndividualLineChart
+                        TeamId={this.state.ApplicationState.CurrentTeam._id}
+                        PlayerId={this.state.ApplicationState.CurrentUser._id}
+                        Data={userRatingsChart}
+                    />
+                }  
+
 
                 {this.state.ApplicationState.ShowRateUsers && this.state.RatingQuestions && <div
                     className={'show ' + (this.state.ApplicationState.MobileWidth ? "mobile-messages decisions" : "wide-messages decisions")}

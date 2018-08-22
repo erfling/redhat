@@ -160,9 +160,46 @@ export default class IndividualLineChart extends React.Component<ChartingProps, 
           <Header
             textAlign="center"
           >
-            Round by round ratings
+          
           </Header>
-          {this.props.Data && this.props.Data.length > 1 &&
+          <pre style={{color: 'white'}}>{Data && JSON.stringify(Data, null, 2)}</pre>
+          
+
+        </Segment>
+      }
+
+    </Column>
+  }
+
+}
+
+/**
+ * 
+ * <Table>
+          <Table striped celled>
+                <Table.Header>
+                    <Table.Row>
+                        <Table.HeaderCell />
+                        <Table.HeaderCell>Ratings</Table.HeaderCell>
+                    </Table.Row>
+                </Table.Header>
+
+                <Table.Body>
+                    {Data && Data.map((s, i) =>
+                        <Table.Row key={i}>
+                            <Table.Cell>
+                                {s.Label}
+                            </Table.Cell>
+                            <Table.Cell >{s.TotalRoundScore}</Table.Cell>
+                            <Table.Cell >{s.TotalGameScore}</Table.Cell>
+                        </Table.Row>
+                    )}
+                </Table.Body>
+            </Table>
+
+          </Table>
+ * 
+ * {this.props.Data && this.props.Data.length > 1 &&
             <LineChart
               margin={{ top: 0, right: 20, bottom: 0, left: 0 }}
               width={this.state.componentWidth - 20}
@@ -185,12 +222,4 @@ export default class IndividualLineChart extends React.Component<ChartingProps, 
                 />
               })}
             </LineChart>
-          }
-
-        </Segment>
-      }
-
-    </Column>
-  }
-
-}
+          } */
