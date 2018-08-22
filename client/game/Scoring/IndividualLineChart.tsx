@@ -162,13 +162,16 @@ export default class IndividualLineChart extends React.Component<ChartingProps, 
           >
           
           </Header>
-          <pre style={{color: 'white'}}>{Data && JSON.stringify(Data, null, 2)}</pre>
           
           <Table striped celled>
                 <Table.Header>
                     <Table.Row>
-                        <Table.HeaderCell />
-                        <Table.HeaderCell>Ratings</Table.HeaderCell>
+                        <Table.HeaderCell>
+                        <Label color='blue' ribbon>
+                          Individual Ratings
+                        </Label>
+                        </Table.HeaderCell>
+                        <Table.HeaderCell>Rating</Table.HeaderCell>
                     </Table.Row>
                 </Table.Header>
 
