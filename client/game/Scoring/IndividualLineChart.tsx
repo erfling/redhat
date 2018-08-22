@@ -163,7 +163,28 @@ export default class IndividualLineChart extends React.Component<ChartingProps, 
           
           </Header>
           <pre style={{color: 'white'}}>{Data && JSON.stringify(Data, null, 2)}</pre>
-          
+          <Table>
+          <Table striped celled>
+                <Table.Header>
+                    <Table.Row>
+                        <Table.HeaderCell />
+                        <Table.HeaderCell>Ratings</Table.HeaderCell>
+                    </Table.Row>
+                </Table.Header>
+
+                <Table.Body>
+                    {Data && Object.keys(Data[Data.length -1]).filter(s => s != "name" && Data[Data.length -1][s]).map((s, i) =>
+                        <Table.Row key={i}>
+                            <Table.Cell>
+                                {s}
+                            </Table.Cell>
+                            <Table.Cell >{Data[Data.length -1][s]}</Table.Cell>
+                        </Table.Row>
+                    )}
+                </Table.Body>
+            </Table>
+
+          </Table>
 
         </Segment>
       }
@@ -175,29 +196,7 @@ export default class IndividualLineChart extends React.Component<ChartingProps, 
 
 /**
  * 
- * <Table>
-          <Table striped celled>
-                <Table.Header>
-                    <Table.Row>
-                        <Table.HeaderCell />
-                        <Table.HeaderCell>Ratings</Table.HeaderCell>
-                    </Table.Row>
-                </Table.Header>
-
-                <Table.Body>
-                    {Data && Data.map((s, i) =>
-                        <Table.Row key={i}>
-                            <Table.Cell>
-                                {s.Label}
-                            </Table.Cell>
-                            <Table.Cell >{s.TotalRoundScore}</Table.Cell>
-                            <Table.Cell >{s.TotalGameScore}</Table.Cell>
-                        </Table.Row>
-                    )}
-                </Table.Body>
-            </Table>
-
-          </Table>
+ * 
  * 
  * {this.props.Data && this.props.Data.length > 1 &&
             <LineChart
