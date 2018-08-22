@@ -24,7 +24,6 @@ import * as fs from 'fs';
 import SubRoundScore from '../shared/models/SubRoundScore';
 import { SliderValueObj } from '../shared/entity-of-the-state/ValueObj';
 import MessageModel from '../shared/models/MessageModel';
-import { ConsoleTransportInstance } from 'winston/lib/winston/transports';
 
 
 class SubRoundNormalizationRule
@@ -251,7 +250,7 @@ export class AppServer {
           
                     let srModel:SubRoundModel = await monSubRoundModel.findOne({Name:mapping.ChildRound.toUpperCase()}).then(x => x.toJSON() );
                     let SubRoundLabel: String = srModel.Label.toString().toUpperCase();
-
+                    let newMapping: RoundChangeMapping;
                       
 
                     let RoundId = round._id;
@@ -324,7 +323,7 @@ export class AppServer {
                      
                        
                         mapping.GameId = game._id;
-                        var newMapping: RoundChangeMapping = await monMappingModel.create(mapping).then(r => Object.assign(new RoundChangeMapping(), r.toJSON()))
+                        newMapping = await monMappingModel.create(mapping).then(r => Object.assign(new RoundChangeMapping(), r.toJSON()))
 
 
 
@@ -374,13 +373,12 @@ export class AppServer {
                                 console.log("Blue_kite winner is: %s, id: %s,  name: %s", rIndex, playersEligible[rIndex]._id, (playersEligible[rIndex].FirstName + " " + playersEligible[rIndex].LastName));
                             });
 
-
-
+                        newMapping = oldMapping;
                     }                   
                             
               
                      
-                     console.log( "blue_kite mapping.UserJobs %o", mapping.UserJobs);   
+                    console.log( "blue_kite mapping.UserJobs %o", mapping.UserJobs);   
                      
                     mapping.GameId = game._id;
                     
