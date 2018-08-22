@@ -78,7 +78,6 @@ export class AppServer {
                 AppServer.ForwardingServer = http.createServer(forwardApp);
                 AppServer.ForwardingServer.listen(port);
                 forwardApp.get('*', (req, res) => {
-                    console.log("HTTP INSECURE TRAFFIC");
                     res.redirect('https://' + req.headers.host + req.url);
                 })
 
@@ -315,7 +314,7 @@ export class AppServer {
                             })
                        
         
-                                console.log("Mapping",mapping.UserJobs);
+                                //console.log("Mapping",mapping.UserJobs);
                        
                         }
 
@@ -357,15 +356,15 @@ export class AppServer {
                             t => {
 
 
-                                console.log("\t Blue_kite teams %d:", pindex++);
-                                console.log("\t Blue_kite oldMapping %o:", oldMapping);
+                                //console.log("\t Blue_kite teams %d:", pindex++);
+                                //console.log("\t Blue_kite oldMapping %o:", oldMapping);
                                 let playersEligible: Array<UserModel> = t.Players.filter(p => oldMapping.UserJobs[p._id.toString()] != JobName.MANAGER);
 
-                                console.log("\t Blue_kite players %o:", playersEligible);
+                                //console.log("\t Blue_kite players %o:", playersEligible);
                                 let rIndex = Math.floor(Math.random() * playersEligible.length);
 
                                 oldMapping.UserJobs[playersEligible[rIndex]._id.toString()] = JobName.BLUE_KITE;
-                                console.log("Blue_kite winner is: %s, id: %s,  name: %s", rIndex, playersEligible[rIndex]._id, (playersEligible[rIndex].FirstName + " " + playersEligible[rIndex].LastName));
+                                //console.log("Blue_kite winner is: %s, id: %s,  name: %s", rIndex, playersEligible[rIndex]._id, (playersEligible[rIndex].FirstName + " " + playersEligible[rIndex].LastName));
                             });
 
                         newMapping = oldMapping;
@@ -373,7 +372,7 @@ export class AppServer {
                             
               
                      
-                    console.log( "blue_kite mapping.UserJobs %o", mapping.UserJobs);   
+                   // console.log( "blue_kite mapping.UserJobs %o", mapping.UserJobs);   
                      
                     mapping.GameId = game._id;
                     
@@ -397,7 +396,7 @@ export class AppServer {
                         for (let j = 0; j < subRounds.length; j++) {
                             let subRound = subRounds[j];
 
-                            console.log("subr is now %s", SubRoundLabel);
+                            //console.log("subr is now %s", SubRoundLabel);
 
                             for (let i = 0; i < game.Teams.length; i++) {
                                 let t = game.Teams[i];
@@ -426,7 +425,7 @@ export class AppServer {
                                         }))
                                     }
 
-                                    console.log("MAX RAWSCORE IS: ", MaxRawScore)
+                                    //console.log("MAX RAWSCORE IS: ", MaxRawScore)
                                     
                                 })
 
@@ -449,13 +448,23 @@ export class AppServer {
                                     if ( srs.SubRoundLabel.toLowerCase()== '1a') {                                        
                                         srs.NormalizedScore = RawScore / MaxRawScore * (.2 * 20);
                                     } else if (srs.SubRoundLabel.toLowerCase() == '1b') {
-                                        srs.NormalizedScore = RawScore / MaxRawScore * (.8 * 20);
-                                
+                                        srs.NormalizedScore = RawScore / MaxRawScore * (.8 * 20);                                
                                     } 
-                                    //Round 3a is buggy, so add 10, because apparently that's better pedagogy than doubling
                                     else if( srs.SubRoundLabel.toLowerCase()== '3a' ) {
                                         console.log("adding 10 for reasons");
+                                        
                                         srs.NormalizedScore = (RawScore / MaxRawScore * 20 / subRounds.length) + 10                                        
+
+                                    }
+                                    //add bonus points to team that had highest bid
+                                    else if(oldMapping.CurrentHighestBid){
+                                        console.log("MAPPING WAS A BID: ", mapping.CurrentHighestBid )
+                                        srs.NormalizedScore = (RawScore / MaxRawScore * 16 / subRounds.length);
+                                        if(oldMapping.CurrentHighestBid.targetObjId == t._id){
+                                            console.log("highest bid bonus should be awared to ", t.Number)
+                                            srs.BonusPoints = 4 / subRounds.length;
+                                        }    
+                                        newMapping = oldMapping;                                   
 
                                     } else {
 
@@ -464,12 +473,17 @@ export class AppServer {
                                     }
                                     //console.log(srs.NormalizedScore); 
                                     srs.NormalizedScore = RawScore / MaxRawScore * 20 / subRounds.length;
-                                } else {
+                                }
+                                
+                                else {
                                    
                                     srs.NormalizedScore = 0;
                                 }
                                 
-                                if(srs.TeamLabel.indexOf("2") != -1)console.log(srs);
+
+                                
+
+
                                 var oldScore: SubRoundScore = await monSubRoundScoreModel.findOne({ TeamId: t._id, SubRoundId: subRound._id }).then(sr => sr ? Object.assign(new SubRoundScore(), sr.toJSON()): null);
                                 if (oldScore && oldScore.BonusPoints) srs.NormalizedScore += oldScore.BonusPoints;
                                 var savedSubRoundScore: SubRoundScore = await monSubRoundScoreModel.findOneAndUpdate({ TeamId: t._id, SubRoundId: subRound._id }, srs, { upsert: true, new: true, setDefaultsOnInsert: true }).then(sr => Object.assign(new SubRoundScore(), sr.toJSON()));

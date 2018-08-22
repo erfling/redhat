@@ -140,8 +140,6 @@ export default class EngineeringSub extends BaseComponent<any, IRoundDataStore>
                         </FeedBackWrapper>
                     </>
                 }
-                <pre>{this.state.UserRatings && JSON.stringify(this.controller.getUserRatingsChartShaped(this.state.UserRatings), null, 2)}</pre>
-
 
                 {this.state.ApplicationState.ShowIndividualFeedback && this.state.UserRatings && userRatingsChart && userRatingsChart.length && thisSubRound &&
                     <IndividualLineChart
