@@ -4,7 +4,7 @@ import * as https from 'https';
 import RoundController, { monRoundModel, monSubRoundModel, monQModel, monMessageModel } from './controllers/RoundCtrl'
 import * as mongoose from 'mongoose';
 import * as bodyParser from 'body-parser';
-import * as Passport from 'passport'
+import * as Passport from 'passport'; 
 import LoginCtrl from './controllers/LoginCtrl';
 import { monMappingModel } from './controllers/GameCtrl';
 import UserCtrl from './controllers/UserCtrl';
@@ -24,6 +24,7 @@ import * as fs from 'fs';
 import SubRoundScore from '../shared/models/SubRoundScore';
 import { SliderValueObj } from '../shared/entity-of-the-state/ValueObj';
 import MessageModel from '../shared/models/MessageModel';
+import { ConsoleTransportInstance } from 'winston/lib/winston/transports';
 
 
 class SubRoundNormalizationRule
@@ -33,6 +34,7 @@ class SubRoundNormalizationRule
     public Label: string;
     public weight: Number;
 }
+
 
  class  SubRoundNormalizationInfo {
     
@@ -58,6 +60,7 @@ export class AppServer {
     public static router: express.Router = express.Router();
     public static WebServer: http.Server | https.Server = AppServer.getServer()
     public static ForwardingServer: http.Server;
+ 
 
     private constructor() { }
 
@@ -205,6 +208,7 @@ export class AppServer {
              }
          });*/
 
+    
         AppServer.app.use('/', AppServer.router)
             //.post('*', Passport.authenticate('jwt', { session: false }))
             //Passport.authenticate('jwt', { session: false }),
@@ -217,12 +221,24 @@ export class AppServer {
             
             .post('/sapien/api/facilitation/round/:gameid', Passport.authenticate('jwt', { session: false }), async (req, res) => {
                 //console.log("HIT HERe", req.body);
+                //var c = new winston.transports.Console();
+            
+      
                 try {
-                    const mapping: RoundChangeMapping = Object.assign(new RoundChangeMapping(), req.body);
-                    const game: GameModel = await monGameModel.findById(req.params.gameid).populate("Teams")
-                    .then(g => Object.assign(new GameModel(), g.toJSON()));
 
-                    console.log("Roundchange mapping: ", RoundChangeMapping)
+                    
+                    // define the custom settings for each transport (file, console)
+                   
+        
+                      
+                    const mapping: RoundChangeMapping = Object.assign(new RoundChangeMapping(), req.body);
+                    const game: GameModel = await monGameModel.findById(req.params.gameid).populate("Teams").then(g => Object.assign(new GameModel(), g.toJSON()));
+
+
+                    console.log(" %s", req.params.gameid)  ;   
+              
+                    console.log("Roundchange mapping: %s", mapping)  ;     
+
                     //Pick role for each player on each team
                     //TODO: get rid of magic string
                     mapping.UserJobs = {};
@@ -232,7 +248,7 @@ export class AppServer {
 
                     const round = await monRoundModel.findOne({ Name: mapping.ParentRound.toUpperCase() }).then(r => r.toJSON())
                     
-                    console.log("Roundchange mapping: ", RoundChangeMapping)
+          
                     let srModel:SubRoundModel = await monSubRoundModel.findOne({Name:mapping.ChildRound.toUpperCase()}).then(x => x.toJSON() );
                     let SubRoundLabel: String = srModel.Label.toString().toUpperCase();
 
@@ -242,7 +258,8 @@ export class AppServer {
                     mapping.RoundId = round._id;
 
                                         //make sure the current mapping has the correct child round
-                    var oldMapping: RoundChangeMapping = await monMappingModel.findOneAndUpdate({ GameId: game._id, ParentRound: mapping.ParentRound }, {
+                    var oldMapping: RoundChangeMapping = await
+                     monMappingModel.findOneAndUpdate({ GameId: game._id, ParentRound: mapping.ParentRound }, {
                         ChildRound: mapping.ChildRound,
                         ShowRateUsers: mapping.ShowRateUsers, // object where keys are user's _id as string & values are one of JobName enum values
                         ShowFeedback: mapping.ShowFeedback, // object where keys are user's _id as string & values are one of JobName enum values
@@ -297,6 +314,10 @@ export class AppServer {
                                 }
 
                             })
+                       
+        
+                                console.log("Mapping",mapping.UserJobs);
+                       
                         }
 
                         
@@ -304,6 +325,12 @@ export class AppServer {
                        
                         mapping.GameId = game._id;
                         var newMapping: RoundChangeMapping = await monMappingModel.create(mapping).then(r => Object.assign(new RoundChangeMapping(), r.toJSON()))
+
+
+
+
+
+
 
                     } else if (!oldMapping.UserJobs) {
 
@@ -329,34 +356,36 @@ export class AppServer {
 
                         })
 
+                    } else if (SubRoundLabel.toLowerCase() == "4d") {
+
+                        let pindex = 0;
+                        game.Teams.forEach(
+                            t => {
+
+
+                                console.log("\t Blue_kite teams %d:", pindex++);
+                                console.log("\t Blue_kite oldMapping %o:", oldMapping);
+                                let playersEligible: Array<UserModel> = t.Players.filter(p => oldMapping.UserJobs[p._id.toString()] != JobName.MANAGER);
+
+                                console.log("\t Blue_kite players %o:", playersEligible);
+                                let rIndex = Math.floor(Math.random() * playersEligible.length);
+
+                                oldMapping.UserJobs[playersEligible[rIndex]._id.toString()] = JobName.BLUE_KITE;
+                                console.log("Blue_kite winner is: %s, id: %s,  name: %s", rIndex, playersEligible[rIndex]._id, (playersEligible[rIndex].FirstName + " " + playersEligible[rIndex].LastName));
+                            });
+
+
+
                     }                   
                             
-                    
-                    
-                    console.log("Checking for Job BlueKite change subround, label is %s", SubRoundLabel);
-                                   
-    
-                   
-                    if (SubRoundLabel.toLowerCase() == "4d") {
-                        
-                        game.Teams.forEach(
+              
                      
-                            t => {
-                                console.log("filtering players without manager job");
-                                let pl: Array<UserModel> = t.Players.filter(p => mapping.UserJobs[p._id.toString()]  != JobName.MANAGER);
-                                let rIndex = Math.floor(Math.random() * pl.length);
-                                
-                                mapping.UserJobs[pl[rIndex]._id.toString()] = JobName.BLUE_KITE;
-                                console.log("Blue_kite winner is: %s, id: %s,  name: %s", rIndex, pl[rIndex]._id, (pl[rIndex].FirstName + " " + pl[rIndex].LastName));
-                            });  
-                            
-                            let newMapping: RoundChangeMapping = await monMappingModel.findOneAndUpdate({ParentRound: mapping.ParentRound.toLowerCase()}, mapping, { upsert: true, new: true, setDefaultsOnInsert: true }).then(r => Object.assign(new RoundChangeMapping(), r.toJSON()));
-                          
-                    } 
-
-                    console.log("Mapping",mapping.UserJobs);
-                    
+                     console.log( "blue_kite mapping.UserJobs %o", mapping.UserJobs);   
+                     
                     mapping.GameId = game._id;
+                    
+                    
+                    
 
                     if ((!newMapping || !newMapping.ParentRound.length) && !oldMapping) {
                         throw new Error("Couldn't make mapping")
@@ -543,7 +572,7 @@ export class AppServer {
                 messages = messages.concat(sr[AppServer._getMessageProp(JobName[jn])]);
             })
 
-            console.log("MESSAGES?>?>?>?>?>?>?>?>?>?>?>?>?>?>?>?>", messages, sr)
+            //console.log("MESSAGES?>?>?>?>?>?>?>?>?>?>?>?>?>?>?>?>", messages, sr)
 
             //inflate messages for subround
             let populatedMessages: MessageModel[] = await monMessageModel.find({ _id: { $in: messages } }).then(messages => messages ? messages.map(m => Object.assign(new MessageModel(), m.toJSON())) : null)
