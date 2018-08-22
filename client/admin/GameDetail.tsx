@@ -4,7 +4,7 @@ const { Row, Column } = Grid;
 import { withRouter } from "react-router";
 import GameManagementCtrl from './GameManagementCtrl';
 import AdminViewModel from '../../shared/models/AdminViewModel';
-import UserModel, { RoleName } from "../../shared/models/UserModel";
+import UserModel, { RoleName, JobName } from "../../shared/models/UserModel";
 import UserModal from './UserModal';
 import {IControllerDataStore} from '../../shared/base-sapien/client/BaseClientCtrl';
 import GameModal from './GameModal'
@@ -187,7 +187,15 @@ class GameDetail extends BaseComponent<any, IControllerDataStore & {Admin: Admin
                                                                     onAddItem={e => this.controller.addPlayer(this.state.Admin.SelectedGame.Teams[i])}
                                                                 />
                                                             }
-                                                            {!p.EditMode && <Header as="h4">{p.FirstName} {p.LastName} {p.Email && <small><br />{p.Email}</small>}</Header>}
+                                                            {!p.EditMode && <>
+                                                                <Header as="h4">{p.FirstName} {p.LastName} {p.Email && <small><br />{p.Email}
+                                                                    {this.state.Admin.SelectedGame && this.state.Admin.SelectedGame.CurrentRound && this.state.Admin.SelectedGame.CurrentRound.UserJobs &&
+                                                                        <><br/>{this.state.Admin.SelectedGame.CurrentRound.UserJobs[p._id] || JobName.IC}</>
+                                                                    }
+                                                                    </small>
+                                                            }</Header>
+                                                                
+                                                            </>}
                                                         </Column>
                                                         <Column width={3}>
                                                             {!p.EditMode &&
@@ -288,6 +296,7 @@ class GameDetail extends BaseComponent<any, IControllerDataStore & {Admin: Admin
                                         </div>
                                     </Card.Content>
                                 </Card>
+
                             </Column>
                         })}
                     </Grid>

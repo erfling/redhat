@@ -11,6 +11,7 @@ import SubRoundFeedback, { ValueDemomination } from "../../../shared/models/SubR
 import EditableContentBlock from "../../../shared/base-sapien/client/shared-components/EditableContentBlock";
 import MessageModel from "../../../shared/models/MessageModel";
 import SubRoundScore from "../../../shared/models/SubRoundScore";
+import { YAxis } from "recharts";
 
 interface FeedBackProps {
     RoundName: string;
@@ -23,7 +24,8 @@ interface FeedBackProps {
     SubRoundId?: string;
     onSaveHandler?(message: MessageModel, subroundId: string): void;
     IsEditable?: boolean,
-    ChartableScores?: SubRoundScore[]
+    ChartableScores?: SubRoundScore[];
+    YaxisDomain?: number;
 }
 
 export default class FeedBackWrapper extends React.Component<FeedBackProps, any>
@@ -85,6 +87,7 @@ export default class FeedBackWrapper extends React.Component<FeedBackProps, any>
             {this.props.children}
             {this.props.ChartableScores && 
                 <ScoringLineChart
+                    {...(this.props.YaxisDomain ? {YAxisDomain: this.props.YaxisDomain} : null)}
                     Scores={this.props.ChartableScores}
                     TeamId={this.props.TeamId}
                     PlayerId={this.props.User ? this.props.User._id : null} 

@@ -71,7 +71,10 @@ export default class ResponseModel extends BaseModel
     public targetObjName;
 
     @dbProp(String)
-    public questionText: string;
+    public questionText: string
+
+    @dbProp(Number)
+    public BonusPoints: number;
 
     public resolveScore(): number {
         const ans: SliderValueObj[] = this.Answer as SliderValueObj[];
@@ -121,6 +124,7 @@ export default class ResponseModel extends BaseModel
         //TODO: SHOULD WE DO RONDING HERE? I AM FOR NOW.
         //return MathUtil.roundTo(score, 2);
         //return Number(score.toFixed(2));
+        if (this.BonusPoints) score += this.BonusPoints;
         return score;
     }
 

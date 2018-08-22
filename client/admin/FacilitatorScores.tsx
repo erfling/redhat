@@ -34,9 +34,13 @@ export default class AdminLogin extends React.Component<any, any>
 
 
     componentDidMount(){
-        this._timeout = setTimeout(() => {
+        this._timeout = setInterval(() => {
             SapienServerCom.GetData(null, null, SapienServerCom.BASE_REST_URL + "gameplay/getfacilitatorresponses/" + GameCtrl.GetInstance().dataStore.ApplicationState.CurrentTeam.GameId).then(groupedResponses => {
+                console.log("GOT THING BACK: ", groupedResponses)
                 this.setState({groupedResponses})
+            })
+            .catch((err) => {
+                console.error(err);
             })
         }, 5000)
     }
@@ -47,7 +51,7 @@ export default class AdminLogin extends React.Component<any, any>
 
 
     componentWillUnmount(){
-        clearTimeout(this._timeout)
+        clearInterval(this._timeout)
     }
 
     //----------------------------------------------------------------------

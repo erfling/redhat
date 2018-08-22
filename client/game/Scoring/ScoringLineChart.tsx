@@ -13,6 +13,7 @@ interface ChartingProps {
   Scores: SubRoundScore[];
   TeamId: string;
   PlayerId: string;
+  YAxisDomain?: number;
 }
 
 class CustomizedDot extends React.Component<any, any> {
@@ -64,6 +65,7 @@ export default class ScoringLineChart extends React.Component<ChartingProps, { c
     this.setState({ componentWidth: targetWidth });
   }
 
+  static places = ["1st", "2nd", "3rd", "4th", "5th", "6th", "8th", "9th", "10th", "11th", "12th"]
   static rounds = ["Round 1", "Round 2", "Round 3", "Round 4", "Round 5"];
   static Colors = ["#3b67c5", "#cd4c2d", "#f29e3c", "#499535", "#fff", "#00b5ad", "#cbeff9"];
   static MappedColors: any;
@@ -98,6 +100,8 @@ export default class ScoringLineChart extends React.Component<ChartingProps, { c
       y: d.y,
       x: d.x});*/
   }
+
+  //static YDomains = [20, 30, 50, ]
 
   mouseOutHandler() {
 
@@ -260,7 +264,7 @@ export default class ScoringLineChart extends React.Component<ChartingProps, { c
                 return <li
                 >
                   <Label style={{ background:this.getTeamColor(k), border: 'none', fontWeight: 'bold' }}>
-                    {i + 1}. {k.toUpperCase()}: {MathUtil.roundTo(this.state.roundScores[k], 2)}
+                    {ScoringLineChart.places[i]}. {k.toUpperCase()}: <br/>{MathUtil.roundTo(this.state.roundScores[k], 2)}
                   </Label>
                   
                 </li>
@@ -268,7 +272,6 @@ export default class ScoringLineChart extends React.Component<ChartingProps, { c
               }
             </ul>
           </Row>
-
           <LineChart
             margin={{ top: 0, right: 20, bottom: 0, left: 0 }}
             width={this.state.componentWidth - 20}
@@ -276,18 +279,18 @@ export default class ScoringLineChart extends React.Component<ChartingProps, { c
             data={this.getLineChartData()}
           >
             <XAxis padding={{ left: 0, right: 20 }} dataKey={Object.keys(this.getLineChartData()[0])[0]}/>
-            <YAxis padding={{ top: 10, bottom: 0 }} domain={[0, 20 * this.getLineChartData().length]} />
+            <YAxis padding={{ top: 10, bottom: 0 }} domain={[0, this.props.YAxisDomain ? this.props.YAxisDomain : 20 * this.getLineChartData().length]} />
             <Legend verticalAlign="bottom" height={100} onMouseEnter={this.handleMouseEnter} onMouseLeave={this.handleMouseLeave} />
             <Tooltip wrapperStyle={{ display: 'none' }} />
             {this.state.roundScores && <ReferenceLine x={this.state.roundScores.name} stroke="white" strokeWidth={2} strokeDasharray="3 1" opacity={.5} />}
-            {this.getLineChartData().map((d, i) => {
+            {Object.keys(this.getLineChartData()[0]).filter(k => k != "name").map((k, i) => {
               return <Line
                 opacity={this.state.opacity ? this.state.opacity[ScoringLineChart.MockTeams[i].Name] : .75}
                 animationDuration={750}
                 animationEasing="ease"
                 key={i}
-                dataKey={"Team " + (i + 1).toString()}
-                stroke={this.getTeamColor(Object.keys(d)[i + 1])}
+                dataKey={k}
+                stroke={this.getTeamColor(k)}
                 activeDot={(d, i) => {
                   this.setState({ roundScores: d.payload });
                 }}
