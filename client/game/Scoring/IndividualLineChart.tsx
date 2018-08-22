@@ -162,7 +162,7 @@ export default class IndividualLineChart extends React.Component<ChartingProps, 
           
           </Header>
           
-          <Table striped celled>
+          <Table striped selectable>
                 <Table.Header>
                     <Table.Row>
                         <Table.HeaderCell>
@@ -178,7 +178,7 @@ export default class IndividualLineChart extends React.Component<ChartingProps, 
                     {Data && Object.keys(Data[Data.length -1]).filter(s => s != "name" && Data[Data.length -1][s]).map((s, i) =>
                         <Table.Row key={i}>
                             <Table.Cell
-                              style={{maxWidth: '150px'}}
+                              style={{width: '250px'}}
                             >
                                 {s}
                             </Table.Cell>
