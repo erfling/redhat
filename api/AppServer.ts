@@ -326,11 +326,6 @@ export class AppServer {
                         newMapping = await monMappingModel.create(mapping).then(r => Object.assign(new RoundChangeMapping(), r.toJSON()))
 
 
-
-
-
-
-
                     } else if (!oldMapping.UserJobs) {
 
                         game.Teams.forEach(t => {
