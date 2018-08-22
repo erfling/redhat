@@ -163,7 +163,7 @@ export default class IndividualLineChart extends React.Component<ChartingProps, 
           
           </Header>
           <pre style={{color: 'white'}}>{Data && JSON.stringify(Data, null, 2)}</pre>
-          <Table>
+          
           <Table striped celled>
                 <Table.Header>
                     <Table.Row>
@@ -184,7 +184,6 @@ export default class IndividualLineChart extends React.Component<ChartingProps, 
                 </Table.Body>
             </Table>
 
-          </Table>
 
         </Segment>
       }
