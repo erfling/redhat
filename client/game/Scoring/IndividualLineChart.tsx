@@ -153,7 +153,6 @@ export default class IndividualLineChart extends React.Component<ChartingProps, 
       {this.props.Data && this.props.Data.length > 1 &&
 
         <Segment
-          style={{ paddingLeft: 0 }}
           raised
           className="line-chart-wrapper"
         >
@@ -178,7 +177,9 @@ export default class IndividualLineChart extends React.Component<ChartingProps, 
                 <Table.Body>
                     {Data && Object.keys(Data[Data.length -1]).filter(s => s != "name" && Data[Data.length -1][s]).map((s, i) =>
                         <Table.Row key={i}>
-                            <Table.Cell>
+                            <Table.Cell
+                              style={{maxWidth: '150px'}}
+                            >
                                 {s}
                             </Table.Cell>
                             <Table.Cell >{Data[Data.length -1][s]}</Table.Cell>
