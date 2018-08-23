@@ -7,7 +7,7 @@ import { monTeamModel } from './TeamCtrl';
 import ValueObj, { SliderValueObj } from '../../shared/entity-of-the-state/ValueObj';
 import { monQModel, monSubRoundModel, monRoundModel } from './RoundCtrl';
 import SubRoundModel from '../../shared/models/SubRoundModel';
-import { monGameModel } from './GameCtrl';
+import { monGameModel, monMappingModel } from './GameCtrl';
 import TeamModel from '../../shared/models/TeamModel';
 import GameModel from '../../shared/models/GameModel';
 import QuestionModel, { QuestionType, ComparisonLabel } from '../../shared/models/QuestionModel';
@@ -281,15 +281,19 @@ class GamePlayRouter {
 
                 const CurrentHighestBid: Partial<ValueObj> = {
                     data: submittedBidValue.toString(),
-                    label: team.Number.toString()
+                    label: team.Number.toString(),
+                    targetObjId: team._id
                 }
 
 
                 const game = await monGameModel.findById(team.GameId).then(g => g ? Object.assign(new GameModel(), g.toJSON()) : null)
 
-                let gameForUpdate = Object.assign(game, { CurrentRound: Object.assign(game.CurrentRound, { CurrentHighestBid }) })
-
+                let gameForUpdate = Object.assign(game, { CurrentRound: Object.assign(game.CurrentRound, { CurrentHighestBid }) });
+                let mapping = await monMappingModel.findOneAndUpdate({GameId: game._id, ParentRound: game.CurrentRound.ParentRound}, gameForUpdate.CurrentRound, {new: true}).then(mapping => mapping ? Object.assign(new RoundChangeMapping(), mapping.toJSON()) : null);
+    
                 const updatedGame = await monGameModel.findByIdAndUpdate(team.GameId, gameForUpdate);
+                
+                console.log("the mapping was updated to: ", mapping);
                 AppServer.LongPoll.publishToId("/listenforgameadvance/:gameid", response.GameId, gameForUpdate.CurrentRound);
 
 

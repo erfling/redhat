@@ -29,6 +29,13 @@ export default class SubRoundScore extends BaseModel
     @dbProp(Number)
     public NormalizedScore: number = 0;
 
+    get FullScore(){
+        if(this.BonusPoints){
+            return this.NormalizedScore + this.BonusPoints;
+        }
+        return this.NormalizedScore;
+    }
+
     @dbProp(String)
     public RoundLabel: string;
 
