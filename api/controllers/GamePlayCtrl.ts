@@ -467,7 +467,7 @@ class GamePlayRouter {
                 for (var i = 0; i < answers.length; i++) {
                     let ans = answers[i];
                     console.dir("HHHHHHHHHHHEEEEEEEEEEEEEEEEEEEEEEEEEEYYYYYYYYYYYYY", response)
-                    let queryObj: any = { DisplayLabel: ans.label, SubRoundId: response.SubRoundId, GameId: response.GameId, TeamId: response.TeamId, QuestionId: response.QuestionId, targetObjId: (response.Answer as SliderValueObj[])[0].targetObjId }
+                    let queryObj: any = { UserId: response.UserId, DisplayLabel: ans.label, SubRoundId: response.SubRoundId, GameId: response.GameId, TeamId: response.TeamId, QuestionId: response.QuestionId, targetObjId: (response.Answer as SliderValueObj[])[0].targetObjId }
 
                     const oldResponse = await monResponseModel.findOne(queryObj).then(r => r ? r.toJSON() : null);
                     let r = Object.assign({}, response);
@@ -847,11 +847,11 @@ class GamePlayRouter {
         this.router.post("/bid", this.SubmitBid.bind(this), this.SaveResponse.bind(this));
         this.router.post("/3response", this.SaveRound3Response.bind(this));
         this.router.get("/getscores/:gameid", this.getScores.bind(this)),
-            this.router.get("/getuserscores/:subroundid/:roundid/:gameid", this.getUserScores.bind(this)),
-            this.router.get("/getsubroundscores/:gameid/:subroundid", this.getSubRoundScores.bind(this)),
-            this.router.post("/response/rating", this.savePriorityRating.bind(this)),
-            this.router.get("/getuserrating/:userid/:teamid", this.GetUserRatingsSoFar.bind(this))
-            this.router.get("/getfacilitatorresponses/:gameid", this.getFacilitatorResponsesByRound.bind(this))
+        this.router.get("/getuserscores/:subroundid/:roundid/:gameid", this.getUserScores.bind(this)),
+        this.router.get("/getsubroundscores/:gameid/:subroundid", this.getSubRoundScores.bind(this)),
+        this.router.post("/response/rating", this.savePriorityRating.bind(this)),
+        this.router.get("/getuserrating/:userid/:teamid", this.GetUserRatingsSoFar.bind(this))
+        this.router.get("/getfacilitatorresponses/:gameid", this.getFacilitatorResponsesByRound.bind(this))
     }
 }
 

@@ -31,6 +31,9 @@ export default class ResponseModel extends BaseModel
     @dbProp(String)
     public TeamId: string;
 
+    @dbProp(String)
+    public UserId: string;
+
     @dbProp(Number)
     public TeamNumber: number;
 
