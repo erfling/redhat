@@ -13,6 +13,7 @@ interface ChartingProps {
   TeamId: string;
   PlayerId: string;
   Data: any[];
+  RawData?: any
 }
 
 class CustomizedDot extends React.Component<any, any> {
@@ -58,21 +59,13 @@ export default class IndividualLineChart extends React.Component<ChartingProps, 
   }
 
   static rounds = ["Round 1", "Round 2", "Round 3", "Round 4", "Round 5"];
-  static Colors = ["#3b67c5", "#cd4c2d", "#f29e3c", "#499535", "#fff", "#00b5ad", "#cbeff9"];
-  
+  static Colors = ["#499535", "#f29e3c", "#6ad3f1", "#cd4c2d", "#00b5ad", "#3b67c5","#fff"];
+
   static MockData;
 
 
   mouseOverHandler(d, e) {
     this.setState({ showToolTip: true });
-
-    /*
-    this.setState({
-      showToolTip: true,
-      top: `${e.screenY - 10}px`,
-      left: `${e.screenX + 10}px`,
-      y: d.y,
-      x: d.x});*/
   }
 
   mouseOutHandler() {
@@ -112,34 +105,28 @@ export default class IndividualLineChart extends React.Component<ChartingProps, 
 
   //TODO: mobile tooltip stuff
   render() {
-    const {  TeamId, Data } = this.props;
-    const colors = ["#3b67c5", "#cd4c2d", "#f29e3c", "#499535", "#fff", "#00b5ad", "#00afe0"];
+    const { TeamId, Data, RawData } = this.props;
 
     return <Column
       width={16}
       className="feedback chart-wrapper"
     >
-      {Data && Data.length == 1 &&
-        <Segment
-          style={{ paddingLeft: 0 }}
-          raised
-          className="line-chart-wrapper"
-        >
-          <Header
-            textAlign="center"
-          >
-            {Data[Data.length - 1].name} Ratings
-          </Header>
-
+      <Segment
+        style={{ paddingLeft: 0 }}
+        raised
+        className="line-chart-wrapper"
+      >
+        <Header as="h1" style={{textAlign:"center",paddingTop:'20px'}}>Your Ratings {Data && <>For {Data[Data.length - 1].name}</>}</Header>
+        {Data &&
           <BarChart
             barCategoryGap={15}
             data={[Data[Data.length - 1]]}
             margin={{ top: 0, right: 20, bottom: 0, left: 0 }}
             width={this.state.componentWidth - 20}
-            height={this.state.componentWidth / 1.5}            
+            height={this.state.componentWidth / 1.5}
           >
             <YAxis padding={{ top: 10, bottom: 0 }} domain={[0, 10]} />
-            <XAxis padding={{ left: 0, right: 10 }} dataKey="name"/>
+            <XAxis padding={{ left: 0, right: 10 }} dataKey="name" />
             <Legend verticalAlign="bottom" height={100} />
             {Object.keys(Data[Data.length - 1]).filter(k => k.toLowerCase().indexOf("name") == -1 && Data[Data.length - 1][k]).map((k, i) => {
               console.log("TRYING TO BUILD BARS", k, Data[Data.length - 1][k])
@@ -147,51 +134,9 @@ export default class IndividualLineChart extends React.Component<ChartingProps, 
             })}
 
           </BarChart>
-        </Segment>
-      }
-
-      {this.props.Data && this.props.Data.length > 1 &&
-
-        <Segment
-          raised
-          className="line-chart-wrapper"
-        >
-          <Header
-            textAlign="center"
-          >
-          
-          </Header>
-          
-          <Table striped selectable>
-                <Table.Header>
-                    <Table.Row>
-                        <Table.HeaderCell>
-                        <Label color='blue' ribbon>
-                          Individual Ratings
-                        </Label>
-                        </Table.HeaderCell>
-                        <Table.HeaderCell>Rating</Table.HeaderCell>
-                    </Table.Row>
-                </Table.Header>
-
-                <Table.Body>
-                    {Data && Object.keys(Data[Data.length -1]).filter(s => s != "name" && Data[Data.length -1][s]).map((s, i) =>
-                        <Table.Row key={i}>
-                            <Table.Cell
-                              style={{width: '250px'}}
-                            >
-                                {s}
-                            </Table.Cell>
-                            <Table.Cell >{Data[Data.length -1][s]}</Table.Cell>
-                        </Table.Row>
-                    )}
-                </Table.Body>
-            </Table>
-
-
-        </Segment>
-      }
-
+        }
+       
+      </Segment>
     </Column>
   }
 
@@ -200,7 +145,7 @@ export default class IndividualLineChart extends React.Component<ChartingProps, 
 /**
  * 
  * 
- * 
+ *  
  * {this.props.Data && this.props.Data.length > 1 &&
             <LineChart
               margin={{ top: 0, right: 20, bottom: 0, left: 0 }}

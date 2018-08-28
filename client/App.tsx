@@ -496,12 +496,7 @@ export default class App extends BaseComponent<any, IControllerDataStore>
         } else if (!this.state) {
             return <h2>Loading</h2>
         } else {
-            return <pre>hey {JSON.stringify(this.state, null, 2)}</pre>
+            return <h1>hey {JSON.stringify(this.state, null, 2)}</h1>
         }
     }
 }
-/**
- *          
-                        {this.state && this.state.ApplicationState && <pre>{JSON.stringify(this.state.ApplicationState, null, 2)}</pre>}
-
- */

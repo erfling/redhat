@@ -55,7 +55,6 @@ class FacilitationCtrl
 
     public async SaveResponse(req: Request, res: Response){
         const response: ResponseModel = Object.assign(new ResponseModel(), req.body as ResponseModel);
-
        
     }
 

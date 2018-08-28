@@ -21,9 +21,3 @@ hey
     }
 
 }
-
-/**
- * 
-            <pre>{JSON.stringify(this.state.Content, null, 2)}</pre>
-            <pre>{JSON.stringify(this.props.Content, null, 2)}</pre>
- */

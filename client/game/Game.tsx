@@ -57,7 +57,7 @@ export default class Game extends BaseComponent<any, IControllerDataStore & { Ga
     //
     //----------------------------------------------------------------------
 
-
+    private _interval;
 
     //----------------------------------------------------------------------
     //
@@ -73,6 +73,33 @@ export default class Game extends BaseComponent<any, IControllerDataStore & { Ga
 
         this._updateDimensionsAndHandleClickOff();
         window.addEventListener("resize", this._updateDimensionsAndHandleClickOff.bind(this));
+        document.addEventListener("visibilitychange", () => {
+            console.error("document.hidden is ", document.hidden);
+            if(document.hidden){
+                //this.controller.pollForGameStateChange(this.state.ApplicationState.CurrentGame._id)
+            }
+        }, false);
+
+        this.handleResetPoll();
+
+    }
+
+    private handleResetPoll(){
+        var TIMEOUT = 2000;
+        var lastTime = (new Date()).getTime();
+
+        this._interval = setInterval( () => {
+            var currentTime = (new Date()).getTime();
+            if (currentTime > (lastTime + TIMEOUT + 2000)) {
+                // Wake!alert()
+                this.controller.pollForGameStateChange(this.state.ApplicationState.CurrentGame._id);
+                clearInterval(this._interval);
+                this.handleResetPoll();
+            } else {
+                console.log("it's been 2000 ms")
+            }
+            lastTime = currentTime;
+        }, TIMEOUT);
     }
 
     /**
@@ -115,6 +142,7 @@ export default class Game extends BaseComponent<any, IControllerDataStore & { Ga
      * Remove event listener
      */
     componentWillUnmount() {
+        clearInterval(this._interval);
         window.removeEventListener("resize", this._updateDimensionsAndHandleClickOff.bind(this));
         window.removeEventListener("click", this._updateDimensionsAndHandleClickOff.bind(this));
     }
@@ -154,9 +182,9 @@ export default class Game extends BaseComponent<any, IControllerDataStore & { Ga
                     }
                     open={this.state.ShowGameInfoPopup}
                     position='bottom right'
-                    className="nav-instruction"                    
+                    className="nav-instruction"
                     style={{
-                        marginLeft:'40px'
+                        marginLeft: '40px'
                     }}
                 >
 
@@ -221,7 +249,7 @@ export default class Game extends BaseComponent<any, IControllerDataStore & { Ga
                     Check for important new messages.
                 </Popup>
                 {this.state.ApplicationState.CurrentUser.Job == JobName.MANAGER &&
-                
+
                     <Popup
                         trigger={
                             <Menu.Item
@@ -252,7 +280,7 @@ export default class Game extends BaseComponent<any, IControllerDataStore & { Ga
                     </div>
                         As manager, you enter decisions for your team.
                 </Popup>
-                
+
                 }
             </Menu>
         }
@@ -458,7 +486,7 @@ export default class Game extends BaseComponent<any, IControllerDataStore & { Ga
                                     }}
                                 >
                                     <MessageList
-                                        Messages={this.state.ApplicationState.CurrentMessages.filter( m => !m.IsDefault /*|| (m.IsDefault && this.controller.ChildController && m.RoundId != this.controller.ChildController.dataStore.SubRound._id) */).reverse()}
+                                        Messages={this.state.ApplicationState.CurrentMessages.filter(m => !m.IsDefault /*|| (m.IsDefault && this.controller.ChildController && m.RoundId != this.controller.ChildController.dataStore.SubRound._id) */).reverse()}
                                         Show={this.state.ApplicationState.ShowMessageList}
                                         SelectFunc={(m) => {
                                             this.controller.dataStore.ApplicationState.ShowMessageList = false;
@@ -486,11 +514,11 @@ export default class Game extends BaseComponent<any, IControllerDataStore & { Ga
                     </Grid>
                 </Column>
 
-                {this.state.ApplicationState.CurrentMessages && this.state.ApplicationState.MobileWidth && this.controller.ChildController && this.controller.ChildController.dataStore && this.controller.ChildController.dataStore.SubRound &&  <div
+                {this.state.ApplicationState.CurrentMessages && this.state.ApplicationState.MobileWidth && this.controller.ChildController && this.controller.ChildController.dataStore && this.controller.ChildController.dataStore.SubRound && <div
                     className={"mobile-messages" + " " + (this.state.ApplicationState.ShowMessageList ? "show" : "hide")}
                 >
                     <MessageList
-                        Messages={this.state.ApplicationState.CurrentMessages.filter( m => !m.IsDefault /*|| (m.IsDefault && this.controller.ChildController && m.RoundId != this.controller.ChildController.dataStore.SubRound._id) */).reverse()}
+                        Messages={this.state.ApplicationState.CurrentMessages.filter(m => !m.IsDefault /*|| (m.IsDefault && this.controller.ChildController && m.RoundId != this.controller.ChildController.dataStore.SubRound._id) */).reverse()}
                         Show={this.state.ApplicationState.ShowMessageList}
                         SelectFunc={(m) => {
                             this.controller.dataStore.ApplicationState.ShowMessageList = false;

@@ -28,6 +28,6 @@ export default class RoundChangeMapping extends BaseModel {
     @dbProp(Boolean)
     ShowIndividualFeedback?: boolean = false;
 
-    @dbProp({label: String, data: String, minPoints: Number, maxPoints: Number, idealValue: String, min: Number, max: Number})
+    @dbProp({label: String, data: String, minPoints: Number, maxPoints: Number, idealValue: String, min: Number, max: Number, targetObjId: String})
     CurrentHighestBid?: SliderValueObj;
 }

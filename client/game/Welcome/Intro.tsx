@@ -109,14 +109,3 @@ export default class Intro extends BaseComponent<any, IRoundDataStore>
     }
 
 }
-
-  /*                    <pre>{JSON.stringify(this.state, null, 2)}</pre>
-
-                                <Button
-                                    content='Save'
-                                    icon='checkmark'
-                                    labelPosition='right'
-                                    onClick={e => {
-                                        this.controller.Save1AResponse(q.PossibleAnswers, q, thisSubRound)
-                                    }}
-                                />*/

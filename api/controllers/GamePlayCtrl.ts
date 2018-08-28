@@ -7,7 +7,7 @@ import { monTeamModel } from './TeamCtrl';
 import ValueObj, { SliderValueObj } from '../../shared/entity-of-the-state/ValueObj';
 import { monQModel, monSubRoundModel, monRoundModel } from './RoundCtrl';
 import SubRoundModel from '../../shared/models/SubRoundModel';
-import { monGameModel } from './GameCtrl';
+import { monGameModel, monMappingModel } from './GameCtrl';
 import TeamModel from '../../shared/models/TeamModel';
 import GameModel from '../../shared/models/GameModel';
 import QuestionModel, { QuestionType, ComparisonLabel } from '../../shared/models/QuestionModel';
@@ -281,15 +281,19 @@ class GamePlayRouter {
 
                 const CurrentHighestBid: Partial<ValueObj> = {
                     data: submittedBidValue.toString(),
-                    label: team.Number.toString()
+                    label: team.Number.toString(),
+                    targetObjId: team._id
                 }
 
 
                 const game = await monGameModel.findById(team.GameId).then(g => g ? Object.assign(new GameModel(), g.toJSON()) : null)
 
-                let gameForUpdate = Object.assign(game, { CurrentRound: Object.assign(game.CurrentRound, { CurrentHighestBid }) })
-
+                let gameForUpdate = Object.assign(game, { CurrentRound: Object.assign(game.CurrentRound, { CurrentHighestBid }) });
+                let mapping = await monMappingModel.findOneAndUpdate({GameId: game._id, ParentRound: game.CurrentRound.ParentRound}, gameForUpdate.CurrentRound, {new: true}).then(mapping => mapping ? Object.assign(new RoundChangeMapping(), mapping.toJSON()) : null);
+    
                 const updatedGame = await monGameModel.findByIdAndUpdate(team.GameId, gameForUpdate);
+                
+                console.log("the mapping was updated to: ", mapping);
                 AppServer.LongPoll.publishToId("/listenforgameadvance/:gameid", response.GameId, gameForUpdate.CurrentRound);
 
 
@@ -463,7 +467,7 @@ class GamePlayRouter {
                 for (var i = 0; i < answers.length; i++) {
                     let ans = answers[i];
                     console.dir("HHHHHHHHHHHEEEEEEEEEEEEEEEEEEEEEEEEEEYYYYYYYYYYYYY", response)
-                    let queryObj: any = { DisplayLabel: ans.label, SubRoundId: response.SubRoundId, GameId: response.GameId, TeamId: response.TeamId, QuestionId: response.QuestionId, targetObjId: (response.Answer as SliderValueObj[])[0].targetObjId }
+                    let queryObj: any = { UserId: response.UserId, DisplayLabel: ans.label, SubRoundId: response.SubRoundId, GameId: response.GameId, TeamId: response.TeamId, QuestionId: response.QuestionId, targetObjId: (response.Answer as SliderValueObj[])[0].targetObjId }
 
                     const oldResponse = await monResponseModel.findOne(queryObj).then(r => r ? r.toJSON() : null);
                     let r = Object.assign({}, response);
@@ -763,7 +767,6 @@ class GamePlayRouter {
                     return r.RoundId == sr.RoundId;
                 }).length;
             }).map(sr => sr._id);
-            console.log(subRoundIds);
 
             // build array of unique DisplayLabel (rating criteria name) for the responses
             let displayLabels: string[] = responses.reduce((allDisplayLabels: string[], response: ResponseModel) => {
@@ -778,7 +781,12 @@ class GamePlayRouter {
             for (var n = 0; n < subRoundIds.length; n++) {
                 orderedResponses[n] = {};
                 displayLabels.forEach(displayName => {
-                    orderedResponses[n][displayName] = responses.filter(r => r.SubRoundId == subRoundIds[n] && r.DisplayLabel == displayName);
+                    orderedResponses[n][displayName] = responses.filter(r => r.SubRoundId == subRoundIds[n] && r.DisplayLabel == displayName).map(r => {
+                        let subround = subRounds.filter(sr => sr._id == r.SubRoundId)[0];
+                        return Object.assign(r, {
+                            RoundName: subround ? "Round " + subround.Label.charAt(0) : null
+                        })
+                    });
                 })
             }
 
@@ -839,11 +847,11 @@ class GamePlayRouter {
         this.router.post("/bid", this.SubmitBid.bind(this), this.SaveResponse.bind(this));
         this.router.post("/3response", this.SaveRound3Response.bind(this));
         this.router.get("/getscores/:gameid", this.getScores.bind(this)),
-            this.router.get("/getuserscores/:subroundid/:roundid/:gameid", this.getUserScores.bind(this)),
-            this.router.get("/getsubroundscores/:gameid/:subroundid", this.getSubRoundScores.bind(this)),
-            this.router.post("/response/rating", this.savePriorityRating.bind(this)),
-            this.router.get("/getuserrating/:userid/:teamid", this.GetUserRatingsSoFar.bind(this))
-            this.router.get("/getfacilitatorresponses/:gameid", this.getFacilitatorResponsesByRound.bind(this))
+        this.router.get("/getuserscores/:subroundid/:roundid/:gameid", this.getUserScores.bind(this)),
+        this.router.get("/getsubroundscores/:gameid/:subroundid", this.getSubRoundScores.bind(this)),
+        this.router.post("/response/rating", this.savePriorityRating.bind(this)),
+        this.router.get("/getuserrating/:userid/:teamid", this.GetUserRatingsSoFar.bind(this))
+        this.router.get("/getfacilitatorresponses/:gameid", this.getFacilitatorResponsesByRound.bind(this))
     }
 }
 

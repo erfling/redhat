@@ -325,4 +325,3 @@ class GameDetail extends BaseComponent<any, IControllerDataStore & {Admin: Admin
 }
 
 export default withRouter(GameDetail);
-//{this.state.Admin.SelectedGame && <pre>{JSON.stringify(this.state.Admin.SelectedGame, null, 2)}</pre>}
