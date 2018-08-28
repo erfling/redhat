@@ -8,6 +8,7 @@ import FinanceRoundCtrl from "./FinanceRoundCtrl";
 import BaseComponent from "../../../shared/base-sapien/client/shared-components/BaseComponent";
 import Decisions from '-!svg-react-loader?name=Icon!../../img/decisions.svg';
 import FeedBackWrapper from "../Scoring/FeedBackWrapper";
+import { QuestionType } from "../../../shared/models/QuestionModel";
 
 const { Button, Grid, Form, Dimmer, Loader, Header, Table } = Semantic;
 const { Row, Column } = Grid;
@@ -104,6 +105,7 @@ export default class Bid extends BaseComponent<any, IRoundDataStore>
                                     key={"question-" + i.toString()}
                                 >
                                     <EditableQuestionBlock
+                                        CanBeNegative={q.Type == QuestionType.NUMBER}
                                         Question={q}
                                         idx={i}
                                         key={i}

@@ -66,6 +66,7 @@ export default class FinanceRoundCtrl extends BaseRoundCtrl<IRoundDataStore>
         response.GameId = this.dataStore.ApplicationState.CurrentTeam.GameId;
         response.Answer[0].label = "BID";
         this.dataStore.ApplicationState.FormIsSubmitting = response.IsSaving = true;
+        
         return SapienServerCom.SaveData(response, SapienServerCom.BASE_REST_URL + "gameplay/bid").then(r => {
             console.log(r);
             question.Response = Object.assign(new ResponseModel(), r);

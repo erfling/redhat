@@ -56,6 +56,12 @@ export default class QuestionModel extends BaseModel
     @dbProp(String)
     public ComparisonLabel: ComparisonLabel;
 
+    /*
+        Validation message to display when input is in invalid state
+    */
+    public ValidationMessage?: String = null;
+
+
     Response: ResponseModel = Object.assign(new ResponseModel(), {ComparisonLabel: this.ComparisonLabel || null});
 
 }
