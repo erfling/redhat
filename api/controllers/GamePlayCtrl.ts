@@ -767,7 +767,6 @@ class GamePlayRouter {
                     return r.RoundId == sr.RoundId;
                 }).length;
             }).map(sr => sr._id);
-            console.log(subRoundIds);
 
             // build array of unique DisplayLabel (rating criteria name) for the responses
             let displayLabels: string[] = responses.reduce((allDisplayLabels: string[], response: ResponseModel) => {
@@ -782,7 +781,12 @@ class GamePlayRouter {
             for (var n = 0; n < subRoundIds.length; n++) {
                 orderedResponses[n] = {};
                 displayLabels.forEach(displayName => {
-                    orderedResponses[n][displayName] = responses.filter(r => r.SubRoundId == subRoundIds[n] && r.DisplayLabel == displayName);
+                    orderedResponses[n][displayName] = responses.filter(r => r.SubRoundId == subRoundIds[n] && r.DisplayLabel == displayName).map(r => {
+                        let subround = subRounds.filter(sr => sr._id == r.SubRoundId)[0];
+                        return Object.assign(r, {
+                            RoundName: subround ? "Round " + subround.Label.charAt(0) : null
+                        })
+                    });
                 })
             }
 

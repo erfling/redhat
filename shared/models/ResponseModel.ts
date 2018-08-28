@@ -75,6 +75,9 @@ export default class ResponseModel extends BaseModel
 
     @dbProp(Number)
     public BonusPoints: number;
+    
+    public RoundName: string;
+    public SubRoundName: string;
 
     public resolveScore(): number {
         const ans: SliderValueObj[] = this.Answer as SliderValueObj[];

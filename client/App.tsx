@@ -500,8 +500,3 @@ export default class App extends BaseComponent<any, IControllerDataStore>
         }
     }
 }
-/**
- *          
-                        {this.state && this.state.ApplicationState && <pre>{JSON.stringify(this.state.ApplicationState, null, 2)}</pre>}
-
- */

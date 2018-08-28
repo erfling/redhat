@@ -146,6 +146,7 @@ export default class EngineeringSub extends BaseComponent<any, IRoundDataStore>
                         TeamId={this.state.ApplicationState.CurrentTeam._id}
                         PlayerId={this.state.ApplicationState.CurrentUser._id}
                         Data={userRatingsChart}
+                        RawData={this.state.UserRatings}
                     />
                 }  
 
