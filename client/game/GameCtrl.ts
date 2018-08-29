@@ -20,7 +20,7 @@ import CustomerRoundCtrl from './CustomerRound/CustomerRoundCtrl';
 import ApplicationCtrl from '../ApplicationCtrl';
 
 
-export default class GameCtrl extends BaseClientCtrl<IControllerDataStore & {Game: GameModel, _mobileWidth: boolean, ShowGameInfoPopup: boolean, ShowDecisionPopup: boolean, ShowInboxPopup: boolean; GrowMessageIndicator: boolean}>
+export default class GameCtrl<T extends IControllerDataStore & {Game: GameModel, _mobileWidth: boolean, ShowGameInfoPopup: boolean, ShowDecisionPopup: boolean, ShowInboxPopup: boolean; GrowMessageIndicator: boolean}> extends BaseClientCtrl<IControllerDataStore & {Game: GameModel, _mobileWidth: boolean, ShowGameInfoPopup: boolean, ShowDecisionPopup: boolean, ShowInboxPopup: boolean; GrowMessageIndicator: boolean}>
 {
     //----------------------------------------------------------------------
     //
@@ -28,7 +28,7 @@ export default class GameCtrl extends BaseClientCtrl<IControllerDataStore & {Gam
     //
     //----------------------------------------------------------------------
 
-    private static _instance: GameCtrl;
+    private static _instance: GameCtrl<any>;
 
     private _childController: BaseRoundCtrl<any>;
 
@@ -42,11 +42,11 @@ export default class GameCtrl extends BaseClientCtrl<IControllerDataStore & {Gam
     //
     //----------------------------------------------------------------------
 
-    private constructor(reactComp?: Component<any, any>) {
+    constructor(reactComp?: Component<any, any>) {
         super(null, reactComp || null);
     }
 
-    public static GetInstance(reactComp?: Component<any, any>): GameCtrl {
+    public static GetInstance(reactComp?: Component<any, any>): GameCtrl<any> {
         if (!this._instance) {
             this._instance = new GameCtrl(reactComp || null);
             if (!this._instance) throw new Error("NO INSTANCE");

@@ -9,8 +9,11 @@ import SapienServerCom from "../../shared/base-sapien/client/SapienServerCom";
 import GameCtrl from '../game/GameCtrl';
 import ResponseModel from "../../shared/models/ResponseModel";
 import { SliderValueObj } from "../../shared/entity-of-the-state/ValueObj";
+import { IFrame } from "sanitize-html";
+import GameModel from "../../shared/models/GameModel";
+import FacilitatorCtrl from "../facilitator/FacilitatorCtrl";
 
-export default class AdminLogin extends React.Component<any, any>
+export default class FacilitatorView extends BaseComponent<any, IControllerDataStore & { Game: GameModel, _mobileWidth: boolean, ShowGameInfoPopup: boolean, ShowDecisionPopup: boolean, ShowInboxPopup: boolean; GrowMessageIndicator: boolean } & {groupedResponses: any}>
 {
     //----------------------------------------------------------------------
     //
@@ -20,6 +23,17 @@ export default class AdminLogin extends React.Component<any, any>
 
     private _timeout;
     
+ //----------------------------------------------------------------------
+    //
+    //  Properties
+    //
+    //----------------------------------------------------------------------
+
+    public static CLASS_NAME = "FacilitatorView";
+
+    public static CONTROLLER = FacilitatorCtrl;
+
+    controller: FacilitatorCtrl = FacilitatorCtrl.GetInstance(this);
 
     //----------------------------------------------------------------------
     //
@@ -29,7 +43,9 @@ export default class AdminLogin extends React.Component<any, any>
 
     constructor(props: any) {
         super(props);
-        this.state = {groupedResponses: null}
+
+        this.state = this.controller.dataStore;
+        document.getElementsByTagName('meta')["viewport"].content = "width=device-width, initial-scale=1.0, maximum-scale=1";
     }
 
 
@@ -43,6 +59,22 @@ export default class AdminLogin extends React.Component<any, any>
                 console.error(err);
             })
         }, 5000)
+
+
+        //punch-viewer-icon punch-viewer-right goog-inline-block
+        let container;
+        setTimeout(() => {
+            container = document.querySelector("#slides-container");
+            console.log("found container>>>>>>>>>>>>>",container);
+
+            
+        }, 3000)
+
+        setTimeout(() => {
+            
+            let thing = container.querySelector('.punch-viewer-right');
+            console.log("found thing>>>>>>>>>>>>>",thing, container.querySelector("#document"));
+        }, 10000)
     }
 
     componentDidUpdate(){
@@ -71,6 +103,29 @@ export default class AdminLogin extends React.Component<any, any>
     render() {
 
         return <>
+            <Row>
+                <iframe 
+                    id="slides-container"
+                    src="https://docs.google.com/presentation/d/e/2PACX-1vRmUlK2iay5zqLlpzkkCv-J5mOlaG2IReIJwrZcNjPtjFq11R4VsFQbD-tycOhb3jZfrIQ_xycO9Q-E/embed?start=false&loop=false&delayms=3000#slide=1" 
+                    allowFullScreen
+                >
+                </iframe>
+                <Button
+                    onClick={() => {
+                        this.controller.onClickChangeSlide(-1);
+                    }}
+                >
+                    back
+                </Button>
+
+                <Button
+                    onClick={() => {
+                       this.controller.onClickChangeSlide(1);
+                    }}
+                >
+                    forward
+                </Button>
+            </Row>
             <Row>
                 <Column> 
                     {this.state.groupedResponses && Object.keys(this.state.groupedResponses).map(k => {
