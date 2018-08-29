@@ -10,7 +10,7 @@ import Decisions from '-!svg-react-loader?name=Icon!../../img/decisions.svg';
 import FeedBackWrapper from "../Scoring/FeedBackWrapper";
 import { QuestionType } from "../../../shared/models/QuestionModel";
 
-const { Button, Grid, Form, Dimmer, Loader, Header, Table } = Semantic;
+const { Button, Grid, Form, Dimmer, Loader, Header, Label } = Semantic;
 const { Row, Column } = Grid;
 
 export default class Bid extends BaseComponent<any, IRoundDataStore>
@@ -105,7 +105,7 @@ export default class Bid extends BaseComponent<any, IRoundDataStore>
                                     key={"question-" + i.toString()}
                                 >
                                     <EditableQuestionBlock
-                                        CanBeNegative={q.Type == QuestionType.NUMBER}
+                                        CannotBeNegative={q.Type == QuestionType.NUMBER}
                                         Question={q}
                                         idx={i}
                                         key={i}
@@ -116,7 +116,9 @@ export default class Bid extends BaseComponent<any, IRoundDataStore>
                                         }}
                                         IsEditable={this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN}
                                     />
+
                                     <Button
+                                        disabled={!q.Response || q.Response.ValidationMessage != null}
                                         content='Submit'
                                         icon='checkmark'
                                         labelPosition='right'

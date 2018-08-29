@@ -8,7 +8,7 @@ import FinanceRoundCtrl from "./FinanceRoundCtrl";
 import BaseComponent from "../../../shared/base-sapien/client/shared-components/BaseComponent";
 import Decisions from '-!svg-react-loader?name=Icon!../../img/decisions.svg';
 import FeedBackWrapper from "../Scoring/FeedBackWrapper";
-import { RatingType } from "../../../shared/models/QuestionModel";
+import { RatingType, QuestionType } from "../../../shared/models/QuestionModel";
 import GameCtrl from "../GameCtrl";
 
 const { Button, Grid, Form, Dimmer, Loader, Header, Table } = Semantic;
@@ -91,11 +91,19 @@ export default class Pricing extends BaseComponent<any, IRoundDataStore>
                                         SubRoundId={thisSubRound._id}
                                         onChangeHander={r => {
                                             console.log(r);
+                                            if(q.Type == QuestionType.TEXTAREA){
+                                                if(r.Answer[0].data.split(' ').length > 49){
+                                                    r.ValidationMessage = "50 words or less, please."
+                                                } else {
+                                                    r.ValidationMessage = null;
+                                                }
+                                            }
                                             this.controller.updateResponse(q, r)
                                         }}
                                         IsEditable={this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN}
                                     />
                                     <Button
+                                        disabled={!q.Response || q.Response.ValidationMessage != null}
                                         content='Submit'
                                         icon='checkmark'
                                         labelPosition='right'
