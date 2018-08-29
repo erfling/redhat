@@ -79,6 +79,11 @@ export default class ResponseModel extends BaseModel
     @dbProp(Number)
     public BonusPoints: number;
     
+   /*
+        Validation message to display when input is in invalid state
+    */
+   public ValidationMessage?: String = null;
+
     public RoundName: string;
     public SubRoundName: string;
 
