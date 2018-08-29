@@ -257,22 +257,38 @@ class GamePlayRouter {
 
     public async SubmitBid(req: Request, res: Response, next) {
         const response: ResponseModel = Object.assign(new ResponseModel(), req.body as ResponseModel);
-
+        console.log("++SubmitBid");
+        
         try {
-            //get all the responses to determine if this is the highest
-            const bids: ResponseModel[] = await monResponseModel.find({ GameId: response.GameId, QuestionId: response.QuestionId }).then(bids => bids ? bids.map(b => Object.assign(new ResponseModel(), b.toJSON())) : []);
-            console.log("found these bids")
-            const submittedBidValue = parseFloat(response.Answer[0].data);
-            let foundHigherBid = false;
-            for (let i = 0; i < bids.length; i++) {
-                let bid = bids[i];
+            
+            const game = await monGameModel.findById(response.GameId).then(g => g ? Object.assign(new GameModel(), g.toJSON()) : null)
+            console.log("game.CurrentRound.CurrentHighestBid.data %d", game.CurrentRound.CurrentHighestBid.data);
+            //  let gameForUpdate = Object.assign(game, { CurrentRound: Object.assign(game.CurrentRound, { CurrentHighestBid }) });
 
+            //get all the responses to determine if this is the highest
+            //const bids: ResponseModel[] = await monResponseModel.find({ GameId: response.GameId, QuestionId: response.QuestionId }).then(bids => bids ? bids.map(b => Object.assign(new ResponseModel(), b.toJSON())) : []);
+            //console.log("found these bids %o", bids)
+            
+            const submittedBidValue = parseFloat(response.Answer[0].data);
+            
+            let foundHigherBid = false;
+            if ( game.CurrentRound.CurrentHighestBid && submittedBidValue < game.CurrentRound.CurrentHighestBid.data) {
+
+                foundHigherBid = true;
+                console.log(" found Higher bid");
+            }
+            
+            /*
+                for (let i = 0; i < bids.length; i++) {
+                let bid = bids[i].Answer[0];
+                console.log(" bid.data: %d", bid.data)
                 if (parseFloat(bid.data) >= submittedBidValue) {
                     foundHigherBid = true;
                     break;
                 }
             }
 
+            */
 
             if (!foundHigherBid) {
                 const team: TeamModel = await monTeamModel.findById(response.TeamId).then(t => t ? Object.assign(new TeamModel(), t.toJSON()) : null)

@@ -96,7 +96,7 @@ export default class Game extends BaseComponent<any, IControllerDataStore & { Ga
                 clearInterval(this._interval);
                 this.handleResetPoll();
             } else {
-                console.log("it's been 2000 ms")
+              
             }
             lastTime = currentTime;
         }, TIMEOUT);
