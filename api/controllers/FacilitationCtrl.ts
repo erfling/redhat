@@ -7,10 +7,8 @@ import SchemaBuilder from '../SchemaBuilder';
 import * as mongoose from 'mongoose';
 
 const schObj = SchemaBuilder.fetchSchema(RoundChangeLookup);
-schObj.Round = { type: mongoose.Schema.Types.ObjectId, ref: "round" };
-schObj.SubRound = { type: mongoose.Schema.Types.ObjectId, ref: "subround" };
 const monRoundChangeLookupSchema = new mongoose.Schema(schObj);
-export const monRoundChangeLookupModel = mongoose.model("message", monRoundChangeLookupSchema);
+export const monRoundChangeLookupModel = mongoose.model("roundchangelookup", monRoundChangeLookupSchema);
 
 class FacilitationCtrl
 {
@@ -64,7 +62,7 @@ class FacilitationCtrl
 
     public async getRoundChangeLookups(req: Request,  res: Response){
         try{
-            const lookups = await monRoundChangeLookupModel.find().then(lookups => lookups ? lookups.map(l => Object.assign(new RoundChangeLookup(), l)) : null);
+            const lookups = await monRoundChangeLookupModel.find()/*.populate("Round").populate("SubRound")*/.then(lookups => lookups ? lookups.map(l => Object.assign(new RoundChangeLookup(), l.toJSON())) : null);
 
             if(!lookups) throw new Error();
 

@@ -18,6 +18,7 @@ import SalesRoundCtrl from './SalesRound/SalesRoundCtrl';
 import FinanceRoundCtrl from './FinanceRound/FinanceRoundCtrl';
 import CustomerRoundCtrl from './CustomerRound/CustomerRoundCtrl';
 import ApplicationCtrl from '../ApplicationCtrl';
+import FacilitatorCtrl from '../facilitator/FacilitatorCtrl';
 
 
 export default class GameCtrl<T extends IControllerDataStore & {Game: GameModel, _mobileWidth: boolean, ShowGameInfoPopup: boolean, ShowDecisionPopup: boolean, ShowInboxPopup: boolean; GrowMessageIndicator: boolean}> extends BaseClientCtrl<IControllerDataStore & {Game: GameModel, _mobileWidth: boolean, ShowGameInfoPopup: boolean, ShowDecisionPopup: boolean, ShowInboxPopup: boolean; GrowMessageIndicator: boolean}>
@@ -211,6 +212,11 @@ export default class GameCtrl<T extends IControllerDataStore & {Game: GameModel,
             } else if (r.RoundId && r.RoundId.length) {
                 this.dataStore.ApplicationState.ShowQuestions = this.dataStore.ApplicationState.ShowMessageList = false;
             }
+
+           // if(this.dataStore.ApplicationState.CurrentUser && this.dataStore.ApplicationState.CurrentUser.Role != RoleName.PLAYER){
+                FacilitatorCtrl.GetInstance().dataStore.SlideNumber = r.SlideNumber || 1;
+                alert("hello")
+            //}
 
             //clearTimeout(this._timeOut);
             //let time = location.pathname.toUpperCase().indexOf('/BID') == -1 ? 3500 : 1500;

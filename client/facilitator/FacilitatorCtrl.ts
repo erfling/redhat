@@ -1,6 +1,7 @@
 'use strict';
 import FiStMa from '../../shared/entity-of-the-state/FiStMa';
 import GameModel from '../../shared/models/GameModel';
+import RoundChangeLookup from '../../shared/models/RoundChangeLookup';
 import { Component } from 'react';
 import RoundModel from '../../shared/models/RoundModel';
 import UserModel, { JobName, RoleName } from '../../shared/models/UserModel';
@@ -20,7 +21,8 @@ export interface IFacilitatorDataStore extends IControllerDataStore{
     ShowInboxPopup: boolean; 
     GrowMessageIndicator: boolean;
     groupedResponses: any;
-    SlideNumber: number
+    SlideNumber: number;
+    RoundChangeLookups: RoundChangeLookup[];
 }
 
 export default class FacilitatorCtrl extends BaseClientCtrl<IFacilitatorDataStore>
@@ -66,21 +68,21 @@ export default class FacilitatorCtrl extends BaseClientCtrl<IFacilitatorDataStor
     public onClickChangeSlide(forwardOrBack: 1 | -1): void{
         this.dataStore.SlideNumber = this.dataStore.SlideNumber + forwardOrBack;
         alert(this.dataStore.SlideNumber);
-        /*
-        let iframe: HTMLIFrameElement = document.querySelector("#slides-container") as HTMLIFrameElement;
-        let src = iframe.getAttribute("src")//.split("slide=")[1];
-        let currentSlideNumber = src.split("slide=")[1];
-        if(currentSlideNumber){
-            let newSlideNumber = Number(currentSlideNumber) + forwardOrBack;
-            console.log("Slide number is ", iframe, currentSlideNumber, newSlideNumber);
-            iframe.setAttribute("src", src.split("slide=")[0] + "slide=" + newSlideNumber.toString());
 
-            GameCtrl.GetInstance().goToMapping({
-                ParentRound: "FinanceRound",
-                ChildRound: "AcquisitionStructure"
-            })
+        let lookups = this.dataStore.RoundChangeLookups.filter(lu => lu.MinSlideNumber == this.dataStore.SlideNumber);
+        
+        if (lookups){
+            let lookup = lookups[0];
+
+            if(lookup){
+                let mapping = new RoundChangeMapping();
+                mapping.ParentRound = lookup.Round.Name;
+                mapping.ChildRound = lookup.SubRound.Name;
+                mapping.SlideNumber = this.dataStore.SlideNumber;
+
+                this.goToMapping(mapping);
+            }
         }
-        */
     }
 
     //----------------------------------------------------------------------
@@ -88,6 +90,12 @@ export default class FacilitatorCtrl extends BaseClientCtrl<IFacilitatorDataStor
     //  Methods
     //
     //----------------------------------------------------------------------
+
+    public getLookups(){
+        return SapienServerCom.GetData(null,  RoundChangeLookup, SapienServerCom.BASE_REST_URL + "facilitator/getroundchangelookups/").then(rcl => {
+            this.dataStore.RoundChangeLookups = rcl as RoundChangeLookup[];
+        })        
+    }
 
     public goToMapping(mapping: Partial<RoundChangeMapping>){
         if ( mapping.ParentRound && mapping.ChildRound ) {
@@ -97,11 +105,17 @@ export default class FacilitatorCtrl extends BaseClientCtrl<IFacilitatorDataStor
         }
     }
 
+    public getGame(id: string){
+        GameCtrl.GetInstance().pollForGameStateChange(id);
+        SapienServerCom.GetData(null, GameModel, SapienServerCom.BASE_REST_URL + "/game/" + id).then((g: GameModel) => {
+            this.dataStore.Game = g;
+        })
+    }
+
     protected _setUpFistma(reactComp: Component) {
        
         DataStore.ApplicationState.CurrentUser = localStorage.getItem("RH_USER") ? Object.assign( new UserModel(), JSON.parse(localStorage.getItem("RH_USER") ) ) : new UserModel();      
         DataStore.ApplicationState.CurrentTeam = localStorage.getItem("RH_TEAM") ? Object.assign( new TeamModel(), JSON.parse(localStorage.getItem("RH_TEAM") ) ) : new TeamModel();
-
 
         this.dataStore = {
             ApplicationState: DataStore.ApplicationState,
@@ -113,8 +127,11 @@ export default class FacilitatorCtrl extends BaseClientCtrl<IFacilitatorDataStor
             ShowGameInfoPopup: false,
             ShowInboxPopup: false,
             GrowMessageIndicator: false,
-            SlideNumber: 1
+            SlideNumber: 1, 
+            RoundChangeLookups: []
         };
+
+        this.getLookups();
 
         console.log("DATASTORE APPLICATION:", DataStore.ApplicationState);
         //this.pollForGameStateChange(this.dataStore.ApplicationState.CurrentTeam.GameId);

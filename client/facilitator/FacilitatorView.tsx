@@ -53,17 +53,7 @@ export default class FacilitatorView extends BaseComponent<any, IFacilitatorData
 
 
     componentDidMount(){
-        this._timeout = setInterval(() => {
-            SapienServerCom.GetData(null, null, SapienServerCom.BASE_REST_URL + "gameplay/getfacilitatorresponses/" + GameCtrl.GetInstance().dataStore.ApplicationState.CurrentTeam.GameId).then(groupedResponses => {
-                console.log("GOT THING BACK: ", groupedResponses)
-                this.setState({groupedResponses})
-            })
-            .catch((err) => {
-                console.error(err);
-            })
-        }, 5000)
-
-
+       
         //punch-viewer-icon punch-viewer-right goog-inline-block
         let container;
         setTimeout(() => {
@@ -77,7 +67,9 @@ export default class FacilitatorView extends BaseComponent<any, IFacilitatorData
             
             let thing = container.querySelector('.punch-viewer-right');
             console.log("found thing>>>>>>>>>>>>>",thing, container.querySelector("#document"));
-        }, 10000)
+        }, 10000);
+
+
     }
 
     componentDidUpdate(){
@@ -111,7 +103,7 @@ export default class FacilitatorView extends BaseComponent<any, IFacilitatorData
 
                <Button
                     as="a"
-                    onClick={() => window.open("/facilitator/slides", "_blank")}
+                    onClick={() => window.open("/facilitator/slides?game=" + GameCtrl.GetInstance().dataStore.ApplicationState.CurrentTeam.GameId, "_blank")}
                >
                  Present Slides <SlideShow/>
                </Button>

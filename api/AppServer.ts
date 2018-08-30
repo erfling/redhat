@@ -24,6 +24,8 @@ import * as fs from 'fs';
 import SubRoundScore from '../shared/models/SubRoundScore';
 import { SliderValueObj } from '../shared/entity-of-the-state/ValueObj';
 import MessageModel from '../shared/models/MessageModel';
+import RoundChangeLookup from '../shared/models/RoundChangeLookup';
+import FacilitationCtrl, { monRoundChangeLookupModel } from './controllers/FacilitationCtrl';
 
 
 class SubRoundNormalizationRule
@@ -216,7 +218,8 @@ export class AppServer {
             .use('/sapien/api/team', TeamCtrl)
             .use('/sapien/api/user', UserCtrl)
             .use('/sapien/api/gameplay', /*Passport.authenticate('jwt', { session: false }),*/ GamePlayCtrl)
-            
+            .use('/sapien/api/facilitator', /*Passport.authenticate('jwt', { session: false }),*/ FacilitationCtrl)
+
             .post('/sapien/api/facilitation/round/:gameid', Passport.authenticate('jwt', { session: false }), async (req, res) => {
                 //console.log("HIT HERe", req.body);
                 //var c = new winston.transports.Console();
@@ -574,6 +577,30 @@ export class AppServer {
 
                     const savedSr = await monSubRoundModel.findByIdAndUpdate(sr._id, sr);
                     if (!savedSr) throw new Error(JSON.stringify({ message: "Couldn't save subround: ", sr }));
+
+
+                    let x = 4;
+                    let lookup = new RoundChangeLookup();
+                    lookup.Round = r;
+                    lookup.SubRound = sr;
+
+                    while(x > 0){
+
+                        lookup.MaxSlideNumber = j;
+                        lookup.MinSlideNumber = j;
+
+                        lookup.ShowFeedBack = x == 3;
+                        lookup.ShowRateUsers = x == 2;
+                        lookup.ShowUserRatings = x == 1;     
+                        
+                        let savedLookup = await monRoundChangeLookupModel.findOneAndUpdate({
+                            MaxSlideNumber : lookup.MaxSlideNumber,
+                            MinSlideNumber: lookup.MinSlideNumber
+                        }, lookup, {upsert: true});
+
+                        x--;
+                    }
+
 
                 }
 

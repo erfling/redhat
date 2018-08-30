@@ -46,6 +46,8 @@ export default class FacilitatorView extends BaseComponent<any, IFacilitatorData
 
         this.state = this.controller.dataStore;
         document.getElementsByTagName('meta')["viewport"].content = "width=device-width, initial-scale=1.0, maximum-scale=1";
+        this.controller.getGame(location.search.split('game=')[1]);
+
     }
 
 
@@ -78,7 +80,7 @@ export default class FacilitatorView extends BaseComponent<any, IFacilitatorData
     }
 
     fitSlidesToWindow(){
-        
+
     }
 
     componentDidUpdate() {
