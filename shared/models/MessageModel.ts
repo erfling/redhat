@@ -1,4 +1,4 @@
-import BaseModel, {dbProp} from '../../shared/base-sapien/models/BaseModel';
+import BaseModel, {dbProp} from '../base-sapien/models/BaseModel';
 import { JobName } from './UserModel';
 
 export default class MessageModel extends BaseModel

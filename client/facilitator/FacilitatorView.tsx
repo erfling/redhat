@@ -11,9 +11,12 @@ import ResponseModel from "../../shared/models/ResponseModel";
 import { SliderValueObj } from "../../shared/entity-of-the-state/ValueObj";
 import { IFrame } from "sanitize-html";
 import GameModel from "../../shared/models/GameModel";
-import FacilitatorCtrl from "../facilitator/FacilitatorCtrl";
+import FacilitatorCtrl, {IFacilitatorDataStore} from "./FacilitatorCtrl";
+import FacilitatorSlides from './FacilitatorSlides';
+import { RouteComponentProps, withRouter, Switch, Route, Redirect } from "react-router";
+import SlideShow from '-!svg-react-loader?name=Icon!../img/slideshow.svg';
 
-export default class FacilitatorView extends BaseComponent<any, IControllerDataStore & { Game: GameModel, _mobileWidth: boolean, ShowGameInfoPopup: boolean, ShowDecisionPopup: boolean, ShowInboxPopup: boolean; GrowMessageIndicator: boolean } & {groupedResponses: any}>
+export default class FacilitatorView extends BaseComponent<any, IFacilitatorDataStore>
 {
     //----------------------------------------------------------------------
     //
@@ -104,12 +107,15 @@ export default class FacilitatorView extends BaseComponent<any, IControllerDataS
 
         return <>
             <Row>
-                <iframe 
-                    id="slides-container"
-                    src="https://docs.google.com/presentation/d/e/2PACX-1vRmUlK2iay5zqLlpzkkCv-J5mOlaG2IReIJwrZcNjPtjFq11R4VsFQbD-tycOhb3jZfrIQ_xycO9Q-E/embed?start=false&loop=false&delayms=3000#slide=1" 
-                    allowFullScreen
-                >
-                </iframe>
+            <h1>Slide: {this.state.SlideNumber.toString()}</h1>
+
+               <Button
+                    as="a"
+                    onClick={() => window.open("/facilitator/slides", "_blank")}
+               >
+                 Present Slides <SlideShow/>
+               </Button>
+
                 <Button
                     onClick={() => {
                         this.controller.onClickChangeSlide(-1);
@@ -174,4 +180,3 @@ export default class FacilitatorView extends BaseComponent<any, IControllerDataS
     }
 
 }
-//                            disabled={!this.refs.PASSWORD || !this.refs.EMAIL}

@@ -374,8 +374,7 @@ export class AppServer {
                      
                    // console.log( "blue_kite mapping.UserJobs %o", mapping.UserJobs);   
                      
-                    mapping.GameId = game._id;
-                    
+                    mapping.GameId = game._id;                    
                     
                     
 

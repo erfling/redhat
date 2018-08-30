@@ -2,6 +2,15 @@ import { Router, Request, Response, NextFunction } from 'express';
 import ResponseModel, { ResponseFetcher } from '../../shared/models/ResponseModel';
 import SapienServerCom from '../../shared/base-sapien/client/SapienServerCom';
 import { AppServer } from '../AppServer';
+import RoundChangeLookup from '../../shared/models/RoundChangeLookup';
+import SchemaBuilder from '../SchemaBuilder';
+import * as mongoose from 'mongoose';
+
+const schObj = SchemaBuilder.fetchSchema(RoundChangeLookup);
+schObj.Round = { type: mongoose.Schema.Types.ObjectId, ref: "round" };
+schObj.SubRound = { type: mongoose.Schema.Types.ObjectId, ref: "subround" };
+const monRoundChangeLookupSchema = new mongoose.Schema(schObj);
+export const monRoundChangeLookupModel = mongoose.model("message", monRoundChangeLookupSchema);
 
 class FacilitationCtrl
 {
@@ -53,9 +62,19 @@ class FacilitationCtrl
         res.json("yo")
     }
 
-    public async SaveResponse(req: Request, res: Response){
-        const response: ResponseModel = Object.assign(new ResponseModel(), req.body as ResponseModel);
-       
+    public async getRoundChangeLookups(req: Request,  res: Response){
+        try{
+            const lookups = await monRoundChangeLookupModel.find().then(lookups => lookups ? lookups.map(l => Object.assign(new RoundChangeLookup(), l)) : null);
+
+            if(!lookups) throw new Error();
+
+            res.json(lookups);
+
+        }catch(err){
+            res
+                .status(500)
+                .send("Can't get it")
+        }
     }
 
     public async GetTeamResponsesByRound(req: Request, res: Response){
@@ -64,6 +83,7 @@ class FacilitationCtrl
 
     public routes(){
         this.router.post("/round/:gameid", this.ChangeRound.bind(this));
+        this.router.get("/getroundchangelookups", this.getRoundChangeLookups.bind(this))
 
     }
 }

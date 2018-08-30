@@ -12,8 +12,18 @@ import SapienServerCom from '../../shared/base-sapien/client/SapienServerCom';
 import BaseRoundCtrl from '../../shared/base-sapien/client/BaseRoundCtrl';
 import GameCtrl from '../game/GameCtrl';
 
+export interface IFacilitatorDataStore extends IControllerDataStore{
+    Game: GameModel;
+    _mobileWidth: boolean;
+    ShowGameInfoPopup: boolean;
+    ShowDecisionPopup: boolean;
+    ShowInboxPopup: boolean; 
+    GrowMessageIndicator: boolean;
+    groupedResponses: any;
+    SlideNumber: number
+}
 
-export default class FacilitatorCtrl extends BaseClientCtrl<IControllerDataStore & {Game: GameModel, _mobileWidth: boolean, ShowGameInfoPopup: boolean, ShowDecisionPopup: boolean, ShowInboxPopup: boolean; GrowMessageIndicator: boolean} & {groupedResponses: any}>
+export default class FacilitatorCtrl extends BaseClientCtrl<IFacilitatorDataStore>
 {
     //----------------------------------------------------------------------
     //
@@ -54,6 +64,9 @@ export default class FacilitatorCtrl extends BaseClientCtrl<IControllerDataStore
     //----------------------------------------------------------------------
 
     public onClickChangeSlide(forwardOrBack: 1 | -1): void{
+        this.dataStore.SlideNumber = this.dataStore.SlideNumber + forwardOrBack;
+        alert(this.dataStore.SlideNumber);
+        /*
         let iframe: HTMLIFrameElement = document.querySelector("#slides-container") as HTMLIFrameElement;
         let src = iframe.getAttribute("src")//.split("slide=")[1];
         let currentSlideNumber = src.split("slide=")[1];
@@ -67,7 +80,7 @@ export default class FacilitatorCtrl extends BaseClientCtrl<IControllerDataStore
                 ChildRound: "AcquisitionStructure"
             })
         }
-        
+        */
     }
 
     //----------------------------------------------------------------------
@@ -76,7 +89,13 @@ export default class FacilitatorCtrl extends BaseClientCtrl<IControllerDataStore
     //
     //----------------------------------------------------------------------
 
-   
+    public goToMapping(mapping: Partial<RoundChangeMapping>){
+        if ( mapping.ParentRound && mapping.ChildRound ) {
+            SapienServerCom.SaveData(mapping, SapienServerCom.BASE_REST_URL + "facilitation/round/" + this.dataStore.ApplicationState.CurrentTeam.GameId).then(r => {
+                console.log("RESPONSE FROM SERVER FROM ROUND ADVANCE POST", r)
+            });
+        }
+    }
 
     protected _setUpFistma(reactComp: Component) {
        
@@ -93,7 +112,8 @@ export default class FacilitatorCtrl extends BaseClientCtrl<IControllerDataStore
             ShowDecisionPopup: false,
             ShowGameInfoPopup: false,
             ShowInboxPopup: false,
-            GrowMessageIndicator: false
+            GrowMessageIndicator: false,
+            SlideNumber: 1
         };
 
         console.log("DATASTORE APPLICATION:", DataStore.ApplicationState);

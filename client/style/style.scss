@@ -679,3 +679,15 @@ p:nth-of-type(even) {
         padding: 20px;
     }
 }
+
+/********SLIDES*************/
+.slides-container{
+    position: fixed;
+    top: -250vh;
+    bottom: o;
+    left: -250vw;
+    right: 0;
+    height: 500vh;
+    width: 500vw;
+    background: rgba(0,0,255,.3);
+}

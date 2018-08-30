@@ -73,14 +73,6 @@ export default class GameCtrl<T extends IControllerDataStore & {Game: GameModel,
         this.ComponentFistma.goTo(round);
         this.component.props.history.push("/game/" + this.ComponentFistma.currentState.WrappedComponent.CLASS_NAME.toLowerCase());
     }
-    
-    public goToMapping(mapping: Partial<RoundChangeMapping>){
-        if ( mapping.ParentRound && mapping.ChildRound ) {
-            SapienServerCom.SaveData(mapping, SapienServerCom.BASE_REST_URL + "facilitation/round/" + this.dataStore.ApplicationState.CurrentTeam.GameId).then(r => {
-                console.log("RESPONSE FROM SERVER FROM ROUND ADVANCE POST", r)
-            });
-        }
-    }
 
     public _getTargetController(componentName: string): BaseRoundCtrl<any>{
         let childController: BaseRoundCtrl<any>
