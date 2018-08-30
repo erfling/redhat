@@ -36,7 +36,7 @@ export default class Game extends BaseComponent<any, IControllerDataStore & { Ga
 
     public static CONTROLLER = GameCtrl;
 
-    controller: GameCtrl = GameCtrl.GetInstance(this);
+    controller: GameCtrl<IControllerDataStore & { Game: GameModel, _mobileWidth: boolean, ShowGameInfoPopup: boolean, ShowDecisionPopup: boolean, ShowInboxPopup: boolean; GrowMessageIndicator: boolean }> = GameCtrl.GetInstance(this);
 
     //----------------------------------------------------------------------
     //
