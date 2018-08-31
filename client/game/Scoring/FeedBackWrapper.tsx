@@ -80,7 +80,6 @@ export default class FeedBackWrapper extends React.Component<FeedBackProps, any>
             width={16}
             className="feedback"
         >
-            <pre>{this.props.ChartableScores && JSON.stringify(this.props.ChartableScores, null, 2)}</pre>
             <Header>
                 <Icon name="announcement" />{RoundName} Feedback
             </Header>
