@@ -224,9 +224,16 @@ class GamePlayRouter {
     public async GetGameResponsesBySubround(req: Request, res: Response) {
         try {
             let GameId = req.params.gameid;
-            let SubRoundId = req.params.subroundid;
 
-            const responses = await monResponseModel.find({ GameId, SubRoundId });
+            let game: GameModel = await monGameModel.findById(GameId).then(g => g ? Object.assign(new GameModel(), g) : null);
+            if(!game) throw new Error();
+
+            let currentRound = game.CurrentRound;
+            let sr: SubRoundModel = await monSubRoundModel.findOne({Name: currentRound.ChildRound.toUpperCase()}).then(sr => sr ? Object.assign(new SubRoundModel(), sr) : null);
+
+            if(!sr) throw new Error();
+
+            const responses = await monResponseModel.find({ GameId, SubRoundId: sr._id });
 
             if (!responses) throw new Error("NO RESPONSES");
             res.json(responses);
@@ -853,7 +860,7 @@ class GamePlayRouter {
     public routes() {
         //this.router.all("*", cors());
         this.router.get("/", this.GetRounds.bind(this));
-        this.router.get("/responses/:gameid/:subroundid", this.GetGameResponsesBySubround.bind(this));
+        this.router.get("/responses/:gameid/", this.GetGameResponsesBySubround.bind(this));
         this.router.get("/get4bresponses/:gameid", this.getTeamsFor4BRating.bind(this));
         this.router.get("/readmessage/:messageid/:userid", this.ReadMessage.bind(this));
         this.router.post("/rateplayers", this.GetPlayerRatingsQuestions.bind(this));
