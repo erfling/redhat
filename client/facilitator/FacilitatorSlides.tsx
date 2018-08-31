@@ -60,7 +60,6 @@ export default class FacilitatorView extends BaseComponent<any, IFacilitatorData
     }
 
     makeItAllBig(){
-        alert("embigenning")
         let iFrame: any = document.querySelector("#slides") as HTMLIFrameElement;
         let slidesContainer: any = document.querySelector(".slides-container") as HTMLIFrameElement;
 
@@ -109,10 +108,13 @@ export default class FacilitatorView extends BaseComponent<any, IFacilitatorData
     render() {
 
         return <React.Fragment>
-            <h1>Slide: {this.state.SlideNumber.toString()}</h1>
+            {this.state && this.state.ApplicationState && this.state.ApplicationState.CurrentGame &&
+            <>
+            <pre>{this.state.ApplicationState.CurrentGame.CurrentRound && JSON.stringify(this.state.ApplicationState.CurrentGame, null, 2)}</pre>
+            <h1>Slide: {this.state.ApplicationState.CurrentGame.CurrentRound.SlideNumber}</h1>
             <iframe
                 id="slides"
-                src={"https://docs.google.com/presentation/d/e/2PACX-1vRmUlK2iay5zqLlpzkkCv-J5mOlaG2IReIJwrZcNjPtjFq11R4VsFQbD-tycOhb3jZfrIQ_xycO9Q-E/embed?start=false&loop=false&delayms=3000#slide=" + this.state.SlideNumber.toString()}
+                src={"https://docs.google.com/presentation/d/e/2PACX-1vRmUlK2iay5zqLlpzkkCv-J5mOlaG2IReIJwrZcNjPtjFq11R4VsFQbD-tycOhb3jZfrIQ_xycO9Q-E/embed?start=false&loop=false&delayms=3000#slide=" + this.state.ApplicationState.CurrentGame.CurrentRound.SlideNumber.toString()}
                 allowFullScreen
                 height={window.innerHeight}
                 width={window.innerWidth}
@@ -133,6 +135,8 @@ export default class FacilitatorView extends BaseComponent<any, IFacilitatorData
             >
                 forward
                 </Button>
+                </>
+            }
             <div
                 className="slides-container"
                 onKeyDown={(e) => {

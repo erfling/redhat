@@ -215,7 +215,7 @@ export default class GameCtrl<T extends IControllerDataStore & {Game: GameModel,
 
            // if(this.dataStore.ApplicationState.CurrentUser && this.dataStore.ApplicationState.CurrentUser.Role != RoleName.PLAYER){
                 FacilitatorCtrl.GetInstance().dataStore.SlideNumber = r.SlideNumber || 1;
-                alert("hello")
+               // alert("hello")
             //}
 
             //clearTimeout(this._timeOut);

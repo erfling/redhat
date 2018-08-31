@@ -67,7 +67,7 @@ export default class FacilitatorCtrl extends BaseClientCtrl<IFacilitatorDataStor
 
     public onClickChangeSlide(forwardOrBack: 1 | -1): void{
         this.dataStore.SlideNumber = this.dataStore.SlideNumber + forwardOrBack;
-        alert(this.dataStore.SlideNumber);
+       // alert(this.dataStore.SlideNumber);
 
         let lookups = this.dataStore.RoundChangeLookups.filter(lu => lu.MinSlideNumber == this.dataStore.SlideNumber);
         
@@ -106,6 +106,7 @@ export default class FacilitatorCtrl extends BaseClientCtrl<IFacilitatorDataStor
     }
 
     public getGame(id: string){
+        //alert("getting game " + id)
         GameCtrl.GetInstance().pollForGameStateChange(id);
         SapienServerCom.GetData(null, GameModel, SapienServerCom.BASE_REST_URL + "/game/" + id).then((g: GameModel) => {
             this.dataStore.Game = g;
