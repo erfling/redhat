@@ -9,7 +9,7 @@ export enum RoleName {
 }
 
 export enum JobName {
-    IC = "Individual Contributor",
+    IC = "Associate",
     MANAGER = "Manager",
     CHIPCO = "ChipCo",
     INTEGRATED_SYSTEMS = "Integrated Systems",

@@ -388,6 +388,11 @@ export class AppServer {
 
                     // Score calculating
                     if (mapping.ShowFeedback) {
+
+                        
+
+
+
                         //var Name = mapping.ChildRound.toUpperCase();
                         var subRounds: SubRoundModel[] = await monSubRoundModel.find({ RoundId: mapping.RoundId })
                             .populate("Questions")
@@ -411,14 +416,17 @@ export class AppServer {
 
                                 let skipMaxScoreQuestionIds: string[] = [];
                                 questions.forEach(q => {
-                                    let relevantResponses = responses.filter(r => /*!r.SkipScoring && */ r.QuestionId == q._id.toString());
+                                    let relevantResponses = responses.filter(r => /*!r.SkipScoring && */ r.QuestionId == q._id.toString());                 
+                                    
                                     relevantResponses.forEach(r => {
                                         RawScore += r.Score;
+                                        /*
                                         if (r.MaxScore) {
                                             console.log("MAX SCORE FOUND ON RESPONSE FOR QUESTION ", q.Text)
                                             skipMaxScoreQuestionIds.push(q._id);
                                             MaxRawScore = r.MaxScore;
                                         }
+                                        */
                                     });
 
                                     if ( skipMaxScoreQuestionIds.indexOf(q._id.toString()) == -1 ) {
@@ -448,15 +456,9 @@ export class AppServer {
                                     //console.log(srs.SubRoundLabel.toLowerCase());
                                  //  console.log(srs.NormalizedScore); 
                                     if ( srs.SubRoundLabel.toLowerCase()== '1a') {                                        
-                                        srs.NormalizedScore = RawScore / MaxRawScore * (.2 * 20);
+                                        //srs.NormalizedScore = RawScore / MaxRawScore * (.2 * 20);
                                     } else if (srs.SubRoundLabel.toLowerCase() == '1b') {
-                                        srs.NormalizedScore = RawScore / MaxRawScore * (.8 * 20);                                
-                                    } 
-                                    else if( srs.SubRoundLabel.toLowerCase()== '3a' ) {
-                                        console.log("adding 10 for reasons");
-                                        
-                                        srs.NormalizedScore = (RawScore / MaxRawScore * 20 / subRounds.length) + 10                                        
-
+                                        //srs.NormalizedScore = RawScore / MaxRawScore * (.8 * 20);                                
                                     }
                                     //add bonus points to team that had highest bid
                                     else if(oldMapping.CurrentHighestBid){
@@ -470,11 +472,11 @@ export class AppServer {
 
                                     } else {
 
-                                       srs.NormalizedScore = RawScore / MaxRawScore * 20 / subRounds.length
+                                       srs.NormalizedScore = RawScore / MaxRawScore;
                         
                                     }
                                     //console.log(srs.NormalizedScore); 
-                                    srs.NormalizedScore = RawScore / MaxRawScore * 20 / subRounds.length;
+                                    srs.NormalizedScore = RawScore / MaxRawScore;
                                 }
                                 
                                 else {
@@ -504,7 +506,7 @@ export class AppServer {
 
                 }
                 catch (err) {
-                    console.log("exceopt");
+                    console.log("except");
                     console.log(err)
                     res.send(err)
                 }

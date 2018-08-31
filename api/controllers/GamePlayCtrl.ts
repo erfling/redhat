@@ -531,6 +531,7 @@ class GamePlayRouter {
 
         const Name = req.params.subroundid.toUpperCase();
         const GameId = req.params.gameid;
+        console.log(Name);
         try {
             const subround: SubRoundModel = await monSubRoundModel.findOne({Name}).then(sr => sr ? Object.assign(new SubRoundModel(), sr.toJSON()) : null)
             let SubRoundLabel = subround.Label;
