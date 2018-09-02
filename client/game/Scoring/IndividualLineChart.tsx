@@ -14,7 +14,8 @@ interface ChartingProps {
   PlayerId: string;
   Data: any[];
   RawData?: any;
-  MessageOnEmpty?: string;
+  SubRoundId: string;
+  MessageOnEmpty: string;
 }
 
 class CustomizedDot extends React.Component<any, any> {
@@ -36,6 +37,8 @@ export default class IndividualLineChart extends React.Component<ChartingProps, 
     props = props || {
       TeamId: null,
       PlayerId: null,
+      SubRoundId: null,
+      MessageOnEmpty: null,
       Data: null
     }
     super(props);
@@ -60,7 +63,7 @@ export default class IndividualLineChart extends React.Component<ChartingProps, 
   }
 
   static rounds = ["Round 1", "Round 2", "Round 3", "Round 4", "Round 5"];
-  static Colors = ["#499535", "#f29e3c", "#6ad3f1", "#cd4c2d", "#00b5ad", "#3b67c5","#fff"];
+  static Colors = ["#499535", "#f29e3c", "#6ad3f1", "#cd4c2d", "#00b5ad", "#3b67c5", "#fff"];
 
   static MockData;
 
@@ -104,6 +107,10 @@ export default class IndividualLineChart extends React.Component<ChartingProps, 
     return score;
   }
 
+  filterTo(Data: any[]) {
+    //return Data.filter()
+  }
+
   //TODO: mobile tooltip stuff
   render() {
     const { TeamId, Data, RawData, MessageOnEmpty } = this.props;
@@ -112,13 +119,25 @@ export default class IndividualLineChart extends React.Component<ChartingProps, 
       width={16}
       className="feedback chart-wrapper"
     >
-      <Segment
-        style={{ paddingLeft: 0 }}
-        raised
-        className="line-chart-wrapper"
-      >
-        <Header as="h1" style={{textAlign:"center",paddingTop:'20px'}}>Your Ratings {Data && <>For {Data[Data.length - 1].name}</>}</Header>
-        {Data &&
+
+      {(!Data || !Data.length) && MessageOnEmpty &&
+        <Header
+          as="h1"
+          icon
+        >
+          <Icon name='warning' />
+          {MessageOnEmpty}
+        </Header>
+      }
+
+      {Data && Data.length &&
+        <Segment
+          style={{ paddingLeft: 0 }}
+          raised
+          className="line-chart-wrapper"
+        >
+          <Header as="h1" style={{ textAlign: "center", paddingTop: '20px' }}>Your Ratings {Data && <>For {Data[Data.length - 1].name}</>}</Header>
+
           <BarChart
             barCategoryGap={15}
             data={[Data[Data.length - 1]]}
@@ -135,15 +154,10 @@ export default class IndividualLineChart extends React.Component<ChartingProps, 
             })}
 
           </BarChart>
-        }
-        {!Data && MessageOnEmpty && 
-          <div>{MessageOnEmpty}</div>
-        }
-       
-      </Segment>
+        </Segment>
+      }
     </Column>
   }
-
 }
 
 /**
