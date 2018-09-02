@@ -108,7 +108,7 @@ export default class ScoringLineChart extends React.Component<ChartingProps, Sco
         let roundDatum = {
           name: "Rnd " + (i + 1).toString()
         }
-        ScoringLineChart.MockTeams.forEach(t => roundDatum[t.Name] = MathUtil.roundTo(t.Score, 2) * i + (Math.floor(Math.random() * 20)));
+        ScoringLineChart.MockTeams.forEach(t => roundDatum[t.Name] = MathUtil.roundTo(t.Score, 0) * i + (Math.floor(Math.random() * 20)));
         return roundDatum;
       })
     }
@@ -315,7 +315,7 @@ export default class ScoringLineChart extends React.Component<ChartingProps, Sco
               active
             >
               <Table.Cell className="bold">Average Score</Table.Cell>
-              <Table.Cell>{MathUtil.roundTo(RoundDetailScores.reduce((total, srs) => { return total += srs.NormalizedScore }, 0) / RoundDetailScores.length, 2)}%</Table.Cell>
+              <Table.Cell>{MathUtil.roundTo(RoundDetailScores.reduce((total, srs) => { return total += srs.NormalizedScore }, 0) / RoundDetailScores.length, 0)}%</Table.Cell>
             </Table.Row>
           </Table.Body>
         </Table>
@@ -356,7 +356,7 @@ export default class ScoringLineChart extends React.Component<ChartingProps, Sco
                     {srs.TeamLabel}
                   </Table.Cell>
                   <Table.Cell>
-                    {MathUtil.roundTo(srs.NormalizedScore, 2)}
+                    {MathUtil.roundTo(srs.NormalizedScore, 0)}%
                   </Table.Cell>
                 </Table.Row>
               })}
@@ -399,7 +399,7 @@ export default class ScoringLineChart extends React.Component<ChartingProps, Sco
                     {srs.TeamLabel}
                   </Table.Cell>
                   <Table.Cell>
-                    {MathUtil.roundTo(srs.NormalizedScore, 2)}
+                    {MathUtil.roundTo(srs.NormalizedScore, 0)}%
                   </Table.Cell>
                 </Table.Row>
               })}

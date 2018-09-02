@@ -57,7 +57,7 @@ export default class QuestionModel extends BaseModel
     public ComparisonLabel: ComparisonLabel;
 
     @dbProp(Boolean)
-    public SkipSoring: boolean = false;
+    public SkipScoring: boolean = false;
 
     Response: ResponseModel = Object.assign(new ResponseModel(), {ComparisonLabel: this.ComparisonLabel || null});
 

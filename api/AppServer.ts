@@ -416,30 +416,32 @@ export class AppServer {
 
                                 let skipMaxScoreQuestionIds: string[] = [];
                                 questions.forEach(q => {
+                                    
                                     let relevantResponses = responses.filter(r => /*!r.SkipScoring && */ r.QuestionId == q._id.toString());                 
-                                    if(q.SkipSoring) {
+                                    if(q.SkipScoring) {
                                         skipMaxScoreQuestionIds.push(q._id);
+                                        console.log("SKIPPING", skipMaxScoreQuestionIds.indexOf(q._id))
+
                                     }
 
                                     relevantResponses.forEach(r => {
                                         RawScore += r.Score;
                                         
-                                        if (r.SkipScoring || q.SkipSoring) {
+                                        if (r.SkipScoring || q.SkipScoring) {
                                             skipMaxScoreQuestionIds.push(q._id);
-                                            MaxRawScore = r.MaxScore;
+                                            MaxRawScore += r.MaxScore;
                                             console.log("MAX SCORE FOUND ON RESPONSE FOR QUESTION ", q.Text, r.MaxScore, r.Score, RawScore, MaxRawScore)
-
                                         }
                                         
                                     });
 
-                                    if ( skipMaxScoreQuestionIds.indexOf(q._id.toString()) == -1 ) {
+                                    if ( skipMaxScoreQuestionIds.indexOf(q._id) == -1 ) {
                                         ((q.PossibleAnswers as SliderValueObj[]).forEach(a => {
                                             if (a.maxPoints) MaxRawScore += a.maxPoints;
                                         }))
                                     }
 
-                                    //console.log("MAX RAWSCORE IS: ", MaxRawScore)
+                                    console.log("MAX RAWSCORE IS: ", MaxRawScore)
                                     
                                 })
 

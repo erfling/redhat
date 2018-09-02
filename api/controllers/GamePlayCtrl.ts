@@ -169,7 +169,10 @@ class GamePlayRouter {
                     (pa.data as any[]).forEach(paData => {
                         if (paData.data != undefined && !isNaN(paData.data)) {
                             // find what index the skill was ranked in 1a's response
-                            var OneAPriorityIndex = (OneAResponse.Answer as ValueObj[]).findIndex(ans => ans.label == paData.Label);
+                            var OneAPriorityIndex = (OneAResponse.Answer as ValueObj[]).findIndex(ans => ans.label == paData.label);
+
+                            console.log("PRIORITY FOUND AT", OneAPriorityIndex )
+
                             if (OneAPriorityIndex > -1) {
                                 // Add to candidate's skill score according to skill priority provided in 1a.
                                 // So, the 1st priority has a skill score of the number of priorities (7), the 2nd has a skill score of number of priorities - 1 (6), etc.
