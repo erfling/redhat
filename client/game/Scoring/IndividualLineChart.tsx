@@ -138,53 +138,24 @@ export default class IndividualLineChart extends React.Component<ChartingProps, 
         >
           <Header as="h1" style={{ textAlign: "center", paddingTop: '20px' }}>Your Ratings {Data && <>For {Data[Data.length - 1].name}</>}</Header>
 
-          <BarChart
-            barCategoryGap={15}
-            data={[Data[Data.length - 1]]}
-            margin={{ top: 0, right: 20, bottom: 0, left: 0 }}
-            width={this.state.componentWidth - 20}
-            height={this.state.componentWidth / 1.5}
-          >
-            <YAxis padding={{ top: 10, bottom: 0 }} domain={[0, 10]} />
-            <XAxis padding={{ left: 0, right: 10 }} dataKey="name" />
-            <Legend verticalAlign="bottom" height={100} />
-            {Object.keys(Data[Data.length - 1]).filter(k => k.toLowerCase().indexOf("name") == -1 && Data[Data.length - 1][k]).map((k, i) => {
-              console.log("TRYING TO BUILD BARS", k, Data[Data.length - 1][k])
-              return <Bar isAnimationActive={false} dataKey={k} fill={IndividualLineChart.Colors[i]} label />
-            })}
+                  <Table>
 
-          </BarChart>
+                  {Object.keys(Data[Data.length - 1]).filter(k => k.toLowerCase().indexOf("name") == -1 && Data[Data.length - 1][k]).map(
+                    (k, i) => {
+                  return 
+                      
+                      <Table.Row>
+                        <Table.Cell>{k}</Table.Cell>
+                        <Table.Cell>{Data[Data.length - 1][k]}</Table.Cell>
+                      </Table.Row>
+                      
+                  })}
+
+            </Table> 
         </Segment>
       }
     </Column>
   }
 }
 
-/**
- * 
- * 
- *  
- * {this.props.Data && this.props.Data.length > 1 &&
-            <LineChart
-              margin={{ top: 0, right: 20, bottom: 0, left: 0 }}
-              width={this.state.componentWidth - 20}
-              height={this.state.componentWidth / 1.5}
-              data={this.props.Data}
-            >
-              <XAxis padding={{ left: 0, right: 20 }} />
-              <YAxis padding={{ top: 10, bottom: 0 }} domain={[0, 20]} />
-              <Legend verticalAlign="bottom" height={100} onMouseEnter={this.handleMouseEnter} onMouseLeave={this.handleMouseLeave} />
-              <Tooltip wrapperStyle={{ display: 'none' }} />
-              {this.state.roundScores && <ReferenceLine x={this.state.roundScores.name} stroke="white" strokeWidth={2} strokeDasharray="3 1" opacity={.5} />}
-              {Object.keys(this.props.Data[0]).filter(v => ["Connection", "Trust", "Transparency", "Collaboration", "Meritocracy"].indexOf(v) != -1).map((v, i) => {
-                return <Line
-                  animationDuration={750}
-                  animationEasing="ease"
-                  key={i}
-                  dataKey={v}
-                  stroke={IndividualLineChart.Colors[i]}
-                  activeDot={{r: 8}}
-                />
-              })}
-            </LineChart>
-          } */
+
