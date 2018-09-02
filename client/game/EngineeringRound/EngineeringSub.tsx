@@ -141,12 +141,14 @@ export default class EngineeringSub extends BaseComponent<any, IRoundDataStore>
                     </>
                 }
 
-                {this.state.ApplicationState.ShowIndividualFeedback && this.state.UserRatings && userRatingsChart && userRatingsChart.length && thisSubRound &&
+                {this.state.ApplicationState.ShowIndividualFeedback && thisSubRound &&
                     <IndividualLineChart
                         TeamId={this.state.ApplicationState.CurrentTeam._id}
                         PlayerId={this.state.ApplicationState.CurrentUser._id}
-                        Data={userRatingsChart}
-                        RawData={this.state.UserRatings}
+                        Data={ userRatingsChart }
+                        SubRoundId={thisSubRound._id}
+                        MessageOnEmpty={this.state.ApplicationState.CurrentUser.Job == 
+                            JobName.MANAGER ? "No associates completed your management feedback" : "Your manager failed to complete your performance review"}   
                     />
                 }  
 
