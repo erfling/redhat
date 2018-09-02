@@ -791,8 +791,7 @@ class GamePlayRouter {
 
             //let currentSubRound: SubRoundModel = await monSubRoundModel.findById(SubRoundId).then(sr => sr ? Object.assign(new SubRoundModel(), sr.toJSON()) : null);
             const team: TeamModel = await monTeamModel.findById(TeamId).then(t => t ? Object.assign(new TeamModel(), t.toJSON()) : null);
-            console.log("TEAM BE", team);
-
+            
             const game = await monGameModel.findById(team.GameId).then(g => g ? Object.assign(new GameModel(), g.toJSON()) : null);
             const currentSubRound = await monSubRoundModel.findOne({Name: game.CurrentRound.ChildRound.toLocaleUpperCase()}).then(s => s ? Object.assign(new SubRoundModel(), s.toJSON()) : null)
             
@@ -811,10 +810,8 @@ class GamePlayRouter {
 
             // sorted subRoundIds, truncated to include only currentSubRound or before
             let subRoundIds: string[] = subRounds.filter((sr) => {
-                console.log("DUDE:", sr.Label, currentSubRound.Label, sr.Label <= currentSubRound.Label, responses);
-
+            
                 return sr.Label <= currentSubRound.Label && responses.filter(r => {
-                    console.log("PAINIS", r.RoundId, sr.RoundId, r.RoundId == sr.RoundId);
                     return r.RoundId == sr.RoundId;
                 }).length;
             }).map(sr => sr._id);
