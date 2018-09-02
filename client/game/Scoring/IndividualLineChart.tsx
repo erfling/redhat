@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Grid, Button, TextArea, Input, Label, Form, Header, Icon, Radio, Checkbox, List, Segment, Table, } from 'semantic-ui-react'
+import { Grid, Button, TextArea, Input, Label, Form, Header, Icon, Radio, Checkbox, List, Segment, Table, Message, } from 'semantic-ui-react'
 const { Column, Row } = Grid;
 import FeedBackModel from '../../../shared/models/FeedBackModel';
 import { times, groupBy } from 'lodash';
@@ -13,7 +13,8 @@ interface ChartingProps {
   TeamId: string;
   PlayerId: string;
   Data: any[];
-  RawData?: any
+  RawData?: any;
+  MessageOnEmpty?: string;
 }
 
 class CustomizedDot extends React.Component<any, any> {
@@ -105,7 +106,7 @@ export default class IndividualLineChart extends React.Component<ChartingProps, 
 
   //TODO: mobile tooltip stuff
   render() {
-    const { TeamId, Data, RawData } = this.props;
+    const { TeamId, Data, RawData, MessageOnEmpty } = this.props;
 
     return <Column
       width={16}
@@ -134,6 +135,9 @@ export default class IndividualLineChart extends React.Component<ChartingProps, 
             })}
 
           </BarChart>
+        }
+        {!Data && MessageOnEmpty && 
+          <div>{MessageOnEmpty}</div>
         }
        
       </Segment>
