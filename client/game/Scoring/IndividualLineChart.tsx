@@ -8,6 +8,7 @@ import MathUtil from "../../../shared/entity-of-the-state/MathUtil";
 import { LineChart, Line, Legend, Tooltip, CartesianGrid, XAxis, YAxis, ReferenceLine, BarChart, Bar } from 'recharts';
 import TeamModel from "../../../shared/models/TeamModel";
 import SubRoundScore from "../../../shared/models/SubRoundScore";
+import { defaultCipherList } from "constants";
 
 interface ChartingProps {
   TeamId: string;
@@ -129,29 +130,31 @@ export default class IndividualLineChart extends React.Component<ChartingProps, 
           {MessageOnEmpty}
         </Header>
       }
-
       {Data && Data.length &&
         <Segment
-          style={{ paddingLeft: 0 }}
           raised
-          className="line-chart-wrapper"
         >
-          <Header as="h1" style={{ textAlign: "center", paddingTop: '20px' }}>Your Ratings {Data && <>For {Data[Data.length - 1].name}</>}</Header>
+          <Header as="h1" style={{ textAlign: "center", paddingTop: '20px' }}>Your Ratings</Header>
 
-                  <Table>
+          <Table
+            inverted
+            color="blue"
+            striped
+            celled
+          >
+            <Table.Header>
+              <Table.HeaderCell>Criteria</Table.HeaderCell>
+              <Table.HeaderCell>Rating</Table.HeaderCell>
+            </Table.Header>
+            
+            {Object.keys(Data[Data.length - 1]).filter(k => k.toLowerCase().indexOf("name") == -1 && Data[Data.length - 1][k]).map(
+              (k, i) => <Table.Row>
+                <Table.Cell>{k}</Table.Cell>
+                <Table.Cell>{Data[Data.length - 1][k]}</Table.Cell>
+              </Table.Row>
+            )}
 
-                  {Object.keys(Data[Data.length - 1]).filter(k => k.toLowerCase().indexOf("name") == -1 && Data[Data.length - 1][k]).map(
-                    (k, i) => {
-                  return 
-                      
-                      <Table.Row>
-                        <Table.Cell>{k}</Table.Cell>
-                        <Table.Cell>{Data[Data.length - 1][k]}</Table.Cell>
-                      </Table.Row>
-                      
-                  })}
-
-            </Table> 
+          </Table>
         </Segment>
       }
     </Column>

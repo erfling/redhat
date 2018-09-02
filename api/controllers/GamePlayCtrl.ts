@@ -805,7 +805,7 @@ class GamePlayRouter {
                     return 1;
                 return 0;
             })
-            let responses: ResponseModel[] = await monResponseModel.find({ targetObjId, targetObjClass: "UserModel", SubroundId: currentSubRound._id }).then(rs => rs ? rs.map(r => Object.assign(new ResponseModel(), r.toJSON())) : null);
+            let responses: ResponseModel[] = await monResponseModel.find({ targetObjId, targetObjClass: "UserModel", SubRoundId: currentSubRound._id.toString() }).then(rs => rs ? rs.map(r => Object.assign(new ResponseModel(), r.toJSON())) : null);
             if (!responses) throw new Error("Didn't get responses");
 
             // sorted subRoundIds, truncated to include only currentSubRound or before
