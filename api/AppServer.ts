@@ -417,16 +417,20 @@ export class AppServer {
                                 let skipMaxScoreQuestionIds: string[] = [];
                                 questions.forEach(q => {
                                     let relevantResponses = responses.filter(r => /*!r.SkipScoring && */ r.QuestionId == q._id.toString());                 
-                                    
+                                    if(q.SkipSoring) {
+                                        skipMaxScoreQuestionIds.push(q._id);
+                                    }
+
                                     relevantResponses.forEach(r => {
                                         RawScore += r.Score;
-                                        /*
-                                        if (r.MaxScore) {
-                                            console.log("MAX SCORE FOUND ON RESPONSE FOR QUESTION ", q.Text)
+                                        
+                                        if (r.SkipScoring || q.SkipSoring) {
                                             skipMaxScoreQuestionIds.push(q._id);
                                             MaxRawScore = r.MaxScore;
+                                            console.log("MAX SCORE FOUND ON RESPONSE FOR QUESTION ", q.Text, r.MaxScore, r.Score, RawScore, MaxRawScore)
+
                                         }
-                                        */
+                                        
                                     });
 
                                     if ( skipMaxScoreQuestionIds.indexOf(q._id.toString()) == -1 ) {

@@ -108,12 +108,10 @@ class GamePlayRouter {
         const response: ResponseModel = Object.assign(new ResponseModel(), req.body as ResponseModel);
 
         try {
-            console.log("SHOULD IGNORE SCOING IF ROUND 4", response);
             const question = await monQModel.findById(response.QuestionId).then(q => q.toJSON());
-
+            console.log("SAVING: ",response.MaxScore, response.Score);
             if (!response.SkipScoring) {
 
-                console.log(question);
                 if (question.Type != QuestionType.TEXTAREA) {
                     response.Score = response.resolveScore();
                     response.MaxScore = response.resolveMaxScore();
@@ -127,7 +125,6 @@ class GamePlayRouter {
 
             const oldResponse = await monResponseModel.findOne(queryObj).then(r => r ? r.toJSON() : null);
 
-            console.log("HEY!!!!", oldResponse);
             if (!oldResponse) {
                 delete response._id;
                 response.questionText = question.Text;
@@ -161,7 +158,9 @@ class GamePlayRouter {
 
             //get the possible answer matching our response
             const question: QuestionModel = await monQModel.findById(response.QuestionId).then(r => Object.assign(new QuestionModel(), r.toJSON()));
-            var bestCandidate: ValueObj;
+            let bestCandidate: ValueObj;
+            let secondBestCandidate: ValueObj;
+
             // for each of question's possibleAnswers (which are the candidates for the job)...
             question.PossibleAnswers.forEach(pa => {
                 var skillScore = 0;
@@ -179,23 +178,48 @@ class GamePlayRouter {
                         }
                     })
                     pa["skillScore"] = skillScore;
+                    console.log("LOOK FOR SKILLSCORE", skillScore, pa)
+
+                    /*
                     if (!bestCandidate || bestCandidate["skillScore"] < skillScore) {
                         // store best candidate so far, according to skillScore
                         bestCandidate = pa;
                     }
+                    */
                 } else {
                     console.log("DOOKIE:", pa);
                 }
             });
 
-            // set response answer's idealValues based on whether thay're the best candidate
+
+             //sort the possible answers by skillScore so we can see how good the team's choice is
+             let sortedPas = question.PossibleAnswers.sort((a, b) => {
+                 //return 1;
+                return a["skillScore"] > b["skillScore"] ? 1 : 0;
+             });
+
+            console.log("SORTEMS", sortedPas);
+
             (response.Answer as ValueObj[]).forEach(ans => {
-                ans.idealValue = String(ans.label == bestCandidate.label);
+                ans.idealValue = 2;
+                ans.maxPoints = 2;
+                ans.minPoints = 0;
+                sortedPas.forEach((pa, i) => {
+                    if (pa.label == ans.label && ans.data == "true") {
+                        console.log(pa.label, ans.label, ans.data, i)
+                        response.Score = i;
+                    }
+                })
             });
 
-            // Now that response object has idealValues, calculate its score as you would and other multiple-choice
-            response.Score = response.resolveScore();
+            response.SkipScoring = true;
+            response.MaxScore = 2;
 
+            console.log("RESPONSE!!!!!!!!", response)
+
+            // Now that response object has idealValues, calculate its score as you would and other multiple-choice
+            //response.Score = response.resolveScore();
+            req.body = response;
             next();
         } catch (err) {
             console.log(err);

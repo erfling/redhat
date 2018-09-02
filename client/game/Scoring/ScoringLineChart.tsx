@@ -4,6 +4,7 @@ const { Column, Row } = Grid;
 import FeedBackModel from '../../../shared/models/FeedBackModel';
 import { times, groupBy } from 'lodash';
 import MathUtil from "../../../shared/entity-of-the-state/MathUtil";
+import { sortBy } from 'lodash';
 
 import { LineChart, Line, Legend, Tooltip, CartesianGrid, XAxis, YAxis, ReferenceLine, BarChart, Bar } from 'recharts';
 import TeamModel from "../../../shared/models/TeamModel";
@@ -29,7 +30,17 @@ class CustomizedDot extends React.Component<any, any> {
   }
 };
 
-export default class ScoringLineChart extends React.Component<ChartingProps, { componentWidth: number, showToolTip: boolean; roundScores: any; opacity: any }>
+interface ScoreState {
+  componentWidth: number;
+  showToolTip: boolean;
+  roundScores: any;
+  opacity: any;
+  RoundDetailScores: SubRoundScore[];
+  RoundRanking: SubRoundScore[];
+  CumulativeRanking: SubRoundScore[];
+}
+
+export default class ScoringLineChart extends React.Component<ChartingProps, ScoreState>
 {
   constructor(props: ChartingProps) {
     props = props || {
@@ -40,19 +51,34 @@ export default class ScoringLineChart extends React.Component<ChartingProps, { c
     super(props);
     const initialWidth = window.innerWidth > 0 ? window.innerWidth : 500;
     //this.state = //Object.assign(this.props, {showToolTip: false, windowWidth: initialWidth - 100})
-    this.state = { showToolTip: false, componentWidth: initialWidth - 100, roundScores: null, opacity: {} };
+    this.state = { showToolTip: false, 
+      componentWidth: initialWidth - 100, 
+      roundScores: null, 
+      opacity: {}, 
+      RoundDetailScores: null, 
+      RoundRanking: null,
+      CumulativeRanking: null
+    };
 
     //wait and trigger resize even to size charts properly
     setTimeout(() => {
-      var evt = window.document.createEvent('UIEvents'); 
-      evt.initUIEvent('resize', true, false, window, 0); 
+      var evt = window.document.createEvent('UIEvents');
+      evt.initUIEvent('resize', true, false, window, 0);
       window.dispatchEvent(evt);
-    },500)
+    }, 500)
   }
 
   componentDidMount() {
     window.addEventListener('resize', this.handleResize.bind(this));
     this.handleResize();
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (this.props.Scores && this.props.TeamId && (!prevProps.Scores || this.props.Scores != prevProps.Scores)) {
+      this.setState({RoundDetailScores: this.getCurrentRoundTeamScores(this.props.Scores, this.props.TeamId)})
+      this.setState({RoundRanking: this.getRoundRanking(this.props.Scores)});
+      this.setState({CumulativeRanking: this.getCumulativeTeamScores(this.props.Scores)})
+    }
   }
 
   componentWillUnmount() {
@@ -144,6 +170,47 @@ export default class ScoringLineChart extends React.Component<ChartingProps, { c
     return score;
   }
 
+  getCurrentRoundTeamScores(scores: SubRoundScore[], teamId: string) {
+    let selectedRoundScores = scores.filter(rs => rs.TeamId == teamId && rs.RoundLabel == Math.max(...Object.keys(groupBy(this.props.Scores, "RoundLabel")).map(k => Number(k))).toString())
+    return selectedRoundScores;
+  }
+
+  getRoundRanking(scores: SubRoundScore[]) {
+    let selectedRoundScores = scores.filter(rs => rs.RoundLabel == Math.max(...Object.keys(groupBy(this.props.Scores, "RoundLabel")).map(k => Number(k))).toString())
+    
+    let groupedTeamScores = groupBy(selectedRoundScores, "TeamId")
+    
+
+    let accumulatedScores = Object.keys( groupedTeamScores ).map(k => {
+      let accumulatedScore = new SubRoundScore();
+      accumulatedScore.TeamId = k;
+      accumulatedScore.TeamLabel = groupedTeamScores[k][0].TeamLabel;
+      accumulatedScore.NormalizedScore = groupedTeamScores[k].reduce((totalScore, srs) => {
+        return totalScore + srs.NormalizedScore;
+      },0) / groupedTeamScores[k].length; 
+      return accumulatedScore;
+    })
+    selectedRoundScores = sortBy(accumulatedScores, "NormalizedScore")
+    return selectedRoundScores.reverse();
+  }
+
+  getCumulativeTeamScores(scores: SubRoundScore[]) {
+
+    let groupedTeamScores = groupBy(scores,"TeamId");
+
+    let accumulatedScores = Object.keys( groupedTeamScores ).map(k => {
+      let accumulatedScore = new SubRoundScore();
+      accumulatedScore.TeamId = k;
+      accumulatedScore.TeamLabel = groupedTeamScores[k][0].TeamLabel;
+      accumulatedScore.NormalizedScore = groupedTeamScores[k].reduce((totalScore, srs) => {
+        return totalScore + srs.NormalizedScore;
+      },0) / groupedTeamScores[k].length; 
+      return accumulatedScore;
+    })
+
+    return sortBy(accumulatedScores, "NormalizedScore").reverse();
+  }
+
   getLineChartData() {
     if (this.props.Scores) {
 
@@ -168,6 +235,7 @@ export default class ScoringLineChart extends React.Component<ChartingProps, { c
 
     }
   }
+
 
   getBarChartData() {
     if (this.props.Scores) {
@@ -200,6 +268,7 @@ export default class ScoringLineChart extends React.Component<ChartingProps, { c
   //TODO: mobile tooltip stuff
   render() {
     const { Scores, TeamId } = this.props;
+    const { RoundDetailScores, RoundRanking, CumulativeRanking} = this.state;
     const chartXLabels: string[] = ScoringLineChart.rounds;
     const colors = ["#3b67c5", "#cd4c2d", "#f29e3c", "#499535", "#fff", "#00b5ad"];
 
@@ -207,97 +276,135 @@ export default class ScoringLineChart extends React.Component<ChartingProps, { c
       width={16}
       className="feedback chart-wrapper"
     >
-      {this.getLineChartData().length && this.getLineChartData().length == 1 && this.getBarChartData() &&
+      {Scores && TeamId && RoundDetailScores && <Segment
+        raised
+      >
+        <Header 
+          as="h1" 
+          textAlign="center"
+        >
+          Your Scores
+        </Header>
+        <Table
+          celled
+          inverted
+          color="blue"
+        >
+          <Table.Header>
+            <Table.HeaderCell>
+              Round
+          </Table.HeaderCell>
+            <Table.HeaderCell>
+              Score
+          </Table.HeaderCell>
+          </Table.Header>
+          <Table.Body>
+            {sortBy(RoundDetailScores, "SubRoundLabel").map((srs, i) => {
+              return <Table.Row
+                key={i}
+              >
+                <Table.Cell>
+                  {srs.SubRoundLabel}
+                </Table.Cell>
+                <Table.Cell>
+                  {srs.NormalizedScore && MathUtil.roundTo(srs.NormalizedScore, 2)}%
+              </Table.Cell>
+              </Table.Row>
+            })}
+            <Table.Row
+              active
+            >
+              <Table.Cell className="bold">Average Score</Table.Cell>
+              <Table.Cell>{MathUtil.roundTo(RoundDetailScores.reduce((total, srs) => { return total += srs.NormalizedScore }, 0) / RoundDetailScores.length, 2)}%</Table.Cell>
+            </Table.Row>
+          </Table.Body>
+        </Table>
+      </Segment>
+      }
+
+      {this.state.RoundRanking && this.state.RoundRanking.length &&
         <Segment
-          style={{ paddingLeft: 0 }}
-          raised
-          className="line-chart-wrapper"
+          raised  
         >
           <Header
             textAlign="center"
+            as="h1"
           >
-            {this.getBarChartData()[0].name} Scores
+            {this.getBarChartData()[0].name} Ranking
           </Header>
 
-          <BarChart
-            data={this.getBarChartData()}
-            barCategoryGap={15}
-            margin={{ top: 0, right: 20, bottom: 0, left: 0 }}
-            width={this.state.componentWidth - 20}
-            height={this.state.componentWidth / 1.5}            
+          <Table
+            celled  
+            color="blue"
+            inverted   
           >
-            <XAxis padding={{ left: 0, right: 10 }} dataKey="name"/>
-            <YAxis padding={{ top: 10, bottom: 0 }} domain={[0, 20]} />
-            <Legend verticalAlign="bottom" height={100} />
-            {Object.keys(this.getBarChartData()[0]).filter(k => k.toLowerCase().indexOf("team") != -1).map(k => {
-              return <Bar isAnimationActive={false} dataKey={k} fill={this.getTeamColor(k)} label />
-            })}
-
-          </BarChart>
+            <Table.Header>
+              <Table.HeaderCell>Place</Table.HeaderCell>
+              <Table.HeaderCell>Team</Table.HeaderCell>
+              <Table.HeaderCell>Score</Table.HeaderCell>
+            </Table.Header>
+            <Table.Body>
+              {this.state.RoundRanking && this.state.RoundRanking.map((srs, i) => {
+                return <Table.Row
+                  key={i}
+                  active={srs.TeamId == TeamId}
+                >
+                  <Table.Cell>
+                    {i + 1}.
+                  </Table.Cell>
+                  <Table.Cell>
+                    {srs.TeamLabel}
+                  </Table.Cell>
+                  <Table.Cell>
+                    {MathUtil.roundTo(srs.NormalizedScore, 2)}
+                  </Table.Cell>
+                </Table.Row>
+              })}
+            </Table.Body>
+          </Table>
         </Segment>
       }
 
-      {this.getLineChartData().length && this.getLineChartData().length > 1 &&
-
+      {this.state.CumulativeRanking && this.state.CumulativeRanking.length &&
         <Segment
-          style={{ paddingLeft: 0 }}
           raised
-          className="line-chart-wrapper"
         >
           <Header
             textAlign="center"
+            as="h1"
           >
-            Round by round Scores
+            Cumulative Ranking through {this.getBarChartData()[0].name}
           </Header>
-          <Row className="mobile-tooltip">
-            <ul>
-              <li>{this.state.roundScores && this.state.roundScores[Object.keys(this.state.roundScores)[0]]}</li>
-              {this.state.roundScores && Object.keys(this.state.roundScores).filter((k, i) => i != 0).sort((a, b) => {
-                let sortVal = 0;
-                if (this.state.roundScores[a] > this.state.roundScores[b]) {
-                  sortVal = -1;
-                } else if (this.state.roundScores[a] < this.state.roundScores[b]) {
-                  sortVal = 1;
-                }
-                return sortVal;
-              }).map((k, i) => {
-                return <li
-                >
-                  <Label style={{ background:this.getTeamColor(k), border: 'none', fontWeight: 'bold' }}>
-                    {ScoringLineChart.places[i]}. {k.toUpperCase()}: <br/>{MathUtil.roundTo(this.state.roundScores[k], 2)}
-                  </Label>
-                  
-                </li>
-              })
-              }
-            </ul>
-          </Row>
-          <LineChart
-            margin={{ top: 0, right: 20, bottom: 0, left: 0 }}
-            width={this.state.componentWidth - 20}
-            height={this.state.componentWidth / 1.5}
-            data={this.getLineChartData()}
-          >
-            <XAxis padding={{ left: 0, right: 20 }} dataKey={Object.keys(this.getLineChartData()[0])[0]}/>
-            <YAxis padding={{ top: 10, bottom: 0 }} domain={[0,30]} />
-            <Legend verticalAlign="bottom" height={100} onMouseEnter={this.handleMouseEnter} onMouseLeave={this.handleMouseLeave} />
-            <Tooltip wrapperStyle={{ display: 'none' }} />
-            {this.state.roundScores && <ReferenceLine x={this.state.roundScores.name} stroke="white" strokeWidth={2} strokeDasharray="3 1" opacity={.5} />}
-            {Object.keys(this.getLineChartData()[0]).filter(k => k != "name").map((k, i) => {
-              return <Line
-                opacity={this.state.opacity ? this.state.opacity[ScoringLineChart.MockTeams[i].Name] : .75}
-                animationDuration={750}
-                animationEasing="ease"
-                key={i}
-                dataKey={k}
-                stroke={this.getTeamColor(k)}
-                activeDot={(d, i) => {
-                  this.setState({ roundScores: d.payload });
-                }}
-              />
-            })}
-          </LineChart>
 
+          <Table
+            celled
+            inverted
+            color="blue"
+          >
+            <Table.Header>
+              <Table.HeaderCell>Place</Table.HeaderCell>
+              <Table.HeaderCell>Team</Table.HeaderCell>
+              <Table.HeaderCell>Score</Table.HeaderCell>
+            </Table.Header>
+            <Table.Body>
+              {this.state.CumulativeRanking && this.state.CumulativeRanking.map((srs, i) => {
+                return <Table.Row
+                  key={i}
+                  active={srs.TeamId == TeamId}
+                >
+                  <Table.Cell>
+                    {i + 1}.
+                  </Table.Cell>
+                  <Table.Cell>
+                    {srs.TeamLabel}
+                  </Table.Cell>
+                  <Table.Cell>
+                    {MathUtil.roundTo(srs.NormalizedScore, 2)}
+                  </Table.Cell>
+                </Table.Row>
+              })}
+            </Table.Body>
+          </Table>
         </Segment>
       }
 
