@@ -11,6 +11,8 @@ import DataStore from '../../../shared/base-sapien/client/DataStore'
 import SapienServerCom from '../../../shared/base-sapien/client/SapienServerCom';
 import ComponentsVO from '../../../shared/base-sapien/client/ComponentsVO';
 import ApplicationCtrl from '../../ApplicationCtrl';
+import TeamModel from '../../../shared/models/TeamModel';
+import GameCtrl from '../GameCtrl';
 
 export default class PeopleRoundCtrl extends BaseRoundCtrl<IRoundDataStore>
 {
@@ -60,6 +62,20 @@ export default class PeopleRoundCtrl extends BaseRoundCtrl<IRoundDataStore>
         
         // save response //
         this.SaveResponse(response, question, round);
+    }
+
+    public saveTeamName(){
+
+        return SapienServerCom.SaveData(this.dataStore.ApplicationState.CurrentTeam, SapienServerCom.BASE_REST_URL + "gameplay/saveteamname").then((t:TeamModel) => {
+            DataStore.ApplicationState.CurrentTeam =
+            ApplicationCtrl.GetInstance().dataStore.ApplicationState.CurrentTeam = 
+            this.dataStore.ApplicationState.CurrentTeam = t;
+            localStorage.setItem("RH_TEAM", JSON.stringify(t));
+            ApplicationCtrl.GetInstance().addToast("Your team's name has been saved");
+
+        }).catch(() => {
+            ApplicationCtrl.GetInstance().addToast("Your team name couldn't be saved.","danger")
+        })
     }
 
     public Save1BResponse( resp: ResponseModel, question: QuestionModel, round: SubRoundModel ) {

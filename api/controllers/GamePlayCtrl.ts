@@ -331,7 +331,7 @@ class GamePlayRouter {
 
                 const CurrentHighestBid: Partial<ValueObj> = {
                     data: submittedBidValue.toString(),
-                    label: team.Number.toString(),
+                    label: team.Name ? team.Name : team.Number.toString(),
                     targetObjId: team._id
                 }
 
@@ -443,7 +443,6 @@ class GamePlayRouter {
                         minPoints: 1,
                         min: 0,
                         max: 10,
-                        data: "5",
                         targetObjId: p._id.toString(),
                         targetObjClass: "UserModel",
                         targetObjName: p.Name,
@@ -882,6 +881,20 @@ class GamePlayRouter {
         }
     }
 
+    public async SaveTeamName(req: Request, res: Response){
+        try{
+            let team: TeamModel = req.body as TeamModel;
+
+            let updatedTeam = await monTeamModel.findByIdAndUpdate(team._id, {Name: team.Name}).then(t => t ? Object.assign(new TeamModel(), t.toJSON()) : null);
+            if (!updatedTeam) throw new Error();
+            res.json(updatedTeam);
+
+        }
+        catch(err){
+            res.status(500).send("Couldn't save team name.")
+        }
+    }
+
     public routes() {
         //this.router.all("*", cors());
         this.router.get("/", this.GetRounds.bind(this));
@@ -900,6 +913,7 @@ class GamePlayRouter {
         this.router.post("/response/rating", this.savePriorityRating.bind(this)),
         this.router.get("/getuserrating/:userid/:teamid", this.GetUserRatingsSoFar.bind(this))
         this.router.get("/getfacilitatorresponses/:gameid", this.getFacilitatorResponsesByRound.bind(this))
+        this.router.post("/saveteamname", this.SaveTeamName.bind(this))
     }
 }
 

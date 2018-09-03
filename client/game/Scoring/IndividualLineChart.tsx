@@ -141,6 +141,7 @@ export default class IndividualLineChart extends React.Component<ChartingProps, 
             color="blue"
             striped
             celled
+            
           >
             <Table.Header>
               <Table.HeaderCell>Criteria</Table.HeaderCell>

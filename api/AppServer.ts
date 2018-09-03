@@ -454,7 +454,7 @@ export class AppServer {
                                     SubRoundId: subRound._id,
                                     SubRoundLabel: subRound.Label,
                                     RoundLabel: round.Label,
-                                    TeamLabel: "Team " + t.Number.toString()
+                                    TeamLabel: t.Name ? t.Name : "Team " + t.Number.toString()
                                 });
 
                                 if (RawScore > 0 ){
