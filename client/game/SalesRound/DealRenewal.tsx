@@ -159,8 +159,6 @@ export default class DealRenewal extends BaseComponent<any, IRoundDataStore & {F
                     </>
                 } 
 
-                {userRatingsChart && JSON.stringify(userRatingsChart, null, 2)}
-
                 {this.state.ApplicationState.ShowIndividualFeedback && thisSubRound &&
                     <IndividualLineChart
                         TeamId={this.state.ApplicationState.CurrentTeam._id}
