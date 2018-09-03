@@ -57,7 +57,7 @@ export default class Priorities extends BaseComponent<any, IRoundDataStore>
 
     componentDidMount() {
         super.componentDidMount();
-
+        this.controller.pollForTeamName();
     }
 
     render() {

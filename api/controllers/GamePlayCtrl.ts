@@ -887,7 +887,9 @@ class GamePlayRouter {
 
             let updatedTeam = await monTeamModel.findByIdAndUpdate(team._id, {Name: team.Name}).then(t => t ? Object.assign(new TeamModel(), t.toJSON()) : null);
             if (!updatedTeam) throw new Error();
-            res.json(updatedTeam);
+            AppServer.LongPoll.publishToId("/sapien/api/gameplay/listenforteamname/:teamid", team._id, team);
+
+            res.json("updated");
 
         }
         catch(err){
@@ -914,6 +916,9 @@ class GamePlayRouter {
         this.router.get("/getuserrating/:userid/:teamid", this.GetUserRatingsSoFar.bind(this))
         this.router.get("/getfacilitatorresponses/:gameid", this.getFacilitatorResponsesByRound.bind(this))
         this.router.post("/saveteamname", this.SaveTeamName.bind(this))
+        //this.router.get("/listenforteamname", this.SaveTeamName.bind(this))
+        
+
     }
 }
 

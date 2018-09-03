@@ -67,10 +67,6 @@ export default class PeopleRoundCtrl extends BaseRoundCtrl<IRoundDataStore>
     public saveTeamName(){
 
         return SapienServerCom.SaveData(this.dataStore.ApplicationState.CurrentTeam, SapienServerCom.BASE_REST_URL + "gameplay/saveteamname").then((t:TeamModel) => {
-            DataStore.ApplicationState.CurrentTeam =
-            ApplicationCtrl.GetInstance().dataStore.ApplicationState.CurrentTeam = 
-            this.dataStore.ApplicationState.CurrentTeam = t;
-            localStorage.setItem("RH_TEAM", JSON.stringify(t));
             ApplicationCtrl.GetInstance().addToast("Your team's name has been saved");
 
         }).catch(() => {
@@ -123,6 +119,18 @@ export default class PeopleRoundCtrl extends BaseRoundCtrl<IRoundDataStore>
             UserRatings: null
         };
         this.dataStore.Round.Name = "PEOPLE";
+    }
+
+    public pollForTeamName(){
+        return SapienServerCom.GetData(null, TeamModel, SapienServerCom.BASE_REST_URL + "gameplay/listenforteamname/" + this.dataStore.ApplicationState.CurrentTeam._id).then((t: TeamModel) => {
+            DataStore.ApplicationState.CurrentTeam =
+            ApplicationCtrl.GetInstance().dataStore.ApplicationState.CurrentTeam = 
+            this.dataStore.ApplicationState.CurrentTeam = t;
+            localStorage.setItem("RH_TEAM", JSON.stringify(t));
+            if(location.pathname.indexOf("prior") != -1){
+                this.pollForTeamName();
+            }
+        })
     }
 
 }

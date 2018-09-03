@@ -11,7 +11,7 @@ import UserCtrl from './controllers/UserCtrl';
 import AuthUtils from './AuthUtils';
 import GameCtrl, { monGameModel } from './controllers/GameCtrl';
 import GameModel from '../shared/models/GameModel'
-import TeamCtrl from './controllers/TeamCtrl';
+import TeamCtrl, { monTeamModel } from './controllers/TeamCtrl';
 import GamePlayCtrl, { monResponseModel, monSubRoundScoreModel } from './controllers/GamePlayCtrl';
 import LongPoll from '../shared/base-sapien/api/LongPoll';
 import RoundChangeMapping from '../shared/models/RoundChangeMapping';
@@ -207,7 +207,15 @@ export class AppServer {
                  console.log(err);
              }
          });*/
-
+         AppServer.LongPoll.create("/sapien/api/gameplay/listenforteamname/:teamid", async (req, res, next) => {
+            req.id = req.params.teamid;
+            const team = await monTeamModel.findById(req.id).then(r => r ? Object.assign(new GameModel(), r.toJSON()) : null);
+            if (team) {              
+                next();               
+            } else {
+                res.status(500).send("no team")
+            }
+        }, {maxListeners: 500})
     
         AppServer.app.use('/', AppServer.router)
             //.post('*', Passport.authenticate('jwt', { session: false }))
@@ -521,6 +529,7 @@ export class AppServer {
             .use('/', express.static("dist"))
             .use('*', express.static("dist"))
             .use('**', express.static("dist"))
+           
     }
 
 
