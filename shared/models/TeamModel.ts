@@ -33,4 +33,10 @@ export default class TeamModel extends BaseModel
         ParentRound: "",
         ChildRound: ""
     };
+
+    constructor() {
+        super();
+        this.Name = Array("Amazon", "Orinoco", "Ganges", "Madeira", "Jiang", "Brahmaputra", "Yenisei", "Japurá", "Paraná", "Lena", "Mississippi", "Marañón", "Ganges", "Mekong", "Tocantins", "Tapajos", "Ucayali", "Irrawaddy", "Purus", "Beni")[this.Number];
+    }
+       
 }

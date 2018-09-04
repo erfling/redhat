@@ -6,8 +6,10 @@ import TeamModel from '../../shared/models/TeamModel';
 
 const schObj = SchemaBuilder.fetchSchema(TeamModel);
 schObj.Players = [{type: mongoose.Schema.Types.ObjectId, ref: "user"}];
+
 const monSchema = new mongoose.Schema(schObj);
 export const monTeamModel = mongoose.model("team", monSchema);
+
 
 class TeamRouter
 {
@@ -27,10 +29,11 @@ class TeamRouter
     //----------------------------------------------------------------------
 
     constructor() {
+
         this.router = Router({mergeParams:true});
         this.routes();
         
-        //console.log("monSchema:", monRoundModel);
+        console.log("Team Ctrl ctor++");
     }
 
     //----------------------------------------------------------------------
@@ -84,17 +87,15 @@ class TeamRouter
 
     public async SaveRound(req: Request, res: Response):Promise<any> {
         const roundToSave = req.body as RoundModel;
-        console.log(roundToSave, roundToSave.Name, roundToSave.Name.length);
-
+   
         //const dbRoundModel = new monRoundModel(roundToSave); 
         
         try{
             if(!roundToSave.Name || !roundToSave.Name.length || !roundToSave._id) {
-                console.log("HERE")
                 var savedRound = await monTeamModel.create(roundToSave);
             } else {
                 var savedRound = await monTeamModel.findOneAndUpdate({Name: roundToSave.Name}, roundToSave, {new: true})
-                console.log(savedRound);
+                
             }
             res.json(savedRound);
         }
