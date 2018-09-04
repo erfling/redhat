@@ -153,7 +153,7 @@ export default class Hiring extends BaseComponent<any, IRoundDataStore>
                             </Header>
 
                         {this.state.RatingQuestions.some(q => q["_invalid"]) &&
-                            <Header as='h4' inverted color='red'>
+                            <Header as='h1' inverted color='red'>
                                 You can't give two players the same rating for any criteria.
                             </Header>
                         }
