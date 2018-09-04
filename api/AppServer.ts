@@ -460,7 +460,7 @@ export class AppServer {
                                     GameId: game._id,
                                     RoundId: subRound.RoundId,
                                     SubRoundId: subRound._id,
-                                    SubRoundLabel: subRound.Label,
+                                    SubRoundLabel: subRound.ScoreLabel ? subRound.ScoreLabel : subRound.Label,
                                     RoundLabel: round.Label,
                                     TeamLabel: t.Name ? t.Name : "Team " + t.Number.toString()
                                 });

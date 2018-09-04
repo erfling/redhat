@@ -10,8 +10,9 @@ import Decisions from '-!svg-react-loader?name=Icon!../../img/decisions.svg';
 import TeamModel from "../../../shared/models/TeamModel";
 import FeedBackWrapper from "../Scoring/FeedBackWrapper";
 import { RatingType, ComparisonLabel } from "../../../shared/models/QuestionModel";
-import ValueObj from "../../../shared/entity-of-the-state/ValueObj";
+import ValueObj, { SliderValueObj } from "../../../shared/entity-of-the-state/ValueObj";
 import IndividualLineChart from "../Scoring/IndividualLineChart";
+import { Query } from "mongoose";
 
 const { Button, Grid, Form, Dimmer, Loader, Header, Table } = Semantic;
 const { Row, Column } = Grid;
@@ -79,8 +80,11 @@ export default class DealRenewal extends BaseComponent<any, IRoundDataStore & {F
                                 />
                                 Decisions
                             </Header>
+                            <Header>
+                                Rate the degree to which other teams made strong case
+                            </Header>
                                             
-                            {thisSubRound.Questions.map((q, i) => {
+                            {thisSubRound.Questions.filter(q => q.targetObjId != this.state.ApplicationState.CurrentTeam._id).map((q, i) => {
                                 return <Row
                                     key={"question-" + i.toString()}
                                 >
@@ -90,25 +94,43 @@ export default class DealRenewal extends BaseComponent<any, IRoundDataStore & {F
                                         key={i}
                                         SubRoundId={thisSubRound._id}
                                         onChangeHander={r => {
-                                            console.log(r);
-                                            this.controller.handleResponseChange(q, r, thisSubRound.Questions)
+                                            console.log(r, q.PossibleAnswers[0], Number(r.Answer[0].data));
+
+                                            if(r.Answer[0].data && Number(r.Answer[0].data) > q.PossibleAnswers[0].max || Number(r.Answer[0].data) < q.PossibleAnswers[0].min  ){
+                                                r.ValidationMessage = "Must be between 0 and 100%";
+                                            } else {
+                                                r.ValidationMessage = null; 
+                                            }
+                                            r.TeamId = q.targetObjId;
+                                            r.targetObjId = q.targetObjId;
+                                            this.controller.dataStore.SubRound.Questions[i].Response = q.Response = r;
+                                            this.controller.dataStore.Round.SubRounds.filter(sr => sr.Name == thisSubRound.Name).forEach(sr => {
+                                                if(sr.Questions)
+                                                    sr.Questions.forEach(quest => {
+                                                        if (quest._id == q._id) {
+                                                            quest.Response = r;
+                                                            quest.PossibleAnswers = (r.Answer as SliderValueObj[]);
+                                                        }
+                                                    })
+                                            });
                                         }}
                                         IsEditable={this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN}
                                     />
-                                    
+                                    <Button
+                                        content='Submit'
+                                        icon='checkmark'
+                                        labelPosition='right'
+                                        color="blue"
+                                        disabled={q.Response && q.Response.ValidationMessage != null}
+                                        loading={q.Response ? q.Response.IsSaving : false}
+                                        onClick={e => {
+                                        this.controller.SaveResponse(q.Response, q, thisSubRound)                                    
+                                        }}
+                                    />                                    
                                 </Row>
                             }
                             )}
-                            <Button
-                                content='Submit'
-                                icon='checkmark'
-                                labelPosition='right'
-                                color="blue"
-                                loading={thisSubRound.Questions[0].Response ? thisSubRound.Questions[0].Response.IsSaving : false}
-                                onClick={e => {
-                                   this.controller.SaveResponses(thisSubRound, thisSubRound.Questions[0])                                    
-                                }}
-                            />
+                            
                         </Form>
                     </div>
                 }    
@@ -124,37 +146,6 @@ export default class DealRenewal extends BaseComponent<any, IRoundDataStore & {F
                         Feedback={this.controller.filterFeedBack(this.state.Scores, this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN)}
                         ChartableScores={this.controller.dataStore.ApplicationState.ChartingScores}
                     >
-                    {this.state.ApplicationState.SubroundResponses && 
-                        <>
-                            <Table striped celled>
-                                <Table.Header>
-                                    <Table.Row>
-                                        <Table.HeaderCell>
-                                            <Semantic.Label 
-                                                ribbon color="blue"
-                                            >
-                                                <Semantic.Icon name="attention"/> Important Data
-                                            </Semantic.Label>
-                                        </Table.HeaderCell>
-                                        <Table.HeaderCell>Price Per Customer</Table.HeaderCell>
-                                        <Table.HeaderCell>Customer Satisfaction</Table.HeaderCell>
-                                    </Table.Row>
-                                </Table.Header>
-
-                                <Table.Body>
-                                    {this.state.ApplicationState.SubroundResponses.map((r, i) =>
-                                        <Table.Row key={i}>
-                                            <Table.Cell>
-                                                Team {r.TeamNumber}
-                                            </Table.Cell>
-                                            <Table.Cell>{(r.Answer as ValueObj[]).filter(a => a.label == ComparisonLabel.PRICE_PER_CUSTOMER).length ? (r.Answer as ValueObj[]).filter(a => a.label == ComparisonLabel.PRICE_PER_CUSTOMER)[0].data : null}</Table.Cell>
-                                            <Table.Cell>{(r.Answer as ValueObj[]).filter(a => a.label == ComparisonLabel.CSAT).length ? Math.round( (r.Answer as ValueObj[]).filter(a => a.label == ComparisonLabel.CSAT)[0].data * 1000)/10  : null}</Table.Cell>
-                                        </Table.Row>
-                                    )}
-                                </Table.Body>
-                            </Table>
-                        </>
-                        }
                     </FeedBackWrapper> 
                     </>
                 } 

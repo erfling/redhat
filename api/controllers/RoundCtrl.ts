@@ -17,6 +17,7 @@ import GameModel from '../../shared/models/GameModel';
 import SubRoundFeedback, { ValueDemomination } from '../../shared/models/SubRoundFeedback';
 import RoundChangeMapping from '../../shared/models/RoundChangeMapping';
 import * as Passport from 'passport'
+import { monTeamModel } from './TeamCtrl';
 
 const messageSchObj = SchemaBuilder.fetchSchema(MessageModel);
 const monMessageSchema = new mongoose.Schema(messageSchObj);
@@ -262,52 +263,65 @@ class RoundRouter {
 
     public async GetSubRound3B(req: Request, res: Response): Promise<any> {
 
-        const TeamId = req.params.TeamId
-
-        console.log("3B3B3B3BTRYING TO GET ROUND WITH NAME: ", "DEALRENEWAL");
         try {
-            let round: SubRoundModel = await monSubRoundModel.findOne({ Name: "DEALRENEWAL" }).populate("Questions").then(r => r ? Object.assign(new SubRoundModel(), r.toJSON()) : null);
-            if (!round) {
-                res.status(400).json({ error: 'No round' });
-            } else {
-                const quantityQuestion = round.Questions.filter(q => q.ComparisonLabel == ComparisonLabel.QUANTITY)[0] || null;
 
-                if (quantityQuestion) {
-                    let response: ResponseModel = await monResponseModel.findOne({ QuestionId: quantityQuestion.SiblingQuestionId, TeamId }).then(r => r ? Object.assign(new ResponseModel(), r.toJSON()) : null)
+            console.log("HHHHHHHHHHHEEEEEEEEEEEEEEEEEEEEEEYYYYYYYYYYYYYYYYYY")
 
-                    //get 3A responses for team
-                    //old school for loop because await makes it await
-                    if (response) {
-                        let matchingAnswer = (response.Answer as SliderValueObj[]).filter(a => a.label == ComparisonLabel.PRICE_PER_CUSTOMER)[0] || null;
+            const GameId = req.params.gameid;
 
-                        if (matchingAnswer) {
+            //do this a better way.
+            const SubRound = await monSubRoundModel.findOne({ Name: "DEALRENEWAL" }).then(r => r ? r.toJSON() : null)
+            if (!SubRound) throw new Error("No subuound found");
 
-                            let min = Math.round(200000 * (Math.pow(((matchingAnswer.data) / 466.666666666666666666666666666666666666666666667), -0.5)) / 6000);
+            //get all the teams
+            let teams: TeamModel[] = await monTeamModel.find({GameId}).then(ts => ts ? ts.map(t => Object.assign(new TeamModel(), t.toJSON())) : null)
 
-                            quantityQuestion.PossibleAnswers[0] = Object.assign(quantityQuestion.PossibleAnswers[0], {
-                                min: min,//parseInt((response.Answer as SliderValueObj).data) * ,
-                                max: min * 2
-                            })
-                        }
+            //get the questions for this round.
+            let questions: QuestionModel[] = await monQModel.find({ RatingMarker: "TEAM_RATING" }).then(q => q ? q.map(quest => Object.assign(new QuestionModel, quest.toJSON())) : []);
 
-                        round.Questions = round.Questions.map(q => {
-                            return q.ComparisonLabel && q.ComparisonLabel == ComparisonLabel.QUANTITY ? quantityQuestion : q;
-                        });
+            //now map over the responses, building out questions for each team.
+            let finalQuestions: QuestionModel[] = [];
 
-                        res.json(round);
+            teams.map(t => {
+                finalQuestions = finalQuestions.concat(
+                    questions.map(q => {
+                        return Object.assign({}, q, {
+                            Type: QuestionType.NUMBER,
+                            Text: t.Name ? t.Name : "Team " + t.Number,
+                            TargetTeamId: t._id,
+                            test: "adsf",
+                            targetObjId: t._id,
+                            targetObjClass: "TeamModel",
+                            PossibleAnswers: [
+                                {
+                                    label: t.Name ? t.Name : "Team " + t.Number,
+                                    unit: '%',
+                                    maxPoints : 1,
+                                    minPoints : 0,
+                                    idealValue : "100",
+                                    increment: 1,
+                                    max : 100,
+                                    min : 0,
+                                    targetObjId: t._id,
+                                    targetObjClass: "TeamModel",
+                                }
+                            ]
+                        
+                        })
+                    })
+                )
+            });
 
-                    } else {
-                        throw new Error("COULDN'T FIND MATCHING RESPONSE")
-                    }
+            SubRound.Questions = finalQuestions;
+            res.json(SubRound);
 
-                } else {
-                    throw new Error("COULDN'T FIND MATCHING RESPONSE")
-                }
-
-            }
-        } catch (err) {
-            (err: any) => res.status(500).json({ error: err });
         }
+        catch (err) {
+            console.log(err);
+            res.status(500);
+            res.send("couldn't get questions")
+        }
+
 
     }
 
@@ -488,7 +502,7 @@ class RoundRouter {
         this.router.get("/", this.GetRounds.bind(this));
         this.router.get("/:round", this.GetRound.bind(this));
         this.router.get("/subround/:subround/:gameid/:userid/:job", this.GetMessages.bind(this));
-        this.router.get("/get2bquestions/:TeamId", this.GetSubRound3B.bind(this));
+        this.router.get("/get2bquestions/:gameid", this.GetSubRound3B.bind(this));
         this.router.post("/",
             Passport.authenticate('jwt', { session: false }),
             (req, res, next) => AuthUtils.IS_USER_AUTHORIZED(req, res, next, PERMISSION_LEVELS.PLAYER),

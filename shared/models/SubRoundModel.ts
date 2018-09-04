@@ -109,6 +109,9 @@ export default class SubRoundModel extends BaseModel
     @dbProp(String)
     public NextSubRound: string | SubRoundModel;
 
+    @dbProp(String)
+    public ScoreLabel: string = "";
+
     //----------------------------------------------------------------------
     //
     //  Constructor

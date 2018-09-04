@@ -307,7 +307,7 @@ export default class ScoringLineChart extends React.Component<ChartingProps, Sco
                   {srs.SubRoundLabel}
                 </Table.Cell>
                 <Table.Cell>
-                  {srs.NormalizedScore && MathUtil.roundTo(srs.NormalizedScore, 2)}%
+                  {srs.NormalizedScore && MathUtil.roundTo(srs.NormalizedScore, 0)}%
               </Table.Cell>
               </Table.Row>
             })}

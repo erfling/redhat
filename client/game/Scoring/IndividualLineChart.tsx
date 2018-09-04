@@ -130,7 +130,7 @@ export default class IndividualLineChart extends React.Component<ChartingProps, 
           {MessageOnEmpty}
         </Header>
       }
-      {Data && Data.length &&
+      {Data && Data.length > 0 &&
         <Segment
           raised
         >
