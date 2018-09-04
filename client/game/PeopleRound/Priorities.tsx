@@ -9,6 +9,7 @@ import BaseComponent from "../../../shared/base-sapien/client/shared-components/
 import Decisions from '-!svg-react-loader?name=Icon!../../img/decisions.svg';
 import FeedBackWrapper from "../Scoring/FeedBackWrapper";
 import GameCtrl from "../GameCtrl";
+import { Input } from "semantic-ui-react";
 
 const { Button, Grid, Menu, Segment, Form, Dimmer, Loader, Header, Table } = Semantic;
 const { Row, Column } = Grid;
@@ -35,7 +36,7 @@ export default class Priorities extends BaseComponent<any, IRoundDataStore>
 
     constructor(props: any) {
         super(props);
-        
+
         this.controller.ParentController = PeopleRoundCtrl.GetInstance();
         this.state = this.controller.dataStore;
     }
@@ -54,14 +55,14 @@ export default class Priorities extends BaseComponent<any, IRoundDataStore>
     //
     //----------------------------------------------------------------------
 
-    componentDidMount(){
+    componentDidMount() {
         super.componentDidMount();
-        
+        this.controller.pollForTeamName();
     }
 
     render() {
         const thisSubRound = this.state.Round.SubRounds.filter(s => s.Name.toUpperCase() == Priorities.CLASS_NAME.toUpperCase())[0];
-        
+
         if (this.state) {
             return <>
                 {this.state.ApplicationState.CurrentUser.Job == JobName.MANAGER && thisSubRound != null && thisSubRound.Questions &&
@@ -75,10 +76,35 @@ export default class Priorities extends BaseComponent<any, IRoundDataStore>
                             <Header>
                                 <Decisions
                                     className="ui circular image"
-                                    style={{ width: '40px' }} 
+                                    style={{ width: '40px' }}
                                 />
                                 Decisions
                             </Header>
+                            {this.state && this.state.ApplicationState && this.state.ApplicationState.CurrentTeam &&
+                                <Row>
+                                    <Form.Field>
+                                        <label>Team Name (10 characters or less)</label>
+                                        <Input
+                                            maxLength={10} 
+                                            onChange={(e, inputVal) => {
+                                                if(inputVal.value.length < 10){
+                                                    this.controller.dataStore.ApplicationState.CurrentTeam.Name = inputVal.value;
+                                                }
+                                            }}
+                                        />
+                                    </Form.Field>
+                                    <Button
+                                        content='Submit'
+                                        icon='checkmark'
+                                        labelPosition='right'
+                                        color="blue"
+                                        loading={this.state.ApplicationState.CurrentTeam.IsSaving}
+                                        onClick={e => {
+                                            this.controller.saveTeamName()
+                                        }}
+                                    />
+                                </Row>
+                            }
 
                             {thisSubRound.Questions.map((q, i) => {
                                 return <Row
@@ -112,8 +138,8 @@ export default class Priorities extends BaseComponent<any, IRoundDataStore>
                         </Form>
                     </div>
                 }
-                
-                {thisSubRound && !this.state.ApplicationState.ShowMessageList  && !this.state.ApplicationState.ShowQuestions && this.state.ApplicationState.SelectedMessage && !this.state.ApplicationState.ShowFeedback && !this.state.ApplicationState.ShowFeedback &&
+
+                {thisSubRound && !this.state.ApplicationState.ShowMessageList && !this.state.ApplicationState.ShowQuestions && this.state.ApplicationState.SelectedMessage && !this.state.ApplicationState.ShowFeedback && !this.state.ApplicationState.ShowFeedback &&
                     <EditableContentBlock
                         IsEditable={this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN}
                         SubRoundId={thisSubRound._id}

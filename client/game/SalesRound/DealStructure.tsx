@@ -175,54 +175,8 @@ export default class DealStructure extends BaseComponent<any, IRoundDataStore & 
                             JobName.MANAGER ? "No associates completed your management feedback" : "Your manager failed to complete your performance review"}
                         
                     />
-                        }  
-{this.state.ApplicationState.ShowRateUsers && this.state.RatingQuestions && <div
-                    className={'show ' + (this.state.ApplicationState.MobileWidth ? "mobile-messages decisions" : "wide-messages decisions")}
-                >
-                    <Form
-                        style={{ width: '100%' }}
-                    >
-                        <Header>
-                            <Decisions
-                                className="ui circular image"
-                                style={{ width: '40px' }}
-                            />
-                            Decisions
-                            </Header>
-
-                        {this.state.RatingQuestions.filter(q => {
-                            return q.RatingMarker == RatingType.MANAGER_RATING ? this.state.ApplicationState.CurrentUser.Job != JobName.MANAGER : this.state.ApplicationState.CurrentUser.Job == JobName.MANAGER
-                        }).map((q, i) => {
-                            return <Row
-                                key={"question-" + i.toString()}
-                            >
-                                <EditableQuestionBlock
-                                    Question={q}
-                                    idx={i}
-                                    key={i}
-                                    SubRoundId={thisSubRound._id}
-                                    onChangeHander={r => {
-                                        console.log(r);
-                                        this.controller.updateResponse(q, r)
-                                    }}
-                                    IsEditable={this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN}
-                                />
-                                <Button
-                                    content='Submit'
-                                    icon='checkmark'
-                                    labelPosition='right'
-                                    color="blue"
-                                    loading={q.Response ? q.Response.IsSaving : false}
-                                    onClick={e => {
-                                        this.controller.SavePlayerRating(q.Response, q, thisSubRound)
-                                    }}
-                                />
-                            </Row>
-                        }
-                        )}
-                    </Form>
-                </div>
                 }
+                
                 {thisSubRound && !this.state.ApplicationState.ShowMessageList && !this.state.ApplicationState.ShowQuestions && this.state.ApplicationState.SelectedMessage && !this.state.ApplicationState.ShowFeedback &&
                     <EditableContentBlock
                         IsEditable={this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN}

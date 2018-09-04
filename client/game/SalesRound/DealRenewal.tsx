@@ -159,8 +159,6 @@ export default class DealRenewal extends BaseComponent<any, IRoundDataStore & {F
                     </>
                 } 
 
-                {userRatingsChart && JSON.stringify(userRatingsChart, null, 2)}
-
                 {this.state.ApplicationState.ShowIndividualFeedback && thisSubRound &&
                     <IndividualLineChart
                         TeamId={this.state.ApplicationState.CurrentTeam._id}
@@ -188,7 +186,7 @@ export default class DealRenewal extends BaseComponent<any, IRoundDataStore & {F
                             </Header>
 
                         {this.state.RatingQuestions.filter(q => {
-                            return q.RatingMarker == RatingType.MANAGER_RATING ? this.state.ApplicationState.CurrentUser.Job != JobName.MANAGER : this.state.ApplicationState.CurrentUser.Job == JobName.MANAGER
+                            return true//q.RatingMarker == RatingType.MANAGER_RATING ? this.state.ApplicationState.CurrentUser.Job != JobName.MANAGER : this.state.ApplicationState.CurrentUser.Job == JobName.MANAGER
                         }).map((q, i) => {
                             return <Row
                                 key={"question-" + i.toString()}
@@ -199,12 +197,14 @@ export default class DealRenewal extends BaseComponent<any, IRoundDataStore & {F
                                     key={i}
                                     SubRoundId={thisSubRound._id}
                                     onChangeHander={r => {
-                                        console.log(r);
+                                        this.controller.checkRatingQuestions(this.state.RatingQuestions)
+                                        console.log(r.Answer[0].targetObjId, q.SubText, q.PossibleAnswers[0].targetObjId);
                                         this.controller.updateResponse(q, r)
                                     }}
                                     IsEditable={this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN}
                                 />
                                 <Button
+                                    disabled={this.state.RatingQuestions.some(q => q["_invalid"])}
                                     content='Submit'
                                     icon='checkmark'
                                     labelPosition='right'
