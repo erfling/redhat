@@ -117,8 +117,7 @@ export default class SalesRoundCtrl extends BaseRoundCtrl<IRoundDataStore & {Fee
 
     _getPrice(){
         var initialPrice = this._responseMap[ComparisonLabel.PRICE] && this._responseMap[ComparisonLabel.QUANTITY] ? (this._responseMap[ComparisonLabel.PRICE].data / this._responseMap[ComparisonLabel.QUANTITY].data * 1000 ) : 0;
-        var price = this._responseMap[ComparisonLabel.PROJECT_MANAGEMENT] && (this._responseMap[ComparisonLabel.PROJECT_MANAGEMENT].data == true || this._responseMap[ComparisonLabel.PROJECT_MANAGEMENT].data == true.toString()) ? initialPrice * 1.1 : initialPrice;
-        return Math.round(price);
+        return Math.round(initialPrice);
     }
 
     _getCSAT(){
@@ -135,27 +134,19 @@ export default class SalesRoundCtrl extends BaseRoundCtrl<IRoundDataStore & {Fee
     }
 
     _getScore(questions: QuestionModel[]){
-
+        
         //determine the max possible score
-        let maxPrice = this._responseMap[ComparisonLabel.PRICE] ? this._responseMap[ComparisonLabel.PRICE].max : 0;
-        let maxQuant = this._responseMap[ComparisonLabel.QUANTITY] ? this._responseMap[ComparisonLabel.QUANTITY].max : 0;
-        let maxMoney = maxPrice * maxQuant
-        let moneyScore = MathUtil.roundTo(this._responseMap[ComparisonLabel.PRICE].data * this._responseMap[ComparisonLabel.QUANTITY].data / maxMoney, 2);
         let score = 0;
-        if(this._getPrice() && this._getPrice() < 800 || (this.dataStore.SubRound && this.dataStore.SubRound.Label == "2B")){
-            score = (moneyScore * 7)
-            if(this._getCSAT() ){
-                score += this._getCSAT() * 2;
 
-                if(this._getCSAT()  >= .9){
-                    score += 1;
-                }
-            }
-            
-        } 
+        if(this._responseMap[ComparisonLabel.QUANTITY] && this._responseMap[ComparisonLabel.PRICE]){
+            score = ( 1 - ( Math.abs( ( ( this._responseMap[ComparisonLabel.PRICE].data / (this._responseMap[ComparisonLabel.QUANTITY].data * 1000) ) * 1000000 ) - 600 ) ) / 350)-0.2
+        }
 
-      console.warn( "MAX PRICE: " + maxPrice, "MAX Q: " + maxQuant,"MAX MONEY: " + maxMoney, "GET PRICE: " + this._getPrice() * this._responseMap[ComparisonLabel.QUANTITY].data, moneyScore, this._responseMap)
-        return score * 2;
+        console.log("NOW SEE: ", score, this._responseMap[ComparisonLabel.QUANTITY].data, this._responseMap[ComparisonLabel.PRICE].data, this._responseMap[ComparisonLabel.PRICE].data / this._responseMap[ComparisonLabel.QUANTITY].data);
+
+        score = this._responseMap[ComparisonLabel.PROJECT_MANAGEMENT] && this._responseMap[ComparisonLabel.PROJECT_MANAGEMENT].data == "true" ? score + .2 : score;
+
+        return score;
     }
 
     SaveResponses(subround: SubRoundModel, question: QuestionModel){

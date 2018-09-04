@@ -123,6 +123,7 @@ export default class PeopleRoundCtrl extends BaseRoundCtrl<IRoundDataStore>
 
     public pollForTeamName(){
         return SapienServerCom.GetData(null, TeamModel, SapienServerCom.BASE_REST_URL + "gameplay/listenforteamname/" + this.dataStore.ApplicationState.CurrentTeam._id).then((t: TeamModel) => {
+            if(!t) throw new Error();
             DataStore.ApplicationState.CurrentTeam =
             ApplicationCtrl.GetInstance().dataStore.ApplicationState.CurrentTeam = 
             this.dataStore.ApplicationState.CurrentTeam = t;
@@ -130,7 +131,7 @@ export default class PeopleRoundCtrl extends BaseRoundCtrl<IRoundDataStore>
             if(location.pathname.indexOf("prior") != -1){
                 this.pollForTeamName();
             }
-        })
+        }).catch(() => setTimeout(() => this.pollForTeamName(), 1000))
     }
 
 }

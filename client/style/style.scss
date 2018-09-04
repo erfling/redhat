@@ -712,3 +712,31 @@ p:nth-of-type(even) {
     background-color: #0088b9!important;
     color: #FFF!important;
 }
+
+.reorder{
+    list-style-type: none;
+    padding-left:0;
+    li{
+        list-style: none;
+        border: solid 1px #0088B9;
+        border-bottom: none;
+        margin-left: 0;
+        margin-bottom: 0;
+        margin-top: 0;
+        padding: .6em;
+        &:last-child{
+            border-bottom: solid 1px #0088B9
+        }
+    }
+    .button-holder{
+        float:right;
+        border-left: 1px solid #ccc;
+        > div{
+            width:25px;
+            display: inline-block;
+            i{
+                font-size: 1.5em;
+            }
+        }
+    }
+}
