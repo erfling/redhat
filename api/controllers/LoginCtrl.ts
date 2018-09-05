@@ -99,9 +99,13 @@ export class LoginCtrlClass
 
             const user:UserModel = await monUserModel.findOne({Email: loginInfo.Email}).then(r => Object.assign(new UserModel(),JSON.parse( JSON.stringify( r.toJSON() ) ) ) );
 
+
             if (!user) {
                 throw('no user')
             }
+
+            if ((user.Job as any) == "Individual Contributor") user.Job = JobName.IC;
+
             console.log(user, game.Teams)
 
             let team: TeamModel;
