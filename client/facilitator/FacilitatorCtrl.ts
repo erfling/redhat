@@ -1,7 +1,7 @@
 'use strict';
 import FiStMa from '../../shared/entity-of-the-state/FiStMa';
 import GameModel from '../../shared/models/GameModel';
-import RoundChangeLookup from '../../shared/models/RoundChangeLookup';
+import FacilitationRoundResponseMapping from '../../shared/models/FacilitationRoundResponseMapping';
 import { Component } from 'react';
 import RoundModel from '../../shared/models/RoundModel';
 import UserModel, { JobName, RoleName } from '../../shared/models/UserModel';
@@ -22,7 +22,8 @@ export interface IFacilitatorDataStore extends IControllerDataStore{
     GrowMessageIndicator: boolean;
     groupedResponses: any;
     SlideNumber: number;
-    RoundChangeLookups: RoundChangeLookup[];
+    RoundChangeLookups: FacilitationRoundResponseMapping[];
+    AccordionIdx: number
 }
 
 export default class FacilitatorCtrl extends BaseClientCtrl<IFacilitatorDataStore>
@@ -38,7 +39,6 @@ export default class FacilitatorCtrl extends BaseClientCtrl<IFacilitatorDataStor
     private _childController: BaseRoundCtrl<any>;
 
     public ChildController: BaseClientCtrl<any>;
-
 
     //----------------------------------------------------------------------
     //
@@ -91,9 +91,10 @@ export default class FacilitatorCtrl extends BaseClientCtrl<IFacilitatorDataStor
     //
     //----------------------------------------------------------------------
 
-    public getLookups(){
-        return SapienServerCom.GetData(null,  RoundChangeLookup, SapienServerCom.BASE_REST_URL + "facilitator/getroundchangelookups/").then(rcl => {
-            this.dataStore.RoundChangeLookups = rcl as RoundChangeLookup[];
+    public getLookups(){        
+        return SapienServerCom.GetData(null,  FacilitationRoundResponseMapping, SapienServerCom.BASE_REST_URL + "facilitator/getroundstatus/" + GameCtrl.GetInstance().dataStore.ApplicationState.CurrentTeam.GameId).then(rcl => {
+            this.dataStore.RoundChangeLookups = rcl as FacilitationRoundResponseMapping[];
+            return rcl;
         })        
     }
 
@@ -129,10 +130,10 @@ export default class FacilitatorCtrl extends BaseClientCtrl<IFacilitatorDataStor
             ShowInboxPopup: false,
             GrowMessageIndicator: false,
             SlideNumber: 1, 
-            RoundChangeLookups: []
+            RoundChangeLookups: [],
+            AccordionIdx: 0
         };
 
-        this.getLookups();
 
         console.log("DATASTORE APPLICATION:", DataStore.ApplicationState);
         //this.pollForGameStateChange(this.dataStore.ApplicationState.CurrentTeam.GameId);
