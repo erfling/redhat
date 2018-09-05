@@ -57,7 +57,6 @@ export default class Priorities extends BaseComponent<any, IRoundDataStore>
 
     componentDidMount() {
         super.componentDidMount();
-        this.controller.pollForTeamName();
     }
 
     render() {
@@ -80,32 +79,7 @@ export default class Priorities extends BaseComponent<any, IRoundDataStore>
                                 />
                                 Decisions
                             </Header>
-                            {this.state && this.state.ApplicationState && this.state.ApplicationState.CurrentTeam &&
-                                <Row>
-                                    <Form.Field>
-                                        <label>Team Name (10 characters or less)</label>
-                                        <Input
-                                            maxLength={10} 
-                                            onChange={(e, inputVal) => {
-                                                if(inputVal.value.length < 10){
-                                                    this.controller.dataStore.ApplicationState.CurrentTeam.Name = inputVal.value;
-                                                }
-                                            }}
-                                        />
-                                    </Form.Field>
-                                    <Button
-                                        content='Submit'
-                                        icon='checkmark'
-                                        labelPosition='right'
-                                        color="blue"
-                                        loading={this.state.ApplicationState.CurrentTeam.IsSaving}
-                                        onClick={e => {
-                                            this.controller.saveTeamName()
-                                        }}
-                                    />
-                                </Row>
-                            }
-
+                            
                             {thisSubRound.Questions.map((q, i) => {
                                 return <Row
                                     key={"question-" + i.toString()}
