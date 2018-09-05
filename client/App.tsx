@@ -103,7 +103,7 @@ export default class App extends BaseComponent<any, IControllerDataStore>
                                     <Menu.Item header
                                         style={{ paddingRight:0}}
                                     >
-                                        {this.state.ApplicationState.CurrentTeam.Name ? this.state.ApplicationState.CurrentTeam.Name : 'Team ' + this.state.ApplicationState.CurrentTeam.Number}
+                                        {this.state.ApplicationState.CurrentTeam.Name ? 'Team ' + this.state.ApplicationState.CurrentTeam.Name : 'Team ' + this.state.ApplicationState.CurrentTeam.Number}
                                     </Menu.Item>
 
                                     <Menu.Item header
