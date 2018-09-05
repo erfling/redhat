@@ -124,7 +124,7 @@ export default class DealRenewal extends BaseComponent<any, IRoundDataStore & {F
                                         disabled={q.Response && q.Response.ValidationMessage != null}
                                         loading={q.Response ? q.Response.IsSaving : false}
                                         onClick={e => {
-                                        this.controller.SaveResponse(q.Response, q, thisSubRound)                                    
+                                            this.controller.SaveResponse(q.Response, q, thisSubRound)                                    
                                         }}
                                     />                                    
                                 </Row>
