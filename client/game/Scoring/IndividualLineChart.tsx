@@ -144,12 +144,14 @@ export default class IndividualLineChart extends React.Component<ChartingProps, 
             
           >
             <Table.Header>
-              <Table.HeaderCell>Criteria</Table.HeaderCell>
-              <Table.HeaderCell>Rating</Table.HeaderCell>
+              <Table.Row>
+                <Table.HeaderCell>Criteria</Table.HeaderCell>
+                <Table.HeaderCell>Rating</Table.HeaderCell>
+              </Table.Row>
             </Table.Header>
             
             {Object.keys(Data[Data.length - 1]).filter(k => k.toLowerCase().indexOf("name") == -1 && Data[Data.length - 1][k]).map(
-              (k, i) => <Table.Row>
+              (k, i) => <Table.Row key={i}>
                 <Table.Cell>{k}</Table.Cell>
                 <Table.Cell>{Data[Data.length - 1][k]}</Table.Cell>
               </Table.Row>

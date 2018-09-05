@@ -36,7 +36,7 @@ export default class Hiring extends BaseComponent<any, IRoundDataStore>
 
     constructor(props: any) {
         super(props);
-        
+
         this.controller.ParentController = PeopleRoundCtrl.GetInstance();
         this.state = this.controller.dataStore;
     }
@@ -78,7 +78,7 @@ export default class Hiring extends BaseComponent<any, IRoundDataStore>
                                 />
                                 Decisions
                             </Header>
-                                               
+
                             {thisSubRound.Questions.map((q, i) => {
                                 return <Row
                                     key={"question-" + i.toString()}
@@ -110,7 +110,7 @@ export default class Hiring extends BaseComponent<any, IRoundDataStore>
                         </Form>
                     </div>
                 }
-                
+
                 {this.state.ApplicationState.ShowFeedback && thisSubRound && this.state.Scores && <>
                     <FeedBackWrapper
                         TeamId={this.state.ApplicationState.CurrentTeam._id}
@@ -122,20 +122,20 @@ export default class Hiring extends BaseComponent<any, IRoundDataStore>
                         Feedback={this.controller.filterFeedBack(this.state.Scores, this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN)}
                         ChartableScores={this.controller.dataStore.ApplicationState.ChartingScores}
                     >
-                    </FeedBackWrapper> 
-                    </>
-                }  
+                    </FeedBackWrapper>
+                </>
+                }
                 {this.state.ApplicationState.ShowIndividualFeedback && thisSubRound &&
                     <IndividualLineChart
                         TeamId={this.state.ApplicationState.CurrentTeam._id}
                         PlayerId={this.state.ApplicationState.CurrentUser._id}
-                        Data={ userRatingsChart || [] }
+                        Data={userRatingsChart || []}
                         SubRoundId={thisSubRound._id}
-                        MessageOnEmpty={this.state.ApplicationState.CurrentUser.Job == 
+                        MessageOnEmpty={this.state.ApplicationState.CurrentUser.Job ==
                             JobName.MANAGER ? "No associates completed your management feedback" : "Your manager failed to complete your performance review"}
-                        
+
                     />
-                }  
+                }
 
 
                 {this.state.ApplicationState.ShowRateUsers && this.state.RatingQuestions && <div
@@ -153,8 +153,8 @@ export default class Hiring extends BaseComponent<any, IRoundDataStore>
                             </Header>
 
                         {this.state.RatingQuestions.some(q => q["_invalid"]) &&
-                            <Header as='h1' inverted color='red'>
-                                You can't give two players the same rating for any criteria.
+                            <Header as='h2'>
+                                You are not allowed to give more than one associate the same score on the same criteria.
                             </Header>
                         }
                         {this.state.RatingQuestions.filter(q => {
@@ -169,31 +169,37 @@ export default class Hiring extends BaseComponent<any, IRoundDataStore>
                                     key={i}
                                     SubRoundId={thisSubRound._id}
                                     onChangeHander={r => {
-                                        this.controller.checkRatingQuestions(this.state.RatingQuestions)
                                         console.log(r.Answer[0].targetObjId, q.SubText, q.PossibleAnswers[0].targetObjId);
                                         this.controller.updateResponse(q, r)
                                     }}
                                     IsEditable={this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN}
                                 />
-                                <Button
-                                    disabled={this.state.RatingQuestions.some(q => q["_invalid"])}
-                                    content='Submit'
-                                    icon='checkmark'
-                                    labelPosition='right'
-                                    color="blue"
-                                    loading={q.Response ? q.Response.IsSaving : false}
-                                    onClick={e => {
-                                        this.controller.SavePlayerRating(q.Response, q, thisSubRound)
-                                    }}
-                                />
+
                             </Row>
+                        })}
+                        <Button
+                            style={{marginTop: '1em'}}
+                            content='Submit'
+                            icon='checkmark'
+                            labelPosition='right'
+                            color="blue"
+                            loading={this.state.ApplicationState.FormIsSubmitting}
+                            onClick={e => {
+                                if (this.controller.checkRatingQuestions(this.state.RatingQuestions)) {
+                                    this.controller.SavePlayerRatings(this.state.RatingQuestions, thisSubRound)
+                                }
+                            }}
+                        />
+                        {this.state.RatingQuestions.some(q => q["_invalid"]) &&
+                            <Header as='h3' color='red'>
+                                You have given more than one associate the same score on the same criteria.
+                            </Header>
                         }
-                        )}
                     </Form>
                 </div>
                 }
 
-                {thisSubRound && !this.state.ApplicationState.ShowMessageList  && !this.state.ApplicationState.ShowQuestions && this.state.ApplicationState.SelectedMessage && !this.state.ApplicationState.ShowFeedback && !this.state.ApplicationState.ShowIndividualFeedback &&
+                {thisSubRound && !this.state.ApplicationState.ShowMessageList && !this.state.ApplicationState.ShowQuestions && this.state.ApplicationState.SelectedMessage && !this.state.ApplicationState.ShowFeedback && !this.state.ApplicationState.ShowIndividualFeedback &&
                     <EditableContentBlock
                         IsEditable={this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN}
                         SubRoundId={thisSubRound._id}

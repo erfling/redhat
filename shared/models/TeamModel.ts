@@ -36,7 +36,7 @@ export default class TeamModel extends BaseModel
 
     constructor() {
         super();
-        this.Name = Array("Amazon", "Orinoco", "Ganges", "Madeira", "Jiang", "Brahmaputra", "Yenisei", "Japurá", "Paraná", "Lena", "Mississippi", "Marañón", "Ganges", "Mekong", "Tocantins", "Tapajos", "Ucayali", "Irrawaddy", "Purus", "Beni")[this.Number];
+        this.Name = Array("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "Marañón", "Ganges", "Mekong", "Tocantins", "Tapajos", "Ucayali", "Irrawaddy", "Purus", "Beni")[this.Number];
     }
        
 }

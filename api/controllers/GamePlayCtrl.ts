@@ -395,11 +395,11 @@ class GamePlayRouter {
                                 {
                                     label: t.Name ? t.Name : "Team " + t.Number,
                                     unit: '%',
-                                    maxPoints : 1,
-                                    minPoints : 0,
-                                    idealValue : "100",
-                                    max : 100,
-                                    min : 0
+                                    maxPoints: 1,
+                                    minPoints: 0,
+                                    idealValue: "100",
+                                    max: 100,
+                                    min: 0
                                 }
                             ]
                         })
@@ -607,6 +607,52 @@ class GamePlayRouter {
         }
     }
 
+
+    public async SavePlayerRatings(req: Request, res: Response) {
+
+        try {
+            let responses = req.body as ResponseModel[];
+            let savedResponses: ResponseModel[] = [];
+            for (let j = 0; j < responses.length; j++) {
+                let response = responses[j];
+                let answers = response.Answer as SliderValueObj[];
+                for (var i = 0; i < answers.length; i++) {
+                    let ans = answers[i];
+                    console.dir("HHHHHHHHHHHEEEEEEEEEEEEEEEEEEEEEEEEEEYYYYYYYYYYYYY", response)
+                    let queryObj: any = { UserId: response.UserId, DisplayLabel: ans.label, SubRoundId: response.SubRoundId, GameId: response.GameId, TeamId: response.TeamId, QuestionId: response.QuestionId, targetObjId: (response.Answer as SliderValueObj[])[0].targetObjId }
+
+                    const oldResponse = await monResponseModel.findOne(queryObj).then(r => r ? r.toJSON() : null);
+                    let r = Object.assign({}, response);
+                    r.targetObjClass = "UserModel";
+                    r.targetObjId = (response.Answer as SliderValueObj[])[0].targetObjId;
+                    r.DisplayLabel = ans.label;
+                    r.Answer = (r.Answer as SliderValueObj[]).filter(pa => pa.label == ans.label);
+                    r.Score = Number(ans.data || 0);
+                    if (!oldResponse) {
+                        delete response._id;
+                        var SaveResponse = await monResponseModel.create(r).then(r => r.toObject() as ResponseModel);
+                    } else {
+                        delete response._id;
+                        var SaveResponse = await monResponseModel.findOneAndUpdate(queryObj, r, { new: true }).then(r => r.toObject() as ResponseModel);
+                    }
+
+                    savedResponses.push(SaveResponse)
+                    console.log(SaveResponse);
+
+                }
+            }
+
+            res.json(savedResponses);
+
+        }
+        catch (err) {
+            console.log(err);
+            res.status(500).send("error")
+
+        }
+
+
+    }
 
     /**
      * Returnss all Subround scores with the given ID
@@ -973,7 +1019,7 @@ class GamePlayRouter {
         this.router.get("/getscores/:gameid", this.getScores.bind(this)),
         this.router.get("/getuserscores/:subroundid/:roundid/:gameid", this.getUserScores.bind(this)),
         this.router.get("/getsubroundscores/:gameid/:subroundid", this.getSubRoundScores.bind(this)),
-        this.router.post("/response/rating", this.savePriorityRating.bind(this)),
+        this.router.post("/response/rating", this.SavePlayerRatings.bind(this)),
         this.router.get("/getuserrating/:userid/:teamid", this.GetUserRatingsSoFar.bind(this))
         this.router.get("/getfacilitatorresponses/:gameid", this.getFacilitatorResponsesByRound.bind(this))
         this.router.post("/saveteamname", this.SaveTeamName.bind(this))
