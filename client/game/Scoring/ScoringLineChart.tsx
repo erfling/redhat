@@ -265,6 +265,8 @@ export default class ScoringLineChart extends React.Component<ChartingProps, Sco
     }
   }
 
+  static POSITIONS = ["First", "Second", "Third", "Fourth", "Fifth", "Sixth", "Seventh", "Eighth", "Ninth", "Tenth", "Eleventh"];
+
   //TODO: mobile tooltip stuff
   render() {
     const { Scores, TeamId } = this.props;
@@ -350,7 +352,7 @@ export default class ScoringLineChart extends React.Component<ChartingProps, Sco
                   active={srs.TeamId == TeamId}
                 >
                   <Table.Cell>
-                    {i + 1}.
+                    {ScoringLineChart.POSITIONS[i]}
                   </Table.Cell>
                   <Table.Cell>
                     {srs.TeamLabel}
@@ -393,7 +395,7 @@ export default class ScoringLineChart extends React.Component<ChartingProps, Sco
                   active={srs.TeamId == TeamId}
                 >
                   <Table.Cell>
-                    {i + 1}.
+                    {ScoringLineChart.POSITIONS[i]}
                   </Table.Cell>
                   <Table.Cell>
                     {srs.TeamLabel}
