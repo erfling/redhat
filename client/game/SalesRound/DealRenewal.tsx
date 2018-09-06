@@ -88,6 +88,7 @@ export default class DealRenewal extends BaseComponent<any, IRoundDataStore & {F
                                 return <Row
                                     key={"question-" + i.toString()}
                                 >
+                                    <h1>{q["TEST"]}</h1>
                                     <EditableQuestionBlock
                                         Question={q}
                                         idx={i}
