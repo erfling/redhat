@@ -59,6 +59,9 @@ export default class QuestionModel extends BaseModel
     @dbProp(Boolean)
     public SkipScoring: boolean = false;
 
+    @dbProp(String)
+    public SubRoundId: string = "";
+
     Response: ResponseModel = Object.assign(new ResponseModel(), {ComparisonLabel: this.ComparisonLabel || null});
 
 }

@@ -141,7 +141,7 @@ export class AppServer {
             MONGO_URI = 'mongodb://localhost:27017/red-hat';
         }
 
-        mongoose.set('debug', true);
+        //mongoose.set('debug', true);
         var connection = mongoose.connect(MONGO_URI || process.env.MONGODB_URI).then((connection) => {
         }).catch((r) => {
             console.log(r);
@@ -554,7 +554,10 @@ export class AppServer {
                     {
                         path: "NextRound",
                         populate: {
-                            path: "SubRounds"
+                            path: "SubRounds",
+                            populate: {
+                                path: "Questions"
+                            }
                         }
                     }
                 )
@@ -593,6 +596,13 @@ export class AppServer {
                     }
 
                     sr.Label = r.Label + letters[j];
+
+                    for(let n = 0; n < sr.Questions.length; n++){
+                        
+                        let q = sr.Questions[n];
+                        let savedQuestion = await monQModel.findByIdAndUpdate(q._id, {SubRoundId: sr._id}, {new : true} )
+                        console.log("SAVED QUESTION",savedQuestion)
+                    }
 
                     const savedSr = await monSubRoundModel.findByIdAndUpdate(sr._id, sr);
                     if (!savedSr) throw new Error(JSON.stringify({ message: "Couldn't save subround: ", sr }));

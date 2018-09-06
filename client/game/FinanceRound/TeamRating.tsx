@@ -142,7 +142,7 @@ export default class TeamRating extends BaseComponent<any, IRoundDataStore>
                                 className="ui circular image"
                                 style={{ width: '40px' }}
                             />
-                            Decisions
+                                Decisions
                             </Header>
 
                         {this.state.RatingQuestions.some(q => q["_invalid"]) &&
