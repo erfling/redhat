@@ -97,6 +97,10 @@ export default class DealRenewal extends BaseComponent<any, IRoundDataStore & {F
                                         onChangeHander={r => {
                                             console.log(r, q.PossibleAnswers[0], Number(r.Answer[0].data));
 
+                                            if(r.Answer[0].data && isNaN(parseFloat(r.Answer[0].data))){
+                                                r.ValidationMessage = "Must be between a number";
+                                            }
+
                                             if(r.Answer[0].data && Number(r.Answer[0].data) > q.PossibleAnswers[0].max || Number(r.Answer[0].data) < q.PossibleAnswers[0].min  ){
                                                 r.ValidationMessage = "Must be between 0 and 100%";
                                             } else {
