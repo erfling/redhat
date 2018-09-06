@@ -101,6 +101,8 @@ export default class DealRenewal extends BaseComponent<any, IRoundDataStore & {F
                                             r.targetObjId = q.targetObjId;
                                             q.Response = r;
 
+                                            this.controller.updateResponse(q, r);
+
                                         }}
                                         IsEditable={this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN}
                                     />
