@@ -177,6 +177,11 @@ export default class Hiring extends BaseComponent<any, IRoundDataStore>
 
                             </Row>
                         })}
+                        {this.state.RatingQuestions.some(q => q["_invalid"]) &&
+                            <Header as='h3' color='red'>
+                                You have given more than one associate the same score on the same criteria.
+                            </Header>
+                        }
                         <Button
                             style={{marginTop: '1em'}}
                             content='Submit'
@@ -190,11 +195,7 @@ export default class Hiring extends BaseComponent<any, IRoundDataStore>
                                 }
                             }}
                         />
-                        {this.state.RatingQuestions.some(q => q["_invalid"]) &&
-                            <Header as='h3' color='red'>
-                                You have given more than one associate the same score on the same criteria.
-                            </Header>
-                        }
+                        
                     </Form>
                 </div>
                 }
