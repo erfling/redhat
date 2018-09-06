@@ -43,6 +43,9 @@ export default class SubRoundScore extends BaseModel
     public SubRoundLabel: string;
 
     @dbProp(String)
+    public SubRoundNumber: string;
+
+    @dbProp(String)
     public TeamLabel: string;
 
     @dbProp(Number)

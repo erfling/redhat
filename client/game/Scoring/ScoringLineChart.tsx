@@ -301,7 +301,7 @@ export default class ScoringLineChart extends React.Component<ChartingProps, Sco
           </Table.HeaderCell>
           </Table.Header>
           <Table.Body>
-            {sortBy(RoundDetailScores, "SubRoundLabel").map((srs, i) => {
+            {sortBy(RoundDetailScores, "SubRoundNumber").map((srs, i) => {
               return <Table.Row
                 key={i}
               >
@@ -332,7 +332,7 @@ export default class ScoringLineChart extends React.Component<ChartingProps, Sco
             textAlign="center"
             as="h1"
           >
-            {this.getBarChartData()[0].name} Ranking
+            Round Ranking
           </Header>
 
           <Table
@@ -375,7 +375,7 @@ export default class ScoringLineChart extends React.Component<ChartingProps, Sco
             textAlign="center"
             as="h1"
           >
-            Cumulative Ranking through {this.getBarChartData()[0].name}
+            Cumulative Ranking
           </Header>
 
           <Table
