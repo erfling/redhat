@@ -149,8 +149,13 @@ export default class Pricing extends BaseComponent<any, IRoundDataStore>
                             Decisions
                             </Header>
 
+                        {this.state.RatingQuestions.some(q => q["_invalid"]) &&
+                            <Header as='h2'>
+                                You are not allowed to give more than one associate the same score on the same criteria.
+                            </Header>
+                        }
                         {this.state.RatingQuestions.filter(q => {
-                            return q.RatingMarker == RatingType.MANAGER_RATING ? this.state.ApplicationState.CurrentUser.Job != JobName.MANAGER : this.state.ApplicationState.CurrentUser.Job == JobName.MANAGER
+                            return true//q.RatingMarker == RatingType.MANAGER_RATING ? this.state.ApplicationState.CurrentUser.Job != JobName.MANAGER : this.state.ApplicationState.CurrentUser.Job == JobName.MANAGER
                         }).map((q, i) => {
                             return <Row
                                 key={"question-" + i.toString()}
@@ -161,24 +166,33 @@ export default class Pricing extends BaseComponent<any, IRoundDataStore>
                                     key={i}
                                     SubRoundId={thisSubRound._id}
                                     onChangeHander={r => {
-                                        console.log(r);
+                                        console.log(r.Answer[0].targetObjId, q.SubText, q.PossibleAnswers[0].targetObjId);
                                         this.controller.updateResponse(q, r)
                                     }}
                                     IsEditable={this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN}
                                 />
-                                <Button
-                                    content='Submit'
-                                    icon='checkmark'
-                                    labelPosition='right'
-                                    color="blue"
-                                    loading={q.Response ? q.Response.IsSaving : false}
-                                    onClick={e => {
-                                        this.controller.SavePlayerRating(q.Response, q, thisSubRound)
-                                    }}
-                                />
+
                             </Row>
+                        })}
+                        {this.state.RatingQuestions.some(q => q["_invalid"]) &&
+                            <Header as='h3' color='red'>
+                                You have given more than one associate the same score on the same criteria.
+                            </Header>
                         }
-                        )}
+                        <Button
+                            style={{marginTop: '1em'}}
+                            content='Submit'
+                            icon='checkmark'
+                            labelPosition='right'
+                            color="blue"
+                            loading={this.state.ApplicationState.FormIsSubmitting}
+                            onClick={e => {
+                                if (this.controller.checkRatingQuestions(this.state.RatingQuestions)) {
+                                    this.controller.SavePlayerRatings(this.state.RatingQuestions, thisSubRound)
+                                }
+                            }}
+                        />
+                        
                     </Form>
                 </div>
                 }
