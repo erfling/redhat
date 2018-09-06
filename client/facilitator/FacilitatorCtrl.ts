@@ -134,8 +134,10 @@ export default class FacilitatorCtrl extends BaseClientCtrl<IFacilitatorDataStor
             AccordionIdx: 0
         };
 
+        setTimeout(() => {this.dataStore.ApplicationState.CurrentGame.CurrentRound.SlideNumber = 3},1500)
 
-        console.log("DATASTORE APPLICATION:", DataStore.ApplicationState);
+
+        console.log("DATASTORE APPLICATION:", DataStore.ApplicationState, this.component, this.dataStore);
         //this.pollForGameStateChange(this.dataStore.ApplicationState.CurrentTeam.GameId);
     }
 
