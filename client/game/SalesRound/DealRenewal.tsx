@@ -195,6 +195,7 @@ export default class DealRenewal extends BaseComponent<any, IRoundDataStore & {F
                                         } else {
                                             r.ValidationMessage = null; 
                                         }
+                                        r.SubRoundId = thisSubRound._id
                                         this.controller.updateResponse(q, r)
                                     }}
                                     IsEditable={this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN}
