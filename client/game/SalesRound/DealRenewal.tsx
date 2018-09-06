@@ -97,19 +97,10 @@ export default class DealRenewal extends BaseComponent<any, IRoundDataStore & {F
                                         onChangeHander={r => {
                                             console.log(r, q.PossibleAnswers[0], Number(r.Answer[0].data));
 
-                                           
                                             r.TeamId = q.targetObjId;
                                             r.targetObjId = q.targetObjId;
-                                            this.controller.dataStore.SubRound.Questions[i].Response = q.Response = r;
-                                            this.controller.dataStore.Round.SubRounds.filter(sr => sr.Name == thisSubRound.Name).forEach(sr => {
-                                                if(sr.Questions)
-                                                    sr.Questions.forEach(quest => {
-                                                        if (quest._id == q._id) {
-                                                            quest.Response = r;
-                                                            quest.PossibleAnswers = (r.Answer as SliderValueObj[]);
-                                                        }
-                                                    })
-                                            });
+                                            q.Response = r;
+
                                         }}
                                         IsEditable={this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN}
                                     />
@@ -118,7 +109,7 @@ export default class DealRenewal extends BaseComponent<any, IRoundDataStore & {F
                                         icon='checkmark'
                                         labelPosition='right'
                                         color="blue"
-                                        disabled={q.Response && q.Response.ValidationMessage != null}
+                                        disabled={q.Response  && q.Response.ValidationMessage != null}
                                         loading={q.Response ? q.Response.IsSaving : false}
                                         onClick={e => {
                                             console.log("VALIDATION", this.refs["question_" + i], q.Response)
