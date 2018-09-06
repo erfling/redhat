@@ -81,7 +81,7 @@ export default class DealRenewal extends BaseComponent<any, IRoundDataStore & {F
                                 Decisions
                             </Header>
                             <Header>
-                                Rate the degree to which other teams made strong case
+                                Rate the degree to which the other teams effectively made their case. Give 100% only if a team left no room for improvement.
                             </Header>
                                             
                             {thisSubRound.Questions.filter(q => q.targetObjId != this.state.ApplicationState.CurrentTeam._id).map((q, i) => {
