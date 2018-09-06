@@ -60,6 +60,11 @@ export default class Intro extends BaseComponent<any, IRoundDataStore>
                     <Row>
                         <Header
                             as='h1'
+                            style={{    
+                                fontSize: '3.5em',
+                                textAlign: 'center',
+                                marginBottom: '19px'
+                            }}
                         >
                             welcome to
                         </Header>
@@ -73,7 +78,7 @@ export default class Intro extends BaseComponent<any, IRoundDataStore>
 
                     {thisSubRound && thisSubRound && thisSubRound.DisplayMessages &&
                         <EditableContentBlock
-                            IsEditable={this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN}
+                            IsEditable={this.state.ApplicationState.CurrentUser && this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN}
                             SubRoundId={thisSubRound._id}
                             onSaveHandler={this.controller.updateContent.bind(this.controller)}
                             Message={thisSubRound.DisplayMessages[0]}

@@ -387,7 +387,7 @@ export default class Game extends BaseComponent<any, IControllerDataStore & { Ga
                     Check for important new messages.
                 </Popup>
 
-                {this.state.ApplicationState.CurrentUser.Job == JobName.MANAGER &&
+                {this.state.ApplicationState.CurrentUser && this.state.ApplicationState.CurrentUser.Job == JobName.MANAGER &&
                     <Popup
                         trigger={
                             <Menu.Item

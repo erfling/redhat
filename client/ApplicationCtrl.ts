@@ -46,8 +46,15 @@ export default class ApplicationCtrl extends BaseClientCtrl<IControllerDataStore
         localStorage.removeItem("RH_USER");
         localStorage.removeItem("rhjwt");
         localStorage.removeItem("RH_TEAM");
+
+        let isAdmin = this.dataStore.ApplicationState.CurrentUser.Role == RoleName.ADMIN
         this.dataStore.ApplicationState.CurrentUser = null;
-        this.component.props.history.push("/login/admin")
+
+        if (isAdmin) { 
+            this.component.props.history.push("/login/admin")
+        } else {
+            this.component.props.history.push("/game")
+        }
     }
 
     //----------------------------------------------------------------------
