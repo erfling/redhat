@@ -122,7 +122,7 @@ export default class DealRenewal extends BaseComponent<any, IRoundDataStore & {F
                                         loading={q.Response ? q.Response.IsSaving : false}
                                         onClick={e => {
                                             console.log("VALIDATION", this.refs["question_" + i], q.Response)
-                                            if(q.Response.Answer[0].data && isNaN(parseFloat(q.Response.Answer[0].data))){
+                                            if(!q.Response.Answer[0] || !q.Response.Answer[0].data  || (q.Response.Answer[0].data && isNaN(parseFloat(q.Response.Answer[0].data)))){
                                                 q.Response.ValidationMessage = "Must be between a number";
                                             }
 
