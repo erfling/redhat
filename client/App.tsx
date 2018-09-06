@@ -113,7 +113,11 @@ export default class App extends BaseComponent<any, IControllerDataStore>
                                     </Menu.Item>
                                 </>
                             }
-                            {this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN &&
+                            {
+                                (this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN || 
+                                    this.state.ApplicationState.CurrentUser.Role == RoleName.FACILITATOR ||
+                                    this.state.ApplicationState.CurrentUser.Role == RoleName.PLAYER)
+                                     &&
                                 <Menu.Item
                                     as="a"
                                     onClick={e => this.controller.signOut()}
