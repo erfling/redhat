@@ -313,12 +313,14 @@ export default class ScoringLineChart extends React.Component<ChartingProps, Sco
               </Table.Cell>
               </Table.Row>
             })}
-            <Table.Row
+            {this.state.RoundDetailScores && this.state.RoundDetailScores.length > 1 &&
+            <Table.Row 
               active
             >
               <Table.Cell className="bold">Average Score</Table.Cell>
               <Table.Cell>{MathUtil.roundTo(RoundDetailScores.reduce((total, srs) => { return total += srs.NormalizedScore }, 0) / RoundDetailScores.length, 0)}%</Table.Cell>
             </Table.Row>
+            }
           </Table.Body>
         </Table>
       </Segment>

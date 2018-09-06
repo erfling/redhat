@@ -145,6 +145,8 @@ export default class SalesRoundCtrl extends BaseRoundCtrl<IRoundDataStore & {Fee
         console.log("NOW SEE: ", score, this._responseMap[ComparisonLabel.QUANTITY].data, this._responseMap[ComparisonLabel.PRICE].data, this._responseMap[ComparisonLabel.PRICE].data / this._responseMap[ComparisonLabel.QUANTITY].data);
 
         score = this._responseMap[ComparisonLabel.PROJECT_MANAGEMENT] && this._responseMap[ComparisonLabel.PROJECT_MANAGEMENT].data == "true" ? score + .2 : score;
+        score *= 10;
+        console.log("score fix *10: %s", score);
 
         return score;
     }
