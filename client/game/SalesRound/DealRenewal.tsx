@@ -88,24 +88,16 @@ export default class DealRenewal extends BaseComponent<any, IRoundDataStore & {F
                                 return <Row
                                     key={"question-" + i.toString()}
                                 >
-                                    <h1>{q["TEST"]}</h1>
                                     <EditableQuestionBlock
                                         Question={q}
                                         idx={i}
                                         key={i}
                                         SubRoundId={thisSubRound._id}
+                                        ref={"question_" + i}
                                         onChangeHander={r => {
                                             console.log(r, q.PossibleAnswers[0], Number(r.Answer[0].data));
 
-                                            if(r.Answer[0].data && isNaN(parseFloat(r.Answer[0].data))){
-                                                r.ValidationMessage = "Must be between a number";
-                                            }
-
-                                            if(r.Answer[0].data && Number(r.Answer[0].data) > q.PossibleAnswers[0].max || Number(r.Answer[0].data) < q.PossibleAnswers[0].min  ){
-                                                r.ValidationMessage = "Must be between 0 and 100%";
-                                            } else {
-                                                r.ValidationMessage = null; 
-                                            }
+                                           
                                             r.TeamId = q.targetObjId;
                                             r.targetObjId = q.targetObjId;
                                             this.controller.dataStore.SubRound.Questions[i].Response = q.Response = r;
@@ -129,7 +121,17 @@ export default class DealRenewal extends BaseComponent<any, IRoundDataStore & {F
                                         disabled={q.Response && q.Response.ValidationMessage != null}
                                         loading={q.Response ? q.Response.IsSaving : false}
                                         onClick={e => {
-                                            this.controller.SaveResponse(q.Response, q, thisSubRound)                                    
+                                            console.log(this.refs["question_" + i])
+                                            if(q.Response.Answer[0].data && isNaN(parseFloat(q.Response.Answer[0].data))){
+                                                q.Response.ValidationMessage = "Must be between a number";
+                                            }
+
+                                            if(q.Response.Answer[0].data && Number(q.Response.Answer[0].data) > q.PossibleAnswers[0].max || Number(q.Response.Answer[0].data) < q.PossibleAnswers[0].min  ){
+                                                q.Response.ValidationMessage = "Must be between 0 and 100%";
+                                            } else {
+                                                q.Response.ValidationMessage = null; 
+                                            }
+                                            if(!q.Response.ValidationMessage)this.controller.SaveResponse(q.Response, q, thisSubRound)                                    
                                         }}
                                     />                                    
                                 </Row>
