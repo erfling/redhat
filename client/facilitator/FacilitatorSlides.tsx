@@ -29,7 +29,7 @@ export default class FacilitatorView extends BaseComponent<any, IFacilitatorData
     //
     //----------------------------------------------------------------------
 
-    public static CLASS_NAME = "FacilitatorView";
+    public static CLASS_NAME = "FacilitatorSlides";
 
     public static CONTROLLER = FacilitatorCtrl;
 
