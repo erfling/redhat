@@ -104,28 +104,36 @@ export class LoginCtrlClass
                 throw('no user')
             }
 
-            if ((user.Job as any) == "Individual Contributor") user.Job = JobName.IC;
+            if ((user.Job as any) == "Individual Contributor" || (user.Job as any) == "IC" ) user.Job = JobName.IC;
+
+
+            if(game.CurrentRound){
+                console.log("FOUDN CURRENT ROUND",game.CurrentRound)
+                if(game.CurrentRound.UserJobs) user.Job = game.CurrentRound.UserJobs[user._id] || JobName.IC;
+            }
+
 
             console.log(user, game.Teams)
 
             let team: TeamModel;
-            if(game.Facilitator.Email == user.Email){
+            
+
+            team = game.Teams.filter(team => {
+                //let team = t.toJSON();
+                console.log(team.Players[3], user._id, typeof team.Players[3], typeof user._id, typeof "butt")
+
+                return team.Players.indexOf(user._id) != -1
+            })[0] || null;
+            
+            
+            console.log("TEAM IS: ", team);
+
+            if(game.Facilitator.Email == user.Email && !team){
                 team = new TeamModel();
                 team.GameId = game._id;
                 team.Players = [user];
                 team._id = game.Teams[0]._id
-            } else {
-                team = game.Teams.filter(team => {
-                    //let team = t.toJSON();
-                    console.log(team.Players[3], user._id, typeof team.Players[3], typeof user._id, typeof "butt")
-    
-                    return team.Players.indexOf(user._id) != -1
-                })[0] || null;
-            }
-            
-            console.log("TEAM IS: ", team);
-
-            if (!team) {
+            } else if (!team) {
                 throw("no team");
             }
 
