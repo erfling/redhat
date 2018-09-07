@@ -358,68 +358,6 @@ class GamePlayRouter {
         }
     }
 
-    public async getTeamsFor2BRating(req: Request, res: Response) {
-
-
-        try {
-
-            const GameId = req.params.gameid;
-
-            //do this a better way.
-            const SubRoundId = await monSubRoundModel.findOne({ Name: "DEAL" }).then(r => r ? r._id : null)
-            if (!SubRoundId) throw new Error("No subuound found");
-
-            const responses: ResponseModel[] = await monResponseModel.find({ GameId, SubRoundId }).then(r => r ? r.map(r => Object.assign(new ResponseModel(), r.toJSON())) : []);
-
-            if (!responses || !responses.length) throw new Error("No responses found")
-
-            //get all the teams
-            let teams: TeamModel[] = await monTeamModel.find().then(ts => ts ? ts.map(t => Object.assign(new TeamModel(), t.toJSON())) : null)
-
-            //get the questions for this round.
-            let questions: QuestionModel[] = await monQModel.find({ RatingMarker: "TEAM_RATING" }).then(q => q ? q.map(quest => Object.assign(new QuestionModel, quest.toJSON())) : []);
-
-            //now map over the responses, building out questions for each team.
-            let finalQuestions: QuestionModel[] = [];
-
-            teams.map(t => {
-                finalQuestions = finalQuestions.concat(
-                    questions.map(q => {
-                        let newQ = Object.assign({}, q, {
-                            Type: QuestionType.NUMBER,
-                            Text: "Team " + t.Number.toString(),
-                            TargetTeamId: t._id,
-                            test: "adsf",
-                            SubRoundId: SubRoundId,
-                            PossibleAnswers: [
-                                {
-                                    label: "Team " + t.Number,
-                                    unit: '%',
-                                    maxPoints: 1,
-                                    minPoints: 0,
-                                    idealValue: "100",
-                                    max: 100,
-                                    min: 0
-                                }
-                            ]
-                        })
-                        console.log(newQ);
-                        return newQ;
-                    })
-                )
-            });
-
-            res.json(finalQuestions);
-
-        }
-        catch (err) {
-            console.log(err);
-            res.status(500);
-            res.send("couldn't get resposnes")
-        }
-
-    }
-
     public async getTeamsFor4BRating(req: Request, res: Response) {
 
 
@@ -1010,7 +948,6 @@ class GamePlayRouter {
         this.router.get("/", this.GetRounds.bind(this));
         this.router.get("/responses/:gameid/", this.GetGameResponsesBySubround.bind(this));
         this.router.get("/get4bresponses/:gameid", this.getTeamsFor4BRating.bind(this));
-        this.router.get("/get2bquestions/:gameid", this.getTeamsFor2BRating.bind(this));
         this.router.get("/readmessage/:messageid/:userid", this.ReadMessage.bind(this));
         this.router.post("/rateplayers", this.GetPlayerRatingsQuestions.bind(this));
         this.router.post("/response", this.SaveResponse.bind(this));
