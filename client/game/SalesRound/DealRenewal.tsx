@@ -18,7 +18,7 @@ import ResponseModel from "../../../shared/models/ResponseModel";
 const { Button, Grid, Form, Dimmer, Loader, Header, Table, Input, Label } = Semantic;
 const { Row, Column } = Grid;
 
-export default class DealRenewal extends BaseComponent<any, IRoundDataStore & {Feedback: TeamModel[]}>
+export default class DealRenewal extends BaseComponent<any, IRoundDataStore & { Feedback: TeamModel[] }>
 {
     //----------------------------------------------------------------------
     //
@@ -84,62 +84,82 @@ export default class DealRenewal extends BaseComponent<any, IRoundDataStore & {F
                             <Header>
                                 Rate the degree to which the other teams effectively made their case. Give 100% only if a team left no room for improvement.
                             </Header>
-                                            
+
                             {thisSubRound.Questions.filter(q => q.targetObjId != this.state.ApplicationState.CurrentTeam._id).map((q, i) => {
                                 return <Row
                                     key={"question-" + i.toString()}
                                 >
-                                    <Input
-                                        labelPosition='right'
-                                        key={i}
-                                        onChange={(e, formValue) => {
-                                            if(!q.Response) q.Response = new ResponseModel();
-                                            let ans = q.PossibleAnswers[0];
-                                            ans.data = formValue.value;
+                                    <Form.Field
+                                        style={{ maxWidth: '150px' }}
+                                    >
+                                        <Input
+                                            labelPosition='right'
+                                            key={i}
+                                            onChange={(e, formValue) => {
+                                                if (!q.Response) q.Response = new ResponseModel();
 
-                                            q.Response.Answer = [ans];
-                                        }}
-                                >
-                                    {q.PossibleAnswers[0].preunit && <Label basic>{q.PossibleAnswers[0].preunit}</Label>}
-                                    <input pattern="[0-9]*"/>
-                                    {q.PossibleAnswers[0].unit && <Label basic>{q.PossibleAnswers[0].unit}</Label>}
+                                                let num = Number(formValue.value);
+                                                if (isNaN(num)){
+                                                    q.Response.ValidationMessage = "Must be a number"
+                                                } else if (num < 0 || num > 100) {
+                                                    q.Response.ValidationMessage = "Must be between 0  and 100"
+                                                } else {
+                                                    let ans = q.PossibleAnswers[0];
+                                                    ans.data = formValue.value;
+    
+                                                    q.Response.Answer = [ans];
+                                                }
 
-                                </Input>
+                                                
+                                               
+                                            }}
+                                        >
+                                            {q.PossibleAnswers[0].preunit && <Label basic>{q.PossibleAnswers[0].preunit}</Label>}
+                                            <input pattern="[0-9]*" />
+                                            {q.PossibleAnswers[0].unit && <Label basic>{q.PossibleAnswers[0].unit}</Label>}
+
+                                        </Input>
+                                        {q.Response && q.Response.ValidationMessage &&
+                                            <Label basic color='red' pointing>
+                                                {q.Response.ValidationMessage}
+                                            </Label>
+                                        }
+                                    </Form.Field>
                                     <Button
                                         content='Submit'
                                         icon='checkmark'
                                         labelPosition='right'
                                         color="blue"
-                                        disabled={q.Response  && q.Response.ValidationMessage != null}
+                                        disabled={q.Response && q.Response.ValidationMessage != null}
                                         loading={q.Response ? q.Response.IsSaving : false}
                                         onClick={e => {
                                             console.log("VALIDATION", this.refs["question_" + i], q.Response)
-                                            if(!q.Response.Answer[0] || !q.Response.Answer[0].data  || (q.Response.Answer[0].data && isNaN(parseFloat(q.Response.Answer[0].data)))){
+                                            if (!q.Response.Answer[0] || !q.Response.Answer[0].data || (q.Response.Answer[0].data && isNaN(parseFloat(q.Response.Answer[0].data)))) {
                                                 q.Response.ValidationMessage = "Must be between a number";
                                             }
 
-                                            if(q.Response.Answer[0].data && Number(q.Response.Answer[0].data) > q.PossibleAnswers[0].max || Number(q.Response.Answer[0].data) < q.PossibleAnswers[0].min  ){
+                                            if (q.Response.Answer[0].data && Number(q.Response.Answer[0].data) > q.PossibleAnswers[0].max || Number(q.Response.Answer[0].data) < q.PossibleAnswers[0].min) {
                                                 q.Response.ValidationMessage = "Must be between 0 and 100%";
                                             } else {
-                                                q.Response.ValidationMessage = null; 
+                                                q.Response.ValidationMessage = null;
                                             }
-                                            if(!q.Response.ValidationMessage){
+                                            if (!q.Response.ValidationMessage) {
                                                 q.Response.Answer[0].data = Number(q.Response.Answer[0].data);
                                                 q.Response.SkipScoring = true;
                                                 q.Response.MaxScore = 1;
                                                 q.Response.Score = 100 / q.Response.Answer[0].data;
                                                 console.log("COMPONENT BEFORE SUBMIT", q.Response);
-                                                this.controller.SaveResponse(q.Response, q, thisSubRound)   
-                                            }                                 
+                                                this.controller.SaveResponse(q.Response, q, thisSubRound)
+                                            }
                                         }}
-                                    />                                    
+                                    />
                                 </Row>
                             }
                             )}
-                            
+
                         </Form>
                     </div>
-                }    
+                }
 
                 {this.state.ApplicationState.ShowFeedback && thisSubRound && this.state.Scores && <>
                     <FeedBackWrapper
@@ -152,22 +172,22 @@ export default class DealRenewal extends BaseComponent<any, IRoundDataStore & {F
                         Feedback={this.controller.filterFeedBack(this.state.Scores, this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN)}
                         ChartableScores={this.controller.dataStore.ApplicationState.ChartingScores}
                     >
-                    </FeedBackWrapper> 
-                    </>
-                } 
+                    </FeedBackWrapper>
+                </>
+                }
 
                 {this.state.ApplicationState.ShowIndividualFeedback && thisSubRound &&
                     <IndividualLineChart
                         TeamId={this.state.ApplicationState.CurrentTeam._id}
                         PlayerId={this.state.ApplicationState.CurrentUser._id}
-                        Data={ userRatingsChart || [] }
+                        Data={userRatingsChart || []}
                         SubRoundId={thisSubRound._id}
-                        MessageOnEmpty={this.state.ApplicationState.CurrentUser.Job == 
+                        MessageOnEmpty={this.state.ApplicationState.CurrentUser.Job ==
                             JobName.MANAGER ? "No associates completed your management feedback" : "Your manager failed to complete your performance review"}
-                        
+
                     />
-                }  
-                  
+                }
+
                 {this.state.ApplicationState.ShowRateUsers && this.state.RatingQuestions && <div
                     className={'show ' + (this.state.ApplicationState.MobileWidth ? "mobile-messages decisions" : "wide-messages decisions")}
                 >
@@ -196,10 +216,10 @@ export default class DealRenewal extends BaseComponent<any, IRoundDataStore & {F
                                     onChangeHander={r => {
                                         this.controller.checkRatingQuestions(this.state.RatingQuestions)
                                         console.log(r.Answer[0].targetObjId, q.SubText, q.PossibleAnswers[0].targetObjId);
-                                        if(r.Answer[0].data && Number(r.Answer[0].data) > q.PossibleAnswers[0].max || Number(r.Answer[0].data) < q.PossibleAnswers[0].min  ){
+                                        if (r.Answer[0].data && Number(r.Answer[0].data) > q.PossibleAnswers[0].max || Number(r.Answer[0].data) < q.PossibleAnswers[0].min) {
                                             r.ValidationMessage = "Must be between 0 and 100%";
                                         } else {
-                                            r.ValidationMessage = null; 
+                                            r.ValidationMessage = null;
                                         }
                                         r.SubRoundId = thisSubRound._id
                                         this.controller.updateResponse(q, r)
@@ -225,8 +245,8 @@ export default class DealRenewal extends BaseComponent<any, IRoundDataStore & {F
                 </div>
                 }
 
-                           
-                {thisSubRound && !this.state.ApplicationState.ShowMessageList  && !this.state.ApplicationState.ShowQuestions && this.state.ApplicationState.SelectedMessage && !this.state.ApplicationState.ShowFeedback && !this.state.ApplicationState.ShowIndividualFeedback &&
+
+                {thisSubRound && !this.state.ApplicationState.ShowMessageList && !this.state.ApplicationState.ShowQuestions && this.state.ApplicationState.SelectedMessage && !this.state.ApplicationState.ShowFeedback && !this.state.ApplicationState.ShowIndividualFeedback &&
                     <EditableContentBlock
                         IsEditable={this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN}
                         SubRoundId={thisSubRound._id}
