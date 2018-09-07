@@ -156,7 +156,7 @@ export default class SalesRoundCtrl extends BaseRoundCtrl<IRoundDataStore & {Fee
         this.Response.SkipScoring = true;
         this.Response.MaxScore = 10;
         this.Response.UserId = this.dataStore.ApplicationState.CurrentUser._id;
-        
+        this.Response.targetObjId = this.dataStore.ApplicationState.CurrentTeam._id;
         this.SaveResponse(this.Response, question, subround).then(
            (r) => this.MapResponsesToQuestions(r, this.Response)
         )
