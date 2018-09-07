@@ -418,7 +418,8 @@ export class AppServer {
                             for (let i = 0; i < game.Teams.length; i++) {
                                 let t = game.Teams[i];
                                 //get the team's responses in this subround
-                                const responses: ResponseModel[] = await monResponseModel.find({ TeamId: t._id, SubRoundId: subRound._id }).then(rs => rs ? rs.map(r => Object.assign(new ResponseModel(), r.toJSON())) : null)
+                                const responses: ResponseModel[] = await monResponseModel.find(
+                                    { targetObjId: t._id, SubRoundId: subRound._id }).then(rs => rs ? rs.map(r => Object.assign(new ResponseModel(), r.toJSON())) : null)
                                 let questions = subRound.Questions;
 
                                 let MaxRawScore = 0;
