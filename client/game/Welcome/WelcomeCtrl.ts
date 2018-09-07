@@ -10,6 +10,7 @@ import TeamModel from '../../../shared/models/TeamModel';
 import UserModel from '../../../shared/models/UserModel';
 import { IRoundDataStore } from '../../../shared/base-sapien/client/BaseRoundCtrl';
 import ComponentsVO from '../../../shared/base-sapien/client/ComponentsVO';
+import ApplicationCtrl from '../../ApplicationCtrl';
 
 export default class WelcomeCtrl extends BaseRoundCtrl<IRoundDataStore>
 {
@@ -64,6 +65,7 @@ export default class WelcomeCtrl extends BaseRoundCtrl<IRoundDataStore>
                 this.component.props.history.push("/game/peopleround/priorities")
                 GameCtrl.GetInstance().pollForGameStateChange(r.team.GameId);
                 GameCtrl.GetInstance().dataStoreChange();
+                ApplicationCtrl.GetInstance().addToast("You are now playing the role of " + r.user.Job, "info");
                 return r;
         }).catch((r) => {
             this.dataStore.ApplicationState.FormError = "There was a problem logging you in. Please try again.";
