@@ -13,8 +13,9 @@ import { RatingType, ComparisonLabel } from "../../../shared/models/QuestionMode
 import ValueObj, { SliderValueObj } from "../../../shared/entity-of-the-state/ValueObj";
 import IndividualLineChart from "../Scoring/IndividualLineChart";
 import { Query } from "mongoose";
+import ResponseModel from "../../../shared/models/ResponseModel";
 
-const { Button, Grid, Form, Dimmer, Loader, Header, Table } = Semantic;
+const { Button, Grid, Form, Dimmer, Loader, Header, Table, Input, Label } = Semantic;
 const { Row, Column } = Grid;
 
 export default class DealRenewal extends BaseComponent<any, IRoundDataStore & {Feedback: TeamModel[]}>
@@ -88,22 +89,22 @@ export default class DealRenewal extends BaseComponent<any, IRoundDataStore & {F
                                 return <Row
                                     key={"question-" + i.toString()}
                                 >
-                                    <EditableQuestionBlock
-                                        Question={q}
-                                        idx={i}
+                                    <Input
+                                        labelPosition='right'
                                         key={i}
-                                        SubRoundId={thisSubRound._id}
-                                        ref={"question_" + i}
-                                        onChangeHander={r => {
-                                            console.log(r, q.PossibleAnswers[0], Number(r.Answer[0].data));
+                                        onChange={(e, formValue) => {
+                                            if(!q.Response) q.Response = new ResponseModel();
+                                            let ans = q.PossibleAnswers[0];
+                                            ans.data = formValue.value;
 
-                                            r.TeamId = q.targetObjId;
-                                            r.targetObjId = q.targetObjId;
-                                            q.Response = r;
-
+                                            q.Response.Answer = [ans];
                                         }}
-                                        IsEditable={this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN}
-                                    />
+                                >
+                                    {q.PossibleAnswers[0].preunit && <Label basic>{q.PossibleAnswers[0].preunit}</Label>}
+                                    <input pattern="[0-9]*"/>
+                                    {q.PossibleAnswers[0].unit && <Label basic>{q.PossibleAnswers[0].unit}</Label>}
+
+                                </Input>
                                     <Button
                                         content='Submit'
                                         icon='checkmark'
