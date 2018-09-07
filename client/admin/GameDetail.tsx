@@ -10,7 +10,7 @@ import {IControllerDataStore} from '../../shared/base-sapien/client/BaseClientCt
 import GameModal from './GameModal'
 import DeleteTeamModal from './DeleteTeamModal'
 import BaseComponent from "../../shared/base-sapien/client/shared-components/BaseComponent";
-
+import {sortBy} from 'lodash';
 class GameDetail extends BaseComponent<any, IControllerDataStore & {Admin: AdminViewModel, ShowUserModal: boolean, ShowGameModal: boolean, ShowTeamDeleteModal: boolean}>
 {
     //----------------------------------------------------------------------
@@ -139,7 +139,7 @@ class GameDetail extends BaseComponent<any, IControllerDataStore & {Admin: Admin
                                 <Loader>Saving</Loader>
                             </Dimmer>
                         }
-                        {this.state.Admin.SelectedGame.Teams.map((t, i) => {
+                        {sortBy(this.state.Admin.SelectedGame.Teams, "Number").map((t, i) => {
                             return <Column>
                                 <Card
                                     fluid
@@ -149,7 +149,7 @@ class GameDetail extends BaseComponent<any, IControllerDataStore & {Admin: Admin
                                     <Card.Content>
                                         <Card.Header>
                                             <Header>
-                                                {t.Name ? t.Name : "Team " + t.Number}
+                                                {"Team " + t.Number}
                                             </Header>
                                         </Card.Header>
                                     </Card.Content>

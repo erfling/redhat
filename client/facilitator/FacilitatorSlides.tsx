@@ -13,6 +13,17 @@ import { IFrame } from "sanitize-html";
 import GameModel from "../../shared/models/GameModel";
 import FacilitatorCtrl, { IFacilitatorDataStore } from "./FacilitatorCtrl";
 
+
+interface FSDocument extends Document {
+    exitFullscreen: any;
+    mozCancelFullScreen: any;
+    webkitExitFullscreen: any;
+    fullscreenElement: any;
+    mozFullScreenElement: any;
+    mozRequestFullScreen: any;
+    webkitFullscreenElement: any;
+}
+
 export default class FacilitatorView extends BaseComponent<any, IFacilitatorDataStore>
 {
     //----------------------------------------------------------------------
@@ -60,22 +71,27 @@ export default class FacilitatorView extends BaseComponent<any, IFacilitatorData
     }
 
     makeItAllBig(){
-        let iFrame: any = document.querySelector("#slides") as HTMLIFrameElement;
-        let slidesContainer: any = document.querySelector(".slides-container") as HTMLIFrameElement;
-
-        if (iFrame.requestFullscreen) {
-            iFrame.requestFullscreen();
-            slidesContainer.requestFullscreen();
-        } else if (iFrame.mozRequestFullScreen) { /* Firefox */
-            iFrame.mozRequestFullScreen();
-            slidesContainer.mozRequestFullScreen()
-        } else if (iFrame.webkitRequestFullscreen) { /* Chrome, Safari and Opera */
-            iFrame.webkitRequestFullscreen();
-            slidesContainer.webkitRequestFullscreen()
-        } else if (iFrame.msRequestFullscreen) { /* IE/Edge */
-            iFrame.msRequestFullscreen();
-            slidesContainer.msRequestFullscreen()
+        let d: FSDocument = document as FSDocument;
+        //override typings
+        if (!d.fullscreenElement &&    // alternative standard method
+            !d.mozFullScreenElement && !document.webkitFullscreenElement) {  // current working methods
+            if (document.documentElement.requestFullscreen) {
+                document.documentElement.requestFullscreen();
+            } else if ((d.documentElement as any)['mozRequestFullScreen']) {
+                (d.documentElement as any).mozRequestFullScreen();
+            } else if (d.documentElement.webkitRequestFullscreen) {
+                d.documentElement.webkitRequestFullscreen();
+            }
+        } else {
+            if (document.exitFullscreen) {
+                document.exitFullscreen();
+            } else if (d.mozCancelFullScreen) {
+                d.mozCancelFullScreen();
+            } else if (d.webkitExitFullscreen ) {
+                document.webkitExitFullscreen ();
+            }
         }
+        
     }
 
     fitSlidesToWindow(){
@@ -110,8 +126,7 @@ export default class FacilitatorView extends BaseComponent<any, IFacilitatorData
         return <React.Fragment>
             {this.state && this.state.ApplicationState && this.state.ApplicationState.CurrentGame &&
             <>
-            <pre>{this.state.ApplicationState.CurrentGame.CurrentRound && JSON.stringify(this.state.ApplicationState.CurrentGame, null, 2)}</pre>
-            <h1>Slide: {this.state.ApplicationState.CurrentGame.CurrentRound.SlideNumber}</h1>
+            <Button onClick={e => this.makeItAllBig()}>biggerise</Button>
             <iframe
                 id="slides"
                 src={"https://docs.google.com/presentation/d/e/2PACX-1vRmUlK2iay5zqLlpzkkCv-J5mOlaG2IReIJwrZcNjPtjFq11R4VsFQbD-tycOhb3jZfrIQ_xycO9Q-E/embed?start=false&loop=false&delayms=3000#slide=" + this.state.ApplicationState.CurrentGame.CurrentRound.SlideNumber.toString()}
@@ -151,4 +166,4 @@ export default class FacilitatorView extends BaseComponent<any, IFacilitatorData
     }
 
 }
-//                            disabled={!this.refs.PASSWORD || !this.refs.EMAIL}
+//                        <pre>{this.state.ApplicationState.CurrentGame.CurrentRound && JSON.stringify(this.state.ApplicationState.CurrentGame, null, 2)}</pre>
