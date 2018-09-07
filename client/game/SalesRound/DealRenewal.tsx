@@ -92,7 +92,7 @@ export default class DealRenewal extends BaseComponent<any, IRoundDataStore & { 
                                     <Form.Field
                                         style={{ maxWidth: '150px' }}
                                     >
-                                        <label>{q.Text}</label>
+                                        <label>Team {q.Text} | {q.targetObjId} | {this.state.ApplicationState.CurrentTeam._id}</label>
                                         <Input
                                             labelPosition='right'
                                             key={i}

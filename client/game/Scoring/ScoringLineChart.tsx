@@ -400,7 +400,7 @@ export default class ScoringLineChart extends React.Component<ChartingProps, Sco
                     {ScoringLineChart.POSITIONS[i]}
                   </Table.Cell>
                   <Table.Cell>
-                    {srs.TeamLabel}
+                    Team {srs.TeamLabel}
                   </Table.Cell>
                   <Table.Cell>
                     {MathUtil.roundTo(srs.NormalizedScore, 0)}%
