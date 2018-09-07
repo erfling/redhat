@@ -60,6 +60,8 @@ export default class PeopleRoundCtrl extends BaseRoundCtrl<IRoundDataStore>
             val.data = index.toString(); // write index to val.data for scoring
         });
         
+        response.targetObjId = this.dataStore.ApplicationState.CurrentTeam._id;
+
         // save response //
         this.SaveResponse(response, question, round);
     }
@@ -78,6 +80,7 @@ export default class PeopleRoundCtrl extends BaseRoundCtrl<IRoundDataStore>
         console.log(resp, question, round);
         resp.SiblingQuestionId = question.SiblingQuestionId;
         resp.TeamId = this.dataStore.ApplicationState.CurrentTeam._id;
+        resp.targetObjId = this.dataStore.ApplicationState.CurrentTeam._id;
         resp.QuestionId = question._id;
         resp.RoundId = round.RoundId;
         resp.SubRoundId = round._id;

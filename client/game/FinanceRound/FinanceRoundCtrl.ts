@@ -60,6 +60,7 @@ export default class FinanceRoundCtrl extends BaseRoundCtrl<IRoundDataStore>
         console.log("ROUND IS:", round, question, GameCtrl.GetInstance().dataStore);
         response.Score = 0;
         response.TeamId = this.dataStore.ApplicationState.CurrentTeam._id;
+        response.targetObjId = this.dataStore.ApplicationState.CurrentTeam._id;
         response.QuestionId = question._id;
         response.RoundId = round.RoundId;
         response.SubRoundId = round._id;
