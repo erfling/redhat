@@ -6,6 +6,7 @@ import BaseClientCtrl, { IControllerDataStore } from '../shared/base-sapien/clie
 import ToastModel, {IToastProps} from "../shared/base-sapien/models/ToastModel";
 import DataStore from '../shared/base-sapien/client/DataStore';
 import ComponentsVO from '../shared/base-sapien/client/ComponentsVO';
+import GameCtrl from './game/GameCtrl';
 
 export default class ApplicationCtrl extends BaseClientCtrl<IControllerDataStore>
 {
@@ -47,13 +48,18 @@ export default class ApplicationCtrl extends BaseClientCtrl<IControllerDataStore
         localStorage.removeItem("rhjwt");
         localStorage.removeItem("RH_TEAM");
 
-        let isAdmin = this.dataStore.ApplicationState.CurrentUser.Role == RoleName.ADMIN
-        this.dataStore.ApplicationState.CurrentUser = null;
+        let isAdmin = this.dataStore.ApplicationState.CurrentUser.Role == RoleName.ADMIN;
+
+        this.dataStore.ApplicationState = null;
+        DataStore.ApplicationState = null;
+        GameCtrl.GetInstance().dataStore.ApplicationState = null;
 
         if (isAdmin) { 
-            this.component.props.history.push("/login/admin")
+            //this.component.props.history.push("/login/admin")
+            location.pathname = "/login/admin"
         } else {
-            this.component.props.history.push("/game")
+            location.pathname = "/game"
+            //this.component.props.history.push("/game")
         }
     }
 
