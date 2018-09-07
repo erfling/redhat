@@ -387,7 +387,7 @@ class GamePlayRouter {
                     questions.map(q => {
                         return Object.assign({}, q, {
                             Type: QuestionType.NUMBER,
-                            Text: null,
+                            Text: "Team " + t.Number.toString(),
                             TargetTeamId: t._id,
                             test: "adsf",
                             SubRoundId: SubRoundId,
