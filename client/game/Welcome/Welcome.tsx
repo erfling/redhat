@@ -8,6 +8,8 @@ import GameCtrl from "../GameCtrl";
 import { Route, Switch } from 'react-router'; 
 import Intro from "./Intro";
 import PlayerLogin from "./PlayerLogin";
+import DataStore from "../../../shared/base-sapien/client/DataStore";
+import UserModel from "../../../shared/models/UserModel";
 
 const { Button, Grid, Menu, Segment } = Semantic;
 const { Row, Column } = Grid;
@@ -58,6 +60,11 @@ export default class Welcome extends BaseComponent<any, IRoundDataStore>
             GameCtrl.GetInstance().dataStoreDeepProxy.addOnChange(this.controller.dataStoreChange.bind(this.controller))
             console.log("BASE CONTROLLER IN BASE COMPONENT IS:", (GameCtrl.GetInstance().ChildController));
         }
+
+        DataStore.ApplicationState.CurrentUser 
+            = this.controller.dataStore.ApplicationState.CurrentUser 
+            = GameCtrl.GetInstance().dataStore.ApplicationState.CurrentUser 
+            = new UserModel();
     }
 
     render() {
