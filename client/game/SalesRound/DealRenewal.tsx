@@ -99,6 +99,8 @@ export default class DealRenewal extends BaseComponent<any, IRoundDataStore & { 
                                             onChange={(e, formValue) => {
                                                 if (!q.Response) q.Response = new ResponseModel();
                                                 q.Response.ValidationMessage = null;
+                                                q.Response.TeamId = q.PossibleAnswers[0].targetObjId;
+                                                q.Response.targetObjClass = "TeamModel"
                                                 let num = Number(formValue.value);
                                                 if (isNaN(num)){
                                                     q.Response.ValidationMessage = "Must be a number"
