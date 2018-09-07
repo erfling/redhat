@@ -385,7 +385,7 @@ class GamePlayRouter {
             teams.map(t => {
                 finalQuestions = finalQuestions.concat(
                     questions.map(q => {
-                        return Object.assign({}, q, {
+                        let newQ = Object.assign({}, q, {
                             Type: QuestionType.NUMBER,
                             Text: "Team " + t.Number.toString(),
                             TargetTeamId: t._id,
@@ -403,6 +403,8 @@ class GamePlayRouter {
                                 }
                             ]
                         })
+                        console.log(newQ);
+                        return newQ;
                     })
                 )
             });
