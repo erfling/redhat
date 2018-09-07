@@ -213,7 +213,7 @@ export default class DealRenewal extends BaseComponent<any, IRoundDataStore & {F
                                         q.Response.MaxScore = 1;
                                         q.Response.Score = 100 / q.Response.Answer[0].data;
 
-
+                                        console.log("COMPONENT BEFORE SUBMIT", q.Response);
                                         this.controller.SavePlayerRating(q.Response, q, thisSubRound)
                                     }}
                                 />
