@@ -393,7 +393,7 @@ class GamePlayRouter {
                             SubRoundId: SubRoundId,
                             PossibleAnswers: [
                                 {
-                                    label: t.Name ? t.Name : "Team " + t.Number,
+                                    label: "Team " + t.Number,
                                     unit: '%',
                                     maxPoints: 1,
                                     minPoints: 0,
