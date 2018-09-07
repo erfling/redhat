@@ -209,6 +209,11 @@ export default class DealRenewal extends BaseComponent<any, IRoundDataStore & {F
                                     loading={q.Response ? q.Response.IsSaving : false}
                                     onClick={e => {
                                         q.Response.Answer[0].data = Number(q.Response.Answer[0].data);
+                                        q.Response.SkipScoring = true;
+                                        q.Response.MaxScore = 1;
+                                        q.Response.Score = 100 / q.Response.Answer[0].data;
+
+
                                         this.controller.SavePlayerRating(q.Response, q, thisSubRound)
                                     }}
                                 />
