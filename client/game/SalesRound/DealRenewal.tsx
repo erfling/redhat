@@ -98,7 +98,7 @@ export default class DealRenewal extends BaseComponent<any, IRoundDataStore & { 
                                             key={i}
                                             onChange={(e, formValue) => {
                                                 if (!q.Response) q.Response = new ResponseModel();
-
+                                                q.Response.ValidationMessage = null;
                                                 let num = Number(formValue.value);
                                                 if (isNaN(num)){
                                                     q.Response.ValidationMessage = "Must be a number"
@@ -203,6 +203,11 @@ export default class DealRenewal extends BaseComponent<any, IRoundDataStore & { 
                             Decisions
                             </Header>
 
+                        {this.state.RatingQuestions.some(q => q["_invalid"]) &&
+                            <Header as='h2'>
+                                You are not allowed to give more than one associate the same score on the same criteria.
+                            </Header>
+                        }
                         {this.state.RatingQuestions.filter(q => {
                             return true//q.RatingMarker == RatingType.MANAGER_RATING ? this.state.ApplicationState.CurrentUser.Job != JobName.MANAGER : this.state.ApplicationState.CurrentUser.Job == JobName.MANAGER
                         }).map((q, i) => {
@@ -215,33 +220,33 @@ export default class DealRenewal extends BaseComponent<any, IRoundDataStore & { 
                                     key={i}
                                     SubRoundId={thisSubRound._id}
                                     onChangeHander={r => {
-                                        this.controller.checkRatingQuestions(this.state.RatingQuestions)
                                         console.log(r.Answer[0].targetObjId, q.SubText, q.PossibleAnswers[0].targetObjId);
-                                        if (r.Answer[0].data && Number(r.Answer[0].data) > q.PossibleAnswers[0].max || Number(r.Answer[0].data) < q.PossibleAnswers[0].min) {
-                                            r.ValidationMessage = "Must be between 0 and 100%";
-                                        } else {
-                                            r.ValidationMessage = null;
-                                        }
-                                        r.SubRoundId = thisSubRound._id
                                         this.controller.updateResponse(q, r)
                                     }}
                                     IsEditable={this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN}
                                 />
-                                <Button
-                                    disabled={this.state.RatingQuestions.some(q => q["_invalid"])}
-                                    content='Submit'
-                                    icon='checkmark'
-                                    labelPosition='right'
-                                    color="blue"
-                                    loading={q.Response ? q.Response.IsSaving : false}
-                                    onClick={e => {
-                                        q.Response.Answer[0].data = Number(q.Response.Answer[0].data);
-                                        this.controller.SavePlayerRating(q.Response, q, thisSubRound)
-                                    }}
-                                />
+
                             </Row>
+                        })}
+                        {this.state.RatingQuestions.some(q => q["_invalid"]) &&
+                            <Header as='h3' color='red'>
+                                You have given more than one associate the same score on the same criteria.
+                            </Header>
                         }
-                        )}
+                        <Button
+                            style={{marginTop: '1em'}}
+                            content='Submit'
+                            icon='checkmark'
+                            labelPosition='right'
+                            color="blue"
+                            loading={this.state.ApplicationState.FormIsSubmitting}
+                            onClick={e => {
+                                if (this.controller.checkRatingQuestions(this.state.RatingQuestions)) {
+                                    this.controller.SavePlayerRatings(this.state.RatingQuestions, thisSubRound)
+                                }
+                            }}
+                        />
+                        
                     </Form>
                 </div>
                 }
