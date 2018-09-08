@@ -118,9 +118,12 @@ class GamePlayRouter {
                 }
             }
 
-            let queryObj: any = { GameId: response.GameId, TeamId: response.TeamId, QuestionId: response.QuestionId, TargetTeamId: response.targetObjId }
+            let queryObj: any = { GameId: response.GameId, TeamId: response.TeamId, QuestionId: response.QuestionId, targetObjId: response.targetObjId }
 
-            if (response.TargetTeamId) queryObj.TargetTeamId = response.TargetTeamId;
+            if (response.TargetTeamId) {
+                queryObj.TargetTeamId = response.TargetTeamId;
+                queryObj.targetObjId = response.TargetTeamId;
+            } 
             if (response.TargetUserId) queryObj.TargetUserId = response.TargetUserId;
 
             const oldResponse = await monResponseModel.findOne(queryObj).then(r => r ? r.toJSON() : null);

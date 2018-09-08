@@ -16,7 +16,7 @@ import GamePlayCtrl, { monResponseModel, monSubRoundScoreModel } from './control
 import LongPoll from '../shared/base-sapien/api/LongPoll';
 import RoundChangeMapping from '../shared/models/RoundChangeMapping';
 import UserModel, { JobName } from '../shared/models/UserModel';
-import QuestionModel, { ComparisonLabel } from '../shared/models/QuestionModel';
+import QuestionModel, { ComparisonLabel, RatingType } from '../shared/models/QuestionModel';
 import ResponseModel from '../shared/models/ResponseModel';
 import RoundModel from '../shared/models/RoundModel';
 import SubRoundModel from '../shared/models/SubRoundModel';
@@ -398,11 +398,6 @@ export class AppServer {
 
                     // Score calculating
                     if (mapping.ShowFeedback) {
-
-                        
-
-
-
                         //var Name = mapping.ChildRound.toUpperCase();
                         var subRounds: SubRoundModel[] = await monSubRoundModel.find({ RoundId: mapping.RoundId })
                             .populate("Questions")
@@ -426,13 +421,18 @@ export class AppServer {
                                 let RawScore = 0;
 
                                 let skipMaxScoreQuestionIds: string[] = [];
+
+                                
+                                //get TEAM_RATING questions. They will be filtered out by rounds that don't have them, since there is no response
+                                let ratingQuestions = await monQModel.find({RatingMarker: RatingType.TEAM_RATING}).then(qs => qs ? qs.map(q => Object.assign(new QuestionModel(), q.toJSON(), {SkipScoring: true})) : null)
+                                questions = questions.concat(ratingQuestions);
+                               
                                 questions.forEach(q => {
                                     
                                     let relevantResponses = responses.filter(r => /*!r.SkipScoring && */ r.QuestionId == q._id.toString());                 
                                     if(q.SkipScoring) {
                                         skipMaxScoreQuestionIds.push(q._id);
                                         console.log("SKIPPING", skipMaxScoreQuestionIds.indexOf(q._id))
-
                                     }
 
                                     relevantResponses.forEach(r => {
@@ -466,7 +466,7 @@ export class AppServer {
                                     SubRoundNumber: subRound.Label,
                                     SubRoundLabel: subRound.ScoreLabel ? subRound.ScoreLabel : subRound.Label,
                                     RoundLabel: round.Label,
-                                    TeamLabel: t.Name ? t.Name : "Team " + t.Number.toString()
+                                    TeamLabel: "Team " + t.Number.toString()
                                 });
 
                                 if (RawScore > 0 ){
