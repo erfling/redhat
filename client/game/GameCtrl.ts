@@ -162,6 +162,13 @@ export default class GameCtrl<T extends IControllerDataStore & {Game: GameModel,
         await SapienServerCom.GetData(null, null, url).then((r: RoundChangeMapping) => {
             //set the team's current location to the new location
             const targetJob = r.UserJobs && r.UserJobs[this.dataStore.ApplicationState.CurrentUser._id] ? r.UserJobs[this.dataStore.ApplicationState.CurrentUser._id] : JobName.IC;
+            
+            if(this.dataStore.ApplicationState.CurrentGame){
+                DataStore.ApplicationState.CurrentGame.CurrentRound 
+                    = this.dataStore.ApplicationState.CurrentGame.CurrentRound
+                    = FacilitatorCtrl.GetInstance().dataStore.ApplicationState.CurrentGame.CurrentRound
+                    = r;
+            }
 
             if (r.ShowFeedback){
                 (this.ChildController as BaseRoundCtrl<any>).getScores.bind(this.ChildController)();

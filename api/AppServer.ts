@@ -407,8 +407,9 @@ export class AppServer {
 
                         for (let j = 0; j < subRounds.length; j++) {
                             let subRound = subRounds[j];
-
-                            //console.log("subr is now %s", SubRoundLabel);
+                            
+                            //Some subrounds may be unscored
+                            if (subRound.SkipScoring) continue;
 
                             for (let i = 0; i < game.Teams.length; i++) {
                                 let t = game.Teams[i];

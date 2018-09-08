@@ -84,7 +84,9 @@ export default class TeamRating extends BaseComponent<any, IRoundDataStore>
                                         key={i}
                                         SubRoundId={thisSubRound._id}
                                         onChangeHander={r => {
-                                            console.log(r);
+                                            console.log("REPONSE IS",r);
+                                            r.targetObjId = q.TargetTeamId;
+                                            q.SubRoundId = thisSubRound._id
                                             this.controller.updateResponse(q, r)
                                         }}
                                         IsEditable={this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN}

@@ -112,6 +112,9 @@ export default class SubRoundModel extends BaseModel
     @dbProp(String)
     public ScoreLabel: string = "";
 
+    @dbProp(String)
+    public SkipScoring: boolean = false;
+
     //----------------------------------------------------------------------
     //
     //  Constructor
