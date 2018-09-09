@@ -22,8 +22,10 @@ export interface IFacilitatorDataStore extends IControllerDataStore{
     GrowMessageIndicator: boolean;
     groupedResponses: any;
     SlideNumber: number;
-    RoundChangeLookups: FacilitationRoundResponseMapping[];
-    AccordionIdx: number
+    RoundChangeLookups: RoundChangeMapping[];
+    RoundResponseMappings: FacilitationRoundResponseMapping[];
+    AccordionIdx: number,
+    FullScreen: boolean
 }
 
 export default class FacilitatorCtrl extends BaseClientCtrl<IFacilitatorDataStore>
@@ -69,8 +71,10 @@ export default class FacilitatorCtrl extends BaseClientCtrl<IFacilitatorDataStor
         this.dataStore.SlideNumber = this.dataStore.SlideNumber + forwardOrBack;
        // alert(this.dataStore.SlideNumber);
 
-        let lookups = this.dataStore.RoundChangeLookups.filter(lu => lu.MinSlideNumber == this.dataStore.SlideNumber);
+        let lookups = this.dataStore.RoundChangeLookups.filter(lu => lu.MinSlideNumber == this.dataStore.ApplicationState.CurrentGame.CurrentRound.SlideNumber);
         
+        console.log("LOOKUPS",lookups, this.dataStore.RoundResponseMappings);
+
         if (lookups){
             let lookup = lookups[0];
 
@@ -91,9 +95,16 @@ export default class FacilitatorCtrl extends BaseClientCtrl<IFacilitatorDataStor
     //
     //----------------------------------------------------------------------
 
-    public getLookups(){        
+    public getRoundInfo(){        
         return SapienServerCom.GetData(null,  FacilitationRoundResponseMapping, SapienServerCom.BASE_REST_URL + "facilitator/getroundstatus/" + GameCtrl.GetInstance().dataStore.ApplicationState.CurrentTeam.GameId).then(rcl => {
-            this.dataStore.RoundChangeLookups = rcl as FacilitationRoundResponseMapping[];
+            this.dataStore.RoundResponseMappings = rcl as FacilitationRoundResponseMapping[];
+            return rcl;
+        })        
+    }
+
+    public getLookups(){        
+        return SapienServerCom.GetData(null,  RoundChangeMapping, SapienServerCom.BASE_REST_URL + "facilitator/getroundchangelookups").then(rcl => {
+            this.dataStore.RoundChangeLookups = rcl as RoundChangeMapping[];
             return rcl;
         })        
     }
@@ -114,6 +125,15 @@ export default class FacilitatorCtrl extends BaseClientCtrl<IFacilitatorDataStor
         })
     }
 
+    public gotToSlide(){
+        GameCtrl.GetInstance().dataStore.ApplicationState.CurrentGame.CurrentRound.SlideNumber 
+            = DataStore.ApplicationState.CurrentGame.CurrentRound.SlideNumber 
+            = this.dataStore.ApplicationState.CurrentGame.CurrentRound.SlideNumber 
+            = this.dataStore.ApplicationState.CurrentGame.CurrentRound.SlideNumber++;
+
+        this.goToMapping(this.dataStore.RoundChangeLookups[this.dataStore.ApplicationState.CurrentGame.CurrentRound.SlideNumber])
+    }
+
     protected _setUpFistma(reactComp: Component) {
        
         DataStore.ApplicationState.CurrentUser = localStorage.getItem("RH_USER") ? Object.assign( new UserModel(), JSON.parse(localStorage.getItem("RH_USER") ) ) : new UserModel();      
@@ -131,10 +151,11 @@ export default class FacilitatorCtrl extends BaseClientCtrl<IFacilitatorDataStor
             GrowMessageIndicator: false,
             SlideNumber: 1, 
             RoundChangeLookups: [],
-            AccordionIdx: 0
+            AccordionIdx: 0,
+            FullScreen: false,
+            RoundResponseMappings: null
         };
 
-        setTimeout(() => {this.dataStore.ApplicationState.CurrentGame.CurrentRound.SlideNumber = 3},1500)
 
 
         console.log("DATASTORE APPLICATION:", DataStore.ApplicationState, this.component, this.dataStore);

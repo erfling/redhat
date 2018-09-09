@@ -154,6 +154,30 @@ class FacilitationCtrl
         }
     }
 
+    public async GoToNext(req: Request, res: Response){
+        let limitrecords=10;
+
+        function getRandomArbitrary(min, max) {
+          return Math.ceil(Math.random() * (max - min) + min);
+        }
+
+    
+    
+        let random = monRoundChangeLookupModel.count({},(err,count) => {
+    
+           var skipRecords = getRandomArbitrary(1, count-limitrecords);
+    
+           monRoundChangeLookupModel.findOne().skip(skipRecords).exec(
+            function (err, result) {
+              // Tada! random user
+              console.log(result) 
+            })
+    
+        });
+
+        
+    }
+
     public routes(){
         this.router.post("/round/:gameid", this.ChangeRound.bind(this));
         this.router.get("/getroundchangelookups", this.getRoundChangeLookups.bind(this))
