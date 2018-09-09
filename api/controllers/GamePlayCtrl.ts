@@ -109,7 +109,6 @@ class GamePlayRouter {
 
         try {
             const question = await monQModel.findById(response.QuestionId).then(q => q.toJSON());
-            console.log("SAVING: ", response.MaxScore, response.Score);
             if (!response.SkipScoring) {
 
                 if (question.Type != QuestionType.TEXTAREA) {
@@ -117,6 +116,8 @@ class GamePlayRouter {
                     response.MaxScore = response.resolveMaxScore();
                 }
             }
+
+            console.log("SAVING: ", response.MaxScore, response.Score);
 
             let queryObj: any = { GameId: response.GameId, TeamId: response.TeamId, QuestionId: response.QuestionId, targetObjId: response.targetObjId }
 
@@ -137,7 +138,7 @@ class GamePlayRouter {
                 var SaveResponse = await monResponseModel.findOneAndUpdate({ questionText: question.Text, GameId: response.GameId, TeamId: response.TeamId, QuestionId: response.QuestionId }, response, { new: true }).then(r => r.toObject() as ResponseModel);
             }
             console.log(SaveResponse);
-
+            if(!SaveResponse) throw new Error();
             res.json(SaveResponse);
         } catch (err) {
             console.log("ERROR SAVING RESPONSE", err)
