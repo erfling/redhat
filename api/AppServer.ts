@@ -292,7 +292,7 @@ export class AppServer {
                                 for (let i = 0; i < t.Players.length; i++) {
                                     let pid = t.Players[i].toString();
                                    // console.log(typeof pid, pid)
-                                    if (game.HasBeenManager.indexOf(pid) == -1 && !managerAssigned) {
+                                    if (i == 2) {
                                         game.HasBeenManager.push(pid);
                                         mapping.UserJobs[pid] = JobName.MANAGER;
                                         managerAssigned = true;
