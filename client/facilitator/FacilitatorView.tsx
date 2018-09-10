@@ -180,9 +180,7 @@ export default class FacilitatorView extends BaseComponent<any, IFacilitatorData
                      
                                 <Table.Cell>{teamMember.Job}</Table.Cell> 
                                 <Table.Cell> 
-                                bool {t.RatingsByManager.filter(rating=>rating.targetObjName == teamMember.Name && rating.IsComplete).length > 0}
-                                len {t.RatingsByManager.filter(rating=>rating.targetObjName == teamMember.Name && rating.IsComplete).length}
-                                     {t.RatingsByManager.filter(rating=>rating.targetObjName == teamMember.Name && rating.IsComplete).length > 0
+                                     {t.RatingsOfManager.filter(rating=>rating.targetObjName == teamMember.Name && rating.IsComplete).length > 0
                                          ? <Icon name="checkmark" color="green" /> : <Icon name="cancel" color="red" />} 
                                 </Table.Cell> 
                             </Table.Row>
