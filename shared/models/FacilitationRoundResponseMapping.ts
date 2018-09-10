@@ -2,6 +2,8 @@ import BaseModel, {dbProp} from '../base-sapien/models/BaseModel';
 import QuestionModel from './QuestionModel';
 import UserModel from './UserModel';
 import ResponseModel from './ResponseModel';
+import { Dictionary } from 'lodash';
+import TeamModel from './TeamModel';
 
 
 export default class FacilitationRoundResponseMapping extends BaseModel
@@ -35,6 +37,8 @@ export default class FacilitationRoundResponseMapping extends BaseModel
     public RatingsOfManager: (ResponseModel & {IsComplete?: boolean})[] = [];
     
     public RatingsByManager: (ResponseModel & {IsComplete?: boolean})[] = [];
+
+    public Members: Array<UserModel>=[];
 
 
 
