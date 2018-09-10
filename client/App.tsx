@@ -325,18 +325,6 @@ export default class App extends BaseComponent<any, IControllerDataStore>
                                                         this.controller.dataStore.ApplicationState.ShowMenu = false;
                                                         FacilitatorCtrl.GetInstance().goToMapping({
                                                             ParentRound: "FinanceRound",
-                                                            ChildRound: "Bid"
-                                                        })
-                                                    }}
-                                                >
-                                                </Menu.Item>
-                                                <Menu.Item
-                                                    name="4D"
-                                                    onClick={e => {
-                                                        e.preventDefault();
-                                                        this.controller.dataStore.ApplicationState.ShowMenu = false;
-                                                        FacilitatorCtrl.GetInstance().goToMapping({
-                                                            ParentRound: "FinanceRound",
                                                             ChildRound: "AcquisitionStructure"
                                                         })
                                                     }}

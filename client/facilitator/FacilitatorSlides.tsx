@@ -72,7 +72,9 @@ export default class FacilitatorView extends BaseComponent<any, IFacilitatorData
 
     makeItAllBig(){
         let d: FSDocument = document as FSDocument;
+        d.documentElement.requestFullscreen();
         //override typings
+        /*
         if (!d.fullscreenElement &&    // alternative standard method
             !d.mozFullScreenElement && !document.webkitFullscreenElement) {  // current working methods
             if (document.documentElement.requestFullscreen) {
@@ -91,6 +93,7 @@ export default class FacilitatorView extends BaseComponent<any, IFacilitatorData
                 document.webkitExitFullscreen ();
             }
         }
+        */
         
     }
 
@@ -153,7 +156,7 @@ export default class FacilitatorView extends BaseComponent<any, IFacilitatorData
                 </>
             }
             <div
-                className="slides-container"
+                className="slides-container-off"
                 onKeyDown={(e) => {
                     console.log(e);
                     //this.controller.onClickChangeSlide(1);                     

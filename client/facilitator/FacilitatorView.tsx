@@ -80,8 +80,8 @@ export default class FacilitatorView extends BaseComponent<any, IFacilitatorData
             console.log("found thing>>>>>>>>>>>>>", thing, container.querySelector("#document"));
         }, 10000);
 
-        this._interval = setInterval(() => this.controller.getLookups().then((r: FacilitationRoundResponseMapping[]) => this.setState({ RoundChangeLookups: r })), 2000)
-
+        this._interval = setInterval(() => this.controller.getRoundInfo().then((r: FacilitationRoundResponseMapping[]) => this.setState({ RoundResponseMappings: r })), 2000)
+        this.controller.getLookups();
     }
 
     componentDidUpdate() {
@@ -148,9 +148,9 @@ export default class FacilitatorView extends BaseComponent<any, IFacilitatorData
 
                 <hr style={{marginTop: '2em', marginBottom: '2em'}}/>
 
-                {this.state.RoundChangeLookups && <Row>
+                {this.state.RoundResponseMappings && <Row>
                     <Accordion styled style={{width:'100%'}}>
-                        {this.state.RoundChangeLookups.map((t, i) => <>
+                        {this.state.RoundResponseMappings.map((t, i) => <>
                             <Accordion.Title active={this.state.AccordionIdx === i} index={i} onClick={this.handleClick}>
                                 <Icon name='dropdown' />
                                 {t.TeamName} {t.IsComplete ? <Icon name="checkmark" color="green" /> : <Icon name="cancel" color="red" />}

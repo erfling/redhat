@@ -84,8 +84,8 @@ export default class AcquisitionStructure extends BaseComponent<any, IRoundDataS
                                         key={i}
                                         SubRoundId={thisSubRound._id}
                                         onChangeHander={r => {
-                                            console.log(r);
                                             this.controller.updateResponse(q, r)
+
                                         }}
                                         IsEditable={this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN}
                                     />

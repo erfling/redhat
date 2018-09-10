@@ -80,8 +80,30 @@ export default class Game extends BaseComponent<any, IControllerDataStore & { Ga
             }
         }, false);
 
-        this.handleResetPoll();
+        GameCtrl.GetInstance().getCurrentMapping();
 
+        //window.addEventListener('popstate', this.handleNavigate, false);
+
+    }
+
+    handleNavigate(){
+            // The popstate event is fired each time when the current history entry changes.
+        
+            var r = confirm("You pressed a Back button! Are you sure?!");
+        
+            if (r == true) {
+                // Call Back button programmatically as per user confirmation.
+                history.back();
+                // Uncomment below line to redirect to the previous page instead.
+                // window.location = document.referrer // Note: IE11 is not supporting this.
+            } else {
+                // Stay on the current page.
+                history.pushState(null, null, window.location.pathname);
+            }
+        
+            history.pushState(null, null, window.location.pathname);
+        
+        
     }
 
     private handleResetPoll(){
@@ -145,6 +167,7 @@ export default class Game extends BaseComponent<any, IControllerDataStore & { Ga
         clearInterval(this._interval);
         window.removeEventListener("resize", this._updateDimensionsAndHandleClickOff.bind(this));
         window.removeEventListener("click", this._updateDimensionsAndHandleClickOff.bind(this));
+        window.removeEventListener("popstate", this.handleNavigate.bind(this));
     }
 
     renderGameMenu() {

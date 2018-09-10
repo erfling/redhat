@@ -207,7 +207,7 @@ class RoundRouter {
                         //console.log("SUBROUND IS NOW", subRound);
 
                     } else {
-                        console.log("coulnd't find mapping with round id:", sr.RoundId);
+                        console.log("coulnd't find previously accessed mapping for this game with round id:", sr.RoundId);
                     }
 
                 })
@@ -287,14 +287,14 @@ class RoundRouter {
                     questions.map(q => {
                         return Object.assign({}, q, {
                             Type: QuestionType.NUMBER,
-                            Text: t.Name ? t.Name : "Team " + t.Number,
+                            Text: "Team " + t.Number,
                             TargetTeamId: t._id,
                             test: "adsf",
                             targetObjId: t._id,
                             targetObjClass: "TeamModel",
                             PossibleAnswers: [
                                 {
-                                    label: t.Name ? t.Name : "Team " + t.Number,
+                                    label: "Team " + t.Number,
                                     unit: '%',
                                     maxPoints : 1,
                                     minPoints : 0,

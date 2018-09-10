@@ -109,7 +109,6 @@ class GamePlayRouter {
 
         try {
             const question = await monQModel.findById(response.QuestionId).then(q => q.toJSON());
-            console.log("SAVING: ", response.MaxScore, response.Score);
             if (!response.SkipScoring) {
 
                 if (question.Type != QuestionType.TEXTAREA) {
@@ -118,9 +117,14 @@ class GamePlayRouter {
                 }
             }
 
-            let queryObj: any = { GameId: response.GameId, TeamId: response.TeamId, QuestionId: response.QuestionId, TargetTeamId: response.targetObjId }
+            console.log("SAVING: ", response.MaxScore, response.Score);
 
-            if (response.TargetTeamId) queryObj.TargetTeamId = response.TargetTeamId;
+            let queryObj: any = { GameId: response.GameId, TeamId: response.TeamId, QuestionId: response.QuestionId, targetObjId: response.targetObjId }
+
+            if (response.TargetTeamId) {
+                queryObj.TargetTeamId = response.TargetTeamId;
+                queryObj.targetObjId = response.TargetTeamId;
+            } 
             if (response.TargetUserId) queryObj.TargetUserId = response.TargetUserId;
 
             const oldResponse = await monResponseModel.findOne(queryObj).then(r => r ? r.toJSON() : null);
@@ -134,7 +138,7 @@ class GamePlayRouter {
                 var SaveResponse = await monResponseModel.findOneAndUpdate({ questionText: question.Text, GameId: response.GameId, TeamId: response.TeamId, QuestionId: response.QuestionId }, response, { new: true }).then(r => r.toObject() as ResponseModel);
             }
             console.log(SaveResponse);
-
+            if(!SaveResponse) throw new Error();
             res.json(SaveResponse);
         } catch (err) {
             console.log("ERROR SAVING RESPONSE", err)
@@ -234,14 +238,11 @@ class GamePlayRouter {
     public async GetTeamResponsesByRound(req: Request, res: Response) {
         const fetcher = req.body as ResponseFetcher;
         try {
-            console.log("WE HERE< FOOL")
             let responses: ResponseModel[] = await monResponseModel.find({ TeamId: fetcher.TeamId, GameId: fetcher.GameId, SubRoundId: fetcher.SubRoundId }).then(r => r.map(resp => resp.toJSON() as ResponseModel))
             responses = responses.sort((a, b) => {
-                console.log(a);
                 if (!a.TeamNumber || !b.TeamNumber || a.TeamNumber == b.TeamNumber) return 0;
                 return a.TeamNumber > b.TeamNumber ? 1 : 0;
             });
-            console.log(responses)
             res.json(responses);
         } catch (err) {
             res.json(err)
@@ -356,66 +357,6 @@ class GamePlayRouter {
             res.status(500)
             res.send("couldnt do bid")
         }
-    }
-
-    public async getTeamsFor2BRating(req: Request, res: Response) {
-
-
-        try {
-
-            const GameId = req.params.gameid;
-
-            //do this a better way.
-            const SubRoundId = await monSubRoundModel.findOne({ Name: "DEAL" }).then(r => r ? r._id : null)
-            if (!SubRoundId) throw new Error("No subuound found");
-
-            const responses: ResponseModel[] = await monResponseModel.find({ GameId, SubRoundId }).then(r => r ? r.map(r => Object.assign(new ResponseModel(), r.toJSON())) : []);
-
-            if (!responses || !responses.length) throw new Error("No responses found")
-
-            //get all the teams
-            let teams: TeamModel[] = await monTeamModel.find().then(ts => ts ? ts.map(t => Object.assign(new TeamModel(), t.toJSON())) : null)
-
-            //get the questions for this round.
-            let questions: QuestionModel[] = await monQModel.find({ RatingMarker: "TEAM_RATING" }).then(q => q ? q.map(quest => Object.assign(new QuestionModel, quest.toJSON())) : []);
-
-            //now map over the responses, building out questions for each team.
-            let finalQuestions: QuestionModel[] = [];
-
-            teams.map(t => {
-                finalQuestions = finalQuestions.concat(
-                    questions.map(q => {
-                        return Object.assign({}, q, {
-                            Type: QuestionType.NUMBER,
-                            Text: null,
-                            TargetTeamId: t._id,
-                            test: "adsf",
-                            SubRoundId: SubRoundId,
-                            PossibleAnswers: [
-                                {
-                                    label: t.Name ? t.Name : "Team " + t.Number,
-                                    unit: '%',
-                                    maxPoints: 1,
-                                    minPoints: 0,
-                                    idealValue: "100",
-                                    max: 100,
-                                    min: 0
-                                }
-                            ]
-                        })
-                    })
-                )
-            });
-
-            res.json(finalQuestions);
-
-        }
-        catch (err) {
-            console.log(err);
-            res.status(500);
-            res.send("couldn't get resposnes")
-        }
-
     }
 
     public async getTeamsFor4BRating(req: Request, res: Response) {
@@ -1003,14 +944,28 @@ class GamePlayRouter {
         }
     }
 
+    public async getCurrentMapping(req: Request, res:Response){
+        try{
+            let GameId = req.params.gameid;
+            let game = await monGameModel.findById(GameId).then(g => g ? Object.assign(new GameModel(), g.toJSON()) : null)
+            if (!game) throw new Error("Failed to load game");
+            if (!game.CurrentRound) throw new Error("No current round for game " + game._id);
+            res.json(game.CurrentRound)
+        }
+        catch(err){
+            console.log(err);
+            res.status(501).send("couldn't get game")
+        }
+    }
+
     public routes() {
         //this.router.all("*", cors());
         this.router.get("/", this.GetRounds.bind(this));
         this.router.get("/responses/:gameid/", this.GetGameResponsesBySubround.bind(this));
         this.router.get("/get4bresponses/:gameid", this.getTeamsFor4BRating.bind(this));
-        this.router.get("/get2bquestions/:gameid", this.getTeamsFor2BRating.bind(this));
         this.router.get("/readmessage/:messageid/:userid", this.ReadMessage.bind(this));
         this.router.post("/rateplayers", this.GetPlayerRatingsQuestions.bind(this));
+        this.router.get("/getcurrentmapping/:gameid", this.getCurrentMapping.bind(this))
         this.router.post("/response", this.SaveResponse.bind(this));
         this.router.post("/1bresponse", this.Save1BResponse.bind(this), this.SaveResponse.bind(this));
         this.router.post("/roundresponses", this.GetTeamResponsesByRound.bind(this));

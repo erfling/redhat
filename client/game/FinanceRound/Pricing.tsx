@@ -89,6 +89,7 @@ export default class Pricing extends BaseComponent<any, IRoundDataStore>
                                         idx={i}
                                         key={i}
                                         SubRoundId={thisSubRound._id}
+                                        CannotBeNegative
                                         onChangeHander={r => {
                                             console.log(r);
                                             if(q.Type == QuestionType.TEXTAREA){
@@ -98,6 +99,11 @@ export default class Pricing extends BaseComponent<any, IRoundDataStore>
                                                     r.ValidationMessage = null;
                                                 }
                                             }
+
+                                            r.SkipScoring = true;
+                                            r.Score = 0;
+                                            r.MaxScore = 0;
+
                                             this.controller.updateResponse(q, r)
                                         }}
                                         IsEditable={this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN}
