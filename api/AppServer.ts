@@ -289,16 +289,20 @@ export class AppServer {
                         if (mapping.ParentRound.toLowerCase() == "engineeringround") {
                             game.Teams.forEach(t => {
                                 var managerAssigned = false;
+                                let isChip = false;
                                 for (let i = 0; i < t.Players.length; i++) {
                                     let pid = t.Players[i].toString();
                                    // console.log(typeof pid, pid)
+                                    
                                     if (i == 2) {
                                         game.HasBeenManager.push(pid);
                                         mapping.UserJobs[pid] = JobName.MANAGER;
                                         managerAssigned = true;
                                     } else {
-                                        mapping.UserJobs[pid] = i % 2 ? JobName.INTEGRATED_SYSTEMS : JobName.CHIPCO;
+                                        mapping.UserJobs[pid] = !isChip ? JobName.INTEGRATED_SYSTEMS : JobName.CHIPCO;
+                                        isChip = !isChip;
                                     }
+
                                 }
                             })
                         } else {
