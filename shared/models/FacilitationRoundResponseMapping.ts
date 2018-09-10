@@ -1,5 +1,8 @@
 import BaseModel, {dbProp} from '../base-sapien/models/BaseModel';
 import QuestionModel from './QuestionModel';
+import UserModel from './UserModel';
+import ResponseModel from './ResponseModel';
+
 
 export default class FacilitationRoundResponseMapping extends BaseModel
 {
@@ -28,6 +31,12 @@ export default class FacilitationRoundResponseMapping extends BaseModel
     public RatingQuestions: QuestionModel[] = [];
 
     public IsComplete: boolean = true;
+
+    public RatingsOfManager: (ResponseModel & {IsComplete?: boolean})[] = [];
+    
+    public RatingsByManager: (ResponseModel & {IsComplete?: boolean})[] = [];
+
+
 
     //----------------------------------------------------------------------
     //
