@@ -62,8 +62,8 @@ export default class WelcomeCtrl extends BaseRoundCtrl<IRoundDataStore>
                 this.dataStore.ApplicationState.CurrentTeam = this.dataStore.ApplicationState.CurrentTeam = Object.assign(new TeamModel(), r.team)
                 this.dataStore.ApplicationState.CurrentUser = this.dataStore.ApplicationState.CurrentUser = Object.assign(new UserModel(), r.user)
 
-                this.component.props.history.push("/game/peopleround/priorities")
-                GameCtrl.GetInstance().pollForGameStateChange(r.team.GameId);
+                this.component.props.history.push("/game/peopleround/priorities");
+                GameCtrl.GetInstance().getCurrentMapping();
                 GameCtrl.GetInstance().dataStoreChange();
                 ApplicationCtrl.GetInstance().addToast("You are now playing the role of " + r.user.Job, "info");
                 return r;

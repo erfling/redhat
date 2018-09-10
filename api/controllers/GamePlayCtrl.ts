@@ -944,6 +944,20 @@ class GamePlayRouter {
         }
     }
 
+    public async getCurrentMapping(req: Request, res:Response){
+        try{
+            let GameId = req.params.gameid;
+            let game = await monGameModel.findById(GameId).then(g => g ? Object.assign(new GameModel(), g.toJSON()) : null)
+            if (!game) throw new Error("Failed to load game");
+            if (!game.CurrentRound) throw new Error("No current round for game " + game._id);
+            res.json(game.CurrentRound)
+        }
+        catch(err){
+            console.log(err);
+            res.status(501).send("couldn't get game")
+        }
+    }
+
     public routes() {
         //this.router.all("*", cors());
         this.router.get("/", this.GetRounds.bind(this));
@@ -951,6 +965,7 @@ class GamePlayRouter {
         this.router.get("/get4bresponses/:gameid", this.getTeamsFor4BRating.bind(this));
         this.router.get("/readmessage/:messageid/:userid", this.ReadMessage.bind(this));
         this.router.post("/rateplayers", this.GetPlayerRatingsQuestions.bind(this));
+        this.router.get("/getcurrentmapping/:gameid", this.getCurrentMapping.bind(this))
         this.router.post("/response", this.SaveResponse.bind(this));
         this.router.post("/1bresponse", this.Save1BResponse.bind(this), this.SaveResponse.bind(this));
         this.router.post("/roundresponses", this.GetTeamResponsesByRound.bind(this));
