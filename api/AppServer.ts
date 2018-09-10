@@ -248,7 +248,7 @@ export class AppServer {
 
                     console.log(" %s", req.params.gameid)  ;   
               
-                    console.log("Roundchange mapping: %s", mapping)  ;     
+                    console.log("Roundchange mapping:", mapping)  ;     
 
                     //Pick role for each player on each team
                     //TODO: get rid of magic string
@@ -264,7 +264,7 @@ export class AppServer {
                     let SubRoundLabel: String = srModel.Label.toString().toUpperCase();
                     let newMapping: RoundChangeMapping;
                       
-
+                    console.log("RELEVANT SUBROUND IS: ", SubRoundLabel)
                     let RoundId = round._id;
                     mapping.RoundId = round._id;
 
@@ -362,8 +362,8 @@ export class AppServer {
 
                         })
 
-                    } else if (SubRoundLabel.toLowerCase() == "4d") {
-
+                    } else if (SubRoundLabel.toLowerCase() == "4c") {
+                        console.log("WE ARE LOOKING FOR BLUE_KITES")
                         let pindex = 0;
                         game.Teams.forEach(
                             t => {

@@ -238,14 +238,11 @@ class GamePlayRouter {
     public async GetTeamResponsesByRound(req: Request, res: Response) {
         const fetcher = req.body as ResponseFetcher;
         try {
-            console.log("WE HERE< FOOL")
             let responses: ResponseModel[] = await monResponseModel.find({ TeamId: fetcher.TeamId, GameId: fetcher.GameId, SubRoundId: fetcher.SubRoundId }).then(r => r.map(resp => resp.toJSON() as ResponseModel))
             responses = responses.sort((a, b) => {
-                console.log(a);
                 if (!a.TeamNumber || !b.TeamNumber || a.TeamNumber == b.TeamNumber) return 0;
                 return a.TeamNumber > b.TeamNumber ? 1 : 0;
             });
-            console.log(responses)
             res.json(responses);
         } catch (err) {
             res.json(err)
