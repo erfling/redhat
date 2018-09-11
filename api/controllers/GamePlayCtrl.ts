@@ -851,13 +851,19 @@ class GamePlayRouter {
                     return 1;
                 return 0;
             })
-            let responses: ResponseModel[] = await monResponseModel.find({ targetObjId, targetObjClass: "UserModel", SubRoundId: currentSubRound._id.toString(), GameId: team.GameId }).then(rs => rs ? rs.map(r => Object.assign(new ResponseModel(), r.toJSON())) : null);
+            
+            let responses: ResponseModel[] = await monResponseModel.find({ 
+                targetObjId, targetObjClass: "UserModel", 
+                SubRoundId: currentSubRound._id.toString(), 
+                GameId: team.GameId })
+                .then(rs => rs ? rs.map(r => Object.assign(new ResponseModel(), r.toJSON())) : null);
+
             if (!responses) throw new Error("Didn't get responses");
 
             // sorted subRoundIds, truncated to include only currentSubRound or before
             let subRoundIds: string[] = subRounds.filter((sr) => {
 
-                return sr.Label <= currentSubRound.Label && responses.filter(r => {
+                return sr.Label == currentSubRound.Label && responses.filter(r => {
                     return r.RoundId == sr.RoundId;
                 }).length;
             }).map(sr => sr._id);
