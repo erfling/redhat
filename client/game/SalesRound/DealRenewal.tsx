@@ -63,6 +63,7 @@ export default class DealRenewal extends BaseComponent<any, IRoundDataStore & { 
         const thisSubRound = this.state.Round.SubRounds.filter(s => s.Name.toUpperCase() == DealRenewal.CLASS_NAME.toUpperCase())[0]
         let userRatingsChart;
         if (this.state.SubRound && this.state.UserRatings) {
+            alert("something")
             userRatingsChart = this.controller.getUserRatingsChartShaped(this.state.UserRatings);
         }
         if (this.state) {
