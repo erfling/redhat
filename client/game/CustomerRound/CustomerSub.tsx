@@ -10,6 +10,7 @@ import Decisions from '-!svg-react-loader?name=Icon!../../img/decisions.svg';
 import FeedBackWrapper from "../Scoring/FeedBackWrapper";
 import { RatingType } from "../../../shared/models/QuestionModel";
 import GameCtrl from "../GameCtrl";
+import IndividualLineChart from "../Scoring/IndividualLineChart";
 
 const { Button, Grid, Form, Dimmer, Loader, Header, Table } = Semantic;
 const { Row, Column } = Grid;
@@ -59,7 +60,10 @@ export default class CustomerSub extends BaseComponent<any, IRoundDataStore>
 
     render() {
         const thisSubRound = this.state.Round.SubRounds.filter(s => s.Name.toUpperCase() == CustomerSub.CLASS_NAME.toUpperCase())[0]
-
+        let userRatingsChart;
+        if (this.state.SubRound && this.state.UserRatings) {
+            userRatingsChart = this.controller.getUserRatingsChartShaped(this.state.UserRatings);
+        }
         if (this.state) {
             return <>
                 {(this.state.ApplicationState.CurrentUser.Job == JobName.MANAGER && thisSubRound != null && thisSubRound.Questions) &&
@@ -129,15 +133,16 @@ export default class CustomerSub extends BaseComponent<any, IRoundDataStore>
                     </>
                 } 
 
-                {this.state.ApplicationState.ShowIndividualFeedback && thisSubRound && this.state.UserScores &&
-                    <FeedBackWrapper
-                        User={this.state.ApplicationState.CurrentUser}
+                {this.state.ApplicationState.ShowIndividualFeedback && thisSubRound &&
+                    <IndividualLineChart
                         TeamId={this.state.ApplicationState.CurrentTeam._id}
-                        Scores={this.state.UserScores}
-                        RoundName="Round 1"                        
-                    >
-                        
-                    </FeedBackWrapper> 
+                        PlayerId={this.state.ApplicationState.CurrentUser._id}
+                        Data={userRatingsChart || []}
+                        SubRoundId={thisSubRound._id}
+                        MessageOnEmpty={this.state.ApplicationState.CurrentUser.Job ==
+                            JobName.MANAGER ? "No associates completed your management feedback" : "Your manager failed to complete your performance review"}
+
+                    />
                 }
 
 
