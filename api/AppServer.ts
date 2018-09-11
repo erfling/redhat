@@ -308,25 +308,18 @@ export class AppServer {
                         } else {
                            //set another manager
                             game.Teams.forEach(t => {
+                                
                              //   console.log("TEAM ", t)
                                 for (let i = 0; i < t.Players.length; i++) {
+                                    let roundNumber = Number(round.Label);
                                     let pid = t.Players[i].toString();
-                                    if (game.HasBeenManager.indexOf(pid) == -1) {
+                                    if(i == roundNumber -1){
                                         game.HasBeenManager.push(pid);
                                         mapping.UserJobs[pid] = JobName.MANAGER;
-                                    //    console.log("HEY< YOU", pid, mapping)
-                                        break;
-                                    }
+                                    }                                   
                                 }
 
-                                //make sure each team has a manager, even if all the team members have been manager 
-                                if (t.Players.every(p => {
-                                    //console.log("examing", p, mapping.UserJobs[p._id.toString()])
-                                    return mapping.UserJobs[p._id.toString()] != JobName.MANAGER
-                                })) {
-                                    //console.log("DIDN'T FIND MANAGER FOR ", t)
-                                    mapping.UserJobs[t.Players[Math.floor(Math.random() * t.Players.length)]._id.toString()] = JobName.MANAGER;
-                                }
+                                
 
                             })
                        
