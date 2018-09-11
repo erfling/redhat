@@ -120,7 +120,6 @@ export default class IndividualLineChart extends React.Component<ChartingProps, 
       width={16}
       className="feedback chart-wrapper"
     >
-      <pre>{Data && JSON.stringify(Data, null, 2)}</pre>
       {(!Data || !Data.length) && MessageOnEmpty &&
         <Header
           as="h1"
