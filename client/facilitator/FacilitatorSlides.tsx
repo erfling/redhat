@@ -66,6 +66,7 @@ export default class FacilitatorView extends BaseComponent<any, IFacilitatorData
         super.componentDidMount();
         
         window.addEventListener("resize", () => this.makeItAllBig());
+        this.props.location.pathname.split("/").filter(s => s.length > 0).reverse()[0]
       
 
     }

@@ -82,6 +82,8 @@ export default class FacilitatorView extends BaseComponent<any, IFacilitatorData
 
         this._interval = setInterval(() => this.controller.getRoundInfo().then((r: FacilitationRoundResponseMapping[]) => this.setState({ RoundResponseMappings: r })), 2000)
         this.controller.getLookups();
+        this.props.location.pathname.split("/").filter(s => s.length > 0).reverse()[0];
+        
     }
 
     componentDidUpdate() {

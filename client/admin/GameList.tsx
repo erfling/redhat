@@ -123,6 +123,18 @@ class GameList extends BaseComponent<any, IControllerDataStore & {Admin: AdminVi
                                         header="Game Details"
                                         content="Add teams, players, etc."
                                     />
+                                    <Popup
+                                        trigger={<Button
+                                            color="blue"
+                                            circular
+                                            icon='play'
+                                            onClick={e => {
+                                                <Redirect to={'/facilitator/' + g._id} />
+                                            }}
+                                        >
+                                        </Button>}
+                                        header="Facilitate this game"
+                                    />
 
                                 </Table.Cell>
                                 

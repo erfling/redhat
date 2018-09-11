@@ -64,7 +64,7 @@ export default class App extends BaseComponent<any, IControllerDataStore>
 
         if (this.state) {
             return <>
-                {this.state && this.state.ApplicationState.CurrentUser && location.pathname.indexOf("slides") == -1 && (this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN || location.pathname.indexOf("welcome") == -1) &&
+                {location.pathname.indexOf("login") == -1 && this.state && this.state.ApplicationState.CurrentUser && location.pathname.indexOf("slides") == -1 && (this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN || location.pathname.indexOf("welcome") == -1) &&
 
                     <Menu
                         fixed="top"
@@ -469,8 +469,8 @@ export default class App extends BaseComponent<any, IControllerDataStore>
                             <Route path="/game" component={Game} />
                             <Route path="/login" component={Login} />
                             <Route path="/admin" component={Admin} />
-                            {this.state.ApplicationState.CurrentUser && this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN && <Route exact path="/facilitator" component={FacilitatorView} />}
-                            {this.state.ApplicationState.CurrentUser && this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN && <Route path="/facilitator/slides" component={FacilitatorSlides} />}
+                            {this.state.ApplicationState.CurrentUser && this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN && <Route exact path="/facilitator/:gameid" component={FacilitatorView} />}
+                            {this.state.ApplicationState.CurrentUser && this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN && <Route path="/facilitator/slides/:gameid" component={FacilitatorSlides} />}
                         </Switch>
                     </div>
 

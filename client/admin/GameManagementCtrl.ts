@@ -130,6 +130,10 @@ export default class GameManagementCtrl extends BaseClientCtrl<IControllerDataSt
         this.component.props.history.push("/admin/gamedetail/" + game._id)
     }
 
+    public facilitateGame(game: GameModel) {
+        this.component.props.history.push("/facilitator/" + game._id)
+    }
+
     public getGame(id: string) {
         const game: GameModel = new GameModel()
         this.dataStore.ApplicationState.IsLoading = true;

@@ -1,10 +1,11 @@
 import * as React from "react";
-import { Grid, Menu, Container, Button, Form, Input, Message } from 'semantic-ui-react';
+import { Grid, Menu, Container, Button, Form, Input, Message, Header } from 'semantic-ui-react';
 const Field = { Form }
 const { Column, Row } = Grid;
 import LoginCtrl from './LoginCtrl';
 import { IControllerDataStore } from "../../shared/base-sapien/client/BaseClientCtrl";
 import BaseComponent from "../../shared/base-sapien/client/shared-components/BaseComponent";
+import IntroLogo from '-!svg-react-loader?name=Icon!../img/intro-logo-blue-circles.svg';
 
 export default class AdminLogin extends BaseComponent<any, IControllerDataStore>
 {
@@ -17,7 +18,7 @@ export default class AdminLogin extends BaseComponent<any, IControllerDataStore>
     public static CLASS_NAME = "Admin";
 
     public static CONTROLLER = LoginCtrl;
-    
+
     controller: LoginCtrl = LoginCtrl.GetInstance(this);
 
     //----------------------------------------------------------------------
@@ -51,7 +52,19 @@ export default class AdminLogin extends BaseComponent<any, IControllerDataStore>
 
         return <>
             <Row>
-                <Column wide={6} computer={8} tablet={6} mobile={16}> 
+                <Column
+                    wide={6}
+                    computer={8}
+                    tablet={6}
+                    mobile={16}
+                    style={{ marginLeft: 'auto', marginRight: 'auto' }}
+                >
+                    <IntroLogo
+                        className="top-logo"
+                    />
+                    <Header as="h3">
+                        Admin Login
+                    </Header>
                     <Form>
                         <Form.Field>
                             <label>Email</label>
