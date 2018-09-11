@@ -125,6 +125,7 @@ export default class Hiring extends BaseComponent<any, IRoundDataStore>
                     </FeedBackWrapper>
                 </>
                 }
+                
                 {this.state.ApplicationState.ShowIndividualFeedback && thisSubRound &&
                     <IndividualLineChart
                         TeamId={this.state.ApplicationState.CurrentTeam._id}
