@@ -65,7 +65,9 @@ export default class WelcomeCtrl extends BaseRoundCtrl<IRoundDataStore>
                 this.component.props.history.push("/game/peopleround/priorities");
                 GameCtrl.GetInstance().getCurrentMapping();
                 GameCtrl.GetInstance().dataStoreChange();
-                ApplicationCtrl.GetInstance().addToast("You are now playing the role of " + r.user.Job, "info");
+                //ApplicationCtrl.GetInstance().addToast("You are now playing the role of " + r.user.Job, "info");
+                this.dataStore.HasShownJobToast = true;
+
                 return r;
         }).catch((r) => {
             this.dataStore.ApplicationState.FormError = "There was a problem logging you in. Please try again.";
@@ -96,7 +98,8 @@ export default class WelcomeCtrl extends BaseRoundCtrl<IRoundDataStore>
             RatingQuestions: null,
             Scores: null,
             UserScores: null,
-            UserRatings: null
+            UserRatings: null,
+            HasShownJobToast: false
         };        
         this.dataStore.Round.Name = "WELCOME";
     }

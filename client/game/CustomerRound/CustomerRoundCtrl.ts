@@ -71,7 +71,8 @@ export default class CustomerRoundCtrl extends BaseRoundCtrl<IRoundDataStore>
             RatingQuestions: null,
             Scores: null,
             UserScores: null,
-            UserRatings: null
+            UserRatings: null,
+            HasShownJobToast: false
         };
         this.dataStore.Round.Name = "CUSTOMER";
 
