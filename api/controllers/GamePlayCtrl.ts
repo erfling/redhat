@@ -392,7 +392,7 @@ class GamePlayRouter {
                 finalQuestions = finalQuestions.concat(
                     questions.map(q => {
                         return Object.assign({}, q, {
-                            Text: q.Text,
+                            Text: q.Text + " " + rationaleResponse.TeamNumber,
                             TargetTeamId: k,
                             SubText: rationaleResponse ? rationaleResponse.Answer[0].data : "",
                             test: "adsf"
