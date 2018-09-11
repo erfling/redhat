@@ -165,7 +165,7 @@ export default class FacilitatorView extends BaseComponent<any, IFacilitatorData
                             <Table.HeaderCell>Name</Table.HeaderCell>                
                             <Table.HeaderCell>Email</Table.HeaderCell>
                             <Table.HeaderCell>Role</Table.HeaderCell>
-                            <Table.HeaderCell>Complete</Table.HeaderCell>
+                            <Table.HeaderCell>Completed</Table.HeaderCell>
                         </Table.Row>
                     </Table.Header>
                                 
@@ -173,15 +173,13 @@ export default class FacilitatorView extends BaseComponent<any, IFacilitatorData
                         {(t.Members).map((teamMember, i) =>
 
                             <Table.Row key={i}>
-                             
-                           
                                 <Table.Cell>{teamMember.Name}</Table.Cell>
                                 <Table.Cell>{teamMember.Email}</Table.Cell>   
-                     
                                 <Table.Cell>{teamMember.Job}</Table.Cell> 
-                                <Table.Cell> 
-                                     {t.RatingsOfManager.filter(rating=>rating.targetObjName == teamMember.Name && rating.IsComplete).length > 0
-                                         ? <Icon name="checkmark" color="green" /> : <Icon name="cancel" color="red" />} 
+                                <Table.Cell>
+                                {t.IsComplete ? <Icon name="checkmark" color="green" /> : <Icon name="cancel" color="red" />}
+                                {t.RatingsOfManager.filter(rating=>rating.targetObjName == teamMember.Name).length > 0
+                                ? <Icon name="checkmark" color="green" /> : <Icon name="cancel" color="red" />} 
                                 </Table.Cell> 
                             </Table.Row>
                         )}
@@ -191,10 +189,6 @@ export default class FacilitatorView extends BaseComponent<any, IFacilitatorData
                     
 
                 </Table>
-                               
-
-                                
-                            
                             </Accordion.Content>
                         </>
                         )}

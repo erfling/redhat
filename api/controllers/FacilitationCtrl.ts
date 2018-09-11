@@ -143,8 +143,10 @@ class FacilitationCtrl
                         });
 
                     } else {
-                        
+                        //Lf: whats mgr for if mgr is checked below in t.players iterator? 
                         let mgr: UserModel = t.Players.filter(p => game.CurrentRound.UserJobs[p._id] == JobName.MANAGER)[0];
+
+                        //lf: likewise, why another iteration if mgr status is checked below in t.players loop?
 
                         let nonManagers = 
                         t.Players.filter(p => !game.CurrentRound.UserJobs[p._id] 
@@ -152,6 +154,7 @@ class FacilitationCtrl
 
                         //check to see if each non-manager player has been rated
                         t.Players.forEach(p => {
+                            
                             p = Object.assign(new UserModel(), p);
                             let isManager: boolean = game.CurrentRound.UserJobs[p._id] && game.CurrentRound.UserJobs[p._id] == JobName.MANAGER;
 
@@ -186,13 +189,13 @@ class FacilitationCtrl
 
                     }
                
+                    //go thru all players and push their data to team view object
+                    
                     t.Players.forEach((teamMember, i) => {  
-                        
-                        teamMember.Job = game.CurrentRound.UserJobs[teamMember._id];
 
+                        teamMember.Job = game.CurrentRound.UserJobs[teamMember._id];
                         m.Members.push(teamMember);
                         
-
                     });
                  
                     mappings.push(m);
