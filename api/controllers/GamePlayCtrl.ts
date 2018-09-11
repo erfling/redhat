@@ -861,12 +861,7 @@ class GamePlayRouter {
             if (!responses) throw new Error("Didn't get responses");
 
             // sorted subRoundIds, truncated to include only currentSubRound or before
-            let subRoundIds: string[] = subRounds.filter((sr) => {
-
-                return sr.Label == currentSubRound.Label && responses.filter(r => {
-                    return r.RoundId == sr.RoundId;
-                }).length;
-            }).map(sr => sr._id);
+            let subRoundIds: string[] = [currentSubRound._id];
 
             // build array of unique DisplayLabel (rating criteria name) for the responses
             let displayLabels: string[] = responses.reduce((allDisplayLabels: string[], response: ResponseModel) => {
