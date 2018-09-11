@@ -222,9 +222,10 @@ export default class GameCtrl<T extends IControllerDataStore & {Game: GameModel,
         //always be IC in login
         if(location.pathname.indexOf("welcome") != -1){
             this.dataStore.ApplicationState.CurrentUser.Job = this.ChildController.dataStore.ApplicationState.CurrentUser.Job = JobName.IC;
-        } else if (this.ChildController.dataStore.ApplicationState.CurrentUser.Job != targetJob || location.pathname.indexOf("priorities") != -1) {
+        } else if (this.ChildController.dataStore.ApplicationState.CurrentUser.Job != targetJob || location.pathname.indexOf("priorities") != -1 && !this.ChildController.dataStore.HasShownJobToast) {
             this.dataStore.ApplicationState.CurrentUser.Job = ApplicationCtrl.GetInstance().dataStore.ApplicationState.CurrentTeam.Job = this.ChildController.dataStore.ApplicationState.CurrentUser.Job = targetJob;
             localStorage.setItem("RH_USER", JSON.stringify(this.dataStore.ApplicationState.CurrentUser));
+            this.ChildController.dataStore.HasShownJobToast = true;
             ApplicationCtrl.GetInstance().addToast("You are now playing the role of " + this.ChildController.dataStore.ApplicationState.CurrentUser.Job, "info");
         }
         
