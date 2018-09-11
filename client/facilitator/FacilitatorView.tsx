@@ -17,6 +17,7 @@ import { RouteComponentProps, withRouter, Switch, Route, Redirect } from "react-
 import SlideShow from '-!svg-react-loader?name=Icon!../img/slideshow.svg';
 import RoundChangeMapping from "../../shared/models/RoundChangeMapping";
 import FacilitationRoundResponseMapping from "../../shared/models/FacilitationRoundResponseMapping";
+import UserModel, { JobName } from "../../shared/models/UserModel";
 
 export default class FacilitatorView extends BaseComponent<any, IFacilitatorDataStore>
 {
@@ -83,7 +84,7 @@ export default class FacilitatorView extends BaseComponent<any, IFacilitatorData
         this._interval = setInterval(() => this.controller.getRoundInfo().then((r: FacilitationRoundResponseMapping[]) => this.setState({ RoundResponseMappings: r })), 2000)
         this.controller.getLookups();
         this.props.location.pathname.split("/").filter(s => s.length > 0).reverse()[0];
-        
+
     }
 
     componentDidUpdate() {
@@ -148,49 +149,48 @@ export default class FacilitatorView extends BaseComponent<any, IFacilitatorData
                 </Button>
                 </Row>
 
-                <hr style={{marginTop: '2em', marginBottom: '2em'}}/>
+                <hr style={{ marginTop: '2em', marginBottom: '2em' }} />
 
                 {this.state.RoundResponseMappings && <Row>
-                    <Accordion styled style={{width:'100%'}}>
+                    <Accordion styled style={{ width: '100%' }}>
                         {this.state.RoundResponseMappings.map((t, i) => <>
                             <Accordion.Title active={this.state.AccordionIdx === i} index={i} onClick={this.handleClick}>
                                 <Icon name='dropdown' />
                                 {t.TeamName}
-                                
-                            {t.IsComplete ? <Icon name="checkmark" color="green" /> : <Icon name="cancel" color="red" />}
+                                {t.IsComplete ? <Icon name="checkmark" color="green" /> : <Icon name="cancel" color="red" />}
                             </Accordion.Title>
                             <Accordion.Content active={this.state.AccordionIdx === i}>
-                            <Table striped>
-                   
-                    <Table.Header>
-                        <Table.Row>                          
-                            <Table.HeaderCell>Name</Table.HeaderCell>                
-                            <Table.HeaderCell>Email</Table.HeaderCell>
-                            <Table.HeaderCell>Role</Table.HeaderCell>
-                            <Table.HeaderCell>Completed</Table.HeaderCell>
-                        </Table.Row>
-                    </Table.Header>
-                                
-                    <Table.Body>
-                        {(t.Members).map((teamMember, i) =>
+                                <Table striped>
 
-                            <Table.Row key={i}>
-                                <Table.Cell>{teamMember.Name}</Table.Cell>
-                                <Table.Cell>{teamMember.Email}</Table.Cell>   
-                                <Table.Cell>{teamMember.Job}</Table.Cell> 
-                                <Table.Cell>
-                                {t.IsComplete ? <Icon name="checkmark" color="green" /> : <Icon name="cancel" color="red" />}
-                                {t.RatingsOfManager.filter(rating=>rating.targetObjName == teamMember.Name).length > 0
-                                ? <Icon name="checkmark" color="green" /> : <Icon name="cancel" color="red" />} 
-                                </Table.Cell> 
-                            </Table.Row>
-                        )}
+                                    <Table.Header>
+                                        <Table.Row>
+                                            <Table.HeaderCell>Name</Table.HeaderCell>
+                                            <Table.HeaderCell>Email</Table.HeaderCell>
+                                            <Table.HeaderCell>Role</Table.HeaderCell>
+                                            <Table.HeaderCell>Completed</Table.HeaderCell>
+                                        </Table.Row>
+                                    </Table.Header>
+
+                                    <Table.Body>
+                                        {(t.Members).map((teamMember, i) => {
+                                            let player = Object.assign(new UserModel(), teamMember);
+                                            return <Table.Row key={i}>
+                                                <Table.Cell>{player.Name}</Table.Cell>
+                                                <Table.Cell>{player.Email}</Table.Cell>
+                                                <Table.Cell>{player.Job}</Table.Cell>
+                                                <Table.Cell>
+                                                    {t.IsComplete && <Icon name="checkmark" color="green" />}                                                    
+                                                    {!t.IsComplete && (player.Job == JobName.MANAGER && t.RatingsOfManager.filter(rating => rating.targetObjName == player.Name).length > 0 )
+                                                        || (player.Job != JobName.MANAGER && t.RatingsByManager.filter(rating => rating.targetObjName == player.Name).length > 0 )
+                                                        ? <Icon name="checkmark" color="green" /> : <Icon name="cancel" color="red" />}
+                                                </Table.Cell>
+                                            </Table.Row>
+                                        }
+                                        )}
+                                    </Table.Body>
 
 
-                    </Table.Body>
-                    
-
-                </Table>
+                                </Table>
                             </Accordion.Content>
                         </>
                         )}
