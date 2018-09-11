@@ -14,6 +14,7 @@ import { monResponseModel } from './GamePlayCtrl';
 import TeamModel from '../../shared/models/TeamModel';
 import QuestionModel from '../../shared/models/QuestionModel';
 import UserModel, { JobName } from '../../shared/models/UserModel';
+import { monTeamModel } from './TeamCtrl';
 
 const schObj = SchemaBuilder.fetchSchema(RoundChangeLookup);
 const monRoundChangeLookupSchema = new mongoose.Schema(schObj);
@@ -118,8 +119,12 @@ class FacilitationCtrl
                     m.SubRoundId = subRound._id;
                     m.SubRoundLabel = subRound.Label;
                     m.SubRoundName = subRound.Name;
+                   
+                   
+                   
                     m.IsComplete = true;
-
+                 
+                    
                     if (!game.CurrentRound.ShowRateUsers && !game.CurrentRound.ShowIndividualFeedback){
                         m.Questions = subRound.Questions;
                         m.Questions = m.Questions.map(q => {
@@ -128,55 +133,73 @@ class FacilitationCtrl
 
                             let question = Object.assign(new QuestionModel(), q, {
                                 Response: response.length && response[0].Answer ? response[0] : null
+                                
                             })
 
                             if (!question.Response) m.IsComplete = false;
-
+                            
                             return question;
 
-                        })
+                        });
 
                     } else {
-                        
+                        //Lf: whats mgr for if mgr is checked below in t.players iterator? 
                         let mgr: UserModel = t.Players.filter(p => game.CurrentRound.UserJobs[p._id] == JobName.MANAGER)[0];
-                        let otherPlayers = t.Players.filter(p => !game.CurrentRound.UserJobs[p._id] || game.CurrentRound.UserJobs[p._id] != JobName.MANAGER);
+
+                        //lf: likewise, why another iteration if mgr status is checked below in t.players loop?
+
+                        let nonManagers = 
+                        t.Players.filter(p => !game.CurrentRound.UserJobs[p._id] 
+                                            || game.CurrentRound.UserJobs[p._id] != JobName.MANAGER);
 
                         //check to see if each non-manager player has been rated
                         t.Players.forEach(p => {
+                            
                             p = Object.assign(new UserModel(), p);
                             let isManager: boolean = game.CurrentRound.UserJobs[p._id] && game.CurrentRound.UserJobs[p._id] == JobName.MANAGER;
 
                             if (!isManager) {
-                                let filteredRatings = responses.filter(r => r.targetObjId == p._id) ;
-                                let rating = Object.assign(filteredRatings.length ? filteredRatings[0] : new ResponseModel(), {IsComplete: false});
+
+                                let filteredRatings = responses.filter(r => r.targetObjId == p._id);
+
+                                let rating = Object.assign(filteredRatings.length ? filteredRatings[0] : new ResponseModel(),{IsComplete: false, targetObjName: p.targetObjName, targetObjId : p._id});
 
                                 rating.IsComplete = filteredRatings.length > 0;
 
                                 rating.targetObjName = p.Name;
 
                                 m.RatingsByManager.push(rating);
-
+                                
                             } 
                             //have all players rated the manager
-                            else {
-
-                                                             
-                                
-                            }
+                          
                         })
 
-                        otherPlayers.forEach((u, i) => {
+                        nonManagers.forEach((u, i) => {
                             let filteredRatings = responses.filter(r => r.UserId == u._id);
                             u = Object.assign(new UserModel(), u);
-                            let rating = Object.assign(filteredRatings.length ? filteredRatings[0] : new ResponseModel(), {IsComplete: filteredRatings.length != 0, targetObjName: u.Name})
+                            let rating = Object.assign(filteredRatings.length ? filteredRatings[0] : new ResponseModel(), 
+                                {IsComplete: filteredRatings.length != 0, targetObjName: u.Name, targetObjId : u._id})
                             m.RatingsOfManager.push(rating);
+                            
                         })
                         //Round is only complete if all players have been rated appriopriately.
-                        m.IsComplete = m.RatingsByManager.every(r => r.IsComplete) && m.RatingsOfManager.every(r => r.IsComplete);                        
+                        m.IsComplete = m.RatingsByManager.every(r => r.IsComplete) && m.RatingsOfManager.every(r => r.IsComplete);  
+                        
 
                     }
+               
+                    //go thru all players and push their data to team view object
                     
+                    t.Players.forEach((teamMember, i) => {  
+
+                        teamMember.Job = game.CurrentRound.UserJobs[teamMember._id];
+                        m.Members.push(teamMember);
+                        
+                    });
+                 
                     mappings.push(m);
+                
                 });
             
                 res.json(mappings);

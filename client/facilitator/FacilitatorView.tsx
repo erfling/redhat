@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Grid, Menu, Container, Button, Form, Input, Message, Accordion, Icon } from 'semantic-ui-react';
+import { Grid, Table, Container, Button, Form, Input, Message, Accordion, Icon } from 'semantic-ui-react';
 const Field = { Form }
 const { Column, Row } = Grid;
 import { IControllerDataStore } from "../../shared/base-sapien/client/BaseClientCtrl";
@@ -155,13 +155,42 @@ export default class FacilitatorView extends BaseComponent<any, IFacilitatorData
                         {this.state.RoundResponseMappings.map((t, i) => <>
                             <Accordion.Title active={this.state.AccordionIdx === i} index={i} onClick={this.handleClick}>
                                 <Icon name='dropdown' />
-                                {t.TeamName} {t.IsComplete ? <Icon name="checkmark" color="green" /> : <Icon name="cancel" color="red" />}
+                                {t.TeamName}
+                                
+                            {t.IsComplete ? <Icon name="checkmark" color="green" /> : <Icon name="cancel" color="red" />}
                             </Accordion.Title>
                             <Accordion.Content active={this.state.AccordionIdx === i}>
-                                <p>
-                                    A dog is a type of domesticated animal. Known for its loyalty and faithfulness, it can
-                                    be found as a welcome guest in many households across the world.
-                            </p>
+                            <Table striped>
+                   
+                    <Table.Header>
+                        <Table.Row>                          
+                            <Table.HeaderCell>Name</Table.HeaderCell>                
+                            <Table.HeaderCell>Email</Table.HeaderCell>
+                            <Table.HeaderCell>Role</Table.HeaderCell>
+                            <Table.HeaderCell>Completed</Table.HeaderCell>
+                        </Table.Row>
+                    </Table.Header>
+                                
+                    <Table.Body>
+                        {(t.Members).map((teamMember, i) =>
+
+                            <Table.Row key={i}>
+                                <Table.Cell>{teamMember.Name}</Table.Cell>
+                                <Table.Cell>{teamMember.Email}</Table.Cell>   
+                                <Table.Cell>{teamMember.Job}</Table.Cell> 
+                                <Table.Cell>
+                                {t.IsComplete ? <Icon name="checkmark" color="green" /> : <Icon name="cancel" color="red" />}
+                                {t.RatingsOfManager.filter(rating=>rating.targetObjName == teamMember.Name).length > 0
+                                ? <Icon name="checkmark" color="green" /> : <Icon name="cancel" color="red" />} 
+                                </Table.Cell> 
+                            </Table.Row>
+                        )}
+
+
+                    </Table.Body>
+                    
+
+                </Table>
                             </Accordion.Content>
                         </>
                         )}
