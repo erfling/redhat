@@ -441,10 +441,10 @@ export default class App extends BaseComponent<any, IControllerDataStore>
                                                 }}
                                             />
                                             <MenuItem
-                                                name={RoleName.FACILITATOR}
+                                                name={RoleName.FACILITATOR + " (" + GameCtrl.GetInstance().dataStore.ApplicationState.CurrentTeam.GameId + ")"}
                                                 onClick={e => {                                                   
                                                     e.preventDefault();
-                                                    this.props.history.push("/facilitator")
+                                                    this.props.history.push("/facilitator/" + GameCtrl.GetInstance().dataStore.ApplicationState.CurrentTeam.GameId)
                                                 }}
                                             />
                                         </Menu.Item>
