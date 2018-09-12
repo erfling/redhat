@@ -185,9 +185,13 @@ export default class FacilitatorView extends BaseComponent<any, IFacilitatorData
                                                 <Table.Cell>{player.Email}</Table.Cell>
                                                 <Table.Cell>{player.Job}</Table.Cell>
                                                 <Table.Cell>
-                                                    {t.IsComplete && <Icon name="checkmark" color="green" />}                                                    
-                                                    {!t.IsComplete && (player.Job == JobName.MANAGER && t.RatingsOfManager.filter(rating => rating.targetObjName == player.Name).length > 0 )
-                                                        || (player.Job != JobName.MANAGER && t.RatingsByManager.filter(rating => rating.targetObjName == player.Name).length > 0 )
+                                                    {t.IsComplete ||
+                                                        (!t.IsComplete &&
+                                                            ((player.Job == JobName.MANAGER && t.RatingsOfManager.filter(rating => rating.targetObjName == player.Name).length > 0)
+
+                                                                ||
+                                                                (player.Job != JobName.MANAGER && t.RatingsByManager.filter(rating => rating.targetObjName == player.Name).length > 0)))
+
                                                         ? <Icon name="checkmark" color="green" /> : <Icon name="cancel" color="red" />}
                                                 </Table.Cell>
                                             </Table.Row>
