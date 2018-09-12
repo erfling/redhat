@@ -80,10 +80,11 @@ export default class FacilitatorCtrl extends BaseClientCtrl<IFacilitatorDataStor
 
             if(lookup){
                 let mapping = new RoundChangeMapping();
-                mapping.ParentRound = lookup.Round.Name;
-                mapping.ChildRound = lookup.SubRound.Name;
+                mapping.ParentRound = lookup.Round;
+                mapping.ChildRound = lookup.SubRound;
                 mapping.SlideNumber = this.dataStore.SlideNumber;
-
+                mapping.GameId = this.dataStore.Game._id;
+                
                 console.log("GOING TO: ", mapping)
 
                 this.goToMapping(mapping);
