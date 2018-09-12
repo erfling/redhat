@@ -306,7 +306,7 @@ export class AppServer {
 
                                 }
                             })
-                        } else if (SubRoundLabel.toLowerCase() == "4c") {
+                        } else if (mapping.ChildRound.toLowerCase() == "acquisitionstructure") {
                                 console.log("WE ARE LOOKING FOR BLUE_KITES", oldMapping);
                                 let pindex = 0;
                                 game.Teams.forEach(
