@@ -693,16 +693,6 @@ class GamePlayRouter {
                         let gotDeal = true;
                         for (let i = 0; i < (round3Response.Answer as SliderValueObj[]).length; i++) {
                             let ans = (round3Response.Answer as SliderValueObj[])[i];
-
-                            if (ans.label == ComparisonLabel.CSAT && Number(ans.data) >= .90) {
-                                //team gets positive feedback, so we filter out negative
-                                highCsat = true;
-                            }
-
-                            if (ans.label == ComparisonLabel.PRICE_PER_CUSTOMER && Number(ans.data) >= 800) {
-                                //team gets negative feedback, so we filter out positive
-                                gotDeal = false;
-                            }
                         }
 
                         score.TeamsFeedBack = score.TeamsFeedBack.filter(fb => {
