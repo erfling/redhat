@@ -127,15 +127,17 @@ export default class Hiring extends BaseComponent<any, IRoundDataStore>
                 }
                 
                 {this.state.ApplicationState.ShowIndividualFeedback && thisSubRound &&
-                    <IndividualLineChart
-                        TeamId={this.state.ApplicationState.CurrentTeam._id}
-                        PlayerId={this.state.ApplicationState.CurrentUser._id}
-                        Data={userRatingsChart || []}
-                        SubRoundId={thisSubRound._id}
-                        MessageOnEmpty={this.state.ApplicationState.CurrentUser.Job ==
-                            JobName.MANAGER ? "No associates completed your management feedback" : "Your manager failed to complete your performance review"}
+                    <>
+                        <IndividualLineChart
+                            TeamId={this.state.ApplicationState.CurrentTeam._id}
+                            PlayerId={this.state.ApplicationState.CurrentUser._id}
+                            Data={userRatingsChart || []}
+                            SubRoundId={thisSubRound._id}
+                            MessageOnEmpty={this.state.ApplicationState.CurrentUser.Job ==
+                                JobName.MANAGER ? "No associates completed your management feedback" : "Your manager failed to complete your performance review"}
 
-                    />
+                        />
+                    </>
                 }
 
 

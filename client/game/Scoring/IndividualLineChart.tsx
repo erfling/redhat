@@ -96,6 +96,10 @@ export default class IndividualLineChart extends React.Component<ChartingProps, 
   }
 
 
+  getShouldShowData(){
+    
+  }
+
   getScoreSoFar(teamId, rounds: SubRoundScore[], roundNumber) {
     let score = 0;
     score += rounds.filter((r) => {
@@ -149,7 +153,7 @@ export default class IndividualLineChart extends React.Component<ChartingProps, 
               </Table.Row>
             </Table.Header>
             
-            {Object.keys(Data[Data.length - 1]).filter(k => k.toLowerCase().indexOf("name") == -1 && Data[Data.length - 1][k]).map(
+            {Object.keys(Data[Data.length - 1]).filter(k => k.toLowerCase().indexOf("name") == -1 && Data[Data.length - 1][k] != undefined).map(
               (k, i) => <Table.Row key={i}>
                 <Table.Cell>{k}</Table.Cell>
                 <Table.Cell>{MathUtil.roundTo(Number(Data[Data.length - 1][k]), 1)}</Table.Cell>

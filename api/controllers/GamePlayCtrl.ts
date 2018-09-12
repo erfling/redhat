@@ -843,14 +843,7 @@ class GamePlayRouter {
 
             if (!currentSubRound) throw new Error("Didn't get subround");
 
-            let subRounds: SubRoundModel[] = await monSubRoundModel.find().then(srs => srs ? srs.map(sr => Object.assign(new SubRoundModel(), sr.toJSON())) : null);
-            subRounds.sort((a, b) => {
-                if (a.Label < b.Label)
-                    return -1;
-                if (a.Label > b.Label)
-                    return 1;
-                return 0;
-            })
+            
             
             let responses: ResponseModel[] = await monResponseModel.find({ 
                 targetObjId, targetObjClass: "UserModel", 
@@ -877,14 +870,14 @@ class GamePlayRouter {
                 orderedResponses[n] = {};
                 displayLabels.forEach(displayName => {
                     orderedResponses[n][displayName] = responses.filter(r => r.SubRoundId == subRoundIds[n] && r.DisplayLabel == displayName).map(r => {
-                        let subround = subRounds.filter(sr => sr._id == r.SubRoundId)[0];
                         return Object.assign(r, {
-                            RoundName: subround ? "Round " + subround.Label.charAt(0) : null
+                            RoundName: currentSubRound ? "Round " + currentSubRound.Label.charAt(0) : null
                         })
                     });
                 })
             }
 
+            if(!Object.keys(orderedResponses[0]).length) orderedResponses = [];
             res.json(orderedResponses);
         }
         catch (err) {
