@@ -380,10 +380,9 @@ export class AppServer {
 
                                 //does this team already have a bluekite player?
                                 let blueKitePlayers = t.Players.filter(p => oldMapping.UserJobs[p._id] && oldMapping.UserJobs[p._id] == JobName.BLUE_KITE).map(p => p.FirstName + " " + p.LastName);
-                                console.log("FOUND THESE BLUE KITE PLAYER", bluek')
-                                let blueKitAlreadyAssigned:boolean = t.Players.filter(p => oldMapping.UserJobs[p._id] && oldMapping.UserJobs[p._id] == JobName.BLUE_KITE).length > 0
+                                console.log("FOUND THESE BLUE KITE PLAYER", blueKitePlayers)
                                 
-                                if(!blueKitAlreadyAssigned){
+                                if(!blueKitePlayers.length){
                                     //console.log("\t Blue_kite teams %d:", pindex++);
                                     //console.log("\t Blue_kite oldMapping %o:", oldMapping);
                                     let playersEligible: Array<UserModel> = t.Players.filter(p => oldMapping.UserJobs[p._id.toString()] != JobName.MANAGER);
