@@ -18,6 +18,9 @@ import SubRoundFeedback, { ValueDemomination } from '../../shared/models/SubRoun
 import RoundChangeMapping from '../../shared/models/RoundChangeMapping';
 import * as Passport from 'passport'
 import { monTeamModel } from './TeamCtrl';
+import RoundChangeLookup from '../../shared/models/RoundChangeLookup';
+import { monRoundChangeLookupModel } from './FacilitationCtrl';
+import {sortBy} from 'lodash';
 
 const messageSchObj = SchemaBuilder.fetchSchema(MessageModel);
 const monMessageSchema = new mongoose.Schema(messageSchObj);
@@ -179,13 +182,13 @@ class RoundRouter {
             } else {
 
                 const subRoundsSoFar = await this.GetPreviousRounds(subRound);
-                console.table("SUBROUNDS SO FAR",subRoundsSoFar)
+                console.table("SUBROUNDS SO FAR", subRoundsSoFar)
                 const mappings: RoundChangeMapping[] = await monMappingModel.find({ GameId }).then(mappings => mappings ? mappings.map(m => m.toJSON() as RoundChangeMapping) : null)
 
                 if (!mappings) throw new Error("Coulnd't get game mappings");
                 //this._getMessageProp(req.params.job);
 
-                
+
 
                 let messagesIds: MessageModel[] = [];
                 let currentMessageIds: string[];
@@ -200,7 +203,7 @@ class RoundRouter {
                         console.log("FOUND SOME CONTENT")
                         let userJob = roundMapping.UserJobs[UserId] ? roundMapping.UserJobs[UserId] : JobName.IC;
                         let messages = []// = sr[this._getMessageProp(userJob)];
-                        Object.keys(JobName).forEach((jn)=> {
+                        Object.keys(JobName).forEach((jn) => {
                             messages = messages.concat(sr[this._getMessageProp(JobName[jn])]);
                         })
                         messagesIds = messagesIds.concat(messages);
@@ -221,13 +224,13 @@ class RoundRouter {
                     let IsRead = true;
                     currentMessageIds.forEach(mid => {
                         console.log(mid, m._id, typeof mid, typeof m._id, mid.toString() == m._id.toString())
-                        if(mid.toString() == m._id.toString()) IsRead = false;
+                        if (mid.toString() == m._id.toString()) IsRead = false;
                     })
                     return Object.assign(m, {
                         IsRead
                     })
                 }).sort((a: MessageModel, b: MessageModel) => {
-                    if(a.SubRoundLabel == b.SubRoundLabel)return 0;
+                    if (a.SubRoundLabel == b.SubRoundLabel) return 0;
                     return a.SubRoundLabel > b.SubRoundLabel ? -1 : 1
                 })//.reverse();
 
@@ -274,7 +277,7 @@ class RoundRouter {
             if (!SubRound) throw new Error("No subuound found");
 
             //get all the teams
-            let teams: TeamModel[] = await monTeamModel.find({GameId}).then(ts => ts ? ts.map(t => Object.assign(new TeamModel(), t.toJSON())) : null)
+            let teams: TeamModel[] = await monTeamModel.find({ GameId }).then(ts => ts ? ts.map(t => Object.assign(new TeamModel(), t.toJSON())) : null)
 
             //get the questions for this round.
             let questions: QuestionModel[] = await monQModel.find({ RatingMarker: "TEAM_RATING" }).then(q => q ? q.map(quest => Object.assign(new QuestionModel, quest.toJSON())) : []);
@@ -296,17 +299,17 @@ class RoundRouter {
                                 {
                                     label: "Team " + t.Number,
                                     unit: '%',
-                                    maxPoints : 1,
-                                    minPoints : 0,
-                                    idealValue : "100",
+                                    maxPoints: 1,
+                                    minPoints: 0,
+                                    idealValue: "100",
                                     increment: 1,
-                                    max : 100,
-                                    min : 0,
+                                    max: 100,
+                                    min: 0,
                                     targetObjId: t._id,
                                     targetObjClass: "TeamModel",
                                 }
                             ]
-                        
+
                         })
                     })
                 )
@@ -418,7 +421,7 @@ class RoundRouter {
             //get all the teams in the game
             const game: GameModel = await monGameModel.findById(GameId).populate('Teams').then(g => g ? Object.assign(new GameModel(), g.toJSON()) : null)
             let mapping: RoundChangeMapping = game.CurrentRound;
-            let round: RoundModel = await monRoundModel.findOne({Name: mapping.ParentRound.toUpperCase()}).then(r => r ? Object.assign(new RoundModel(), r.toJSON()): null)
+            let round: RoundModel = await monRoundModel.findOne({ Name: mapping.ParentRound.toUpperCase() }).then(r => r ? Object.assign(new RoundModel(), r.toJSON()) : null)
             console.log("FOUDN THIS GAME", game)
             //get all the response for the relevant round in this game
             const responses = await monResponseModel.find({ GameId, RoundId: round._id }).then(r => r ? r.map(resp => Object.assign(new ResponseModel(), resp.toJSON())) : null);
@@ -453,7 +456,7 @@ class RoundRouter {
 
             let savedFeedback;
             if (!feedBack._id) {
-                savedFeedback = await monFeedbackModel.findOneAndUpdate({ValueDemomination: feedBack.ValueDemomination, RoundId: feedBack.RoundId},feedBack, {upsert: true}).then(r => r ? Object.assign(new SubRoundFeedback(), r.toJSON()) : null)
+                savedFeedback = await monFeedbackModel.findOneAndUpdate({ ValueDemomination: feedBack.ValueDemomination, RoundId: feedBack.RoundId }, feedBack, { upsert: true }).then(r => r ? Object.assign(new SubRoundFeedback(), r.toJSON()) : null)
                 //update our subround
                 const sr: SubRoundModel = await monSubRoundModel.findById(savedFeedback.RoundId).populate("FeedBack").then(r => Object.assign(new SubRoundModel(), r.toJSON()));
                 sr.FeedBack = sr.FeedBack.filter(fb => fb.Content != savedFeedback.Content)
@@ -481,6 +484,61 @@ class RoundRouter {
             res.status(500).send("couldn't save the feedback")
         }
     }
+
+
+    public async createSlideMappings(req: Request, res: Response) {
+
+
+        try {
+
+            let deletedLookup = await monRoundChangeLookupModel.remove({});
+            let allSubRounds: SubRoundModel[] = await monSubRoundModel.find().then(srs => srs ? srs.map(sr => Object.assign(new SubRoundModel(), sr.toJSON())) : null);
+            if (!allSubRounds) throw new Error("no subrounds");
+
+            let srs = sortBy(allSubRounds, "Label");
+
+            let lookups: RoundChangeLookup[] = [];
+
+            for (let i = 0; i < srs.length; i++) {
+                let sr = srs[i];
+                let r: RoundModel = await monRoundModel.findById(sr.RoundId).then(r => r ? Object.assign(new RoundModel(), r.toJSON()) : null);
+
+                console.log("CREATING LOOKUP FOR", sr.Label)
+
+                let lookup = new RoundChangeLookup();
+                lookup.Round = r.Name;
+                lookup.SubRound = sr.Name;
+                lookup.RoundId = r._id;
+                lookup.SubRoundId = sr._id;
+
+                for (let x = 0; x < 4; x ++) {
+                    lookup.MaxSlideNumber = (i + 1) * x;
+                    lookup.MinSlideNumber = (i + 1) * x;
+                    lookup.ShowFeedBack = x == 1;
+                    lookup.ShowRateUsers = x == 2;
+                    lookup.ShowUserRatings = x == 3;
+                    console.log(lookup)
+                    let savedLookup: RoundChangeLookup = await monRoundChangeLookupModel
+                                        .create(lookup)
+                                        .then(rcl => rcl ? Object.assign(new RoundChangeLookup(), rcl.toJSON()) : null);
+
+                    if(!savedLookup) throw new Error("Couldn't save lookup for " + sr.Label)
+
+                    lookups.push(savedLookup)
+                }
+            }
+
+            res.json(lookups)
+
+        } catch (err) {
+            console.log(err);
+            res.status(500).json("failed")
+        }
+
+
+
+    }
+
 
     private _getMessageProp(job: JobName): keyof UserModel {
         switch (job) {
@@ -527,6 +585,8 @@ class RoundRouter {
             (req, res, next) => AuthUtils.IS_USER_AUTHORIZED(req, res, next, PERMISSION_LEVELS.ADMIN),
             this.SaveMessage.bind(this)
         );
+
+        this.router.get("/changes/makeroundchanges", this.createSlideMappings.bind(this))
     }
 }
 

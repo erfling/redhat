@@ -197,11 +197,14 @@ class FacilitationCtrl
                         m.Members.push(teamMember);
                         
                     });
-                 
+                
+                    m.CurrentRound = game.CurrentRound;
+
                     mappings.push(m);
                 
                 });
             
+
                 res.json(mappings);
 
 

@@ -6,13 +6,13 @@ import { IControllerDataStore } from "../../shared/base-sapien/client/BaseClient
 import BaseComponent from "../../shared/base-sapien/client/shared-components/BaseComponent";
 import { clearTimeout } from "timers";
 import SapienServerCom from "../../shared/base-sapien/client/SapienServerCom";
-import GameCtrl from '../game/GameCtrl';
 import ResponseModel from "../../shared/models/ResponseModel";
 import { SliderValueObj } from "../../shared/entity-of-the-state/ValueObj";
 import { IFrame } from "sanitize-html";
 import GameModel from "../../shared/models/GameModel";
 import FacilitatorCtrl, { IFacilitatorDataStore } from "./FacilitatorCtrl";
-
+import Fullscreen from "react-full-screen";
+import FacilitationRoundResponseMapping from "../../shared/models/FacilitationRoundResponseMapping";
 
 interface FSDocument extends Document {
     exitFullscreen: any;
@@ -45,6 +45,8 @@ export default class FacilitatorView extends BaseComponent<any, IFacilitatorData
     public static CONTROLLER = FacilitatorCtrl;
 
     controller: FacilitatorCtrl = FacilitatorCtrl.GetInstance(this);
+    private _interval;
+
 
     //----------------------------------------------------------------------
     //
@@ -64,41 +66,38 @@ export default class FacilitatorView extends BaseComponent<any, IFacilitatorData
 
     componentDidMount() {
         super.componentDidMount();
-        
-        window.addEventListener("resize", () => this.makeItAllBig());
+
         this.props.location.pathname.split("/").filter(s => s.length > 0).reverse()[0]
-      
+
+        window.addEventListener('keydown', this.handleKey.bind(this))
+        this.controller.getGame(this.props.location.pathname.split("/").filter(s => s.length > 0).reverse()[0])
+            .then(() => this._interval = setInterval(() => this.controller.getRoundInfo().then((r: FacilitationRoundResponseMapping[]) => this.setState({ RoundResponseMappings: r })), 2000));
+        this.controller.getLookups();
 
     }
 
-    makeItAllBig(){
-        let d: FSDocument = document as FSDocument;
-        d.documentElement.requestFullscreen();
-        //override typings
-        /*
-        if (!d.fullscreenElement &&    // alternative standard method
-            !d.mozFullScreenElement && !document.webkitFullscreenElement) {  // current working methods
-            if (document.documentElement.requestFullscreen) {
-                document.documentElement.requestFullscreen();
-            } else if ((d.documentElement as any)['mozRequestFullScreen']) {
-                (d.documentElement as any).mozRequestFullScreen();
-            } else if (d.documentElement.webkitRequestFullscreen) {
-                d.documentElement.webkitRequestFullscreen();
-            }
-        } else {
-            if (document.exitFullscreen) {
-                document.exitFullscreen();
-            } else if (d.mozCancelFullScreen) {
-                d.mozCancelFullScreen();
-            } else if (d.webkitExitFullscreen ) {
-                document.webkitExitFullscreen ();
-            }
-        }
-        */
+    handleKey(e: any){
+        const key = e.key; // "ArrowRight", "ArrowLeft", "ArrowUp", or "ArrowDown"
         
+        let slideIterator: 1 | -1 | 0;
+        switch(key){
+            
+            case "ArrowLeft":
+                slideIterator = -1;
+                break;
+            case "ArrowRight":
+                slideIterator = 1;
+                break;
+            default:
+                slideIterator = 0;
+        }
+        console.log(slideIterator, key, typeof key, this)
+        if (slideIterator) this.controller.onClickChangeSlide.bind(this.controller)(slideIterator)
     }
 
-    fitSlidesToWindow(){
+    
+
+    fitSlidesToWindow() {
 
     }
 
@@ -108,7 +107,9 @@ export default class FacilitatorView extends BaseComponent<any, IFacilitatorData
 
 
     componentWillUnmount() {
-        clearInterval(this._timeout)
+        clearInterval(this._timeout);
+        window.removeEventListener('keydown', this.handleKey)
+
     }
 
     //----------------------------------------------------------------------
@@ -128,31 +129,44 @@ export default class FacilitatorView extends BaseComponent<any, IFacilitatorData
     render() {
 
         return <React.Fragment>
-            {this.state && this.state.ApplicationState && this.state.ApplicationState.CurrentGame &&
-            <>
-            <Button onClick={e => this.makeItAllBig()}>biggerise</Button>
-            <iframe
-                id="slides"
-                src={"https://docs.google.com/presentation/d/e/2PACX-1vRmUlK2iay5zqLlpzkkCv-J5mOlaG2IReIJwrZcNjPtjFq11R4VsFQbD-tycOhb3jZfrIQ_xycO9Q-E/embed?start=false&loop=false&delayms=3000#slide=" + this.state.ApplicationState.CurrentGame.CurrentRound.SlideNumber.toString()}
-                allowFullScreen
-                height={window.innerHeight}
-                width={window.innerWidth}
-            >
-            </iframe>
-            <Button
-                onClick={() => {
-                    this.controller.onClickChangeSlide(-1);
-                }}
-            >
-                back
+            {this.state && this.state.Game && this.state.Game.CurrentRound &&
+                <>
+                    <pre>{ this.state.Game.CurrentRound && JSON.stringify( this.state.Game.CurrentRound, null, 2)}</pre>
+                    <Button onClick={e => this.setState({ FullScreen: true })}>biggerise</Button>
+                    <Fullscreen
+                        enabled={this.state.FullScreen}
+                        onChange={isFull => this.setState({ FullScreen: isFull })}
+                    >
+                        <iframe
+                            id="slides"
+                            src={"https://docs.google.com/presentation/d/e/2PACX-1vRmUlK2iay5zqLlpzkkCv-J5mOlaG2IReIJwrZcNjPtjFq11R4VsFQbD-tycOhb3jZfrIQ_xycO9Q-E/embed?start=false&loop=false&delayms=3000#slide=" + this.state.Game.CurrentRound.SlideNumber.toString()}
+                            allowFullScreen
+                            height={window.innerHeight}
+                            width={window.innerWidth}
+                        >
+                        </iframe>
+                    </Fullscreen>
+                    <Fullscreen
+                        enabled={this.state.FullScreen}
+                        onChange={isFull => this.setState({ FullScreen: isFull })}
+                    >
+                        
+                    </Fullscreen>
+
+                    <Button
+                        onClick={() => {
+                            this.controller.onClickChangeSlide(-1);
+                        }}
+                    >
+                        back
                 </Button>
 
-            <Button
-                onClick={() => {
-                    this.controller.onClickChangeSlide(1);
-                }}
-            >
-                forward
+                    <Button
+                        onClick={() => {
+                            this.controller.onClickChangeSlide(1);
+                        }}
+                    >
+                        forward
                 </Button>
                 </>
             }

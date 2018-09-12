@@ -441,10 +441,10 @@ export default class App extends BaseComponent<any, IControllerDataStore>
                                                 }}
                                             />
                                             <MenuItem
-                                                name={RoleName.FACILITATOR + " (" + GameCtrl.GetInstance().dataStore.ApplicationState.CurrentTeam.GameId + ")"}
+                                                name={RoleName.FACILITATOR}
                                                 onClick={e => {                                                   
                                                     e.preventDefault();
-                                                    this.props.history.push("/facilitator/" + GameCtrl.GetInstance().dataStore.ApplicationState.CurrentTeam.GameId)
+                                                    this.props.history.push("/facilitator/base/" + GameCtrl.GetInstance().dataStore.ApplicationState.CurrentTeam.GameId)
                                                 }}
                                             />
                                         </Menu.Item>
@@ -469,7 +469,7 @@ export default class App extends BaseComponent<any, IControllerDataStore>
                             <Route path="/game" component={Game} />
                             <Route path="/login" component={Login} />
                             <Route path="/admin" component={Admin} />
-                            {this.state.ApplicationState.CurrentUser && this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN && <Route exact path="/facilitator/:gameid" component={FacilitatorView} />}
+                            {this.state.ApplicationState.CurrentUser && this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN && <Route exact path="/facilitator/base/:gameid" component={FacilitatorView} />}
                             {this.state.ApplicationState.CurrentUser && this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN && <Route path="/facilitator/slides/:gameid" component={FacilitatorSlides} />}
                         </Switch>
                     </div>

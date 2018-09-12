@@ -73,7 +73,7 @@ export default class FacilitatorCtrl extends BaseClientCtrl<IFacilitatorDataStor
 
         let lookups = this.dataStore.RoundChangeLookups.filter(lu => lu.MinSlideNumber == this.dataStore.ApplicationState.CurrentGame.CurrentRound.SlideNumber);
         
-        console.log("LOOKUPS",lookups, this.dataStore.RoundResponseMappings);
+        console.log("LOOKUPS",lookups, this.dataStore.RoundChangeLookups);
 
         if (lookups){
             let lookup = lookups[0];
@@ -83,6 +83,8 @@ export default class FacilitatorCtrl extends BaseClientCtrl<IFacilitatorDataStor
                 mapping.ParentRound = lookup.Round.Name;
                 mapping.ChildRound = lookup.SubRound.Name;
                 mapping.SlideNumber = this.dataStore.SlideNumber;
+
+                console.log("GOING TO: ", mapping)
 
                 this.goToMapping(mapping);
             }
@@ -95,9 +97,11 @@ export default class FacilitatorCtrl extends BaseClientCtrl<IFacilitatorDataStor
     //
     //----------------------------------------------------------------------
 
-    public getRoundInfo(){        
-        return SapienServerCom.GetData(null,  FacilitationRoundResponseMapping, SapienServerCom.BASE_REST_URL + "facilitator/getroundstatus/" + GameCtrl.GetInstance().dataStore.ApplicationState.CurrentTeam.GameId).then(rcl => {
+    public getRoundInfo(){ 
+        console.log(this.dataStore)       
+        return SapienServerCom.GetData(null,  FacilitationRoundResponseMapping, SapienServerCom.BASE_REST_URL + "facilitator/getroundstatus/" + this.dataStore.Game._id).then(rcl => {
             this.dataStore.RoundResponseMappings = rcl as FacilitationRoundResponseMapping[];
+            this.dataStore.Game.CurrentRound = (rcl[0] as FacilitationRoundResponseMapping).CurrentRound;
             return rcl;
         })        
     }
@@ -119,9 +123,9 @@ export default class FacilitatorCtrl extends BaseClientCtrl<IFacilitatorDataStor
 
     public getGame(id: string){
         //alert("getting game " + id)
-        GameCtrl.GetInstance().pollForGameStateChange(id);
-        SapienServerCom.GetData(null, GameModel, SapienServerCom.BASE_REST_URL + "/game/" + id).then((g: GameModel) => {
+        return SapienServerCom.GetData(null, GameModel, SapienServerCom.BASE_REST_URL + GameModel.REST_URL + "/" + id).then((g: GameModel) => {
             this.dataStore.Game = g;
+            return this.dataStore.Game;
         })
     }
 

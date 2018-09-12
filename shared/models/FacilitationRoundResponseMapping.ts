@@ -4,6 +4,7 @@ import UserModel from './UserModel';
 import ResponseModel from './ResponseModel';
 import { Dictionary } from 'lodash';
 import TeamModel from './TeamModel';
+import RoundChangeMapping from './RoundChangeMapping';
 
 
 export default class FacilitationRoundResponseMapping extends BaseModel
@@ -38,7 +39,9 @@ export default class FacilitationRoundResponseMapping extends BaseModel
     
     public RatingsByManager: (ResponseModel & {IsComplete?: boolean})[] = [];
 
-    public Members: Array<UserModel>=[];
+    public Members: Array<UserModel> = [];
+
+    public CurrentRound: RoundChangeMapping = null;
 
 
 

@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Grid, Table, Container, Button, Form, Input, Message, Accordion, Icon } from 'semantic-ui-react';
+import { Grid, Table, Container, Button, Form, Input, Message, Accordion, Icon, Header } from 'semantic-ui-react';
 const Field = { Form }
 const { Column, Row } = Grid;
 import { IControllerDataStore } from "../../shared/base-sapien/client/BaseClientCtrl";
@@ -72,7 +72,6 @@ export default class FacilitatorView extends BaseComponent<any, IFacilitatorData
             container = document.querySelector("#slides-container");
             console.log("found container>>>>>>>>>>>>>", container);
 
-
         }, 3000)
 
         setTimeout(() => {
@@ -81,9 +80,11 @@ export default class FacilitatorView extends BaseComponent<any, IFacilitatorData
             console.log("found thing>>>>>>>>>>>>>", thing, container.querySelector("#document"));
         }, 10000);
 
-        this._interval = setInterval(() => this.controller.getRoundInfo().then((r: FacilitationRoundResponseMapping[]) => this.setState({ RoundResponseMappings: r })), 2000)
-        this.controller.getLookups();
-        this.props.location.pathname.split("/").filter(s => s.length > 0).reverse()[0];
+        
+        
+        this.controller.getGame(this.props.location.pathname.split("/").filter(s => s.length > 0).reverse()[0])
+            .then(() => this._interval = setInterval(() => this.controller.getRoundInfo().then((r: FacilitationRoundResponseMapping[]) => this.setState({ RoundResponseMappings: r })), 2000))
+        
 
     }
 
@@ -122,12 +123,17 @@ export default class FacilitatorView extends BaseComponent<any, IFacilitatorData
         >
 
             <Column mobile={16} tablet={16} computer={12} largeScreen={10}>
+                {this.state.RoundResponseMappings && <Row>
+                    <Header
+                        as="h2"
+                    >
+                        Round: {this.state.RoundResponseMappings[0].SubRoundLabel}
+                    </Header>
+                </Row>}
                 <Row>
-                    <h1>Slide: {this.state.SlideNumber.toString()}</h1>
-
                     <Button
                         as="a"
-                        onClick={() => window.open("/facilitator/slides?game=" + GameCtrl.GetInstance().dataStore.ApplicationState.CurrentTeam.GameId, "_blank")}
+                        onClick={() => window.open("/facilitator/slides/" + this.state.Game._id, "_blank")}
                     >
                         Present Slides <SlideShow />
                     </Button>

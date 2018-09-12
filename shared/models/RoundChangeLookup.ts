@@ -10,12 +10,21 @@ export default class RoundChangeLookup extends BaseModel
 {
 
     //Round for the lookup
-    @dbProp(RoundModel)
-    Round?: RoundModel = null;
+    @dbProp(String)
+    Round?: string = null;
 
     //Subround
-    @dbProp(SubRoundModel)
-    SubRound?: SubRoundModel = null;
+    @dbProp(String)
+    SubRound?: string = null;
+
+    //Round for the lookup
+    @dbProp(String)
+    RoundId?: string = null;
+
+    //Subround
+    @dbProp(String)
+    SubRoundId?: string = null;
+    
 
     @dbProp(Boolean)
     ShowFeedBack: Boolean = false;

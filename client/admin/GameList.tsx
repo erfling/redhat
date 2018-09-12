@@ -129,7 +129,8 @@ class GameList extends BaseComponent<any, IControllerDataStore & {Admin: AdminVi
                                             circular
                                             icon='play'
                                             onClick={e => {
-                                                <Redirect to={'/facilitator/' + g._id} />
+                                                this.controller.facilitateGame(g);
+                                                <Redirect to={'/facilitator/base/' + g._id} />
                                             }}
                                         >
                                         </Button>}

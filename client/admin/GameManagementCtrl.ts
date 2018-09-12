@@ -131,7 +131,7 @@ export default class GameManagementCtrl extends BaseClientCtrl<IControllerDataSt
     }
 
     public facilitateGame(game: GameModel) {
-        this.component.props.history.push("/facilitator/" + game._id)
+        this.component.props.history.push("/facilitator/base/" + game._id)
     }
 
     public getGame(id: string) {

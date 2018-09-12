@@ -226,6 +226,10 @@ export default class GameCtrl<T extends IControllerDataStore & {Game: GameModel,
             this.dataStore.ApplicationState.CurrentUser.Job = ApplicationCtrl.GetInstance().dataStore.ApplicationState.CurrentTeam.Job = this.ChildController.dataStore.ApplicationState.CurrentUser.Job = targetJob;
             localStorage.setItem("RH_USER", JSON.stringify(this.dataStore.ApplicationState.CurrentUser));
             this.ChildController.dataStore.HasShownJobToast = true;
+            this.dataStore.ShowDecisionPopup = false;
+            if (targetJob == JobName.MANAGER && !this.dataStore.ShowDecisionPopup && !this.dataStore.ShowGameInfoPopup && !this.dataStore.ShowInboxPopup) setTimeout(() => this.dataStore.ShowDecisionPopup = true, 500)
+
+
             ApplicationCtrl.GetInstance().addToast("You are now playing the role of " + this.ChildController.dataStore.ApplicationState.CurrentUser.Job, "info");
         }
         

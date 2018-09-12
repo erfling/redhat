@@ -275,7 +275,8 @@ export class AppServer {
                         ShowRateUsers: mapping.ShowRateUsers, // object where keys are user's _id as string & values are one of JobName enum values
                         ShowFeedback: mapping.ShowFeedback, // object where keys are user's _id as string & values are one of JobName enum values
                         ShowIndividualFeedback: mapping.ShowIndividualFeedback,
-                        RoundId
+                        RoundId,
+                        SlideNumber: mapping.SlideNumber
                     }, { new: true }, function (err, doc) {
                         if (err) {
 
@@ -524,6 +525,7 @@ export class AppServer {
                     }
 
                     var mapperydoo = (newMapping && newMapping.ParentRound.length) ? newMapping : oldMapping;
+                    mapperydoo.SlideNumber = mapping.SlideNumber;
                     const gameSave = await monGameModel.findByIdAndUpdate(req.params.gameid, { CurrentRound: mapperydoo, HasBeenManager: game.HasBeenManager });
                     if (gameSave) {
                         AppServer.LongPoll.publishToId("/listenforgameadvance/:gameid", req.params.gameid, mapperydoo);
@@ -618,30 +620,6 @@ export class AppServer {
 
                     const savedSr = await monSubRoundModel.findByIdAndUpdate(sr._id, sr);
                     if (!savedSr) throw new Error(JSON.stringify({ message: "Couldn't save subround: ", sr }));
-
-
-                    let x = 4;
-                    let lookup = new RoundChangeLookup();
-                    lookup.Round = r;
-                    lookup.SubRound = sr;
-
-                    while(x > 0){
-
-                        lookup.MaxSlideNumber = j;
-                        lookup.MinSlideNumber = j;
-
-                        lookup.ShowFeedBack = x == 3;
-                        lookup.ShowRateUsers = x == 2;
-                        lookup.ShowUserRatings = x == 1;     
-                        
-                        let savedLookup = await monRoundChangeLookupModel.findOneAndUpdate({
-                            MaxSlideNumber : lookup.MaxSlideNumber,
-                            MinSlideNumber: lookup.MinSlideNumber
-                        }, lookup, {upsert: true});
-
-                        x--;
-                    }
-
 
                 }
 
