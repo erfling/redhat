@@ -382,7 +382,7 @@ export class AppServer {
                                 let blueKitePlayers = t.Players.filter(p => {
                                     let pid = p.toString();
 
-                                    console.log(pid, typeof p._id ,oldMapping.UserJobs[pid])
+                                    console.log(p, pid, typeof p._id ,oldMapping.UserJobs[pid])
                                     return oldMapping.UserJobs[pid] && oldMapping.UserJobs[pid] == JobName.BLUE_KITE;
                                 })
                                 console.log("FOUND THESE BLUE KITE PLAYER", blueKitePlayers, oldMapping.UserJobs)
