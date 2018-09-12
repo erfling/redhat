@@ -379,8 +379,11 @@ export class AppServer {
                             t => {
 
                                 //does this team already have a bluekite player?
-                                let blueKitePlayers = t.Players.filter(p => oldMapping.UserJobs[p._id] && oldMapping.UserJobs[p._id] == JobName.BLUE_KITE).map(p => p.FirstName + " " + p.LastName);
-                                console.log("FOUND THESE BLUE KITE PLAYER", blueKitePlayers)
+                                let blueKitePlayers = t.Players.filter(p => {
+                                    console.log(p.FirstName + " " + p.LastName, p._id, typeof p._id ,oldMapping.UserJobs[p._id])
+                                    return oldMapping.UserJobs[p._id] && oldMapping.UserJobs[p._id] == JobName.BLUE_KITE;
+                                }).map(p => p.FirstName + " " + p.LastName);
+                                console.log("FOUND THESE BLUE KITE PLAYER", blueKitePlayers, oldMapping.UserJobs)
                                 
                                 if(!blueKitePlayers.length){
                                     //console.log("\t Blue_kite teams %d:", pindex++);
