@@ -111,6 +111,26 @@ export default class FacilitatorView extends BaseComponent<any, IFacilitatorData
     //
     //----------------------------------------------------------------------
 
+    getUserIsComplete(mapping:FacilitationRoundResponseMapping, user: UserModel){
+
+        if(mapping.IsComplete) {
+            <Icon name="checkmark" color="green" />
+        }
+        //has the manager rated all the other players?
+        else if (user.Job == JobName.MANAGER) {
+            let completedRatings = mapping.RatingsByManager.filter(r => r.IsComplete);
+            if (completedRatings.length == mapping.RatingsByManager.length) return <Icon name="checkmark" color="green" />;
+        } 
+        //has this play rated the manager
+        else {
+            let thisPlayersRatingOfManager = mapping.RatingsOfManager.filter(r => r.IsComplete && r.User && r.UserId == user._id);
+            if (thisPlayersRatingOfManager.length) return <Icon name="checkmark" color="green" />;
+        }
+
+// : 
+        return <Icon name="cancel" color="red" />
+    }
+
     render() {
 
         return <Grid
@@ -185,14 +205,7 @@ export default class FacilitatorView extends BaseComponent<any, IFacilitatorData
                                                 <Table.Cell>{player.Email}</Table.Cell>
                                                 <Table.Cell>{player.Job}</Table.Cell>
                                                 <Table.Cell>
-                                                    {t.IsComplete ||
-                                                        (!t.IsComplete &&
-                                                            ((player.Job == JobName.MANAGER && t.RatingsOfManager.filter(rating => rating.targetObjName == player.Name).length > 0)
-
-                                                                ||
-                                                                (player.Job != JobName.MANAGER && t.RatingsByManager.filter(rating => rating.targetObjName == player.Name).length > 0)))
-
-                                                        ? <Icon name="checkmark" color="green" /> : <Icon name="cancel" color="red" />}
+                                                   {this.getUserIsComplete(t, player)}
                                                 </Table.Cell>
                                             </Table.Row>
                                         }
