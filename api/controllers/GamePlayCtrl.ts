@@ -618,9 +618,10 @@ class GamePlayRouter {
             console.log(roundScores);
             if (!roundScores) throw new Error();
             roundScores = roundScores.filter(rs => {
-                console.log(rs.RoundLabel, SubRoundLabel, rs.RoundLabel <= SubRoundLabel);
-                return rs.RoundLabel <= SubRoundLabel;
+                console.log(rs.SubRoundNumber, SubRoundLabel, rs.SubRoundLabel <= SubRoundLabel);
+                return rs.SubRoundNumber <= SubRoundLabel;
             });
+            console.log(roundScores)
             res.json(roundScores);
 
         } catch (err) {
