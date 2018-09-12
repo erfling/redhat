@@ -85,6 +85,8 @@ export default class FacilitatorView extends BaseComponent<any, IFacilitatorData
         this.controller.getGame(this.props.location.pathname.split("/").filter(s => s.length > 0).reverse()[0])
             .then(() => this._interval = setInterval(() => this.controller.getRoundInfo().then((r: FacilitationRoundResponseMapping[]) => this.setState({ RoundResponseMappings: r })), 2000))
         
+        this.controller.getLookups();
+
 
     }
 
@@ -114,17 +116,20 @@ export default class FacilitatorView extends BaseComponent<any, IFacilitatorData
     getUserIsComplete(mapping:FacilitationRoundResponseMapping, user: UserModel){
 
         if(mapping.IsComplete) {
-            <Icon name="checkmark" color="green" />
+            return <Icon name="checkmark" color="green" />
         }
-        //has the manager rated all the other players?
-        else if (user.Job == JobName.MANAGER) {
-            let completedRatings = mapping.RatingsByManager.filter(r => r.IsComplete);
-            if (completedRatings.length == mapping.RatingsByManager.length) return <Icon name="checkmark" color="green" />;
-        } 
-        //has this play rated the manager
-        else {
-            let thisPlayersRatingOfManager = mapping.RatingsOfManager.filter(r => r.IsComplete && r.User && r.UserId == user._id);
-            if (thisPlayersRatingOfManager.length) return <Icon name="checkmark" color="green" />;
+
+        if(this.state.Game.CurrentRound.ShowIndividualFeedback || this.state.Game.CurrentRound.ShowRateUsers){
+            //has the manager rated all the other players?
+            if (this.state.Game.CurrentRounduser.Job == JobName.MANAGER) {
+                let completedRatings = mapping.RatingsByManager.filter(r => r.IsComplete);
+                if (completedRatings.length == mapping.RatingsByManager.length) return <Icon name="checkmark" color="green" />;
+            } 
+            //has this play rated the manager
+            else {
+                let thisPlayersRatingOfManager = mapping.RatingsOfManager.filter(r => r.IsComplete && r.User && r.UserId == user._id);
+                if (thisPlayersRatingOfManager.length) return <Icon name="checkmark" color="green" />;
+            }
         }
 
 // : 
@@ -183,7 +188,7 @@ export default class FacilitatorView extends BaseComponent<any, IFacilitatorData
                             <Accordion.Title active={this.state.AccordionIdx === i} index={i} onClick={this.handleClick}>
                                 <Icon name='dropdown' />
                                 {t.TeamName}
-                                {t.IsComplete ? <Icon name="checkmark" color="green" /> : <Icon name="cancel" color="red" />}
+                                {t.IsComplete ? <Icon style={{marginLeft:'8px'}} name="checkmark" color="green" /> : <Icon name="cancel" color="red" />}
                             </Accordion.Title>
                             <Accordion.Content active={this.state.AccordionIdx === i}>
                                 <Table striped>
@@ -201,10 +206,10 @@ export default class FacilitatorView extends BaseComponent<any, IFacilitatorData
                                         {(t.Members).map((teamMember, i) => {
                                             let player = Object.assign(new UserModel(), teamMember);
                                             return <Table.Row key={i}>
-                                                <Table.Cell>{player.Name}</Table.Cell>
-                                                <Table.Cell>{player.Email}</Table.Cell>
-                                                <Table.Cell>{player.Job}</Table.Cell>
-                                                <Table.Cell>
+                                                <Table.Cell style={{width:'150px'}}>{player.Name}</Table.Cell>
+                                                <Table.Cell style={{width:'100px'}}>{player.Email}</Table.Cell>
+                                                <Table.Cell style={{width:'100px'}}>{player.Job}</Table.Cell>
+                                                <Table.Cell style={{width:'50px'}}>
                                                    {this.getUserIsComplete(t, player)}
                                                 </Table.Cell>
                                             </Table.Row>

@@ -71,12 +71,12 @@ export default class FacilitatorCtrl extends BaseClientCtrl<IFacilitatorDataStor
         this.dataStore.SlideNumber = this.dataStore.SlideNumber + forwardOrBack;
        // alert(this.dataStore.SlideNumber);
 
-        let lookups = this.dataStore.RoundChangeLookups.filter(lu => lu.MinSlideNumber == this.dataStore.ApplicationState.CurrentGame.CurrentRound.SlideNumber);
+        let lookups = this.dataStore.RoundChangeLookups.filter(lu => lu.MinSlideNumber == this.dataStore.Game.CurrentRound.SlideNumber);
         
-        console.log("LOOKUPS",lookups, this.dataStore.RoundChangeLookups);
 
         if (lookups){
             let lookup = lookups[0];
+            console.log("LOOKUPS",lookup, this.dataStore.RoundChangeLookups);
 
             if(lookup){
                 let mapping = new RoundChangeMapping();
@@ -84,7 +84,7 @@ export default class FacilitatorCtrl extends BaseClientCtrl<IFacilitatorDataStor
                 mapping.ChildRound = lookup.SubRound;
                 mapping.SlideNumber = this.dataStore.SlideNumber;
                 mapping.GameId = this.dataStore.Game._id;
-                
+
                 console.log("GOING TO: ", mapping)
 
                 this.goToMapping(mapping);
@@ -99,7 +99,6 @@ export default class FacilitatorCtrl extends BaseClientCtrl<IFacilitatorDataStor
     //----------------------------------------------------------------------
 
     public getRoundInfo(){ 
-        console.log(this.dataStore)       
         return SapienServerCom.GetData(null,  FacilitationRoundResponseMapping, SapienServerCom.BASE_REST_URL + "facilitator/getroundstatus/" + this.dataStore.Game._id).then(rcl => {
             this.dataStore.RoundResponseMappings = rcl as FacilitationRoundResponseMapping[];
             this.dataStore.Game.CurrentRound = (rcl[0] as FacilitationRoundResponseMapping).CurrentRound;
@@ -107,7 +106,7 @@ export default class FacilitatorCtrl extends BaseClientCtrl<IFacilitatorDataStor
         })        
     }
 
-    public getLookups(){        
+    public getLookups(){   
         return SapienServerCom.GetData(null,  RoundChangeMapping, SapienServerCom.BASE_REST_URL + "facilitator/getroundchangelookups").then(rcl => {
             this.dataStore.RoundChangeLookups = rcl as RoundChangeMapping[];
             return rcl;
