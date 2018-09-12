@@ -306,6 +306,38 @@ export class AppServer {
 
                                 }
                             })
+                        } else if (SubRoundLabel.toLowerCase() == "4c") {
+                                console.log("WE ARE LOOKING FOR BLUE_KITES", oldMapping);
+                                let pindex = 0;
+                                game.Teams.forEach(
+                                    t => {
+        
+                                        mapping.UserJobs[t.Players[3].toString()] = JobName.MANAGER;
+
+                                        //does this team already have a bluekite player?
+                                        let blueKitePlayers = t.Players.filter(p => {
+                                            let pid = p.toString();
+        
+                                            console.log(p, pid, typeof pid ,oldMapping.UserJobs[pid])
+                                            return oldMapping.UserJobs[pid] && oldMapping.UserJobs[pid] == JobName.BLUE_KITE;
+                                        })
+                                        console.log("FOUND THESE BLUE KITE PLAYER", blueKitePlayers, oldMapping.UserJobs)
+                                        
+                                        if(!blueKitePlayers.length){
+                                            //console.log("\t Blue_kite teams %d:", pindex++);
+                                            //console.log("\t Blue_kite oldMapping %o:", oldMapping);
+                                            let playersEligible: Array<UserModel> = t.Players.filter(p => oldMapping.UserJobs[p._id.toString()] != JobName.MANAGER && mapping.UserJobs[p._id.toString()] != JobName.MANAGER);
+        
+                                            //console.log("\t Blue_kite players %o:", playersEligible);
+                                            let rIndex = Math.floor(Math.random() * playersEligible.length);
+        
+                                            oldMapping.UserJobs[playersEligible[rIndex]._id.toString()] = JobName.BLUE_KITE;
+                                            //console.log("Blue_kite winner is: %s, id: %s,  name: %s", rIndex, playersEligible[rIndex]._id, (playersEligible[rIndex].FirstName + " " + playersEligible[rIndex].LastName));
+                                        }
+                                    });
+        
+                                newMapping = oldMapping;
+                            }      
                         } else {
                            //set another manager
                             let roundNumber = Number(round.Label);
@@ -372,36 +404,7 @@ export class AppServer {
 
                         })
 
-                    } else if (SubRoundLabel.toLowerCase() == "4c") {
-                        console.log("WE ARE LOOKING FOR BLUE_KITES")
-                        let pindex = 0;
-                        game.Teams.forEach(
-                            t => {
-
-                                //does this team already have a bluekite player?
-                                let blueKitePlayers = t.Players.filter(p => {
-                                    let pid = p.toString();
-
-                                    console.log(p, pid, typeof pid ,oldMapping.UserJobs[pid])
-                                    return oldMapping.UserJobs[pid] && oldMapping.UserJobs[pid] == JobName.BLUE_KITE;
-                                })
-                                console.log("FOUND THESE BLUE KITE PLAYER", blueKitePlayers, oldMapping.UserJobs)
-                                
-                                if(!blueKitePlayers.length){
-                                    //console.log("\t Blue_kite teams %d:", pindex++);
-                                    //console.log("\t Blue_kite oldMapping %o:", oldMapping);
-                                    let playersEligible: Array<UserModel> = t.Players.filter(p => oldMapping.UserJobs[p._id.toString()] != JobName.MANAGER);
-
-                                    //console.log("\t Blue_kite players %o:", playersEligible);
-                                    let rIndex = Math.floor(Math.random() * playersEligible.length);
-
-                                    oldMapping.UserJobs[playersEligible[rIndex]._id.toString()] = JobName.BLUE_KITE;
-                                    //console.log("Blue_kite winner is: %s, id: %s,  name: %s", rIndex, playersEligible[rIndex]._id, (playersEligible[rIndex].FirstName + " " + playersEligible[rIndex].LastName));
-                                }
-                            });
-
-                        newMapping = oldMapping;
-                    }                   
+                    }              
                             
               
                      
