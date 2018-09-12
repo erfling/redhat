@@ -378,16 +378,20 @@ export class AppServer {
                         game.Teams.forEach(
                             t => {
 
+                                //does this team already have a bluekite player?
+                                let blueKitAlreadyAssigned:boolean = t.Players.filter(p => oldMapping.UserJobs[p._id] && oldMapping.UserJobs[p._id] == JobName.BLUE_KITE).length > 0
+                                
+                                if(!blueKitAlreadyAssigned){
+                                    //console.log("\t Blue_kite teams %d:", pindex++);
+                                    //console.log("\t Blue_kite oldMapping %o:", oldMapping);
+                                    let playersEligible: Array<UserModel> = t.Players.filter(p => oldMapping.UserJobs[p._id.toString()] != JobName.MANAGER);
 
-                                //console.log("\t Blue_kite teams %d:", pindex++);
-                                //console.log("\t Blue_kite oldMapping %o:", oldMapping);
-                                let playersEligible: Array<UserModel> = t.Players.filter(p => oldMapping.UserJobs[p._id.toString()] != JobName.MANAGER);
+                                    //console.log("\t Blue_kite players %o:", playersEligible);
+                                    let rIndex = Math.floor(Math.random() * playersEligible.length);
 
-                                //console.log("\t Blue_kite players %o:", playersEligible);
-                                let rIndex = Math.floor(Math.random() * playersEligible.length);
-
-                                oldMapping.UserJobs[playersEligible[rIndex]._id.toString()] = JobName.BLUE_KITE;
-                                //console.log("Blue_kite winner is: %s, id: %s,  name: %s", rIndex, playersEligible[rIndex]._id, (playersEligible[rIndex].FirstName + " " + playersEligible[rIndex].LastName));
+                                    oldMapping.UserJobs[playersEligible[rIndex]._id.toString()] = JobName.BLUE_KITE;
+                                    //console.log("Blue_kite winner is: %s, id: %s,  name: %s", rIndex, playersEligible[rIndex]._id, (playersEligible[rIndex].FirstName + " " + playersEligible[rIndex].LastName));
+                                }
                             });
 
                         newMapping = oldMapping;
