@@ -379,6 +379,8 @@ export class AppServer {
                             t => {
 
                                 //does this team already have a bluekite player?
+                                let blueKitePlayers = t.Players.filter(p => oldMapping.UserJobs[p._id] && oldMapping.UserJobs[p._id] == JobName.BLUE_KITE).map(p => p.FirstName + " " + p.LastName);
+                                console.log("FOUND THESE BLUE KITE PLAYER", bluek')
                                 let blueKitAlreadyAssigned:boolean = t.Players.filter(p => oldMapping.UserJobs[p._id] && oldMapping.UserJobs[p._id] == JobName.BLUE_KITE).length > 0
                                 
                                 if(!blueKitAlreadyAssigned){
