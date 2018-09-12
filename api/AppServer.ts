@@ -337,7 +337,7 @@ export class AppServer {
                                     });
         
                                 newMapping = oldMapping;
-                            }      
+                                 
                         } else {
                            //set another manager
                             let roundNumber = Number(round.Label);
