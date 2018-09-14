@@ -498,7 +498,7 @@ class RoundRouter {
             let srs = sortBy(allSubRounds, "Label");
 
             let lookups: RoundChangeLookup[] = [];
-
+            let slideNumber = 1;
             for (let i = 0; i < srs.length; i++) {
                 let sr = srs[i];
                 let r: RoundModel = await monRoundModel.findById(sr.RoundId).then(r => r ? Object.assign(new RoundModel(), r.toJSON()) : null);
@@ -512,11 +512,21 @@ class RoundRouter {
                 lookup.SubRoundId = sr._id;
 
                 for (let x = 0; x < 4; x ++) {
-                    lookup.MaxSlideNumber = (i + 1) * x;
-                    lookup.MinSlideNumber = (i + 1) * x;
-                    lookup.ShowFeedBack = x == 1;
-                    lookup.ShowRateUsers = x == 2;
-                    lookup.ShowUserRatings = x == 3;
+                    lookup.MaxSlideNumber = slideNumber;
+                    lookup.MinSlideNumber = slideNumber;
+
+                    //1A, 2A and 4A are special cases with no feedback
+                    if(sr.Label.toLocaleUpperCase() != "1A" && sr.Label.toLocaleUpperCase() != "2A" && sr.Label.toLocaleUpperCase() != "4A"){
+                        lookup.ShowFeedback = x == 1;
+                    }
+
+                    //only the last subround in each round gets user ratings
+                    if(i == r.SubRounds.length - 1){
+                        lookup.ShowRateUsers = x == 2;
+                        lookup.ShowIndividualFeedback = x == 3;
+                    }
+
+
                     console.log(lookup)
                     let savedLookup: RoundChangeLookup = await monRoundChangeLookupModel
                                         .create(lookup)
@@ -524,7 +534,8 @@ class RoundRouter {
 
                     if(!savedLookup) throw new Error("Couldn't save lookup for " + sr.Label)
 
-                    lookups.push(savedLookup)
+                    lookups.push(savedLookup);
+                    slideNumber++;
                 }
             }
 

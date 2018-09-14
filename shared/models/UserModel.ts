@@ -13,7 +13,7 @@ export enum JobName {
     MANAGER = "Manager",
     CHIPCO = "ChipCo",
     INTEGRATED_SYSTEMS = "Integrated Systems",
-    BLUE_KITE = "Attorney for Blue Kite"
+    BLUE_KITE = "Attorney for BlueKite"
 }
 
 export default class UserModel extends BaseModel

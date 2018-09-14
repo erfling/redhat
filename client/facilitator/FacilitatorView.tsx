@@ -121,7 +121,7 @@ export default class FacilitatorView extends BaseComponent<any, IFacilitatorData
 
         if(this.state.Game.CurrentRound.ShowIndividualFeedback || this.state.Game.CurrentRound.ShowRateUsers){
             //has the manager rated all the other players?
-            if (this.state.Game.CurrentRounduser.Job == JobName.MANAGER) {
+            if (user.Job == JobName.MANAGER) {
                 let completedRatings = mapping.RatingsByManager.filter(r => r.IsComplete);
                 if (completedRatings.length == mapping.RatingsByManager.length) return <Icon name="checkmark" color="green" />;
             } 

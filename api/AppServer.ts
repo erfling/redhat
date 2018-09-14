@@ -284,6 +284,18 @@ export class AppServer {
                         }
                     }).then(r => r ? Object.assign(new RoundChangeMapping(), r.toJSON()) : null);
                   
+                    //Determine if an event should be sent to players or if the new mapping only reflects a change in slide presentation
+                    let advanceGame = true;
+                    if(oldMapping 
+                        && oldMapping.ChildRound == mapping.ChildRound
+                        && oldMapping.ShowFeedback == mapping.ShowFeedback
+                        && oldMapping.ShowIndividualFeedback == mapping.ShowIndividualFeedback
+                        && oldMapping.ShowRateUsers == mapping.ShowRateUsers
+                    ){
+                        //in cases where only a slide is advanced, and we shouldn't see a gameplay change, all the above props will be unchange.
+                        //the only change we expect is to mapping/oldMapping.SlideNumber
+                        advanceGame = false;
+                    }
                
                     if (!oldMapping) {                     
 
@@ -527,7 +539,8 @@ export class AppServer {
                     var mapperydoo = (newMapping && newMapping.ParentRound.length) ? newMapping : oldMapping;
                     mapperydoo.SlideNumber = mapping.SlideNumber;
                     const gameSave = await monGameModel.findByIdAndUpdate(req.params.gameid, { CurrentRound: mapperydoo, HasBeenManager: game.HasBeenManager });
-                    if (gameSave) {
+                    if (gameSave ) {
+                        //&& advanceGame
                         AppServer.LongPoll.publishToId("/listenforgameadvance/:gameid", req.params.gameid, mapperydoo);
                         res.json("long poll publish hit");
                     }

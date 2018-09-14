@@ -152,7 +152,7 @@ export default class GameCtrl<T extends IControllerDataStore & {Game: GameModel,
     public async pollForGameStateChange(gameId: string, force: boolean = false){
         console.warn("CURRENT TEAM:::::>>>>>>>>>", this.dataStore.ApplicationState.CurrentTeam);
 
-        if(!this.dataStore.ApplicationState.CurrentTeam || !this.dataStore.ApplicationState.CurrentTeam.GameId)return;
+        if(!this.dataStore.ApplicationState.CurrentTeam || !this.dataStore.ApplicationState.CurrentTeam.GameId) return;
         //console.log("polling for game state", this.dataStore.ApplicationState.CurrentTeam)
         
         this.dataStore.ApplicationState.Polling = true;

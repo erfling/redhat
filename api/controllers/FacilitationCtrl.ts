@@ -12,7 +12,7 @@ import SubRoundModel from '../../shared/models/SubRoundModel';
 import { monSubRoundModel } from './RoundCtrl';
 import { monResponseModel } from './GamePlayCtrl';
 import TeamModel from '../../shared/models/TeamModel';
-import QuestionModel from '../../shared/models/QuestionModel';
+import QuestionModel, { ComparisonLabel, RatingType } from '../../shared/models/QuestionModel';
 import UserModel, { JobName } from '../../shared/models/UserModel';
 import { monTeamModel } from './TeamCtrl';
 
@@ -119,21 +119,28 @@ class FacilitationCtrl
                     m.SubRoundId = subRound._id;
                     m.SubRoundLabel = subRound.Label;
                     m.SubRoundName = subRound.Name;
-                   
-                   
-                   
+                                      
                     m.IsComplete = true;
                  
                     
                     if (!game.CurrentRound.ShowRateUsers && !game.CurrentRound.ShowIndividualFeedback){
-                        m.Questions = subRound.Questions;
+
+                        //round 2A is a special case
+                        if(game.CurrentRound.ChildRound.toUpperCase() == "DEALSTRUCTURE") {
+                            m.Questions = subRound.Questions.filter(q => q.ComparisonLabel && q.ComparisonLabel == ComparisonLabel.QUANTITY)
+                        } 
+                        else if (game.CurrentRound.ChildRound.toUpperCase() == "TEAMRATING" || game.CurrentRound.ChildRound.toUpperCase() == "DEALRENEWAL") {
+                            m.Questions = subRound.Questions.filter(q => q.RatingMarker && q.RatingMarker == RatingType.TEAM_RATING)
+                        }
+                        else {
+                            m.Questions = subRound.Questions;
+                        }
                         m.Questions = m.Questions.map(q => {
 
                             let response = teamResponses.filter(r => r.QuestionId == q._id)
 
                             let question = Object.assign(new QuestionModel(), q, {
-                                Response: response.length && response[0].Answer ? response[0] : null
-                                
+                                Response: response.length && response[0].Answer ? response[0] : null  
                             })
 
                             if (!question.Response) m.IsComplete = false;
@@ -141,6 +148,9 @@ class FacilitationCtrl
                             return question;
 
                         });
+                        
+
+                        
 
                     } else {
                         //Lf: whats mgr for if mgr is checked below in t.players iterator? 

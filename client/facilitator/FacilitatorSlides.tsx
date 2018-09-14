@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Grid, Menu, Container, Button, Form, Input, Message } from 'semantic-ui-react';
+import { Grid, Menu, Container, Button, Form, Input, Message, Label } from 'semantic-ui-react';
 const Field = { Form }
 const { Column, Row } = Grid;
 import { IControllerDataStore } from "../../shared/base-sapien/client/BaseClientCtrl";
@@ -76,17 +76,26 @@ export default class FacilitatorView extends BaseComponent<any, IFacilitatorData
 
     }
 
-    handleKey(e: any){
+    handleKey(e: any) {
         const key = e.key; // "ArrowRight", "ArrowLeft", "ArrowUp", or "ArrowDown"
-        
+
         let slideIterator: 1 | -1 | 0;
-        switch(key){
-            
+
+
+        switch (key) {
+
             case "ArrowLeft":
+            case "PageUp":
                 slideIterator = -1;
                 break;
             case "ArrowRight":
+            case "PageDown":
                 slideIterator = 1;
+                break;
+
+            case ".":
+                this.setState.bind(this)({ FullScreen: !this.state.FullScreen })
+                slideIterator = 0;
                 break;
             default:
                 slideIterator = 0;
@@ -95,7 +104,7 @@ export default class FacilitatorView extends BaseComponent<any, IFacilitatorData
         if (slideIterator) this.controller.onClickChangeSlide.bind(this.controller)(slideIterator)
     }
 
-    
+
 
     fitSlidesToWindow() {
 
@@ -131,43 +140,61 @@ export default class FacilitatorView extends BaseComponent<any, IFacilitatorData
         return <React.Fragment>
             {this.state && this.state.Game && this.state.Game.CurrentRound &&
                 <>
-                    <pre>{ this.state.Game.CurrentRound && JSON.stringify( this.state.Game.CurrentRound, null, 2)}</pre>
                     <Button onClick={e => this.setState({ FullScreen: true })}>biggerise</Button>
                     <Fullscreen
                         enabled={this.state.FullScreen}
                         onChange={isFull => this.setState({ FullScreen: isFull })}
                     >
-                        <iframe
-                            id="slides"
-                            src={"https://docs.google.com/presentation/d/e/2PACX-1vRmUlK2iay5zqLlpzkkCv-J5mOlaG2IReIJwrZcNjPtjFq11R4VsFQbD-tycOhb3jZfrIQ_xycO9Q-E/embed?start=false&loop=false&delayms=3000#slide=" + this.state.Game.CurrentRound.SlideNumber.toString()}
-                            allowFullScreen
-                            height={window.innerHeight}
-                            width={window.innerWidth}
-                        >
-                        </iframe>
-                    </Fullscreen>
-                    <Fullscreen
-                        enabled={this.state.FullScreen}
-                        onChange={isFull => this.setState({ FullScreen: isFull })}
-                    >
-                        
+                        <>
+                            <iframe
+                                id="slides"
+                                src={"https://docs.google.com/presentation/d/e/2PACX-1vRmUlK2iay5zqLlpzkkCv-J5mOlaG2IReIJwrZcNjPtjFq11R4VsFQbD-tycOhb3jZfrIQ_xycO9Q-E/embed?start=false&rm=minimal&loop=false&delayms=3000#slide=" + this.state.Game.CurrentRound.SlideNumber.toString()}
+                                allowFullScreen
+                                height={window.innerHeight}
+                                width={window.innerWidth}
+                            >
+                            </iframe>
+                            <div className="slides-container">
+                                <div className="controls">
+                                    <Button
+                                        circular
+                                        icon="caret left"
+                                        onClick={() => {
+                                            this.controller.onClickChangeSlide(-1);
+                                        }}
+                                        color="blue"
+                                    >
+                                    </Button>
+
+                                    <Button
+                                        circular
+                                        icon="caret right"
+                                        onClick={() => {
+                                            this.controller.onClickChangeSlide(1);
+                                        }}
+                                        color="blue"
+                                    >
+                                    </Button>
+
+                                    <Button
+                                        icon="expand"
+                                        onClick={() => {
+                                            this.setState.bind(this)({ FullScreen: !this.state.FullScreen })
+                                        }}
+                                        circular
+                                        color="blue"
+                                    >
+                                    </Button>
+                                    <Label>
+                                        Slide Number {this.state.Game.CurrentRound.SlideNumber}
+                                    </Label>
+
+                                </div>
+                            </div>
+                        </>
                     </Fullscreen>
 
-                    <Button
-                        onClick={() => {
-                            this.controller.onClickChangeSlide(-1);
-                        }}
-                    >
-                        back
-                </Button>
 
-                    <Button
-                        onClick={() => {
-                            this.controller.onClickChangeSlide(1);
-                        }}
-                    >
-                        forward
-                </Button>
                 </>
             }
             <div

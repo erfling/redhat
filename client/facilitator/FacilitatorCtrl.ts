@@ -12,7 +12,7 @@ import TeamModel from '../../shared/models/TeamModel';
 import SapienServerCom from '../../shared/base-sapien/client/SapienServerCom';
 import BaseRoundCtrl from '../../shared/base-sapien/client/BaseRoundCtrl';
 import GameCtrl from '../game/GameCtrl';
-
+import { sortBy } from 'lodash';
 export interface IFacilitatorDataStore extends IControllerDataStore{
     Game: GameModel;
     _mobileWidth: boolean;
@@ -23,6 +23,7 @@ export interface IFacilitatorDataStore extends IControllerDataStore{
     groupedResponses: any;
     SlideNumber: number;
     RoundChangeLookups: RoundChangeMapping[];
+    CurrentLookup: RoundChangeMapping;
     RoundResponseMappings: FacilitationRoundResponseMapping[];
     AccordionIdx: number,
     FullScreen: boolean
@@ -71,24 +72,29 @@ export default class FacilitatorCtrl extends BaseClientCtrl<IFacilitatorDataStor
         this.dataStore.SlideNumber = this.dataStore.SlideNumber + forwardOrBack;
        // alert(this.dataStore.SlideNumber);
 
-        let lookups = this.dataStore.RoundChangeLookups.filter(lu => lu.MinSlideNumber == this.dataStore.Game.CurrentRound.SlideNumber);
-        
+        let lookup = this.dataStore.RoundChangeLookups.filter(lu => {
+            return lu.MinSlideNumber == this.dataStore.SlideNumber;
+        })[0];
 
-        if (lookups){
-            let lookup = lookups[0];
-            console.log("LOOKUPS",lookup, this.dataStore.RoundChangeLookups);
 
-            if(lookup){
-                let mapping = new RoundChangeMapping();
-                mapping.ParentRound = lookup.Round;
-                mapping.ChildRound = lookup.SubRound;
-                mapping.SlideNumber = this.dataStore.SlideNumber;
-                mapping.GameId = this.dataStore.Game._id;
+        if(lookup){
+            this.dataStore.CurrentLookup = lookup;
+            let mapping = new RoundChangeMapping();
+            mapping.ParentRound = lookup.Round;
+            mapping.ChildRound = lookup.SubRound;
+            mapping.SlideNumber = this.dataStore.SlideNumber;
+            mapping.GameId = this.dataStore.Game._id;
+            mapping.ShowFeedback = lookup.ShowFeedback;
+            mapping.ShowIndividualFeedback = lookup.ShowIndividualFeedback;
+            mapping.ShowRateUsers = lookup.ShowRateUsers;
 
-                console.log("GOING TO: ", mapping)
 
-                this.goToMapping(mapping);
-            }
+            console.log("LOOKUPS",lookup, mapping);
+
+            console.log("GOING TO: ", mapping, this.dataStore.SlideNumber);
+
+            this.goToMapping(mapping);
+            
         }
     }
 
@@ -115,7 +121,7 @@ export default class FacilitatorCtrl extends BaseClientCtrl<IFacilitatorDataStor
 
     public goToMapping(mapping: Partial<RoundChangeMapping>){
         if ( mapping.ParentRound && mapping.ChildRound ) {
-            SapienServerCom.SaveData(mapping, SapienServerCom.BASE_REST_URL + "facilitation/round/" + this.dataStore.ApplicationState.CurrentTeam.GameId).then(r => {
+            SapienServerCom.SaveData(mapping, SapienServerCom.BASE_REST_URL + "facilitation/round/" + this.dataStore.Game._id).then(r => {
                 console.log("RESPONSE FROM SERVER FROM ROUND ADVANCE POST", r)
             });
         }
@@ -125,6 +131,7 @@ export default class FacilitatorCtrl extends BaseClientCtrl<IFacilitatorDataStor
         //alert("getting game " + id)
         return SapienServerCom.GetData(null, GameModel, SapienServerCom.BASE_REST_URL + GameModel.REST_URL + "/" + id).then((g: GameModel) => {
             this.dataStore.Game = g;
+            this.dataStore.SlideNumber = g.CurrentRound.SlideNumber || 1;
             return this.dataStore.Game;
         })
     }
@@ -157,10 +164,11 @@ export default class FacilitatorCtrl extends BaseClientCtrl<IFacilitatorDataStor
             RoundChangeLookups: [],
             AccordionIdx: 0,
             FullScreen: false,
-            RoundResponseMappings: null
+            RoundResponseMappings: null,
+            CurrentLookup: new RoundChangeMapping()
         };
 
-
+        this.dataStore.ApplicationState.CurrentTeam = null;
 
         console.log("DATASTORE APPLICATION:", DataStore.ApplicationState, this.component, this.dataStore);
         //this.pollForGameStateChange(this.dataStore.ApplicationState.CurrentTeam.GameId);

@@ -115,6 +115,15 @@ export default class SubRoundModel extends BaseModel
     @dbProp(String)
     public SkipScoring: boolean = false;
 
+    @dbProp(String)
+    public HasFeedback: boolean = true;
+    
+    @dbProp(String)
+    public HasUserRatings: boolean = false;
+    
+    @dbProp(String)
+    public HasIndividualFeedback: boolean = false;
+
     //----------------------------------------------------------------------
     //
     //  Constructor
