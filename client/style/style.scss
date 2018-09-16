@@ -72,6 +72,10 @@ a{
 }
 .ui.inverted.menu .blue.active.item, .ui.inverted.blue.menu {
     background-color: #0088B9;
+    .disabled{
+        background-color: #ccc;
+        cursor: not-allowed;
+    }
 }
 .admin-side-nav{
     margin-top: 50px !important;
@@ -494,10 +498,17 @@ SEMANTIC MOBILE FIX
 .ui.tabular.menu .item{
     transition: all .4s;
     cursor: pointer;
+    &.disabled{
+        cursor: not-allowed;
+    }
 }
 .ui.tabular.menu .active.item, .ui.tabular.menu .item:hover{
     background-color: rgba(255, 255, 255, 0.8) !important;
     border-color: transparent !important;
+    &.disabled{
+        background-color: #ccc6 !important;
+        cursor: not-allowed;
+    }
 }
 
 /***slider styles

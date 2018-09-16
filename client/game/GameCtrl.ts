@@ -9,7 +9,7 @@ import BaseClientCtrl, {IControllerDataStore} from '../../shared/base-sapien/cli
 import DataStore from '../../shared/base-sapien/client/DataStore';
 import TeamModel from '../../shared/models/TeamModel';
 import SapienServerCom from '../../shared/base-sapien/client/SapienServerCom';
-import BaseRoundCtrl from '../../shared/base-sapien/client/BaseRoundCtrl';
+import BaseRoundCtrl, { IRoundDataStore } from '../../shared/base-sapien/client/BaseRoundCtrl';
 import PeopleRoundCtrl from './PeopleRound/PeopleRoundCtrl';
 import EngineeringRoundCtrl from './EngineeringRound/EngineeringRoundCtrl';
 import WelcomeCtrl from './Welcome/WelcomeCtrl';
@@ -321,6 +321,32 @@ export default class GameCtrl<T extends IControllerDataStore & {Game: GameModel,
             DataStore.ApplicationState.SelectedMessage
             = this.dataStore.ApplicationState.SelectedMessage
             = this.ChildController.dataStore.ApplicationState.SelectedMessage = selectedMessage;
+    }
+
+    public GetDisableMenu(){
+        return this.ChildController && ((this.ChildController as BaseRoundCtrl<IRoundDataStore>).dataStore.ApplicationState.ShowFeedback || this.ChildController.dataStore.ApplicationState.ShowRateUsers || this.ChildController.dataStore.ApplicationState.ShowIndividualFeedback);   
+    }
+    
+    public goToMapping(mapping: Partial<RoundChangeMapping>){
+
+        let gameId;
+        if(this.dataStore.Game && this.dataStore.Game._id){
+            console.log(this.dataStore.Game)
+            gameId = this.dataStore.Game._id;
+        } else if (this.dataStore.ApplicationState.CurrentTeam && this.dataStore.ApplicationState.CurrentTeam.GameId) {
+            gameId = this.dataStore.ApplicationState.CurrentTeam.GameId
+        } else if (this.dataStore.ApplicationState.CurrentGame && this.dataStore.ApplicationState.CurrentGame._id){
+            gameId = this.dataStore.ApplicationState.CurrentGame._id
+        } else if (this.ChildController.dataStore.ApplicationCtrl.CurrentTeam && this.ChildController.dataStore.ApplicationCtrl.CurrentTeam.GameId){
+
+            gameId = this.ChildController.dataStore.ApplicationCtrl.CurrentTeam.GameId;
+        }
+
+        if ( mapping.ParentRound && mapping.ChildRound && gameId ) {
+            SapienServerCom.SaveData(mapping, SapienServerCom.BASE_REST_URL + "facilitation/round/" + gameId).then(r => {
+                console.log("RESPONSE FROM SERVER FROM ROUND ADVANCE POST", r)
+            });
+        }
     }
 
 }

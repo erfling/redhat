@@ -75,7 +75,7 @@ export default class Game extends BaseComponent<any, IControllerDataStore & { Ga
         window.addEventListener("resize", this._updateDimensionsAndHandleClickOff.bind(this));
         document.addEventListener("visibilitychange", () => {
             console.error("document.hidden is ", document.hidden);
-            if(document.hidden){
+            if (document.hidden) {
                 //this.controller.pollForGameStateChange(this.state.ApplicationState.CurrentGame._id)
             }
         }, false);
@@ -86,31 +86,31 @@ export default class Game extends BaseComponent<any, IControllerDataStore & { Ga
 
     }
 
-    handleNavigate(){
-            // The popstate event is fired each time when the current history entry changes.
-        
-            var r = confirm("You pressed a Back button! Are you sure?!");
-        
-            if (r == true) {
-                // Call Back button programmatically as per user confirmation.
-                history.back();
-                // Uncomment below line to redirect to the previous page instead.
-                // window.location = document.referrer // Note: IE11 is not supporting this.
-            } else {
-                // Stay on the current page.
-                history.pushState(null, null, window.location.pathname);
-            }
-        
+    handleNavigate() {
+        // The popstate event is fired each time when the current history entry changes.
+
+        var r = confirm("You pressed a Back button! Are you sure?!");
+
+        if (r == true) {
+            // Call Back button programmatically as per user confirmation.
+            history.back();
+            // Uncomment below line to redirect to the previous page instead.
+            // window.location = document.referrer // Note: IE11 is not supporting this.
+        } else {
+            // Stay on the current page.
             history.pushState(null, null, window.location.pathname);
-        
-        
+        }
+
+        history.pushState(null, null, window.location.pathname);
+
+
     }
 
-    private handleResetPoll(){
+    private handleResetPoll() {
         var TIMEOUT = 2000;
         var lastTime = (new Date()).getTime();
 
-        this._interval = setInterval( () => {
+        this._interval = setInterval(() => {
             var currentTime = (new Date()).getTime();
             if (currentTime > (lastTime + TIMEOUT + 2000)) {
                 // Wake!alert()
@@ -118,7 +118,7 @@ export default class Game extends BaseComponent<any, IControllerDataStore & { Ga
                 clearInterval(this._interval);
                 this.handleResetPoll();
             } else {
-              
+
             }
             lastTime = currentTime;
         }, TIMEOUT);
@@ -189,6 +189,7 @@ export default class Game extends BaseComponent<any, IControllerDataStore & { Ga
                 <Popup
                     trigger={
                         <Menu.Item
+                            disabled={this.controller.GetDisableMenu()}
                             style={{ position: 'relative' }}
                             onClick={e => {
                                 this.controller.viewDefaultMessage();
@@ -226,6 +227,8 @@ export default class Game extends BaseComponent<any, IControllerDataStore & { Ga
                 <Popup
                     trigger={
                         <Menu.Item
+                            disabled={this.controller.GetDisableMenu()}
+
                             active={this.controller.dataStore.ApplicationState.ShowMessageList}
                             onClick={e => {
                                 var test = !this.controller.dataStore.ApplicationState.ShowMessageList;
@@ -236,23 +239,26 @@ export default class Game extends BaseComponent<any, IControllerDataStore & { Ga
 
                             }}
                         >
-                            <Inbox
-                                className="ui circular image"
-                            />
-                            <strong>
-                                {this.state.ApplicationState.UnreadMessages > 0 &&
-                                    <Label circular
-                                        size="large"
-                                        className={"message-indicator" + (this.state.GrowMessageIndicator ? " grow" : "")}
-                                        style={{
-                                            marginLeft: "8px",
-                                            background: '#f5fafc',
-                                            color: '#db2828',
-                                        }}
-                                        content={this.state.ApplicationState.UnreadMessages}
-                                    />
-                                }
-                            </strong>
+                            {!this.controller.GetDisableMenu() && <>
+                                <Inbox
+                                    className="ui circular image"
+                                />
+                                <strong>
+                                    {this.state.ApplicationState.UnreadMessages > 0 &&
+                                        <Label circular
+                                            size="large"
+                                            className={"message-indicator" + (this.state.GrowMessageIndicator ? " grow" : "")}
+                                            style={{
+                                                marginLeft: "8px",
+                                                background: '#f5fafc',
+                                                color: '#db2828',
+                                            }}
+                                            content={this.state.ApplicationState.UnreadMessages}
+                                        />
+                                    }
+                                </strong>
+                            </>
+                            }
                         </Menu.Item>
                     }
                     open={this.state.ShowInboxPopup}
@@ -276,6 +282,8 @@ export default class Game extends BaseComponent<any, IControllerDataStore & { Ga
                     <Popup
                         trigger={
                             <Menu.Item
+                                disabled={this.controller.GetDisableMenu()}
+
                                 active={this.controller.dataStore.ApplicationState.ShowQuestions}
                                 onClick={e => {
                                     this.controller.dataStore.ApplicationState.ShowMessageList = false;
@@ -323,6 +331,8 @@ export default class Game extends BaseComponent<any, IControllerDataStore & { Ga
                 <Popup
                     trigger={
                         <Menu.Item
+                            disabled={this.controller.GetDisableMenu()}
+
                             style={{ position: 'relative' }}
                             onClick={e => {
                                 this.controller.dataStore.ApplicationState.ShowQuestions = this.controller.ChildController.dataStore.ShowQuestions = false;
@@ -363,6 +373,8 @@ export default class Game extends BaseComponent<any, IControllerDataStore & { Ga
                 <Popup
                     trigger={
                         <Menu.Item
+                            disabled={this.controller.GetDisableMenu()}
+
                             active={this.controller.dataStore.ApplicationState.ShowMessageList}
                             onClick={e => {
                                 var test = !this.controller.dataStore.ApplicationState.ShowMessageList;
@@ -378,19 +390,24 @@ export default class Game extends BaseComponent<any, IControllerDataStore & { Ga
                             />
                             <strong>
                                 Inbox
-                                {this.state.ApplicationState.UnreadMessages > 0 &&
-                                    <Label circular
-                                        size="large"
-                                        className={"message-indicator" + (this.state.GrowMessageIndicator ? " grow" : "")}
-                                        style={{
-                                            marginLeft: "8px",
-                                            background: '#f5fafc',
-                                            color: '#db2828',
-                                        }}
-                                        content={this.state.ApplicationState.UnreadMessages}
-                                    />
+                                    {!this.controller.GetDisableMenu() && <>
+
+                                    {this.state.ApplicationState.UnreadMessages > 0 &&
+                                        <Label circular
+                                            size="large"
+                                            className={"message-indicator" + (this.state.GrowMessageIndicator ? " grow" : "")}
+                                            style={{
+                                                marginLeft: "8px",
+                                                background: '#f5fafc',
+                                                color: '#db2828',
+                                            }}
+                                            content={this.state.ApplicationState.UnreadMessages}
+                                        />
+                                    }
+                                </>
                                 }
                             </strong>
+
                         </Menu.Item>
                     }
                     open={this.state.ShowInboxPopup}
@@ -414,6 +431,8 @@ export default class Game extends BaseComponent<any, IControllerDataStore & { Ga
                     <Popup
                         trigger={
                             <Menu.Item
+                                disabled={this.controller.GetDisableMenu()}
+
                                 active={this.controller.dataStore.ApplicationState.ShowQuestions}
                                 onClick={e => {
                                     this.controller.dataStore.ApplicationState.ShowMessageList = false;

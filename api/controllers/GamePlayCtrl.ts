@@ -253,13 +253,15 @@ class GamePlayRouter {
         try {
             let GameId = req.params.gameid;
 
-            let game: GameModel = await monGameModel.findById(GameId).then(g => g ? Object.assign(new GameModel(), g) : null);
-            if (!game) throw new Error();
+            let game: GameModel = await monGameModel.findById(GameId).then(g => g ? Object.assign(new GameModel(), g.toJSON()) : null);
+            if (!game) throw new Error("problem with game");
+
+            console.log(game);
 
             let currentRound = game.CurrentRound;
             let sr: SubRoundModel = await monSubRoundModel.findOne({ Name: currentRound.ChildRound.toUpperCase() }).then(sr => sr ? Object.assign(new SubRoundModel(), sr) : null);
 
-            if (!sr) throw new Error();
+            if (!sr) throw new Error("problem with subround");
 
             const responses = await monResponseModel.find({ GameId, SubRoundId: sr._id });
 

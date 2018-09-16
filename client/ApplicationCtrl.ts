@@ -7,6 +7,7 @@ import ToastModel, {IToastProps} from "../shared/base-sapien/models/ToastModel";
 import DataStore from '../shared/base-sapien/client/DataStore';
 import ComponentsVO from '../shared/base-sapien/client/ComponentsVO';
 import GameCtrl from './game/GameCtrl';
+import TeamModel from '../shared/models/TeamModel';
 
 export default class ApplicationCtrl extends BaseClientCtrl<IControllerDataStore>
 {
@@ -78,7 +79,7 @@ export default class ApplicationCtrl extends BaseClientCtrl<IControllerDataStore
         };
         
         DataStore.ApplicationState.CurrentUser = localStorage.getItem("RH_USER") ? Object.assign( new UserModel(), JSON.parse(localStorage.getItem("RH_USER") ) ) : new UserModel()
-        
+        DataStore.ApplicationState.CurrentTeam = localStorage.getItem("RH_TEAM") ? Object.assign( new TeamModel(), JSON.parse(localStorage.getItem("RH_TEAM") ) ) : new TeamModel()
        
         this.dataStore = {
             ApplicationState: DataStore.ApplicationState,

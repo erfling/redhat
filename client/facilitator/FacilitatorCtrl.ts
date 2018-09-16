@@ -120,7 +120,17 @@ export default class FacilitatorCtrl extends BaseClientCtrl<IFacilitatorDataStor
     }
 
     public goToMapping(mapping: Partial<RoundChangeMapping>){
-        if ( mapping.ParentRound && mapping.ChildRound ) {
+
+        let gameId;
+        if(this.dataStore.Game){
+            gameId = this.dataStore.Game._id
+        } else if (this.dataStore.ApplicationState.CurrentTeam) {
+            gameId = this.dataStore.ApplicationState.CurrentTeam._id
+        } else if (this.dataStore.ApplicationState.CurrentGame){
+            gameId = this.dataStore.ApplicationState.CurrentGame._id
+        }
+
+        if ( mapping.ParentRound && mapping.ChildRound && gameId ) {
             SapienServerCom.SaveData(mapping, SapienServerCom.BASE_REST_URL + "facilitation/round/" + this.dataStore.Game._id).then(r => {
                 console.log("RESPONSE FROM SERVER FROM ROUND ADVANCE POST", r)
             });
@@ -168,7 +178,7 @@ export default class FacilitatorCtrl extends BaseClientCtrl<IFacilitatorDataStor
             CurrentLookup: new RoundChangeMapping()
         };
 
-        this.dataStore.ApplicationState.CurrentTeam = null;
+        //this.dataStore.ApplicationState.CurrentTeam = null;
 
         console.log("DATASTORE APPLICATION:", DataStore.ApplicationState, this.component, this.dataStore);
         //this.pollForGameStateChange(this.dataStore.ApplicationState.CurrentTeam.GameId);

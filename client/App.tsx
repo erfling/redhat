@@ -190,7 +190,7 @@ export default class App extends BaseComponent<any, IControllerDataStore>
                                                     e.preventDefault();
                                                     e.preventDefault();
                                                     this.controller.dataStore.ApplicationState.ShowMenu = false;
-                                                    FacilitatorCtrl.GetInstance().goToMapping({
+                                                    GameCtrl.GetInstance().goToMapping({
                                                         ParentRound: GameCtrl.GetInstance().getParentRound(),
                                                         ChildRound: GameCtrl.GetInstance().getChildRound(),
                                                         ShowFeedback: !this.state.ApplicationState.ShowFeedback,
@@ -205,7 +205,7 @@ export default class App extends BaseComponent<any, IControllerDataStore>
                                                     e.preventDefault();
                                                     e.preventDefault();
                                                     this.controller.dataStore.ApplicationState.ShowMenu = false;
-                                                    FacilitatorCtrl.GetInstance().goToMapping({
+                                                    GameCtrl.GetInstance().goToMapping({
                                                         ParentRound: GameCtrl.GetInstance().getParentRound(),
                                                         ChildRound: GameCtrl.GetInstance().getChildRound(),
                                                         ShowFeedback: false,
@@ -220,7 +220,7 @@ export default class App extends BaseComponent<any, IControllerDataStore>
                                                     e.preventDefault();
                                                     e.preventDefault();
                                                     this.controller.dataStore.ApplicationState.ShowMenu = false;
-                                                    FacilitatorCtrl.GetInstance().goToMapping({
+                                                    GameCtrl.GetInstance().goToMapping({
                                                         ParentRound: GameCtrl.GetInstance().getParentRound(),
                                                         ChildRound: GameCtrl.GetInstance().getChildRound(),
                                                         ShowFeedback: false,
@@ -238,7 +238,7 @@ export default class App extends BaseComponent<any, IControllerDataStore>
                                                     onClick={e => {
                                                         e.preventDefault();
                                                         this.controller.dataStore.ApplicationState.ShowMenu = false;
-                                                        FacilitatorCtrl.GetInstance().goToMapping({
+                                                        GameCtrl.GetInstance().goToMapping({
                                                             ParentRound: "peopleround",
                                                             ChildRound: "priorities"
                                                         })
@@ -250,7 +250,7 @@ export default class App extends BaseComponent<any, IControllerDataStore>
                                                     onClick={e => {
                                                         e.preventDefault();
                                                         this.controller.dataStore.ApplicationState.ShowMenu = false;
-                                                        FacilitatorCtrl.GetInstance().goToMapping({
+                                                        GameCtrl.GetInstance().goToMapping({
                                                             ParentRound: "peopleround",
                                                             ChildRound: "hiring"
                                                         })
@@ -263,7 +263,7 @@ export default class App extends BaseComponent<any, IControllerDataStore>
                                                     onClick={e => {
                                                         e.preventDefault();
                                                         this.controller.dataStore.ApplicationState.ShowMenu = false;
-                                                        FacilitatorCtrl.GetInstance().goToMapping({
+                                                        GameCtrl.GetInstance().goToMapping({
                                                             ParentRound: "SalesRound",
                                                             ChildRound: "DealStructure"
                                                         })
@@ -275,7 +275,7 @@ export default class App extends BaseComponent<any, IControllerDataStore>
                                                     onClick={e => {
                                                         e.preventDefault();
                                                         this.controller.dataStore.ApplicationState.ShowMenu = false;
-                                                        FacilitatorCtrl.GetInstance().goToMapping({
+                                                        GameCtrl.GetInstance().goToMapping({
                                                             ParentRound: "SalesRound",
                                                             ChildRound: "DealRenewal"
                                                         })
@@ -287,7 +287,7 @@ export default class App extends BaseComponent<any, IControllerDataStore>
                                                     onClick={e => {
                                                         e.preventDefault();
                                                         this.controller.dataStore.ApplicationState.ShowMenu = false;
-                                                        FacilitatorCtrl.GetInstance().goToMapping({
+                                                        GameCtrl.GetInstance().goToMapping({
                                                             ParentRound: "engineeringround",
                                                             ChildRound: "engineeringsub"
                                                         })
@@ -299,7 +299,7 @@ export default class App extends BaseComponent<any, IControllerDataStore>
                                                     onClick={e => {
                                                         e.preventDefault();
                                                         this.controller.dataStore.ApplicationState.ShowMenu = false;
-                                                        FacilitatorCtrl.GetInstance().goToMapping({
+                                                        GameCtrl.GetInstance().goToMapping({
                                                             ParentRound: "FinanceRound",
                                                             ChildRound: "Pricing"
                                                         })
@@ -311,7 +311,7 @@ export default class App extends BaseComponent<any, IControllerDataStore>
                                                     onClick={e => {
                                                         e.preventDefault();
                                                         this.controller.dataStore.ApplicationState.ShowMenu = false;
-                                                        FacilitatorCtrl.GetInstance().goToMapping({
+                                                        GameCtrl.GetInstance().goToMapping({
                                                             ParentRound: "FinanceRound",
                                                             ChildRound: "TeamRating"
                                                         })
@@ -323,7 +323,7 @@ export default class App extends BaseComponent<any, IControllerDataStore>
                                                     onClick={e => {
                                                         e.preventDefault();
                                                         this.controller.dataStore.ApplicationState.ShowMenu = false;
-                                                        FacilitatorCtrl.GetInstance().goToMapping({
+                                                        GameCtrl.GetInstance().goToMapping({
                                                             ParentRound: "FinanceRound",
                                                             ChildRound: "AcquisitionStructure"
                                                         })
@@ -336,7 +336,7 @@ export default class App extends BaseComponent<any, IControllerDataStore>
                                                     onClick={e => {
                                                         e.preventDefault();
                                                         this.controller.dataStore.ApplicationState.ShowMenu = false;
-                                                        FacilitatorCtrl.GetInstance().goToMapping({
+                                                        GameCtrl.GetInstance().goToMapping({
                                                             ParentRound: "CustomerRound",
                                                             ChildRound: "CustomerSub"
                                                         })
