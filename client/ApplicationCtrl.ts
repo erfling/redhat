@@ -81,6 +81,7 @@ export default class ApplicationCtrl extends BaseClientCtrl<IControllerDataStore
         DataStore.ApplicationState.CurrentUser = localStorage.getItem("RH_USER") ? Object.assign( new UserModel(), JSON.parse(localStorage.getItem("RH_USER") ) ) : new UserModel()
         DataStore.ApplicationState.CurrentTeam = localStorage.getItem("RH_TEAM") ? Object.assign( new TeamModel(), JSON.parse(localStorage.getItem("RH_TEAM") ) ) : new TeamModel()
        
+        
         this.dataStore = {
             ApplicationState: DataStore.ApplicationState,
             ComponentFistma: this.ComponentFistma

@@ -454,26 +454,16 @@ class RoundRouter {
 
         try {
 
-            let savedFeedback;
-            if (!feedBack._id) {
-                savedFeedback = await monFeedbackModel.findOneAndUpdate({ ValueDemomination: feedBack.ValueDemomination, RoundId: feedBack.RoundId }, feedBack, { upsert: true }).then(r => r ? Object.assign(new SubRoundFeedback(), r.toJSON()) : null)
-                //update our subround
-                const sr: SubRoundModel = await monSubRoundModel.findById(savedFeedback.RoundId).populate("FeedBack").then(r => Object.assign(new SubRoundModel(), r.toJSON()));
-                sr.FeedBack = sr.FeedBack.filter(fb => fb.Content != savedFeedback.Content)
-                sr.FeedBack.push(savedFeedback);
-                sr.FeedBack = sr.FeedBack.filter(fb => fb._id).map(fb => fb._id == savedFeedback._id ? savedFeedback : fb).sort(fb => {
-                    if (fb.ValueDemomination == ValueDemomination.NEUTRAL) return -1;
+            let savedFeedback: SubRoundFeedback[];
+            let subRound: SubRoundModel = await monSubRoundModel.findById(feedBack.RoundId).then(sr => sr ? Object.assign(new SubRoundModel(), sr.toJSON()) : null)
+            if (!subRound) throw new Error("Cound't get subround");
 
-                    return fb.ValueDemomination == ValueDemomination.POSITIVE ? 1 : 0;
-                })
+            subRound.FeedBack = [feedBack];
 
-                const updatedSr = await monSubRoundModel.findByIdAndUpdate(savedFeedback.RoundId, sr);
-
-
-            } else {
-                savedFeedback = await monFeedbackModel.findByIdAndUpdate(feedBack._id, feedBack).then(r => r ? Object.assign(new SubRoundFeedback(), r.toJSON()) : null)
-            }
-
+            let savedSubRound = await monSubRoundModel.findByIdAndUpdate(subRound._id, subRound, {new: true}).then(sr => sr ? Object.assign(new SubRoundModel(), sr.toJSON()) : null)
+            
+            console.log("SAVED: ", savedSubRound)
+            savedFeedback = savedSubRound.FeedBack
             if (!savedFeedback) throw new Error("Couldn't save feedback");
 
             res.json(savedFeedback);
