@@ -98,15 +98,42 @@ class GameList extends BaseComponent<any, IControllerDataStore & {Admin: AdminVi
                     <Table.Header>
                         <Table.Row>
                             <Table.HeaderCell>Actions</Table.HeaderCell>
-                            <Table.HeaderCell>Date</Table.HeaderCell>
-                            <Table.HeaderCell>Location</Table.HeaderCell>
-                            <Table.HeaderCell>Facilitator</Table.HeaderCell>
+                            <Table.HeaderCell>
+                                Date
+                                <br/>
+                                <Input
+                                    icon="search"
+                                    onChange={(e, v) => {
+                                        this.controller.FilterGames("DatePlayed", v.value)
+                                    }}
+                                />
+                            </Table.HeaderCell>
+                            <Table.HeaderCell>
+                                Location
+                                <br/>
+                                <Input
+                                    icon="search"
+                                    onChange={(e, v) => {
+                                        this.controller.FilterGames("Location", v.value)
+                                    }}
+                                />
+                            </Table.HeaderCell>
+                            <Table.HeaderCell>
+                                Facilitator
+                                <br/>
+                                <Input
+                                    icon="search"
+                                    onChange={(e, v) => {
+                                        this.controller.FilterGames("Facilitator", v.value)
+                                    }}
+                                />
+                            </Table.HeaderCell>
                             <Table.HeaderCell>PIN</Table.HeaderCell>
                         </Table.Row>
                     </Table.Header>
 
                     <Table.Body>
-                        {this.state.Admin.Games && this.state.Admin.Games.map((g, i) =>
+                        {this.state.Admin.FilteredGames && this.state.Admin.FilteredGames.map((g, i) =>
                             <Table.Row key={i}>
                                 <Table.Cell>
                                     <Popup

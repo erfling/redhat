@@ -2,7 +2,7 @@
 import FiStMa from '../../shared/entity-of-the-state/FiStMa';
 import AdminViewModel from '../../shared/models/AdminViewModel';
 import { Component } from 'react';
-import BaseClientCtrl, {IControllerDataStore} from '../../shared/base-sapien/client/BaseClientCtrl';
+import BaseClientCtrl, { IControllerDataStore } from '../../shared/base-sapien/client/BaseClientCtrl';
 import UserModel, { RoleName } from '../../shared/models/UserModel';
 import SapienServerCom from '../../shared/base-sapien/client/SapienServerCom';
 import GameModel from '../../shared/models/GameModel';
@@ -11,7 +11,7 @@ import ApplicationCtrl from '../ApplicationCtrl';
 import DataStore from '../../shared/base-sapien/client/DataStore';
 import ComponentsVO from '../../shared/base-sapien/client/ComponentsVO';
 
-export default class GameManagementCtrl extends BaseClientCtrl<IControllerDataStore & {Admin: AdminViewModel, ShowUserModal: boolean, ShowGameModal: boolean, ShowTeamDeleteModal: boolean}>
+export default class GameManagementCtrl extends BaseClientCtrl<IControllerDataStore & { Admin: AdminViewModel, ShowUserModal: boolean, ShowGameModal: boolean, ShowTeamDeleteModal: boolean }>
 {
     //----------------------------------------------------------------------
     //
@@ -28,7 +28,7 @@ export default class GameManagementCtrl extends BaseClientCtrl<IControllerDataSt
     //----------------------------------------------------------------------
 
     private constructor(reactComp?: Component<any, any>) {
-        super( null, reactComp || null);
+        super(null, reactComp || null);
     }
 
     public static GetInstance(reactComp?: Component<any, any>): GameManagementCtrl {
@@ -66,6 +66,7 @@ export default class GameManagementCtrl extends BaseClientCtrl<IControllerDataSt
         return SapienServerCom.GetData(null, null, SapienServerCom.BASE_REST_URL + "games").then(r => {
             console.log("GAMES ARE: ", r)
             this.dataStore.Admin.Games = r;
+            this.dataStore.Admin.FilteredGames = r;
             this.dataStore.ApplicationState.IsLoading = false;
         })
     }
@@ -102,7 +103,7 @@ export default class GameManagementCtrl extends BaseClientCtrl<IControllerDataSt
                 } else {
                     console.log(r, Object.assign(new GameModel(), r))
                     this.dataStore.Admin.Games = this.dataStore.Admin.Games.concat(Object.assign(new GameModel(), r))
-                }                
+                }
                 this.dataStore.ApplicationState.FormIsSubmitting = false;
                 this.closeModal();
                 ApplicationCtrl.GetInstance().addToast("Save successful")
@@ -148,22 +149,22 @@ export default class GameManagementCtrl extends BaseClientCtrl<IControllerDataSt
 
     public filterUsersByGame(game: GameModel): void {
         const users: UserModel[][] = game.Teams.map(t => t.Players);
-        console.log("USERS",users)
+        console.log("USERS", users)
         //const merged: UserModel[] = [].concat.apply([], users);
         let flatUsers: UserModel[] = [];
-        users.forEach((u:UserModel[]) => {
+        users.forEach((u: UserModel[]) => {
             u.forEach(iu => {
                 flatUsers.push(iu)
             })
         })
-        console.log("flatUsers",flatUsers)
+        console.log("flatUsers", flatUsers)
 
         let userIds: string[] = flatUsers.map(u => {
             console.log(u, u._id, u.FirstName, u.Email)
             return u._id
         });
 
-        console.log("usedUserIdsusedUserIdsusedUserIdsusedUserIdsusedUserIdsusedUserIds",userIds)
+        console.log("usedUserIdsusedUserIdsusedUserIdsusedUserIdsusedUserIdsusedUserIds", userIds)
         this.dataStore.Admin.AvailablePlayers = this.dataStore.Admin.Users.filter(u => u._id && userIds.indexOf(u._id) == -1).map((u, i) => {
             console.log("FILTERING A USER", u)
             return {
@@ -195,7 +196,7 @@ export default class GameManagementCtrl extends BaseClientCtrl<IControllerDataSt
             })
     }
 
-    public DeleteTeam(team: TeamModel){
+    public DeleteTeam(team: TeamModel) {
         this.dataStore.ApplicationState.FormIsSubmitting = true;
         return SapienServerCom.SaveData(team, SapienServerCom.BASE_REST_URL + "games/team/delete")
             .then(r => {
@@ -208,7 +209,7 @@ export default class GameManagementCtrl extends BaseClientCtrl<IControllerDataSt
                 this.dataStore.ApplicationState.FormIsSubmitting = false;
                 ApplicationCtrl.GetInstance().addToast("There was a problem deleting the team", "danger")
             })
-        
+
     }
 
     protected _setUpFistma(reactComp: Component) {
@@ -222,10 +223,7 @@ export default class GameManagementCtrl extends BaseClientCtrl<IControllerDataSt
 
         this.ComponentFistma = new FiStMa(compStates, compStates.adminLogin);
 
-        this.ComponentFistma.addTransition(compStates.game);
-        this.ComponentFistma.addTransition(compStates.gameList);
-        this.ComponentFistma.addTransition(compStates.gamedetail);
-        this.ComponentFistma.addTransition(compStates.adminLogin);
+
 
         this.dataStore = {
             Admin: DataStore.Admin,
@@ -235,28 +233,58 @@ export default class GameManagementCtrl extends BaseClientCtrl<IControllerDataSt
             ShowTeamDeleteModal: false,
             ShowUserModal: false
         }
+
+        this.dataStore.Admin.FilteredUsers = this.dataStore.Admin.Users.map(u => u);
+        this.dataStore.Admin.FilterGames = this.dataStore.Admin.Games.map(g => g);
     }
 
-    OpenUserModal(user : UserModel){
+    OpenUserModal(user: UserModel) {
         this.dataStore.ApplicationState.ModalObject = user;
         this.dataStore.ShowUserModal = true;
     }
 
-    OpenGameModal(game : GameModel){
+    OpenGameModal(game: GameModel) {
         this.dataStore.ApplicationState.ModalObject = game;
         this.dataStore.ShowGameModal = true;
     }
 
-    OpenTeamModal(team : TeamModel){
+    OpenTeamModal(team: TeamModel) {
         this.dataStore.ApplicationState.ModalObject = team;
         this.dataStore.ShowTeamDeleteModal = true;
     }
 
-    closeModal(){
+    closeModal() {
         super.closeModal();
         this.dataStore.ShowTeamDeleteModal = false;
         this.dataStore.ShowGameModal = false;
         this.dataStore.ShowUserModal = false;
     }
+
+
+    public FilterGames(prop: string, value: string) {
+        value = value.toUpperCase();
+
+        this.dataStore.Admin.GameFilter[prop] = value;
+
+        console.log(value, this.dataStore.Admin.GameFilter)
+        this.dataStore.Admin.FilteredGames = this.dataStore.Admin.Games.filter(g => {
+
+            let match = true;
+            if (prop != "Facilitator") {
+                for (let p in this.dataStore.Admin.GameFilter) {
+                    if (g[prop].toUpperCase().indexOf(this.dataStore.Admin.GameFilter[prop]) == -1) {
+                        match = false;
+                    }
+                }
+            } else {
+                console.log((g.Facilitator.FirstName + " " + g.Facilitator.LastName).toUpperCase(), this.dataStore.Admin.GameFilter[prop])
+                if((g.Facilitator.FirstName + " " + g.Facilitator.LastName).toUpperCase().indexOf(this.dataStore.Admin.GameFilter[prop]) == -1) match = false;
+            }
+
+
+            return match;
+        })
+    }
+
 
 }

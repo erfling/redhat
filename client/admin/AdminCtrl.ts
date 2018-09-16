@@ -84,6 +84,26 @@ export default class AdminCtrl extends BaseClientCtrl<IControllerDataStore & {Ad
             ApplicationState: DataStore.ApplicationState,
             ComponentFistma: this.ComponentFistma
         }
+
+        this.dataStore.Admin.FilteredUsers = this.dataStore.Admin.Users.map(u => u);
+        this.dataStore.Admin.FilteredGames = this.dataStore.Admin.Games.map(g => g);
+    }
+
+    public FilterUsers(prop: string, value: string){
+        value = value.toUpperCase();
+
+        this.dataStore.Admin.FilteredUsers = this.dataStore.Admin.FilteredUsers.filter(u => {
+            return u[prop].toUpperCase().indexOf(value) != -1;
+        })
+    }
+
+    
+    public FilterGames(prop: string, value: string){
+        value = value.toUpperCase();
+
+        this.dataStore.Admin.FilteredGames = this.dataStore.Admin.FilteredGames.filter(g => {
+            return g[prop].toUpperCase().indexOf(value) != -1;
+        })
     }
 
 }

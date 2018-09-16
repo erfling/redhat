@@ -124,14 +124,41 @@ export default class UserList extends BaseComponent<any, IControllerDataStore & 
                                 <Label ribbon color="blue">Admins</Label>
                                 Actions
                             </Table.HeaderCell>
-                            <Table.HeaderCell>First Name</Table.HeaderCell>
-                            <Table.HeaderCell>Last Name</Table.HeaderCell>
-                            <Table.HeaderCell>Email</Table.HeaderCell>
+                            <Table.HeaderCell>
+                                First Name
+                                <br/>
+                                <Input
+                                    icon="search"
+                                    onChange={(e, v) => {
+                                        this.controller.FilterUsers("FirstName", v.value, true)
+                                    }}
+                                />
+                            </Table.HeaderCell>
+                            <Table.HeaderCell>
+                                Last Name
+                                <br/>
+                                <Input
+                                    icon="search"
+                                    onChange={(e, v) => {
+                                        this.controller.FilterUsers("LastName", v.value, true)
+                                    }}
+                                />
+                            </Table.HeaderCell>
+                            <Table.HeaderCell>
+                                Email
+                                <br/>
+                                <Input
+                                    icon="search"
+                                    onChange={(e, v) => {
+                                        this.controller.FilterUsers("Email", v.value, true)
+                                    }}
+                                />
+                            </Table.HeaderCell>
                         </Table.Row>
                     </Table.Header>
 
                     <Table.Body>
-                        {this.state.Admin.Users && this.state.Admin.Users.filter(u => u.Role == RoleName.ADMIN).map((u, i) =>
+                        {this.state.Admin.AdminUsers && this.state.Admin.AdminUsers.map((u, i) =>
                             <Table.Row key={i}>
                                 <Table.Cell textAlign="center">
                                     <Popup
@@ -190,14 +217,42 @@ export default class UserList extends BaseComponent<any, IControllerDataStore & 
                                 </Label>
                                 Actions
                             </Table.HeaderCell>
-                            <Table.HeaderCell>First Name</Table.HeaderCell>
-                            <Table.HeaderCell>Last Name</Table.HeaderCell>
-                            <Table.HeaderCell>Email</Table.HeaderCell>
+                            
+                            <Table.HeaderCell>
+                                First Name
+                                <br/>
+                                <Input
+                                    icon="search"
+                                    onChange={(e, v) => {
+                                        this.controller.FilterUsers("FirstName", v.value)
+                                    }}
+                                />
+                            </Table.HeaderCell>
+                            <Table.HeaderCell>
+                                Last Name
+                                <br/>
+                                <Input
+                                    icon="search"
+                                    onChange={(e, v) => {
+                                        this.controller.FilterUsers("LastName", v.value)
+                                    }}
+                                />
+                            </Table.HeaderCell>
+                            <Table.HeaderCell>
+                                Email
+                                <br/>
+                                <Input
+                                    icon="search"
+                                    onChange={(e, v) => {
+                                        this.controller.FilterUsers("Email", v.value)
+                                    }}
+                                />
+                            </Table.HeaderCell>
                         </Table.Row>
                     </Table.Header>
 
                     <Table.Body>
-                        {this.state.Admin.Users && this.state.Admin.Users.filter(u => u.Role == RoleName.PLAYER).map((u, i) =>
+                        {this.state.Admin.PlayerUsers && this.state.Admin.PlayerUsers.filter(u => u.Role == RoleName.PLAYER).map((u, i) =>
                             <Table.Row key={i}>
                                 <Table.Cell textAlign="center">
                                 <Popup

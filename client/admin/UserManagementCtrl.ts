@@ -1,6 +1,6 @@
 import { Component } from 'react';
 import BaseClientCtrl, {IControllerDataStore} from '../../shared/base-sapien/client/BaseClientCtrl';
-import UserModel from '../../shared/models/UserModel';
+import UserModel, { RoleName, JobName } from '../../shared/models/UserModel';
 import SapienServerCom from '../../shared/base-sapien/client/SapienServerCom';
 import GameModel from '../../shared/models/GameModel';
 import AdminCtrl from './AdminCtrl';
@@ -60,11 +60,17 @@ export default class UserManagementCtrl extends BaseClientCtrl<IControllerDataSt
         if (!this.dataStore.Admin.Users || !this.dataStore.Admin.Users.length){
             return SapienServerCom.GetData(null, null, SapienServerCom.BASE_REST_URL + "user").then(r => {
                 this.dataStore.Admin.Users = r;
+                this.dataStore.Admin.FilteredUsers = r;
+
+                this.dataStore.Admin.AdminUsers = r.filter(u => u.Role == RoleName.ADMIN)
+                this.dataStore.Admin.PlayerUsers = r.filter(u => u.Role != RoleName.ADMIN)
+
                 this.dataStore.ApplicationState.IsLoading = false;
                 return this.dataStore.Admin.Users;
             })
         } else {
             return new Promise((resolve, reject) => {
+                this.dataStore.Admin.FilteredUsers = this.dataStore.Admin.Users.map(u => u);
                 return resolve(this.dataStore.Admin.Users);
             })
         }
@@ -116,6 +122,44 @@ export default class UserManagementCtrl extends BaseClientCtrl<IControllerDataSt
             ComponentFistma: AdminCtrl.GetInstance().dataStore.ComponentFistma
         }
 
+        this.dataStore.Admin.FilteredUsers = this.dataStore.Admin.Users.map(u => u);
+
+    }
+
+    public FilterUsers(prop: string, value: string, filterAdmins: boolean = false) {
+        value = value.toUpperCase();
+
+        //let targetList = filterAdmins ? this.dataStore.Admin.AdminUsers : this.dataStore.Admin.PlayerUsers
+        let filterObj =  filterAdmins ? this.dataStore.Admin.AdminFilter : this.dataStore.Admin.PlayerFilter
+        let targetRole = filterAdmins ? RoleName.ADMIN : RoleName.PLAYER;
+
+        filterObj[prop] = value;
+
+
+        let targetList = this.dataStore.Admin.Users.filter(u => {
+            let match = true;
+            for (let p in filterObj) {
+                console.log(p, filterObj[prop])
+
+                if(!filterObj[prop] || !filterObj[prop]) match = true
+
+                else if (u.Role != targetRole
+                    || !u[prop] 
+                    || u[prop].toUpperCase().indexOf(filterObj[prop]) == -1) {
+                    match = false;
+                }
+            }
+            return match;
+            
+        })
+
+        if (filterAdmins) {
+            this.dataStore.Admin.AdminUsers = targetList;
+        } else {
+            this.dataStore.Admin.PlayerUsers = targetList;
+        }
+
+        console.log(targetList);
     }
 
 }
