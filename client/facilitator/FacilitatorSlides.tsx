@@ -140,7 +140,6 @@ export default class FacilitatorView extends BaseComponent<any, IFacilitatorData
         return <React.Fragment>
             {this.state && this.state.Game && this.state.Game.CurrentRound &&
                 <>
-                    <Button onClick={e => this.setState({ FullScreen: true })}>biggerise</Button>
                     <Fullscreen
                         enabled={this.state.FullScreen}
                         onChange={isFull => this.setState({ FullScreen: isFull })}
