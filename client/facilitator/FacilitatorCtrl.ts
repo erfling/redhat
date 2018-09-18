@@ -130,8 +130,8 @@ export default class FacilitatorCtrl extends BaseClientCtrl<IFacilitatorDataStor
             this.dataStore.Game.CurrentRound = (rcl[0] as FacilitationRoundResponseMapping).CurrentRound;
             this.dataStore.SlideNumber = this.dataStore.Game.CurrentRound.SlideNumber;
 
-
             if(this.dataStore.SlideNumber.toString() in FacilitatorCtrl.SpecialSlides){
+                alert("special slide: " + this.dataStore.SlideNumber)
                 this.dataStore.Game.CurrentRound = Object.assign(this.dataStore.Game.CurrentRound, FacilitatorCtrl.SpecialSlides[this.dataStore.SlideNumber.toString()])
             }
 
