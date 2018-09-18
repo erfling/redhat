@@ -52,14 +52,8 @@ export default class GameModal extends React.Component< GameModalProps, {} >
                     <Modal.Content>
                         <Modal.Description>
                             <Form inverted>
+                                
                                 <Form.Field>
-                                    <label>PIN (remove this soon)</label>
-                                    <Input
-                                        value={this.props.Game.GamePIN}
-                                        onChange={(e) => this.props.Game.GamePIN = parseInt((e.target as HTMLInputElement).value)}
-                                        placeholder="GamePIN"
-                                    />
-                                </Form.Field><Form.Field>
                                     <label>Location</label>
                                     <Input
                                         value={this.props.Game.Location}
@@ -123,3 +117,12 @@ export default class GameModal extends React.Component< GameModalProps, {} >
     }
 
 }
+
+/**<Form.Field>
+                                    <label>PIN (remove this soon)</label>
+                                    <Input
+                                        value={this.props.Game.GamePIN}
+                                        onChange={(e) => this.props.Game.GamePIN = parseInt((e.target as HTMLInputElement).value)}
+                                        placeholder="GamePIN"
+                                    />
+                                </Form.Field> */

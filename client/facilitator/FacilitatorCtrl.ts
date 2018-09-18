@@ -149,7 +149,8 @@ export default class FacilitatorCtrl extends BaseClientCtrl<IFacilitatorDataStor
 
                 if(vidSlideNumbers.indexOf(this.dataStore.SlideNumber) != -1){
                     this.dataStore.FullScreen = false;
-                    this.component.setState({FullScreen: false})
+                    this.component.setState({FullScreen: false});
+                    window.focus();
                 }
             });
         }

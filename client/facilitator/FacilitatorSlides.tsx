@@ -107,6 +107,9 @@ export default class FacilitatorView extends BaseComponent<any, IFacilitatorData
             default:
                 slideIterator = 0;
         }
+
+        if (!this.state.FullScreen) window.focus();
+
         console.log(slideIterator, key, typeof key, this)
         if (slideIterator) this.controller.onClickChangeSlide.bind(this.controller)(slideIterator)
     }
