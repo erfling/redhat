@@ -65,21 +65,6 @@ export default class FacilitatorView extends BaseComponent<any, IFacilitatorData
     }
 
     componentDidMount() {
-        //punch-viewer-icon punch-viewer-right goog-inline-block
-        let container;
-        setTimeout(() => {
-            container = document.querySelector("#slides-container");
-            console.log("found container>>>>>>>>>>>>>", container);
-
-        }, 3000)
-
-        setTimeout(() => {
-
-            let thing = container.querySelector('.punch-viewer-right');
-            console.log("found thing>>>>>>>>>>>>>", thing, container.querySelector("#document"));
-        }, 10000);
-
-        
         
         this.controller.getGame(this.props.location.pathname.split("/").filter(s => s.length > 0).reverse()[0])
             .then(() => this._interval = setInterval(() => this.controller.getRoundInfo().then((r: FacilitationRoundResponseMapping[]) => this.setState({ RoundResponseMappings: r })), 2000))

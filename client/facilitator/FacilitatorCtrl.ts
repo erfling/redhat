@@ -114,10 +114,12 @@ export default class FacilitatorCtrl extends BaseClientCtrl<IFacilitatorDataStor
     //----------------------------------------------------------------------
 
     public getRoundInfo(){ 
+
         return SapienServerCom.GetData(null,  FacilitationRoundResponseMapping, SapienServerCom.BASE_REST_URL + "facilitator/getroundstatus/" + this.dataStore.Game._id).then(rcl => {
             this.dataStore.RoundResponseMappings = rcl as FacilitationRoundResponseMapping[];
             this.dataStore.Game.CurrentRound = (rcl[0] as FacilitationRoundResponseMapping).CurrentRound;
             this.dataStore.SlideNumber = this.dataStore.Game.CurrentRound.SlideNumber;
+
             return rcl;
         })        
     }
@@ -142,7 +144,13 @@ export default class FacilitatorCtrl extends BaseClientCtrl<IFacilitatorDataStor
 
         if ( mapping.ParentRound && mapping.ChildRound && gameId ) {
             SapienServerCom.SaveData(mapping, SapienServerCom.BASE_REST_URL + "facilitation/round/" + this.dataStore.Game._id).then(r => {
-                console.log("RESPONSE FROM SERVER FROM ROUND ADVANCE POST", r)
+                console.log("RESPONSE FROM SERVER FROM ROUND ADVANCE POST", r);
+                const vidSlideNumbers: number[] = [7, 32, 44, 57];
+
+                if(vidSlideNumbers.indexOf(this.dataStore.SlideNumber) != -1){
+                    this.dataStore.FullScreen = false;
+                    this.component.setState({FullScreen: false})
+                }
             });
         }
     }

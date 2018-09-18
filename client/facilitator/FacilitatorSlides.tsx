@@ -69,11 +69,18 @@ export default class FacilitatorView extends BaseComponent<any, IFacilitatorData
 
         this.props.location.pathname.split("/").filter(s => s.length > 0).reverse()[0]
 
-        window.addEventListener('keydown', this.handleKey.bind(this))
+        window.addEventListener('keydown', this.handleKey.bind(this));
+
+        const vidSlideNumbers: number[] = [7, 32, 44, 57];
         this.controller.getGame(this.props.location.pathname.split("/").filter(s => s.length > 0).reverse()[0])
-            .then(() => this._interval = setInterval(() => this.controller.getRoundInfo().then((r: FacilitationRoundResponseMapping[]) => this.setState({ RoundResponseMappings: r })), 2000));
+            .then(() => this._interval = setInterval(() => this.controller.getRoundInfo().then((r: FacilitationRoundResponseMapping[]) => {
+                //window.focus();
+                this.setState({ RoundResponseMappings: r })
+            }), 100));
         this.controller.getLookups();
 
+        let container = document.querySelector('.slides-container')
+        let slides: HTMLIFrameElement = document.querySelector('#slides');
     }
 
     handleKey(e: any) {
@@ -137,6 +144,10 @@ export default class FacilitatorView extends BaseComponent<any, IFacilitatorData
 
     render() {
 
+        const vidSlideNumbers: number[] = [7, 32, 44, 57];
+        const isVideoSlider = () => {
+            return this.state && /*this.state.FullScreen && this.state.Game && */this.state.Game.CurrentRound && this.state.Game.CurrentRound && this.state.Game.CurrentRound.SlideNumber && vidSlideNumbers.indexOf(this.state.Game.CurrentRound.SlideNumber) != -1;
+        }
         return <React.Fragment>
             {this.state && this.state.Game && this.state.Game.CurrentRound &&
                 <>
@@ -153,7 +164,10 @@ export default class FacilitatorView extends BaseComponent<any, IFacilitatorData
                                 width={window.innerWidth}
                             >
                             </iframe>
-                            <div className="slides-container">
+
+                            <div className="slides-container top" ></div>
+                            <div className={"slides-container bottom " + (isVideoSlider()  ? "" : "full")}>
+                                
                                 <div className="controls">
                                     <Button
                                         circular
@@ -174,36 +188,32 @@ export default class FacilitatorView extends BaseComponent<any, IFacilitatorData
                                         color="blue"
                                     >
                                     </Button>
-
-                                    <Button
-                                        icon="expand"
-                                        onClick={() => {
-                                            this.setState.bind(this)({ FullScreen: !this.state.FullScreen })
-                                        }}
-                                        circular
-                                        color="blue"
-                                    >
-                                    </Button>
+                                    {!isVideoSlider() &&
+                                        <Button
+                                            icon="expand"
+                                            onClick={() => {
+                                                this.setState.bind(this)({ FullScreen: !this.state.FullScreen })
+                                            }}
+                                            circular
+                                            color="blue"
+                                        >
+                                        </Button>
+                                    }
                                     <Label>
                                         Slide Number {this.state.Game.CurrentRound.SlideNumber}
                                     </Label>
 
                                 </div>
                             </div>
+                            <div className="slides-container left" ></div>
+                            <div className="slides-container right" ></div>
                         </>
                     </Fullscreen>
 
 
                 </>
             }
-            <div
-                className="slides-container-off"
-                onKeyDown={(e) => {
-                    console.log(e);
-                    //this.controller.onClickChangeSlide(1);                     
-                }}
-            >
-            </div>
+            
         </React.Fragment>
 
 
@@ -211,3 +221,8 @@ export default class FacilitatorView extends BaseComponent<any, IFacilitatorData
 
 }
 //                        <pre>{this.state.ApplicationState.CurrentGame.CurrentRound && JSON.stringify(this.state.ApplicationState.CurrentGame, null, 2)}</pre>
+/**
+ * {isVideoSlider() && <div className="double-click-message">
+                                   <h2> Double click play for full screen</h2>
+                                </div>}
+ */
