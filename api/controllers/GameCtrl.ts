@@ -185,7 +185,8 @@ class GameCtrl {
                     UserJobs:{},
                     GameId: existingGame._id,
                     ParentRound: 'peopleround',
-                    ChildRound: 'priorities'
+                    ChildRound: 'priorities',
+                    SlideNumber: 1
                 };
             
                 if (!mapping) throw new Error("no mapping")
