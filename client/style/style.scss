@@ -716,7 +716,7 @@ p:nth-of-type(even) {
 }
 .slides-container{
     position: fixed;
-    background: rgba(0,0,255,.3);
+    /*background: rgba(0,0,255,.3);*/
     &.top{
         right:0;
         left:0;
