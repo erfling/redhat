@@ -122,8 +122,8 @@ export default class FacilitatorCtrl extends BaseClientCtrl<IFacilitatorDataStor
     }
 
     public getLookups(){   
-        return SapienServerCom.GetData(null,  RoundChangeMapping, SapienServerCom.BASE_REST_URL + "facilitator/getroundchangelookups").then(rcl => {
-            this.dataStore.RoundChangeLookups = rcl as RoundChangeMapping[];
+        return SapienServerCom.GetData(null,  RoundChangeLookup, SapienServerCom.BASE_REST_URL + "facilitator/getroundchangelookups").then(rcl => {
+            this.dataStore.RoundChangeLookups = rcl as RoundChangeLookup[];
             return rcl;
         })        
     }
