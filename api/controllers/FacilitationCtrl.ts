@@ -197,7 +197,7 @@ class FacilitationCtrl
                         m.IsComplete = m.RatingsByManager.every(r => r.IsComplete) && m.RatingsOfManager.every(r => r.IsComplete);  
                         
 
-                    }
+                    }   
                
                     //go thru all players and push their data to team view object
                     
@@ -219,7 +219,7 @@ class FacilitationCtrl
 
 
         }
-        catch(err) {
+        catch(err) {    
             res
             .status(500)
             .send("Error")

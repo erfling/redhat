@@ -111,7 +111,7 @@ export default class FacilitatorView extends BaseComponent<any, IFacilitatorData
             } 
             //has this play rated the manager
             else {
-                let thisPlayersRatingOfManager = mapping.RatingsOfManager.filter(r => r.IsComplete && r.User && r.UserId == user._id);
+                let thisPlayersRatingOfManager = mapping.RatingsOfManager.filter(r => r.IsComplete && r.UserId && r.UserId == user._id);
                 if (thisPlayersRatingOfManager.length) return <Icon name="checkmark" color="green" />;
             }
         }
