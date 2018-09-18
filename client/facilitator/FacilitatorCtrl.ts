@@ -184,7 +184,7 @@ export default class FacilitatorCtrl extends BaseClientCtrl<IFacilitatorDataStor
             AccordionIdx: 0,
             FullScreen: false,
             RoundResponseMappings: null,
-            CurrentLookup: new RoundChangeMapping()
+            CurrentLookup: new RoundChangeLookup()
         };
 
         //this.dataStore.ApplicationState.CurrentTeam = null;
