@@ -60,7 +60,7 @@ export default class WelcomeCtrl extends BaseRoundCtrl<IRoundDataStore>
 
                 this.dataStore.ApplicationState.CurrentUser = this.dataStore.ApplicationState.CurrentUser = Object.assign(new UserModel(), r.user)
 
-                if (r.user.Role == RoleName.FACILITATOR) {
+                if (r.user.Role == RoleName.FACILITATOR || r.user.Role == RoleName.ADMIN) {
                     this.component.props.history.push('/facilitator/base/' + r.team.GameId);
                 } else {
                     this.dataStore.ApplicationState.CurrentTeam = this.dataStore.ApplicationState.CurrentTeam = Object.assign(new TeamModel(), r.team)

@@ -99,7 +99,7 @@ export class LoginCtrlClass
             
             console.log("TEAM IS: ", team);
 
-            if(!team && user.Role == RoleName.FACILITATOR){
+            if (!team && (user.Role == RoleName.FACILITATOR || user.Role == RoleName.ADMIN)){
                 team = new TeamModel();
                 team.GameId = game._id;
                 team.Players = [user];
