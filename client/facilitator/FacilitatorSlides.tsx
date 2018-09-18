@@ -171,6 +171,16 @@ export default class FacilitatorView extends BaseComponent<any, IFacilitatorData
                             <div className="slides-container top" ></div>
                             <div className={"slides-container bottom " + (isVideoSlider()  ? "" : "full")}>
                                 
+                                {this.state.Game.CurrentRound.ShowTeams && <div className="team-list">
+                                    {this.state.Game.Teams.map(t => <ul>
+                                        <li>Team {t.Number}</li>
+                                        {t.Players.map(p => <li>
+                                            <p>{p.FirstName + " " + p.LastName}</p>
+                                            <p>{p.Email}</p>
+                                        </li>)}
+                                    </ul>)}
+                                </div>}
+
                                 <div className="controls">
                                     <Button
                                         circular

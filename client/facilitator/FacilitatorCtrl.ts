@@ -27,7 +27,8 @@ export interface IFacilitatorDataStore extends IControllerDataStore{
     CurrentLookup: RoundChangeLookup;
     RoundResponseMappings: FacilitationRoundResponseMapping[];
     AccordionIdx: number,
-    FullScreen: boolean
+    FullScreen: boolean,
+    
 }
 
 export default class FacilitatorCtrl extends BaseClientCtrl<IFacilitatorDataStore>
@@ -43,6 +44,15 @@ export default class FacilitatorCtrl extends BaseClientCtrl<IFacilitatorDataStor
     private _childController: BaseRoundCtrl<any>;
 
     public ChildController: BaseClientCtrl<any>;
+
+    public static SpecialSlides: {
+        "2" : {
+            ShowTeams: true
+        },
+        "3": {
+            ShowPin: true
+        }
+    }
 
     //----------------------------------------------------------------------
     //
@@ -119,6 +129,11 @@ export default class FacilitatorCtrl extends BaseClientCtrl<IFacilitatorDataStor
             this.dataStore.RoundResponseMappings = rcl as FacilitationRoundResponseMapping[];
             this.dataStore.Game.CurrentRound = (rcl[0] as FacilitationRoundResponseMapping).CurrentRound;
             this.dataStore.SlideNumber = this.dataStore.Game.CurrentRound.SlideNumber;
+
+
+            if(this.dataStore.SlideNumber.toString() in FacilitatorCtrl.SpecialSlides){
+                this.dataStore.Game.CurrentRound = Object.assign(this.dataStore.Game.CurrentRound, FacilitatorCtrl.SpecialSlides[this.dataStore.SlideNumber.toString()])
+            }
 
             return rcl;
         })        

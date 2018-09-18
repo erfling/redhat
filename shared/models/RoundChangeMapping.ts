@@ -31,6 +31,10 @@ export default class RoundChangeMapping extends BaseModel {
     @dbProp(Number)
     SlideNumber?: number = 1;
 
+    ShowTeams: boolean = false;
+
+    ShowPin: boolean = false;
+
     @dbProp({label: String, data: String, minPoints: Number, maxPoints: Number, idealValue: String, min: Number, max: Number, targetObjId: String})
     CurrentHighestBid?: SliderValueObj;
 
