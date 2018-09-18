@@ -180,7 +180,7 @@ class GameCtrl {
 
             if (existingGame) {
                 if (!existingGame.Teams) existingGame.Teams = [];
-                existingGame.Teams = existingGame.Teams.filter(t => t._id != savedTeam._id).concat(savedTeam);
+                existingGame.Teams = existingGame.Teams.filter(t => t._id.toString() != savedTeam._id).concat(savedTeam);
                 let mapping = existingGame.CurrentRound && existingGame.CurrentRound.UserJobs ? existingGame.CurrentRound : {
                     UserJobs:{},
                     GameId: existingGame._id,
@@ -200,7 +200,7 @@ class GameCtrl {
                 //}
 
                 existingGame.CurrentRound = mapping as RoundChangeMapping;
-                existingGame.Teams = existingGame.Teams.filter(t => t._id != savedTeam._id).concat(savedTeam).map(t => t._id);
+                existingGame.Teams = existingGame.Teams.map(t => t._id);
 
                 var savedGame = await monGameModel
                     .findByIdAndUpdate(existingGame._id, existingGame)
