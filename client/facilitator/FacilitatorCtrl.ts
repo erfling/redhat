@@ -74,7 +74,7 @@ export default class FacilitatorCtrl extends BaseClientCtrl<IFacilitatorDataStor
        // alert(this.dataStore.SlideNumber);
 
         let lookup = this.dataStore.RoundChangeLookups.filter(lu => {
-            return lu.MinSlideNumber == this.dataStore.SlideNumber;
+            return lu.MinSlideNumber <= this.dataStore.SlideNumber && lu.MaxSlideNumber >= this.dataStore.SlideNumber;
         })[0];
 
         if (!lookup && this.dataStore.Game){
