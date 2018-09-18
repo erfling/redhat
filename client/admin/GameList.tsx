@@ -118,16 +118,7 @@ class GameList extends BaseComponent<any, IControllerDataStore & {Admin: AdminVi
                                     }}
                                 />
                             </Table.HeaderCell>
-                            <Table.HeaderCell>
-                                Facilitator
-                                <br/>
-                                <Input
-                                    icon="search"
-                                    onChange={(e, v) => {
-                                        this.controller.FilterGames("Facilitator", v.value)
-                                    }}
-                                />
-                            </Table.HeaderCell>
+                            
                             <Table.HeaderCell>PIN</Table.HeaderCell>
                         </Table.Row>
                     </Table.Header>
@@ -168,7 +159,6 @@ class GameList extends BaseComponent<any, IControllerDataStore & {Admin: AdminVi
                                 
                                 <Table.Cell>{g.DatePlayed}</Table.Cell>
                                 <Table.Cell>{g.Location}</Table.Cell>
-                                <Table.Cell>{g.Facilitator && Object.assign(new UserModel(), g.Facilitator).Name}</Table.Cell>
                                 <Table.Cell>{g.GamePIN}</Table.Cell>
                             </Table.Row>
                         )}

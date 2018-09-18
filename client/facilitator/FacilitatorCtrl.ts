@@ -6,6 +6,7 @@ import { Component } from 'react';
 import RoundModel from '../../shared/models/RoundModel';
 import UserModel, { JobName, RoleName } from '../../shared/models/UserModel';
 import RoundChangeMapping from '../../shared/models/RoundChangeMapping';
+import RoundChangeLookup from '../../shared/models/RoundChangeLookup';
 import BaseClientCtrl, {IControllerDataStore} from '../../shared/base-sapien/client/BaseClientCtrl';
 import DataStore from '../../shared/base-sapien/client/DataStore';
 import TeamModel from '../../shared/models/TeamModel';
@@ -22,8 +23,8 @@ export interface IFacilitatorDataStore extends IControllerDataStore{
     GrowMessageIndicator: boolean;
     groupedResponses: any;
     SlideNumber: number;
-    RoundChangeLookups: RoundChangeMapping[];
-    CurrentLookup: RoundChangeMapping;
+    RoundChangeLookups: RoundChangeLookup[];
+    CurrentLookup: RoundChangeLookup;
     RoundResponseMappings: FacilitationRoundResponseMapping[];
     AccordionIdx: number,
     FullScreen: boolean
@@ -76,6 +77,13 @@ export default class FacilitatorCtrl extends BaseClientCtrl<IFacilitatorDataStor
             return lu.MinSlideNumber == this.dataStore.SlideNumber;
         })[0];
 
+        if (!lookup && this.dataStore.Game){
+            let cr = this.dataStore.Game.CurrentRound;
+            lookup.SlideNumber = this.dataStore.SlideNumber;
+            lookup.Round = cr.ParentRound;
+            lookup.RoundId = cr.RoundId;
+            lookup.SubRound = cr.ChildRound;
+        }
 
         if(lookup){
             this.dataStore.CurrentLookup = lookup;
@@ -108,6 +116,7 @@ export default class FacilitatorCtrl extends BaseClientCtrl<IFacilitatorDataStor
         return SapienServerCom.GetData(null,  FacilitationRoundResponseMapping, SapienServerCom.BASE_REST_URL + "facilitator/getroundstatus/" + this.dataStore.Game._id).then(rcl => {
             this.dataStore.RoundResponseMappings = rcl as FacilitationRoundResponseMapping[];
             this.dataStore.Game.CurrentRound = (rcl[0] as FacilitationRoundResponseMapping).CurrentRound;
+            this.dataStore.SlideNumber = this.dataStore.Game.CurrentRound.SlideNumber;
             return rcl;
         })        
     }

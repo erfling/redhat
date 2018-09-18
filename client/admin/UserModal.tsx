@@ -94,6 +94,19 @@ export default class UserModal extends React.Component< UserModalProps, {} >
                                     <Form.Field>
                                         <Checkbox
                                             radio
+                                            label='Facilitator'
+                                            name='checkboxRadioGroup'
+                                            value={RoleName.FACILITATOR}
+                                            checked={this.props.User.Role === RoleName.FACILITATOR}
+                                            onChange={() => {
+                                                this.props.User.RoleChanged = false;
+                                                this.props.User.Role = RoleName.FACILITATOR
+                                            }}
+                                        />
+                                    </Form.Field>
+                                    <Form.Field>
+                                        <Checkbox
+                                            radio
                                             label='Admin'
                                             name='checkboxRadioGroup'
                                             value={RoleName.ADMIN}

@@ -469,8 +469,8 @@ export default class App extends BaseComponent<any, IControllerDataStore>
                             <Route path="/game" component={Game} />
                             <Route path="/login" component={Login} />
                             <Route path="/admin" component={Admin} />
-                            {this.state.ApplicationState.CurrentUser && this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN && <Route exact path="/facilitator/base/:gameid" component={FacilitatorView} />}
-                            {this.state.ApplicationState.CurrentUser && this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN && <Route path="/facilitator/slides/:gameid" component={FacilitatorSlides} />}
+                            {this.state.ApplicationState.CurrentUser && (this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN || this.state.ApplicationState.CurrentUser.Role == RoleName.FACILITATOR) && <Route exact path="/facilitator/base/:gameid" component={FacilitatorView} />}
+                            {this.state.ApplicationState.CurrentUser && (this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN || this.state.ApplicationState.CurrentUser.Role == RoleName.FACILITATOR) && <Route path="/facilitator/slides/:gameid" component={FacilitatorSlides} />}
                         </Switch>
                     </div>
 

@@ -27,19 +27,19 @@ export default class RoundChangeLookup extends BaseModel
     
 
     @dbProp(Boolean)
-    ShowFeedback: Boolean = false;
+    ShowFeedback: boolean = false;
 
     @dbProp(Boolean)
-    ShowRateUsers: Boolean = false;
+    ShowRateUsers: boolean = false;
     
     @dbProp(Boolean)
-    ShowIndividualFeedback: Boolean = false;
+    ShowIndividualFeedback: boolean = false;
 
     @dbProp(Number)
-    MinSlideNumber?: Number = null;
+    MinSlideNumber?: number = null;
 
     @dbProp(Number)
-    MaxSlideNumber?: Number = null;
+    MaxSlideNumber?: number = null;
  }
 
 

@@ -130,7 +130,7 @@ export default class UserList extends BaseComponent<any, IControllerDataStore & 
                                 <Input
                                     icon="search"
                                     onChange={(e, v) => {
-                                        this.controller.FilterUsers("FirstName", v.value, true)
+                                        this.controller.FilterUsers("FirstName", v.value, RoleName.ADMIN)
                                     }}
                                 />
                             </Table.HeaderCell>
@@ -140,7 +140,7 @@ export default class UserList extends BaseComponent<any, IControllerDataStore & 
                                 <Input
                                     icon="search"
                                     onChange={(e, v) => {
-                                        this.controller.FilterUsers("LastName", v.value, true)
+                                        this.controller.FilterUsers("LastName", v.value, RoleName.ADMIN)
                                     }}
                                 />
                             </Table.HeaderCell>
@@ -150,7 +150,7 @@ export default class UserList extends BaseComponent<any, IControllerDataStore & 
                                 <Input
                                     icon="search"
                                     onChange={(e, v) => {
-                                        this.controller.FilterUsers("Email", v.value, true)
+                                        this.controller.FilterUsers("Email", v.value, RoleName.ADMIN)
                                     }}
                                 />
                             </Table.HeaderCell>
@@ -159,6 +159,95 @@ export default class UserList extends BaseComponent<any, IControllerDataStore & 
 
                     <Table.Body>
                         {this.state.Admin.AdminUsers && this.state.Admin.AdminUsers.map((u, i) =>
+                            <Table.Row key={i}>
+                                <Table.Cell textAlign="center">
+                                    <Popup
+                                        trigger={<Button
+                                            color="blue"
+                                            circular
+                                            icon='edit'
+                                            onClick={e => this.controller.createOrEditUser(u)}
+                                        ></Button>}
+                                        header={u.FirstName + " " + u.LastName}
+                                        content="Edit User"
+                                    />
+
+                                    <Popup
+                                        trigger={<Button
+                                            color="red"
+                                            circular
+                                            icon='remove user'
+                                            onClick={e => this.controller.dataStore.Admin.DeletionUser = u}
+                                        ></Button>}
+                                        header={u.FirstName + " " + u.LastName}
+                                        content="Delete User"
+                                    />                                    
+                                    
+                                    <Popup
+                                        trigger={<Button
+                                            circular
+                                            icon='info'
+                                        ></Button>}
+                                        header={u.FirstName + " " + u.LastName}
+                                        content="User Details"
+                                    />         
+                                </Table.Cell>
+                                <Table.Cell>{u.FirstName}</Table.Cell>
+                                <Table.Cell>{u.LastName}</Table.Cell>
+                                <Table.Cell>{u.Email}</Table.Cell>
+                            </Table.Row>
+                        )}
+
+
+                    </Table.Body>
+
+                </Table>
+            </Segment>
+            <Segment
+                loading={this.state.ApplicationState.IsLoading}
+            >
+                <Table striped>
+                    <Table.Header>
+                        <Table.Row>
+                            <Table.HeaderCell>
+                                <Label ribbon color="blue">Facilitators</Label>
+                                Actions
+                            </Table.HeaderCell>
+                            <Table.HeaderCell>
+                                First Name
+                                <br/>
+                                <Input
+                                    icon="search"
+                                    onChange={(e, v) => {
+                                        this.controller.FilterUsers("FirstName", v.value, RoleName.FACILITATOR)
+                                    }}
+                                />
+                            </Table.HeaderCell>
+                            <Table.HeaderCell>
+                                Last Name
+                                <br/>
+                                <Input
+                                    icon="search"
+                                    onChange={(e, v) => {
+                                        this.controller.FilterUsers("LastName", v.value, RoleName.FACILITATOR)
+                                    }}
+                                />
+                            </Table.HeaderCell>
+                            <Table.HeaderCell>
+                                Email
+                                <br/>
+                                <Input
+                                    icon="search"
+                                    onChange={(e, v) => {
+                                        this.controller.FilterUsers("Email", v.value, RoleName.FACILITATOR)
+                                    }}
+                                />
+                            </Table.HeaderCell>
+                        </Table.Row>
+                    </Table.Header>
+
+                    <Table.Body>
+                        {this.state.Admin.FacilitatorUsers && this.state.Admin.FacilitatorUsers.map((u, i) =>
                             <Table.Row key={i}>
                                 <Table.Cell textAlign="center">
                                     <Popup

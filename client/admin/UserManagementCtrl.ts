@@ -63,7 +63,8 @@ export default class UserManagementCtrl extends BaseClientCtrl<IControllerDataSt
                 this.dataStore.Admin.FilteredUsers = r;
 
                 this.dataStore.Admin.AdminUsers = r.filter(u => u.Role == RoleName.ADMIN)
-                this.dataStore.Admin.PlayerUsers = r.filter(u => u.Role != RoleName.ADMIN)
+                this.dataStore.Admin.PlayerUsers = r.filter(u => u.Role == RoleName.PLAYER)
+                this.dataStore.Admin.FacilitatorUsers = r.filter(u => u.Role == RoleName.FACILITATOR)
 
                 this.dataStore.ApplicationState.IsLoading = false;
                 return this.dataStore.Admin.Users;
@@ -71,6 +72,9 @@ export default class UserManagementCtrl extends BaseClientCtrl<IControllerDataSt
         } else {
             return new Promise((resolve, reject) => {
                 this.dataStore.Admin.FilteredUsers = this.dataStore.Admin.Users.map(u => u);
+                this.dataStore.Admin.AdminUsers = this.dataStore.Admin.Users.filter(u => u.Role == RoleName.ADMIN)
+                this.dataStore.Admin.PlayerUsers = this.dataStore.Admin.Users.filter(u => u.Role == RoleName.PLAYER)
+                this.dataStore.Admin.FacilitatorUsers = this.dataStore.Admin.Users.filter(u => u.Role == RoleName.FACILITATOR)
                 return resolve(this.dataStore.Admin.Users);
             })
         }
@@ -95,6 +99,10 @@ export default class UserManagementCtrl extends BaseClientCtrl<IControllerDataSt
                             }
                             console.log("USERS ARE", AdminCtrl.GetInstance().dataStore.Admin.Users)
                             this.dataStore.ApplicationState.FormIsSubmitting = false;
+                            this.dataStore.Admin.FilteredUsers = this.dataStore.Admin.Users.map(u => u);
+                            this.dataStore.Admin.AdminUsers = this.dataStore.Admin.Users.filter(u => u.Role == RoleName.ADMIN)
+                            this.dataStore.Admin.PlayerUsers = this.dataStore.Admin.Users.filter(u => u.Role == RoleName.PLAYER)
+                            this.dataStore.Admin.FacilitatorUsers = this.dataStore.Admin.Users.filter(u => u.Role == RoleName.FACILITATOR)
                             this.closeModal();
                             ApplicationCtrl.GetInstance().addToast("Save successful")
 
@@ -126,24 +134,29 @@ export default class UserManagementCtrl extends BaseClientCtrl<IControllerDataSt
 
     }
 
-    public FilterUsers(prop: string, value: string, filterAdmins: boolean = false) {
+    public FilterUsers(prop: string, value: string, targetRole: RoleName = RoleName.PLAYER) {
         value = value.toUpperCase();
 
-        //let targetList = filterAdmins ? this.dataStore.Admin.AdminUsers : this.dataStore.Admin.PlayerUsers
-        let filterObj =  filterAdmins ? this.dataStore.Admin.AdminFilter : this.dataStore.Admin.PlayerFilter
-        let targetRole = filterAdmins ? RoleName.ADMIN : RoleName.PLAYER;
+        let filterObj;
+        if (targetRole == RoleName.ADMIN) {
+            filterObj = this.dataStore.Admin.AdminFilter;
+        } 
+        else if (targetRole == RoleName.FACILITATOR) {
+            filterObj = this.dataStore.Admin.FacilitatorFilter;
+        }
+        else {
+            filterObj = this.dataStore.Admin.PlayerFilter;
+        }
 
         filterObj[prop] = value;
-
 
         let targetList = this.dataStore.Admin.Users.filter(u => {
             let match = true;
             for (let p in filterObj) {
-                console.log(p, filterObj[prop])
 
-                if(!filterObj[prop] || !filterObj[prop]) match = true
+                //if(!filterObj[prop] || !filterObj[prop]) match = true
 
-                else if (u.Role != targetRole
+                if (u.Role != targetRole
                     || !u[prop] 
                     || u[prop].toUpperCase().indexOf(filterObj[prop]) == -1) {
                     match = false;
@@ -153,13 +166,16 @@ export default class UserManagementCtrl extends BaseClientCtrl<IControllerDataSt
             
         })
 
-        if (filterAdmins) {
+        if (targetRole == RoleName.ADMIN) {
             this.dataStore.Admin.AdminUsers = targetList;
-        } else {
+        } 
+        else if (targetRole == RoleName.FACILITATOR) {
+            this.dataStore.Admin.FacilitatorUsers = targetList;
+        }
+        else {
             this.dataStore.Admin.PlayerUsers = targetList;
         }
 
-        console.log(targetList);
     }
 
 }

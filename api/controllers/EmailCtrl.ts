@@ -11,17 +11,17 @@ export default abstract class EmailCtrl {
             {
                 service: 'gmail',
                 auth: {
-                    user: 'breeden@gnuidea.net',
+                    user: 'matt@sapienexperience.com',
                     pass: 'Molly717'
                 }
             }
         )
 
         const mailOptions = {
-            from: 'sender@email.com', // sender address
+            from: 'matt@sapienexperience.com', // sender address
             to: recipient.Email, // list of receivers
             subject: 'Sign Up', // Subject line
-            html: "<p>You've been invited to be a" + ((recipient.Role == RoleName.ADMIN) ? "n " : " ") + " " + recipient.Role.toLowerCase() + ". Click the link below and enter a password to join.</p><a href='http://sourcestreamexperience.com/login/join?token=" + token + "'>Sign up</a>"// plain text body
+            html: "<p>You've been invited to be a" + ((recipient.Role == RoleName.ADMIN) ? "n " : " ") + " " + recipient.Role.toLowerCase() + " for Source Stream Experience. Click the link below and enter a password to join.</p><a href='http://sourcestreamexperience.com/login/join?token=" + token + "'>Sign up</a>"// plain text body
         };
 
         transporter.sendMail(mailOptions, function (err, info) {

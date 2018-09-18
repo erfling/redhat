@@ -33,9 +33,9 @@ export default class GameModel extends BaseModel
     @dbProp([String])
     public Teams: TeamModel[];
 
-    @Type(() => UserModel)
-    @dbProp(String)
-    public Facilitator: UserModel = new UserModel()
+   // @Type(() => UserModel)
+    //@dbProp(String)
+    //public Facilitator: UserModel = new UserModel()
 
     @dbProp([String])
     public HasBeenManager = [];

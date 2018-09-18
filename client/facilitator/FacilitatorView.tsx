@@ -65,7 +65,6 @@ export default class FacilitatorView extends BaseComponent<any, IFacilitatorData
     }
 
     componentDidMount() {
-
         //punch-viewer-icon punch-viewer-right goog-inline-block
         let container;
         setTimeout(() => {

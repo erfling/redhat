@@ -21,12 +21,15 @@ export default class AdminViewModel extends BaseModel
 
     PlayerUsers: UserModel[] = [];
 
+    FacilitatorUsers: UserModel[] = [];
+
     FilteredGames: GameModel[] = [];
 
     FilteredUsers: UserModel[] = [];
 
     PlayerFilter: any = {};
     AdminFilter: any = {};
+    FacilitatorFilter: any = {};
 
     GameFilter: any = {};
 

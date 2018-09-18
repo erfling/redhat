@@ -82,10 +82,12 @@ export default class LoginCtrl extends BaseClientCtrl<IControllerDataStore>
     public AdminLogin(){
         this.dataStore.ApplicationState.FormIsSubmitting = true;
         SapienServerCom.SaveData({Email: this.dataStore.ApplicationState.CurrentUser.Email, Password: this.dataStore.ApplicationState.CurrentUser.Password}, SapienServerCom.BASE_REST_URL + "auth/admin").then((returned:any) => {
+            returned.user = Object.assign(new UserModel(), returned.user)
             Object.assign(this.dataStore.ApplicationState.CurrentUser, returned.user);
             localStorage.setItem("rhjwt", returned.token);
             localStorage.setItem("RH_USER", JSON.stringify(returned.user))
-            localStorage.setItem("RH_TEAM", JSON.stringify(returned.team))
+            localStorage.setItem("RH_TEAM", JSON.stringify(returned.team));
+            DataStore.ApplicationState.CurrentUser = ApplicationCtrl.GetInstance().dataStore.ApplicationState.CurrentUser = returned.user;
             this.dataStore.ApplicationState.FormIsSubmitting = false;
             this.component.props.history.push('/admin/gamelist')
         })

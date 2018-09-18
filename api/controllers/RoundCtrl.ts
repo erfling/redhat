@@ -589,7 +589,7 @@ class RoundRouter {
             this.SaveMessage.bind(this)
         );
 
-        this.router.get("/changes/makeroundchanges", this.createSlideMappings.bind(this))
+        //this.router.get("/changes/makeroundchanges", this.createSlideMappings.bind(this))
     }
 }
 

@@ -7,6 +7,7 @@ import TeamModel from '../../shared/models/TeamModel';
 import MathUtil from '../../shared/entity-of-the-state/MathUtil'
 import RoundChangeMapping from '../../shared/models/RoundChangeMapping';
 import SubRoundScore from '../../shared/models/SubRoundScore';
+import { JobName } from '../../shared/models/UserModel';
 
 
 const mappingSchObj = SchemaBuilder.fetchSchema(RoundChangeMapping);
@@ -16,7 +17,7 @@ export const monMappingModel = mongoose.model("roundchangemapping", monMappingSc
 
 
 const schObj = SchemaBuilder.fetchSchema(GameModel);
-schObj.Facilitator = { type: mongoose.Schema.Types.ObjectId, ref: "user" }
+//schObj.Facilitator = { type: mongoose.Schema.Types.ObjectId, ref: "user" }
 schObj.Teams = [{ type: mongoose.Schema.Types.ObjectId, ref: "team" }];
 schObj.GamePIN = { type: Number, unique: true }
 const monSchema = new mongoose.Schema(schObj);
@@ -63,7 +64,7 @@ class GameCtrl {
         console.log("GET GAMES CALLED");
 
         try {
-            let games = await monGameModel.find().populate("Facilitator");
+            let games = await monGameModel.find()//.populate("Facilitator");
             if (!games) {
                 return res.status(400).json({ error: 'No games' });
             } else {
@@ -84,7 +85,7 @@ class GameCtrl {
         try {
             //WHY CAN"T WE CALL POPULATE ON TEAMS?
             let game = await monGameModel.findById(ID)
-                .populate("Facilitator")
+                //.populate("Facilitator")
                 .populate({
                     path: "Teams",
                     populate: {
@@ -106,21 +107,21 @@ class GameCtrl {
 
     public async SaveGame(req: Request, res: Response): Promise<any> {
         const game: GameModel = req.body;
-        if (game.Facilitator && game.Facilitator._id) game.Facilitator = game.Facilitator._id.toString();
+        //if (game.Facilitator && game.Facilitator._id) game.Facilitator = game.Facilitator._id.toString();
         try {
-            console.log(game);
+            console.log("HERE!!",game);
             if (!game._id) {
                 if (!game.GamePIN) game.GamePIN = MathUtil.randomXDigits(4);
 
                 const mapping = new RoundChangeMapping();
                 mapping.ChildRound = "priorities";
-                mapping.ParentRound = "peopleround"
+                mapping.ParentRound = "peopleround";
+                
                 game.CurrentRound = mapping;
                 const newGame = await monGameModel.create(game).then(r => r);
                 if (newGame) {
                     const savedGame = await monGameModel
                         .findById(newGame._id)
-                        .populate("Facilitator")
                         .populate({
                             path: "Teams",
                             populate: {
@@ -134,7 +135,7 @@ class GameCtrl {
             } else {
                 const newGame = await monGameModel.findByIdAndUpdate(game._id, game, { new: true }).then(r => r);
                 if (newGame) {
-                    const savedGame = await monGameModel.findById(newGame._id).populate("Facilitator")
+                    const savedGame = await monGameModel.findById(newGame._id)//.populate("Facilitator")
                                                                                 .populate({
                                                                                     path: "Teams",
                                                                                     populate: {
@@ -168,34 +169,58 @@ class GameCtrl {
             team.Players = team.Players.map(p => p._id)
 
             if (team._id) {
-                var savedTeam = await monTeamModel.findByIdAndUpdate(team._id, team).then(t => t)
+                var savedTeam = await monTeamModel.findByIdAndUpdate(team._id, team).then(t => Object.assign(new TeamModel(), t.toJSON()))
             } else {
-                var savedTeam = await monTeamModel.create(team).then(t => t)
+                var savedTeam = await monTeamModel.create(team).then(t => Object.assign(new TeamModel(), t.toJSON()))
             }
 
             if (!savedTeam) return res.json("team wasn't saved");
 
-            var existingGame = await monGameModel.findById(team.GameId).then(g => g.toObject() as GameModel)
+            var existingGame = await monGameModel.findById(team.GameId).populate("Teams").then(g => Object.assign(new GameModel(), g.toObject() as GameModel))
 
             if (existingGame) {
                 if (!existingGame.Teams) existingGame.Teams = [];
-                existingGame.Teams = existingGame.Teams.filter(t => t._id != savedTeam._id.toString()).concat(savedTeam._id);
+                existingGame.Teams = existingGame.Teams.filter(t => t._id != savedTeam._id).concat(savedTeam);
+                let mapping = existingGame.CurrentRound && existingGame.CurrentRound.UserJobs ? existingGame.CurrentRound : {
+                    UserJobs:{},
+                    GameId: existingGame._id,
+                    ParentRound: 'peopleround',
+                    ChildRound: 'priorities'
+                };
+            
+                if (!mapping) throw new Error("no mapping")
+
+                //if(!mapping.UserJobs){
+                    existingGame.Teams.forEach(t => {
+                        let pid = t.Players[0]._id;
+                        console.log("HELLO",pid, mapping.UserJobs, existingGame)
+                        mapping.UserJobs[pid] = JobName.MANAGER;                   
+                    })
+                //}
+
+                existingGame.CurrentRound = mapping as RoundChangeMapping;
+                existingGame.Teams = existingGame.Teams.filter(t => t._id != savedTeam._id).concat(savedTeam).map(t => t._id);
+
                 var savedGame = await monGameModel
-                    .findByIdAndUpdate(existingGame._id.toString(), existingGame)
-                    .populate("Facilicator")
+                    .findByIdAndUpdate(existingGame._id, existingGame)
+                    //.populate("Facilicator")
                     .populate({
                         path: "Teams",
                         populate: {
                             path: "Players"
                         }
                     });
+                
+                if (!savedGame) throw new Error("no saved game")
+
                 res.json(savedGame);
             } else {
-                res.send("save failed")
+                throw new Error("no game")
             }
 
-        } catch {
-            res.send("no save")
+        } catch(err) {
+            console.log(err)
+            res.status(500).send("no save")
         }
 
     }

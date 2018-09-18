@@ -92,28 +92,7 @@ export default class GameModal extends React.Component< GameModalProps, {} >
                                             this.props.Game.DatePlayed = output.value;
                                         }} />
                                 </Form.Field>
-                                <Form.Field>
-                                    <label>Facilitator</label>
-                                    {this.props.Users &&
-                                        <Dropdown
-                                            placeholder='Select Facilitator'
-                                            fluid
-                                            search
-                                            selection
-                                            value={this.props.Game.Facilitator._id}
-                                            onChange={(e, output) => {
-                                                this.props.Game.Facilitator._id = output.value
-                                            }}
-                                            options={this.props.Users.filter(u => u.Role == RoleName.ADMIN).map((u, i) => {
-                                                return {
-                                                    text: u.FirstName + " " + u.LastName + " (" + u.Email + ")",
-                                                    value: u._id,
-                                                    key: i
-                                                }
-                                            })}
-                                        />
-                                    }
-                                </Form.Field>
+                                
                             </Form>
                         </Modal.Description>
                     </Modal.Content>

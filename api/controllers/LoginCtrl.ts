@@ -63,37 +63,8 @@ export class LoginCtrlClass
             if (!game) {
                 throw("We couldn't find the game you're trying to join. Please try again.")
             }
-            console.log(game.Teams);
 
-            var mapping: RoundChangeMapping = await monMappingModel.findOne({ GameId: game._id.toString(), ParentRound: "peopleround", ChildRound: "priorities"}).then(r => r ? Object.assign(new RoundChangeMapping(), r.toJSON()) : Object.assign(new RoundChangeMapping(), { GameId: game._id.toString(), ParentRound: "peopleround", ChildRound: "priorities"}));
-            const round = await monRoundModel.findOne({Name: mapping.ParentRound.toUpperCase()}).then(r => r.toJSON())
-            let RoundId = round._id;
-            console.log("THIS MAPPING WAS FOUND",mapping)
-            
-            if(!mapping.UserJobs) {
-                mapping.GameId = game._id.toString();
-                game.HasBeenManager = [];
-                mapping.UserJobs = {};
-                game.Teams.forEach(t => {
-                    console.log("TEAM ", t)
-                    let pid = t.Players[0].toString();
-                    mapping.UserJobs[pid] = JobName.MANAGER;
-                    game.HasBeenManager.push(pid);
-                })
-
-                let newMapping: RoundChangeMapping;
-                if(!mapping._id){
-                    newMapping = await monMappingModel.create(Object.assign(mapping, {ParentRound: "peopleround", ChildRound: "priorities", RoundId})).then(r => r ? Object.assign(new RoundChangeMapping(), r.toJSON()) : null)
-                } else {
-                    newMapping = await monMappingModel.findOneAndUpdate({ParentRound: "peopleround", ChildRound: "priorities", RoundId}, mapping, {new: true}).then(r => r ? Object.assign(new RoundChangeMapping(), r.toJSON()) : null)
-                }
-                
-                console.log("new MAPPING IS", newMapping)
-
-                if(newMapping){
-                    const updatedGame = await monGameModel.findByIdAndUpdate(game._id, {CurrentRound: newMapping, HasBeenManager: game.HasBeenManager});
-                }
-            }
+           
 
             //const updatedGame 
 
@@ -128,7 +99,7 @@ export class LoginCtrlClass
             
             console.log("TEAM IS: ", team);
 
-            if(game.Facilitator.Email == user.Email && !team){
+            if(!team && user.Role == RoleName.FACILITATOR){
                 team = new TeamModel();
                 team.GameId = game._id;
                 team.Players = [user];

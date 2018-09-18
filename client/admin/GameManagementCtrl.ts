@@ -100,9 +100,13 @@ export default class GameManagementCtrl extends BaseClientCtrl<IControllerDataSt
                     this.dataStore.Admin.Games = this.dataStore.Admin.Games.map(g => {
                         return g._id == game._id ? Object.assign(game, r) : g
                     })
+                    this.dataStore.Admin.FilteredGames = this.dataStore.Admin.FilteredGames.map(g => {
+                        return g._id == game._id ? Object.assign(game, r) : g
+                    })
                 } else {
                     console.log(r, Object.assign(new GameModel(), r))
-                    this.dataStore.Admin.Games = this.dataStore.Admin.Games.concat(Object.assign(new GameModel(), r))
+                    this.dataStore.Admin.Games = this.dataStore.Admin.Games.concat(Object.assign(new GameModel(), r));
+                    this.dataStore.Admin.FilteredGames = this.dataStore.Admin.FilteredGames.concat(Object.assign(new GameModel(), r))
                 }
                 this.dataStore.ApplicationState.FormIsSubmitting = false;
                 this.closeModal();

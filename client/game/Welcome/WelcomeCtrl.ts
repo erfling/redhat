@@ -7,7 +7,7 @@ import GameCtrl from '../GameCtrl';
 import SapienServerCom from '../../../shared/base-sapien/client/SapienServerCom';
 import DataStore from '../../../shared/base-sapien/client/DataStore'
 import TeamModel from '../../../shared/models/TeamModel';
-import UserModel from '../../../shared/models/UserModel';
+import UserModel, { RoleName } from '../../../shared/models/UserModel';
 import { IRoundDataStore } from '../../../shared/base-sapien/client/BaseRoundCtrl';
 import ComponentsVO from '../../../shared/base-sapien/client/ComponentsVO';
 import ApplicationCtrl from '../../ApplicationCtrl';
@@ -53,20 +53,27 @@ export default class WelcomeCtrl extends BaseRoundCtrl<IRoundDataStore>
             Email: this.dataStore.ApplicationState.CurrentUser.Email, 
             GamePIN: this.dataStore.ApplicationState.CurrentGame.GamePIN}, 
             SapienServerCom.BASE_REST_URL + "auth").then((r:{team: TeamModel, user: UserModel, token: string}) => {
-                console.log("returned", r)
+                
 
                 localStorage.setItem("RH_USER", JSON.stringify(r.user))
-                localStorage.setItem("RH_TEAM", JSON.stringify(r.team))
                 localStorage.setItem("rhjwt", r.token);
 
-                this.dataStore.ApplicationState.CurrentTeam = this.dataStore.ApplicationState.CurrentTeam = Object.assign(new TeamModel(), r.team)
                 this.dataStore.ApplicationState.CurrentUser = this.dataStore.ApplicationState.CurrentUser = Object.assign(new UserModel(), r.user)
 
-                this.component.props.history.push("/game/peopleround/priorities");
-                GameCtrl.GetInstance().getCurrentMapping();
-                GameCtrl.GetInstance().dataStoreChange();
-                //ApplicationCtrl.GetInstance().addToast("You are now playing the role of " + r.user.Job, "info");
-                this.dataStore.HasShownJobToast = true;
+                if (r.user.Role == RoleName.FACILITATOR) {
+                    this.component.props.history.push('/facilitator/base/' + r.team.GameId);
+                } else {
+                    this.dataStore.ApplicationState.CurrentTeam = this.dataStore.ApplicationState.CurrentTeam = Object.assign(new TeamModel(), r.team)
+
+                    localStorage.setItem("RH_TEAM", JSON.stringify(r.team))
+
+
+                    this.component.props.history.push("/game/peopleround/priorities");
+                    GameCtrl.GetInstance().getCurrentMapping();
+                    GameCtrl.GetInstance().dataStoreChange();
+                    //ApplicationCtrl.GetInstance().addToast("You are now playing the role of " + r.user.Job, "info");
+                    this.dataStore.HasShownJobToast = true;
+                }
 
                 return r;
         }).catch((r) => {
