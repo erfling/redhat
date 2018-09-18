@@ -774,6 +774,21 @@ p:nth-of-type(even) {
             opacity: .8
         }
     }
+    
+}
+.team-list{
+    position: fixed;
+    width: 80vw;
+    top: 14vh;
+    left: 10vw;
+    z-index: 999999999999;
+    
+    &.pin{
+        top: 25vh;
+        h1{
+            font-size: 3em;            
+        }
+    }
 }
 .ui.table td.active, .ui.table tr.active {
     box-shadow: 0 0 0 rgba(0,0,0,.87) inset;

@@ -45,15 +45,6 @@ export default class FacilitatorCtrl extends BaseClientCtrl<IFacilitatorDataStor
 
     public ChildController: BaseClientCtrl<any>;
 
-    public static SpecialSlides: {
-        "2" : {
-            ShowTeams: true
-        },
-        "3": {
-            ShowPin: true
-        }
-    }
-
     //----------------------------------------------------------------------
     //
     //  Constructor
@@ -124,15 +115,22 @@ export default class FacilitatorCtrl extends BaseClientCtrl<IFacilitatorDataStor
     //----------------------------------------------------------------------
 
     public getRoundInfo(){ 
-
+        const SpecialSlides = {
+            "2" : {
+                ShowTeams: true
+            },
+            "8": {
+                ShowPin: true
+            }
+        }
         return SapienServerCom.GetData(null,  FacilitationRoundResponseMapping, SapienServerCom.BASE_REST_URL + "facilitator/getroundstatus/" + this.dataStore.Game._id).then(rcl => {
             this.dataStore.RoundResponseMappings = rcl as FacilitationRoundResponseMapping[];
             this.dataStore.Game.CurrentRound = (rcl[0] as FacilitationRoundResponseMapping).CurrentRound;
             this.dataStore.SlideNumber = this.dataStore.Game.CurrentRound.SlideNumber;
 
-            if(this.dataStore.SlideNumber.toString() in FacilitatorCtrl.SpecialSlides){
-                alert("special slide: " + this.dataStore.SlideNumber)
-                this.dataStore.Game.CurrentRound = Object.assign(this.dataStore.Game.CurrentRound, FacilitatorCtrl.SpecialSlides[this.dataStore.SlideNumber.toString()])
+            console.log(SpecialSlides)
+            if(this.dataStore.SlideNumber.toString() in SpecialSlides){
+                this.dataStore.Game.CurrentRound = Object.assign(this.dataStore.Game.CurrentRound, SpecialSlides[this.dataStore.SlideNumber.toString()])
             }
 
             return rcl;

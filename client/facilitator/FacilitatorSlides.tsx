@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Grid, Menu, Container, Button, Form, Input, Message, Label } from 'semantic-ui-react';
+import { Grid, Menu, Container, Button, Form, Input, Message, Label, Card, Header} from 'semantic-ui-react';
 const Field = { Form }
 const { Column, Row } = Grid;
 import { IControllerDataStore } from "../../shared/base-sapien/client/BaseClientCtrl";
@@ -13,7 +13,7 @@ import GameModel from "../../shared/models/GameModel";
 import FacilitatorCtrl, { IFacilitatorDataStore } from "./FacilitatorCtrl";
 import Fullscreen from "react-full-screen";
 import FacilitationRoundResponseMapping from "../../shared/models/FacilitationRoundResponseMapping";
-
+import { sortBy } from 'lodash';
 interface FSDocument extends Document {
     exitFullscreen: any;
     mozCancelFullScreen: any;
@@ -167,20 +167,53 @@ export default class FacilitatorView extends BaseComponent<any, IFacilitatorData
                                 width={window.innerWidth}
                             >
                             </iframe>
+                            {this.state.Game.CurrentRound.ShowTeams && <Grid
+                                padded
+                                stackable
+                                columns={3}
+                                className="team-list"
+                            >
+                                {sortBy(this.state.Game.Teams, "Number").map((t,i) => <Column>
+                                <Card
+                                    fluid
+                                    key={i}
+                                    color="blue"
+                                >
+                                    <Card.Content>
+                                        <Card.Header>
+                                            <Header>
+                                                {"Team " + t.Number}
+                                            </Header>
+                                        </Card.Header>
+                                    </Card.Content>
+                                    <Card.Content>
+                                        {t.Players.map(p => <Header as="h4">
+                                                {p.FirstName} {p.LastName} {p.Email && <small><br />{p.Email}</small>}
+                                            </Header>
+                                        )}                                                                
+                                    </Card.Content>                                   
+                                </Card>
 
+                            </Column>)}
+                            </Grid>}
+                            {this.state.Game.CurrentRound.ShowPin && <Grid
+                                padded
+                                stackable
+                                columns={3}
+                                className="team-list pin"
+                            >
+                                <Row>
+                                    <h1 style={{textDecoration: 'underline'}}><a onClick={e => e.preventDefault()}>www.sourcestreamexperience.com</a></h1>
+                                </Row>
+                                <Row>
+                                    <h1>Login: your email address</h1>
+                                </Row>
+                                <Row>
+                                    <h1>PIN: {this.state.Game.GamePIN}</h1>
+                                </Row>
+                            </Grid>}
                             <div className="slides-container top" ></div>
-                            <div className={"slides-container bottom " + (isVideoSlider()  ? "" : "full")}>
-                                
-                                {this.state.Game.CurrentRound.ShowTeams && <div className="team-list">
-                                    {this.state.Game.Teams.map(t => <ul>
-                                        <li>Team {t.Number}</li>
-                                        {t.Players.map(p => <li>
-                                            <p>{p.FirstName + " " + p.LastName}</p>
-                                            <p>{p.Email}</p>
-                                        </li>)}
-                                    </ul>)}
-                                </div>}
-
+                            <div className={"slides-container bottom " + (isVideoSlider() ? "" : "full")}>
                                 <div className="controls">
                                     <Button
                                         circular
@@ -226,7 +259,7 @@ export default class FacilitatorView extends BaseComponent<any, IFacilitatorData
 
                 </>
             }
-            
+
         </React.Fragment>
 
 
