@@ -78,6 +78,7 @@ export default class FacilitatorCtrl extends BaseClientCtrl<IFacilitatorDataStor
         })[0];
 
         if (!lookup && this.dataStore.Game){
+            lookup = new RoundChangeLookup();
             let cr = this.dataStore.Game.CurrentRound;
             lookup.SlideNumber = this.dataStore.SlideNumber;
             lookup.Round = cr.ParentRound;
