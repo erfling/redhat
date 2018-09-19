@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Grid, Table, Container, Button, Form, Input, Message, Accordion, Icon, Header } from 'semantic-ui-react';
+import { Grid, Table, Container, Button, Form, Input, Message, Accordion, Icon, Header, Segment } from 'semantic-ui-react';
 const Field = { Form }
 const { Column, Row } = Grid;
 import { IControllerDataStore } from "../../shared/base-sapien/client/BaseClientCtrl";
@@ -65,10 +65,10 @@ export default class FacilitatorView extends BaseComponent<any, IFacilitatorData
     }
 
     componentDidMount() {
-        
+
         this.controller.getGame(this.props.location.pathname.split("/").filter(s => s.length > 0).reverse()[0])
             .then(() => this._interval = setInterval(() => this.controller.getRoundInfo().then((r: FacilitationRoundResponseMapping[]) => this.setState({ RoundResponseMappings: r })), 2000))
-        
+
         this.controller.getLookups();
 
 
@@ -97,18 +97,18 @@ export default class FacilitatorView extends BaseComponent<any, IFacilitatorData
     //
     //----------------------------------------------------------------------
 
-    getUserIsComplete(mapping:FacilitationRoundResponseMapping, user: UserModel){
+    getUserIsComplete(mapping: FacilitationRoundResponseMapping, user: UserModel) {
 
-        if(mapping.IsComplete) {
+        if (mapping.IsComplete) {
             return <Icon name="checkmark" color="green" />
         }
 
-        if(this.state.Game.CurrentRound.ShowIndividualFeedback || this.state.Game.CurrentRound.ShowRateUsers){
+        if (this.state.Game.CurrentRound.ShowIndividualFeedback || this.state.Game.CurrentRound.ShowRateUsers) {
             //has the manager rated all the other players?
             if (user.Job == JobName.MANAGER) {
                 let completedRatings = mapping.RatingsByManager.filter(r => r.IsComplete);
                 if (completedRatings.length == mapping.RatingsByManager.length) return <Icon name="checkmark" color="green" />;
-            } 
+            }
             //has this play rated the manager
             else {
                 let thisPlayersRatingOfManager = mapping.RatingsOfManager.filter(r => r.IsComplete && r.UserId && r.UserId == user._id);
@@ -116,7 +116,7 @@ export default class FacilitatorView extends BaseComponent<any, IFacilitatorData
             }
         }
 
-// : 
+        // : 
         return <Icon name="cancel" color="red" />
     }
 
@@ -132,37 +132,52 @@ export default class FacilitatorView extends BaseComponent<any, IFacilitatorData
         >
 
             <Column mobile={16} tablet={16} computer={12} largeScreen={10}>
-                {this.state.RoundResponseMappings && <Row>
+                {this.state.RoundResponseMappings && <Segment>
                     <Header
                         as="h2"
                     >
                         Round: {this.state.RoundResponseMappings[0].SubRoundLabel}
                     </Header>
-                </Row>}
-                <Row>
+                    <Header
+                        as="h2"
+                    >
+                        Slide: {this.state.Game && this.state.Game.CurrentRound && this.state.Game.CurrentRound.SlideNumber ? this.state.Game.CurrentRound.SlideNumber : 1}
+                    </Header>
+                </Segment>}
+                <Segment>
                     <Button
                         as="a"
+                        color="blue"
                         onClick={() => window.open("/facilitator/slides/" + this.state.Game._id, "_blank")}
                     >
-                        Present Slides <SlideShow />
+                        <span
+                            style={{position: 'absolute', top:'34px'}}
+                        >Present Slides </span>
+                        <SlideShow
+                            style={{ width: '33px', fill: 'white', marginLeft:'100px' }}
+                        />
                     </Button>
 
                     <Button
+                        circular
+                        icon="caret left"
                         onClick={() => {
                             this.controller.onClickChangeSlide(-1);
                         }}
+                        color="blue"
                     >
-                        back
-                </Button>
+                    </Button>
 
                     <Button
+                        circular
+                        icon="caret right"
                         onClick={() => {
                             this.controller.onClickChangeSlide(1);
                         }}
+                        color="blue"
                     >
-                        forward
-                </Button>
-                </Row>
+                    </Button>
+                </Segment>
 
                 <hr style={{ marginTop: '2em', marginBottom: '2em' }} />
 
@@ -172,7 +187,7 @@ export default class FacilitatorView extends BaseComponent<any, IFacilitatorData
                             <Accordion.Title active={this.state.AccordionIdx === i} index={i} onClick={this.handleClick}>
                                 <Icon name='dropdown' />
                                 {t.TeamName}
-                                {t.IsComplete ? <Icon style={{marginLeft:'8px'}} name="checkmark" color="green" /> : <Icon name="cancel" color="red" />}
+                                {t.IsComplete ? <Icon style={{ marginLeft: '8px' }} name="checkmark" color="green" /> : <Icon name="cancel" color="red" />}
                             </Accordion.Title>
                             <Accordion.Content active={this.state.AccordionIdx === i}>
                                 <Table striped>
@@ -190,11 +205,11 @@ export default class FacilitatorView extends BaseComponent<any, IFacilitatorData
                                         {(t.Members).map((teamMember, i) => {
                                             let player = Object.assign(new UserModel(), teamMember);
                                             return <Table.Row key={i}>
-                                                <Table.Cell style={{width:'150px'}}>{player.Name}</Table.Cell>
-                                                <Table.Cell style={{width:'100px'}}>{player.Email}</Table.Cell>
-                                                <Table.Cell style={{width:'100px'}}>{player.Job}</Table.Cell>
-                                                <Table.Cell style={{width:'50px'}}>
-                                                   {this.getUserIsComplete(t, player)}
+                                                <Table.Cell style={{ width: '150px' }}>{player.Name}</Table.Cell>
+                                                <Table.Cell style={{ width: '100px' }}>{player.Email}</Table.Cell>
+                                                <Table.Cell style={{ width: '100px' }}>{player.Job}</Table.Cell>
+                                                <Table.Cell style={{ width: '50px' }}>
+                                                    {this.getUserIsComplete(t, player)}
                                                 </Table.Cell>
                                             </Table.Row>
                                         }

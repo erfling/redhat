@@ -784,9 +784,11 @@ p:nth-of-type(even) {
     z-index: 999999999999;
     
     &.pin{
-        top: 25vh;
+        top: 35vh;
+        left: 10vh;
         h1{
-            font-size: 3em;            
+            font-size: 3em;
+            padding: .2em 0;           
         }
     }
 }

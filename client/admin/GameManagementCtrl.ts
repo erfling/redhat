@@ -118,11 +118,11 @@ export default class GameManagementCtrl extends BaseClientCtrl<IControllerDataSt
             })
     }
 
-    public saveTeam(team: TeamModel) {
+    public saveTeam(team: TeamModel, game: GameModel) {
         this.dataStore.ApplicationState.FormIsSubmitting = true;
         return SapienServerCom.SaveData(team, SapienServerCom.BASE_REST_URL + "games/team")
             .then(r => {
-                team = Object.assign(team, r)
+                team = Object.assign(game, r)
                 this.dataStore.ApplicationState.FormIsSubmitting = false;
                 ApplicationCtrl.GetInstance().addToast("Save successful");
             }).catch(() => {

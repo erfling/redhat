@@ -166,7 +166,7 @@ class GameDetail extends BaseComponent<any, IControllerDataStore & {Admin: Admin
                                                                     selection
                                                                     fluid
                                                                     allowAdditions
-                                                                    value={this.state.Admin.SelectedGame.Teams[i].Players[j]._id}
+                                                                    value={this.state.Admin.SelectedGame.Teams[i].Players[j] ? this.state.Admin.SelectedGame.Teams[i].Players[j]._id : null}
                                                                     onChange={(e, output) => {
 
                                                                         var playerToAdd: UserModel = this.state.Admin.Users.filter(p => {
@@ -265,7 +265,7 @@ class GameDetail extends BaseComponent<any, IControllerDataStore & {Admin: Admin
                                                     icon="check"
                                                     color="blue"
                                                     content="Save"
-                                                    onClick={e => this.controller.saveTeam(Object.assign(this.state.Admin.SelectedGame.Teams[i], {Number: i + 1}))}
+                                                    onClick={e => this.controller.saveTeam(Object.assign(this.state.Admin.SelectedGame.Teams[i], {Number: i + 1}), this.state.Admin.SelectedGame)}
                                                 >
                                                 </Button>
                                             }

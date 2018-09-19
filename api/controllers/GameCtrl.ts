@@ -8,7 +8,7 @@ import MathUtil from '../../shared/entity-of-the-state/MathUtil'
 import RoundChangeMapping from '../../shared/models/RoundChangeMapping';
 import SubRoundScore from '../../shared/models/SubRoundScore';
 import { JobName } from '../../shared/models/UserModel';
-
+import { sortBy } from 'lodash'; 
 
 const mappingSchObj = SchemaBuilder.fetchSchema(RoundChangeMapping);
 const monMappingSchema = new mongoose.Schema(mappingSchObj);
@@ -162,13 +162,13 @@ class GameCtrl {
 
     public async saveTeam(req: Request, res: Response) {
         const team = req.body as TeamModel;
-        console.warn(team)
         if (!team.GameId) return res.json("NO GAME ID PROVIDED")
         try {
 
             team.Players = team.Players.map(p => p._id)
 
             if (team._id) {
+                console.log("SAVING TEAM: ",team._id);
                 var savedTeam = await monTeamModel.findByIdAndUpdate(team._id, team).then(t => Object.assign(new TeamModel(), t.toJSON()))
             } else {
                 var savedTeam = await monTeamModel.create(team).then(t => Object.assign(new TeamModel(), t.toJSON()))
@@ -176,11 +176,10 @@ class GameCtrl {
 
             if (!savedTeam) return res.json("team wasn't saved");
 
-            var existingGame = await monGameModel.findById(team.GameId).populate("Teams").then(g => Object.assign(new GameModel(), g.toObject() as GameModel))
+            var existingGame = await monGameModel.findById(team.GameId).populate("Teams").then(g => Object.assign(new GameModel(), g.toObject()))
 
             if (existingGame) {
                 if (!existingGame.Teams) existingGame.Teams = [];
-                existingGame.Teams = existingGame.Teams.filter(t => t._id.toString() != savedTeam._id).concat(savedTeam);
                 let mapping = existingGame.CurrentRound && existingGame.CurrentRound.UserJobs ? existingGame.CurrentRound : {
                     UserJobs:{},
                     GameId: existingGame._id,
@@ -191,29 +190,29 @@ class GameCtrl {
             
                 if (!mapping) throw new Error("no mapping")
 
-                //if(!mapping.UserJobs){
+                if(!mapping.UserJobs || mapping.ChildRound == "priorities"){
                     existingGame.Teams.forEach(t => {
                         let pid = t.Players[0]._id;
                         console.log("HELLO",pid, mapping.UserJobs, existingGame)
                         mapping.UserJobs[pid] = JobName.MANAGER;                   
                     })
-                //}
+                }
 
                 existingGame.CurrentRound = mapping as RoundChangeMapping;
-                existingGame.Teams = existingGame.Teams.map(t => t._id);
+                existingGame.Teams = sortBy(existingGame.Teams, "Number").map(t => t._id);
 
                 var savedGame = await monGameModel
-                    .findByIdAndUpdate(existingGame._id, existingGame)
-                    //.populate("Facilicator")
+                    .findByIdAndUpdate(existingGame._id, existingGame, {new: true})
                     .populate({
                         path: "Teams",
                         populate: {
                             path: "Players"
-                        }
-                    });
+                        },
+                    }).then(g => g ? Object.assign(new GameModel(), g.toJSON()) : null);
                 
-                if (!savedGame) throw new Error("no saved game")
+                if (!existingGame) throw new Error("no saved game")
 
+                console.log(existingGame)
                 res.json(savedGame);
             } else {
                 throw new Error("no game")
