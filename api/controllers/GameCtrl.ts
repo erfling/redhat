@@ -199,7 +199,7 @@ class GameCtrl {
                 }
 
                 existingGame.CurrentRound = mapping as RoundChangeMapping;
-                existingGame.Teams = sortBy(existingGame.Teams, "Number").map(t => t._id);
+                existingGame.Teams = sortBy(existingGame.Teams.concat(team), "Number").map(t => t._id);
 
                 var savedGame = await monGameModel
                     .findByIdAndUpdate(existingGame._id, existingGame, {new: true})
