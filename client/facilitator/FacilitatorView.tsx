@@ -132,6 +132,9 @@ export default class FacilitatorView extends BaseComponent<any, IFacilitatorData
         >
 
             <Column mobile={16} tablet={16} computer={12} largeScreen={10}>
+                <Header as="h1">
+                    Facilitator Dashboard
+                </Header>
                 {this.state.RoundResponseMappings && <Segment>
                     <Header
                         as="h2"
@@ -155,7 +158,7 @@ export default class FacilitatorView extends BaseComponent<any, IFacilitatorData
                         >
                             Present Slides
                         </span>
-                        
+
                         <SlideShow
                             style={{ width: '33px', fill: 'white', marginLeft:'100px' }}
                         />
