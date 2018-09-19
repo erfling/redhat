@@ -152,7 +152,10 @@ export default class FacilitatorView extends BaseComponent<any, IFacilitatorData
                     >
                         <span
                             style={{position: 'absolute', top:'34px'}}
-                        >Present Slides </span>
+                        >
+                            Present Slides
+                        </span>
+                        
                         <SlideShow
                             style={{ width: '33px', fill: 'white', marginLeft:'100px' }}
                         />
