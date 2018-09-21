@@ -275,6 +275,7 @@ export class AppServer {
                         ShowRateUsers: mapping.ShowRateUsers, // object where keys are user's _id as string & values are one of JobName enum values
                         ShowFeedback: mapping.ShowFeedback, // object where keys are user's _id as string & values are one of JobName enum values
                         ShowIndividualFeedback: mapping.ShowIndividualFeedback,
+                        SlideFeedback: mapping.SlideFeedback,
                         RoundId,
                         SlideNumber: mapping.SlideNumber
                     }, { new: true }, function (err, doc) {

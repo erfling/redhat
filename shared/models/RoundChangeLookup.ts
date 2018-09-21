@@ -40,6 +40,16 @@ export default class RoundChangeLookup extends BaseModel
 
     @dbProp(Number)
     MaxSlideNumber?: number = null;
+
+    @dbProp(Boolean)
+    SlideFeedback: boolean = false;
+
+    NumTeams: number;
+
+    RoundScoreIdx: number;
+
+    CumulativeScoreIdx: number;
+
  }
 
 

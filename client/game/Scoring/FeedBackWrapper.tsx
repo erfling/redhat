@@ -93,38 +93,6 @@ export default class FeedBackWrapper extends React.Component<FeedBackProps, any>
                     PlayerId={this.props.User ? this.props.User._id : null} 
                 />
             }
-            {this.props.User &&
-                <Segment raised>
-                    Individual Ratings
-                    {this.props.User.Job == JobName.MANAGER ?
-                        <>
-                            <p>
-                                Inclusive meritocracy: {DataStore.threeRandomNumbers[0]}
-                            </p>
-                            <p>
-                                Coaching: {DataStore.threeRandomNumbers[1]}
-                            </p>
-                            <p>
-                                Influence: {DataStore.threeRandomNumbers[2]}
-                            </p>
-                        </>
-                        :
-                        <>
-                            <p>
-                                Negotiation: {DataStore.threeRandomNumbers[1]}
-                            </p>
-                            <p>
-                                Courage: {DataStore.threeRandomNumbers[0]}
-                            </p>
-                            <p>
-                                Collaboration: {DataStore.threeRandomNumbers[2]}
-                            </p>
-                        </>
-                    }
-                </Segment>
-            }
-
-
             
 
             {this.props.Feedback && <>

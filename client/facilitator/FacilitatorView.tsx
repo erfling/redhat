@@ -18,8 +18,9 @@ import SlideShow from '-!svg-react-loader?name=Icon!../img/slideshow.svg';
 import RoundChangeMapping from "../../shared/models/RoundChangeMapping";
 import FacilitationRoundResponseMapping from "../../shared/models/FacilitationRoundResponseMapping";
 import UserModel, { JobName } from "../../shared/models/UserModel";
+import ICommonComponentState from "../../shared/base-sapien/client/ICommonComponentState";
 
-export default class FacilitatorView extends BaseComponent<any, IFacilitatorDataStore>
+export default class FacilitatorView extends BaseComponent<any, { FacilitatorState: IFacilitatorDataStore, ApplicationState: ICommonComponentState }>
 {
     //----------------------------------------------------------------------
     //
@@ -54,23 +55,25 @@ export default class FacilitatorView extends BaseComponent<any, IFacilitatorData
         this.state = this.controller.dataStore;
 
         document.getElementsByTagName('meta')["viewport"].content = "width=device-width, initial-scale=1.0, maximum-scale=1";
+        this.controller.getGame(location.search.split('game=')[1]);
+
     }
 
     handleClick = (e, titleProps) => {
         const { index } = titleProps
-        const { AccordionIdx } = this.state
+        const { AccordionIdx } = this.state.FacilitatorState
         const newIndex = AccordionIdx === index ? -1 : index
-
-        this.setState({ AccordionIdx: newIndex })
+        this.controller.dataStore.FacilitatorState.AccordionIdx = newIndex
     }
 
     componentDidMount() {
-
         this.controller.getGame(this.props.location.pathname.split("/").filter(s => s.length > 0).reverse()[0])
-            .then(() => this._interval = setInterval(() => this.controller.getRoundInfo().then((r: FacilitationRoundResponseMapping[]) => this.setState({ RoundResponseMappings: r })), 2000))
-
+        .then((g: GameModel) => this._interval = setInterval(() => this.controller.getRoundInfo().then((r: FacilitationRoundResponseMapping[]) => {
+            //window.focus();
+            this.controller.dataStore.FacilitatorState.RoundResponseMappings = r;
+            this.forceUpdate();
+        }), 1000));
         this.controller.getLookups();
-
 
     }
 
@@ -103,7 +106,7 @@ export default class FacilitatorView extends BaseComponent<any, IFacilitatorData
             return <Icon name="checkmark" color="green" />
         }
 
-        if (this.state.Game.CurrentRound.ShowIndividualFeedback || this.state.Game.CurrentRound.ShowRateUsers) {
+        if (this.state.FacilitatorState.Game.CurrentRound.ShowIndividualFeedback || this.state.FacilitatorState.Game.CurrentRound.ShowRateUsers) {
             //has the manager rated all the other players?
             if (user.Job == JobName.MANAGER) {
                 let completedRatings = mapping.RatingsByManager.filter(r => r.IsComplete);
@@ -121,7 +124,6 @@ export default class FacilitatorView extends BaseComponent<any, IFacilitatorData
     }
 
     render() {
-
         return <Grid
             columns={16}
             className="game-wrapper"
@@ -130,28 +132,27 @@ export default class FacilitatorView extends BaseComponent<any, IFacilitatorData
                 paddingBottom: '50px'
             }}
         >
-
             <Column mobile={16} tablet={16} computer={12} largeScreen={10}>
                 <Header as="h1">
                     Facilitator Dashboard
                 </Header>
-                {this.state.RoundResponseMappings && <Segment>
+                {this.state.FacilitatorState.RoundResponseMappings && this.state.FacilitatorState.RoundResponseMappings.length > 0 && <Segment>
                     <Header
                         as="h2"
                     >
-                        Round: {this.state.RoundResponseMappings[0].SubRoundLabel}
+                        Round: {this.state.FacilitatorState.RoundResponseMappings[0].SubRoundLabel}
                     </Header>
                     <Header
                         as="h2"
                     >
-                        Slide: {this.state.Game && this.state.Game.CurrentRound && this.state.Game.CurrentRound.SlideNumber ? this.state.Game.CurrentRound.SlideNumber : 1}
+                        Slide: {this.state.FacilitatorState.Game && this.state.FacilitatorState.Game.CurrentRound && this.state.FacilitatorState.Game.CurrentRound.SlideNumber ? this.state.FacilitatorState.Game.CurrentRound.SlideNumber : 1}
                     </Header>
                 </Segment>}
                 <Segment>
                     <Button
                         as="a"
                         color="blue"
-                        onClick={() => window.open("/facilitator/slides/" + this.state.Game._id, "_blank")}
+                        onClick={() => window.open("/facilitator/slides/" + this.state.FacilitatorState.Game._id, "_blank")}
                     >
                         <span
                             style={{position: 'absolute', top:'34px'}}
@@ -187,15 +188,15 @@ export default class FacilitatorView extends BaseComponent<any, IFacilitatorData
 
                 <hr style={{ marginTop: '2em', marginBottom: '2em' }} />
 
-                {this.state.RoundResponseMappings && <Row>
+                {this.state.FacilitatorState.RoundResponseMappings && <Row>
                     <Accordion styled style={{ width: '100%' }}>
-                        {this.state.RoundResponseMappings.map((t, i) => <>
-                            <Accordion.Title active={this.state.AccordionIdx === i} index={i} onClick={this.handleClick}>
+                        {this.state.FacilitatorState.RoundResponseMappings.map((t, i) => <>
+                            <Accordion.Title active={this.state.FacilitatorState.AccordionIdx === i} index={i} onClick={this.handleClick}>
                                 <Icon name='dropdown' />
                                 {t.TeamName}
                                 {t.IsComplete ? <Icon style={{ marginLeft: '8px' }} name="checkmark" color="green" /> : <Icon name="cancel" color="red" />}
                             </Accordion.Title>
-                            <Accordion.Content active={this.state.AccordionIdx === i}>
+                            <Accordion.Content active={this.state.FacilitatorState.AccordionIdx === i}>
                                 <Table striped>
 
                                     <Table.Header>
