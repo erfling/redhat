@@ -60,7 +60,7 @@ export default class LoginCtrl extends BaseClientCtrl<IControllerDataStore>
 
     public submitNewUserPassword(){
         this.dataStore.ApplicationState.FormIsSubmitting = true;
-        SapienServerCom.SaveData({Password: (this.component.refs as any).PASSWORD_1.value}, SapienServerCom.BASE_REST_URL + "user/usersetpassword").then((returned:any) => {
+        SapienServerCom.SaveData({Password: (this.component.refs as any).PASSWORD_1.value}, SapienServerCom.BASE_REST_URL + "user/usersetpassword/" + this.dataStore.ApplicationState.CurrentUser.Email).then((returned:any) => {
             console.log("returned", returned)
             Object.assign(this.dataStore.ApplicationState.CurrentUser, returned.user, returned.token);
             localStorage.setItem("rhjwt", returned.token);

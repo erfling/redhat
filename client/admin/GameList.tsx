@@ -124,7 +124,7 @@ class GameList extends BaseComponent<any, IControllerDataStore & {Admin: AdminVi
                     </Table.Header>
 
                     <Table.Body>
-                        {this.state.Admin.FilteredGames && this.state.Admin.FilteredGames.map((g, i) =>
+                        {this.state.Admin.FilteredGames && this.state.Admin.FilteredGames.filter(g => !g.IsContentEditable).map((g, i) =>
                             <Table.Row key={i}>
                                 <Table.Cell>
                                     <Popup

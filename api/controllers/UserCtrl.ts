@@ -173,11 +173,10 @@ class RoundRouter
             req.url = "/admin";
             req = Object.assign(req, 
                 {
-                    body: Object.assign(savedUser, {Password: req.body.Password}),
-
+                    body: Object.assign(savedUser, {Password: req.body.Password})
                 }
             )
-            new LoginCtrlClass().AdminLogin(req, res)
+            new LoginCtrlClass().AdminLogin(req, res);
         }catch{
             res.json("password not updated")
         }
