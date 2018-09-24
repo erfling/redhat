@@ -70,5 +70,8 @@ export default class UserModel extends BaseModel
     @dbProp([String])
     public ReadMessages: string[] = [];
 
+    @dbProp(String)
+    public PasswordRequestDate: string;
+
 
 }

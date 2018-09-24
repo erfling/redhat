@@ -98,6 +98,19 @@ export default class LoginCtrl extends BaseClientCtrl<IControllerDataStore>
         })
     }
 
+    public AdminResetPassword(){
+        this.dataStore.ApplicationState.FormIsSubmitting = true;
+        SapienServerCom.SaveData({Email: this.dataStore.ApplicationState.CurrentUser.Email}, SapienServerCom.BASE_REST_URL + "user/reset").then((returned:any) => {
+            this.dataStore.ApplicationState.FormError = "Check your email for a password reset link.";
+            this.dataStore.ApplicationState.FormIsSubmitting = false;
+        })
+        .catch((message) => {
+            this.dataStore.ApplicationState.FormIsSubmitting = false;
+            this.dataStore.ApplicationState.FormError = "There was a problem with your email or password.";
+            console.warn(message)
+        })
+    }
+
     //----------------------------------------------------------------------
     //
     //  Methods

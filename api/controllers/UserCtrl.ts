@@ -20,6 +20,7 @@ const schObj = SchemaBuilder.fetchSchema(UserModel);
  * 
  ***************************************/
 schObj.Password = { type: String, select: false }
+schObj.PasswordRequestDate = { type: String, select: false }
 
 //emails must be unique, and we lowercase all of them
 schObj.Email = { type: String, lowercase: true, unique: true }
@@ -193,6 +194,32 @@ class RoundRouter
         }
     }
 
+
+    public async RequestReset(req: Request, res: Response){
+        const userToSave = req.body as UserModel;
+        //const dbRoundModel = new monRoundModel(roundToSave); 
+        
+        try{
+           
+            var savedUser = await monUserModel.findOne({Email: userToSave.Email}).then(r => r.toObject() as UserModel);
+            if(!savedUser) throw new Error("no user")
+            //invite user who's role has changed to ADMIN to create admin password
+            if( savedUser.Role == RoleName.ADMIN ){
+                var token = Auth.ISSUE_NEW_USER_JWT(savedUser)
+                EmailCtrl.SEND_EMAIL((savedUser), token, true);
+            } else {
+                throw new Error("not an admin")
+            }
+            
+
+            res.json(savedUser);
+        }
+        catch(err){
+            console.log(err)
+            res.status(500).send("woop")
+        }
+    }
+
     public routes(){
 
         this.router.get("/", 
@@ -219,7 +246,7 @@ class RoundRouter
             this.AddNewUser.bind(this)
         );
 
-        this.router.use("/usersetpassword", 
+        this.router.use("/usersetpassword/:email", 
             Passport.authenticate('jwt', {session: false}),
             //(req, res, next) => Auth.IS_USER_AUTHORIZED(req, res, next, PERMISSION_LEVELS.ADMIN), 
             this.SetNewUserPassword.bind(this)
@@ -229,6 +256,11 @@ class RoundRouter
             Passport.authenticate('jwt', {session: false}),
             //(req, res, next) => Auth.IS_USER_AUTHORIZED(req, res, next, PERMISSION_LEVELS.ADMIN), 
             this.GetNewUser.bind(this)
+        );
+
+        this.router.post("/reset", 
+            //(req, res, next) => Auth.IS_USER_AUTHORIZED(req, res, next, PERMISSION_LEVELS.ADMIN), 
+            this.RequestReset.bind(this)
         );
 
         this.router.get("/:id",

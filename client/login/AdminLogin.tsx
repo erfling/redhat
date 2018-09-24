@@ -94,6 +94,16 @@ export default class AdminLogin extends BaseComponent<any, IControllerDataStore>
                                 <Message.Header>{this.state.ApplicationState.FormError}</Message.Header>
                             </Message>
                         }
+
+                        <Form.Field
+                            style={{marginTop: '20px'}}
+                        >
+                            <a
+                                onClick={() => this.controller.AdminResetPassword()}
+                            >
+                                Forgot your password?
+                            </a>
+                        </Form.Field>
                     </Form>
                 </Column>
             </Row>
