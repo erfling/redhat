@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Grid, Button, Form } from 'semantic-ui-react';
+import { Grid, Button, Form, Message } from 'semantic-ui-react';
 const Field = { Form }
 const { Column, Row } = Grid;
 import LoginCtrl from './LoginCtrl';
@@ -80,12 +80,12 @@ export default class Join extends BaseComponent<any, IControllerDataStore>
                     >
                         <Row>
                             <IntroLogo
-                                style={{marginBottom:'0'}}
+                                style={{ marginBottom: '0' }}
                                 className="top-logo"
                             />
                         </Row>
                         <Row
-                            style={{marginBottom:'20px'}}
+                            style={{ marginBottom: '20px' }}
                         >
                             <h2>Welcome, {this.state.ApplicationState.CurrentUser.FirstName}</h2>
                         </Row>
@@ -120,7 +120,25 @@ export default class Join extends BaseComponent<any, IControllerDataStore>
                                     loading={this.state.ApplicationState.FormIsSubmitting}
                                     disabled={!this.state.ApplicationState.FormIsValid}
                                     onClick={() => this.controller.submitNewUserPassword()}
-                                >Register</Button>
+                                >
+                                    Save Password
+                                </Button>
+
+                                {this.state && this.state.ApplicationState.FormError && <Form.Field
+                                    style={{ marginTop: '20px' }}
+                                >
+                                    <Message negative>
+                                        <Message.Header>{this.state.ApplicationState.FormError}</Message.Header>
+                                    </Message>
+
+                                    <a
+                                        onClick={() => this.controller.AdminResetPassword()}
+                                    >
+                                        Need to reset your password again?
+                                    </a>
+                                </Form.Field>
+                                }
+
                             </Form>
                         </Row>
                     </Column>

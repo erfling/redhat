@@ -74,7 +74,7 @@ export default abstract class AuthUtils {
     }
 
     public static HASH_PASSWORD(inputPassword: string): string {
-        return bcrypt.hashSync(inputPassword, 16);
+        return bcrypt.hashSync(inputPassword, 10);
     }
 
     public static IS_VALID_PASSWORD(inputPassword: string, user: UserModel): boolean {

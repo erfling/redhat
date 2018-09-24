@@ -1,6 +1,7 @@
 import { Router, Request, Response, NextFunction } from 'express';
 import * as mongoose from 'mongoose';
 import UserModel, { RoleName } from '../../shared/models/UserModel';
+import SignupToken from '../../shared/models/SignupToken';
 import SchemaBuilder from '../SchemaBuilder';
 import Auth, {PERMISSION_LEVELS} from '../AuthUtils'; 
 import EmailCtrl from './EmailCtrl';
@@ -26,12 +27,16 @@ schObj.PasswordRequestDate = { type: String, select: false }
 schObj.Email = { type: String, lowercase: true, unique: true }
 
 const monSchema = new mongoose.Schema(schObj);
-console.log("USER SCHEMA INIT:",  schObj)
-
-
 export const monUserModel = mongoose.model("user", monSchema);
 
-class RoundRouter
+const tokenSchObj = SchemaBuilder.fetchSchema(SignupToken);
+tokenSchObj.IsUsed = { type: Boolean, select: false}
+tokenSchObj.UserId = { type: String, lowercase: true, unique: true }
+
+const monTokenSchema = new mongoose.Schema(tokenSchObj);
+export const monTokenModel = mongoose.model("token", monTokenSchema);
+
+class UserRouter
 {
     //----------------------------------------------------------------------
     //
@@ -108,12 +113,15 @@ class RoundRouter
         
         try{
             if(!userToSave.Email || !userToSave.Email.length || !userToSave._id) {
-                var savedUser = await monUserModel.create(userToSave).then(r => r.toObject() as UserModel);
+                var savedUser = await monUserModel.create(userToSave).then(r => r.toJSON() as UserModel);
 
                 //invite new user to create admin password
                 if(savedUser.Role == RoleName.ADMIN){
-                    var token = Auth.ISSUE_NEW_USER_JWT(savedUser)
-                    EmailCtrl.SEND_EMAIL((savedUser), token);
+                    let token = Auth.ISSUE_NEW_USER_JWT(savedUser);
+
+                    let savedToken = await monTokenModel.findOneAndUpdate({UserId: savedUser._id, Token: token, IsUsed: false}, {new: true, upsert: true}).then(t => t ? t.toJSON() as SignupToken : null);
+
+                    EmailCtrl.SEND_EMAIL((savedUser), Auth.ISSUE_NEW_USER_JWT(token));
                 }
 
             } else {
@@ -167,6 +175,18 @@ class RoundRouter
 
         const id = req.user._id;
         try{
+
+            //get the saved token, assure it's not been used
+            let token = await monTokenModel.findOne({UserId: id}).select("+IsUsed").then(t => t ? Object.assign(new SignupToken, t.toJSON()) : null);
+            if (!token) throw new Error("no token found");
+            
+            if (token.IsUsed) throw new Error("token expired");
+
+            let updatedToken = await monTokenModel.findOneAndUpdate({UserId: id}, {IsUsed: true}, {new: true}).select("+IsUsed").then(t => t ? Object.assign(new SignupToken, t.toJSON()) : null);
+
+            console.log(updatedToken)
+            if (!updatedToken || !updatedToken.IsUsed) throw new Error("Token not updated")
+            
             console.log(req.body.Password, Auth.HASH_PASSWORD(req.body.Password))
             const newPW = Auth.HASH_PASSWORD(req.body.Password);
             const savedUser = await monUserModel.findByIdAndUpdate(id.toString(), {Password: newPW}).then(r => r);
@@ -176,9 +196,16 @@ class RoundRouter
                     body: Object.assign(savedUser, {Password: req.body.Password})
                 }
             )
+
+            if (!newPW) throw new Error("password error");
+            if (!savedUser) throw new Error("user not updated");
+
             new LoginCtrlClass().AdminLogin(req, res);
-        }catch{
-            res.json("password not updated")
+
+        }
+        catch (err) {
+            console.log(err);
+            res.status(500).json("password not updated")
         }
     }
 
@@ -205,6 +232,8 @@ class RoundRouter
             //invite user who's role has changed to ADMIN to create admin password
             if( savedUser.Role == RoleName.ADMIN ){
                 var token = Auth.ISSUE_NEW_USER_JWT(savedUser)
+                let savedToken = await monTokenModel.findOneAndUpdate({UserId: savedUser._id}, { Token: token, IsUsed: false }, {new: true, upsert: true}).then(t => t ? t.toJSON() as SignupToken : null);
+                if (!savedToken) throw new Error("no token")
                 EmailCtrl.SEND_EMAIL((savedUser), token, true);
             } else {
                 throw new Error("not an admin")
@@ -270,4 +299,4 @@ class RoundRouter
     }
 }
 
-export default new RoundRouter().router;
+export default new UserRouter().router;

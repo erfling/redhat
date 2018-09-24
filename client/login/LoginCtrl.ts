@@ -74,7 +74,7 @@ export default class LoginCtrl extends BaseClientCtrl<IControllerDataStore>
         })
         .catch((message) => {
             this.dataStore.ApplicationState.FormIsSubmitting = false;
-            this.dataStore.ApplicationState.FormError = "";
+            this.dataStore.ApplicationState.FormError = "Your password could not be updated.";
             console.warn(message)
         })
     }
