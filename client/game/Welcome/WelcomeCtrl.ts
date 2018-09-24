@@ -66,8 +66,6 @@ export default class WelcomeCtrl extends BaseRoundCtrl<IRoundDataStore>
                     this.dataStore.ApplicationState.CurrentTeam = this.dataStore.ApplicationState.CurrentTeam = Object.assign(new TeamModel(), r.team)
 
                     localStorage.setItem("RH_TEAM", JSON.stringify(r.team))
-
-
                     this.component.props.history.push("/game/peopleround/priorities");
                     GameCtrl.GetInstance().getCurrentMapping();
                     GameCtrl.GetInstance().dataStoreChange();

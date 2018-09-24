@@ -104,7 +104,7 @@ export default class FacilitatorCtrl extends BaseClientCtrl<{FacilitatorState: I
 
             console.log("LOOKUPS",lookup, mapping);
 
-            console.log("GOING TO: ", mapping, this.dataStore.FacilitatorState.SlideNumber);
+            console.log("GOING TO: ", mapping, this.dataStore.FacilitatorState.SlideNumber, this.dataStore.FacilitatorState.CurrentLookup,  this.dataStore.FacilitatorState.CurrentLookup.SlideFeedback);
 
             //are we showing the leaderboard on the slide screen?
             let hold = false;
@@ -126,6 +126,7 @@ export default class FacilitatorCtrl extends BaseClientCtrl<{FacilitatorState: I
                 } 
                 //when are are out of both round and cumulative scores, let the app move on to the next slide/game state
                 else {
+                    this.dataStore.FacilitatorState.RoundScores = null;
                     hold = false;
                 }
 
@@ -208,6 +209,7 @@ export default class FacilitatorCtrl extends BaseClientCtrl<{FacilitatorState: I
     public getLookups(){   
         return SapienServerCom.GetData(null,  RoundChangeLookup, SapienServerCom.BASE_REST_URL + "facilitator/getroundchangelookups").then(rcl => {
             this.dataStore.FacilitatorState.RoundChangeLookups = rcl as RoundChangeLookup[];
+            console.log(this.dataStore.FacilitatorState.SlideNumber, this.dataStore.FacilitatorState.Game.CurrentRound.SlideNumber)
             return rcl;
         })        
     }
@@ -241,7 +243,16 @@ export default class FacilitatorCtrl extends BaseClientCtrl<{FacilitatorState: I
         return SapienServerCom.GetData(null, GameModel, SapienServerCom.BASE_REST_URL + GameModel.REST_URL + "/" + id).then((g: GameModel) => {
             this.dataStore.FacilitatorState.Game = g;
             this.dataStore.FacilitatorState.SlideNumber = g.CurrentRound.SlideNumber || 1;
-            console.log("HEY", this.dataStore.FacilitatorState)
+            console.log("HEY", this.dataStore.FacilitatorState, g.CurrentRound, this.dataStore.FacilitatorState.CurrentLookup);
+
+            if (!this.dataStore.FacilitatorState.CurrentLookup || !this.dataStore.FacilitatorState.CurrentLookup.MaxSlideNumber){
+                let lookups = this.dataStore.FacilitatorState.RoundChangeLookups.filter(lu => {
+                    return lu.MinSlideNumber <=  g.CurrentRound.SlideNumber && lu.MaxSlideNumber >=  g.CurrentRound.SlideNumber;
+                })
+
+                if (lookups.length) this.dataStore.FacilitatorState.CurrentLookup = lookups[0];
+            }
+
             return this.dataStore.FacilitatorState.Game;
         })
     }

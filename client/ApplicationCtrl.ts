@@ -8,6 +8,8 @@ import DataStore from '../shared/base-sapien/client/DataStore';
 import ComponentsVO from '../shared/base-sapien/client/ComponentsVO';
 import GameCtrl from './game/GameCtrl';
 import TeamModel from '../shared/models/TeamModel';
+import SapienServerCom from '../shared/base-sapien/client/SapienServerCom';
+import GameModel from '../shared/models/GameModel';
 
 export default class ApplicationCtrl extends BaseClientCtrl<IControllerDataStore>
 {
@@ -64,6 +66,16 @@ export default class ApplicationCtrl extends BaseClientCtrl<IControllerDataStore
             location.pathname = "/game"
             //this.component.props.history.push("/game")
         }
+    }
+
+    public EditContent(){
+        return SapienServerCom.GetData(null, TeamModel, SapienServerCom.BASE_REST_URL + GameModel.REST_URL + "/edit/game").then((t: TeamModel) => {
+            localStorage.setItem("RH_TEAM", JSON.stringify(t))
+            this.component.props.history.push("/game/peopleround/priorities");
+            GameCtrl.GetInstance().getCurrentMapping();
+            GameCtrl.GetInstance().dataStoreChange();
+            //ApplicationCtrl.GetInstance().addToast("You are now playing the role of " + r.user.Job, "info");
+        })
     }
 
     //----------------------------------------------------------------------

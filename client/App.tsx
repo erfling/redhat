@@ -173,10 +173,8 @@ export default class App extends BaseComponent<any, IControllerDataStore>
                                         </Menu.Item>
                                         <Menu.Item
                                             name='Edit Game Content'
-                                        >
-                                            <Link to="/game/welcome"
-                                                onClick={() => this.controller.dataStore.ApplicationState.ShowMenu = false}
-                                            >Game Content</Link>
+                                            onClick={() => this.controller.EditContent()}
+                                        >Game Content
                                         </Menu.Item>
                                     </Menu.Menu>
                                 </Menu.Item>
@@ -438,13 +436,6 @@ export default class App extends BaseComponent<any, IControllerDataStore>
                                                     GameCtrl.GetInstance().dataStoreChange();
                                                     (GameCtrl.GetInstance().ChildController as BaseRoundCtrl<any>).getContentBySubRound();
 
-                                                }}
-                                            />
-                                            <MenuItem
-                                                name={RoleName.FACILITATOR}
-                                                onClick={e => {                                                   
-                                                    e.preventDefault();
-                                                    this.props.history.push("/facilitator/base/" + GameCtrl.GetInstance().dataStore.ApplicationState.CurrentTeam.GameId)
                                                 }}
                                             />
                                         </Menu.Item>

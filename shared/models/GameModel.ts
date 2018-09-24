@@ -42,6 +42,9 @@ export default class GameModel extends BaseModel
 
     public VisitedRoundsMapping: {[key:string]: RoundChangeMapping};
 
+    @dbProp(Boolean)
+    public IsContentEditable: boolean = false;
+
     //----------------------------------------------------------------------
     //
     //  Constructor

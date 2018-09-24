@@ -7,8 +7,10 @@ import TeamModel from '../../shared/models/TeamModel';
 import MathUtil from '../../shared/entity-of-the-state/MathUtil'
 import RoundChangeMapping from '../../shared/models/RoundChangeMapping';
 import SubRoundScore from '../../shared/models/SubRoundScore';
-import { JobName } from '../../shared/models/UserModel';
+import UserModel, { JobName } from '../../shared/models/UserModel';
 import { sortBy } from 'lodash'; 
+import * as Passport from 'passport'
+import AuthUtils, { PERMISSION_LEVELS } from '../AuthUtils';
 
 const mappingSchObj = SchemaBuilder.fetchSchema(RoundChangeMapping);
 const monMappingSchema = new mongoose.Schema(mappingSchObj);
@@ -265,9 +267,39 @@ class GameCtrl {
 
     }
 
+    public async GetContentEditTeam(req: Request, res: Response){
+        try{
+            let user = req['user'] as UserModel;
+            let editableGame = await monGameModel.findOne({IsContentEditable: true}).then(g => g ? Object.assign(new GameModel(), g.toJSON()) : null);
+            console.log(editableGame);
+            if(!editableGame) {
+                editableGame = await monGameModel.create({IsContentEditable: true}).then(g => g ? Object.assign(new GameModel(), g.toJSON()) : null);
+            }
+
+            if (!editableGame) throw new Error();
+
+            let dummyTeam: TeamModel = new TeamModel();
+            dummyTeam.Players = [user];
+            dummyTeam.GameId = editableGame._id;
+            res.json(dummyTeam);
+
+        }
+        catch(e) {
+            console.log(e);
+            res.status(500).send("couldn't find or create game")
+        }
+       
+
+    }
+
     public routes() {
         this.router.get("/", this.GetGames.bind(this));
         this.router.get("/:game", this.GetGame.bind(this));
+        this.router.get("/edit/game",
+            Passport.authenticate('jwt', { session: false }),
+            (req, res, next) => AuthUtils.IS_USER_AUTHORIZED(req, res, next, PERMISSION_LEVELS.ADMIN),
+            this.GetContentEditTeam.bind(this)
+        );
         this.router.post("/", this.SaveGame.bind(this));
         this.router.post("/team", this.saveTeam.bind(this))
         this.router.post("/team/delete", this.DeleteTeam.bind(this))
