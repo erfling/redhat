@@ -346,6 +346,8 @@ export default class GameCtrl<T extends IControllerDataStore & {Game: GameModel,
             SapienServerCom.SaveData(mapping, SapienServerCom.BASE_REST_URL + "facilitation/round/" + gameId).then(r => {
                 console.log("RESPONSE FROM SERVER FROM ROUND ADVANCE POST", r)
             });
+        } else {
+            console.error("no gameid")
         }
     }
 
