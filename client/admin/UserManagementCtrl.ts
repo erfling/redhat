@@ -121,6 +121,10 @@ export default class UserManagementCtrl extends BaseClientCtrl<IControllerDataSt
             this.dataStore.Admin.FacilitatorUsers = this.dataStore.Admin.Users.filter(u => u.Role == RoleName.FACILITATOR &&  u._id != user._id)
             console.log(AdminCtrl.GetInstance().dataStore.Admin.Users, this.dataStore.Admin.Users, this.dataStore.Admin.AdminUsers)
             this.dataStore.Admin.DeletionUser = null; 
+            ApplicationCtrl.GetInstance().addToast("The user was successfully removed")
+
+        }).catch(() => {
+            ApplicationCtrl.GetInstance().addToast("The user could not be deleted","danger red")
         })
     }
 
