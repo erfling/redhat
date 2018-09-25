@@ -171,27 +171,35 @@ export default class UserList extends BaseComponent<any, IControllerDataStore & 
                                         header={u.FirstName + " " + u.LastName}
                                         content="Edit User"
                                     />
+                                    {u._id != this.state.ApplicationState.CurrentUser._id && 
+                                        <Popup
+                                            trigger={<Button
+                                                color="red"
+                                                circular
+                                                icon='remove user'
+                                                onClick={e => this.controller.dataStore.Admin.DeletionUser = u}
+                                            ></Button>}
+                                            header={u.FirstName + " " + u.LastName}
+                                            content={u._id != this.state.ApplicationState.CurrentUser._id ? "Delete User" : "You can't delete yourself."}
+                                        />   
+                                    }
 
-                                    <Popup
-                                        trigger={<Button
-                                            disabled={u._id == this.state.ApplicationState.CurrentUser._id}
-                                            color="red"
-                                            circular
-                                            icon='remove user'
-                                            onClick={e => this.controller.dataStore.Admin.DeletionUser = u}
-                                        ></Button>}
-                                        header={u.FirstName + " " + u.LastName}
-                                        content={u._id != this.state.ApplicationState.CurrentUser._id ? "Delete User" : "You can't delete yourself."}
-                                    />                                    
+                                    {u._id == this.state.ApplicationState.CurrentUser._id && 
+
+                                        <Popup
+                                            trigger={<Button
+                                                color="red"
+                                                circular
+                                                icon='remove user'
+                                                className="disabled"
+                                                onClick={e => this.controller.dataStore.Admin.DeletionUser = u}
+                                            ></Button>}
+                                            header={u.FirstName + " " + u.LastName}
+                                            content={u._id != this.state.ApplicationState.CurrentUser._id ? "Delete User" : "You can't delete yourself."}
+                                        />    
+                                    }                               
                                     
-                                    <Popup
-                                        trigger={<Button
-                                            circular
-                                            icon='info'
-                                        ></Button>}
-                                        header={u.FirstName + " " + u.LastName}
-                                        content="User Details"
-                                    />         
+                                          
                                 </Table.Cell>
                                 <Table.Cell>{u.FirstName}</Table.Cell>
                                 <Table.Cell>{u.LastName}</Table.Cell>
