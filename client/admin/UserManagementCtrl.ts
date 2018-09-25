@@ -87,7 +87,7 @@ export default class UserManagementCtrl extends BaseClientCtrl<IControllerDataSt
     
     public saveUser(user: UserModel){
         this.dataStore.ApplicationState.FormIsSubmitting = true;
-        SapienServerCom.SaveData(user, SapienServerCom.BASE_REST_URL + "user")
+        SapienServerCom.SaveData(user, SapienServerCom.BASE_REST_URL + "user", true)
                         .then(r => {
                             if (user._id){
                                 this.dataStore.Admin.Users = this.dataStore.Admin.Users.map(u => {
