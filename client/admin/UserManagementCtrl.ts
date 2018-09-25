@@ -90,14 +90,14 @@ export default class UserManagementCtrl extends BaseClientCtrl<IControllerDataSt
         SapienServerCom.SaveData(user, SapienServerCom.BASE_REST_URL + "user", true)
                         .then(r => {
                             console.log(r);
-                            if(r == undefined || typeof r == "string" || !r){
+                            if(r == undefined || typeof r == "undefined" || typeof r == "string" || !r){
                                 if(r == "DUPLICATE_EMAIL") {
                                     ApplicationCtrl.GetInstance().addToast("There is already a user with the email " + user.Email, "danger");
                                     throw new Error();
                                 }
                             }
 
-                            if (user._id){
+                            else if (user._id){
                                 this.dataStore.Admin.Users = this.dataStore.Admin.Users.map(u => {
                                     return u._id == user._id ? Object.assign(user, r) : u
                                 })
