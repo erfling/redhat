@@ -107,9 +107,11 @@ export default class UserManagementCtrl extends BaseClientCtrl<IControllerDataSt
                             ApplicationCtrl.GetInstance().addToast("Save successful")
 
                         })
-                        .catch(() => {
+                        .catch((r) => {
                             this.closeModal();
-                            ApplicationCtrl.GetInstance().addToast("There was a problem saving the user", "danger");
+                            if(r == "DUPLICATE_EMAIL") {
+                                ApplicationCtrl.GetInstance().addToast("There is already a user with the email " + user.Email, "danger");
+                            } else ApplicationCtrl.GetInstance().addToast("There was a problem saving the user", "danger");
                         })
     }
 

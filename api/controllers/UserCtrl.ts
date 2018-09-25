@@ -143,7 +143,10 @@ class UserRouter
         }
         catch (err) {
             console.log(err)
-            res.status(500).send("error saving user")
+
+            if ("message" in err && err["message"].toLowerCase().indexOf("duplicate") != -1) {
+                res.status(500).send("DUPLICATE_EMAIL") 
+            } else res.status(500).send("error saving user");
         }
     }
 
