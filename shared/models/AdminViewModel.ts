@@ -33,6 +33,10 @@ export default class AdminViewModel extends BaseModel
 
     GameFilter: any = {};
 
+    DeletionUser: UserModel;
+
+    DeletionGame: GameModel;
+
     private _CurrentUser: UserModel;
     get CurrentUser(): UserModel {
         return ApplicationViewModel.CurrentUser;

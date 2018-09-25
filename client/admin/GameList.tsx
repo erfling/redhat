@@ -69,6 +69,38 @@ class GameList extends BaseComponent<any, IControllerDataStore & {Admin: AdminVi
                     Submitting= {this.state.ApplicationState.FormIsSubmitting}
                 />
             }
+            {this.state.Admin.DeletionGame &&
+                    <Modal open={this.state.Admin.DeletionGame != null} basic onClose={e => this.controller.closeModal()}>
+                        <Modal.Header color="red"><Icon name="remove user"/>Delete User</Modal.Header>
+                        <Modal.Content>
+                            <Modal.Description>
+                                Are you sure you want to <strong>permanently delete the game scheduled for {this.state.Admin.DeletionGame.DatePlayed}</strong>?
+                            </Modal.Description>
+                        </Modal.Content>
+                        <Modal.Actions>
+                            <Button
+                                inverted
+                                color='red'
+                                icon='cancel'
+                                labelPosition="right"
+                                content="Cancel"
+                                onClick={e => this.controller.dataStore.Admin.DeletionGame = null}
+                            >
+                            </Button>
+                            <Button
+                                inverted
+                                color="orange"
+                                icon='remove user'
+                                labelPosition="right"
+                                content='Permanently Delete Game'
+                                loading={this.state.ApplicationState.FormIsSubmitting}
+                                onClick={e => this.controller.DeleteGame(this.state.Admin.DeletionGame)}
+                            ></Button>
+                        </Modal.Actions>
+                    </Modal>
+    
+                }
+            
             <Segment 
                 clearing
                 style={{paddingBottom:0}}

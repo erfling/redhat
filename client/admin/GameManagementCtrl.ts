@@ -10,6 +10,7 @@ import TeamModel from '../../shared/models/TeamModel';
 import ApplicationCtrl from '../ApplicationCtrl';
 import DataStore from '../../shared/base-sapien/client/DataStore';
 import ComponentsVO from '../../shared/base-sapien/client/ComponentsVO';
+import AdminCtrl from './AdminCtrl';
 
 export default class GameManagementCtrl extends BaseClientCtrl<IControllerDataStore & { Admin: AdminViewModel, ShowUserModal: boolean, ShowGameModal: boolean, ShowTeamDeleteModal: boolean }>
 {
@@ -216,6 +217,18 @@ export default class GameManagementCtrl extends BaseClientCtrl<IControllerDataSt
 
     }
 
+    public DeleteGame(game: GameModel){
+        return SapienServerCom.DeleteData(game, SapienServerCom.BASE_REST_URL + "games").then(r => {
+            this.dataStore.Admin.Games = this.dataStore.Admin.Games.filter(g => g._id != g._id);
+            
+            console.log(AdminCtrl.GetInstance().dataStore.Admin.Games)
+            this.dataStore.Admin.DeletionGame = null; 
+            ApplicationCtrl.GetInstance().addToast("The game was successfully removed")
+
+        }).catch(() => {
+            ApplicationCtrl.GetInstance().addToast("The game could not be deleted","danger red")
+        })
+    }
     protected _setUpFistma(reactComp: Component) {
         this.component = reactComp;
         var compStates = {

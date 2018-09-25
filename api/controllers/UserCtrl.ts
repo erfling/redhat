@@ -248,12 +248,11 @@ class UserRouter
                 throw new Error("not an admin")
             }
             
-
             res.json(savedUser);
         }
         catch(err){
             console.log(err)
-            res.status(500).send("woop")
+            res.status(500).send("error")
         }
     }
 

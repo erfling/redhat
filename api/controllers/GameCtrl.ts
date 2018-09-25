@@ -292,6 +292,17 @@ class GameCtrl {
 
     }
 
+    public async DeleteGame(req: Request, res: Response):Promise<any> {
+        const id = req.params.gameID;
+        console.log("trying to delete user with ID: ", id)
+        try{
+            const savedUser = monGameModel.findByIdAndRemove(id).then(r => r);
+            res.json("game successfully removed");
+        }catch{
+            res.json("game not removed")
+        }
+    }
+
     public routes() {
         this.router.get("/", this.GetGames.bind(this));
         this.router.get("/:game", this.GetGame.bind(this));
@@ -299,6 +310,11 @@ class GameCtrl {
             Passport.authenticate('jwt', { session: false }),
             (req, res, next) => AuthUtils.IS_USER_AUTHORIZED(req, res, next, PERMISSION_LEVELS.ADMIN),
             this.GetContentEditTeam.bind(this)
+        );
+        this.router.delete("/:gameID",
+            Passport.authenticate('jwt', {session: false}),
+            (req, res, next) => AuthUtils.IS_USER_AUTHORIZED(req, res, next, PERMISSION_LEVELS.ADMIN), 
+            this.DeleteGame.bind(this)
         );
         this.router.post("/", this.SaveGame.bind(this));
         this.router.post("/team", this.saveTeam.bind(this))
