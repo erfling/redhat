@@ -116,6 +116,9 @@ export default class UserManagementCtrl extends BaseClientCtrl<IControllerDataSt
     public DeleteUser(user: UserModel){
         return SapienServerCom.DeleteData(user, SapienServerCom.BASE_REST_URL + "user").then(r => {
             this.dataStore.Admin.Users = this.dataStore.Admin.Users.filter(u => u._id != user._id);
+            this.dataStore.Admin.AdminUsers = this.dataStore.Admin.Users.filter(u => u.Role == RoleName.ADMIN &&  u._id != user._id)
+            this.dataStore.Admin.PlayerUsers = this.dataStore.Admin.Users.filter(u => u.Role == RoleName.PLAYER &&  u._id != user._id)
+            this.dataStore.Admin.FacilitatorUsers = this.dataStore.Admin.Users.filter(u => u.Role == RoleName.FACILITATOR &&  u._id != user._id)
             console.log(AdminCtrl.GetInstance().dataStore.Admin.Users, this.dataStore.Admin.Users)
             this.dataStore.Admin.DeletionUser = null; 
         })
