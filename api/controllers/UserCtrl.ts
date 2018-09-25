@@ -115,7 +115,7 @@ class UserRouter
             if(!userToSave.Email || !userToSave.Email.length || !userToSave._id) {
                 var savedUser = await monUserModel.create(userToSave).then(r => r.toJSON() as UserModel);
                 if (!savedUser) throw new Error("no user");
-                
+                console.log(savedUser)
                 //invite new user to create admin password
                 if(savedUser.Role == RoleName.ADMIN){
                     let token = Auth.ISSUE_NEW_USER_JWT(savedUser);
@@ -128,6 +128,7 @@ class UserRouter
             } else {
                 var savedUser = await monUserModel.findByIdAndUpdate(userToSave._id, userToSave, {new: true}).then(r => r.toObject() as UserModel);
                 if (!savedUser) throw new Error("no user on update");
+                console.log("update",savedUser)
 
                 //invite user who's role has changed to ADMIN to create admin password
                 if( savedUser.Role == RoleName.ADMIN && userToSave.RoleChanged ){
