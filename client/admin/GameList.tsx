@@ -74,7 +74,7 @@ class GameList extends BaseComponent<any, IControllerDataStore & {Admin: AdminVi
                         <Modal.Header color="red"><Icon name="remove user"/>Delete User</Modal.Header>
                         <Modal.Content>
                             <Modal.Description>
-                                Are you sure you want to <strong>permanently delete the game scheduled for {this.state.Admin.DeletionGame.DatePlayed}</strong>?
+                                Are you sure you want to <strong>permanently</strong> delete the game scheduled for {this.state.Admin.DeletionGame.DatePlayed}?
                             </Modal.Description>
                         </Modal.Content>
                         <Modal.Actions>

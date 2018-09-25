@@ -17,7 +17,10 @@ h1, h2, h3, h4, h5, p, .ui.header, ul, ul li, strong{
 h1, h2, h3, h4, h5, .ui.header, ul, ul li{
     font-weight: 300;
 }
-
+.modal strong{
+    color: white;
+    text-decoration: underline;
+}
 .ui.inverted {
     h1, h2, h3, h4, h5, p, .ui.header, ul, ul li, strong{
         color: white;

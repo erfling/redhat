@@ -60,7 +60,7 @@ export default class UserList extends BaseComponent<any, IControllerDataStore & 
                     <Modal.Header color="red"><Icon name="remove user"/>Delete User</Modal.Header>
                     <Modal.Content>
                         <Modal.Description>
-                            Are you sure you want to <strong>permanently delete {this.state.Admin.DeletionUser.FirstName + " " + this.state.Admin.DeletionUser.LastName}</strong>?
+                            Are you sure you want to <strong>permanently</strong> delete {this.state.Admin.DeletionUser.FirstName + " " + this.state.Admin.DeletionUser.LastName}?
                         </Modal.Description>
                     </Modal.Content>
                     <Modal.Actions>

@@ -50,7 +50,7 @@ export default class GameModal extends React.Component< GameModalProps, {} >
                     <Modal.Header color="red"><Icon name="remove user"/>Delete Team</Modal.Header>
                     <Modal.Content>
                         <Modal.Description>
-                            Are you sure you want to <strong>permanently delete this team?</strong>?
+                            Are you sure you want to <strong>permanently</strong> delete this team??
                         </Modal.Description>
                     </Modal.Content>
                     <Modal.Actions>
