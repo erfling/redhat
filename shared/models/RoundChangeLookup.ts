@@ -50,6 +50,8 @@ export default class RoundChangeLookup extends BaseModel
 
     CumulativeScoreIdx: number;
 
+    Video: string = null;
+
  }
 
 
