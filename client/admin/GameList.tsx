@@ -187,6 +187,16 @@ class GameList extends BaseComponent<any, IControllerDataStore & {Admin: AdminVi
                                         header="Facilitate this game"
                                     />
 
+                                    <Popup
+                                        trigger={<Button
+                                            color="red"
+                                            circular
+                                            icon='remove'
+                                            onClick={e => this.controller.dataStore.Admin.DeletionGame = g}
+                                        ></Button>}
+                                        content="Delete Game"
+                                    />   
+
                                 </Table.Cell>
                                 
                                 <Table.Cell>{g.DatePlayed}</Table.Cell>
