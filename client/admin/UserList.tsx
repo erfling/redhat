@@ -191,8 +191,9 @@ export default class UserList extends BaseComponent<any, IControllerDataStore & 
                                                 color="red"
                                                 circular
                                                 icon='remove user'
-                                                className="disabled"
-                                                onClick={e => this.controller.dataStore.Admin.DeletionUser = u}
+                                                style={{
+                                                    cursor:'not-allowed'
+                                                }}
                                             ></Button>}
                                             header={u.FirstName + " " + u.LastName}
                                             content={u._id != this.state.ApplicationState.CurrentUser._id ? "Delete User" : "You can't delete yourself."}
