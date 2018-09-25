@@ -110,7 +110,7 @@ class UserRouter
     public async SaveUser(req: Request, res: Response):Promise<any> {
         const userToSave = req.body as UserModel;
         //const dbRoundModel = new monRoundModel(roundToSave); 
-        
+        console.log("SVING")
         try{
             if(!userToSave.Email || !userToSave.Email.length || !userToSave._id) {
                 var savedUser = await monUserModel.create(userToSave).then(r => r.toJSON() as UserModel);
@@ -122,7 +122,7 @@ class UserRouter
 
                     let savedToken = await monTokenModel.findOneAndUpdate({UserId: savedUser._id}, {Token: token, IsUsed: false}, {new: true, upsert: true}).then(t => t ? t.toJSON() as SignupToken : null);
                     if(!savedToken) throw new Error("token not created");
-                    EmailCtrl.SEND_EMAIL((savedUser), Auth.ISSUE_NEW_USER_JWT(token));
+                    EmailCtrl.SEND_EMAIL((savedUser), token);
                 }
 
             } else {
