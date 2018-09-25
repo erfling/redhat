@@ -119,8 +119,8 @@ class UserRouter
                 if(savedUser.Role == RoleName.ADMIN){
                     let token = Auth.ISSUE_NEW_USER_JWT(savedUser);
 
-                    let savedToken = await monTokenModel.findOneAndUpdate({UserId: savedUser._id, Token: token, IsUsed: false}, {new: true, upsert: true}).then(t => t ? t.toJSON() as SignupToken : null);
-
+                    let savedToken = await monTokenModel.findOneAndUpdate({UserId: savedUser._id}, {Token: token, IsUsed: false}, {new: true, upsert: true}).then(t => t ? t.toJSON() as SignupToken : null);
+                    if(!savedToken) throw new Error("token not created");
                     EmailCtrl.SEND_EMAIL((savedUser), Auth.ISSUE_NEW_USER_JWT(token));
                 }
 
@@ -130,14 +130,17 @@ class UserRouter
                 //invite user who's role has changed to ADMIN to create admin password
                 if( savedUser.Role == RoleName.ADMIN && userToSave.RoleChanged ){
                     var token = Auth.ISSUE_NEW_USER_JWT(savedUser)
+                    let savedToken = await monTokenModel.findOneAndUpdate({UserId: savedUser._id}, {Token: token, IsUsed: false}, {new: true, upsert: true}).then(t => t ? t.toJSON() as SignupToken : null);
+                    if(!savedToken) throw new Error("token not created");
                     EmailCtrl.SEND_EMAIL((savedUser), token);
                 }
             }
 
             res.json(savedUser);
         }
-        catch{
-
+        catch (err) {
+            console.log(err)
+            res.status(500).send("error saving user")
         }
     }
 
