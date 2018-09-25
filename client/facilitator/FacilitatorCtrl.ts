@@ -158,7 +158,7 @@ export default class FacilitatorCtrl extends BaseClientCtrl<{FacilitatorState: I
             "8": {
                 ShowPin: true
             },
-            "15": {
+            "14": {
                 SlideFeedback: true
             },
             "25": {
