@@ -219,8 +219,8 @@ export default class GameManagementCtrl extends BaseClientCtrl<IControllerDataSt
 
     public DeleteGame(game: GameModel){
         return SapienServerCom.DeleteData(game, SapienServerCom.BASE_REST_URL + "games").then(r => {
-            this.dataStore.Admin.Games = this.dataStore.Admin.Games.filter(g => g._id != g._id);
-            this.dataStore.Admin.FilteredGames = this.dataStore.Admin.Games.filter(g => g._id != g._id);
+            this.dataStore.Admin.Games = this.dataStore.Admin.Games.filter(g => g._id != r._id);
+            this.dataStore.Admin.FilteredGames = this.dataStore.Admin.FilteredGames.filter(g => g._id != r._id);
             
             console.log(AdminCtrl.GetInstance().dataStore.Admin.Games)
             this.dataStore.Admin.DeletionGame = null; 
