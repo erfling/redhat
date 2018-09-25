@@ -187,7 +187,7 @@ export default class FacilitatorSlides extends BaseComponent<any, { FacilitatorS
                                     className="team-list pin"
                                 >
                                     <Row>
-                                        <h1 style={{ textDecoration: 'underline' }}><a href={this.state.FacilitatorState.Game.CurrentRound.Video}>View video</a></h1>
+                                        <h1 style={{ textDecoration: 'underline' }}><a href={this.state.FacilitatorState.Game.CurrentRound.Video} target="_blank">View video</a></h1>
                                     </Row>
                                 </Grid>
                             }
