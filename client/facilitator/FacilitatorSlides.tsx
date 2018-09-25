@@ -183,9 +183,9 @@ export default class FacilitatorSlides extends BaseComponent<any, { FacilitatorS
                                 width={window.innerWidth}
                             >
                             </iframe>
-                            {this.state.FacilitatorState.CurrentLookup.Video && 
+                            {this.state.FacilitatorState.Game.CurrentRound.Video && 
                                 <Row>
-                                    <h1 style={{ textDecoration: 'underline' }}><a href={this.state.FacilitatorState.CurrentLookup.Video} target="_blank">View video</a></h1>
+                                    <h1 style={{ textDecoration: 'underline' }}><a href={this.state.FacilitatorState.Game.CurrentRound.Video}>View video</a></h1>
                                 </Row>
                             }
                             {this.state.FacilitatorState.Game.CurrentRound.ShowTeams && <Grid
