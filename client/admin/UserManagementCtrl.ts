@@ -89,7 +89,7 @@ export default class UserManagementCtrl extends BaseClientCtrl<IControllerDataSt
         this.dataStore.ApplicationState.FormIsSubmitting = true;
         SapienServerCom.SaveData(user, SapienServerCom.BASE_REST_URL + "user", true)
                         .then(r => {
-
+                            console.log(r);
                             if(typeof r == "string"){
                                 if(r == "DUPLICATE_EMAIL") {
                                     ApplicationCtrl.GetInstance().addToast("There is already a user with the email " + user.Email, "danger");
