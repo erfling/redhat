@@ -11,6 +11,7 @@ import GameModal from './GameModal'
 import DeleteTeamModal from './DeleteTeamModal'
 import BaseComponent from "../../shared/base-sapien/client/shared-components/BaseComponent";
 import {sortBy} from 'lodash';
+import TeamModel from "../../shared/models/TeamModel";
 class GameDetail extends BaseComponent<any, IControllerDataStore & {Admin: AdminViewModel, ShowUserModal: boolean, ShowGameModal: boolean, ShowTeamDeleteModal: boolean}>
 {
     //----------------------------------------------------------------------
@@ -65,6 +66,20 @@ class GameDetail extends BaseComponent<any, IControllerDataStore & {Admin: Admin
 
     render() {
         const DashBoardComponent = this.controller.ComponentFistma.currentState;
+
+        const getTeamHasEnoughPlayers = (team:TeamModel):boolean => {
+
+            for (let i = 0; i < team.Players.length; i ++) {
+
+                if (i > 4) continue;
+
+                let player: UserModel = team.Players[i];
+                if (!player._id) return false;
+            }
+
+            return true;
+        }
+
         if(this.state){
         return <>
             {this.state && this.state.ShowGameModal &&
@@ -255,11 +270,21 @@ class GameDetail extends BaseComponent<any, IControllerDataStore & {Admin: Admin
                                             ></Button>
                                         }
 
+                                        {t.Players.length < 5 &&
+                                            <Button
+                                                icon="add user"
+                                                color="green"
+                                                content="Create Player"
+                                                labelPosition="right"
+                                                onClick={e => this.controller.addPlayer(this.state.Admin.SelectedGame.Teams[i])}
+                                            ></Button>
+                                        }
+
                                     </Card.Content>
 
                                     <Card.Content extra>
                                         <div className='ui two buttons'>
-                                            {t.Players.length > 3 &&
+                                            {getTeamHasEnoughPlayers(t) &&
 
                                                 <Button
                                                     icon="check"
@@ -269,7 +294,7 @@ class GameDetail extends BaseComponent<any, IControllerDataStore & {Admin: Admin
                                                 >
                                                 </Button>
                                             }
-                                            {t.Players.length < 4 &&
+                                            {!getTeamHasEnoughPlayers(t) &&
                                                 <Popup
                                                     trigger={<Button
                                                         icon="add user"
