@@ -147,6 +147,11 @@ export default class FacilitatorView extends BaseComponent<any, { FacilitatorSta
                     >
                         Slide: {this.state.FacilitatorState.Game && this.state.FacilitatorState.Game.CurrentRound && this.state.FacilitatorState.Game.CurrentRound.SlideNumber ? this.state.FacilitatorState.Game.CurrentRound.SlideNumber : 1}
                     </Header>
+                    <Header
+                        as="h2"
+                    >
+                        PIN: {this.state.FacilitatorState.Game && this.state.FacilitatorState.Game.GamePIN}
+                    </Header>
                 </Segment>}
                 <Segment>
                     <Button
