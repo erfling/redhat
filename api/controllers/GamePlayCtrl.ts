@@ -397,7 +397,6 @@ class GamePlayRouter {
                             Text: q.Text + " " + rationaleResponse.TeamNumber,
                             TargetTeamId: k,
                             SubText: rationaleResponse ? rationaleResponse.Answer[0].data : "",
-                            test: "adsf"
                         })
                     })
                 )
