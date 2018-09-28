@@ -404,7 +404,18 @@ export class AppServer {
                             });
 
                         newMapping = oldMapping;
-                    }                   
+                    } else {
+                        game.Teams.forEach(t => {
+                            //make sure each team has a manager, even if all the team members have been manager 
+                            if (t.Players.every(p => {
+                                //console.log("examing", p, mapping.UserJobs[p._id.toString()])
+                                return mapping.UserJobs[p._id.toString()] != JobName.MANAGER
+                            })) {
+                                //console.log("DIDN'T FIND MANAGER FOR ", t)
+                                mapping.UserJobs[t.Players[Math.floor(Math.random() * t.Players.length)]._id.toString()] = JobName.MANAGER;
+                            }
+                        })
+                    }               
                             
               
                      
