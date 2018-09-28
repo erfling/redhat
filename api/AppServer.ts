@@ -405,7 +405,20 @@ export class AppServer {
 
                         newMapping = oldMapping;
                     } else {
+                        let roundNumber = Number(round.Label);
+
+                        console.log("HAD MAPPING WITH JOBS")
                         game.Teams.forEach(t => {
+                            for (let i = 0; i < t.Players.length; i++) {
+                                let pid = t.Players[i].toString();
+
+                                if(i == roundNumber -1){
+                                    game.HasBeenManager.push(pid);
+                                    mapping.UserJobs[pid] = JobName.MANAGER;
+                                }
+                               
+                            }
+
                             //make sure each team has a manager, even if all the team members have been manager 
                             if (t.Players.every(p => {
                                 //console.log("examing", p, mapping.UserJobs[p._id.toString()])
@@ -414,6 +427,7 @@ export class AppServer {
                                 //console.log("DIDN'T FIND MANAGER FOR ", t)
                                 mapping.UserJobs[t.Players[Math.floor(Math.random() * t.Players.length)]._id.toString()] = JobName.MANAGER;
                             }
+
                         })
                     }               
                             
