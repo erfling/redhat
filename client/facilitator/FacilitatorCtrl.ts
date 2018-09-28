@@ -167,25 +167,25 @@ export default class FacilitatorCtrl extends BaseClientCtrl<{FacilitatorState: I
             "25": {
                 SlideFeedback: true
             },
-            "35" : {
+            "36" : {
                 Video: "https://videos.learning.redhat.com/media/MSX+Round+2/1_v166k9tj/101643261"
             },
-            "38": {
+            "39": {
                 SlideFeedback: true
             },
             "48" : {
                 Video: "https://videos.learning.redhat.com/playlist/dedicated/101643261/1_cdih1vr4/1_lxi24e1w"
             },
-            "51": {
+            "53": {
                 SlideFeedback: true
             },
-            "56": {
+            "57": {
                 SlideFeedback: true
             },
             "63": {
                 Video: "https://videos.learning.redhat.com/media/MSX+Round+5+with+slate/1_6o1ds131/101643261"
             },
-            "66": {
+            "69": {
                 SlideFeedback: true
             }
         }
