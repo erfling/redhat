@@ -136,7 +136,6 @@ class FacilitationCtrl
                         } 
                         else if (game.CurrentRound.ChildRound.toUpperCase() == "TEAMRATING" || game.CurrentRound.ChildRound.toUpperCase() == "DEALRENEWAL") {
                             m.Questions = ratingQuestions;
-                            console.log("QUESTION ARE::: ",m.Questions);
                         }
                         else {
                             m.Questions = subRound.Questions;
