@@ -414,7 +414,7 @@ export class AppServer {
 
                                 if(i == roundNumber -1){
                                     game.HasBeenManager.push(pid);
-                                    mapping.UserJobs[pid] = JobName.MANAGER;
+                                    oldMapping.UserJobs[pid] = JobName.MANAGER;
                                 }
                                
                             }
@@ -422,13 +422,15 @@ export class AppServer {
                             //make sure each team has a manager, even if all the team members have been manager 
                             if (t.Players.every(p => {
                                 //console.log("examing", p, mapping.UserJobs[p._id.toString()])
-                                return mapping.UserJobs[p._id.toString()] != JobName.MANAGER
+                                return oldMapping.UserJobs[p._id.toString()] != JobName.MANAGER
                             })) {
                                 //console.log("DIDN'T FIND MANAGER FOR ", t)
-                                mapping.UserJobs[t.Players[Math.floor(Math.random() * t.Players.length)]._id.toString()] = JobName.MANAGER;
+                                oldMapping.UserJobs[t.Players[Math.floor(Math.random() * t.Players.length)]._id.toString()] = JobName.MANAGER;
                             }
 
                         })
+                        newMapping = oldMapping;
+
                     }               
                             
               
