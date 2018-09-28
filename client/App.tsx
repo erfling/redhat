@@ -113,7 +113,7 @@ export default class App extends BaseComponent<any, IControllerDataStore>
                                     >
                                         {this.state.ApplicationState.CurrentUser.Role != RoleName.ADMIN && this.state.ApplicationState.CurrentUser.Role != RoleName.FACILITATOR && this.state.ApplicationState.CurrentUser.Job}
                                         {this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN || this.state.ApplicationState.CurrentUser.Role == RoleName.FACILITATOR && this.state.ApplicationState.CurrentUser.Role}
-                                        {this.state.ApplicationState.CurrentUser.Role}
+                                        {this.state.ApplicationState.CurrentUser.Role} | {RoleName.ADMIN}
                                     </Menu.Item>
                                 </>
                             }
