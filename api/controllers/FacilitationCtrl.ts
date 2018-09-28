@@ -110,7 +110,7 @@ class FacilitationCtrl
           
 
             //grab team rating questions for special cases. Faster to do up here than in loop below
-            let ratingQuestions = await monQModel.find().then(qs => qs ? qs.map(q => Object.assign(new QuestionModel(), q.toJSON())): null);
+            let ratingQuestions = await monQModel.find({RatingMarker: RatingType.TEAM_RATING}).then(qs => qs ? qs.map(q => Object.assign(new QuestionModel(), q.toJSON())): null);
 
 
             let mappings: FacilitationRoundResponseMapping[] = [];
