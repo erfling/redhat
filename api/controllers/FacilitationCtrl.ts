@@ -9,7 +9,7 @@ import GameModel from '../../shared/models/GameModel';
 import FacilitationRoundResponseMapping from '../../shared/models/FacilitationRoundResponseMapping';
 import { monGameModel } from './GameCtrl';
 import SubRoundModel from '../../shared/models/SubRoundModel';
-import { monSubRoundModel } from './RoundCtrl';
+import { monSubRoundModel, monQModel } from './RoundCtrl';
 import { monResponseModel } from './GamePlayCtrl';
 import TeamModel from '../../shared/models/TeamModel';
 import QuestionModel, { ComparisonLabel, RatingType } from '../../shared/models/QuestionModel';
@@ -107,8 +107,12 @@ class FacilitationCtrl
 
             let responses: ResponseModel[] = await monResponseModel.find({GameId, SubRoundId: subRound._id}).then(rs => rs ? rs.map(r => Object.assign(new ResponseModel(),r.toJSON())) : null);
             if (!responses) throw new Error("Failed to retrieve responses");
-            console.log("CHILD ROUND IS::: ", game.CurrentRound.ChildRound.toUpperCase(), game.CurrentRound.ChildRound.toUpperCase() == "DEALRENEWAL");
           
+
+            //grab team rating questions for special cases. Faster to do up here than in loop below
+            let ratingQuestions = await monQModel.find().then(qs => qs ? qs.map(q => Object.assign(new QuestionModel(), q.toJSON())): null);
+
+
             let mappings: FacilitationRoundResponseMapping[] = [];
                 game.Teams.forEach(t => {
                     t = Object.assign(new TeamModel(), t);
@@ -131,7 +135,7 @@ class FacilitationCtrl
                             m.Questions = subRound.Questions.filter(q => q.ComparisonLabel && q.ComparisonLabel == ComparisonLabel.QUANTITY);
                         } 
                         else if (game.CurrentRound.ChildRound.toUpperCase() == "TEAMRATING" || game.CurrentRound.ChildRound.toUpperCase() == "DEALRENEWAL") {
-                            m.Questions = subRound.Questions.filter(q => q.RatingMarker && q.RatingMarker == RatingType.TEAM_RATING);
+                            m.Questions = ratingQuestions;
                             console.log("QUESTION ARE::: ",m.Questions);
                         }
                         else {
