@@ -86,35 +86,38 @@ export default class App extends BaseComponent<any, IControllerDataStore>
                         }
 
                         <Menu.Menu
-                        
+
                             position='right'
-                            style={{padding: '0'}}
+                            style={{ padding: '0' }}
                         >
                             {this.state.ApplicationState.CurrentUser.Job !== null && this.state.ApplicationState.CurrentTeam &&
                                 <>
                                     <Menu.Item header
-                                        style={{ paddingRight:0}}
-                                        
+                                        style={{ paddingRight: 0 }}
+
                                     >
-                                        {this.state.ApplicationState.CurrentUser.Role != RoleName.ADMIN && <Icon name="user outline"/> }
+                                        {this.state.ApplicationState.CurrentUser.Role != RoleName.ADMIN && <Icon name="user outline" />}
                                         {this.state.ApplicationState.CurrentUser.FirstName}
                                     </Menu.Item >
 
-                                    <Menu.Item header
-                                        style={{ paddingRight:0}}
-                                    >
-                                        {'Team ' + this.state.ApplicationState.CurrentTeam.Number}
-                                    </Menu.Item>
+                                    {this.state.ApplicationState.CurrentUser.Role != RoleName.ADMIN && this.state.ApplicationState.CurrentUser.Role != RoleName.FACILITATOR &&
+                                        <Menu.Item header
+                                            style={{ paddingRight: 0 }}
+                                        >
+                                            {'Team ' + this.state.ApplicationState.CurrentTeam.Number}
+                                        </Menu.Item>
+                                    }
 
                                     <Menu.Item header
-                                        style={{borderRight: this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN ? 'solid 1px #e7e7e7' : 'none'}}
+                                        style={{ borderRight: this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN ? 'solid 1px #e7e7e7' : 'none' }}
                                     >
                                         {this.state.ApplicationState.CurrentUser.Role != RoleName.ADMIN && this.state.ApplicationState.CurrentUser.Role != RoleName.FACILITATOR && this.state.ApplicationState.CurrentUser.Job}
                                         {this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN || this.state.ApplicationState.CurrentUser.Role == RoleName.FACILITATOR && this.state.ApplicationState.CurrentUser.Role}
+                                        {this.state.ApplicationState.CurrentUser.Role}
                                     </Menu.Item>
                                 </>
                             }
-                            
+
                             <Menu.Item
                                 as="a"
                                 onClick={e => {
@@ -124,9 +127,9 @@ export default class App extends BaseComponent<any, IControllerDataStore>
                             >
                                 Sign Out
                             </Menu.Item>
-                            
+
                         </Menu.Menu>
-                        
+
 
 
 
