@@ -109,7 +109,8 @@ export default class App extends BaseComponent<any, IControllerDataStore>
                                     <Menu.Item header
                                         style={{borderRight: this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN ? 'solid 1px #e7e7e7' : 'none'}}
                                     >
-                                        {this.state.ApplicationState.CurrentUser.Job}
+                                        {this.state.ApplicationState.CurrentUser.Role != RoleName.ADMIN && this.state.ApplicationState.CurrentUser.Role != RoleName.FACILITATOR && this.state.ApplicationState.CurrentUser.Job}
+                                        {this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN || this.state.ApplicationState.CurrentUser.Role == RoleName.FACILITATOR && this.state.ApplicationState.CurrentUser.Role}
                                     </Menu.Item>
                                 </>
                             }
