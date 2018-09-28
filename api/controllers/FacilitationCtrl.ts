@@ -107,6 +107,7 @@ class FacilitationCtrl
 
             let responses: ResponseModel[] = await monResponseModel.find({GameId, SubRoundId: subRound._id}).then(rs => rs ? rs.map(r => Object.assign(new ResponseModel(),r.toJSON())) : null);
             if (!responses) throw new Error("Failed to retrieve responses");
+            console.log("CHILD ROUND IS::: ", game.CurrentRound.ChildRound.toUpperCase(), game.CurrentRound.ChildRound.toUpperCase() == "DEALSTRUCTURE");
 
             let mappings: FacilitationRoundResponseMapping[] = [];
                 game.Teams.forEach(t => {
