@@ -127,7 +127,8 @@ class FacilitationCtrl
 
                         //round 2A is a special case
                         if(game.CurrentRound.ChildRound.toUpperCase() == "DEALSTRUCTURE") {
-                            m.Questions = subRound.Questions.filter(q => q.ComparisonLabel && q.ComparisonLabel == ComparisonLabel.QUANTITY)
+                            m.Questions = subRound.Questions.filter(q => q.ComparisonLabel && q.ComparisonLabel == ComparisonLabel.QUANTITY);
+                            console.log(m.Questions);
                         } 
                         else if (game.CurrentRound.ChildRound.toUpperCase() == "TEAMRATING" || game.CurrentRound.ChildRound.toUpperCase() == "DEALRENEWAL") {
                             m.Questions = subRound.Questions.filter(q => q.RatingMarker && q.RatingMarker == RatingType.TEAM_RATING)
@@ -135,6 +136,7 @@ class FacilitationCtrl
                         else {
                             m.Questions = subRound.Questions;
                         }
+
                         m.Questions = m.Questions.map(q => {
 
                             let response = teamResponses.filter(r => r.QuestionId == q._id)
