@@ -115,25 +115,32 @@ class GameCtrl {
             if (!game._id) {
                 if (!game.GamePIN) game.GamePIN = MathUtil.randomXDigits(4);
 
+                
+                const newGame = await monGameModel.create(game).then(r => r.toJSON());
+                if (!newGame) throw new Error('Game not created');
+                
+
                 const mapping = new RoundChangeMapping();
                 mapping.ChildRound = "priorities";
                 mapping.ParentRound = "peopleround";
+                mapping.UserJobs = {};
+                mapping.GameId = newGame._id;
+                let savedMapping: RoundChangeMapping = await monMappingModel.create(mapping).then(m => m ? Object.assign(new RoundChangeMapping(), m.toJSON()) : null)
+                if (!savedMapping) throw new Error('no mapping');
                 
-                game.CurrentRound = mapping;
-                const newGame = await monGameModel.create(game).then(r => r);
-                if (newGame) {
-                    const savedGame = await monGameModel
-                        .findById(newGame._id)
-                        .populate({
-                            path: "Teams",
-                            populate: {
-                                path: "Players"
-                            }
-                        });
-                    res.json(savedGame);
-                } else {
-                    //res.json("Game not saved"); // TODO: Consider throwing an error, but make sure error.code == 11000 can still be caught.
-                }
+
+                const savedGame = await monGameModel
+                    .findByIdAndUpdate(newGame._id, {CurrentRound: savedMapping})
+                    .populate({
+                        path: "Teams",
+                        populate: {
+                            path: "Players"
+                        }
+                    });
+               
+                res.json(savedGame);
+
+
             } else {
                 const newGame = await monGameModel.findByIdAndUpdate(game._id, game, { new: true }).then(r => r);
                 if (newGame) {
@@ -155,7 +162,7 @@ class GameCtrl {
                 game.GamePIN = MathUtil.randomXDigits(4);
                 await this.SaveGame(req, res);
             } else {
-                res.json("Game not saved");
+                res.status(500).json("Game not saved");
             }
         }
 
@@ -164,11 +171,12 @@ class GameCtrl {
 
     public async saveTeam(req: Request, res: Response) {
         const team = req.body as TeamModel;
-        if (!team.GameId) return res.json("NO GAME ID PROVIDED")
+        if (!team.GameId) return res.json("NO GAME ID PROVIDED");
+        let newTeam = false;
         try {
 
             team.Players = team.Players.map(p => p._id)
-
+            
             if (team._id) {
                 console.log("SAVING TEAM: ",team._id);
                 var savedTeam = await monTeamModel.findByIdAndUpdate(team._id, team).then(t => Object.assign(new TeamModel(), t.toJSON()))
@@ -179,10 +187,12 @@ class GameCtrl {
             if (!savedTeam) return res.json("team wasn't saved");
 
             var existingGame = await monGameModel.findById(team.GameId).populate("Teams").then(g => Object.assign(new GameModel(), g.toObject()))
+            if (!team._id) existingGame.Teams = existingGame.Teams.concat(savedTeam)
 
             if (existingGame) {
-                if (!existingGame.Teams) existingGame.Teams = [];
-                let mapping = existingGame.CurrentRound && existingGame.CurrentRound.UserJobs ? existingGame.CurrentRound : {
+                if (!existingGame.Teams) existingGame.Teams = [savedTeam];
+
+                let mapping: RoundChangeMapping = existingGame.CurrentRound ? existingGame.CurrentRound : {
                     UserJobs:{},
                     GameId: existingGame._id,
                     ParentRound: 'peopleround',
@@ -190,19 +200,31 @@ class GameCtrl {
                     SlideNumber: 1
                 };
             
-                if (!mapping) throw new Error("no mapping")
+                if (!mapping) throw new Error("no mapping");
 
-                if(!mapping.UserJobs || mapping.ChildRound == "priorities"){
+                let savedMapping = mapping;
+                if (!mapping._id) savedMapping = await monMappingModel.create(mapping).then(m => m ? Object.assign(new RoundChangeMapping(), m.toJSON()) : null)
+                if (!savedMapping) throw new Error("mapping not saved");
+
+                if(!savedMapping.UserJobs || savedMapping.ChildRound.toLowerCase() == 'priorities'){
+                    savedMapping.UserJobs = {};
+                    console.log("Dew it here", !savedMapping.UserJobs, savedMapping.ChildRound.toLowerCase() == 'priorities')
+
                     existingGame.Teams.forEach(t => {
                         let pid = t.Players[0]._id;
-                        console.log("HELLO",pid, mapping.UserJobs, existingGame)
-                        mapping.UserJobs[pid] = JobName.MANAGER;                   
+                        console.log("HELLO",pid, savedMapping.UserJobs)
+                        savedMapping.UserJobs[pid] = JobName.MANAGER;                   
                     })
+                } 
+                //new teams always get player 1 assigned as manager
+                else if (!team._id){
+                    console.log("THIS IS A NEW TEAm")
+                    let pid = savedTeam.Players[0]._id;
+                    savedMapping.UserJobs[pid] = JobName.MANAGER;                   
                 }
+                console.log("MAPPING", savedMapping)
 
-                existingGame.CurrentRound = mapping as RoundChangeMapping;
-
-                if (!team._id) existingGame.Teams = existingGame.Teams.concat(savedTeam)
+                existingGame.CurrentRound = savedMapping as RoundChangeMapping;
 
                 existingGame.Teams = sortBy(existingGame.Teams, "Number").map(t => t._id);
 
@@ -217,7 +239,10 @@ class GameCtrl {
                 
                 if (!existingGame) throw new Error("no saved game")
 
-                console.log(existingGame)
+                //update the mapping in the mappings collection so it can be swapped out when necessary
+                savedMapping = await monMappingModel.findByIdAndUpdate(savedMapping._id, savedGame.CurrentRound).then(m => m ? Object.assign(new RoundChangeMapping(), m.toJSON()) : null)
+                if (!savedMapping) throw new Error("mapping not updated");
+
                 res.json(savedGame);
             } else {
                 throw new Error("no game")
