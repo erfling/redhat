@@ -447,7 +447,7 @@ export class AppServer {
                     // Update Game object on DB
 
                     // Score calculating
-                    if (mapping.ShowFeedback) {
+                    if (mapping.ShowFeedback || mapping.SlideFeedback) {
                         //var Name = mapping.ChildRound.toUpperCase();
                         var subRounds: SubRoundModel[] = await monSubRoundModel.find({ RoundId: mapping.RoundId })
                             .populate("Questions")
