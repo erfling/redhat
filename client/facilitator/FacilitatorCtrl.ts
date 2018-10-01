@@ -100,7 +100,7 @@ export default class FacilitatorCtrl extends BaseClientCtrl<{FacilitatorState: I
             mapping.ShowFeedback = lookup.ShowFeedback;
             mapping.ShowIndividualFeedback = lookup.ShowIndividualFeedback;
             mapping.ShowRateUsers = lookup.ShowRateUsers;
-
+            mapping.SlideFeedback = lookup.SlideFeedback;
 
             console.log("LOOKUPS",lookup, mapping);
 
@@ -193,8 +193,6 @@ export default class FacilitatorCtrl extends BaseClientCtrl<{FacilitatorState: I
         return SapienServerCom.GetData(null,  FacilitationRoundResponseMapping, SapienServerCom.BASE_REST_URL + "facilitator/getroundstatus/" + this.dataStore.FacilitatorState.Game._id).then(rcl => {
             
             let slideMapping = (rcl[0] as FacilitationRoundResponseMapping).CurrentRound;
-
-
 
             this.dataStore.FacilitatorState.RoundResponseMappings = rcl as FacilitationRoundResponseMapping[];
             this.dataStore.FacilitatorState.SlideNumber = slideMapping.SlideNumber;
