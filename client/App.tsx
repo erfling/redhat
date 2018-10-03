@@ -113,6 +113,7 @@ export default class App extends BaseComponent<any, IControllerDataStore>
                                     >
                                         {(this.state.ApplicationState.CurrentUser.Role != RoleName.ADMIN && this.state.ApplicationState.CurrentUser.Role != RoleName.FACILITATOR) && this.state.ApplicationState.CurrentUser.Job}
                                         {(this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN || this.state.ApplicationState.CurrentUser.Role == RoleName.FACILITATOR) && this.state.ApplicationState.CurrentUser.Role}
+                                        {(GameCtrl.GetInstance().LockedInJob) && ' as ' + GameCtrl.GetInstance().LockedInJob}
                                     </Menu.Item>
                                 </>
                             }
