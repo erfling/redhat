@@ -157,7 +157,7 @@ class FacilitationCtrl
                             if (isRating) {
                                 //let otherTeamIds: string[] = game.Teams.filter(team => t._id != team._id).map(team => team._id.toString());
 
-                                console.log("RATING FOUND", responses.length, game.Teams.length - 1, response.length < game.Teams.length - 1)
+                                console.log("RATING FOUND", m.Questions.length, responses.length, game.Teams.length - 1, response.length < game.Teams.length - 1)
 
                                 if (response.length < game.Teams.length - 1) m.IsComplete = false;
 
