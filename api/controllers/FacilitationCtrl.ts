@@ -130,12 +130,15 @@ class FacilitationCtrl
                     
                     if (!game.CurrentRound.ShowRateUsers && !game.CurrentRound.ShowIndividualFeedback){
 
+                        let isRating = false;
+
                         //round 2A is a special case
                         if(game.CurrentRound.ChildRound.toUpperCase() == "DEALSTRUCTURE") {
                             m.Questions = subRound.Questions.filter(q => q.ComparisonLabel && q.ComparisonLabel == ComparisonLabel.QUANTITY);
                         } 
                         else if (game.CurrentRound.ChildRound.toUpperCase() == "TEAMRATING" || game.CurrentRound.ChildRound.toUpperCase() == "DEALRENEWAL") {
                             m.Questions = ratingQuestions;
+                            isRating = true;
                         }
                         else {
                             m.Questions = subRound.Questions;
@@ -149,14 +152,19 @@ class FacilitationCtrl
                                 Response: response.length && response[0].Answer ? response[0] : null  
                             })
 
-                            if (!question.Response) m.IsComplete = false;
+
+                            //if we are doing rating questions, we must assure that each team has rated each other team
+                            if (isRating) {
+                                //let otherTeamIds: string[] = game.Teams.filter(team => t._id != team._id).map(team => team._id.toString());
+                                if (response.length < game.Teams.length - 1) m.IsComplete = false;
+
+                            } 
+                            //for non-rating rounds, just assure that we have a response from the current team
+                            else if (!question.Response) m.IsComplete = false;
                             
                             return question;
 
-                        });
-                        
-
-                        
+                        });                       
 
                     } else {
                         //Lf: whats mgr for if mgr is checked below in t.players iterator? 
