@@ -191,13 +191,13 @@ export default class FacilitatorCtrl extends BaseClientCtrl<{FacilitatorState: I
             }
         }
 
-        return SapienServerCom.GetData(null,  FacilitationRoundResponseMapping, SapienServerCom.BASE_REST_URL + "facilitator/getroundstatus/" + this.dataStore.FacilitatorState.Game._id).then(rcl => {
+        return SapienServerCom.GetData(null,  FacilitationRoundResponseMapping, SapienServerCom.BASE_REST_URL + "facilitator/getroundstatus/" + this.dataStore.FacilitatorState.Game._id).then((rcl: FacilitationRoundResponseMapping[]) => {
             
             let slideMapping = (rcl[0] as FacilitationRoundResponseMapping).CurrentRound;
 
             this.dataStore.FacilitatorState.RoundResponseMappings = rcl as FacilitationRoundResponseMapping[];
             this.dataStore.FacilitatorState.SlideNumber = slideMapping.SlideNumber;
-            this.dataStore.FacilitatorState.AccordionIdx = (rcl as FacilitationRoundResponseMapping[]).map((lookup, i) => i)
+            if(!this.dataStore.FacilitatorState.AccordionIdx || !this.dataStore.FacilitatorState.AccordionIdx.length || this.dataStore.FacilitatorState.AccordionIdx.length != rcl.length)this.dataStore.FacilitatorState.AccordionIdx = (rcl as FacilitationRoundResponseMapping[]).map((lookup, i) => i)
 
 
             if(slideMapping.SlideNumber.toString() in SpecialSlides){
