@@ -69,7 +69,13 @@ export default class FacilitatorView extends BaseComponent<any, { FacilitatorSta
             this.controller.dataStore.FacilitatorState.AccordionIdx = this.controller.dataStore.FacilitatorState.AccordionIdx.concat(index)
         }
 
-        
+
+
+        this.setState(Object.assign(this.state, {
+            FacilitatorState: Object.assign(this.state.FacilitatorState, {
+                AccordionIdx: this.controller.dataStore.FacilitatorState.AccordionIdx
+            })
+        }))
     }
 
     componentDidMount() {
