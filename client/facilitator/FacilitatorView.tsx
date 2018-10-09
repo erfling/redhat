@@ -59,12 +59,17 @@ export default class FacilitatorView extends BaseComponent<any, { FacilitatorSta
 
     }
 
-    handleClick = (e, titleProps) => {
+    handleClick = (e, titleProps: {active: boolean, index: number}) => {
         console.log(e, titleProps)
-        const { index } = titleProps
-        const { AccordionIdx } = this.state.FacilitatorState
-        const newIndex = AccordionIdx === index ? -1 : index
-        this.controller.dataStore.FacilitatorState.AccordionIdx = newIndex
+        const { index, active } = titleProps
+
+        if (active) {
+            this.controller.dataStore.FacilitatorState.AccordionIdx = this.controller.dataStore.FacilitatorState.AccordionIdx.filter(num => num != index)
+        } else {
+            this.controller.dataStore.FacilitatorState.AccordionIdx = this.controller.dataStore.FacilitatorState.AccordionIdx.concat(index)
+        }
+
+        
     }
 
     componentDidMount() {
@@ -201,12 +206,12 @@ export default class FacilitatorView extends BaseComponent<any, { FacilitatorSta
                 {this.state.FacilitatorState.RoundResponseMappings && <Row>
                     <Accordion styled style={{ width: '100%' }} exclusive={false} defaultActiveIndex={this.state.FacilitatorState.AccordionIdx}>
                         {this.state.FacilitatorState.RoundResponseMappings.map((t, i) => <>
-                            <Accordion.Title active={this.state.FacilitatorState.AccordionIdx.indexOf(i) != 0} index={i} onClick={this.handleClick}>
+                            <Accordion.Title active={this.state.FacilitatorState.AccordionIdx.indexOf(i) != -1} index={i} onClick={this.handleClick}>
                                 <Icon name='dropdown' />
                                 {t.TeamName}
                                 {t.IsComplete ? <Icon style={{ marginLeft: '8px' }} name="checkmark" color="green" /> : <Icon name="cancel" color="red" />}
                             </Accordion.Title>
-                            <Accordion.Content active={this.state.FacilitatorState.AccordionIdx.indexOf(i) != 0}>
+                            <Accordion.Content active={this.state.FacilitatorState.AccordionIdx.indexOf(i) != -1}>
                                 <Table striped>
 
                                     <Table.Header>
