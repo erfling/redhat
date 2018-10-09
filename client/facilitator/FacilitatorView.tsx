@@ -145,7 +145,6 @@ export default class FacilitatorView extends BaseComponent<any, { FacilitatorSta
                 <Header as="h1">
                     Facilitator Dashboard
                 </Header>
-                {this.state.FacilitatorState.AccordionIdx && <pre>{JSON.stringify(this.state.FacilitatorState.AccordionIdx, null, 2)}</pre>}
                 {this.state.FacilitatorState.RoundResponseMappings && this.state.FacilitatorState.RoundResponseMappings.length > 0 && <Segment>
                     <Header
                         as="h2"
