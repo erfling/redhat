@@ -448,6 +448,7 @@ export class AppServer {
 
                     // Score calculating
                     if (mapping.ShowFeedback || mapping.SlideFeedback) {
+                        console.log("SHOULD BE DOING SCORE")
                         //var Name = mapping.ChildRound.toUpperCase();
                         var subRounds: SubRoundModel[] = await monSubRoundModel.find({ RoundId: mapping.RoundId })
                             .populate("Questions")
