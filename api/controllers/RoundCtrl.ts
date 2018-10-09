@@ -223,7 +223,7 @@ class RoundRouter {
 
                     let IsRead = true;
                     currentMessageIds.forEach(mid => {
-                        console.log(mid, m._id, typeof mid, typeof m._id, mid.toString() == m._id.toString())
+                        //console.log(mid, m._id, typeof mid, typeof m._id, mid.toString() == m._id.toString())
                         if (mid.toString() == m._id.toString()) IsRead = false;
                     })
                     return Object.assign(m, {
