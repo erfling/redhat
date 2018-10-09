@@ -458,7 +458,6 @@ export class AppServer {
 
                         for (let j = 0; j < subRounds.length; j++) {
                             let subRound = subRounds[j];
-                            console.log("WE ARE ON SUBROUND: ", subRound.Label)
                             //Some subrounds may be unscored
                             if (subRound.SkipScoring) continue;
 
@@ -479,6 +478,9 @@ export class AppServer {
                                 let ratingQuestions = await monQModel.find({RatingMarker: RatingType.TEAM_RATING}).then(qs => qs ? qs.map(q => Object.assign(new QuestionModel(), q.toJSON(), {SkipScoring: true})) : null)
                                 questions = questions.concat(ratingQuestions);
                                
+
+                                console.log("RATING QUESTIONS", ratingQuestions)
+
                                 questions.forEach(q => {
                                     
                                     let relevantResponses = responses.filter(r => /*!r.SkipScoring && */ r.QuestionId == q._id.toString());                 
@@ -522,6 +524,7 @@ export class AppServer {
                                     TeamLabel: "Team " + t.Number.toString()
                                 });
 
+
                                 if (RawScore > 0 ){
 
                                     //console.log(srs.SubRoundLabel.toLowerCase());
@@ -554,14 +557,13 @@ export class AppServer {
                                    
                                     srs.NormalizedScore = 0;
                                 }
-                                
-
-                                
+                                                                
 
 
                                 var oldScore: SubRoundScore = await monSubRoundScoreModel.findOne({ TeamId: t._id, SubRoundId: subRound._id }).then(sr => sr ? Object.assign(new SubRoundScore(), sr.toJSON()): null);
                                 if (oldScore && oldScore.BonusPoints) srs.NormalizedScore += oldScore.BonusPoints;
                                 var savedSubRoundScore: SubRoundScore = await monSubRoundScoreModel.findOneAndUpdate({ TeamId: t._id, SubRoundId: subRound._id }, srs, { upsert: true, new: true, setDefaultsOnInsert: true }).then(sr => Object.assign(new SubRoundScore(), sr.toJSON()));
+                            
                             }
                         }
                     }
