@@ -479,14 +479,13 @@ export class AppServer {
                                 questions = questions.concat(ratingQuestions);
                                
 
-                                console.log("RATING QUESTIONS", ratingQuestions)
 
                                 questions.forEach(q => {
                                     
-                                    let relevantResponses = responses.filter(r => /*!r.SkipScoring && */ r.QuestionId == q._id.toString());                 
+                                    let relevantResponses = responses.filter(r => /*!r.SkipScoring && */ r.QuestionId == q._id.toString());
+                                    if (subRound.Label == "2B") console.log("RESPONSES",relevantResponses)               
                                     if(q.SkipScoring) {
                                         skipMaxScoreQuestionIds.push(q._id);
-                                        console.log("SKIPPING", skipMaxScoreQuestionIds.indexOf(q._id))
                                     }
 
                                     relevantResponses.forEach(r => {
@@ -506,7 +505,6 @@ export class AppServer {
                                         }))
                                     }
 
-                                    console.log("MAX RAWSCORE IS: ", MaxRawScore)
                                     
                                 })
 
