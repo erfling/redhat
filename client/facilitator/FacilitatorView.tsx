@@ -19,6 +19,7 @@ import RoundChangeMapping from "../../shared/models/RoundChangeMapping";
 import FacilitationRoundResponseMapping from "../../shared/models/FacilitationRoundResponseMapping";
 import UserModel, { JobName } from "../../shared/models/UserModel";
 import ICommonComponentState from "../../shared/base-sapien/client/ICommonComponentState";
+import { rmdir } from "fs";
 
 export default class FacilitatorView extends BaseComponent<any, { FacilitatorState: IFacilitatorDataStore, ApplicationState: ICommonComponentState }>
 {
@@ -194,9 +195,9 @@ export default class FacilitatorView extends BaseComponent<any, { FacilitatorSta
                 <hr style={{ marginTop: '2em', marginBottom: '2em' }} />
 
                 {this.state.FacilitatorState.RoundResponseMappings && <Row>
-                    <Accordion styled style={{ width: '100%' }}>
+                    <Accordion styled style={{ width: '100%' }} exclusive={false} defaultActiveIndex={this.state.FacilitatorState.RoundResponseMappings.map((response, i) => i)}>
                         {this.state.FacilitatorState.RoundResponseMappings.map((t, i) => <>
-                            <Accordion.Title active={this.state.FacilitatorState.AccordionIdx === i} index={i} onClick={this.handleClick}>
+                            <Accordion.Title  index={i}>
                                 <Icon name='dropdown' />
                                 {t.TeamName}
                                 {t.IsComplete ? <Icon style={{ marginLeft: '8px' }} name="checkmark" color="green" /> : <Icon name="cancel" color="red" />}
