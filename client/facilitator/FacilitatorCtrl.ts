@@ -197,7 +197,7 @@ export default class FacilitatorCtrl extends BaseClientCtrl<{FacilitatorState: I
 
             this.dataStore.FacilitatorState.RoundResponseMappings = rcl;
             this.dataStore.FacilitatorState.SlideNumber = slideMapping.SlideNumber;
-            if (!this.dataStore.FacilitatorState.AccordionIdx || !this.dataStore.FacilitatorState.AccordionIdx.length) this.dataStore.FacilitatorState.AccordionIdx = (rcl as FacilitationRoundResponseMapping[]).map((lookup, i) => i)
+            if (!this.dataStore.FacilitatorState.AccordionIdx) this.dataStore.FacilitatorState.AccordionIdx = (rcl as FacilitationRoundResponseMapping[]).map((lookup, i) => i)
 
 
             if(slideMapping.SlideNumber.toString() in SpecialSlides){
