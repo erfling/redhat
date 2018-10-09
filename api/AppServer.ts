@@ -484,7 +484,6 @@ export class AppServer {
                                 questions.forEach(q => {
                                     
                                     let relevantResponses = responses.filter(r => /*!r.SkipScoring && */ r.QuestionId == q._id.toString());
-                                    if (subRound.Label == "2B") console.log("RESPONSES",relevantResponses)               
                                     if(q.SkipScoring) {
                                         skipMaxScoreQuestionIds.push(q._id);
                                     }
