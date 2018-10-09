@@ -16,6 +16,7 @@ import GameCtrl from '../game/GameCtrl';
 import { sortBy, groupBy } from 'lodash';
 import SubRoundScore from '../../shared/models/SubRoundScore';
 import ICommonComponentState from '../../shared/base-sapien/client/ICommonComponentState';
+import { lookup } from 'dns';
 
 export interface IFacilitatorDataStore{
     Game: GameModel;
@@ -29,7 +30,7 @@ export interface IFacilitatorDataStore{
     RoundChangeLookups: RoundChangeLookup[];
     CurrentLookup: RoundChangeLookup;
     RoundResponseMappings: FacilitationRoundResponseMapping[];
-    AccordionIdx: number,
+    AccordionIdx: number[],
     FullScreen: boolean,
     Scores: SubRoundScore[];
     RoundScores: SubRoundScore[];
@@ -196,6 +197,8 @@ export default class FacilitatorCtrl extends BaseClientCtrl<{FacilitatorState: I
 
             this.dataStore.FacilitatorState.RoundResponseMappings = rcl as FacilitationRoundResponseMapping[];
             this.dataStore.FacilitatorState.SlideNumber = slideMapping.SlideNumber;
+            this.dataStore.FacilitatorState.AccordionIdx = (rcl as FacilitationRoundResponseMapping[]).map((lookup, i) => i)
+
 
             if(slideMapping.SlideNumber.toString() in SpecialSlides){
                 slideMapping = Object.assign(slideMapping, SpecialSlides[this.dataStore.FacilitatorState.SlideNumber.toString()])

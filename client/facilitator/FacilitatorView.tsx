@@ -19,7 +19,6 @@ import RoundChangeMapping from "../../shared/models/RoundChangeMapping";
 import FacilitationRoundResponseMapping from "../../shared/models/FacilitationRoundResponseMapping";
 import UserModel, { JobName } from "../../shared/models/UserModel";
 import ICommonComponentState from "../../shared/base-sapien/client/ICommonComponentState";
-import { rmdir } from "fs";
 
 export default class FacilitatorView extends BaseComponent<any, { FacilitatorState: IFacilitatorDataStore, ApplicationState: ICommonComponentState }>
 {
@@ -61,6 +60,7 @@ export default class FacilitatorView extends BaseComponent<any, { FacilitatorSta
     }
 
     handleClick = (e, titleProps) => {
+        console.log(e, titleProps)
         const { index } = titleProps
         const { AccordionIdx } = this.state.FacilitatorState
         const newIndex = AccordionIdx === index ? -1 : index
@@ -125,6 +125,9 @@ export default class FacilitatorView extends BaseComponent<any, { FacilitatorSta
     }
 
     render() {
+
+        //const activeIndices = this.state.FacilitatorState.RoundResponseMappings.map((response, i) => i) || [];
+
         return <Grid
             columns={16}
             className="game-wrapper"
@@ -195,14 +198,14 @@ export default class FacilitatorView extends BaseComponent<any, { FacilitatorSta
                 <hr style={{ marginTop: '2em', marginBottom: '2em' }} />
 
                 {this.state.FacilitatorState.RoundResponseMappings && <Row>
-                    <Accordion styled style={{ width: '100%' }} exclusive={false} defaultActiveIndex={this.state.FacilitatorState.RoundResponseMappings.map((response, i) => i)}>
+                    <Accordion styled style={{ width: '100%' }} exclusive={false} defaultActiveIndex={this.state.FacilitatorState.AccordionIdx}>
                         {this.state.FacilitatorState.RoundResponseMappings.map((t, i) => <>
-                            <Accordion.Title  index={i}>
+                            <Accordion.Title active={this.state.FacilitatorState.AccordionIdx.indexOf(i) != 0} index={i} onClick={this.handleClick}>
                                 <Icon name='dropdown' />
                                 {t.TeamName}
                                 {t.IsComplete ? <Icon style={{ marginLeft: '8px' }} name="checkmark" color="green" /> : <Icon name="cancel" color="red" />}
                             </Accordion.Title>
-                            <Accordion.Content active={this.state.FacilitatorState.AccordionIdx === i}>
+                            <Accordion.Content active={this.state.FacilitatorState.AccordionIdx.indexOf(i) != 0}>
                                 <Table striped>
 
                                     <Table.Header>
