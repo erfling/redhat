@@ -446,19 +446,19 @@ export class AppServer {
                     // Update Game object on DB
 
                     // Score calculating
-                    console.log("MAPPING IS: ",mapping.ShowFeedback, mapping.SlideFeedback)
                     if (mapping.ShowFeedback || mapping.SlideFeedback) {
-                        console.log("SHOULD BE DOING SCORE")
                         //var Name = mapping.ChildRound.toUpperCase();
                         var subRounds: SubRoundModel[] = await monSubRoundModel.find({ RoundId: mapping.RoundId })
                             .populate("Questions")
                             .then(srs => srs.map(sr => Object.assign(new SubRoundModel(), sr.toJSON()))); //.then()
 
+
+                        
                         //we need the PREVIOUS subround
 
                         for (let j = 0; j < subRounds.length; j++) {
                             let subRound = subRounds[j];
-                            
+                            console.log("WE ARE ON SUBROUND: ", subRound.Label)
                             //Some subrounds may be unscored
                             if (subRound.SkipScoring) continue;
 
@@ -508,6 +508,7 @@ export class AppServer {
                                     
                                 })
 
+                                
                                 let srs = Object.assign(new SubRoundScore(), {
                                     TeamId: t._id,
                                     RawScore,
