@@ -156,9 +156,6 @@ class FacilitationCtrl
                             //if we are doing rating questions, we must assure that each team has rated each other team
                             if (isRating) {
                                 //let otherTeamIds: string[] = game.Teams.filter(team => t._id != team._id).map(team => team._id.toString());
-
-                                console.log("RATING FOUND", m.Questions.length, response.length, game.Teams.length - 1, response.length < game.Teams.length - 1)
-
                                 if (response.length < game.Teams.length - 1) m.IsComplete = false;
 
                             } 
