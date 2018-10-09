@@ -439,7 +439,6 @@ export class AppServer {
                      
                     mapping.GameId = game._id;                    
                     
-                    
 
                     if ((!newMapping || !newMapping.ParentRound.length) && !oldMapping) {
                         throw new Error("Couldn't make mapping")
@@ -447,6 +446,7 @@ export class AppServer {
                     // Update Game object on DB
 
                     // Score calculating
+                    console.log("MAPPING IS: ",mapping.ShowFeedback, mapping.SlideFeedback)
                     if (mapping.ShowFeedback || mapping.SlideFeedback) {
                         console.log("SHOULD BE DOING SCORE")
                         //var Name = mapping.ChildRound.toUpperCase();
