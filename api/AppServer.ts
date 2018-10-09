@@ -459,8 +459,9 @@ export class AppServer {
                         for (let j = 0; j < subRounds.length; j++) {
                             let subRound = subRounds[j];
                             //Some subrounds may be unscored
+                            console.log("BEFORE CONTINUE WE ARE IN SUBROUND: ", subRound.Label)
                             if (subRound.SkipScoring) continue;
-
+                            console.log("AFTER CONTINUE WE ARE IN SUBROUND: ", subRound.Label)
                             for (let i = 0; i < game.Teams.length; i++) {
                                 let t = game.Teams[i];
                                 //get the team's responses in this subround
