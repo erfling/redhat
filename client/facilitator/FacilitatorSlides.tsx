@@ -239,7 +239,7 @@ export default class FacilitatorSlides extends BaseComponent<any, { FacilitatorS
                             <div className="slides-container top" ></div>
                             <div className={"slides-container bottom " + (isVideoSlider() ? "" : "full")}>
                                 <div className="facilitator-scores">
-                                    {this.state.FacilitatorState.RoundScores && this.state.FacilitatorState.RoundScores.length && this.state.FacilitatorState.CurrentLookup.RoundScoreIdx != -1 &&
+                                    {this.state.FacilitatorState.RoundScores && this.state.FacilitatorState.Game.CurrentRound.SlideNumber != 76 && this.state.FacilitatorState.RoundScores.length && this.state.FacilitatorState.CurrentLookup.RoundScoreIdx != -1 &&
                                         <Segment
                                             raised
                                         >
@@ -282,7 +282,7 @@ export default class FacilitatorSlides extends BaseComponent<any, { FacilitatorS
                                         </Segment>
                                     }
 
-                                    {this.state.FacilitatorState.CumulativeScores && this.state.FacilitatorState.CumulativeScores.length && this.state.FacilitatorState.CurrentLookup.RoundScoreIdx == -1 &&
+                                    {this.state.FacilitatorState.CumulativeScores && this.state.FacilitatorState.CumulativeScores.length && (this.state.FacilitatorState.CurrentLookup.RoundScoreIdx == -1 || this.state.FacilitatorState.Game.CurrentRound.SlideNumber == 76) &&
                                         <Segment
                                             raised
                                         >

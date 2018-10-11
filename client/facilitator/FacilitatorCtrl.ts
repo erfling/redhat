@@ -189,6 +189,10 @@ export default class FacilitatorCtrl extends BaseClientCtrl<{FacilitatorState: I
             "69": {
                 SlideFeedback: true
             }
+            ,
+            "76": {
+                SlideFeedback: true
+            }
         }
 
         return SapienServerCom.GetData(null,  FacilitationRoundResponseMapping, SapienServerCom.BASE_REST_URL + "facilitator/getroundstatus/" + this.dataStore.FacilitatorState.Game._id).then((rcl: FacilitationRoundResponseMapping[]) => {
