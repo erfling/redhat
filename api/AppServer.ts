@@ -455,13 +455,12 @@ export class AppServer {
 
                         
                         //we need the PREVIOUS subround
-
+                        let responsesFound = false;
                         for (let j = 0; j < subRounds.length; j++) {
                             let subRound = subRounds[j];
                             //Some subrounds may be unscored
-                            console.log("BEFORE CONTINUE WE ARE IN SUBROUND: ", subRound.Label)
                             if (subRound.SkipScoring) continue;
-                            console.log("AFTER CONTINUE WE ARE IN SUBROUND: ", subRound.Label)
+
                             for (let i = 0; i < game.Teams.length; i++) {
                                 let t = game.Teams[i];
                                 //get the team's responses in this subround
@@ -484,6 +483,8 @@ export class AppServer {
                                 questions.forEach(q => {
                                     
                                     let relevantResponses = responses.filter(r => /*!r.SkipScoring && */ r.QuestionId == q._id.toString());
+                                    if (relevantResponses && relevantResponses.length) responsesFound = true;
+
                                     if(q.SkipScoring) {
                                         skipMaxScoreQuestionIds.push(q._id);
                                     }
@@ -508,7 +509,8 @@ export class AppServer {
                                     
                                 })
 
-                                
+                                if (!responsesFound) continue;
+
                                 let srs = Object.assign(new SubRoundScore(), {
                                     TeamId: t._id,
                                     RawScore,
