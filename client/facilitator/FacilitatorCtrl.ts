@@ -102,6 +102,7 @@ export default class FacilitatorCtrl extends BaseClientCtrl<{FacilitatorState: I
             mapping.ShowIndividualFeedback = lookup.ShowIndividualFeedback;
             mapping.ShowRateUsers = lookup.ShowRateUsers;
             mapping.SlideFeedback = lookup.SlideFeedback;
+            mapping.SkipRoundScore = lookup.SkipRoundScore;
 
             console.log("LOOKUPS",lookup, mapping);
 
