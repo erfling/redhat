@@ -290,7 +290,9 @@ export default class FacilitatorSlides extends BaseComponent<any, { FacilitatorS
                                                 textAlign="center"
                                                 as="h1"
                                             >
-                                                Cumulative Ranking
+                                                {this.state.FacilitatorState.Game.CurrentRound.SlideNumber != 76 && 'Cumulative Ranking'}
+                                                {this.state.FacilitatorState.Game.CurrentRound.SlideNumber == 76 && 'Final Ranking'}
+                                                
                                         </Header>
 
                                             <Table
