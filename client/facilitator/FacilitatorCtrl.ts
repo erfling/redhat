@@ -191,7 +191,8 @@ export default class FacilitatorCtrl extends BaseClientCtrl<{FacilitatorState: I
             }
             ,
             "76": {
-                SlideFeedback: true
+                SlideFeedback: true,
+                SkipRoundScore: true
             }
         }
 
@@ -334,6 +335,8 @@ export default class FacilitatorCtrl extends BaseClientCtrl<{FacilitatorState: I
         } else {
             this.dataStore.FacilitatorState.CurrentLookup.RoundScoreIdx = this.dataStore.FacilitatorState.Game.Teams.length;
         }
+
+        if (this.dataStore.FacilitatorState.CurrentLookup.SkipRoundScore) this.dataStore.FacilitatorState.CurrentLookup.RoundScoreIdx = -1;
 
         return selectedRoundScores.reverse().slice(0, this.dataStore.FacilitatorState.CurrentLookup.RoundScoreIdx);
       }

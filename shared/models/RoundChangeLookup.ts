@@ -52,6 +52,8 @@ export default class RoundChangeLookup extends BaseModel
 
     Video: string = null;
 
+    SkipRoundScore: boolean = false;
+
  }
 
 

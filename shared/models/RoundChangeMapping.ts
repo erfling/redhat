@@ -42,4 +42,6 @@ export default class RoundChangeMapping extends BaseModel {
     @dbProp({label: String, data: String, minPoints: Number, maxPoints: Number, idealValue: String, min: Number, max: Number, targetObjId: String})
     CurrentHighestBid?: SliderValueObj;
 
+    SkipRoundScore: boolean = false;
+
 }
