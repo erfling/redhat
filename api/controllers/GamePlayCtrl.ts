@@ -117,7 +117,6 @@ class GamePlayRouter {
                 }
             }
 
-            console.log("SAVING: ", response.MaxScore, response.Score);
 
             let queryObj: any = { GameId: response.GameId, TeamId: response.TeamId, QuestionId: response.QuestionId, targetObjId: response.targetObjId }
 
@@ -130,14 +129,16 @@ class GamePlayRouter {
             const oldResponse = await monResponseModel.findOne(queryObj).then(r => r ? r.toJSON() : null);
 
             if (!oldResponse) {
+                console.log("DIDN'T FIND OLD RESPONSE")
                 delete response._id;
                 response.questionText = question.Text;
                 var SaveResponse = await monResponseModel.create(response).then(r => r.toObject() as ResponseModel);
             } else {
+                console.log("FOUND OLD RESPONSE")
                 delete response._id;
-                var SaveResponse = await monResponseModel.findOneAndUpdate({ questionText: question.Text, GameId: response.GameId, TeamId: response.TeamId, QuestionId: response.QuestionId }, response, { new: true }).then(r => r.toObject() as ResponseModel);
+                var SaveResponse = await monResponseModel.findOneAndUpdate(queryObj, response, { new: true }).then(r => r.toObject() as ResponseModel);
             }
-            console.log(SaveResponse);
+            console.log()
             if(!SaveResponse) throw new Error();
             res.json(SaveResponse);
         } catch (err) {
