@@ -26,7 +26,7 @@ import { SliderValueObj } from '../shared/entity-of-the-state/ValueObj';
 import MessageModel from '../shared/models/MessageModel';
 import RoundChangeLookup from '../shared/models/RoundChangeLookup';
 import FacilitationCtrl, { monRoundChangeLookupModel } from './controllers/FacilitationCtrl';
-
+import GamePlayUtilities from './GamePlayUtils'
 
 class SubRoundNormalizationRule
 {
@@ -241,212 +241,25 @@ export class AppServer {
                     // define the custom settings for each transport (file, console)
                    
         
-                      
-                    const mapping: RoundChangeMapping = Object.assign(new RoundChangeMapping(), req.body);
+                     
                     const game: GameModel = await monGameModel.findById(req.params.gameid).populate("Teams").then(g => Object.assign(new GameModel(), g.toJSON()));
-
+                    const mapping: RoundChangeMapping = await GamePlayUtilities.HandleRoundChange(Object.assign(new RoundChangeMapping(), req.body), game)
+                    const round = await monRoundModel
+                                        .findOne({ Name: mapping.ParentRound.toUpperCase() })
+                                        .then(r => r.toJSON());
 
                     console.log(" %s", req.params.gameid)  ;   
               
-                    console.log("Roundchange mapping:", mapping)  ;     
+                    console.log("Roundchange mapping:", mapping.ShowFeedback, mapping.SlideFeedback, req.body.ShowFeedback, req.body.SlideFeedback)  ;     
 
                     //Pick role for each player on each team
                     //TODO: get rid of magic string
-                    mapping.UserJobs = {};
-
-                    mapping.ParentRound = mapping.ParentRound.toLowerCase();
-                    mapping.ChildRound = mapping.ChildRound.toLowerCase();
-
-                    const round = await monRoundModel.findOne({ Name: mapping.ParentRound.toUpperCase() }).then(r => r.toJSON())
                     
-          
-                    let srModel:SubRoundModel = await monSubRoundModel.findOne({Name:mapping.ChildRound.toUpperCase()}).then(x => x.toJSON() );
-                    let SubRoundLabel: String = srModel.Label.toString().toUpperCase();
-                    let newMapping: RoundChangeMapping;
-                      
-                    console.log("RELEVANT SUBROUND IS: ", SubRoundLabel)
-                    let RoundId = round._id;
-                    mapping.RoundId = round._id;
-
-                                        //make sure the current mapping has the correct child round
-                    var oldMapping: RoundChangeMapping = await
-                     monMappingModel.findOneAndUpdate({ GameId: game._id, ParentRound: mapping.ParentRound }, {
-                        ChildRound: mapping.ChildRound,
-                        ShowRateUsers: mapping.ShowRateUsers, // object where keys are user's _id as string & values are one of JobName enum values
-                        ShowFeedback: mapping.ShowFeedback, // object where keys are user's _id as string & values are one of JobName enum values
-                        ShowIndividualFeedback: mapping.ShowIndividualFeedback,
-                        SlideFeedback: mapping.SlideFeedback,
-                        RoundId,
-                        SlideNumber: mapping.SlideNumber
-                    }, { new: true }, function (err, doc) {
-                        if (err) {
-
-                            console.log("Something wrong when updating data!", err);
-                        }
-                    }).then(r => r ? Object.assign(new RoundChangeMapping(), r.toJSON()) : null);
-                  
-                    //Determine if an event should be sent to players or if the new mapping only reflects a change in slide presentation
-                    let advanceGame = true;
-                    if(oldMapping 
-                        && oldMapping.ChildRound == mapping.ChildRound
-                        && oldMapping.ShowFeedback == mapping.ShowFeedback
-                        && oldMapping.ShowIndividualFeedback == mapping.ShowIndividualFeedback
-                        && oldMapping.ShowRateUsers == mapping.ShowRateUsers
-                    ){
-                        //in cases where only a slide is advanced, and we shouldn't see a gameplay change, all the above props will be unchange.
-                        //the only change we expect is to mapping/oldMapping.SlideNumber
-                        advanceGame = false;
-                    }
-               
-                    if (!oldMapping) {                     
-
-                        if (mapping.ParentRound.toLowerCase() == "engineeringround") {
-                            game.Teams.forEach(t => {
-                                var managerAssigned = false;
-                                let isChip = false;
-                                for (let i = 0; i < t.Players.length; i++) {
-                                    let pid = t.Players[i].toString();
-                                   // console.log(typeof pid, pid)
-                                    
-                                    if (i == 2) {
-                                        game.HasBeenManager.push(pid);
-                                        mapping.UserJobs[pid] = JobName.MANAGER;
-                                        managerAssigned = true;
-                                    } else {
-                                        mapping.UserJobs[pid] = !isChip ? JobName.INTEGRATED_SYSTEMS : JobName.CHIPCO;
-                                        isChip = !isChip;
-                                    }
-
-                                }
-                            })
-                        } else {
-                           //set another manager
-                            let roundNumber = Number(round.Label);
-                            console.log("HAD USER JOBS FOR", roundNumber)
-                            game.Teams.forEach(t => {
-                                
-                             //   console.log("TEAM ", t)
-                                for (let i = 0; i < t.Players.length; i++) {
-                                    let pid = t.Players[i].toString();
-
-                                    if(i == roundNumber -1){
-                                        game.HasBeenManager.push(pid);
-                                        mapping.UserJobs[pid] = JobName.MANAGER;
-                                    }
-                                   
-                                }
-
-                                //make sure each team has a manager, even if all the team members have been manager 
-                                if (t.Players.every(p => {
-                                    //console.log("examing", p, mapping.UserJobs[p._id.toString()])
-                                    return mapping.UserJobs[p._id.toString()] != JobName.MANAGER
-                                })) {
-                                    //console.log("DIDN'T FIND MANAGER FOR ", t)
-                                    mapping.UserJobs[t.Players[Math.floor(Math.random() * t.Players.length)]._id.toString()] = JobName.MANAGER;
-                                }
-
-                            })
-                       
-        
-                                //console.log("Mapping",mapping.UserJobs);
-                       
-                        }
-
-                        
-                     
-                       
-                        mapping.GameId = game._id;
-                        newMapping = await monMappingModel.create(mapping).then(r => Object.assign(new RoundChangeMapping(), r.toJSON()))
-
-
-                    } else if (!oldMapping.UserJobs) {
-                        let roundNumber = Number(round.Label);
-                        console.log("HAD NO USER JOBS FOR", roundNumber)
-
-                        game.Teams.forEach(t => {
-                            for (let i = 0; i < t.Players.length; i++) {
-                                let pid = t.Players[i].toString();
-
-                                if(i == roundNumber -1){
-                                    game.HasBeenManager.push(pid);
-                                    mapping.UserJobs[pid] = JobName.MANAGER;
-                                }
-                               
-                            }
-
-                            //make sure each team has a manager, even if all the team members have been manager 
-                            if (t.Players.every(p => {
-                                //console.log("examing", p, mapping.UserJobs[p._id.toString()])
-                                return mapping.UserJobs[p._id.toString()] != JobName.MANAGER
-                            })) {
-                                //console.log("DIDN'T FIND MANAGER FOR ", t)
-                                mapping.UserJobs[t.Players[Math.floor(Math.random() * t.Players.length)]._id.toString()] = JobName.MANAGER;
-                            }
-
-                        })
-
-                    } else if (SubRoundLabel.toLowerCase() == "4c") {
-                        console.log("WE ARE LOOKING FOR BLUE_KITES")
-                        let pindex = 0;
-                        game.Teams.forEach(
-                            t => {
-
-
-                                //console.log("\t Blue_kite teams %d:", pindex++);
-                                //console.log("\t Blue_kite oldMapping %o:", oldMapping);
-                                //let playersEligible: Array<UserModel> = t.Players.filter(p => oldMapping.UserJobs[p._id.toString()] != JobName.MANAGER);
-
-                                //console.log("\t Blue_kite players %o:", playersEligible);
-                               // let rIndex = Math.floor(Math.random() * playersEligible.length);
-
-                                oldMapping.UserJobs[t.Players[1].toString()] = JobName.BLUE_KITE;
-                                //console.log("Blue_kite winner is: %s, id: %s,  name: %s", rIndex, playersEligible[rIndex]._id, (playersEligible[rIndex].FirstName + " " + playersEligible[rIndex].LastName));
-                            });
-
-                        newMapping = oldMapping;
-                    } else {
-                        let roundNumber = Number(round.Label);
-
-                        console.log("HAD MAPPING WITH JOBS")
-                        game.Teams.forEach(t => {
-                            for (let i = 0; i < t.Players.length; i++) {
-                                let pid = t.Players[i].toString();
-
-                                if(i == roundNumber -1){
-                                    game.HasBeenManager.push(pid);
-                                    oldMapping.UserJobs[pid] = JobName.MANAGER;
-                                }
-                               
-                            }
-
-                            //make sure each team has a manager, even if all the team members have been manager 
-                            if (t.Players.every(p => {
-                                //console.log("examing", p, mapping.UserJobs[p._id.toString()])
-                                return oldMapping.UserJobs[p._id.toString()] != JobName.MANAGER
-                            })) {
-                                //console.log("DIDN'T FIND MANAGER FOR ", t)
-                                oldMapping.UserJobs[t.Players[Math.floor(Math.random() * t.Players.length)]._id.toString()] = JobName.MANAGER;
-                            }
-
-                        })
-                        newMapping = oldMapping;
-
-                    }               
-                            
-              
-                     
-                   // console.log( "blue_kite mapping.UserJobs %o", mapping.UserJobs);   
-                     
-                    mapping.GameId = game._id;                    
-                    
-
-                    if ((!newMapping || !newMapping.ParentRound.length) && !oldMapping) {
-                        throw new Error("Couldn't make mapping")
-                    }
                     // Update Game object on DB
 
                     // Score calculating
                     if (mapping.ShowFeedback || mapping.SlideFeedback) {
+                        console.log("SHOULD BE CALCING SCORE")
                         //var Name = mapping.ChildRound.toUpperCase();
                         var subRounds: SubRoundModel[] = await monSubRoundModel.find({ RoundId: mapping.RoundId })
                             .populate("Questions")
@@ -535,14 +348,13 @@ export class AppServer {
                                         //srs.NormalizedScore = RawScore / MaxRawScore * (.8 * 20);                                
                                     }
                                     //add bonus points to team that had highest bid
-                                    else if(oldMapping.CurrentHighestBid){
+                                    else if(mapping.CurrentHighestBid){
                                         console.log("MAPPING WAS A BID: ", mapping.CurrentHighestBid )
                                         srs.NormalizedScore = (RawScore / MaxRawScore * 16 / subRounds.length);
-                                        if(oldMapping.CurrentHighestBid.targetObjId == t._id){
+                                        if(mapping.CurrentHighestBid.targetObjId == t._id){
                                             console.log("highest bid bonus should be awared to ", t.Number)
                                             srs.BonusPoints = 4 / subRounds.length;
                                         }    
-                                        newMapping = oldMapping;                                   
 
                                     } else {
 
@@ -568,12 +380,12 @@ export class AppServer {
                         }
                     }
 
-                    var mapperydoo = (newMapping && newMapping.ParentRound.length) ? newMapping : oldMapping;
-                    mapperydoo.SlideNumber = mapping.SlideNumber;
-                    const gameSave = await monGameModel.findByIdAndUpdate(req.params.gameid, { CurrentRound: mapperydoo, HasBeenManager: game.HasBeenManager });
+                    //var mapperydoo = (newMapping && newMapping.ParentRound.length) ? newMapping : oldMapping;
+                    //mapperydoo.SlideNumber = mapping.SlideNumber;
+                    const gameSave = await monGameModel.findByIdAndUpdate(req.params.gameid, { CurrentRound: mapping, HasBeenManager: game.HasBeenManager });
                     if (gameSave ) {
                         //&& advanceGame
-                        AppServer.LongPoll.publishToId("/listenforgameadvance/:gameid", req.params.gameid, mapperydoo);
+                        AppServer.LongPoll.publishToId("/listenforgameadvance/:gameid", req.params.gameid, mapping);
                         res.json("long poll publish hit");
                     }
                                 
