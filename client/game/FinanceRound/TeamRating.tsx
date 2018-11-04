@@ -87,7 +87,7 @@ export default class TeamRating extends BaseComponent<any, IRoundDataStore>
                                             console.log("REPONSE IS",r);
                                             r.targetObjId = q.TargetTeamId;
                                             q.SubRoundId = thisSubRound._id
-                                            this.controller.updateResponse(q, r)
+                                            this.controller.SetTeamRatingResponse(thisSubRound.Questions, r)
                                         }}
                                         IsEditable={this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN}
                                     />
