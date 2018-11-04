@@ -175,7 +175,7 @@ class GameCtrl {
         let newTeam = false;
         try {
 
-            team.Players = team.Players.map(p => p._id)
+            team.Players = team.Players.filter(p => p != null && p._id).map(p => p._id)
             
             if (team._id) {
                 console.log("SAVING TEAM: ",team._id);
@@ -216,6 +216,8 @@ class GameCtrl {
                         savedMapping.UserJobs[pid] = JobName.MANAGER;                   
                     })
                 } 
+
+                
                 //new teams always get player 1 assigned as manager
                 else if (!team._id){
                     console.log("THIS IS A NEW TEAm")

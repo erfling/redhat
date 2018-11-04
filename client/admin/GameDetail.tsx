@@ -71,7 +71,7 @@ class GameDetail extends BaseComponent<any, IControllerDataStore & {Admin: Admin
 
             for (let i = 0; i < team.Players.length; i ++) {
 
-                if (i > 4) continue;
+                if (i > 2) continue;
 
                 let player: UserModel = team.Players[i];
                 if (!player._id) return false;
@@ -303,7 +303,7 @@ class GameDetail extends BaseComponent<any, IControllerDataStore & {Admin: Admin
                                                         content="Save"
                                                         labelPosition="right"
                                                     ></Button>}
-                                                    header="Teams must have at least four players"
+                                                    header="Teams must have at least three players"
                                                 />
                                             }
                                             <Button
