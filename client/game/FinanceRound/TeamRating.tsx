@@ -91,14 +91,17 @@ export default class TeamRating extends BaseComponent<any, IRoundDataStore>
                                         }}
                                         IsEditable={this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN}
                                     />
+                                   
                                     <Button
                                         content='Submit'
                                         icon='checkmark'
                                         labelPosition='right'
                                         color="blue"
+                                        disabled={!q.Response || !q.Response.targetObjId}
                                         loading={q.Response ? q.Response.IsSaving : false}
                                         onClick={e => {
-                                            this.controller.SaveResponse(q.Response, q, thisSubRound)
+                                            console.log(e);
+                                            this.controller.SaveSocialResponse(q.Response, q)
                                         }}
                                     />
                                 </Row>
