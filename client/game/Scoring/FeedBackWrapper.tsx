@@ -11,7 +11,6 @@ import SubRoundFeedback, { ValueDemomination } from "../../../shared/models/SubR
 import EditableContentBlock from "../../../shared/base-sapien/client/shared-components/EditableContentBlock";
 import MessageModel from "../../../shared/models/MessageModel";
 import SubRoundScore from "../../../shared/models/SubRoundScore";
-import { YAxis } from "recharts";
 
 interface FeedBackProps {
     RoundName: string;

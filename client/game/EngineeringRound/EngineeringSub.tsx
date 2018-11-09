@@ -9,7 +9,6 @@ import BaseComponent from "../../../shared/base-sapien/client/shared-components/
 import Decisions from '-!svg-react-loader?name=Icon!../../img/decisions.svg';
 import FeedBackWrapper from "../Scoring/FeedBackWrapper";
 import { RatingType } from "../../../shared/models/QuestionModel";
-import { LineChart, Line, Legend, Tooltip, CartesianGrid, XAxis, YAxis, ReferenceLine, BarChart, Bar } from 'recharts';
 import IndividualLineChart from "../Scoring/IndividualLineChart";
 
 const { Button, Grid, Form, Dimmer, Loader, Header, Table } = Semantic;

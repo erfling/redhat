@@ -13,7 +13,6 @@ import Admin from './admin/Admin';
 import Game from "./game/Game";
 import Login from "./login/Login";
 import SalesRoundCtrl from "./game/SalesRound/SalesRoundCtrl";
-import { Label } from "recharts";
 import FacilitatorView from './facilitator/FacilitatorView';
 import FacilitatorSlides from './facilitator/FacilitatorSlides';
 import FacilitatorCtrl from "./facilitator/FacilitatorCtrl";

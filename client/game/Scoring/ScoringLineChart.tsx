@@ -6,7 +6,6 @@ import { times, groupBy } from 'lodash';
 import MathUtil from "../../../shared/entity-of-the-state/MathUtil";
 import { sortBy } from 'lodash';
 
-import { LineChart, Line, Legend, Tooltip, CartesianGrid, XAxis, YAxis, ReferenceLine, BarChart, Bar } from 'recharts';
 import TeamModel from "../../../shared/models/TeamModel";
 import SubRoundScore from "../../../shared/models/SubRoundScore";
 
