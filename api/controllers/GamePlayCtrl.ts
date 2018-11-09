@@ -148,6 +148,45 @@ class GamePlayRouter {
         }
     }
 
+    public async SaveSocialResponse(req: Request, res: Response){
+
+        try {
+            
+            let responseToSave: ResponseModel = req.body as ResponseModel;
+            
+            console.log("TRYING TO SAVE SOCIAL RESPONSE:", responseToSave);
+
+            if(!responseToSave) throw new Error("no body")
+            
+            //see if we already have a response for this guy
+            let oldResponse: ResponseModel = await monResponseModel.findOne(
+                {
+                    SubRoundId: responseToSave.SubRoundId,
+                    QuestionId: responseToSave.QuestionId,
+                    targetObjId: responseToSave.targetObjId,
+                    GameId: responseToSave.GameId,
+                    TeamId: responseToSave.TeamId
+                }
+            ).then(r => r ? Object.assign(new ResponseModel(), r.toJSON()) : null);
+            
+            let savedResponse: ResponseModel;
+
+            if (oldResponse) {
+                console.log("FOUND OLD SOCIAL RESPONSE:", oldResponse);
+
+                savedResponse = await monResponseModel.findByIdAndUpdate(oldResponse._id, responseToSave).then(r => Object.assign(new ResponseModel(), r.toJSON()));
+            } else {
+                savedResponse = await monResponseModel.create(responseToSave).then(r => Object.assign(new ResponseModel(), r.toJSON()));
+            }
+            
+            res.json(savedResponse)
+
+        } catch (error) {
+            console.log(error)
+            res.status(500).send("Error saving")
+        }
+    }
+
     //Special case, since 1b responses depend on 1A responses
     public async Save1BResponse(req: Request, res: Response, next) {
         const response: ResponseModel = Object.assign(new ResponseModel(), req.body as ResponseModel);
@@ -966,7 +1005,7 @@ class GamePlayRouter {
         this.router.get("/getfacilitatorresponses/:gameid", this.getFacilitatorResponsesByRound.bind(this))
         this.router.post("/saveteamname", this.SaveTeamName.bind(this))
         //this.router.get("/listenforteamname", this.SaveTeamName.bind(this))
-
+        this.router.post("/savesocialresponse", this.SaveSocialResponse.bind(this))
 
     }
 }
