@@ -152,8 +152,10 @@ class GamePlayRouter {
 
         try {
             
-            let responseToSave: ResponseModel = req.body as ResponseModel;
-            
+            let responseToSave: ResponseModel = Object.assign(new ResponseModel(), req.body) as ResponseModel;
+            responseToSave.Score = responseToSave.resolveScore();
+            responseToSave.MaxScore = responseToSave.resolveMaxScore();
+
             console.log("TRYING TO SAVE SOCIAL RESPONSE:", responseToSave);
 
             if(!responseToSave) throw new Error("no body")
