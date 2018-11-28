@@ -11,8 +11,8 @@ export enum RoleName {
 export enum JobName {
     IC = "Associate",
     MANAGER = "Manager",
-    CHIPCO = "ChipCo",
-    INTEGRATED_SYSTEMS = "Integrated Systems",
+    CHIPCO = "Intel",
+    INTEGRATED_SYSTEMS = "IBM",
     BLUE_KITE = "Attorney for BlueKite"
 }
 
