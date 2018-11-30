@@ -110,7 +110,7 @@ export default class FacilitatorCtrl extends BaseClientCtrl<{FacilitatorState: I
 
             //are we showing the leaderboard on the slide screen?
             let hold = false;
-            if (this.dataStore.FacilitatorState.CurrentLookup && this.dataStore.FacilitatorState.CurrentLookup.SlideFeedback) {
+            if (this.dataStore.FacilitatorState.CurrentLookup && this.dataStore.FacilitatorState.CurrentLookup.SlideFeedback && !isNaN(this.dataStore.FacilitatorState.CurrentLookup.RoundScoreIdx)) {
                 hold = true;
                 //see where we should cut off the scores
                 if (!this.dataStore.FacilitatorState.CurrentLookup.NumTeamsShown) {
@@ -135,6 +135,8 @@ export default class FacilitatorCtrl extends BaseClientCtrl<{FacilitatorState: I
                 if (this.dataStore.FacilitatorState.CurrentLookup.RoundScoreIdx > this.dataStore.FacilitatorState.Game.Teams.length) {
                     hold = false;
                 }
+
+                console.log("WHY NOT?", this.dataStore.FacilitatorState.CurrentLookup.RoundScoreIdx, )
 
             }
 
@@ -163,16 +165,16 @@ export default class FacilitatorCtrl extends BaseClientCtrl<{FacilitatorState: I
             "8": {
                 ShowPin: true
             },
-            "14": {
+            "15": {
                 SlideFeedback: true
             },
-            "25": {
+            "26": {
                 SlideFeedback: true
             },
             "36" : {
                 Video: "https://videos.learning.redhat.com/media/MSX+Round+2/1_v166k9tj/101643261"
             },
-            "39": {
+            "40": {
                 SlideFeedback: true
             },
             "50" : {
@@ -181,13 +183,13 @@ export default class FacilitatorCtrl extends BaseClientCtrl<{FacilitatorState: I
             "53": {
                 SlideFeedback: true
             },
-            "57": {
+            "58": {
                 SlideFeedback: true
             },
             "66": {
                 Video: "https://videos.learning.redhat.com/media/MSX+Round+5/1_h5dp4u6x/101643261"
             },
-            "69": {
+            "70": {
                 SlideFeedback: true
             }
             ,
