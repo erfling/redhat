@@ -11,6 +11,7 @@ import UserModel, { JobName } from '../../shared/models/UserModel';
 import { sortBy } from 'lodash'; 
 import * as Passport from 'passport'
 import AuthUtils, { PERMISSION_LEVELS } from '../AuthUtils';
+import FacilitationRoundResponseMapping from '../../shared/models/FacilitationRoundResponseMapping';
 
 const mappingSchObj = SchemaBuilder.fetchSchema(RoundChangeMapping);
 const monMappingSchema = new mongoose.Schema(mappingSchObj);
@@ -330,6 +331,55 @@ class GameCtrl {
         }
     }
 
+    public async SetTeamRoles(req: Request, res: Response) {
+        try {
+            //we'll submit a whole team.
+            let team = req.body as FacilitationRoundResponseMapping;
+
+            //get the team's game for mutation.
+            let game: GameModel = await monGameModel.findById(team.GameId).then(game => game ? Object.assign(new GameModel(), game.toJSON()) : null);
+
+            if(!game) throw new Error("No game found")
+
+
+            let CurrentRound = game.CurrentRound;
+            
+            team.Members.forEach(p => {
+
+                if(CurrentRound.UserJobs.hasOwnProperty(p._id as string)){
+                    delete CurrentRound.UserJobs[p._id];
+                }
+
+                if(p.Job != JobName.IC){
+                    CurrentRound.UserJobs[p._id] = p.Job;
+                }
+            })
+
+            //find the relevant RoundChangeCapping so jobs are preserved if rounds change
+            let rcm: RoundChangeMapping = await monMappingModel.findOneAndUpdate(
+                {GameId: game._id.toString(), ParentRound: CurrentRound.ParentRound, ChildRound: CurrentRound.ChildRound}, 
+                {UserJobs: CurrentRound.UserJobs},
+                {upsert: true}
+            ).then(rcm => rcm ? Object.assign(new RoundChangeMapping(), rcm.toJSON()) : null)
+        
+
+
+            //save the game
+            game = await monGameModel.findByIdAndUpdate(game._id, { CurrentRound }).then(game => game ? Object.assign(new GameModel(), game.toJSON()) : null);
+           
+            if(!game) throw new Error("Game could not be saved")
+
+            res.json(game)
+
+        } catch (error) {
+            console.log(error);
+            res.status(500).send(error)
+        }
+        
+
+
+    }
+
     public routes() {
         this.router.get("/", this.GetGames.bind(this));
         this.router.get("/:game", this.GetGame.bind(this));
@@ -346,6 +396,7 @@ class GameCtrl {
         this.router.post("/", this.SaveGame.bind(this));
         this.router.post("/team", this.saveTeam.bind(this))
         this.router.post("/team/delete", this.DeleteTeam.bind(this))
+        this.router.post("/team/roles", this.SetTeamRoles.bind(this))
     }
 }
 

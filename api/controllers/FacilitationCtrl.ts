@@ -124,7 +124,7 @@ class FacilitationCtrl
                     m.SubRoundId = subRound._id;
                     m.SubRoundLabel = subRound.Label;
                     m.SubRoundName = subRound.Name;
-                                      
+                    m.GameId = game._id.toString();             
                     m.IsComplete = true;
                  
                     
@@ -260,7 +260,6 @@ class FacilitationCtrl
             })
     
         });
-
         
     }
 

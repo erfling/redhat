@@ -35,6 +35,8 @@ export interface IFacilitatorDataStore{
     Scores: SubRoundScore[];
     RoundScores: SubRoundScore[];
     CumulativeScores: SubRoundScore[];
+    ShowRolesModal: boolean;
+    ModalTeam: FacilitationRoundResponseMapping;
 }
 
 export default class FacilitatorCtrl extends BaseClientCtrl<{FacilitatorState: IFacilitatorDataStore, ApplicationState: ICommonComponentState }>
@@ -364,5 +366,13 @@ export default class FacilitatorCtrl extends BaseClientCtrl<{FacilitatorState: I
         }
 
         return sortBy(accumulatedScores, "NormalizedScore").reverse().slice(0, this.dataStore.FacilitatorState.CurrentLookup.CumulativeScoreIdx);
-      }
+    }
+
+    public async UpdateTeamJobs(team: FacilitationRoundResponseMapping){
+        SapienServerCom.SaveData(team, SapienServerCom.BASE_REST_URL + "games/team/roles").then(g => {
+            this.dataStore.FacilitatorState.Game = g;
+            this.dataStore.FacilitatorState.ModalTeam = null;
+            this.dataStore.FacilitatorState.ShowRolesModal = false;
+        }); 
+    }
 }

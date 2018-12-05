@@ -19,6 +19,7 @@ import RoundChangeMapping from "../../shared/models/RoundChangeMapping";
 import FacilitationRoundResponseMapping from "../../shared/models/FacilitationRoundResponseMapping";
 import UserModel, { JobName } from "../../shared/models/UserModel";
 import ICommonComponentState from "../../shared/base-sapien/client/ICommonComponentState";
+import TeamJobsModal from './TeamJobsModal';
 
 export default class FacilitatorView extends BaseComponent<any, { FacilitatorState: IFacilitatorDataStore, ApplicationState: ICommonComponentState }>
 {
@@ -215,6 +216,15 @@ export default class FacilitatorView extends BaseComponent<any, { FacilitatorSta
                                 <Icon name='dropdown' />
                                 {t.TeamName}
                                 {t.IsComplete ? <Icon style={{ marginLeft: '8px' }} name="checkmark" color="green" /> : <Icon name="cancel" color="red" />}
+                                <Button
+                                    onClick={() => {
+                                        this.controller.dataStore.FacilitatorState.ModalTeam = t;
+                                        this.controller.dataStore.FacilitatorState.ShowRolesModal = true;
+                                    }}
+                                >
+                                    Set Roles
+                                </Button>
+
                             </Accordion.Title>
                             <Accordion.Content active={this.state.FacilitatorState.AccordionIdx.indexOf(i) != -1}>
                                 <Table striped>
@@ -251,6 +261,15 @@ export default class FacilitatorView extends BaseComponent<any, { FacilitatorSta
                     </Accordion>
                 </Row>}
             </Column>
+            {this.state.FacilitatorState.ShowRolesModal && this.state.FacilitatorState.ModalTeam && <TeamJobsModal
+                Team={this.state.FacilitatorState.ModalTeam}
+                SaveFunction={this.controller.UpdateTeamJobs}
+                CloseFunction={() => {
+                    this.controller.dataStore.FacilitatorState.ModalTeam = null;
+                    this.controller.dataStore.FacilitatorState.ShowRolesModal = false;
+                }}
+                Submitting={this.controller.dataStore.FacilitatorState.ModalTeam.IsSaving}
+            />}
         </Grid>
     }
 
