@@ -220,6 +220,10 @@ export default class GamePlayUtils {
       throw new Error("Couldn't make mapping");
     }
 
+    console.log(newMapping, passedMapping);
+
+    if(!newMapping) newMapping = passedMapping;
+
     newMapping.ShowFeedback = passedMapping.ShowFeedback;
     newMapping.SlideFeedback = passedMapping.SlideFeedback;
 
