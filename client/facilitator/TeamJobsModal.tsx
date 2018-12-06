@@ -58,7 +58,7 @@ export default class TeamJobsMo extends React.Component< TeamModalProps,{ team: 
 
 
     const getValidationErrors = ( team: FacilitationRoundResponseMapping) => {
-      return ValidationFunc(team).filter(e => typeof e == 'string').map(e => <p className="error">{e}</p>);
+      return ValidationFunc(team).filter(e => typeof e == 'string').map(e => <p style={{marginLeft: '21px'}} className="error">{e}</p>);
     }
 
     return (
@@ -89,12 +89,17 @@ export default class TeamJobsMo extends React.Component< TeamModalProps,{ team: 
                               let team = {...this.state.team} as FacilitationRoundResponseMapping;
 
                               team.Members = team.Members.map(player => {
-                                if (player._id == p._id)
-                                  player.Job == (e.target.value as JobName);
+                                if (player._id == p._id){
+                                  player.Job = (e.target.value as JobName);
+                                  console.log("MATCH FOUND", e, e.target, e.target.value)
+
+                                }
                                 return player;
                               });
+                              console.log("TEAM IS CURRENTLY", team.Members[2].Job, this.state.team.Members[2].Job)
 
                               this.setState({ team });
+
 
                               ValidationFunc(team);
 

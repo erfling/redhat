@@ -386,41 +386,48 @@ export default class FacilitatorCtrl extends BaseClientCtrl<{FacilitatorState: I
 
     public validateTeamJobs(team: FacilitationRoundResponseMapping, game: GameModel = this.dataStore.FacilitatorState.Game): (boolean | string) [] {
         
-        let validationFuncs: (() => boolean | string)[] = [() => {
-            return team.Members.filter(m => m.Job == JobName.MANAGER).length == 1 || "Teams must have one manager";
-        }];
+
+        const hasJob = (team: FacilitationRoundResponseMapping, jobName: JobName, limitToOne: boolean = false) => {
+            return limitToOne ? team.Members.filter(m => m.Job == jobName).length == 1 || `Teams must have one ${jobName}`
+                        : team.Members.some(m => m.Job == jobName) || `Teams must have at least one ${jobName}`;
+        }
+
+        const aintGotJob = (team: FacilitationRoundResponseMapping, jobName: JobName) => {
+            return  team.Members.every(m => m.Job != jobName) || `Teams shoudn't include the ${jobName} role in this round.`
+        }
+
+        let validators: (boolean | string)[] = [hasJob(team, JobName.MANAGER, true)];
 
         switch(game.CurrentRound.ChildRound.toUpperCase()){
 
             case "ENGINEERINGSUB":
-                validationFuncs = validationFuncs.concat(
-                    [
-                        () => {
-                            return team.Members.some(m => m.Job == JobName.CHIPCO) || `Each team should have at least one member playing the role of ${JobName.CHIPCO}.`
-                        },
-                        () => {
-                            return team.Members.some(m => m.Job == JobName.INTEGRATED_SYSTEMS) || `Each team should have at least one member playing the role of ${JobName.INTEGRATED_SYSTEMS}.`
-                        }
-
-                    ]
-                )
+                validators = validators.concat([
+                    hasJob(team, JobName.CHIPCO), 
+                    hasJob(team, JobName.INTEGRATED_SYSTEMS),
+                    aintGotJob(team, JobName.BLUE_KITE),
+                    aintGotJob(team, JobName.IC)
+                ]);
+                break;
 
             case "ACQUISITIONSTRUCTURE":
-            validationFuncs = validationFuncs.concat(
-                [
-                    () => {
-                        return team.Members.filter(m => m.Job == JobName.BLUE_KITE).length == 1 || `Each team should have at least one member playing the role of ${JobName.CHIPCO}.`
-                    }
-                ]
-            )   
+                validators = validators.concat([
+                    hasJob(team, JobName.BLUE_KITE, true),
+                    aintGotJob(team, JobName.INTEGRATED_SYSTEMS),
+                    aintGotJob(team, JobName.CHIPCO)
+                ])   
 
                 break;
             default:
+                validators = validators.concat([
+                    aintGotJob(team, JobName.BLUE_KITE),
+                    aintGotJob(team, JobName.INTEGRATED_SYSTEMS),
+                    aintGotJob(team, JobName.CHIPCO)
+                ]) 
                 break;
 
         }
 
         
-        return validationFuncs.map(vf => vf());
+        return validators;
     }
 }
