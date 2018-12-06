@@ -345,14 +345,7 @@ class GameCtrl {
             let CurrentRound = game.CurrentRound;
             
             team.Members.forEach(p => {
-
-                if(CurrentRound.UserJobs.hasOwnProperty(p._id as string)){
-                    delete CurrentRound.UserJobs[p._id];
-                }
-
-                if(p.Job != JobName.IC){
-                    CurrentRound.UserJobs[p._id] = p.Job;
-                }
+                CurrentRound.UserJobs[p._id] = p.Job;                
             })
 
             //find the relevant RoundChangeCapping so jobs are preserved if rounds change

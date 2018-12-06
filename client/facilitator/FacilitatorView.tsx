@@ -263,11 +263,12 @@ export default class FacilitatorView extends BaseComponent<any, { FacilitatorSta
             </Column>
             {this.state.FacilitatorState.ShowRolesModal && this.state.FacilitatorState.ModalTeam && <TeamJobsModal
                 Team={this.state.FacilitatorState.ModalTeam}
-                SaveFunction={this.controller.UpdateTeamJobs}
+                SaveFunction={this.controller.UpdateTeamJobs.bind(this.controller)}
                 CloseFunction={() => {
                     this.controller.dataStore.FacilitatorState.ModalTeam = null;
                     this.controller.dataStore.FacilitatorState.ShowRolesModal = false;
                 }}
+                ValidationFunc={this.controller.validateTeamJobs.bind(this.controller)}
                 Submitting={this.controller.dataStore.FacilitatorState.ModalTeam.IsSaving}
             />}
         </Grid>

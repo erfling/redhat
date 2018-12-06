@@ -217,7 +217,7 @@ class FacilitationCtrl
                     
                     t.Players.forEach((teamMember, i) => {  
 
-                        teamMember.Job = game.CurrentRound.UserJobs[teamMember._id];
+                        teamMember.Job = game.CurrentRound.UserJobs[teamMember._id] || JobName.IC;
                         m.Members.push(teamMember);
                         
                     });

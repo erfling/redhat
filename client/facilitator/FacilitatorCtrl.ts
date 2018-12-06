@@ -369,10 +369,58 @@ export default class FacilitatorCtrl extends BaseClientCtrl<{FacilitatorState: I
     }
 
     public async UpdateTeamJobs(team: FacilitationRoundResponseMapping){
-        SapienServerCom.SaveData(team, SapienServerCom.BASE_REST_URL + "games/team/roles").then(g => {
-            this.dataStore.FacilitatorState.Game = g;
-            this.dataStore.FacilitatorState.ModalTeam = null;
-            this.dataStore.FacilitatorState.ShowRolesModal = false;
-        }); 
+
+        this.dataStore.ApplicationState.ValidationErrors = this.validateTeamJobs(team, this.dataStore.FacilitatorState.Game);
+
+        if(this.dataStore.ApplicationState.ValidationErrors.every(err => typeof err == 'boolean')){
+            team.IsSaving = true;
+            SapienServerCom.SaveData(team, SapienServerCom.BASE_REST_URL + "games/team/roles").then(g => {
+                this.dataStore.FacilitatorState.Game = g;
+                this.dataStore.FacilitatorState.ModalTeam = null;
+                this.dataStore.FacilitatorState.ShowRolesModal = false;
+                team.IsSaving = false;
+            }); 
+            
+        }
+    }
+
+    public validateTeamJobs(team: FacilitationRoundResponseMapping, game: GameModel = this.dataStore.FacilitatorState.Game): (boolean | string) [] {
+        
+        let validationFuncs: (() => boolean | string)[] = [() => {
+            return team.Members.filter(m => m.Job == JobName.MANAGER).length == 1 || "Teams must have one manager";
+        }];
+
+        switch(game.CurrentRound.ChildRound.toUpperCase()){
+
+            case "ENGINEERINGSUB":
+                validationFuncs = validationFuncs.concat(
+                    [
+                        () => {
+                            return team.Members.some(m => m.Job == JobName.CHIPCO) || `Each team should have at least one member playing the role of ${JobName.CHIPCO}.`
+                        },
+                        () => {
+                            return team.Members.some(m => m.Job == JobName.INTEGRATED_SYSTEMS) || `Each team should have at least one member playing the role of ${JobName.INTEGRATED_SYSTEMS}.`
+                        }
+
+                    ]
+                )
+
+            case "ACQUISITIONSTRUCTURE":
+            validationFuncs = validationFuncs.concat(
+                [
+                    () => {
+                        return team.Members.filter(m => m.Job == JobName.BLUE_KITE).length == 1 || `Each team should have at least one member playing the role of ${JobName.CHIPCO}.`
+                    }
+                ]
+            )   
+
+                break;
+            default:
+                break;
+
+        }
+
+        
+        return validationFuncs.map(vf => vf());
     }
 }

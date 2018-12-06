@@ -18,6 +18,7 @@ interface TeamModalProps {
   Team: FacilitationRoundResponseMapping;
   CloseFunction: () => void;
   SaveFunction: (team: FacilitationRoundResponseMapping) => void;
+  ValidationFunc: (team: FacilitationRoundResponseMapping) => (string | boolean) [];
   Submitting: boolean;
 }
 
@@ -52,7 +53,14 @@ export default class TeamJobsMo extends React.Component< TeamModalProps,{ team: 
   //----------------------------------------------------------------------
 
   render() {
-    const { Team, CloseFunction, SaveFunction, Submitting } = this.props;
+
+    const { Team, CloseFunction, SaveFunction, Submitting, ValidationFunc } = this.props;
+
+
+    const getValidationErrors = ( team: FacilitationRoundResponseMapping) => {
+      return ValidationFunc(team).filter(e => typeof e == 'string').map(e => <p className="error">{e}</p>);
+    }
+
     return (
       <>
         <Modal open={Team != null} basic onClose={e => CloseFunction()}>
@@ -78,7 +86,6 @@ export default class TeamJobsMo extends React.Component< TeamModalProps,{ team: 
                         <span>
                           <select
                             onChange={e => {
-
                               let team = {...this.state.team} as FacilitationRoundResponseMapping;
 
                               team.Members = team.Members.map(player => {
@@ -88,10 +95,14 @@ export default class TeamJobsMo extends React.Component< TeamModalProps,{ team: 
                               });
 
                               this.setState({ team });
+
+                              ValidationFunc(team);
+
                             }}
+                            value={p.Job}
                           >
                             {Object.keys(JobName).map(jn => (
-                              <option selected={p.Job == JobName[jn]}>{JobName[jn]}</option>
+                              <option>{JobName[jn]}</option>
                             ))}
                           </select>
                         </span>
@@ -101,6 +112,9 @@ export default class TeamJobsMo extends React.Component< TeamModalProps,{ team: 
               </Form>
             </Modal.Description>
           </Modal.Content>
+
+          {getValidationErrors(this.state.team)}
+
           <Modal.Actions>
             <Button
               inverted
