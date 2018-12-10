@@ -35,6 +35,8 @@ export interface IFacilitatorDataStore{
     Scores: SubRoundScore[];
     RoundScores: SubRoundScore[];
     CumulativeScores: SubRoundScore[];
+    ShowRolesModal?: boolean
+    ModalTeam?: FacilitationRoundResponseMapping;
 }
 
 export default class FacilitatorCtrl extends BaseClientCtrl<{FacilitatorState: IFacilitatorDataStore, ApplicationState: ICommonComponentState }>
