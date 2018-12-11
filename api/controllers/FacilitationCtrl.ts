@@ -9,12 +9,15 @@ import GameModel from '../../shared/models/GameModel';
 import FacilitationRoundResponseMapping from '../../shared/models/FacilitationRoundResponseMapping';
 import { monGameModel } from './GameCtrl';
 import SubRoundModel from '../../shared/models/SubRoundModel';
-import { monSubRoundModel, monQModel } from './RoundCtrl';
+import { monSubRoundModel, monQModel, monRoundModel } from './RoundCtrl';
 import { monResponseModel } from './GamePlayCtrl';
 import TeamModel from '../../shared/models/TeamModel';
 import QuestionModel, { ComparisonLabel, RatingType } from '../../shared/models/QuestionModel';
 import UserModel, { JobName } from '../../shared/models/UserModel';
 import { monTeamModel } from './TeamCtrl';
+import SubRoundScore from '../../shared/models/SubRoundScore';
+import GamePlayUtils from '../GamePlayUtils';
+import RoundModel from '../../shared/models/RoundModel';
 
 const schObj = SchemaBuilder.fetchSchema(RoundChangeLookup);
 const monRoundChangeLookupSchema = new mongoose.Schema(schObj);
@@ -261,6 +264,44 @@ class FacilitationCtrl
     
         });
         
+    }
+
+    public async GetTeamScoresBySubRound(req: Request, res: Response){
+        try { 
+
+            let teamId = req.params.teamId;
+
+            let team: TeamModel = await monTeamModel.findById(teamId).then(r => GamePlayUtils.InstantiateModelFromDbCall(r, TeamModel) as TeamModel)
+            if(!team) throw new Error("bad team id")
+
+            let game: GameModel = await monGameModel.findById(team.GameId).then((r) => GamePlayUtils.InstantiateModelFromDbCall(r, GameModel) as GameModel)
+            if(!game) throw new Error("no game found")
+            
+            let mapping = game.CurrentRound;
+
+            let subRounds: SubRoundModel[] = await monSubRoundModel.find().then(r => GamePlayUtils.InstantiateModelFromDbCall(r, SubRoundModel) as SubRoundModel[])
+            if(!subRounds) throw new Error("No SubRounds");
+            let subRound = subRounds.filter(sr => sr.Name.toUpperCase() == mapping.ChildRound.toUpperCase())[0]
+            if(!subRound) throw new Error("no match for subround");
+
+            let round: RoundModel = await monRoundModel.find({}).then(r => GamePlayUtils.InstantiateModelFromDbCall(r, RoundModel) as RoundModel)
+
+            const responses: ResponseModel[] = await monResponseModel.find(
+                { targetObjId: team._id, SubRoundId: subRound._id }).then(rs => rs ? rs.map(r => Object.assign(new ResponseModel(), r.toJSON())) : null)
+            let questions = subRound.Questions;
+
+            //get TEAM_RATING questions. They will be filtered out by rounds that don't have them, since there is no response
+            let ratingQuestions = await monQModel.find({RatingMarker: RatingType.TEAM_RATING}).then(qs => qs ? qs.map(q => Object.assign(new QuestionModel(), q.toJSON(), {SkipScoring: true})) : null)
+            questions = questions.concat(ratingQuestions);
+
+
+            let srs: SubRoundScore = GamePlayUtils.HandleScores(questions, responses, game, team, round, subRound)
+
+            res.json(srs);
+
+        } catch (err) {
+            res.status(500).json(err);
+        }
     }
 
     public routes(){

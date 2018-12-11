@@ -5,6 +5,13 @@ import RoundChangeMapping from "../shared/models/RoundChangeMapping";
 import SubRoundScore from "../shared/models/SubRoundScore";
 import GameModel from "../shared/models/GameModel";
 import SubRoundModel from "../shared/models/SubRoundModel";
+import QuestionModel from "../shared/models/QuestionModel";
+import ResponseModel from "../shared/models/ResponseModel";
+import { SliderValueObj } from "../shared/entity-of-the-state/ValueObj";
+import TeamModel from "../shared/models/TeamModel";
+import RoundModel from "../shared/models/RoundModel";
+import { MongooseDocument, Mongoose } from "mongoose";
+import BaseModel from "../shared/base-sapien/models/BaseModel";
 
 export default class GamePlayUtils {
 
@@ -16,7 +23,7 @@ export default class GamePlayUtils {
       ...passedMapping
     });
 
-    console.log("Roundchange mapping: as curried", mapping.ShowFeedback, mapping.SlideFeedback, passedMapping.ShowFeedback, passedMapping.SlideFeedback)  ;     
+    console.log("Roundchange mapping: as curried", mapping.ShowFeedback, mapping.SlideFeedback, passedMapping.ShowFeedback, passedMapping.SlideFeedback);
 
     //Pick role for each player on each team
     //TODO: get rid of magic string
@@ -53,7 +60,7 @@ export default class GamePlayUtils {
           SlideNumber: mapping.SlideNumber
         },
         { new: true },
-        function(err, doc) {
+        function (err, doc) {
           if (err) {
             console.log("Something wrong when updating data!", err);
           }
@@ -222,7 +229,7 @@ export default class GamePlayUtils {
 
     console.log(newMapping, passedMapping);
 
-    if(!newMapping) newMapping = passedMapping;
+    if (!newMapping) newMapping = passedMapping;
 
     newMapping.ShowFeedback = passedMapping.ShowFeedback;
     newMapping.SlideFeedback = passedMapping.SlideFeedback;
@@ -231,8 +238,100 @@ export default class GamePlayUtils {
 
   }
 
-  public HandleScores(): SubRoundScore {
+  public static HandleScores(questions: QuestionModel[], responses: ResponseModel[], game: GameModel, t: TeamModel, round: RoundModel, subRound: SubRoundModel): SubRoundScore {
     let score = new SubRoundScore();
+
+    let MaxRawScore = 0;
+    let RawScore = 0;
+
+    let skipMaxScoreQuestionIds: string[] = [];
+
+    let responsesFound = responses.length > 0;
+
+    questions.forEach(q => {
+
+      let relevantResponses = responses.filter(r => /*!r.SkipScoring && */ r.QuestionId == q._id.toString());
+      if (relevantResponses && relevantResponses.length) responsesFound = true;
+
+      if (q.SkipScoring) {
+        skipMaxScoreQuestionIds.push(q._id);
+      }
+
+      relevantResponses.forEach(r => {
+        RawScore += r.Score;
+
+        if (r.SkipScoring || q.SkipScoring) {
+          skipMaxScoreQuestionIds.push(q._id);
+          MaxRawScore += r.MaxScore;
+          console.log("MAX SCORE FOUND ON RESPONSE FOR QUESTION ", q.Text, r.MaxScore, r.Score, RawScore, MaxRawScore)
+        }
+
+      });
+
+      if (skipMaxScoreQuestionIds.indexOf(q._id) == -1) {
+        ((q.PossibleAnswers as SliderValueObj[]).forEach(a => {
+          if (a.maxPoints) MaxRawScore += a.maxPoints;
+        }))
+      }
+
+
+    })
+
+    if (responsesFound) {
+
+      let srs = Object.assign(score, {
+        TeamId: t._id,
+        RawScore,
+        MaxRawScore,
+        GameId: game._id,
+        RoundId: subRound.RoundId,
+        SubRoundId: subRound._id,
+        SubRoundNumber: subRound.Label,
+        SubRoundLabel: subRound.ScoreLabel ? subRound.ScoreLabel : subRound.Label,
+        RoundLabel: round.Label,
+        TeamLabel: "Team " + t.Number.toString()
+      });
+
+
+      if (RawScore > 0) {
+
+        //console.log(srs.SubRoundLabel.toLowerCase());
+        //  console.log(srs.NormalizedScore); 
+        if (srs.SubRoundLabel.toLowerCase() == '1a') {
+          //srs.NormalizedScore = RawScore / MaxRawScore * (.2 * 20);
+        } else if (srs.SubRoundLabel.toLowerCase() == '1b') {
+          //srs.NormalizedScore = RawScore / MaxRawScore * (.8 * 20);                                
+        }
+        //add bonus points to team that had highest bid
+        else {
+
+          srs.NormalizedScore = RawScore / MaxRawScore;
+
+        }
+        //console.log(srs.NormalizedScore); 
+        srs.NormalizedScore = RawScore / MaxRawScore;
+      }
+
+      else {
+
+        srs.NormalizedScore = 0;
+      }
+
+    }
+
+
     return score;
+  }
+
+  public static InstantiateModelFromDbCall (dbReturn: MongooseDocument | MongooseDocument[], type: typeof BaseModel ): (BaseModel | BaseModel[]) {
+
+    if ( !dbReturn || !(dbReturn as Array<MongooseDocument>) ) return null;
+
+    if ( Array.isArray(dbReturn) ) {
+      return dbReturn.map(r => Object.assign(new type(), r.toJSON()));
+    } else {
+      return Object.assign(new type(), dbReturn.toJSON());
+    }
+
   }
 }
