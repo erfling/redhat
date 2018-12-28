@@ -1,17 +1,19 @@
 import { JobName } from "./../shared/models/UserModel";
 import { monMappingModel } from "./controllers/GameCtrl";
-import { monRoundModel, monSubRoundModel } from "./controllers/RoundCtrl";
+import { monRoundModel, monSubRoundModel, monQModel } from "./controllers/RoundCtrl";
 import RoundChangeMapping from "../shared/models/RoundChangeMapping";
 import SubRoundScore from "../shared/models/SubRoundScore";
 import GameModel from "../shared/models/GameModel";
 import SubRoundModel from "../shared/models/SubRoundModel";
-import QuestionModel from "../shared/models/QuestionModel";
+import QuestionModel, { RatingType } from "../shared/models/QuestionModel";
 import ResponseModel from "../shared/models/ResponseModel";
 import { SliderValueObj } from "../shared/entity-of-the-state/ValueObj";
 import TeamModel from "../shared/models/TeamModel";
 import RoundModel from "../shared/models/RoundModel";
 import { MongooseDocument, Mongoose } from "mongoose";
 import BaseModel from "../shared/base-sapien/models/BaseModel";
+import { monResponseModel, monSubRoundScoreModel } from "./controllers/GamePlayCtrl";
+import { monTeamModel } from "./controllers/TeamCtrl";
 
 export default class GamePlayUtils {
 
@@ -263,7 +265,6 @@ export default class GamePlayUtils {
         if (r.SkipScoring || q.SkipScoring) {
           skipMaxScoreQuestionIds.push(q._id);
           MaxRawScore += r.MaxScore;
-          console.log("MAX SCORE FOUND ON RESPONSE FOR QUESTION ", q.Text, r.MaxScore, r.Score, RawScore, MaxRawScore)
         }
 
       });
@@ -323,11 +324,58 @@ export default class GamePlayUtils {
     return score;
   }
 
-  public static InstantiateModelFromDbCall (dbReturn: MongooseDocument | MongooseDocument[], type: typeof BaseModel ): (BaseModel | BaseModel[]) {
+  public static async getScoresForGame(game: GameModel):Promise<SubRoundScore[]> {
 
-    if ( !dbReturn || !(dbReturn as Array<MongooseDocument>) ) return null;
+    const mapping = game.CurrentRound
 
-    if ( Array.isArray(dbReturn) ) {
+    const subRounds: SubRoundModel[] = await monSubRoundModel.find({ RoundId: mapping.RoundId })
+      .populate("Questions")
+      .then(srs => srs.map(sr => Object.assign(new SubRoundModel(), sr.toJSON()))); //.then()
+
+    const round: RoundModel = await monRoundModel.findOne({Name: mapping.ParentRound.toUpperCase()})
+                                .then(r => Object.assign(new RoundModel(), r.toJSON())); //.then()
+
+    const teams: TeamModel[] = await monTeamModel.find({GameId: game._id}).then(r => this.InstantiateModelFromDbCall(r, TeamModel) as TeamModel[])
+
+    //we need the PREVIOUS subround
+    const scores: SubRoundScore[] = [];
+    let responsesFound = false;
+    for (let j = 0; j < subRounds.length; j++) {
+      let subRound = subRounds[j];
+      //Some subrounds may be unscored
+      if (subRound.SkipScoring) continue;
+      
+      console.log(`getting scores for ${subRound.Name}`)
+
+      for (let i = 0; i < teams.length; i++) {
+        let t = teams[i];
+        //get the team's responses in this subround
+        const responses: ResponseModel[] = await monResponseModel.find(
+          { targetObjId: t._id, SubRoundId: subRound._id }).then(rs => rs ? rs.map(r => Object.assign(new ResponseModel(), r.toJSON())) : null)
+        let questions = subRound.Questions;
+
+        //get TEAM_RATING questions. They will be filtered out by rounds that don't have them, since there is no response
+        let ratingQuestions = await monQModel.find({ RatingMarker: RatingType.TEAM_RATING }).then(qs => qs ? qs.map(q => Object.assign(new QuestionModel(), q.toJSON(), { SkipScoring: true })) : null)
+        questions = questions.concat(ratingQuestions);
+
+        let srs = this.HandleScores(questions, responses, game, t, round, subRound);
+
+        let oldScore: SubRoundScore = await monSubRoundScoreModel.findOne({ TeamId: t._id, SubRoundId: subRound._id }).then(sr => sr ? Object.assign(new SubRoundScore(), sr.toJSON()) : null);
+        if (oldScore && oldScore.BonusPoints) srs.NormalizedScore += oldScore.BonusPoints;
+        let savedSubRoundScore: SubRoundScore = await monSubRoundScoreModel.findOneAndUpdate({ TeamId: t._id, SubRoundId: subRound._id }, srs, { upsert: true, new: true, setDefaultsOnInsert: true }).then(sr => Object.assign(new SubRoundScore(), sr.toJSON()));
+        scores.push(savedSubRoundScore)
+      }
+    }
+
+    return scores//.filter(s => s.TeamLabel && s.TeamLabel != null);
+
+  }
+
+  public static InstantiateModelFromDbCall(dbReturn: MongooseDocument | MongooseDocument[], type: typeof BaseModel): (BaseModel | BaseModel[]) {
+
+    if (!dbReturn || !(dbReturn as Array<MongooseDocument>)) return null;
+
+    if (Array.isArray(dbReturn)) {
       return dbReturn.map(r => Object.assign(new type(), r.toJSON()));
     } else {
       return Object.assign(new type(), dbReturn.toJSON());

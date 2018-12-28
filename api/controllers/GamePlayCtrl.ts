@@ -30,7 +30,7 @@ const monSubRoundScoreSchema = new mongoose.Schema(subRoundScoreSchema);
 export const monSubRoundScoreModel = mongoose.model("subroundscore", monSubRoundScoreSchema);
 
 
-class GamePlayRouter {
+export class GamePlayRouter {
     //----------------------------------------------------------------------
     //
     //  Properties
@@ -582,6 +582,8 @@ class GamePlayRouter {
 
             }
 
+
+
             res.json(response)
 
         } catch (err) {
@@ -643,7 +645,7 @@ class GamePlayRouter {
      * @param req 
      * @param res 
      */
-    public async getSubRoundScores(req: Request, res: Response) {
+     public static async getSubRoundScores(req: Request, res: Response) {
 
         const Name = req.params.subroundid.toUpperCase();
         const GameId = req.params.gameid;
@@ -672,8 +674,6 @@ class GamePlayRouter {
             console.log(err);
             res.status(500).send("couldn't get subroundscores");
         }
-
-
 
     }
 
@@ -1001,7 +1001,7 @@ class GamePlayRouter {
         this.router.post("/3response", this.SaveRound3Response.bind(this));
         this.router.get("/getscores/:gameid", this.getScores.bind(this)),
         this.router.get("/getuserscores/:subroundid/:roundid/:gameid", this.getUserScores.bind(this)),
-        this.router.get("/getsubroundscores/:gameid/:subroundid", this.getSubRoundScores.bind(this)),
+        this.router.get("/getsubroundscores/:gameid/:subroundid", GamePlayRouter.getSubRoundScores.bind(this)),
         this.router.post("/response/rating", this.SavePlayerRatings.bind(this)),
         this.router.get("/getuserrating/:userid/:teamid", this.GetUserRatingsSoFar.bind(this))
         this.router.get("/getfacilitatorresponses/:gameid", this.getFacilitatorResponsesByRound.bind(this))

@@ -268,8 +268,6 @@ class RoundRouter {
 
         try {
 
-            console.log("HHHHHHHHHHHEEEEEEEEEEEEEEEEEEEEEEYYYYYYYYYYYYYYYYYY")
-
             const GameId = req.params.gameid;
 
             //do this a better way.

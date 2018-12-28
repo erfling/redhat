@@ -18,6 +18,8 @@ import { monTeamModel } from './TeamCtrl';
 import SubRoundScore from '../../shared/models/SubRoundScore';
 import GamePlayUtils from '../GamePlayUtils';
 import RoundModel from '../../shared/models/RoundModel';
+import {GamePlayRouter} from './GamePlayCtrl';
+
 
 const schObj = SchemaBuilder.fetchSchema(RoundChangeLookup);
 const monRoundChangeLookupSchema = new mongoose.Schema(schObj);
@@ -304,11 +306,40 @@ class FacilitationCtrl
         }
     }
 
+    public async GetScores(req: Request, res: Response){
+
+        try {
+        
+            const game:GameModel = await monGameModel.findById(req.params.gameId)                
+                .then(r => GamePlayUtils.InstantiateModelFromDbCall(r, GameModel) as GameModel)
+
+            if (!game) throw new Error("failed to get game");
+
+            console.log("GAME FOUND")
+
+            const scores = await GamePlayUtils.getScoresForGame(game);
+            console.log("SCORES ARE", scores)
+            if(!scores) throw new Error("failed to get scores");
+
+            //get the subroundscores from all subrounds. Calling the GamePlayUtils method makes sure they all exist
+            req.params.gameid = game._id;
+            req.params.subroundid = game.CurrentRound.ChildRound.toUpperCase();
+            await GamePlayRouter.getSubRoundScores(req, res)
+
+            //res.json(scores);
+            
+        } catch (error) {
+            console.log(error);
+            res.status(500).json(error)
+        }
+    }
+
+
     public routes(){
         this.router.post("/round/:gameid", this.ChangeRound.bind(this));
         this.router.get("/getroundchangelookups", this.getRoundChangeLookups.bind(this))
         this.router.get("/getroundstatus/:gameid", this.GetTeamsFinished.bind(this))
-
+        this.router.get("/getscores/:gameId", this.GetScores);
     }
 }
 

@@ -265,7 +265,6 @@ export class AppServer {
                             .populate("Questions")
                             .then(srs => srs.map(sr => Object.assign(new SubRoundModel(), sr.toJSON()))); //.then()
 
-
                         
                         //we need the PREVIOUS subround
                         let responsesFound = false;
@@ -385,7 +384,6 @@ export class AppServer {
                         
                         let q = sr.Questions[n];
                         let savedQuestion = await monQModel.findByIdAndUpdate(q._id, {SubRoundId: sr._id}, {new : true} )
-                        console.log("SAVED QUESTION",savedQuestion)
                     }
 
                     const savedSr = await monSubRoundModel.findByIdAndUpdate(sr._id, sr);
