@@ -225,8 +225,6 @@ export default class FacilitatorCtrl extends BaseClientCtrl<{FacilitatorState: I
 
             this.dataStore.FacilitatorState.Game.CurrentRound = slideMapping;
 
-            
-
             return rcl;
         })        
     }
