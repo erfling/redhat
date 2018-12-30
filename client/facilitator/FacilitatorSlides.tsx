@@ -17,6 +17,8 @@ import { sortBy } from 'lodash';
 import ICommonComponentState from "../../shared/base-sapien/client/ICommonComponentState";
 import MathUtil from "../../shared/entity-of-the-state/MathUtil";
 import ScoringLineChart from "../game/Scoring/ScoringLineChart";
+import FacilitatorScoreDisplay from "./FacilitatorScoreDisplay";
+
 interface FSDocument extends Document {
     exitFullscreen: any;
     mozCancelFullScreen: any;
@@ -249,81 +251,13 @@ export default class FacilitatorSlides extends BaseComponent<any, { FacilitatorS
                                             >
                                                 Round Ranking
 
-                                        </Header>
-                                            <Table
-                                                celled
-                                                color="blue"
-                                                inverted
-                                            >
-                                                <Table.Header>
-                                                    <Table.HeaderCell>Place</Table.HeaderCell>
-                                                    <Table.HeaderCell>Team</Table.HeaderCell>
-                                                    <Table.HeaderCell>Score</Table.HeaderCell>
-                                                </Table.Header>
-                                                <Table.Body>
-                                                    {this.state.FacilitatorState.RoundScores && this.state.FacilitatorState.RoundScores.map((srs, i) => {
-                                                        return <Table.Row
-                                                            key={i}
-                                                            className={i < this.state.FacilitatorState.CurrentLookup.RoundScoreIdx ? 'no-show' : ''}
-                                                        >
-                                                            <Table.Cell>
-                                                                {ScoringLineChart.POSITIONS[i]}
-                                                            </Table.Cell>
-                                                            <Table.Cell>
-                                                                {srs.TeamLabel}
-                                                            </Table.Cell>
-                                                            <Table.Cell>
-                                                                {MathUtil.roundTo(srs.NormalizedScore, 0)}%
-                                                        </Table.Cell>
-                                                        </Table.Row>
-                                                    })}
-                                                </Table.Body>
-                                            </Table>
-                                        </Segment>
-                                    }
+                                            </Header>
 
-                                    {this.state.FacilitatorState.CumulativeScores && this.state.FacilitatorState.CumulativeScores.length && (this.state.FacilitatorState.CurrentLookup.RoundScoreIdx == -1 || this.state.FacilitatorState.Game.CurrentRound.SlideNumber == 76) &&
-                                        <Segment
-                                            raised
-                                        >
-                                            <Header
-                                                textAlign="center"
-                                                as="h1"
-                                            >
-                                                {this.state.FacilitatorState.Game.CurrentRound.SlideNumber != 76 && 'Cumulative Ranking'}
-                                                {this.state.FacilitatorState.Game.CurrentRound.SlideNumber == 76 && 'Final Ranking'}
-                                                
-                                        </Header>
+                                            <FacilitatorScoreDisplay
+                                                Stepped={true}
+                                                FacilitatorState={this.state.FacilitatorState}
+                                            />
 
-                                            <Table
-                                                celled
-                                                color="blue"
-                                                inverted
-                                            >
-                                                <Table.Header>
-                                                    <Table.HeaderCell>Place</Table.HeaderCell>
-                                                    <Table.HeaderCell>Team</Table.HeaderCell>
-                                                    <Table.HeaderCell>Score</Table.HeaderCell>
-                                                </Table.Header>
-                                                <Table.Body>
-                                                    {this.state.FacilitatorState.CumulativeScores && this.state.FacilitatorState.CumulativeScores.map((srs, i) => {
-                                                        return <Table.Row
-                                                            key={i}
-                                                            className={i < this.state.FacilitatorState.CurrentLookup.CumulativeScoreIdx ? 'no-show' : ''}
-                                                        >
-                                                            <Table.Cell>
-                                                                {ScoringLineChart.POSITIONS[i]}
-                                                            </Table.Cell>
-                                                            <Table.Cell>
-                                                                {srs.TeamLabel}
-                                                            </Table.Cell>
-                                                            <Table.Cell>
-                                                                {MathUtil.roundTo(srs.NormalizedScore, 0)}%
-                                                        </Table.Cell>
-                                                        </Table.Row>
-                                                    })}
-                                                </Table.Body>
-                                            </Table>
                                         </Segment>
                                     }
                                 </div>

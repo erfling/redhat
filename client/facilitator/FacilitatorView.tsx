@@ -20,6 +20,7 @@ import FacilitationRoundResponseMapping from "../../shared/models/FacilitationRo
 import UserModel, { JobName } from "../../shared/models/UserModel";
 import ICommonComponentState from "../../shared/base-sapien/client/ICommonComponentState";
 import TeamJobsModal from './TeamJobsModal';
+import FacilitatorScoreDisplay from "./FacilitatorScoreDisplay";
 
 export default class FacilitatorView extends BaseComponent<any, { FacilitatorState: IFacilitatorDataStore, ApplicationState: ICommonComponentState }>
 {
@@ -85,7 +86,7 @@ export default class FacilitatorView extends BaseComponent<any, { FacilitatorSta
             //window.focus();
             this.controller.dataStore.FacilitatorState.RoundResponseMappings = r;
             this.forceUpdate();
-        }), 1000));
+        }), 5000));
         this.controller.getLookups();
 
     }
@@ -104,8 +105,6 @@ export default class FacilitatorView extends BaseComponent<any, { FacilitatorSta
     //  Event Handlers
     //
     //----------------------------------------------------------------------
-
-
 
     //----------------------------------------------------------------------
     //
@@ -168,6 +167,15 @@ export default class FacilitatorView extends BaseComponent<any, { FacilitatorSta
                     >
                         PIN: {this.state.FacilitatorState.Game && this.state.FacilitatorState.Game.GamePIN}
                     </Header>
+                    <Button
+                        onClick={e => this.controller.getFacilitatorScores()}
+                    >
+                        Show Scores
+                    </Button>
+                    <FacilitatorScoreDisplay
+                        Stepped={false}
+                        FacilitatorState={this.controller.dataStore.FacilitatorState}
+                    />
                 </Segment>}
                 <Segment>
                     <Button
@@ -208,7 +216,7 @@ export default class FacilitatorView extends BaseComponent<any, { FacilitatorSta
                 </Segment>
 
                 <hr style={{ marginTop: '2em', marginBottom: '2em' }} />
-
+                
                 {this.state.FacilitatorState.RoundResponseMappings && <Row>
                     <Accordion styled style={{ width: '100%' }} exclusive={false} defaultActiveIndex={this.state.FacilitatorState.AccordionIdx}>
                         {this.state.FacilitatorState.RoundResponseMappings.map((t, i) => <>

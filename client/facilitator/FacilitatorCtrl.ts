@@ -37,6 +37,7 @@ export interface IFacilitatorDataStore{
     CumulativeScores: SubRoundScore[];
     ShowRolesModal?: boolean
     ModalTeam?: FacilitationRoundResponseMapping;
+    FacilitatorScores: SubRoundScore[];
 }
 
 export default class FacilitatorCtrl extends BaseClientCtrl<{FacilitatorState: IFacilitatorDataStore, ApplicationState: ICommonComponentState }>
@@ -157,6 +158,7 @@ export default class FacilitatorCtrl extends BaseClientCtrl<{FacilitatorState: I
     //----------------------------------------------------------------------
 
     public getRoundInfo(){ 
+        alert("test")
         const SpecialSlides = {
             "2" : {
                 ShowTeams: true
@@ -319,7 +321,7 @@ export default class FacilitatorCtrl extends BaseClientCtrl<{FacilitatorState: I
     }
 
 
-    getRoundRanking(scores: SubRoundScore[]) {
+    getRoundRanking(scores: SubRoundScore[], allScores: boolean = false) {
         let selectedRoundScores = scores.filter(rs => rs.RoundLabel == Math.max(...Object.keys(groupBy(scores, "RoundLabel")).map(k => Number(k))).toString())
         
         let groupedTeamScores = groupBy(selectedRoundScores, "TeamId")
@@ -343,10 +345,10 @@ export default class FacilitatorCtrl extends BaseClientCtrl<{FacilitatorState: I
 
         if (this.dataStore.FacilitatorState.CurrentLookup.SkipRoundScore) this.dataStore.FacilitatorState.CurrentLookup.RoundScoreIdx = -1;
 
-        return selectedRoundScores.reverse().slice(0, this.dataStore.FacilitatorState.CurrentLookup.RoundScoreIdx);
+        return !allScores ? selectedRoundScores.reverse().slice(0, this.dataStore.FacilitatorState.CurrentLookup.RoundScoreIdx) : selectedRoundScores.reverse();
       }
 
-      getCumulativeTeamScores(scores: SubRoundScore[]) {
+      getCumulativeTeamScores(scores: SubRoundScore[], allScores: boolean = false) {
         let groupedTeamScores = groupBy(scores,"TeamId");
     
         let accumulatedScores = Object.keys( groupedTeamScores ).map(k => {
@@ -365,7 +367,23 @@ export default class FacilitatorCtrl extends BaseClientCtrl<{FacilitatorState: I
             this.dataStore.FacilitatorState.CurrentLookup.CumulativeScoreIdx = this.dataStore.FacilitatorState.Game.Teams.length;
         }
 
-        return sortBy(accumulatedScores, "NormalizedScore").reverse().slice(0, this.dataStore.FacilitatorState.CurrentLookup.CumulativeScoreIdx);
+        return !allScores ? sortBy(accumulatedScores, "NormalizedScore").reverse().slice(0, this.dataStore.FacilitatorState.CurrentLookup.CumulativeScoreIdx) : sortBy(accumulatedScores, "NormalizedScore").reverse();
+    }
+
+    public async getFacilitatorScores(){
+        const url = SapienServerCom.BASE_REST_URL + "facilitator/getscores/" + this.dataStore.FacilitatorState.Game._id;
+        return SapienServerCom.GetData(null, null, url).then(srs => {
+            let r = srs.map((sr: SubRoundScore) => Object.assign(new SubRoundScore(), Object.assign(sr, {NormalizedScore: sr.NormalizedScore * 100})))
+            console.log(r);
+
+            //Object.assign(this.dataStore.Scores, r);
+            this.dataStore.FacilitatorState.Scores = r;
+            this.dataStore.FacilitatorState.RoundScores = this.getRoundRanking(r);
+            this.dataStore.FacilitatorState.CumulativeScores = this.getCumulativeTeamScores(r);
+            this.component.setState({
+                FacilitatorState: this.dataStore.FacilitatorState
+            })
+        })
     }
 
     public async UpdateTeamJobs(team: FacilitationRoundResponseMapping){

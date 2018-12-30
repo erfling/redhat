@@ -318,7 +318,6 @@ class FacilitationCtrl
             console.log("GAME FOUND")
 
             const scores = await GamePlayUtils.getScoresForGame(game);
-            console.log("SCORES ARE", scores)
             if(!scores) throw new Error("failed to get scores");
 
             //get the subroundscores from all subrounds. Calling the GamePlayUtils method makes sure they all exist
