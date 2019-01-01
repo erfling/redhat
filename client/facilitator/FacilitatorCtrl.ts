@@ -18,6 +18,12 @@ import SubRoundScore from '../../shared/models/SubRoundScore';
 import ICommonComponentState from '../../shared/base-sapien/client/ICommonComponentState';
 import { lookup } from 'dns';
 
+export interface IScores{
+    SubRoundScores: SubRoundScore[];
+    RoundScores: SubRoundScore[];
+    CumulativeScores: SubRoundScore[];
+}
+
 export interface IFacilitatorDataStore{
     Game: GameModel;
     _mobileWidth: boolean;
@@ -32,12 +38,10 @@ export interface IFacilitatorDataStore{
     RoundResponseMappings: FacilitationRoundResponseMapping[];
     AccordionIdx: number[],
     FullScreen: boolean,
-    Scores: SubRoundScore[];
-    RoundScores: SubRoundScore[];
-    CumulativeScores: SubRoundScore[];
-    ShowRolesModal?: boolean
+    ShowRolesModal?: boolean;
     ModalTeam?: FacilitationRoundResponseMapping;
-    FacilitatorScores: SubRoundScore[];
+    FacilitatorScores: IScores;
+    SlideScores: IScores
 }
 
 export default class FacilitatorCtrl extends BaseClientCtrl<{FacilitatorState: IFacilitatorDataStore, ApplicationState: ICommonComponentState }>
@@ -131,7 +135,7 @@ export default class FacilitatorCtrl extends BaseClientCtrl<{FacilitatorState: I
                 } 
                 //when are are out of both round and cumulative scores, let the app move on to the next slide/game state
                 else {
-                    this.dataStore.FacilitatorState.RoundScores = null;
+                    this.dataStore.FacilitatorState.SlideScores.RoundScores = null;
                     hold = false;
                 }
 
@@ -158,7 +162,6 @@ export default class FacilitatorCtrl extends BaseClientCtrl<{FacilitatorState: I
     //----------------------------------------------------------------------
 
     public getRoundInfo(){ 
-        alert("test")
         const SpecialSlides = {
             "2" : {
                 ShowTeams: true
@@ -218,8 +221,8 @@ export default class FacilitatorCtrl extends BaseClientCtrl<{FacilitatorState: I
                     this.getChartingScores();
                 }
             } else {
-                this.dataStore.FacilitatorState.CumulativeScores = null;
-                this.dataStore.FacilitatorState.RoundScores = null;
+                this.dataStore.FacilitatorState.SlideScores.CumulativeScores = null;
+                this.dataStore.FacilitatorState.SlideScores.RoundScores = null;
             }
 
 
@@ -312,9 +315,9 @@ export default class FacilitatorCtrl extends BaseClientCtrl<{FacilitatorState: I
             console.log(r);
 
             //Object.assign(this.dataStore.Scores, r);
-            this.dataStore.FacilitatorState.Scores = r;
-            this.dataStore.FacilitatorState.RoundScores = this.getRoundRanking(r);
-            this.dataStore.FacilitatorState.CumulativeScores = this.getCumulativeTeamScores(r);
+            this.dataStore.FacilitatorState.SlideScores.SubRoundScores = r;
+            this.dataStore.FacilitatorState.SlideScores.RoundScores = this.getRoundRanking(r);
+            this.dataStore.FacilitatorState.SlideScores.CumulativeScores = this.getCumulativeTeamScores(r);
         })
     }
 
@@ -375,9 +378,9 @@ export default class FacilitatorCtrl extends BaseClientCtrl<{FacilitatorState: I
             console.log(r);
 
             //Object.assign(this.dataStore.Scores, r);
-            this.dataStore.FacilitatorState.Scores = r;
-            this.dataStore.FacilitatorState.RoundScores = this.getRoundRanking(r);
-            this.dataStore.FacilitatorState.CumulativeScores = this.getCumulativeTeamScores(r);
+            this.dataStore.FacilitatorState.FacilitatorScores.SubRoundScores = r;
+            this.dataStore.FacilitatorState.FacilitatorScores.RoundScores = this.getRoundRanking(r);
+            this.dataStore.FacilitatorState.FacilitatorScores.CumulativeScores = this.getCumulativeTeamScores(r);
             this.component.setState({
                 FacilitatorState: this.dataStore.FacilitatorState
             })

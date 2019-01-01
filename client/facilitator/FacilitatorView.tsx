@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Grid, Table, Container, Button, Form, Input, Message, Accordion, Icon, Header, Segment } from 'semantic-ui-react';
+import { Grid, Table, Container, Button, Form, Input, Message, Accordion, Icon, Header, Segment, Modal } from 'semantic-ui-react';
 const Field = { Form }
 const { Column, Row } = Grid;
 import { IControllerDataStore } from "../../shared/base-sapien/client/BaseClientCtrl";
@@ -61,7 +61,7 @@ export default class FacilitatorView extends BaseComponent<any, { FacilitatorSta
 
     }
 
-    handleClick = (e, titleProps: {active: boolean, index: number}) => {
+    handleClick = (e, titleProps: { active: boolean, index: number }) => {
         console.log(e, titleProps)
         const { index, active } = titleProps
 
@@ -82,19 +82,13 @@ export default class FacilitatorView extends BaseComponent<any, { FacilitatorSta
 
     componentDidMount() {
         this.controller.getGame(this.props.location.pathname.split("/").filter(s => s.length > 0).reverse()[0])
-        .then((g: GameModel) => this._interval = setInterval(() => this.controller.getRoundInfo().then((r: FacilitationRoundResponseMapping[]) => {
-            //window.focus();
-            this.controller.dataStore.FacilitatorState.RoundResponseMappings = r;
-            this.forceUpdate();
-        }), 5000));
+            .then((g: GameModel) => {
+                this.GetGameStatusInfo();
+                this._interval = setInterval(() => this.GetGameStatusInfo(), 5000)
+            });
         this.controller.getLookups();
 
     }
-
-    componentDidUpdate() {
-
-    }
-
 
     componentWillUnmount() {
         clearInterval(this._interval)
@@ -111,6 +105,18 @@ export default class FacilitatorView extends BaseComponent<any, { FacilitatorSta
     //  Methods
     //
     //----------------------------------------------------------------------
+
+    GetGameStatusInfo() {
+        this.controller.getRoundInfo().then((r: FacilitationRoundResponseMapping[]) => {
+            //window.focus();
+            this.controller.dataStore.FacilitatorState.RoundResponseMappings = r;
+            this.setState(Object.assign(this.state, {
+                FacilitatoState: Object.assign(this.state.FacilitatorState, {
+                    RoundResponseMappings: r
+                })
+            }))
+        });
+    }
 
     getUserIsComplete(mapping: FacilitationRoundResponseMapping, user: UserModel) {
 
@@ -167,15 +173,8 @@ export default class FacilitatorView extends BaseComponent<any, { FacilitatorSta
                     >
                         PIN: {this.state.FacilitatorState.Game && this.state.FacilitatorState.Game.GamePIN}
                     </Header>
-                    <Button
-                        onClick={e => this.controller.getFacilitatorScores()}
-                    >
-                        Show Scores
-                    </Button>
-                    <FacilitatorScoreDisplay
-                        Stepped={false}
-                        FacilitatorState={this.controller.dataStore.FacilitatorState}
-                    />
+                    
+
                 </Segment>}
                 <Segment>
                     <Button
@@ -184,13 +183,13 @@ export default class FacilitatorView extends BaseComponent<any, { FacilitatorSta
                         onClick={() => window.open("/facilitator/slides/" + this.state.FacilitatorState.Game._id, "_blank")}
                     >
                         <span
-                            style={{position: 'absolute', top:'34px'}}
+                            style={{ position: 'absolute', top: '34px' }}
                         >
                             Present Slides
                         </span>
 
                         <SlideShow
-                            style={{ width: '33px', fill: 'white', marginLeft:'100px' }}
+                            style={{ width: '33px', fill: 'white', marginLeft: '100px' }}
                         />
                     </Button>
 
@@ -213,10 +212,37 @@ export default class FacilitatorView extends BaseComponent<any, { FacilitatorSta
                         color="blue"
                     >
                     </Button>
+
+                    <Modal
+                        closeIcon
+                        size='fullscreen'
+                        trigger={<Button
+                            color="blue"
+                            icon 
+                            labelPosition='right'
+                            onClick={e => this.controller.getFacilitatorScores()}
+                        >
+                            Show Scores
+                            <Icon name="table"/>
+                        </Button>}
+                    >
+                        <Modal.Header>Scores through Round {this.state.FacilitatorState.RoundResponseMappings && this.state.FacilitatorState.RoundResponseMappings.length && this.state.FacilitatorState.RoundResponseMappings[0].SubRoundLabel}</Modal.Header>
+                        <Modal.Content>
+                            <FacilitatorScoreDisplay
+                                Stepped={false}
+                                SubRoundScores={this.state.FacilitatorState.FacilitatorScores.SubRoundScores}
+                                RoundScores={this.state.FacilitatorState.FacilitatorScores.RoundScores}
+                                CumulativeScores={this.state.FacilitatorState.FacilitatorScores.CumulativeScores}
+                                Game={this.state.FacilitatorState.Game}
+                                CurrentLookup={this.state.FacilitatorState.CurrentLookup}
+                            />
+                        </Modal.Content>
+                    </Modal>
+
                 </Segment>
 
                 <hr style={{ marginTop: '2em', marginBottom: '2em' }} />
-                
+
                 {this.state.FacilitatorState.RoundResponseMappings && <Row>
                     <Accordion styled style={{ width: '100%' }} exclusive={false} defaultActiveIndex={this.state.FacilitatorState.AccordionIdx}>
                         {this.state.FacilitatorState.RoundResponseMappings.map((t, i) => <>
@@ -279,6 +305,8 @@ export default class FacilitatorView extends BaseComponent<any, { FacilitatorSta
                 ValidationFunc={this.controller.validateTeamJobs.bind(this.controller)}
                 Submitting={this.controller.dataStore.FacilitatorState.ModalTeam.IsSaving}
             />}
+
+
         </Grid>
     }
 

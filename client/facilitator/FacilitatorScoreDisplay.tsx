@@ -7,17 +7,28 @@ import BaseComponent from "../../shared/base-sapien/client/shared-components/Bas
 import FacilitatorCtrl, { IFacilitatorDataStore } from "./FacilitatorCtrl";
 import ScoringLineChart from "../game/Scoring/ScoringLineChart";
 import MathUtil from "../../shared/entity-of-the-state/MathUtil";
+import SubRoundScore from "../../shared/models/SubRoundScore";
+import RoundChangeLookup from "../../shared/models/RoundChangeLookup";
+import GameModel from "../../shared/models/GameModel";
 
-export default class FacilitatorSlides extends React.Component<{ FacilitatorState: IFacilitatorDataStore, Stepped: boolean }, {}>
+interface IFacilitatorScoreDisplayData{
+    CumulativeScores: SubRoundScore[];
+    RoundScores: SubRoundScore[];
+    SubRoundScores: SubRoundScore[];
+    CurrentLookup: RoundChangeLookup;
+    Game: GameModel;
+    Stepped: boolean
+}
+
+export default class FacilitatorSlides extends React.Component<IFacilitatorScoreDisplayData, {}>
 {
 
     render() {
 
-        const { RoundScores, Game, CurrentLookup, CumulativeScores } = this.props.FacilitatorState;
-        const Stepped = this.props.Stepped;
+        const { RoundScores, Game, CurrentLookup, CumulativeScores, Stepped } = this.props;
 
         return <>
-            <div className="facilitator-scores">
+            <div className={Stepped ? "facilitator-scores" : ""}>
                 {RoundScores && ((Game.CurrentRound.SlideNumber != 76 && RoundScores.length && CurrentLookup.RoundScoreIdx != -1) || !Stepped) &&
                     <Segment
                         raised
@@ -33,6 +44,7 @@ export default class FacilitatorSlides extends React.Component<{ FacilitatorStat
                             celled
                             color="blue"
                             inverted
+                            unstackable
                         >
                             <Table.Header>
                                 <Table.HeaderCell>Place</Table.HeaderCell>
@@ -43,7 +55,7 @@ export default class FacilitatorSlides extends React.Component<{ FacilitatorStat
                                 {RoundScores && RoundScores.map((srs, i) => {
                                     return <Table.Row
                                         key={i}
-                                        className={i < CurrentLookup.RoundScoreIdx ? 'no-show' : ''}
+                                        className={i < CurrentLookup.RoundScoreIdx && Stepped ? 'no-show' : ''}
                                     >
                                         <Table.Cell>
                                             {ScoringLineChart.POSITIONS[i]}
@@ -78,6 +90,7 @@ export default class FacilitatorSlides extends React.Component<{ FacilitatorStat
                             celled
                             color="blue"
                             inverted
+                            unstackable
                         >
                             <Table.Header>
                                 <Table.HeaderCell>Place</Table.HeaderCell>
@@ -88,7 +101,7 @@ export default class FacilitatorSlides extends React.Component<{ FacilitatorStat
                                 {CumulativeScores && CumulativeScores.map((srs, i) => {
                                     return <Table.Row
                                         key={i}
-                                        className={i < CurrentLookup.CumulativeScoreIdx ? 'no-show' : ''}
+                                        className={i < CurrentLookup.CumulativeScoreIdx && Stepped ? 'no-show' : ''}
                                     >
                                         <Table.Cell>
                                             {ScoringLineChart.POSITIONS[i]}
