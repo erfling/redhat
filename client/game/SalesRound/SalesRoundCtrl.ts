@@ -82,9 +82,14 @@ export default class SalesRoundCtrl extends BaseRoundCtrl<IRoundDataStore & {Fee
     }
 
     handleResponseChange(q: QuestionModel, r: ResponseModel, questions: QuestionModel[]) {
-        this._responseMap[q.ComparisonLabel] = r.Answer[0];
+
+
+        const answer: SliderValueObj = (r.Answer as SliderValueObj[]).find(a => a.label.toUpperCase() == q.ComparisonLabel.toUpperCase())
+        this._responseMap[q.ComparisonLabel] = answer;
+
+        console.log("ANSWER IS", answer)
+
         r.ComparisonLabel = q.ComparisonLabel;
-        (r.Answer as SliderValueObj).label = q.ComparisonLabel.toLowerCase();
 
         var finalAnswer:Partial<SliderValueObj>[] = Object.keys(this._responseMap).map(label => {
             return {
@@ -104,7 +109,7 @@ export default class SalesRoundCtrl extends BaseRoundCtrl<IRoundDataStore & {Fee
                         label: ComparisonLabel.CSAT,
                         data: this._getCSAT()
                     },
-                    r.Answer[0]
+                    answer
                 ]
             ),
             Score: this._getScore(questions)
@@ -112,7 +117,12 @@ export default class SalesRoundCtrl extends BaseRoundCtrl<IRoundDataStore & {Fee
 
         (this.Response.Answer as SliderValueObj[]).forEach(a => a.maxPoints = 20 / (this.Response.Answer as SliderValueObj[]).length )
 
-        console.log("BUILT OUT RESPONSE",this.Response, this._responseMap);
+        this.dataStore.SubRound = this.remapResponses(this.dataStore.SubRound, this.Response)
+        this.dataStore.SubRound.Questions.forEach(q => {
+            
+            if(q.ComparisonLabel.toUpperCase() == r.ComparisonLabel) q.Response = r
+        })
+        console.log("BUILT OUT RESPONSE",this.Response, this._responseMap,r);
     }
 
     _getPrice(){
@@ -189,6 +199,17 @@ export default class SalesRoundCtrl extends BaseRoundCtrl<IRoundDataStore & {Fee
             q.Response.RoundId = subRound._id;
             q.Response.GameId = this.dataStore.ApplicationState.CurrentTeam.GameId;
             (q.Response.Answer as ValueObj[]) = [(resp.Answer as ValueObj[]).filter(a => a.label == q.ComparisonLabel) [0]]|| [new ValueObj()];
+        })
+
+        console.log("MAPPED SR", subRound, resp)
+        return subRound;
+    }
+
+    private remapResponses(subRound: SubRoundModel, resp: ResponseModel){
+        if(!resp) return
+        console.log("RESPONSE IS",resp)
+        subRound.Questions.forEach(q => {
+            (q.Response.Answer as ValueObj[]) = [(resp.Answer as ValueObj[]).filter(a => a.label.toUpperCase() == q.ComparisonLabel.toUpperCase())[0]];
         })
 
         console.log("MAPPED SR", subRound, resp)

@@ -854,25 +854,25 @@ p:nth-of-type(even) {
     }
 }
 
-$track-color: #0088B9;
+$track-color: #01668a;
 $thumb-color: #0088B9;
 
 $thumb-radius: 50%;
 $thumb-height: 20px;
 $thumb-width: 20px;
 $thumb-shadow-size: 1px;
-$thumb-shadow-blur: 1px;
-$thumb-shadow-color: rgba(0,0,0,.5);
-$thumb-border-width: 1px;
-$thumb-border-color: white;
+$thumb-shadow-blur: 8px;
+$thumb-shadow-color: rgba(0, 0, 0, 0.7);
+$thumb-border-width: 3px;
+$thumb-border-color: $thumb-color;
 
 $track-width: 100%;
-$track-height: 10px;
+$track-height: 13px;
 $track-shadow-size: 2px;
 $track-shadow-blur: 2px;
 $track-shadow-color: #222;
-$track-border-width: 1px;
-$track-border-color: black;
+$track-border-width: 3px;
+$track-border-color: $thumb-color;
 
 $track-radius: 15px;
 $contrast: 5%;
