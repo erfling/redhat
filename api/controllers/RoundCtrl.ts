@@ -164,7 +164,12 @@ class RoundRouter {
 
         try {
 
-            let subRound: SubRoundModel = await monSubRoundModel
+
+            //get the team so we can add responses to questions that have already been answered
+            const team: TeamModel = await monTeamModel.findOne({}).then(t => t ? Object.assign(new TeamModel(), t.toJSON()): null)
+            if(!team) throw new Error("no team found");
+
+            const subRound: SubRoundModel = await monSubRoundModel
                 .findOne({ Name })
                 .populate("Questions")
                 .populate("PrevSubRound")
@@ -172,8 +177,22 @@ class RoundRouter {
                 .then(r => r ? Object.assign(new SubRoundModel(), r.toJSON()) : null);
 
 
-            if (!subRound) throw new Error("no subround");
+            //get a small list of responses that could match each question to avoid multiple queries
+            const responses: ResponseModel[] = await monResponseModel
+                .find({TeamId: team._id, SubRoundId: subRound._id})
+                .then(rs => rs ? rs.map(r => Object.assign(new ResponseModel(), r.toJSON())) : null);
 
+
+            console.log("responses", responses);
+
+            subRound.Questions = subRound.Questions.map(q => {
+                let qWithR = {...q} as QuestionModel;
+                qWithR.Response = responses.find(r => r.QuestionId == q._id) || q.Response;
+                return qWithR
+            })
+
+
+            if (!subRound) throw new Error("no subround");
 
             if (subRound.Name.toUpperCase() == "INTRO" || subRound.Name.toUpperCase() == "PLAYERLOGIN") {
                 let messagesIds = subRound[this._getMessageProp(JobName.IC)];
@@ -243,6 +262,7 @@ class RoundRouter {
                 }
             }
         } catch (err) {
+            console.log(err);
             res.status(500).json(err);
         }
 

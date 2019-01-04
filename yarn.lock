@@ -80,16 +80,6 @@
   dependencies:
     "@types/express" "*"
 
-"@types/d3-path@*":
-  version "1.0.6"
-  resolved "https://registry.yarnpkg.com/@types/d3-path/-/d3-path-1.0.6.tgz#c1a7d2dc07b295fdd1c84dabe4404df991b48693"
-
-"@types/d3-shape@*":
-  version "1.2.3"
-  resolved "https://registry.yarnpkg.com/@types/d3-shape/-/d3-shape-1.2.3.tgz#cadc9f93a626db9190f306048a650df4ffa4e500"
-  dependencies:
-    "@types/d3-path" "*"
-
 "@types/debug@^0.0.30":
   version "0.0.30"
   resolved "https://registry.yarnpkg.com/@types/debug/-/debug-0.0.30.tgz#dc1e40f7af3b9c815013a7860e6252f6352a84df"
@@ -278,20 +268,6 @@
   resolved "https://registry.yarnpkg.com/@types/react/-/react-16.3.14.tgz#f90ac6834de172e13ecca430dcb6814744225d36"
   dependencies:
     csstype "^2.2.0"
-
-"@types/recharts-scale@*":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@types/recharts-scale/-/recharts-scale-1.0.0.tgz#348c9220d6d9062c44a9d585d686644a97f7e25d"
-  integrity sha512-HR/PrCcxYb2YHviTqH7CMdL1TUhUZLTUKzfrkMhxm1HTa5mg/QtP8XMiuSPz6dZ6wecazAOu8aYZ5DqkNlgHHQ==
-
-"@types/recharts@^1.1.1":
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/@types/recharts/-/recharts-1.1.1.tgz#3891f1d25d0171873a9d0de908169bd7fc2d547b"
-  integrity sha512-U0iXqLZT0cwXDIcB99YxuPk/PxmSZLwTu6SUhKFr3sTdA6TgmYGXRkkkYFpMLu0Pnzha14Cj4o/60VMXwrJiXg==
-  dependencies:
-    "@types/d3-shape" "*"
-    "@types/react" "*"
-    "@types/recharts-scale" "*"
 
 "@types/sanitize-html@^1.14.0":
   version "1.14.0"
@@ -6195,9 +6171,10 @@ react-router@^4.2.0:
     prop-types "^15.5.4"
     warning "^3.0.0"
 
-react-semantic-ui-range@^0.6.1:
-  version "0.6.1"
-  resolved "https://registry.yarnpkg.com/react-semantic-ui-range/-/react-semantic-ui-range-0.6.1.tgz#ccf04afb7fc5a3a37a3c14c49605515b4be2ef48"
+react-semantic-ui-range@^0.6.2:
+  version "0.6.2"
+  resolved "https://registry.yarnpkg.com/react-semantic-ui-range/-/react-semantic-ui-range-0.6.2.tgz#5573c602616d5fe4a6134c07bfc78a60805cf18b"
+  integrity sha512-l6eEV9jjwVT2tHf451a1wfVJC7PHRq3qMVFCSEvdzvJuaaR18K+F3aEs9xa8bHOUetRluG7rIRNZVvuxVRgA9Q==
 
 react-sortable-hoc@^0.8.3:
   version "0.8.3"

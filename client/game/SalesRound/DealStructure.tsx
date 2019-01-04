@@ -71,6 +71,7 @@ export default class DealStructure extends BaseComponent<any, IRoundDataStore & 
         if (this.state) {
             return <>
                 {!this.state.ApplicationState.ShowFeedback && this.state.ApplicationState.CurrentUser.Job == JobName.MANAGER && thisSubRound != null && thisSubRound.Questions &&
+
                     <div
                         className={(this.state.ApplicationState.ShowQuestions ? 'show ' : 'hide ') + (this.state.ApplicationState.MobileWidth ? "mobile-messages decisions" : "wide-messages decisions")}
                     >
@@ -84,7 +85,6 @@ export default class DealStructure extends BaseComponent<any, IRoundDataStore & 
                                 />
                                 Decisions
                             </Header>
-
                             {thisSubRound.Questions.map((q, i) => {
                                 return <Row
                                     key={"question-" + i.toString()}

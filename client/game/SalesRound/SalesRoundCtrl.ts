@@ -188,7 +188,7 @@ export default class SalesRoundCtrl extends BaseRoundCtrl<IRoundDataStore & {Fee
             q.Response.QuestionId = q._id;
             q.Response.RoundId = subRound._id;
             q.Response.GameId = this.dataStore.ApplicationState.CurrentTeam.GameId;
-            (q.Response.Answer as ValueObj) = (resp.Answer as ValueObj[]).filter(a => a.label == q.ComparisonLabel)[0] || new ValueObj();
+            (q.Response.Answer as ValueObj[]) = [(resp.Answer as ValueObj[]).filter(a => a.label == q.ComparisonLabel) [0]]|| [new ValueObj()];
         })
 
         console.log("MAPPED SR", subRound, resp)
@@ -222,6 +222,7 @@ export default class SalesRoundCtrl extends BaseRoundCtrl<IRoundDataStore & {Fee
         this.dataStore.Round.Name = "SALES";
 
     }
+
     public getScores(){
         const url = SapienServerCom.BASE_REST_URL + "gameplay/getscores/" + this.dataStore.ApplicationState.CurrentTeam.GameId;
         return SapienServerCom.GetData(null, null, url).then(r => {
