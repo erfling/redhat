@@ -77,23 +77,24 @@ export default class SalesRoundCtrl extends BaseRoundCtrl<IRoundDataStore & {Fee
                     .then(this.getResponsesByRound.bind(this))
                     //.then(this.getScores);        
         } else {
-            return super.getContentBySubRound();
+            return super.getContentBySubRound()/*.then(r => {
+                this.dataStore.SubRound = this.MapResponsesToQuestions(r, r.Questions[0].Response);
+                return this.dataStore.SubRound
+            });*/
         }
     }
 
     handleResponseChange(q: QuestionModel, r: ResponseModel, questions: QuestionModel[]) {
-
-
-        const answer: SliderValueObj = (r.Answer as SliderValueObj[]).find(a => a.label.toUpperCase() == q.ComparisonLabel.toUpperCase())
-        this._responseMap[q.ComparisonLabel] = answer;
-
-        console.log("ANSWER IS", answer)
-
+        const answer: SliderValueObj = (r.Answer as SliderValueObj[]).find(a => a.label.toUpperCase() == q.ComparisonLabel.toUpperCase() || q.Type != QuestionType.SLIDER && (a.data == true || a.data == true.toString()))
+        
         r.ComparisonLabel = q.ComparisonLabel;
+        this._responseMap[q.ComparisonLabel] = answer;
+        console.log(q, answer, r)
 
         var finalAnswer:Partial<SliderValueObj>[] = Object.keys(this._responseMap).map(label => {
+            console.log(label, this._responseMap)
             return {
-                label,
+                label: q.Type == QuestionType.SLIDER ? label : this._responseMap[label].label,
                 data: this._responseMap[label].data
             }
         })
@@ -119,7 +120,6 @@ export default class SalesRoundCtrl extends BaseRoundCtrl<IRoundDataStore & {Fee
 
         this.dataStore.SubRound = this.remapResponses(this.dataStore.SubRound, this.Response)
         this.dataStore.SubRound.Questions.forEach(q => {
-            
             if(q.ComparisonLabel.toUpperCase() == r.ComparisonLabel) q.Response = r
         })
         console.log("BUILT OUT RESPONSE",this.Response, this._responseMap,r);
@@ -191,6 +191,8 @@ export default class SalesRoundCtrl extends BaseRoundCtrl<IRoundDataStore & {Fee
         if(!resp) return
 
         this.Response = resp;
+        
+
         subRound.Questions.forEach(q => {
             q.Response = new ResponseModel();
             q.Response.Score = 0;
@@ -198,10 +200,15 @@ export default class SalesRoundCtrl extends BaseRoundCtrl<IRoundDataStore & {Fee
             q.Response.QuestionId = q._id;
             q.Response.RoundId = subRound._id;
             q.Response.GameId = this.dataStore.ApplicationState.CurrentTeam.GameId;
-            (q.Response.Answer as ValueObj[]) = [(resp.Answer as ValueObj[]).filter(a => a.label == q.ComparisonLabel) [0]]|| [new ValueObj()];
+            if(q.Type == QuestionType.SLIDER){
+                let answer: SliderValueObj = (resp.Answer as SliderValueObj[]).find(a => a.label == q.ComparisonLabel);
+                (q.Response.Answer as ValueObj[]) = answer ? [answer] : [new SliderValueObj()];
+                console.log(q.Text, q.Response.Answer);
+            } else {
+                 (q.Response.Answer as ValueObj[]) = [(resp.Answer as ValueObj[]).find(a => a.data == true || a.data == true.toString())] || [new ValueObj()];
+            }
         })
 
-        console.log("MAPPED SR", subRound, resp)
         return subRound;
     }
 
@@ -209,7 +216,11 @@ export default class SalesRoundCtrl extends BaseRoundCtrl<IRoundDataStore & {Fee
         if(!resp) return
         console.log("RESPONSE IS",resp)
         subRound.Questions.forEach(q => {
-            (q.Response.Answer as ValueObj[]) = [(resp.Answer as ValueObj[]).filter(a => a.label.toUpperCase() == q.ComparisonLabel.toUpperCase())[0]];
+            if(q.Type == QuestionType.SLIDER){
+                (q.Response.Answer as ValueObj[]) = [(resp.Answer as ValueObj[]).filter(a => a.label == q.ComparisonLabel) [0]]|| [new ValueObj()];
+            } else {
+                (q.Response.Answer as ValueObj[]) = [(resp.Answer as ValueObj[]).find(a => a.data == true || a.data == true.toString())] || [new ValueObj()];
+            }        
         })
 
         console.log("MAPPED SR", subRound, resp)
