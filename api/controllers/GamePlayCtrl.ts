@@ -457,25 +457,58 @@ export class GamePlayRouter {
 
     public async GetPlayerRatingsQuestions(req: Request, res: Response) {
         try {
+
+            const buildResponse = (responses: ResponseModel[], question: QuestionModel) => {
+
+                /*return responses.find(r => {
+                    return true
+                }) || new ResponseModel*/
+                const response = responses.find(r => r.targetObjId == question.PossibleAnswers[0].targetObjId);
+                if(response){
+                    (response.Answer as SliderValueObj[]) = question.PossibleAnswers.map(pa => {
+                        let relevantReponse: ResponseModel = responses.find(r => {
+                            return (r.Answer as SliderValueObj[])[0].label == pa.label;
+                        });
+
+                        return relevantReponse ? relevantReponse.Answer[0] : pa;
+
+                    })
+                    return response;
+                }
+                return new ResponseModel();
+
+            }
+
             const team: TeamModel = Object.assign(new TeamModel(), req.body);
 
             //get the game so we can determine which players is the manager
             const game: GameModel = await monGameModel.findById(team.GameId).then(g => g ? g.toJSON() : null)
             if (!game) throw new Error("no game");
-            let jobMap = game.CurrentRound.UserJobs;
+            const jobMap = game.CurrentRound.UserJobs;
 
             //get the players so we can rate each one
             const players: UserModel[] = await monTeamModel.findById(team._id).populate("Players").then(t => t ? t.toObject().Players.map(p => Object.assign(new UserModel(), p)) : null)
 
+            
+
             //get the id of the current subround
-            const subround = await monSubRoundModel.findOne().then(r => r ? r.toJSON() : null)
+            const subround = await monSubRoundModel.findOne({
+                Name: game.CurrentRound.ChildRound.toUpperCase()
+            }).then(r => r ? r.toJSON() : null)
             if (!subround) throw new Error("no subround");
             //get the individual rating questions
-            let question: QuestionModel = await monQModel.findOne({ RatingMarker: RatingType.MANAGER_RATING })
+            const question: QuestionModel = await monQModel.findOne({ RatingMarker: RatingType.MANAGER_RATING })
                 .then(q => q ? Object.assign(new QuestionModel(), q.toJSON()) : null);
 
-            let mgr = players.filter(p => jobMap[p._id.toString()] == JobName.MANAGER)[0];
-            let finalQuestions: QuestionModel[] = players.map(p => {
+            //get any ratings already submitted for the team
+            const ratings: ResponseModel[] = await monResponseModel.find({
+                TeamId:team._id,
+                SubRoundId: subround._id
+            }).then(rs => rs ? rs.map(r => r.toJSON()) : [])
+
+            //ratings.map(r => console.log(r., r.Answer[0]))
+
+            const finalQuestions: QuestionModel[] = players.map(p => {
                 //build the manager question
                 let job: JobName = jobMap[p._id.toString()];
                 //if(jobMap[p._id.toString()] == JobName.MANAGER){
@@ -490,9 +523,10 @@ export class GamePlayRouter {
                         targetObjId: p._id.toString(),
                         targetObjClass: "UserModel",
                         targetObjName: p.Name,
-                        category: (pa as any).Round || null
+                        category: (pa as any).Round || null,
                     })
                 })
+                q.Response = buildResponse(ratings, q);
                 q.RatingMarker = jobMap[p._id.toString()] == JobName.MANAGER ? RatingType.MANAGER_RATING : RatingType.IC_RATING;
                 q.SubText = jobMap[p._id.toString()] == JobName.MANAGER ? "How did " + p.Name + " perform as a manager?" : "How did " + p.Name + " do this round?";
                 q.Text = jobMap[p._id.toString()] != JobName.MANAGER && "";
@@ -763,7 +797,6 @@ export class GamePlayRouter {
 
                 return score;
             });
-
 
 
 
