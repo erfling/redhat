@@ -21,6 +21,8 @@ import UserModel, { JobName } from "../../shared/models/UserModel";
 import ICommonComponentState from "../../shared/base-sapien/client/ICommonComponentState";
 import TeamJobsModal from './TeamJobsModal';
 import FacilitatorScoreDisplay from "./FacilitatorScoreDisplay";
+import QuestionModel, { QuestionType } from "../../shared/models/QuestionModel";
+import { orderBy } from 'lodash';
 
 export default class FacilitatorView extends BaseComponent<any, { FacilitatorState: IFacilitatorDataStore, ApplicationState: ICommonComponentState }>
 {
@@ -144,7 +146,93 @@ export default class FacilitatorView extends BaseComponent<any, { FacilitatorSta
     render() {
 
         //const activeIndices = this.state.FacilitatorState.RoundResponseMappings.map((response, i) => i) || [];
+        const renderResponse = (q: QuestionModel) => {
+            console.log("passed question", q)
+            if(!q.Response || !q.Response.Answer || !(q.Response.Answer as SliderValueObj[]).length) 
+                return <></>
 
+            const answer:SliderValueObj[] = q.Response.Answer as SliderValueObj[];
+            const renderAnwser = (a:SliderValueObj) => (
+                <div className="facilitator-responses">
+                    <h3>{a.label}</h3>
+                    
+                    <p>
+                        <strong>Team's Response: </strong> 
+                        {a.preunit && a.preunit}{a.data}{a.unit && a.unit}
+                    </p>
+                    {a.idealValue &&
+                        <>
+                            <p>
+                                <strong>Ideal Response: </strong> 
+                                {a.preunit && a.preunit}{a.idealValue}{a.unit && a.unit}
+                                {a.idealValue == a.data && <Icon 
+                                    name="check" 
+                                    style={{marginLeft:'5px'}}
+                                    color="green"
+                                />}
+                            </p>
+                        </>
+                    }
+                </div>
+            );
+
+            const render1BAnwser = (a:SliderValueObj) => (
+                <div className="facilitator-responses">                    
+                    <p>
+                        <strong>Team's Response: </strong> 
+                        {a.preunit && a.preunit}{a.label}{a.unit && a.unit}
+                    </p>
+                    {a.idealValue &&
+                        <>
+                            <p>
+                                <strong>Ideal Response: </strong> 
+                                {a.preunit && a.preunit}{a.idealValue}{a.unit && a.unit}
+                                {a.idealValue == a.data && <Icon 
+                                    name="check" 
+                                    style={{marginLeft:'5px'}}
+                                    color="green"
+                                />}
+                            </p>
+                        </>
+                    }
+                </div>
+            );
+
+            const renderPriorityAnswers = (q) => {
+                return <div className="facilitator-responses">
+                    {orderBy(q.Response.Answer, "data").map((a:SliderValueObj, i) => (
+                        <>
+                            <p>{`${i+1}. ${a.label}`}</p>
+                            <p style={{marginBottom: '1em'}}>Ideal Position: {Number(a.data) + 1}</p>
+                        </>
+                    ))}
+                </div>
+            }
+
+            switch(q.Type){
+                
+                case QuestionType.MULTIPLE_CHOICE:
+                    return answer.filter(a => a.data == true || a.data == true.toString()).map(a => (
+                        renderAnwser(a)
+                    ))
+                    
+                case QuestionType.CHECKBOX:
+                case QuestionType.TOGGLE:
+                case QuestionType.SLIDER:
+                case QuestionType.TEXTAREA:
+                case QuestionType.NUMBER:
+                    return answer.map(a => (
+                        renderAnwser(a)
+                    ))
+
+                case QuestionType.PRIORITY:
+                    return renderPriorityAnswers(q);
+
+                default: 
+                    return <></>
+
+            }
+        }
         return <Grid
             columns={16}
             className="game-wrapper"
@@ -258,6 +346,13 @@ export default class FacilitatorView extends BaseComponent<any, { FacilitatorSta
                                 >
                                     Set Roles
                                 </Button>
+                                <Button
+                                    onClick={() => {
+                                        this.controller.getTeamResponses(t, this.state.FacilitatorState.Game.CurrentRound.ChildRound)
+                                    }}
+                                >
+                                    View Responses
+                                </Button>
 
                             </Accordion.Title>
                             <Accordion.Content active={this.state.FacilitatorState.AccordionIdx.indexOf(i) != -1}>
@@ -305,6 +400,48 @@ export default class FacilitatorView extends BaseComponent<any, { FacilitatorSta
                 ValidationFunc={this.controller.validateTeamJobs.bind(this.controller)}
                 Submitting={this.controller.dataStore.FacilitatorState.ModalTeam.IsSaving}
             />}
+
+            {this.state.FacilitatorState.SelectedTeamMapping && 
+                <Modal 
+                    className="scrolling"
+                    closeIcon
+                    size='fullscreen'
+                    onClose={() => {
+                        this.controller.dataStore.FacilitatorState.SelectedTeamMapping = null;
+                        this.setState({FacilitatorState: this.controller.dataStore.FacilitatorState})
+                    }}
+                    open={this.state.FacilitatorState.SelectedTeamMapping && this.state.FacilitatorState.SelectedTeamMapping.Questions.length > 0}
+                >
+                    <Modal.Header>{this.state.FacilitatorState.SelectedTeamMapping.TeamName}'s Responses</Modal.Header>
+                    <Modal.Content>
+                        <header>
+                            {this.state.FacilitatorState.ModalRoundFilter.rounds.map(r => <Button
+                                circular
+                                inverted={this.state.FacilitatorState.ModalRoundFilter.value != r}
+                                color="blue"
+                                onClick={e => {
+                                    this.controller.dataStore.FacilitatorState.ModalRoundFilter.value = r;
+                                    this.setState({FacilitatorState: this.controller.dataStore.FacilitatorState})
+                                }}
+                            >
+                                {r}
+                            </Button>)}
+                        </header>
+                        {this.state.FacilitatorState.SelectedTeamMapping.Questions.filter(q => q.SubRoundLabel && q.SubRoundLabel.toUpperCase() == this.state.FacilitatorState.ModalRoundFilter.value.toUpperCase()).map(q => <>
+                                <h2>
+                                    {q.Text}
+                                </h2>
+                                {q.Response && q.Response.Answer && 
+                                    <>
+                                        {renderResponse(q)}
+                                    </>
+                                }
+
+                            </>
+                        )}
+                    </Modal.Content>
+                </Modal>
+            }
 
 
         </Grid>

@@ -17,6 +17,8 @@ import { sortBy, groupBy } from 'lodash';
 import SubRoundScore from '../../shared/models/SubRoundScore';
 import ICommonComponentState from '../../shared/base-sapien/client/ICommonComponentState';
 import { lookup } from 'dns';
+import QuestionModel from '../../shared/models/QuestionModel';
+import SubRoundModel from '../../shared/models/SubRoundModel';
 
 export interface IScores{
     SubRoundScores: SubRoundScore[];
@@ -24,7 +26,7 @@ export interface IScores{
     CumulativeScores: SubRoundScore[];
 }
 
-export interface IFacilitatorDataStore{
+export interface IFacilitatorDataStore {
     Game: GameModel;
     _mobileWidth: boolean;
     ShowGameInfoPopup: boolean;
@@ -42,6 +44,11 @@ export interface IFacilitatorDataStore{
     ModalTeam?: FacilitationRoundResponseMapping;
     FacilitatorScores: IScores;
     SlideScores: IScores
+    SelectedTeamMapping: FacilitationRoundResponseMapping;
+    ModalRoundFilter: {
+        value: string,
+        rounds:string[]
+    }
 }
 
 export default class FacilitatorCtrl extends BaseClientCtrl<{FacilitatorState: IFacilitatorDataStore, ApplicationState: ICommonComponentState }>
@@ -227,6 +234,9 @@ export default class FacilitatorCtrl extends BaseClientCtrl<{FacilitatorState: I
 
 
             this.dataStore.FacilitatorState.Game.CurrentRound = slideMapping;
+            if(!this.dataStore.FacilitatorState.ModalRoundFilter.value) this.dataStore.FacilitatorState.ModalRoundFilter.value = rcl[0].SubRoundLabel;
+
+            this.component.setState({FacilitatorState: this.dataStore.FacilitatorState})
 
             return rcl;
         })        
@@ -401,7 +411,19 @@ export default class FacilitatorCtrl extends BaseClientCtrl<{FacilitatorState: I
             }); 
             
         }
+    }          
+
+    public async getTeamResponses(team: FacilitationRoundResponseMapping, childRound: string){
+        this.dataStore.FacilitatorState.SelectedTeamMapping = team;
+        const url = `${SapienServerCom.BASE_REST_URL}facilitator/getteamresponses/${team.TeamId}`
+        return SapienServerCom.GetData(null, null, url).then((questions: QuestionModel[]) => {
+            this.dataStore.FacilitatorState.SelectedTeamMapping.Questions = questions;
+            this.component.setState({
+                FacilitatorState: this.dataStore.FacilitatorState
+            })
+        })
     }
+
 
     public validateTeamJobs(team: FacilitationRoundResponseMapping, game: GameModel = this.dataStore.FacilitatorState.Game): (boolean | string) [] {
         
@@ -448,5 +470,17 @@ export default class FacilitatorCtrl extends BaseClientCtrl<{FacilitatorState: I
 
         
         return validators;
+    }
+
+    public getQuestionsForDisplayResponse(questions: QuestionModel[]): QuestionModel[]{
+        return questions.map(q => {
+
+            if(q.SubRoundLabel == "1A"){
+                
+            }
+
+
+            return q;
+        })
     }
 }

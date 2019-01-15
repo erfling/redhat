@@ -229,12 +229,6 @@ export class GamePlayRouter {
                     pa["skillScore"] = skillScore;
                     console.log("LOOK FOR SKILLSCORE", skillScore, pa)
 
-                    /*
-                    if (!bestCandidate || bestCandidate["skillScore"] < skillScore) {
-                        // store best candidate so far, according to skillScore
-                        bestCandidate = pa;
-                    }
-                    */
                 } else {
                     console.log("DOOKIE:", pa);
                 }

@@ -22,7 +22,7 @@ interface TeamModalProps {
   Submitting: boolean;
 }
 
-export default class TeamJobsMo extends React.Component< TeamModalProps,{ team: FacilitationRoundResponseMapping }> {
+export default class TeamJobsModal extends React.Component< TeamModalProps,{ team: FacilitationRoundResponseMapping }> {
   //----------------------------------------------------------------------
   //
   //  Properties
