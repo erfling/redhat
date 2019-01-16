@@ -159,17 +159,18 @@ export default class FacilitatorView extends BaseComponent<any, { FacilitatorSta
                     <p>
                         <strong>Team's Response: </strong> 
                         {a.preunit && a.preunit}{a.data}{a.unit && a.unit}
+                        {a.idealValue && a.idealValue == a.data && <Icon 
+                            name="check" 
+                            style={{marginLeft:'5px'}}
+                            color="green"
+                        />}
                     </p>
                     {a.idealValue &&
                         <>
                             <p>
                                 <strong>Ideal Response: </strong> 
                                 {a.preunit && a.preunit}{a.idealValue}{a.unit && a.unit}
-                                {a.idealValue == a.data && <Icon 
-                                    name="check" 
-                                    style={{marginLeft:'5px'}}
-                                    color="green"
-                                />}
+                                
                             </p>
                         </>
                     }
@@ -212,9 +213,17 @@ export default class FacilitatorView extends BaseComponent<any, { FacilitatorSta
             switch(q.Type){
                 
                 case QuestionType.MULTIPLE_CHOICE:
-                    return answer.filter(a => a.data == true || a.data == true.toString()).map(a => (
-                        renderAnwser(a)
-                    ))
+                    if(q.SubRoundLabel != "3A"){
+                        return answer.map(a => (
+                            renderAnwser(a)
+                        ))
+                    } else {
+                        return answer.filter(a => a.data == true || a.data == true.toString()).map(a => (
+                            renderAnwser(a)
+                        ))
+                    }
+       
+
                     
                 case QuestionType.CHECKBOX:
                 case QuestionType.TOGGLE:
