@@ -208,16 +208,25 @@ export default class SalesRoundCtrl extends BaseRoundCtrl<IRoundDataStore & {Fee
             }
         })
 
-        this.component.setState({SubRound: this.dataStore.SubRound})
-        this.dataStore.SubRound = subRound
         return subRound;
     }
 
     private remapResponses(subRound: SubRoundModel, resp: ResponseModel, question:QuestionModel){
+        console.log('asdfadfasdfadfadfasdfasdfasdfasdf')
         if(!resp) return
-        console.log("RESPONSE IS",resp)
         subRound.Questions.forEach(q => {
             if(q._id == question._id){
+
+                if(!q.Response || !q.Response.Answer) {
+                    q.Response = new ResponseModel();
+                    q.Response.Score = 0;
+                    q.Response.TeamId = this.dataStore.ApplicationState.CurrentTeam._id;
+                    q.Response.QuestionId = q._id;
+                    q.Response.RoundId = subRound._id;
+                    q.Response.GameId = this.dataStore.ApplicationState.CurrentTeam.GameId;
+                    q.Response.Answer = [new SliderValueObj()];
+                }
+
                 if(q.Type == QuestionType.SLIDER){
                     let answer = (resp.Answer as SliderValueObj[]).find(a => a.label == q.ComparisonLabel);
                     if(answer){
@@ -226,7 +235,21 @@ export default class SalesRoundCtrl extends BaseRoundCtrl<IRoundDataStore & {Fee
                         (q.Response.Answer as SliderValueObj[]) = [new SliderValueObj()];
                     }
                 } else {
-                    (q.Response.Answer as ValueObj[]) =  resp.Answer && (resp.Answer as ValueObj[]).length ? [(resp.Answer as ValueObj[]).find(a => a.data == true || a.data == true.toString())] : [new SliderValueObj()];
+
+                    let answer = (resp.Answer as SliderValueObj[]).find(a => a.data == true || a.data == true.toString());
+                    if(answer){
+                        (q.Response.Answer as SliderValueObj[]) = q.PossibleAnswers.map(pa => {
+                            console.log(answer.label, pa.label)
+                            if(pa.label == answer.label) {
+                                return answer;
+                            }
+                            return pa;
+                        })
+                    }else{
+                        (q.Response.Answer as SliderValueObj[]) =  q.PossibleAnswers.map(pa => pa);
+                    }
+
+
                 }    
             }  
             
