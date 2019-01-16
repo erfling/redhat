@@ -212,9 +212,15 @@ export default class FacilitatorView extends BaseComponent<any, { FacilitatorSta
             switch(q.Type){
                 
                 case QuestionType.MULTIPLE_CHOICE:
-                    return answer.filter(a => a.data == true || a.data == true.toString()).map(a => (
-                        renderAnwser(a)
-                    ))
+                    if(q.SubRoundLabel == "1B"){
+                        return answer.filter(a => a.data == true || a.data == true.toString()).map(a => (
+                            render1BAnwser(a)
+                        ))
+                    } else {
+                        return answer.filter(a => a.data == true || a.data == true.toString()).map(a => (
+                            renderAnwser(a)
+                        ))
+                    }
                     
                 case QuestionType.CHECKBOX:
                 case QuestionType.TOGGLE:
