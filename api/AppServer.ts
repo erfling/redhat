@@ -265,7 +265,6 @@ export class AppServer {
                             .populate("Questions")
                             .then(srs => srs.map(sr => Object.assign(new SubRoundModel(), sr.toJSON()))); //.then()
 
-
                         
                         //we need the PREVIOUS subround
                         let responsesFound = false;
@@ -281,96 +280,11 @@ export class AppServer {
                                     { targetObjId: t._id, SubRoundId: subRound._id }).then(rs => rs ? rs.map(r => Object.assign(new ResponseModel(), r.toJSON())) : null)
                                 let questions = subRound.Questions;
 
-                                let MaxRawScore = 0;
-                                let RawScore = 0;
-
-                                let skipMaxScoreQuestionIds: string[] = [];
-
-                                
                                 //get TEAM_RATING questions. They will be filtered out by rounds that don't have them, since there is no response
                                 let ratingQuestions = await monQModel.find({RatingMarker: RatingType.TEAM_RATING}).then(qs => qs ? qs.map(q => Object.assign(new QuestionModel(), q.toJSON(), {SkipScoring: true})) : null)
                                 questions = questions.concat(ratingQuestions);
-                               
 
-
-                                questions.forEach(q => {
-                                    
-                                    let relevantResponses = responses.filter(r => /*!r.SkipScoring && */ r.QuestionId == q._id.toString());
-                                    if (relevantResponses && relevantResponses.length) responsesFound = true;
-
-                                    if(q.SkipScoring) {
-                                        skipMaxScoreQuestionIds.push(q._id);
-                                    }
-
-                                    relevantResponses.forEach(r => {
-                                        RawScore += r.Score;
-                                        
-                                        if (r.SkipScoring || q.SkipScoring) {
-                                            skipMaxScoreQuestionIds.push(q._id);
-                                            MaxRawScore += r.MaxScore;
-                                            console.log("MAX SCORE FOUND ON RESPONSE FOR QUESTION ", q.Text, r.MaxScore, r.Score, RawScore, MaxRawScore)
-                                        }
-                                        
-                                    });
-
-                                    if ( skipMaxScoreQuestionIds.indexOf(q._id) == -1 ) {
-                                        ((q.PossibleAnswers as SliderValueObj[]).forEach(a => {
-                                            if (a.maxPoints) MaxRawScore += a.maxPoints;
-                                        }))
-                                    }
-
-                                    
-                                })
-
-                                if (!responsesFound) continue;
-
-                                let srs = Object.assign(new SubRoundScore(), {
-                                    TeamId: t._id,
-                                    RawScore,
-                                    MaxRawScore,
-                                    GameId: game._id,
-                                    RoundId: subRound.RoundId,
-                                    SubRoundId: subRound._id,
-                                    SubRoundNumber: subRound.Label,
-                                    SubRoundLabel: subRound.ScoreLabel ? subRound.ScoreLabel : subRound.Label,
-                                    RoundLabel: round.Label,
-                                    TeamLabel: "Team " + t.Number.toString()
-                                });
-
-
-                                if (RawScore > 0 ){
-
-                                    //console.log(srs.SubRoundLabel.toLowerCase());
-                                 //  console.log(srs.NormalizedScore); 
-                                    if ( srs.SubRoundLabel.toLowerCase()== '1a') {                                        
-                                        //srs.NormalizedScore = RawScore / MaxRawScore * (.2 * 20);
-                                    } else if (srs.SubRoundLabel.toLowerCase() == '1b') {
-                                        //srs.NormalizedScore = RawScore / MaxRawScore * (.8 * 20);                                
-                                    }
-                                    //add bonus points to team that had highest bid
-                                    else if(mapping.CurrentHighestBid){
-                                        console.log("MAPPING WAS A BID: ", mapping.CurrentHighestBid )
-                                        srs.NormalizedScore = (RawScore / MaxRawScore * 16 / subRounds.length);
-                                        if(mapping.CurrentHighestBid.targetObjId == t._id){
-                                            console.log("highest bid bonus should be awared to ", t.Number)
-                                            srs.BonusPoints = 4 / subRounds.length;
-                                        }    
-
-                                    } else {
-
-                                       srs.NormalizedScore = RawScore / MaxRawScore;
-                        
-                                    }
-                                    //console.log(srs.NormalizedScore); 
-                                    srs.NormalizedScore = RawScore / MaxRawScore;
-                                }
-                                
-                                else {
-                                   
-                                    srs.NormalizedScore = 0;
-                                }
-                                                                
-
+                                let srs = GamePlayUtilities.HandleScores(questions, responses, game, t, round, subRound);
 
                                 var oldScore: SubRoundScore = await monSubRoundScoreModel.findOne({ TeamId: t._id, SubRoundId: subRound._id }).then(sr => sr ? Object.assign(new SubRoundScore(), sr.toJSON()): null);
                                 if (oldScore && oldScore.BonusPoints) srs.NormalizedScore += oldScore.BonusPoints;
@@ -389,8 +303,6 @@ export class AppServer {
                         res.json("long poll publish hit");
                     }
                                 
-
-
                 }
                 catch (err) {
                     console.log("except");
@@ -472,7 +384,6 @@ export class AppServer {
                         
                         let q = sr.Questions[n];
                         let savedQuestion = await monQModel.findByIdAndUpdate(q._id, {SubRoundId: sr._id}, {new : true} )
-                        console.log("SAVED QUESTION",savedQuestion)
                     }
 
                     const savedSr = await monSubRoundModel.findByIdAndUpdate(sr._id, sr);
