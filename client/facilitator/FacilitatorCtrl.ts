@@ -475,18 +475,6 @@ export default class FacilitatorCtrl extends BaseClientCtrl<{FacilitatorState: I
         return validators;
     }
 
-    public getQuestionsForDisplayResponse(questions: QuestionModel[]): QuestionModel[]{
-        return questions.map(q => {
-
-            if(q.SubRoundLabel == "1A"){
-                
-            }
-
-
-            return q;
-        })
-    }
-
     public arrange2AResponses(questions: QuestionModel[]){
 
         let resp: ResponseModel;
@@ -500,12 +488,32 @@ export default class FacilitatorCtrl extends BaseClientCtrl<{FacilitatorState: I
             console.log("over here", resp)
             q.Response = new ResponseModel();
             if(q.Type == QuestionType.SLIDER){
-                let answer: SliderValueObj = (resp.Answer as SliderValueObj[]).find(a => a.label == q.ComparisonLabel);
-                (q.Response.Answer as SliderValueObj[]) = answer ? [answer] : [new SliderValueObj()];
-                console.log(q.Text, q.Response.Answer);
+                let answer = (resp.Answer as SliderValueObj[]).find(a => a.label == q.ComparisonLabel);
+                if(answer){
+                    let pa = (q.PossibleAnswers as SliderValueObj[]).find(a => a.label.toUpperCase() == q.ComparisonLabel.toUpperCase());
+                    if(pa) {
+                        answer.min = pa.min;
+                        answer.max = pa.max;
+                    }
+                    (q.Response.Answer as SliderValueObj[]) = [answer];
+                }else{
+                    (q.Response.Answer as SliderValueObj[]) = [new SliderValueObj()];
+                }
             } else {
-                 (q.Response.Answer as SliderValueObj[]) = [(resp.Answer as SliderValueObj[]).find(a => a.data == true || a.data == true.toString())] || [new SliderValueObj()];
+
+                let answer = (resp.Answer as SliderValueObj[]).find(a => a.data == true || a.data == true.toString());
+                if(answer){
+                    (q.Response.Answer as SliderValueObj[]) = q.PossibleAnswers.map(pa => {
+                        
+                        if(pa.label == answer.label) {
+                            answer.label = "Project Management";
+                            return answer;
+                        }
+                        return pa;
+                    })
+                }
             }
+
             return q
         })
 

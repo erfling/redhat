@@ -203,6 +203,29 @@ export default class FacilitatorView extends BaseComponent<any, { FacilitatorSta
                 </div>
             );
 
+            const render2ASlider = (a) => (
+                <div className="facilitator-responses">
+                    <p>
+                        <strong>Team's Response: </strong>
+                        {a.preunit && a.preunit}{a.data}{a.unit && a.unit}
+                        {a.idealValue && a.idealValue == a.data && <Icon
+                            name="check"
+                            style={{ marginLeft: '5px' }}
+                            color="green"
+                        />}
+                    </p>
+                    {a.idealValue &&
+                        <>
+                            <p>
+                                <strong>Ideal Response: </strong>
+                                {a.preunit && a.preunit}{a.idealValue}{a.unit && a.unit}
+
+                            </p>
+                        </>
+                    }
+                </div>
+            )
+
             const renderPriorityAnswers = (q) => {
 
                 return <div className="facilitator-responses">
@@ -217,7 +240,7 @@ export default class FacilitatorView extends BaseComponent<any, { FacilitatorSta
             switch (q.Type) {
 
                 case QuestionType.MULTIPLE_CHOICE:
-                    if (q.SubRoundLabel == "3A") {
+                    if (q.SubRoundLabel == "3A" || q.SubRoundLabel == "2A" ) {
                         return answer.filter(a => a.data == true || a.data == true.toString()).map(a => (
                             renderAnwser(a)
                         ))
@@ -238,9 +261,15 @@ export default class FacilitatorView extends BaseComponent<any, { FacilitatorSta
                 case QuestionType.SLIDER:
                 case QuestionType.TEXTAREA:
                 case QuestionType.NUMBER:
-                    return answer.map(a => (
-                        renderAnwser(a)
-                    ))
+                    if(q.SubRoundLabel == "2A"){
+                        return answer.map(a => (
+                            render2ASlider(a)
+                        ))
+                    } else {
+                        return answer.map(a => (
+                            renderAnwser(a)
+                        ))                    
+                    }
 
                 case QuestionType.PRIORITY:
                     return renderPriorityAnswers(q);
@@ -449,8 +478,6 @@ export default class FacilitatorView extends BaseComponent<any, { FacilitatorSta
                             <h2>
                                 {q.Text}
                             </h2>
-                            <pre>{JSON.stringify(q, null, 2)}</pre>
-
                             {q.Response && q.Response.Answer &&
                                 <>
                                     {renderResponse(q)}

@@ -90,10 +90,10 @@ export default class SalesRoundCtrl extends BaseRoundCtrl<IRoundDataStore & {Fee
         
         r.ComparisonLabel = q.ComparisonLabel;
         this._responseMap[q.ComparisonLabel] = answer;
-        console.log(q, answer, r)
+        //console.log(q, answer, r)
 
         var finalAnswer:Partial<SliderValueObj>[] = Object.keys(this._responseMap).map(label => {
-            console.log(label, this._responseMap)
+            //console.log(label, this._responseMap)
             return {
                 label: q.Type == QuestionType.SLIDER ? label : this._responseMap[label].label,
                 data: this._responseMap[label].data
@@ -123,7 +123,7 @@ export default class SalesRoundCtrl extends BaseRoundCtrl<IRoundDataStore & {Fee
         this.dataStore.SubRound.Questions.forEach(q => {
             if(q.ComparisonLabel.toUpperCase() == r.ComparisonLabel) q.Response = r
         })
-        console.log("BUILT OUT RESPONSE",this.Response, this._responseMap,r);
+        //console.log("BUILT OUT RESPONSE",this.Response, this._responseMap,r);
     }
 
     _getPrice(){
@@ -157,7 +157,7 @@ export default class SalesRoundCtrl extends BaseRoundCtrl<IRoundDataStore & {Fee
 
         score = this._responseMap[ComparisonLabel.PROJECT_MANAGEMENT] && this._responseMap[ComparisonLabel.PROJECT_MANAGEMENT].data == "true" ? score + .2 : score;
         score *= 10;
-        console.log("score fix *10: %s", score);
+        //console.log("score fix *10: %s", score);
 
         return score;
     }
@@ -189,8 +189,7 @@ export default class SalesRoundCtrl extends BaseRoundCtrl<IRoundDataStore & {Fee
     }
 
     public MapResponsesToQuestions(subRound: SubRoundModel, resp: ResponseModel){
-        if(!resp) return
-        this.Response = resp;
+        if(resp) this.Response = resp;
         
         subRound.Questions.forEach(q => {
             q.Response = new ResponseModel();
@@ -199,20 +198,47 @@ export default class SalesRoundCtrl extends BaseRoundCtrl<IRoundDataStore & {Fee
             q.Response.QuestionId = q._id;
             q.Response.RoundId = subRound._id;
             q.Response.GameId = this.dataStore.ApplicationState.CurrentTeam.GameId;
+            let answer;
             if(q.Type == QuestionType.SLIDER){
-                let answer: SliderValueObj = (resp.Answer as SliderValueObj[]).find(a => a.label == q.ComparisonLabel);
-                (q.Response.Answer as ValueObj[]) = answer ? [answer] : [new SliderValueObj()];
-                console.log(q.Text, q.Response.Answer);
+                if(resp){
+                    answer = (resp.Answer as SliderValueObj[]).find(a => a.label == q.ComparisonLabel);
+                }
+                if(answer){
+                    let pa = (q.PossibleAnswers as SliderValueObj[]).find(a => a.label.toUpperCase() == q.ComparisonLabel.toUpperCase());
+                    if(pa) {
+                        console.log("FOUND")
+                        answer.min = pa.min;
+                        answer.max = pa.max;
+                    }
+                    (q.Response.Answer as SliderValueObj[]) = [answer];
+                }else{
+                    (q.Response.Answer as SliderValueObj[]) = [new SliderValueObj()];
+                }
             } else {
-                 (q.Response.Answer as ValueObj[]) = [(resp.Answer as ValueObj[]).find(a => a.data == true || a.data == true.toString())] || [new ValueObj()];
-            }
+                if(resp){
+                    answer = (resp.Answer as SliderValueObj[]).find(a => a.label == q.ComparisonLabel);
+                }
+                if(answer){
+                    (q.Response.Answer as SliderValueObj[]) = q.PossibleAnswers.map(pa => {
+                        console.log(answer.label, pa.label)
+                        if(pa.label == answer.label) {
+                            return answer;
+                        }
+                        return pa;
+                    })
+                }else{
+                    (q.Response.Answer as SliderValueObj[]) =  q.PossibleAnswers.map(pa => pa);
+                }
+
+
+            }  
         })
 
         return subRound;
     }
 
     private remapResponses(subRound: SubRoundModel, resp: ResponseModel, question:QuestionModel){
-        console.log('asdfadfasdfadfadfasdfasdfasdfasdf')
+        //console.log('asdfadfasdfadfadfasdfasdfasdfasdf')
         if(!resp) return
         subRound.Questions.forEach(q => {
             if(q._id == question._id){
@@ -230,6 +256,11 @@ export default class SalesRoundCtrl extends BaseRoundCtrl<IRoundDataStore & {Fee
                 if(q.Type == QuestionType.SLIDER){
                     let answer = (resp.Answer as SliderValueObj[]).find(a => a.label == q.ComparisonLabel);
                     if(answer){
+                        let pa = (q.PossibleAnswers as SliderValueObj[]).find(a => a.label.toUpperCase() == q.ComparisonLabel.toUpperCase());
+                        if(pa) {
+                            answer.min = pa.min;
+                            answer.max = pa.max;
+                        }
                         (q.Response.Answer as SliderValueObj[]) = [answer];
                     }else{
                         (q.Response.Answer as SliderValueObj[]) = [new SliderValueObj()];
@@ -248,14 +279,12 @@ export default class SalesRoundCtrl extends BaseRoundCtrl<IRoundDataStore & {Fee
                     }else{
                         (q.Response.Answer as SliderValueObj[]) =  q.PossibleAnswers.map(pa => pa);
                     }
-
-
                 }    
             }  
             
         })
 
-        console.log("MAPPED SR", subRound, subRound.Questions[1].Response.Answer);
+        //console.log("MAPPED SR", subRound, subRound.Questions[1].Response.Answer);
         return subRound;
     }
 
