@@ -1,3 +1,4 @@
+import { Slider } from 'react-semantic-ui-range';
 'use strict';
 import { Component } from 'react';
 import BaseRoundCtrl from '../../../shared/base-sapien/client/BaseRoundCtrl';
@@ -118,7 +119,7 @@ export default class SalesRoundCtrl extends BaseRoundCtrl<IRoundDataStore & {Fee
 
         (this.Response.Answer as SliderValueObj[]).forEach(a => a.maxPoints = 20 / (this.Response.Answer as SliderValueObj[]).length )
 
-        this.dataStore.SubRound = this.remapResponses(this.dataStore.SubRound, this.Response)
+        this.dataStore.SubRound = this.remapResponses(this.dataStore.SubRound, this.Response, q)
         this.dataStore.SubRound.Questions.forEach(q => {
             if(q.ComparisonLabel.toUpperCase() == r.ComparisonLabel) q.Response = r
         })
@@ -189,10 +190,8 @@ export default class SalesRoundCtrl extends BaseRoundCtrl<IRoundDataStore & {Fee
 
     public MapResponsesToQuestions(subRound: SubRoundModel, resp: ResponseModel){
         if(!resp) return
-
         this.Response = resp;
         
-
         subRound.Questions.forEach(q => {
             q.Response = new ResponseModel();
             q.Response.Score = 0;
@@ -212,18 +211,51 @@ export default class SalesRoundCtrl extends BaseRoundCtrl<IRoundDataStore & {Fee
         return subRound;
     }
 
-    private remapResponses(subRound: SubRoundModel, resp: ResponseModel){
+    private remapResponses(subRound: SubRoundModel, resp: ResponseModel, question:QuestionModel){
+        console.log('asdfadfasdfadfadfasdfasdfasdfasdf')
         if(!resp) return
-        console.log("RESPONSE IS",resp)
         subRound.Questions.forEach(q => {
-            if(q.Type == QuestionType.SLIDER){
-                (q.Response.Answer as ValueObj[]) = [(resp.Answer as ValueObj[]).filter(a => a.label == q.ComparisonLabel) [0]]|| [new ValueObj()];
-            } else {
-                (q.Response.Answer as ValueObj[]) = [(resp.Answer as ValueObj[]).find(a => a.data == true || a.data == true.toString())] || [new ValueObj()];
-            }        
+            if(q._id == question._id){
+
+                if(!q.Response || !q.Response.Answer) {
+                    q.Response = new ResponseModel();
+                    q.Response.Score = 0;
+                    q.Response.TeamId = this.dataStore.ApplicationState.CurrentTeam._id;
+                    q.Response.QuestionId = q._id;
+                    q.Response.RoundId = subRound._id;
+                    q.Response.GameId = this.dataStore.ApplicationState.CurrentTeam.GameId;
+                    q.Response.Answer = [new SliderValueObj()];
+                }
+
+                if(q.Type == QuestionType.SLIDER){
+                    let answer = (resp.Answer as SliderValueObj[]).find(a => a.label == q.ComparisonLabel);
+                    if(answer){
+                        (q.Response.Answer as SliderValueObj[]) = [answer];
+                    }else{
+                        (q.Response.Answer as SliderValueObj[]) = [new SliderValueObj()];
+                    }
+                } else {
+
+                    let answer = (resp.Answer as SliderValueObj[]).find(a => a.data == true || a.data == true.toString());
+                    if(answer){
+                        (q.Response.Answer as SliderValueObj[]) = q.PossibleAnswers.map(pa => {
+                            console.log(answer.label, pa.label)
+                            if(pa.label == answer.label) {
+                                return answer;
+                            }
+                            return pa;
+                        })
+                    }else{
+                        (q.Response.Answer as SliderValueObj[]) =  q.PossibleAnswers.map(pa => pa);
+                    }
+
+
+                }    
+            }  
+            
         })
 
-        console.log("MAPPED SR", subRound, resp)
+        console.log("MAPPED SR", subRound, subRound.Questions[1].Response.Answer);
         return subRound;
     }
 
