@@ -1001,3 +1001,20 @@ $contrast: 5%;
         border-bottom: #eaf4f7 1px solid;
     }
   }
+
+ul.facilitator-ratings-display{
+    list-style-type: none;
+    margin-left: 0;
+    padding-left: 1em;
+    li{
+        margin-left: 0;
+        padding-left: 0;
+        font-size: 1em;
+        p{
+            font-size: 1em;
+            margin-left: -.5em;
+            font-weight: bold;
+            text-decoration: underline;
+        }
+    }
+}

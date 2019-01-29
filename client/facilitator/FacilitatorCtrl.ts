@@ -1,9 +1,7 @@
 'use strict';
-import FiStMa from '../../shared/entity-of-the-state/FiStMa';
 import GameModel from '../../shared/models/GameModel';
 import FacilitationRoundResponseMapping from '../../shared/models/FacilitationRoundResponseMapping';
 import { Component } from 'react';
-import RoundModel from '../../shared/models/RoundModel';
 import UserModel, { JobName, RoleName } from '../../shared/models/UserModel';
 import RoundChangeMapping from '../../shared/models/RoundChangeMapping';
 import RoundChangeLookup from '../../shared/models/RoundChangeLookup';
@@ -16,9 +14,7 @@ import GameCtrl from '../game/GameCtrl';
 import { sortBy, groupBy } from 'lodash';
 import SubRoundScore from '../../shared/models/SubRoundScore';
 import ICommonComponentState from '../../shared/base-sapien/client/ICommonComponentState';
-import { lookup } from 'dns';
 import QuestionModel, { QuestionType } from '../../shared/models/QuestionModel';
-import SubRoundModel from '../../shared/models/SubRoundModel';
 import { SliderValueObj } from '../../shared/entity-of-the-state/ValueObj';
 import ResponseModel from '../../shared/models/ResponseModel';
 
@@ -49,7 +45,9 @@ export interface IFacilitatorDataStore {
     SelectedTeamMapping: FacilitationRoundResponseMapping;
     ModalRoundFilter: {
         value: string,
+        showRatings: boolean,
         rounds:string[]
+        ratingRounds:string[]
     }
 }
 
@@ -518,6 +516,25 @@ export default class FacilitatorCtrl extends BaseClientCtrl<{FacilitatorState: I
         })
 
     }
+
+    public getGroupedRatings(q:QuestionModel, prop: string){
+        if(q.Response && q.Response.Answer) {
+            let flats = (q.Response.Answer as SliderValueObj[]).reduce((flattened, a) => {
+                return flattened.concat(a);
+            },[])
+
+            return groupBy(flats, prop);
+        }
+        console.log("RETURNING EMPTY")
+        return [];
+    }
+
+    public getGroupedChildren(answers: SliderValueObj[], prop: string, round: string){
+        let limited = answers.filter(a => a.SubRoundLabel && a.SubRoundLabel.indexOf(round) != -1);
+        console.log("LIMITED", groupBy(limited, prop))
+        return groupBy(limited, prop);
+    }
+
 /*
     public MapResponsesToQuestions(questions: QuestionModel[]){
         

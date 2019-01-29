@@ -255,6 +255,17 @@ class FacilitationCtrl {
 
             const subRounds: SubRoundModel[] = await monSubRoundModel.find().then(srs => srs.map(sr => sr.toJSON() as SubRoundModel))
 
+            const team = await monTeamModel.findById(TeamId).then(t => t.toJSON())
+            const game = await monGameModel.findById(team.GameId).populate(
+                {
+                    path: "Teams",
+                    populate: {
+                        path: "Players"
+                    }
+                }
+            ).then(g => g.toJSON()) as GameModel;
+            const teams = game.Teams;
+
             if (!responses || !responses.length) throw new Error("bad");
 
             const questions: QuestionModel[] = await monQModel.find().then(qs => qs ? qs.map(q => q.toJSON()) : null)
@@ -264,17 +275,65 @@ class FacilitationCtrl {
             responses = responses.map(response => {
                 const question: QuestionModel = questions.find(q => q._id == response.QuestionId);
 
-                if (!question) return response;
-                console.log("found a question");
+                if (!question) {
+                    return response;
+                }
+
+
+                //pack all answers into a single response for team ratings
+                if(question.RatingMarker == RatingType.TEAM_RATING){
+                    let allRelevantResponses = responses.filter(r => {
+                        return r.QuestionId == response.QuestionId
+                    })
+
+                    let answers = allRelevantResponses.map(r => {
+                        console.log("ID OF RESPONSE", r._id);
+                        (r.Answer as SliderValueObj[]).forEach(a => {
+                            let sr = subRounds.find(sr => sr._id == r.SubRoundId);
+                            let team = teams.find(t => t._id == r.targetObjId);
+
+                            if(sr) a.SubRoundLabel = sr.Label;
+                            if(team) a.TeamLabel = team.Number.toString();
+
+                        });
+                        return r.Answer;
+                    });
+
+                    (response.Answer as any) = answers;
+
+                } 
+
+                if(question.RatingMarker == RatingType.IC_RATING || question.RatingMarker == RatingType.MANAGER_RATING){
+                    let allRelevantResponses = responses.filter(r => {
+                        return r.QuestionId == response.QuestionId
+                    })
+
+                    let answers = allRelevantResponses.map(r => {
+                        let team = teams.find(t => t._id == r.TeamId);
+                        let sr = subRounds.find(sr => sr._id == r.SubRoundId);
+                        let submittingUser = team.Players.find(p => p._id == r.UserId);
+                        let targetUser = team.Players.find(p => p._id == r.targetObjId);
+
+                        (r.Answer as SliderValueObj[]).forEach(a => {
+
+                            if(submittingUser) a.SubmitterLabel = submittingUser.FirstName + " " + submittingUser.LastName;
+                            if(targetUser) a.TargetUserLabel = targetUser.FirstName + " " + targetUser.LastName;
+                            if(sr) a.SubRoundLabel = sr.Label;
+                            if(team) a.TeamLabel = team.Number.toString();
+
+                        });
+                        return r.Answer;
+                    });
+
+                    (response.Answer as any) = answers;
+
+                }
 
                 const OneAResponse = responses.filter(r => !r.SiblingQuestionId).find(r => { 
                     return response.SiblingQuestionId == r.QuestionId
                 });
                 if (!OneAResponse) return response;
                 console.log("found a response");
-
-                let bestCandidate: ValueObj;
-                let secondBestCandidate: ValueObj;
 
                 // for each of question's possibleAnswers (which are the candidates for the job)...
                 question.PossibleAnswers.forEach(pa => {
@@ -312,8 +371,6 @@ class FacilitationCtrl {
                 
                 const rightAnswer = sortedPas[sortedPas.length - 1];
 
-                console.log("SORTEMS", sortedPas, "right answer", rightAnswer);
-
                 (response.Answer as ValueObj[]).forEach(ans => {
                     ans.idealValue = rightAnswer.label;
                     ans.maxPoints = 2;
@@ -325,10 +382,12 @@ class FacilitationCtrl {
 
             const finalQs: QuestionModel[] = questions.map(q => {
                 q.Response = responses.find(r => r.QuestionId == q._id);
-                let sr = subRounds.find(sr => sr._id == q.SubRoundId)
+                let sr = subRounds.find(sr => sr._id == q.SubRoundId || (
+                    q.Response && q.Response.SubRoundId == sr._id
+                ))
                 if (sr) q.SubRoundLabel = sr.Label;
                 return q;
-            })
+            })//.filter(q => q.RatingMarker == RatingType.TEAM_RATING)
 
             res.json(finalQs)
 

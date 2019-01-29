@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Grid, Table, Container, Button, Form, Input, Message, Accordion, Icon, Header, Segment, Modal } from 'semantic-ui-react';
+import { Grid, Table, Container, Button, Form, Input, Message, Accordion, Icon, Header, Segment, Modal, Checkbox } from 'semantic-ui-react';
 const Field = { Form }
 const { Column, Row } = Grid;
 import { IControllerDataStore } from "../../shared/base-sapien/client/BaseClientCtrl";
@@ -21,8 +21,9 @@ import UserModel, { JobName } from "../../shared/models/UserModel";
 import ICommonComponentState from "../../shared/base-sapien/client/ICommonComponentState";
 import TeamJobsModal from './TeamJobsModal';
 import FacilitatorScoreDisplay from "./FacilitatorScoreDisplay";
-import QuestionModel, { QuestionType } from "../../shared/models/QuestionModel";
+import QuestionModel, { QuestionType, RatingType } from "../../shared/models/QuestionModel";
 import { orderBy } from 'lodash';
+import { stringify } from "querystring";
 
 export default class FacilitatorView extends BaseComponent<any, { FacilitatorState: IFacilitatorDataStore, ApplicationState: ICommonComponentState }>
 {
@@ -147,8 +148,12 @@ export default class FacilitatorView extends BaseComponent<any, { FacilitatorSta
 
         //const activeIndices = this.state.FacilitatorState.RoundResponseMappings.map((response, i) => i) || [];
         const renderResponse = (q: QuestionModel) => {
-            if (!q.Response || !q.Response.Answer || !(q.Response.Answer as SliderValueObj[]).length)
-                return <></>
+
+            if (!q.Response || !q.Response.Answer || !(q.Response.Answer as SliderValueObj[]).length) {
+                return <>
+                    <p>N/A</p>
+                </>
+            }
 
             const answer: SliderValueObj[] = q.Response.Answer as SliderValueObj[];
             const renderAnwser = (a: SliderValueObj) => (
@@ -237,10 +242,19 @@ export default class FacilitatorView extends BaseComponent<any, { FacilitatorSta
                 </div>
             }
 
+            const renderRatingAnswers = (q) => {
+
+                return <>
+                    {orderBy(q.Response.Answer, "label").map((answer: SliderValueObj[], i) => (
+                        answer.map(a => <p>{a.label}: {a.data}</p>)
+                    ))}
+                </>
+            }
+
             switch (q.Type) {
 
                 case QuestionType.MULTIPLE_CHOICE:
-                    if (q.SubRoundLabel == "3A" || q.SubRoundLabel == "2A" ) {
+                    if (q.SubRoundLabel == "3A" || q.SubRoundLabel == "2A") {
                         return answer.filter(a => a.data == true || a.data == true.toString()).map(a => (
                             renderAnwser(a)
                         ))
@@ -261,14 +275,18 @@ export default class FacilitatorView extends BaseComponent<any, { FacilitatorSta
                 case QuestionType.SLIDER:
                 case QuestionType.TEXTAREA:
                 case QuestionType.NUMBER:
-                    if(q.SubRoundLabel == "2A"){
+                    if (q.SubRoundLabel == "2A") {
                         return answer.map(a => (
                             render2ASlider(a)
                         ))
+                    }
+                    else if (q.SubRoundLabel == "4A") {
+                        return answer.map(a => <p>{a.data}</p>)
+                    }
+                    else if (q.RatingMarker == RatingType.TEAM_RATING) {
+                        return renderRatingAnswers(q)
                     } else {
-                        return answer.map(a => (
-                            renderAnwser(a)
-                        ))                    
+                        return answer.map(a => renderAnwser(a))
                     }
 
                 case QuestionType.PRIORITY:
@@ -278,8 +296,11 @@ export default class FacilitatorView extends BaseComponent<any, { FacilitatorSta
                     return <></>
 
             }
-            
+
         }
+
+        const ratingRounds = ["2B"];
+
         return <Grid
             columns={16}
             className="game-wrapper"
@@ -462,6 +483,16 @@ export default class FacilitatorView extends BaseComponent<any, { FacilitatorSta
                     <Modal.Header>{this.state.FacilitatorState.SelectedTeamMapping.TeamName}'s Responses</Modal.Header>
                     <Modal.Content>
                         <header>
+                            <div>
+                                <Checkbox
+                                    label="Show Ratings"
+                                    toggle
+                                    onChange={() => {
+                                        this.controller.dataStore.FacilitatorState.ModalRoundFilter.showRatings = !this.controller.dataStore.FacilitatorState.ModalRoundFilter.showRatings
+                                        this.setState({ FacilitatorState: { ...this.state.FacilitatorState, ...(this.controller.dataStore.FacilitatorState.ModalRoundFilter) } })
+                                    }}
+                                />
+                            </div>
                             {this.state.FacilitatorState.ModalRoundFilter.rounds.map(r => <Button
                                 circular
                                 inverted={this.state.FacilitatorState.ModalRoundFilter.value != r}
@@ -474,18 +505,72 @@ export default class FacilitatorView extends BaseComponent<any, { FacilitatorSta
                                 {r}
                             </Button>)}
                         </header>
-                        {this.state.FacilitatorState.SelectedTeamMapping.Questions.filter(q => q.SubRoundLabel && q.SubRoundLabel.toUpperCase() == this.state.FacilitatorState.ModalRoundFilter.value.toUpperCase()).map(q => <>
+                        {!this.state.FacilitatorState.ModalRoundFilter.showRatings && this.state.FacilitatorState.SelectedTeamMapping.Questions.filter(q => q.RatingMarker != RatingType.IC_RATING && q.RatingMarker != RatingType.MANAGER_RATING && q.RatingMarker != RatingType.TEAM_RATING && ratingRounds.indexOf(q.SubRoundLabel) == -1 && q.SubRoundLabel && q.SubRoundLabel.toUpperCase() == this.state.FacilitatorState.ModalRoundFilter.value.toUpperCase()).map(q => <>
                             <h2>
                                 {q.Text}
                             </h2>
-                            {q.Response && q.Response.Answer &&
-                                <>
-                                    {renderResponse(q)}
-                                </>
-                            }
-
+                            {renderResponse(q)}
                         </>
                         )}
+
+                        {!this.state.FacilitatorState.ModalRoundFilter.showRatings
+                            && (this.state.FacilitatorState.ModalRoundFilter.value.toUpperCase() == "2B"
+                                || this.state.FacilitatorState.ModalRoundFilter.value.toUpperCase() == "4B")
+                            && this.state.FacilitatorState.SelectedTeamMapping.Questions.filter(q => q.RatingMarker == RatingType.TEAM_RATING).map(q => <>
+                                <h2>
+                                    Ratings Submitted by {this.state.FacilitatorState.SelectedTeamMapping.TeamName} in Round {this.state.FacilitatorState.ModalRoundFilter.value.toUpperCase()}
+                                </h2>
+                                {q.Response && q.Response.Answer &&
+                                    <>
+                                        {(q.Response.Answer as any).map((a: any) => {
+                                            return Array.isArray(a) && (a as SliderValueObj[]).filter(a => a.SubRoundLabel.toUpperCase() == this.state.FacilitatorState.ModalRoundFilter.value.toUpperCase()).map(ans => {
+                                                return <p>
+                                                    {ans.label} {this.state.FacilitatorState.ModalRoundFilter.value.toUpperCase() == "4B" && ` (Team ${ans.TeamLabel})`}: {ans.data}
+                                                </p>
+                                            })
+                                        })}
+                                    </>
+                                }
+                            </>
+                            )}
+
+                        {this.state.FacilitatorState.ModalRoundFilter.showRatings
+                            && this.state.FacilitatorState.SelectedTeamMapping.Questions
+                                .filter(q => q.RatingMarker == RatingType.MANAGER_RATING).map(q => {
+
+                                    let ratings = this.controller.getGroupedRatings(q, "SubmitterLabel");
+
+                                    return <>
+                                        <h2>
+                                            Ratings Submitted by {this.state.FacilitatorState.SelectedTeamMapping.TeamName} in Round {this.state.FacilitatorState.ModalRoundFilter.value.toUpperCase()}
+                                        </h2>
+                                        {q.Response && q.Response.Answer &&
+                                            <ul className="facilitator-ratings-display">
+                                                {Object.keys(ratings).map((k, i) => {
+                                                    let subRatings = this.controller.getGroupedChildren(ratings[k], "TargetUserLabel", this.state.FacilitatorState.ModalRoundFilter.value);
+                                                    return <li
+                                                        key={i}
+                                                    >
+                                                        <h3>
+                                                            Rated By {k}
+                                                        </h3>
+                                                        <ul>
+                                                            {Object.keys(subRatings).map((name, j) => {
+                                                                return <li>
+                                                                    {name}
+                                                                    {subRatings[name].map(a => {
+                                                                        return <p>{a.label}: {a.data}</p>
+                                                                    })}
+                                                                </li>
+                                                            })}
+                                                        </ul>
+                                                    </li>
+                                                })}
+                                            </ul>
+                                        }
+                                    </>
+                                })}
+
                     </Modal.Content>
                 </Modal>
             }

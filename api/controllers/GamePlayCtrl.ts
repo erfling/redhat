@@ -126,6 +126,8 @@ export class GamePlayRouter {
             } 
             if (response.TargetUserId) queryObj.TargetUserId = response.TargetUserId;
 
+            console.log("TEAM ID:", queryObj.TeamId);
+
             const oldResponse = await monResponseModel.findOne(queryObj).then(r => r ? r.toJSON() : null);
 
             if (!oldResponse) {
