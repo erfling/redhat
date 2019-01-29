@@ -559,6 +559,12 @@ export default class FacilitatorView extends BaseComponent<any, { FacilitatorSta
                                                                 return <li>
                                                                     {name}
                                                                     {subRatings[name].map(a => {
+                                                                        if(a.OverrideType) {
+                                                                            return <>
+                                                                                <p>{a.label}</p>
+                                                                                <span>{a.data}</span>
+                                                                            </>
+                                                                        }
                                                                         return <p>{a.label}: {a.data}</p>
                                                                     })}
                                                                 </li>

@@ -533,7 +533,8 @@ export class GamePlayRouter {
                 textPa.targetObjId = p._id.toString();
                 textPa.targetObjClass = "UserModel";
                 textPa.targetObjName = p.Name;
-                
+                textPa.OverrideType = QuestionType.TEXTAREA;
+                textPa.label = "Comments"
                 q.PossibleAnswers.push(textPa)
 
                 q.Response = buildResponse(ratings, q);
@@ -657,7 +658,7 @@ export class GamePlayRouter {
                     r.targetObjId = (response.Answer as SliderValueObj[])[0].targetObjId;
                     r.DisplayLabel = ans.label;
                     r.Answer = (r.Answer as SliderValueObj[]).filter(pa => pa.label == ans.label);
-                    r.Score = Number(ans.data || 0);
+                    if(!ans.OverrideType) r.Score = Number(ans.data || 0);
                     if (!oldResponse) {
                         delete response._id;
                         var SaveResponse = await monResponseModel.create(r).then(r => r.toObject() as ResponseModel);
