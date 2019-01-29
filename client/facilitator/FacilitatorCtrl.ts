@@ -17,8 +17,10 @@ import { sortBy, groupBy } from 'lodash';
 import SubRoundScore from '../../shared/models/SubRoundScore';
 import ICommonComponentState from '../../shared/base-sapien/client/ICommonComponentState';
 import { lookup } from 'dns';
-import QuestionModel from '../../shared/models/QuestionModel';
+import QuestionModel, { QuestionType } from '../../shared/models/QuestionModel';
 import SubRoundModel from '../../shared/models/SubRoundModel';
+import { SliderValueObj } from '../../shared/entity-of-the-state/ValueObj';
+import ResponseModel from '../../shared/models/ResponseModel';
 
 export interface IScores{
     SubRoundScores: SubRoundScore[];
@@ -417,6 +419,7 @@ export default class FacilitatorCtrl extends BaseClientCtrl<{FacilitatorState: I
         this.dataStore.FacilitatorState.SelectedTeamMapping = team;
         const url = `${SapienServerCom.BASE_REST_URL}facilitator/getteamresponses/${team.TeamId}`
         return SapienServerCom.GetData(null, null, url).then((questions: QuestionModel[]) => {
+            questions = this.arrange2AResponses(questions);
             this.dataStore.FacilitatorState.SelectedTeamMapping.Questions = questions;
             this.component.setState({
                 FacilitatorState: this.dataStore.FacilitatorState
@@ -472,15 +475,71 @@ export default class FacilitatorCtrl extends BaseClientCtrl<{FacilitatorState: I
         return validators;
     }
 
-    public getQuestionsForDisplayResponse(questions: QuestionModel[]): QuestionModel[]{
-        return questions.map(q => {
+    public arrange2AResponses(questions: QuestionModel[]){
 
-            if(q.SubRoundLabel == "1A"){
-                
+        let resp: ResponseModel;
+        let qWith2AResponse: QuestionModel = questions.find(q => q.SubRoundLabel == "2A" && q.Response && q.Response._id != null)
+        if(qWith2AResponse) {
+            resp = qWith2AResponse.Response;
+        }
+
+        return questions.map(q => {
+            if(q.SubRoundLabel != "2A" || !resp) return q;
+            console.log("over here", resp)
+            q.Response = new ResponseModel();
+            if(q.Type == QuestionType.SLIDER){
+                let answer = (resp.Answer as SliderValueObj[]).find(a => a.label == q.ComparisonLabel);
+                if(answer){
+                    let pa = (q.PossibleAnswers as SliderValueObj[]).find(a => a.label.toUpperCase() == q.ComparisonLabel.toUpperCase());
+                    if(pa) {
+                        answer.min = pa.min;
+                        answer.max = pa.max;
+                    }
+                    (q.Response.Answer as SliderValueObj[]) = [answer];
+                }else{
+                    (q.Response.Answer as SliderValueObj[]) = [new SliderValueObj()];
+                }
+            } else {
+
+                let answer = (resp.Answer as SliderValueObj[]).find(a => a.data == true || a.data == true.toString());
+                if(answer){
+                    (q.Response.Answer as SliderValueObj[]) = q.PossibleAnswers.map(pa => {
+                        
+                        if(pa.label == answer.label) {
+                            answer.label = "Project Management";
+                            return answer;
+                        }
+                        return pa;
+                    })
+                }
             }
 
-
-            return q;
+            return q
         })
+
     }
+/*
+    public MapResponsesToQuestions(questions: QuestionModel[]){
+        
+
+
+        questions.forEach(q => {
+            q.Response = new ResponseModel();
+            q.Response.Score = 0;
+            q.Response.TeamId = this.dataStore.ApplicationState.CurrentTeam._id;
+            q.Response.QuestionId = q._id;
+            q.Response.RoundId = subRound._id;
+            q.Response.GameId = this.dataStore.ApplicationState.CurrentTeam.GameId;
+            if(q.Type == QuestionType.SLIDER){
+                let answer: SliderValueObj = (resp.Answer as SliderValueObj[]).find(a => a.label == q.ComparisonLabel);
+                (q.Response.Answer as SliderValueObj[]) = answer ? [answer] : [new SliderValueObj()];
+                console.log(q.Text, q.Response.Answer);
+            } else {
+                 (q.Response.Answer as SliderValueObj[]) = [(resp.Answer as SliderValueObj[]).find(a => a.data == true || a.data == true.toString())] || [new SliderValueObj()];
+            }
+        })
+
+        return subRound;
+    }
+    */
 }
