@@ -12,6 +12,7 @@ import SubRoundModel from '../../../shared/models/SubRoundModel';
 import GameCtrl from '../GameCtrl';
 import SapienServerCom from '../../../shared/base-sapien/client/SapienServerCom';
 import ApplicationCtrl from '../../ApplicationCtrl';
+import { SliderValueObj } from '../../../shared/entity-of-the-state/ValueObj';
 
 export default class FinanceRoundCtrl extends BaseRoundCtrl<IRoundDataStore>
 {
@@ -120,6 +121,20 @@ export default class FinanceRoundCtrl extends BaseRoundCtrl<IRoundDataStore>
         };
         this.dataStore.Round.Name = "FINANCE";
 
+    }
+
+    public updateRatingResponse(question: QuestionModel, response: ResponseModel) { 
+        console.log("RESPONSE", response);       
+        this.dataStore.Round.SubRounds.filter(sr => sr._id == question.SubRoundId).forEach(sr => {
+            if(sr.Questions)
+                sr.Questions.forEach(q => {
+                    if ( question._id == q._id && (!q.TargetTeamId || q.TargetTeamId == response.targetObjId ) ){
+                        q.Response = response;
+                        q.PossibleAnswers = (response.Answer as SliderValueObj[]);
+                    }
+                })
+        });
+        
     }
 
 }
