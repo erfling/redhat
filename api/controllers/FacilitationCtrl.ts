@@ -316,8 +316,8 @@ class FacilitationCtrl {
 
                         (r.Answer as SliderValueObj[]).forEach(a => {
 
-                            if(submittingUser) a.SubmitterLabel = submittingUser.FirstName + " " + submittingUser.LastName;
-                            if(targetUser) a.TargetUserLabel = targetUser.FirstName + " " + targetUser.LastName;
+                            if(submittingUser) a.SubmitterLabel = submittingUser.LastName ? submittingUser.FirstName + " " + submittingUser.LastName : submittingUser.FirstName;
+                            if(targetUser) a.TargetUserLabel = targetUser.LastName ? targetUser.FirstName + " " + targetUser.LastName : targetUser.FirstName;
                             if(sr) a.SubRoundLabel = sr.Label;
                             if(team) a.TeamLabel = team.Number.toString();
 

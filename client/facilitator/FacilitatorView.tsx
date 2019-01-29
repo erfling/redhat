@@ -483,16 +483,6 @@ export default class FacilitatorView extends BaseComponent<any, { FacilitatorSta
                     <Modal.Header>{this.state.FacilitatorState.SelectedTeamMapping.TeamName}'s Responses</Modal.Header>
                     <Modal.Content>
                         <header>
-                            <div>
-                                <Checkbox
-                                    label="Show Ratings"
-                                    toggle
-                                    onChange={() => {
-                                        this.controller.dataStore.FacilitatorState.ModalRoundFilter.showRatings = !this.controller.dataStore.FacilitatorState.ModalRoundFilter.showRatings
-                                        this.setState({ FacilitatorState: { ...this.state.FacilitatorState, ...(this.controller.dataStore.FacilitatorState.ModalRoundFilter) } })
-                                    }}
-                                />
-                            </div>
                             {this.state.FacilitatorState.ModalRoundFilter.rounds.map(r => <Button
                                 circular
                                 inverted={this.state.FacilitatorState.ModalRoundFilter.value != r}
@@ -504,6 +494,19 @@ export default class FacilitatorView extends BaseComponent<any, { FacilitatorSta
                             >
                                 {r}
                             </Button>)}
+                            <div
+                                className="ratings-switch"
+                            >
+                                <Checkbox
+                                    label="Show Ratings"
+                                    toggle
+                                    defaultChecked={this.controller.dataStore.FacilitatorState.ModalRoundFilter.showRatings}
+                                    onChange={() => {
+                                        this.controller.dataStore.FacilitatorState.ModalRoundFilter.showRatings = !this.controller.dataStore.FacilitatorState.ModalRoundFilter.showRatings
+                                        this.setState({ FacilitatorState: { ...this.state.FacilitatorState, ...(this.controller.dataStore.FacilitatorState.ModalRoundFilter) } })
+                                    }}
+                                />
+                            </div>
                         </header>
                         {!this.state.FacilitatorState.ModalRoundFilter.showRatings && this.state.FacilitatorState.SelectedTeamMapping.Questions.filter(q => q.RatingMarker != RatingType.IC_RATING && q.RatingMarker != RatingType.MANAGER_RATING && q.RatingMarker != RatingType.TEAM_RATING && ratingRounds.indexOf(q.SubRoundLabel) == -1 && q.SubRoundLabel && q.SubRoundLabel.toUpperCase() == this.state.FacilitatorState.ModalRoundFilter.value.toUpperCase()).map(q => <>
                             <h2>
@@ -557,18 +560,20 @@ export default class FacilitatorView extends BaseComponent<any, { FacilitatorSta
                                                         <ul>
                                                             {Object.keys(subRatings).map((name, j) => {
                                                                 return <li>
-                                                                    {name}
-                                                                    {subRatings[name].map(a => {
-                                                                        if(a.OverrideType || a.label == "Comments") {
+                                                                    <p>{name}</p>
+                                                                    <div className="rating-display">
+                                                                        {subRatings[name].map(a => {
+                                                                            if (a.OverrideType || a.label == "Comments") {
+                                                                                return <>
+                                                                                    <p>{a.label}</p>
+                                                                                    <span>{a.data}</span>
+                                                                                </>
+                                                                            }
                                                                             return <>
-                                                                                <p>{a.label}</p>
-                                                                                <span>{a.data}</span>
+                                                                                <p>{a.label}: {a.data}</p>
                                                                             </>
-                                                                        }
-                                                                        return <>
-                                                                            <p>{a.label}: {a.data}</p>
-                                                                        </>
-                                                                    })}
+                                                                        })}
+                                                                    </div>
                                                                 </li>
                                                             })}
                                                         </ul>
