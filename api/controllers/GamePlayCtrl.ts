@@ -498,6 +498,10 @@ export class GamePlayRouter {
             const question: QuestionModel = await monQModel.findOne({ RatingMarker: RatingType.MANAGER_RATING })
                 .then(q => q ? Object.assign(new QuestionModel(), q.toJSON()) : null);
 
+            //add text question per player
+            const textQuestion = new QuestionModel();
+            
+
             //get any ratings already submitted for the team
             const ratings: ResponseModel[] = await monResponseModel.find({
                 TeamId:team._id,
@@ -529,7 +533,7 @@ export class GamePlayRouter {
                 textPa.targetObjId = p._id.toString();
                 textPa.targetObjClass = "UserModel";
                 textPa.targetObjName = p.Name;
-
+                
                 q.PossibleAnswers.push(textPa)
 
                 q.Response = buildResponse(ratings, q);
