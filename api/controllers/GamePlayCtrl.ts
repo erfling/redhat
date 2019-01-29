@@ -1,3 +1,4 @@
+import { Slider } from 'react-semantic-ui-range';
 import { monUserModel } from './UserCtrl';
 import { Router, Request, Response, NextFunction } from 'express';
 import * as mongoose from 'mongoose';
@@ -20,6 +21,7 @@ import SubRoundScore from '../../shared/models/SubRoundScore';
 import { AppServer } from '../AppServer';
 import RoundChangeMapping from '../../shared/models/RoundChangeMapping';
 import RoundModel from '../../shared/models/RoundModel';
+import { text } from 'body-parser';
 
 const schObj = SchemaBuilder.fetchSchema(ResponseModel);
 const monSchema = new mongoose.Schema(schObj);
@@ -520,6 +522,14 @@ export class GamePlayRouter {
                         category: (pa as any).Round || null,
                     })
                 })
+
+                let textPa = new SliderValueObj();
+                textPa.targetObjId = p._id.toString();
+                textPa.targetObjClass = "UserModel";
+                textPa.targetObjName = p.Name;
+
+                q.PossibleAnswers.push(textPa)
+
                 q.Response = buildResponse(ratings, q);
                 q.RatingMarker = jobMap[p._id.toString()] == JobName.MANAGER ? RatingType.MANAGER_RATING : RatingType.IC_RATING;
                 q.SubText = jobMap[p._id.toString()] == JobName.MANAGER ? "How did " + p.Name + " perform as a manager?" : "How did " + p.Name + " do this round?";
