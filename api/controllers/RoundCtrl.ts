@@ -267,8 +267,10 @@ class RoundRouter {
                         const round1A: SubRoundModel = await monSubRoundModel.findOne({Name: "PRIORITIES"}).then(sr => sr ? {...new SubRoundModel(), ...sr.toJSON()} : null);
                         if(round1A){
                             console.log("GOT ROUND 1A", round1A._id)
+                            let query = {TeamId: team._id, SubRoundId: round1A._id};
+                            console.log(query);
                             const responses: ResponseModel[] = await monResponseModel
-                                .find({TeamId: team._id, SubRoundId: round1A._id})
+                                .find(query)
                                 .then(rs => rs ? rs.map(r => Object.assign(new ResponseModel(), r.toJSON())) : null);
 
 
