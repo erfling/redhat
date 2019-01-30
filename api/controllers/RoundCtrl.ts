@@ -301,7 +301,7 @@ class RoundRouter {
                                     responses.map(r => {
                                         console.log(r.questionText);
                                         return (`<h3>` + r.questionText + `</h3>` + getOrderedAnswers((r.Answer as SliderValueObj[]))
-                                    )});
+                                    )}).join(" ");
 
                                 console.log("GOT ROUND 1A", extraMessage);
                                 subRound.DisplayMessages.push(extraMessage);
