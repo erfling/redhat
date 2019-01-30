@@ -287,6 +287,7 @@ class RoundRouter {
                             if(responses){
                                 console.log(responses)
                                 const getOrderedAnswers = (answers: SliderValueObj[]) => {
+                                    if(!answers) return `<></>`;
                                     return ('<ul className="facilitator-ratings-display">' + 
                                         orderBy(answers).map(a => `<li>${a.label}</li>`) +
                                     '</ul>')
@@ -301,8 +302,7 @@ class RoundRouter {
                                 extraMessage.Content = `<h3>As a reminder, your selected priorities are as follows:</h3>` + 
                                     responses.map(r => {
                                         console.log(r.questionText);
-                                        return ('<h4>${r.questionText}</h4>' +
-                                        r.Answer && (r.Answer as SliderValueObj[]).length && getOrderedAnswers((r.Answer as SliderValueObj[]))
+                                        return ('<h4>${r.questionText}</h4>' + getOrderedAnswers((r.Answer as SliderValueObj[]))
                                     )});
 
                                 console.log("GOT ROUND 1A", extraMessage);
