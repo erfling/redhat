@@ -296,6 +296,7 @@ class RoundRouter {
                                 extraMessage.SubRoundLabel = "1B";
                                 extraMessage.RoundId = round1A._id;
                                 extraMessage.Title = "Your Priorities";
+                                extraMessage.Job = JobName[Job as JobName]
                                 extraMessage.Content = `<h3>As a reminder, your selected priorities are as follows:</h3>` + 
                                     responses.map(r => {
                                         console.log(r.questionText);
