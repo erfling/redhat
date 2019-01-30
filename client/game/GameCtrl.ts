@@ -130,6 +130,7 @@ export default class GameCtrl<T extends IControllerDataStore & {Game: GameModel,
     public getMessageCount(){
         let count = 0;
         this.dataStore.ApplicationState.CurrentMessages.forEach(m => {
+            console.log("message", m)
             if (!m.IsRead && !m.IsDefault) count++;
         })
         this.dataStore.ApplicationState.UnreadMessages = count;
