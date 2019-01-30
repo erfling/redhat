@@ -286,6 +286,7 @@ class RoundRouter {
                                 extraMessage.Title = "Your Priorities";
                                 extraMessage.Content = `<h3>As a reminder, your selected priorities are as follows:</h3>` + 
                                     responses.map(r => {
+                                        console.log(r.questionText);
                                         return ('<h4>${r.questionText}</h4>' +
                                         r.Answer && (r.Answer as SliderValueObj[]).length && getOrderedAnswers((r.Answer as SliderValueObj[]))
                                     )});
