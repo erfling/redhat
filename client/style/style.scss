@@ -1001,18 +1001,30 @@ $contrast: 5%;
         border-bottom: #eaf4f7 1px solid;
     }
   }
-
+.ratings-switch{
+    margin: 1em 0;
+}
 ul.facilitator-ratings-display{
     list-style-type: none;
     margin-left: 0;
-    padding-left: 1em;
+    padding-left: .1em;
     li{
+        list-style:none;
         margin-left: 0;
         padding-left: 0;
         font-size: 1em;
+        ul{
+            padding-left:.3em;
+        }
+        .rating-display{
+            margin-left: 1.5em;
+            margin-bottom: 2em;
+            p{
+                text-decoration: none;
+            }
+        }
         p{
             font-size: 1em;
-            margin-left: -.5em;
             font-weight: bold;
             text-decoration: underline;
         }
