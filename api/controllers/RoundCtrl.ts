@@ -1,3 +1,4 @@
+import { Slider } from 'react-semantic-ui-range';
 import { Label } from 'semantic-ui-react';
 import { Router, Request, Response, NextFunction } from 'express';
 import * as mongoose from 'mongoose';
@@ -20,7 +21,7 @@ import * as Passport from 'passport'
 import { monTeamModel } from './TeamCtrl';
 import RoundChangeLookup from '../../shared/models/RoundChangeLookup';
 import { monRoundChangeLookupModel } from './FacilitationCtrl';
-import {sortBy} from 'lodash';
+import { sortBy, orderBy } from 'lodash';
 
 const messageSchObj = SchemaBuilder.fetchSchema(MessageModel);
 const monMessageSchema = new mongoose.Schema(messageSchObj);
@@ -258,6 +259,41 @@ class RoundRouter {
                 if (!subRound || !subRoundsSoFar) {
                     res.status(400).json({ error: 'No round' });
                 } else {
+
+                    //special case, add message with 1A resposne for player reference
+                    if(subRound.Name == 'HIRING'){
+
+                        const round1A: SubRoundModel = await monSubRoundModel.findOne({Name: "PRIORITIES"}).then(sr => sr ? {...new SubRoundModel(), ...sr.toJSON()} : null);
+                        if(round1A){
+                            const responses: ResponseModel[] = await monResponseModel
+                                .find({TeamId: team._id, SubRoundId: round1A._id})
+                                .then(rs => rs ? rs.map(r => Object.assign(new ResponseModel(), r.toJSON())) : null);
+
+
+                            if(responses){
+
+                                const getOrderedAnswers = (answers: SliderValueObj[]) => {
+                                    return ('<ul className="facilitator-ratings-display">' + 
+                                        orderBy(answers).map(a => `<li>${a.label}</li>`) +
+                                    '</ul>')
+                                }
+
+                                let extraMessage = new MessageModel();
+                                extraMessage.SubRoundLabel = "1B";
+                                extraMessage.RoundId = round1A._id;
+                                extraMessage.Title = "Your Priorities";
+                                extraMessage.Content = `<h3>As a reminder, your selected priorities are as follows:</h3>` + 
+                                    responses.map(r => {
+                                        return ('<h4>${r.questionText}</h4>' +
+                                        r.Answer && (r.Answer as SliderValueObj[]).length && getOrderedAnswers((r.Answer as SliderValueObj[]))
+                                    )});
+
+                                subRound.DisplayMessages.push(extraMessage);
+                            }
+                        }
+                    }
+
+
                     res.json(subRound);
                 }
             }
