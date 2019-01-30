@@ -259,6 +259,7 @@ class RoundRouter {
                 if (!subRound || !subRoundsSoFar) {
                     res.status(400).json({ error: 'No round' });
                 } else {
+                    console.log(subRound.Name);
 
                     //special case, add message with 1A resposne for player reference
                     if(subRound.Name == 'HIRING'){
