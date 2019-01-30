@@ -288,7 +288,7 @@ class RoundRouter {
                                 console.log(responses)
                                 const getOrderedAnswers = (answers: SliderValueObj[]) => {
                                     if(!answers) return `<></>`;
-                                    return orderBy(answers).map(a => `<p>${a.label}</p>`)
+                                    return orderBy(answers).map(a => `<p>${a.label}</p>`).join(" ")
                                 }
 
                                 let extraMessage = new MessageModel();
