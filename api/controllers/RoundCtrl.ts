@@ -302,7 +302,7 @@ class RoundRouter {
                                 extraMessage.Content = `<h3>As a reminder, your selected priorities are as follows:</h3>` + 
                                     responses.map(r => {
                                         console.log(r.questionText);
-                                        return (`<h4>${r.questionText}</h4>` + getOrderedAnswers((r.Answer as SliderValueObj[]))
+                                        return (`<h4>` + r.questionText + `</h4>` + getOrderedAnswers((r.Answer as SliderValueObj[]))
                                     )});
 
                                 console.log("GOT ROUND 1A", extraMessage);
