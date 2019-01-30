@@ -262,9 +262,10 @@ class RoundRouter {
 
                     //special case, add message with 1A resposne for player reference
                     if(subRound.Name == 'HIRING'){
-
+                        console.log("IN HIRING ROUND");
                         const round1A: SubRoundModel = await monSubRoundModel.findOne({Name: "PRIORITIES"}).then(sr => sr ? {...new SubRoundModel(), ...sr.toJSON()} : null);
                         if(round1A){
+                            console.log("GOT ROUND 1A")
                             const responses: ResponseModel[] = await monResponseModel
                                 .find({TeamId: team._id, SubRoundId: round1A._id})
                                 .then(rs => rs ? rs.map(r => Object.assign(new ResponseModel(), r.toJSON())) : null);
@@ -288,6 +289,7 @@ class RoundRouter {
                                         r.Answer && (r.Answer as SliderValueObj[]).length && getOrderedAnswers((r.Answer as SliderValueObj[]))
                                     )});
 
+                                console.log("GOT ROUND 1A", extraMessage);
                                 subRound.DisplayMessages.push(extraMessage);
                             }
                         }
