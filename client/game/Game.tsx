@@ -528,7 +528,7 @@ export default class Game extends BaseComponent<any, IControllerDataStore & { Ga
                                     }}
                                 >
                                     <MessageList
-                                        Messages={this.state.ApplicationState.CurrentMessages /*.filter(m => !m.IsDefault|| (m.IsDefault && this.controller.ChildController && m.RoundId != this.controller.ChildController.dataStore.SubRound._id) )*/.reverse()}
+                                        Messages={this.state.ApplicationState.CurrentMessages.filter(m => !m.IsDefault /*|| (m.IsDefault && this.controller.ChildController && m.RoundId != this.controller.ChildController.dataStore.SubRound._id) */).reverse()}
                                         Show={this.state.ApplicationState.ShowMessageList}
                                         SelectFunc={(m) => {
                                             this.controller.dataStore.ApplicationState.ShowMessageList = false;
@@ -540,7 +540,6 @@ export default class Game extends BaseComponent<any, IControllerDataStore & { Ga
                                 </Segment>
                             </div>
                             }
-                            <pre>{JSON.stringify(this.state.ApplicationState.CurrentMessages, null, 2)}</pre>
                             <Switch>
                                 <Route path="/game/welcome" component={Welcome} />
                                 <Route path="/game/peopleround" component={PeopleRound} />

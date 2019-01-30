@@ -297,6 +297,7 @@ class RoundRouter {
                                 extraMessage.RoundId = round1A._id;
                                 extraMessage.Title = "Your Priorities";
                                 extraMessage.Job = Job;
+                                extraMessage._id = "IGNORE_ME";
                                 extraMessage.Content = `<h3>As a reminder, your selected priorities are as follows:</h3>` + 
                                     responses.map(r => {
                                         console.log(r.questionText);
