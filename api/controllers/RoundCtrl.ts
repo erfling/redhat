@@ -174,7 +174,7 @@ class RoundRouter {
             if(!teams) throw new Error("no teams");
             const team = teams.find(t => {
                 console.log(t.Players, typeof t.Players[0]);
-                return t.Players.indexOf(UserId) != -1
+                return t.Players.some(id => id.toString() == UserId);
             })
 
             //get the team so we can add responses to questions that have already been answered
