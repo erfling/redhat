@@ -273,7 +273,7 @@ class RoundRouter {
 
 
                             if(responses){
-
+                                console.log(responses)
                                 const getOrderedAnswers = (answers: SliderValueObj[]) => {
                                     return ('<ul className="facilitator-ratings-display">' + 
                                         orderBy(answers).map(a => `<li>${a.label}</li>`) +
