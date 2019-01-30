@@ -173,7 +173,7 @@ class RoundRouter {
             const teams: TeamModel[] = await monTeamModel.find({GameId}).then(ts => ts ? ts.map(t => Object.assign(new TeamModel(), t.toJSON())) : null);
             if(!teams) throw new Error("no teams");
             const team = teams.find(t => {
-                console.log(t.Players, typeof t.Players[0]);
+                console.log(t.Players, typeof t.Players[0].toString());
                 return t.Players.some(id => id.toString() == UserId);
             })
 
