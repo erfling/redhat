@@ -1,9 +1,7 @@
 'use strict';
-import FiStMa from '../../shared/entity-of-the-state/FiStMa';
 import GameModel from '../../shared/models/GameModel';
 import FacilitationRoundResponseMapping from '../../shared/models/FacilitationRoundResponseMapping';
 import { Component } from 'react';
-import RoundModel from '../../shared/models/RoundModel';
 import UserModel, { JobName, RoleName } from '../../shared/models/UserModel';
 import RoundChangeMapping from '../../shared/models/RoundChangeMapping';
 import RoundChangeLookup from '../../shared/models/RoundChangeLookup';
@@ -16,9 +14,17 @@ import GameCtrl from '../game/GameCtrl';
 import { sortBy, groupBy } from 'lodash';
 import SubRoundScore from '../../shared/models/SubRoundScore';
 import ICommonComponentState from '../../shared/base-sapien/client/ICommonComponentState';
-import { lookup } from 'dns';
+import QuestionModel, { QuestionType } from '../../shared/models/QuestionModel';
+import { SliderValueObj } from '../../shared/entity-of-the-state/ValueObj';
+import ResponseModel from '../../shared/models/ResponseModel';
 
-export interface IFacilitatorDataStore{
+export interface IScores{
+    SubRoundScores: SubRoundScore[];
+    RoundScores: SubRoundScore[];
+    CumulativeScores: SubRoundScore[];
+}
+
+export interface IFacilitatorDataStore {
     Game: GameModel;
     _mobileWidth: boolean;
     ShowGameInfoPopup: boolean;
@@ -32,9 +38,17 @@ export interface IFacilitatorDataStore{
     RoundResponseMappings: FacilitationRoundResponseMapping[];
     AccordionIdx: number[],
     FullScreen: boolean,
-    Scores: SubRoundScore[];
-    RoundScores: SubRoundScore[];
-    CumulativeScores: SubRoundScore[];
+    ShowRolesModal?: boolean;
+    ModalTeam?: FacilitationRoundResponseMapping;
+    FacilitatorScores: IScores;
+    SlideScores: IScores
+    SelectedTeamMapping: FacilitationRoundResponseMapping;
+    ModalRoundFilter: {
+        value: string,
+        showRatings: boolean,
+        rounds:string[]
+        ratingRounds:string[]
+    }
 }
 
 export default class FacilitatorCtrl extends BaseClientCtrl<{FacilitatorState: IFacilitatorDataStore, ApplicationState: ICommonComponentState }>
@@ -128,7 +142,7 @@ export default class FacilitatorCtrl extends BaseClientCtrl<{FacilitatorState: I
                 } 
                 //when are are out of both round and cumulative scores, let the app move on to the next slide/game state
                 else {
-                    this.dataStore.FacilitatorState.RoundScores = null;
+                    this.dataStore.FacilitatorState.SlideScores.RoundScores = null;
                     hold = false;
                 }
 
@@ -214,14 +228,15 @@ export default class FacilitatorCtrl extends BaseClientCtrl<{FacilitatorState: I
                     this.getChartingScores();
                 }
             } else {
-                this.dataStore.FacilitatorState.CumulativeScores = null;
-                this.dataStore.FacilitatorState.RoundScores = null;
+                this.dataStore.FacilitatorState.SlideScores.CumulativeScores = null;
+                this.dataStore.FacilitatorState.SlideScores.RoundScores = null;
             }
 
 
             this.dataStore.FacilitatorState.Game.CurrentRound = slideMapping;
+            if(!this.dataStore.FacilitatorState.ModalRoundFilter.value) this.dataStore.FacilitatorState.ModalRoundFilter.value = rcl[0].SubRoundLabel;
 
-            
+            this.component.setState({FacilitatorState: this.dataStore.FacilitatorState})
 
             return rcl;
         })        
@@ -310,14 +325,14 @@ export default class FacilitatorCtrl extends BaseClientCtrl<{FacilitatorState: I
             console.log(r);
 
             //Object.assign(this.dataStore.Scores, r);
-            this.dataStore.FacilitatorState.Scores = r;
-            this.dataStore.FacilitatorState.RoundScores = this.getRoundRanking(r);
-            this.dataStore.FacilitatorState.CumulativeScores = this.getCumulativeTeamScores(r);
+            this.dataStore.FacilitatorState.SlideScores.SubRoundScores = r;
+            this.dataStore.FacilitatorState.SlideScores.RoundScores = this.getRoundRanking(r);
+            this.dataStore.FacilitatorState.SlideScores.CumulativeScores = this.getCumulativeTeamScores(r);
         })
     }
 
 
-    getRoundRanking(scores: SubRoundScore[]) {
+    getRoundRanking(scores: SubRoundScore[], allScores: boolean = false) {
         let selectedRoundScores = scores.filter(rs => rs.RoundLabel == Math.max(...Object.keys(groupBy(scores, "RoundLabel")).map(k => Number(k))).toString())
         
         let groupedTeamScores = groupBy(selectedRoundScores, "TeamId")
@@ -341,10 +356,10 @@ export default class FacilitatorCtrl extends BaseClientCtrl<{FacilitatorState: I
 
         if (this.dataStore.FacilitatorState.CurrentLookup.SkipRoundScore) this.dataStore.FacilitatorState.CurrentLookup.RoundScoreIdx = -1;
 
-        return selectedRoundScores.reverse().slice(0, this.dataStore.FacilitatorState.CurrentLookup.RoundScoreIdx);
+        return !allScores ? selectedRoundScores.reverse().slice(0, this.dataStore.FacilitatorState.CurrentLookup.RoundScoreIdx) : selectedRoundScores.reverse();
       }
 
-      getCumulativeTeamScores(scores: SubRoundScore[]) {
+      getCumulativeTeamScores(scores: SubRoundScore[], allScores: boolean = false) {
         let groupedTeamScores = groupBy(scores,"TeamId");
     
         let accumulatedScores = Object.keys( groupedTeamScores ).map(k => {
@@ -363,6 +378,185 @@ export default class FacilitatorCtrl extends BaseClientCtrl<{FacilitatorState: I
             this.dataStore.FacilitatorState.CurrentLookup.CumulativeScoreIdx = this.dataStore.FacilitatorState.Game.Teams.length;
         }
 
-        return sortBy(accumulatedScores, "NormalizedScore").reverse().slice(0, this.dataStore.FacilitatorState.CurrentLookup.CumulativeScoreIdx);
-      }
+        return !allScores ? sortBy(accumulatedScores, "NormalizedScore").reverse().slice(0, this.dataStore.FacilitatorState.CurrentLookup.CumulativeScoreIdx) : sortBy(accumulatedScores, "NormalizedScore").reverse();
+    }
+
+    public async getFacilitatorScores(){
+        const url = SapienServerCom.BASE_REST_URL + "facilitator/getscores/" + this.dataStore.FacilitatorState.Game._id;
+        return SapienServerCom.GetData(null, null, url).then(srs => {
+            let r = srs.map((sr: SubRoundScore) => Object.assign(new SubRoundScore(), Object.assign(sr, {NormalizedScore: sr.NormalizedScore * 100})))
+            console.log(r);
+
+            //Object.assign(this.dataStore.Scores, r);
+            this.dataStore.FacilitatorState.FacilitatorScores.SubRoundScores = r;
+            this.dataStore.FacilitatorState.FacilitatorScores.RoundScores = this.getRoundRanking(r);
+            this.dataStore.FacilitatorState.FacilitatorScores.CumulativeScores = this.getCumulativeTeamScores(r);
+            this.component.setState({
+                FacilitatorState: this.dataStore.FacilitatorState
+            })
+        })
+    }
+
+    public async UpdateTeamJobs(team: FacilitationRoundResponseMapping){
+
+        this.dataStore.ApplicationState.ValidationErrors = this.validateTeamJobs(team, this.dataStore.FacilitatorState.Game);
+
+        if(this.dataStore.ApplicationState.ValidationErrors.every(err => typeof err == 'boolean')){
+            team.IsSaving = true;
+            SapienServerCom.SaveData(team, SapienServerCom.BASE_REST_URL + "games/team/roles").then(g => {
+                this.dataStore.FacilitatorState.Game = g;
+                this.dataStore.FacilitatorState.ModalTeam = null;
+                this.dataStore.FacilitatorState.ShowRolesModal = false;
+                team.IsSaving = false;
+            }); 
+            
+        }
+    }          
+
+    public async getTeamResponses(team: FacilitationRoundResponseMapping, childRound: string){
+        this.dataStore.FacilitatorState.SelectedTeamMapping = team;
+        const url = `${SapienServerCom.BASE_REST_URL}facilitator/getteamresponses/${team.TeamId}`
+        return SapienServerCom.GetData(null, null, url).then((questions: QuestionModel[]) => {
+            questions = this.arrange2AResponses(questions);
+            this.dataStore.FacilitatorState.SelectedTeamMapping.Questions = questions;
+            this.component.setState({
+                FacilitatorState: this.dataStore.FacilitatorState
+            })
+        })
+    }
+
+
+    public validateTeamJobs(team: FacilitationRoundResponseMapping, game: GameModel = this.dataStore.FacilitatorState.Game): (boolean | string) [] {
+        
+
+        const hasJob = (team: FacilitationRoundResponseMapping, jobName: JobName, limitToOne: boolean = false) => {
+            return limitToOne ? team.Members.filter(m => m.Job == jobName).length == 1 || `Teams must have one ${jobName}`
+                        : team.Members.some(m => m.Job == jobName) || `Teams must have at least one ${jobName}`;
+        }
+
+        const aintGotJob = (team: FacilitationRoundResponseMapping, jobName: JobName) => {
+            return  team.Members.every(m => m.Job != jobName) || `Teams shoudn't include the ${jobName} role in this round.`
+        }
+
+        let validators: (boolean | string)[] = [hasJob(team, JobName.MANAGER, true)];
+
+        switch(game.CurrentRound.ChildRound.toUpperCase()){
+
+            case "ENGINEERINGSUB":
+                validators = validators.concat([
+                    hasJob(team, JobName.CHIPCO), 
+                    hasJob(team, JobName.INTEGRATED_SYSTEMS),
+                    aintGotJob(team, JobName.BLUE_KITE),
+                    aintGotJob(team, JobName.IC)
+                ]);
+                break;
+
+            case "ACQUISITIONSTRUCTURE":
+                validators = validators.concat([
+                    hasJob(team, JobName.BLUE_KITE, true),
+                    aintGotJob(team, JobName.INTEGRATED_SYSTEMS),
+                    aintGotJob(team, JobName.CHIPCO)
+                ])   
+
+                break;
+            default:
+                validators = validators.concat([
+                    aintGotJob(team, JobName.BLUE_KITE),
+                    aintGotJob(team, JobName.INTEGRATED_SYSTEMS),
+                    aintGotJob(team, JobName.CHIPCO)
+                ]) 
+                break;
+
+        }
+
+        
+        return validators;
+    }
+
+    public arrange2AResponses(questions: QuestionModel[]){
+
+        let resp: ResponseModel;
+        let qWith2AResponse: QuestionModel = questions.find(q => q.SubRoundLabel == "2A" && q.Response && q.Response._id != null)
+        if(qWith2AResponse) {
+            resp = qWith2AResponse.Response;
+        }
+
+        return questions.map(q => {
+            if(q.SubRoundLabel != "2A" || !resp) return q;
+            console.log("over here", resp)
+            q.Response = new ResponseModel();
+            if(q.Type == QuestionType.SLIDER){
+                let answer = (resp.Answer as SliderValueObj[]).find(a => a.label == q.ComparisonLabel);
+                if(answer){
+                    let pa = (q.PossibleAnswers as SliderValueObj[]).find(a => a.label.toUpperCase() == q.ComparisonLabel.toUpperCase());
+                    if(pa) {
+                        answer.min = pa.min;
+                        answer.max = pa.max;
+                    }
+                    (q.Response.Answer as SliderValueObj[]) = [answer];
+                }else{
+                    (q.Response.Answer as SliderValueObj[]) = [new SliderValueObj()];
+                }
+            } else {
+
+                let answer = (resp.Answer as SliderValueObj[]).find(a => a.data == true || a.data == true.toString());
+                if(answer){
+                    (q.Response.Answer as SliderValueObj[]) = q.PossibleAnswers.map(pa => {
+                        
+                        if(pa.label == answer.label) {
+                            answer.label = "Project Management";
+                            return answer;
+                        }
+                        return pa;
+                    })
+                }
+            }
+
+            return q
+        })
+
+    }
+
+    public getGroupedRatings(q:QuestionModel, prop: string){
+        if(q.Response && q.Response.Answer) {
+            let flats = (q.Response.Answer as SliderValueObj[]).reduce((flattened, a) => {
+                return flattened.concat(a);
+            },[])
+
+            return groupBy(flats, prop);
+        }
+        console.log("RETURNING EMPTY")
+        return [];
+    }
+
+    public getGroupedChildren(answers: SliderValueObj[], prop: string, round: string){
+        let limited = answers.filter(a => a.SubRoundLabel && a.SubRoundLabel.indexOf(round) != -1);
+        console.log("LIMITED", groupBy(limited, prop))
+        return groupBy(limited, prop);
+    }
+
+/*
+    public MapResponsesToQuestions(questions: QuestionModel[]){
+        
+
+
+        questions.forEach(q => {
+            q.Response = new ResponseModel();
+            q.Response.Score = 0;
+            q.Response.TeamId = this.dataStore.ApplicationState.CurrentTeam._id;
+            q.Response.QuestionId = q._id;
+            q.Response.RoundId = subRound._id;
+            q.Response.GameId = this.dataStore.ApplicationState.CurrentTeam.GameId;
+            if(q.Type == QuestionType.SLIDER){
+                let answer: SliderValueObj = (resp.Answer as SliderValueObj[]).find(a => a.label == q.ComparisonLabel);
+                (q.Response.Answer as SliderValueObj[]) = answer ? [answer] : [new SliderValueObj()];
+                console.log(q.Text, q.Response.Answer);
+            } else {
+                 (q.Response.Answer as SliderValueObj[]) = [(resp.Answer as SliderValueObj[]).find(a => a.data == true || a.data == true.toString())] || [new SliderValueObj()];
+            }
+        })
+
+        return subRound;
+    }
+    */
 }

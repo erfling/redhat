@@ -1,3 +1,4 @@
+import { Slider } from 'react-semantic-ui-range';
 import { monUserModel } from './UserCtrl';
 import { Router, Request, Response, NextFunction } from 'express';
 import * as mongoose from 'mongoose';
@@ -20,6 +21,7 @@ import SubRoundScore from '../../shared/models/SubRoundScore';
 import { AppServer } from '../AppServer';
 import RoundChangeMapping from '../../shared/models/RoundChangeMapping';
 import RoundModel from '../../shared/models/RoundModel';
+import { text } from 'body-parser';
 
 const schObj = SchemaBuilder.fetchSchema(ResponseModel);
 const monSchema = new mongoose.Schema(schObj);
@@ -30,7 +32,7 @@ const monSubRoundScoreSchema = new mongoose.Schema(subRoundScoreSchema);
 export const monSubRoundScoreModel = mongoose.model("subroundscore", monSubRoundScoreSchema);
 
 
-class GamePlayRouter {
+export class GamePlayRouter {
     //----------------------------------------------------------------------
     //
     //  Properties
@@ -125,6 +127,8 @@ class GamePlayRouter {
                 queryObj.targetObjId = response.TargetTeamId;
             } 
             if (response.TargetUserId) queryObj.TargetUserId = response.TargetUserId;
+
+            console.log("TEAM ID:", queryObj.TeamId);
 
             const oldResponse = await monResponseModel.findOne(queryObj).then(r => r ? r.toJSON() : null);
 
@@ -229,12 +233,6 @@ class GamePlayRouter {
                     pa["skillScore"] = skillScore;
                     console.log("LOOK FOR SKILLSCORE", skillScore, pa)
 
-                    /*
-                    if (!bestCandidate || bestCandidate["skillScore"] < skillScore) {
-                        // store best candidate so far, according to skillScore
-                        bestCandidate = pa;
-                    }
-                    */
                 } else {
                     console.log("DOOKIE:", pa);
                 }
@@ -457,25 +455,62 @@ class GamePlayRouter {
 
     public async GetPlayerRatingsQuestions(req: Request, res: Response) {
         try {
+
+            const buildResponse = (responses: ResponseModel[], question: QuestionModel) => {
+
+                /*return responses.find(r => {
+                    return true
+                }) || new ResponseModel*/
+                const response = responses.find(r => r.targetObjId == question.PossibleAnswers[0].targetObjId);
+                if(response){
+                    (response.Answer as SliderValueObj[]) = question.PossibleAnswers.map(pa => {
+                        let relevantReponse: ResponseModel = responses.find(r => {
+                            return (r.Answer as SliderValueObj[])[0].label == pa.label;
+                        });
+
+                        return relevantReponse ? relevantReponse.Answer[0] : pa;
+
+                    })
+                    return response;
+                }
+                return new ResponseModel();
+
+            }
+
             const team: TeamModel = Object.assign(new TeamModel(), req.body);
 
             //get the game so we can determine which players is the manager
             const game: GameModel = await monGameModel.findById(team.GameId).then(g => g ? g.toJSON() : null)
             if (!game) throw new Error("no game");
-            let jobMap = game.CurrentRound.UserJobs;
+            const jobMap = game.CurrentRound.UserJobs;
 
             //get the players so we can rate each one
             const players: UserModel[] = await monTeamModel.findById(team._id).populate("Players").then(t => t ? t.toObject().Players.map(p => Object.assign(new UserModel(), p)) : null)
 
+            
+
             //get the id of the current subround
-            const subround = await monSubRoundModel.findOne().then(r => r ? r.toJSON() : null)
+            const subround = await monSubRoundModel.findOne({
+                Name: game.CurrentRound.ChildRound.toUpperCase()
+            }).then(r => r ? r.toJSON() : null)
             if (!subround) throw new Error("no subround");
             //get the individual rating questions
-            let question: QuestionModel = await monQModel.findOne({ RatingMarker: RatingType.MANAGER_RATING })
+            const question: QuestionModel = await monQModel.findOne({ RatingMarker: RatingType.MANAGER_RATING })
                 .then(q => q ? Object.assign(new QuestionModel(), q.toJSON()) : null);
 
-            let mgr = players.filter(p => jobMap[p._id.toString()] == JobName.MANAGER)[0];
-            let finalQuestions: QuestionModel[] = players.map(p => {
+            //add text question per player
+            const textQuestion = new QuestionModel();
+            
+
+            //get any ratings already submitted for the team
+            const ratings: ResponseModel[] = await monResponseModel.find({
+                TeamId:team._id,
+                SubRoundId: subround._id
+            }).then(rs => rs ? rs.map(r => r.toJSON()) : [])
+
+            //ratings.map(r => console.log(r., r.Answer[0]))
+
+            const finalQuestions: QuestionModel[] = players.map(p => {
                 //build the manager question
                 let job: JobName = jobMap[p._id.toString()];
                 //if(jobMap[p._id.toString()] == JobName.MANAGER){
@@ -490,9 +525,19 @@ class GamePlayRouter {
                         targetObjId: p._id.toString(),
                         targetObjClass: "UserModel",
                         targetObjName: p.Name,
-                        category: (pa as any).Round || null
+                        category: (pa as any).Round || null,
                     })
                 })
+
+                let textPa = new SliderValueObj();
+                textPa.targetObjId = p._id.toString();
+                textPa.targetObjClass = "UserModel";
+                textPa.targetObjName = p.Name;
+                textPa.OverrideType = QuestionType.TEXTAREA;
+                textPa.label = "Comments"
+                q.PossibleAnswers.push(textPa)
+
+                q.Response = buildResponse(ratings, q);
                 q.RatingMarker = jobMap[p._id.toString()] == JobName.MANAGER ? RatingType.MANAGER_RATING : RatingType.IC_RATING;
                 q.SubText = jobMap[p._id.toString()] == JobName.MANAGER ? "How did " + p.Name + " perform as a manager?" : "How did " + p.Name + " do this round?";
                 q.Text = jobMap[p._id.toString()] != JobName.MANAGER && "";
@@ -582,6 +627,8 @@ class GamePlayRouter {
 
             }
 
+
+
             res.json(response)
 
         } catch (err) {
@@ -611,7 +658,7 @@ class GamePlayRouter {
                     r.targetObjId = (response.Answer as SliderValueObj[])[0].targetObjId;
                     r.DisplayLabel = ans.label;
                     r.Answer = (r.Answer as SliderValueObj[]).filter(pa => pa.label == ans.label);
-                    r.Score = Number(ans.data || 0);
+                    if(!ans.OverrideType) r.Score = Number(ans.data || 0);
                     if (!oldResponse) {
                         delete response._id;
                         var SaveResponse = await monResponseModel.create(r).then(r => r.toObject() as ResponseModel);
@@ -643,7 +690,7 @@ class GamePlayRouter {
      * @param req 
      * @param res 
      */
-    public async getSubRoundScores(req: Request, res: Response) {
+     public static async getSubRoundScores(req: Request, res: Response) {
 
         const Name = req.params.subroundid.toUpperCase();
         const GameId = req.params.gameid;
@@ -672,8 +719,6 @@ class GamePlayRouter {
             console.log(err);
             res.status(500).send("couldn't get subroundscores");
         }
-
-
 
     }
 
@@ -763,7 +808,6 @@ class GamePlayRouter {
 
                 return score;
             });
-
 
 
 
@@ -1001,7 +1045,7 @@ class GamePlayRouter {
         this.router.post("/3response", this.SaveRound3Response.bind(this));
         this.router.get("/getscores/:gameid", this.getScores.bind(this)),
         this.router.get("/getuserscores/:subroundid/:roundid/:gameid", this.getUserScores.bind(this)),
-        this.router.get("/getsubroundscores/:gameid/:subroundid", this.getSubRoundScores.bind(this)),
+        this.router.get("/getsubroundscores/:gameid/:subroundid", GamePlayRouter.getSubRoundScores.bind(this)),
         this.router.post("/response/rating", this.SavePlayerRatings.bind(this)),
         this.router.get("/getuserrating/:userid/:teamid", this.GetUserRatingsSoFar.bind(this))
         this.router.get("/getfacilitatorresponses/:gameid", this.getFacilitatorResponsesByRound.bind(this))

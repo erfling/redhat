@@ -1,3 +1,4 @@
+import { Slider } from 'react-semantic-ui-range';
 'use strict';
 import { Component } from 'react';
 import BaseRoundCtrl from '../../../shared/base-sapien/client/BaseRoundCtrl';
@@ -77,18 +78,24 @@ export default class SalesRoundCtrl extends BaseRoundCtrl<IRoundDataStore & {Fee
                     .then(this.getResponsesByRound.bind(this))
                     //.then(this.getScores);        
         } else {
-            return super.getContentBySubRound();
+            return super.getContentBySubRound()/*.then(r => {
+                this.dataStore.SubRound = this.MapResponsesToQuestions(r, r.Questions[0].Response);
+                return this.dataStore.SubRound
+            });*/
         }
     }
 
     handleResponseChange(q: QuestionModel, r: ResponseModel, questions: QuestionModel[]) {
-        this._responseMap[q.ComparisonLabel] = r.Answer[0];
+        const answer: SliderValueObj = (r.Answer as SliderValueObj[]).find(a => a.label.toUpperCase() == q.ComparisonLabel.toUpperCase() || q.Type != QuestionType.SLIDER && (a.data == true || a.data == true.toString()))
+        
         r.ComparisonLabel = q.ComparisonLabel;
-        (r.Answer as SliderValueObj).label = q.ComparisonLabel.toLowerCase();
+        this._responseMap[q.ComparisonLabel] = answer;
+        //console.log(q, answer, r)
 
         var finalAnswer:Partial<SliderValueObj>[] = Object.keys(this._responseMap).map(label => {
+            //console.log(label, this._responseMap)
             return {
-                label,
+                label: q.Type == QuestionType.SLIDER ? label : this._responseMap[label].label,
                 data: this._responseMap[label].data
             }
         })
@@ -104,7 +111,7 @@ export default class SalesRoundCtrl extends BaseRoundCtrl<IRoundDataStore & {Fee
                         label: ComparisonLabel.CSAT,
                         data: this._getCSAT()
                     },
-                    r.Answer[0]
+                    answer
                 ]
             ),
             Score: this._getScore(questions)
@@ -112,7 +119,11 @@ export default class SalesRoundCtrl extends BaseRoundCtrl<IRoundDataStore & {Fee
 
         (this.Response.Answer as SliderValueObj[]).forEach(a => a.maxPoints = 20 / (this.Response.Answer as SliderValueObj[]).length )
 
-        console.log("BUILT OUT RESPONSE",this.Response, this._responseMap);
+        this.dataStore.SubRound = this.remapResponses(this.dataStore.SubRound, this.Response, q)
+        this.dataStore.SubRound.Questions.forEach(q => {
+            if(q.ComparisonLabel.toUpperCase() == r.ComparisonLabel) q.Response = r
+        })
+        //console.log("BUILT OUT RESPONSE",this.Response, this._responseMap,r);
     }
 
     _getPrice(){
@@ -146,7 +157,7 @@ export default class SalesRoundCtrl extends BaseRoundCtrl<IRoundDataStore & {Fee
 
         score = this._responseMap[ComparisonLabel.PROJECT_MANAGEMENT] && this._responseMap[ComparisonLabel.PROJECT_MANAGEMENT].data == "true" ? score + .2 : score;
         score *= 10;
-        console.log("score fix *10: %s", score);
+        //console.log("score fix *10: %s", score);
 
         return score;
     }
@@ -178,9 +189,8 @@ export default class SalesRoundCtrl extends BaseRoundCtrl<IRoundDataStore & {Fee
     }
 
     public MapResponsesToQuestions(subRound: SubRoundModel, resp: ResponseModel){
-        if(!resp) return
-
-        this.Response = resp;
+        if(resp) this.Response = resp;
+        
         subRound.Questions.forEach(q => {
             q.Response = new ResponseModel();
             q.Response.Score = 0;
@@ -188,10 +198,93 @@ export default class SalesRoundCtrl extends BaseRoundCtrl<IRoundDataStore & {Fee
             q.Response.QuestionId = q._id;
             q.Response.RoundId = subRound._id;
             q.Response.GameId = this.dataStore.ApplicationState.CurrentTeam.GameId;
-            (q.Response.Answer as ValueObj) = (resp.Answer as ValueObj[]).filter(a => a.label == q.ComparisonLabel)[0] || new ValueObj();
+            let answer;
+            if(q.Type == QuestionType.SLIDER){
+                if(resp){
+                    answer = (resp.Answer as SliderValueObj[]).find(a => a.label == q.ComparisonLabel);
+                }
+                if(answer){
+                    let pa = (q.PossibleAnswers as SliderValueObj[]).find(a => a.label.toUpperCase() == q.ComparisonLabel.toUpperCase());
+                    if(pa) {
+                        console.log("FOUND")
+                        answer.min = pa.min;
+                        answer.max = pa.max;
+                    }
+                    (q.Response.Answer as SliderValueObj[]) = [answer];
+                }else{
+                    (q.Response.Answer as SliderValueObj[]) = [new SliderValueObj()];
+                }
+            } else {
+                if(resp){
+                    answer = (resp.Answer as SliderValueObj[]).find(a => a.label == q.ComparisonLabel);
+                }
+                if(answer){
+                    (q.Response.Answer as SliderValueObj[]) = q.PossibleAnswers.map(pa => {
+                        console.log(answer.label, pa.label)
+                        if(pa.label == answer.label) {
+                            return answer;
+                        }
+                        return pa;
+                    })
+                }else{
+                    (q.Response.Answer as SliderValueObj[]) =  q.PossibleAnswers.map(pa => pa);
+                }
+
+
+            }  
         })
 
-        console.log("MAPPED SR", subRound, resp)
+        return subRound;
+    }
+
+    private remapResponses(subRound: SubRoundModel, resp: ResponseModel, question:QuestionModel){
+        //console.log('asdfadfasdfadfadfasdfasdfasdfasdf')
+        if(!resp) return
+        subRound.Questions.forEach(q => {
+            if(q._id == question._id){
+
+                if(!q.Response || !q.Response.Answer) {
+                    q.Response = new ResponseModel();
+                    q.Response.Score = 0;
+                    q.Response.TeamId = this.dataStore.ApplicationState.CurrentTeam._id;
+                    q.Response.QuestionId = q._id;
+                    q.Response.RoundId = subRound._id;
+                    q.Response.GameId = this.dataStore.ApplicationState.CurrentTeam.GameId;
+                    q.Response.Answer = [new SliderValueObj()];
+                }
+
+                if(q.Type == QuestionType.SLIDER){
+                    let answer = (resp.Answer as SliderValueObj[]).find(a => a.label == q.ComparisonLabel);
+                    if(answer){
+                        let pa = (q.PossibleAnswers as SliderValueObj[]).find(a => a.label.toUpperCase() == q.ComparisonLabel.toUpperCase());
+                        if(pa) {
+                            answer.min = pa.min;
+                            answer.max = pa.max;
+                        }
+                        (q.Response.Answer as SliderValueObj[]) = [answer];
+                    }else{
+                        (q.Response.Answer as SliderValueObj[]) = [new SliderValueObj()];
+                    }
+                } else {
+
+                    let answer = (resp.Answer as SliderValueObj[]).find(a => a.data == true || a.data == true.toString());
+                    if(answer){
+                        (q.Response.Answer as SliderValueObj[]) = q.PossibleAnswers.map(pa => {
+                            console.log(answer.label, pa.label)
+                            if(pa.label == answer.label) {
+                                return answer;
+                            }
+                            return pa;
+                        })
+                    }else{
+                        (q.Response.Answer as SliderValueObj[]) =  q.PossibleAnswers.map(pa => pa);
+                    }
+                }    
+            }  
+            
+        })
+
+        //console.log("MAPPED SR", subRound, subRound.Questions[1].Response.Answer);
         return subRound;
     }
 
@@ -222,6 +315,7 @@ export default class SalesRoundCtrl extends BaseRoundCtrl<IRoundDataStore & {Fee
         this.dataStore.Round.Name = "SALES";
 
     }
+
     public getScores(){
         const url = SapienServerCom.BASE_REST_URL + "gameplay/getscores/" + this.dataStore.ApplicationState.CurrentTeam.GameId;
         return SapienServerCom.GetData(null, null, url).then(r => {

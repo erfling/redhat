@@ -853,3 +853,180 @@ p:nth-of-type(even) {
         }
     }
 }
+
+$track-color: #01668a;
+//$track-color: #0088B9;
+$thumb-color: #0088B9;
+
+$thumb-radius: 50%;
+$thumb-height: 20px;
+$thumb-width: 20px;
+$thumb-shadow-size: 1px;
+$thumb-shadow-blur: 8px;
+$thumb-shadow-color: rgba(0, 0, 0, 0.7);
+$thumb-border-width: 3px;
+$thumb-border-color: $thumb-color;
+
+$track-width: 100%;
+$track-height: 6px;
+$track-shadow-size: 2px;
+$track-shadow-blur: 2px;
+$track-shadow-color: #222;
+$track-border-width: 3px;
+$track-border-color: $thumb-color;
+
+$track-radius: 15px;
+$contrast: 5%;
+
+.box-minmax{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    font-size: 20px;
+    margin-top: 21px;
+    color: $thumb-color;
+  }
+  .range-slider {
+    padding-left:10px;
+  }
+  .rs-range {
+      width: 100%;
+      -webkit-appearance: none;
+      margin-top: 30px;
+      &:focus {
+          outline: none;
+      }
+      &::-webkit-slider-runnable-track {
+          width: 100%;
+          height: $track-height;
+          cursor: pointer;
+          box-shadow: none;
+          background: $thumb-color;
+          border-radius: $track-radius;
+          border: 0px solid #010101;
+      }
+      &::-moz-range-track {
+          width: 100%;
+          height: $track-height;
+          cursor: pointer;
+          box-shadow: none;
+          background: $thumb-color;
+          border-radius: $track-radius;
+          border: 0px solid #010101;
+      }
+    
+      &::-webkit-slider-thumb {
+          box-shadow: none;
+          border: 0px solid #ffffff;
+          box-shadow: 0px 10px 10px rgba(0,0,0,0.25);
+          height: 42px;
+          width: 22px;
+          border-radius: 22px;
+          background: $thumb-color;
+
+          cursor: pointer;
+          -webkit-appearance: none;
+          margin-top: -20px;
+      }
+    &::-moz-range-thumb{
+          box-shadow: none;
+          border: 0px solid #ffffff;
+          box-shadow: 0px 10px 10px rgba(0,0,0,0.25);
+          height: 42px;
+          width: 22px;
+          border-radius: 22px;
+          background: $thumb-color;
+          cursor: pointer;
+          -webkit-appearance: none;
+          margin-top: -20px;
+    }
+    &::-moz-focus-outer {
+      border: 0;
+      }
+  }
+  .rs-label {
+      
+      position: relative;
+      transform-origin: center center;
+      display: block;
+      width: 98px;
+      height: 98px;
+      background: transparent;
+      border-radius: 50%;
+      line-height: 30px;
+      text-align: center;
+      font-weight: bold;
+      box-sizing: border-box;
+      //border: 2px solid $thumb-color;
+      margin-top: 20px;
+      margin-left: -49px;
+      color: $thumb-color;
+      color: white;
+      font-style: normal;
+      font-weight: normal;
+      line-height: normal;
+      font-size: 13px;
+      display: grid;
+      align-items: center;
+      justify-content: center;
+      background: $thumb-color;
+      box-shadow: 0px 10px 10px rgba(0,0,0,0.25);      
+  }
+  .scrolling{
+      .content{
+          max-height:80vh;
+          overflow-y: scroll;
+      }
+  }
+  .facilitator-responses{
+      padding: 2em;
+      h3{
+          font-weight: bold;
+          text-decoration: underline;
+      }
+      strong{
+          font-weight: normal;
+          color: #0088B9;
+          text-decoration: none;
+      }
+      p{
+          margin-left:1em;
+          margin-bottom: .5em;
+          &:last-child{
+              margin-bottom:1.1em;
+          }
+      }
+      &:nth-of-type(even){
+        border-top: #eaf4f7 1px solid;
+        border-bottom: #eaf4f7 1px solid;
+    }
+  }
+.ratings-switch{
+    margin: 1em 0;
+}
+ul.facilitator-ratings-display{
+    list-style-type: none;
+    margin-left: 0;
+    padding-left: .1em;
+    li{
+        list-style:none;
+        margin-left: 0;
+        padding-left: 0;
+        font-size: 1em;
+        ul{
+            padding-left:.3em;
+        }
+        .rating-display{
+            margin-left: 1.5em;
+            margin-bottom: 2em;
+            p{
+                text-decoration: none;
+            }
+        }
+        p{
+            font-size: 1em;
+            font-weight: bold;
+            text-decoration: underline;
+        }
+    }
+}

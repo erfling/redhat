@@ -6171,9 +6171,10 @@ react-router@^4.2.0:
     prop-types "^15.5.4"
     warning "^3.0.0"
 
-react-semantic-ui-range@^0.6.1:
-  version "0.6.1"
-  resolved "https://registry.yarnpkg.com/react-semantic-ui-range/-/react-semantic-ui-range-0.6.1.tgz#ccf04afb7fc5a3a37a3c14c49605515b4be2ef48"
+react-semantic-ui-range@^0.6.2:
+  version "0.6.2"
+  resolved "https://registry.yarnpkg.com/react-semantic-ui-range/-/react-semantic-ui-range-0.6.2.tgz#5573c602616d5fe4a6134c07bfc78a60805cf18b"
+  integrity sha512-l6eEV9jjwVT2tHf451a1wfVJC7PHRq3qMVFCSEvdzvJuaaR18K+F3aEs9xa8bHOUetRluG7rIRNZVvuxVRgA9Q==
 
 react-sortable-hoc@^0.8.3:
   version "0.8.3"

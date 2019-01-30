@@ -62,6 +62,8 @@ export default class QuestionModel extends BaseModel
     @dbProp(String)
     public SubRoundId: string = "";
 
+    SubRoundLabel: string = "";
+
     Response: ResponseModel = Object.assign(new ResponseModel(), {ComparisonLabel: this.ComparisonLabel || null});
 
 }
