@@ -540,7 +540,8 @@ export default class Game extends BaseComponent<any, IControllerDataStore & { Ga
                                 </Segment>
                             </div>
                             }
-
+                            <pre>{JSON.stringify(this.state.ApplicationState.UnreadMessages, null, 2)}</pre>
+                            <pre>{JSON.stringify(this.state.ApplicationState.CurrentMessagess, null, 2)}</pre>
                             <Switch>
                                 <Route path="/game/welcome" component={Welcome} />
                                 <Route path="/game/peopleround" component={PeopleRound} />
