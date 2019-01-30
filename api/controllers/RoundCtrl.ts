@@ -22,6 +22,7 @@ import { monTeamModel } from './TeamCtrl';
 import RoundChangeLookup from '../../shared/models/RoundChangeLookup';
 import { monRoundChangeLookupModel } from './FacilitationCtrl';
 import { sortBy, orderBy } from 'lodash';
+import { monUserModel } from './UserCtrl';
 
 const messageSchObj = SchemaBuilder.fetchSchema(MessageModel);
 const monMessageSchema = new mongoose.Schema(messageSchObj);
@@ -166,8 +167,14 @@ class RoundRouter {
         try {
 
 
+            const player = await monUserModel.findById(UserId).then(r => r.toJSON()) as UserModel;
+            if(!player) throw new Error("no player found");
+
+            const teams: TeamModel[] = await monTeamModel.find({GameId}).then(ts => ts ? ts.map(t => Object.assign(new TeamModel(), t.toJSON())) : null);
+            if(!teams) throw new Error("no teams");
+            const team = teams.find(t => t.Players.indexOf(UserId) != -1);
+
             //get the team so we can add responses to questions that have already been answered
-            const team: TeamModel = await monTeamModel.findOne({}).then(t => t ? Object.assign(new TeamModel(), t.toJSON()): null)
             if(!team) throw new Error("no team found");
 
             const subRound: SubRoundModel = await monSubRoundModel
