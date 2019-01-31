@@ -288,7 +288,7 @@ class RoundRouter {
                                 console.log(responses)
                                 const getOrderedAnswers = (answers: SliderValueObj[]) => {
                                     if(!answers) return `<></>`;
-                                    return orderBy(answers).map(a => `<p>${a.label}</p>`).join(" ")
+                                    return orderBy(answers).map(a => `<p class="push-left">${a.label}</p>`).join(" ")
                                 }
 
                                 let extraMessage = new MessageModel();
@@ -297,7 +297,7 @@ class RoundRouter {
                                 extraMessage.Title = "Your Priorities";
                                 extraMessage.Job = Job;
                                 extraMessage._id = "IGNORE_ME";
-                                extraMessage.Content = `<h2 style={{marginTop:"10px"}}>As a reminder, your selected priorities are as follows:</h2>` + 
+                                extraMessage.Content = `<h2 style={{marginTop:"10px"}}>As a reminder, you prioritized your criteria in the following order:</h2>` + 
                                     responses.map(r => {
                                         console.log(r.questionText);
                                         return (`<h2 style={{marginTop:"10px"}}>` + r.questionText + `</h2>` + getOrderedAnswers((r.Answer as SliderValueObj[]))
