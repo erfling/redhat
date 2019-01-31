@@ -297,10 +297,10 @@ class RoundRouter {
                                 extraMessage.Title = "Your Priorities";
                                 extraMessage.Job = Job;
                                 extraMessage._id = "IGNORE_ME";
-                                extraMessage.Content = `<h2 style={{marginTop:"10px"}}>As a reminder, you prioritized your criteria in the following order:</h2>` + 
+                                extraMessage.Content = `<h2 style={{marginTop:"30px"}}>As a reminder, you prioritized your criteria in the following order:</h2>` + 
                                     responses.map(r => {
                                         console.log(r.questionText);
-                                        return (`<h2 style={{marginTop:"10px"}}>` + r.questionText + `</h2>` + getOrderedAnswers((r.Answer as SliderValueObj[]))
+                                        return (`<h2 style={{marginTop:"20px"}}>` + r.questionText + `</h2>` + getOrderedAnswers((r.Answer as SliderValueObj[]))
                                     )}).join(" ");
 
                                 console.log("GOT ROUND 1A", extraMessage);
