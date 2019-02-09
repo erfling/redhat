@@ -96,6 +96,7 @@ export default class DealStructure extends BaseComponent<any, IRoundDataStore & 
                                         SubRoundId={thisSubRound._id}
                                         onChangeHander={r => {
                                             console.log("OUR RESPONSE",r);
+                                            if(!r.Answer[0].label || !r.Answer[0].label.length) r.Answer[0].label = q.ComparisonLabel;
                                             this.controller.handleResponseChange(q, r, thisSubRound.Questions)
                                         }}
                                         IsEditable={this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN}

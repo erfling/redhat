@@ -88,6 +88,9 @@ export default class SalesRoundCtrl extends BaseRoundCtrl<IRoundDataStore & {Fee
     handleResponseChange(q: QuestionModel, r: ResponseModel, questions: QuestionModel[]) {
         const answer: SliderValueObj = (r.Answer as SliderValueObj[]).find(a => a.label.toUpperCase() == q.ComparisonLabel.toUpperCase() || q.Type != QuestionType.SLIDER && (a.data == true || a.data == true.toString()))
         
+        console.log("OUR ANSWER IS", answer)
+
+        
         r.ComparisonLabel = q.ComparisonLabel;
         this._responseMap[q.ComparisonLabel] = answer;
         //console.log(q, answer, r)

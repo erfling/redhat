@@ -473,7 +473,7 @@ class FacilitationCtrl {
             //get the subroundscores from all subrounds. Calling the GamePlayUtils method makes sure they all exist
             req.params.gameid = game._id;
             req.params.subroundid = game.CurrentRound.ChildRound.toUpperCase();
-            await GamePlayRouter.getSubRoundScores(req, res)
+            await GamePlayRouter.getSubRoundScores(req, res);
 
             //res.json(scores);
 

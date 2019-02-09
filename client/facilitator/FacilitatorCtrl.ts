@@ -493,6 +493,8 @@ export default class FacilitatorCtrl extends BaseClientCtrl<{FacilitatorState: I
                         answer.min = pa.min;
                         answer.max = pa.max;
                     }
+                    if(answer.label == "PRICE") answer.idealValue = 180;
+                    if(answer.label == "QUANTITY") answer.idealValue = 300;
                     (q.Response.Answer as SliderValueObj[]) = [answer];
                 }else{
                     (q.Response.Answer as SliderValueObj[]) = [new SliderValueObj()];

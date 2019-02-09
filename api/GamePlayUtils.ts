@@ -325,27 +325,33 @@ export default class GamePlayUtils {
   }
 
   public static async getScoresForGame(game: GameModel):Promise<SubRoundScore[]> {
+    const mapping = game.CurrentRound;
+    console.log("IS THIS EVEN GETTING CALLED?", mapping)
 
-    const mapping = game.CurrentRound
+    const round: RoundModel = await monRoundModel.findOne({Name: mapping.ParentRound.toUpperCase()})
+    .then(r => Object.assign(new RoundModel(), r.toJSON()));
 
-    const subRounds: SubRoundModel[] = await monSubRoundModel.find({ RoundId: mapping.RoundId })
+    const subRounds: SubRoundModel[] = await monSubRoundModel.find({ RoundId: round._id })
       .populate("Questions")
       .then(srs => srs.map(sr => Object.assign(new SubRoundModel(), sr.toJSON()))); //.then()
 
-    const round: RoundModel = await monRoundModel.findOne({Name: mapping.ParentRound.toUpperCase()})
-                                .then(r => Object.assign(new RoundModel(), r.toJSON())); //.then()
+     //.then()
 
     const teams: TeamModel[] = await monTeamModel.find({GameId: game._id}).then(r => this.InstantiateModelFromDbCall(r, TeamModel) as TeamModel[])
 
     //we need the PREVIOUS subround
     const scores: SubRoundScore[] = [];
     let responsesFound = false;
+    console.log("HEY!!!!!", subRounds)
+
     for (let j = 0; j < subRounds.length; j++) {
+      console.log("HEY!!!!!", j)
       let subRound = subRounds[j];
+      console.log("getting scores for", subRound.Name)
+
       //Some subrounds may be unscored
       if (subRound.SkipScoring) continue;
       
-      console.log(`getting scores for ${subRound.Name}`)
 
       for (let i = 0; i < teams.length; i++) {
         let t = teams[i];
