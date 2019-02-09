@@ -509,6 +509,8 @@ export default class FacilitatorCtrl extends BaseClientCtrl<{FacilitatorState: I
                             answer.label = "Project Management";
                             return answer;
                         }
+                        answer.idealValue = "true";
+
                         return pa;
                     })
                 }

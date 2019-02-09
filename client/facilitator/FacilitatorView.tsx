@@ -161,7 +161,7 @@ export default class FacilitatorView extends BaseComponent<any, { FacilitatorSta
                     <h3>{a.label}</h3>
 
                     <p>
-                        <strong>Team's Responseasdf: </strong>
+                        <strong>Team's Response: </strong>
                         {a.preunit && a.preunit}{a.data}{a.unit && a.unit}
                         {a.idealValue && a.idealValue == a.data && <Icon
                             name="check"
