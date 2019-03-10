@@ -757,9 +757,10 @@ p:nth-of-type(even) {
         grid-template-rows: 1fr min-content;
         justify-items: center;
         align-items: center;
-        
+
         .facilitator-scores{
-            width: 35vw;
+            min-width: 45vw;
+            max-width: 65vw;
             margin-left: 0;
             margin-top: 0;
             td, th{

@@ -26,9 +26,9 @@ export default class FacilitatorSlides extends React.Component<IFacilitatorScore
     render() {
 
         const { RoundScores, Game, CurrentLookup, CumulativeScores, Stepped } = this.props;
-
+//className={Stepped ? "facilitator-scores" : ""}
         return <>
-            <div className={Stepped ? "facilitator-scores" : ""}>
+            <div >
                 {RoundScores && ((Game.CurrentRound.SlideNumber != 76 && RoundScores.length && CurrentLookup.RoundScoreIdx != -1) || !Stepped) &&
                     <Segment
                         raised
