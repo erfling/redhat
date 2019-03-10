@@ -177,6 +177,7 @@ export class AppServer {
         console.log("ENVIRONMENT IS:", process.env.NODE_ENV)
         
         if (process.env.NODE_ENV && process.env.NODE_ENV.indexOf("prod") != -1) {
+            console.log("trying to serve gzip")
             AppServer.app
                 .get('*.js', function (req, res, next) {
                     if(req.url.endsWith("/")) req.url = req.url.slice(0, -1);
