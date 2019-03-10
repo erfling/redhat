@@ -110,7 +110,8 @@ module.exports = {
         asset: '[path].gz[query]',
         algorithm: 'gzip',
         test: /\.js$|/,
-        minRatio: 0.8,
+        minRatio: 0.8,            
+        threshold: 1024,
         deleteOriginalAssets: false,
         filename: (filename) => {
           console.log("FILE IS", filename)
