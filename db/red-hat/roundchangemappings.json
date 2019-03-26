@@ -1,0 +1,5932 @@
+{ 
+    "_id" : ObjectId("5b7a37abda1b617e804c21dd"), 
+    "GameId" : "5b7a100067925d270aef63b4", 
+    "RoundId" : "5b149433a486d3b817aa4e7b", 
+    "ParentRound" : "peopleround", 
+    "ChildRound" : "hiring", 
+    "ShowRateUsers" : true, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "UserJobs" : {
+        "5b7a10ba67925d270aef63b5" : "Manager", 
+        "5b7a115667925d270aef63bd" : "Manager", 
+        "5b7a11b167925d270aef63c1" : "Manager", 
+        "5b7a11f567925d270aef63c6" : "Manager", 
+        "5b7a123b67925d270aef63ca" : "Manager", 
+        "5b7a111067925d270aef63b9" : "Manager"
+    }, 
+    "__v" : NumberInt(0), 
+    "SlideNumber" : NumberInt(16)
+}
+{ 
+    "_id" : ObjectId("5b7a46a4da1b617e804c21de"), 
+    "GameId" : "5b7a100067925d270aef63b4", 
+    "RoundId" : "5b149433a486d3b817aa4e7b", 
+    "ParentRound" : "peopleround", 
+    "ChildRound" : "priorities", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "UserJobs" : {
+        "5b7a10ba67925d270aef63b5" : "Manager", 
+        "5b7a115667925d270aef63bd" : "Manager", 
+        "5b7a11b167925d270aef63c1" : "Manager", 
+        "5b7a11f567925d270aef63c6" : "Manager", 
+        "5b7a123b67925d270aef63ca" : "Manager", 
+        "5b7a111067925d270aef63b9" : "Manager"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5b7ae77ada1b617e804c21fc"), 
+    "GameId" : "5b7ae686da1b617e804c21fb", 
+    "RoundId" : "5b149433a486d3b817aa4e7b", 
+    "ParentRound" : "peopleround", 
+    "ChildRound" : "hiring", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : true, 
+    "UserJobs" : {
+        "5b7a10db67925d270aef63b6" : "Manager", 
+        "5b7a115667925d270aef63bd" : "Manager", 
+        "5b7a11b167925d270aef63c1" : "Manager", 
+        "5b7a11f567925d270aef63c6" : "Manager", 
+        "5b7a123b67925d270aef63ca" : "Manager", 
+        "5b7a111067925d270aef63b9" : "Manager"
+    }, 
+    "__v" : NumberInt(0), 
+    "SlideNumber" : NumberInt(22)
+}
+{ 
+    "_id" : ObjectId("5b7b10bf38db433cc269b371"), 
+    "GameId" : "5b7ae686da1b617e804c21fb", 
+    "RoundId" : "5b149433a486d3b817aa4e7b", 
+    "ParentRound" : "peopleround", 
+    "ChildRound" : "priorities", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "UserJobs" : {
+        "5b7a10db67925d270aef63b6" : "Manager", 
+        "5b7a115667925d270aef63bd" : "Manager", 
+        "5b7a11b167925d270aef63c1" : "Manager", 
+        "5b7a11f567925d270aef63c6" : "Manager", 
+        "5b7a123b67925d270aef63ca" : "Manager", 
+        "5b7a111067925d270aef63b9" : "Manager"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5b7b7b12fd43610aae7cdd50"), 
+    "GameId" : "5b6094ef688ce31f0e660538", 
+    "RoundId" : "5b149433a486d3b817aa4e7b", 
+    "ParentRound" : "peopleround", 
+    "ChildRound" : "priorities", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "UserJobs" : {
+        "5b1d71d97465471df053e3eb" : "Manager", 
+        "5b5220f1ec184949340cb823" : "Manager"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5b7b7b46fd43610aae7cdd51"), 
+    "GameId" : "5b6094ef688ce31f0e660538", 
+    "RoundId" : "5b56198d176b81cae6bacaf6", 
+    "ParentRound" : "salesround", 
+    "ChildRound" : "dealstructure", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : true, 
+    "ShowIndividualFeedback" : false, 
+    "UserJobs" : {
+        "5b4e2f2fe8a7626bde67889a" : "Manager", 
+        "5b5220d8ec184949340cb822" : "Manager"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5b7c23e36a954835fb337458"), 
+    "GameId" : "5b7c23b86a954835fb337456", 
+    "RoundId" : "5b149433a486d3b817aa4e7b", 
+    "ParentRound" : "peopleround", 
+    "ChildRound" : "hiring", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : true, 
+    "UserJobs" : {
+        "5b1d71d97465471df053e3eb" : "Manager"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5b7c24566a954835fb33747f"), 
+    "GameId" : "5b7c23b86a954835fb337456", 
+    "RoundId" : "5b56198d176b81cae6bacaf6", 
+    "ParentRound" : "salesround", 
+    "ChildRound" : "dealstructure", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : true, 
+    "ShowIndividualFeedback" : false, 
+    "UserJobs" : {
+        "5b4e2f49e8a7626bde67889b" : "Manager"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5b7c2755fdf3c86974aba659"), 
+    "GameId" : "5b7c23b86a954835fb337456", 
+    "RoundId" : "5b149433a486d3b817aa4e7b", 
+    "ParentRound" : "peopleround", 
+    "ChildRound" : "priorities", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "UserJobs" : {
+        "5b1d71d97465471df053e3eb" : "Manager"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5b7c397050bafe4225093084"), 
+    "GameId" : "5b7ae686da1b617e804c21fb", 
+    "RoundId" : "5b56198d176b81cae6bacaf6", 
+    "ParentRound" : "salesround", 
+    "ChildRound" : "dealrenewal", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : true, 
+    "UserJobs" : {
+        "5b7a10ba67925d270aef63b5" : "Manager", 
+        "5b7a117867925d270aef63be" : "Manager", 
+        "5b7a11be67925d270aef63c2" : "Manager", 
+        "5b7a120267925d270aef63c7" : "Manager", 
+        "5b7a124c67925d270aef63cb" : "Manager", 
+        "5b7a112567925d270aef63ba" : "Manager"
+    }, 
+    "__v" : NumberInt(0), 
+    "SlideNumber" : NumberInt(32)
+}
+{ 
+    "_id" : ObjectId("5c06bc299535680a9be05eff"), 
+    "GameId" : "5c06bc209535680a9be05efe", 
+    "RoundId" : "5b149433a486d3b817aa4e7b", 
+    "ParentRound" : "peopleround", 
+    "ChildRound" : "hiring", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(1), 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c06bc2d9535680a9be05f00"), 
+    "GameId" : "5c06bc209535680a9be05efe", 
+    "RoundId" : "5b5659d7b7fcaf2b7054ef97", 
+    "ParentRound" : "financeround", 
+    "ChildRound" : "acquisitionstructure", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(1), 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c06bc469535680a9be05f01"), 
+    "GameId" : "5c06bc209535680a9be05efe", 
+    "RoundId" : "5b14943da486d3b817aa4e7f", 
+    "ParentRound" : "engineeringround", 
+    "ChildRound" : "engineeringsub", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(1), 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c51cf204e99021084d4c34f"), 
+    "GameId" : "5c51cf204e99021084d4c34e", 
+    "RoundId" : "", 
+    "ParentRound" : "peopleround", 
+    "ChildRound" : "priorities", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(1), 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c51cf404e99021084d4c351"), 
+    "GameId" : "5c51cf404e99021084d4c350", 
+    "RoundId" : "5b149433a486d3b817aa4e7b", 
+    "ParentRound" : "peopleround", 
+    "ChildRound" : "priorities", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(37), 
+    "__v" : NumberInt(0), 
+    "REST_URL" : "", 
+    "UserJobs" : {
+        "5b7a111067925d270aef63b9" : "Associate", 
+        "5b7a11e467925d270aef63c5" : "Manager", 
+        "5b7a10db67925d270aef63b6" : "Associate", 
+        "5b619c233273d91635b23df7" : "Associate"
+    }, 
+    "CurrentHighestBid" : ""
+}
+{ 
+    "_id" : ObjectId("5b7d90e9cc35b25883803327"), 
+    "GameId" : "5b7ae686da1b617e804c21fb", 
+    "RoundId" : "5b14943da486d3b817aa4e7f", 
+    "ParentRound" : "engineeringround", 
+    "ChildRound" : "engineeringsub", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "UserJobs" : {
+        "5b7a10db67925d270aef63b6" : "ChipCo", 
+        "5b7a10ba67925d270aef63b5" : "Integrated Systems", 
+        "5b7a10e867925d270aef63b7" : "Manager", 
+        "5b7a10f667925d270aef63b8" : "Integrated Systems", 
+        "5b7a12d967925d270aef63d0" : "ChipCo", 
+        "5b7a115667925d270aef63bd" : "ChipCo", 
+        "5b7a117867925d270aef63be" : "Integrated Systems", 
+        "5b7a118967925d270aef63bf" : "Manager", 
+        "5b7a119767925d270aef63c0" : "Integrated Systems", 
+        "5b7a11b167925d270aef63c1" : "ChipCo", 
+        "5b7a11be67925d270aef63c2" : "Integrated Systems", 
+        "5b7a11ca67925d270aef63c3" : "Manager", 
+        "5b7a11d667925d270aef63c4" : "Integrated Systems", 
+        "5b7a11e467925d270aef63c5" : "ChipCo", 
+        "5b7a11f567925d270aef63c6" : "ChipCo", 
+        "5b7a120267925d270aef63c7" : "Integrated Systems", 
+        "5b7a121e67925d270aef63c8" : "Manager", 
+        "5b7a122b67925d270aef63c9" : "Integrated Systems", 
+        "5b7a123b67925d270aef63ca" : "ChipCo", 
+        "5b7a124c67925d270aef63cb" : "Integrated Systems", 
+        "5b7a125e67925d270aef63cc" : "Manager", 
+        "5b7a128667925d270aef63cd" : "Integrated Systems", 
+        "5b7a129067925d270aef63ce" : "ChipCo", 
+        "5b7a111067925d270aef63b9" : "ChipCo", 
+        "5b7a112567925d270aef63ba" : "Integrated Systems", 
+        "5b7a113467925d270aef63bb" : "Manager", 
+        "5b7a114667925d270aef63bc" : "Integrated Systems"
+    }, 
+    "__v" : NumberInt(0), 
+    "SlideNumber" : NumberInt(36)
+}
+{ 
+    "_id" : ObjectId("5b7e6f4f6b0ea61a09dbf6c1"), 
+    "GameId" : "5b7ae686da1b617e804c21fb", 
+    "RoundId" : "5b5659d7b7fcaf2b7054ef97", 
+    "ParentRound" : "financeround", 
+    "ChildRound" : "pricing", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "UserJobs" : {
+        "5b7a10f667925d270aef63b8" : "Manager", 
+        "5b7a119767925d270aef63c0" : "Manager", 
+        "5b7a11d667925d270aef63c4" : "Manager", 
+        "5b7a122b67925d270aef63c9" : "Manager", 
+        "5b7a128667925d270aef63cd" : "Manager", 
+        "5b7a114667925d270aef63bc" : "Manager"
+    }, 
+    "__v" : NumberInt(0), 
+    "SlideNumber" : NumberInt(49)
+}
+{ 
+    "_id" : ObjectId("5b7ea67e6b0ea61a09dbf6c2"), 
+    "GameId" : "5b6094ef688ce31f0e660538", 
+    "RoundId" : "5b5659d7b7fcaf2b7054ef97", 
+    "ParentRound" : "financeround", 
+    "ChildRound" : "pricing", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : true, 
+    "UserJobs" : {
+        "5b5a1095d7c05a31b80e6071" : "Manager", 
+        "5b4e2f49e8a7626bde67889b" : "Manager"
+    }, 
+    "__v" : NumberInt(0), 
+    "SlideNumber" : NumberInt(1)
+}
+{ 
+    "_id" : ObjectId("5b7ffa676b0ea61a09dbf7b5"), 
+    "GameId" : "5b7ae686da1b617e804c21fb", 
+    "RoundId" : "5b56890f02491562bcbc4325", 
+    "ParentRound" : "customerround", 
+    "ChildRound" : "customersub", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "UserJobs" : {
+        "5b7a12d967925d270aef63d0" : "Manager", 
+        "5b7a117867925d270aef63be" : "Manager", 
+        "5b7a11e467925d270aef63c5" : "Manager", 
+        "5b7a11f567925d270aef63c6" : "Manager", 
+        "5b7a129067925d270aef63ce" : "Manager", 
+        "5b7a113467925d270aef63bb" : "Manager"
+    }, 
+    "__v" : NumberInt(0), 
+    "SlideNumber" : NumberInt(65)
+}
+{ 
+    "_id" : ObjectId("5b8d3ef55dfa305594cba2ab"), 
+    "GameId" : "5b8d3c0b5dfa305594cba2a8", 
+    "RoundId" : "5b149433a486d3b817aa4e7b", 
+    "ParentRound" : "peopleround", 
+    "ChildRound" : "priorities", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(1), 
+    "UserJobs" : {
+        "5b5220d8ec184949340cb822" : "Manager", 
+        "5b3537cbb4ff35579c03e8c5" : "Manager"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5b8d433a5dfa305594cba300"), 
+    "GameId" : "5b8d3c0b5dfa305594cba2a8", 
+    "RoundId" : "5b149433a486d3b817aa4e7b", 
+    "ParentRound" : "peopleround", 
+    "ChildRound" : "priorities", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(1), 
+    "UserJobs" : {
+        "5b5220d8ec184949340cb822" : "Manager", 
+        "5b3537cbb4ff35579c03e8c5" : "Manager"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5b8d43745dfa305594cba301"), 
+    "GameId" : "5b8d3c0b5dfa305594cba2a8", 
+    "RoundId" : "5b56198d176b81cae6bacaf6", 
+    "ParentRound" : "salesround", 
+    "ChildRound" : "dealrenewal", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : true, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(1), 
+    "UserJobs" : {
+        "5b5220f1ec184949340cb823" : "Manager", 
+        "5b4cfbf668500a4d246d795b" : "Manager"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5b90542694686363f3c93189"), 
+    "GameId" : "5b8d3c0b5dfa305594cba2a8", 
+    "RoundId" : "5b14943da486d3b817aa4e7f", 
+    "ParentRound" : "engineeringround", 
+    "ChildRound" : "engineeringsub", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(1), 
+    "UserJobs" : {
+        "5b5220d8ec184949340cb822" : "ChipCo", 
+        "5b5220f1ec184949340cb823" : "Integrated Systems", 
+        "5b1d71d97465471df053e3eb" : "Manager", 
+        "5b4e2f2fe8a7626bde67889a" : "Integrated Systems", 
+        "5b3537cbb4ff35579c03e8c5" : "ChipCo", 
+        "5b4cfbf668500a4d246d795b" : "Integrated Systems", 
+        "5b7a114667925d270aef63bc" : "Manager", 
+        "5b47886b814bd303e481c286" : "Integrated Systems"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5b92c31977416221d9a9182e"), 
+    "GameId" : "5b92c2a477416221d9a9182b", 
+    "RoundId" : "5b149433a486d3b817aa4e7b", 
+    "ParentRound" : "peopleround", 
+    "ChildRound" : "hiring", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : true, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(1), 
+    "UserJobs" : {
+        "5b47886b814bd303e481c286" : "Manager", 
+        "5b4cfbf668500a4d246d795b" : "Manager"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5b92c61400250f3dd970b409"), 
+    "GameId" : "5b92c2a477416221d9a9182b", 
+    "RoundId" : "5b56198d176b81cae6bacaf6", 
+    "ParentRound" : "salesround", 
+    "ChildRound" : "dealrenewal", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(1), 
+    "UserJobs" : {
+        "5b6b240bfae478106ab939c3" : "Manager", 
+        "5b4d14645a04cd5ea10e0cdc" : "Manager"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5b92cce8dd6c086d10c3bffa"), 
+    "GameId" : "5b92c2a477416221d9a9182b", 
+    "RoundId" : "5b149433a486d3b817aa4e7b", 
+    "ParentRound" : "peopleround", 
+    "ChildRound" : "priorities", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(1), 
+    "UserJobs" : {
+        "5b47886b814bd303e481c286" : "Manager", 
+        "5b4cfbf668500a4d246d795b" : "Manager"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5b967ad5747efd13ace3266f"), 
+    "GameId" : "5b9679f1747efd13ace3266c", 
+    "RoundId" : "5b149433a486d3b817aa4e7b", 
+    "ParentRound" : "peopleround", 
+    "ChildRound" : "hiring", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(1), 
+    "UserJobs" : {
+        "5b4e2f49e8a7626bde67889b" : "Manager", 
+        "5b1d71d97465471df053e3eb" : "Manager"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5b967ea1747efd13ace3270e"), 
+    "GameId" : "5b9679f1747efd13ace3266c", 
+    "RoundId" : "5b56198d176b81cae6bacaf6", 
+    "ParentRound" : "salesround", 
+    "ChildRound" : "dealrenewal", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(1), 
+    "UserJobs" : {
+        "5b9679d5747efd13ace3266b" : "Manager", 
+        "5b3537cbb4ff35579c03e8c5" : "Manager"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5b967fcf747efd13ace32716"), 
+    "GameId" : "5b9679f1747efd13ace3266c", 
+    "RoundId" : "5b149433a486d3b817aa4e7b", 
+    "ParentRound" : "peopleround", 
+    "ChildRound" : "priorities", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(1), 
+    "UserJobs" : {
+        "5b4e2f49e8a7626bde67889b" : "Manager", 
+        "5b1d71d97465471df053e3eb" : "Manager"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5b96826e747efd13ace3274b"), 
+    "GameId" : "5b9679f1747efd13ace3266c", 
+    "RoundId" : "5b14943da486d3b817aa4e7f", 
+    "ParentRound" : "engineeringround", 
+    "ChildRound" : "engineeringsub", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : true, 
+    "SlideNumber" : NumberInt(1), 
+    "UserJobs" : {
+        "5b4e2f49e8a7626bde67889b" : "ChipCo", 
+        "5b9679d5747efd13ace3266b" : "Manager", 
+        "5b4d14645a04cd5ea10e0cdc" : "ChipCo", 
+        "5b7a125e67925d270aef63cc" : "Integrated Systems", 
+        "5b1d71d97465471df053e3eb" : "ChipCo", 
+        "5b3537cbb4ff35579c03e8c5" : "Manager", 
+        "5b4e2f2fe8a7626bde67889a" : "ChipCo", 
+        "5b4e2f89e8a7626bde67889c" : "Integrated Systems"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5b9684d5747efd13ace3277d"), 
+    "GameId" : "5b9679f1747efd13ace3266c", 
+    "RoundId" : "5b5659d7b7fcaf2b7054ef97", 
+    "ParentRound" : "financeround", 
+    "ChildRound" : "teamrating", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(1), 
+    "UserJobs" : {
+        "5b4d14645a04cd5ea10e0cdc" : "Manager", 
+        "5b4e2f2fe8a7626bde67889a" : "Manager"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5b968654747efd13ace32792"), 
+    "GameId" : "5b9679f1747efd13ace3266c", 
+    "RoundId" : "5b56890f02491562bcbc4325", 
+    "ParentRound" : "customerround", 
+    "ChildRound" : "customersub", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : true, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(1), 
+    "UserJobs" : {
+        "5b7a125e67925d270aef63cc" : "Manager", 
+        "5b4e2f89e8a7626bde67889c" : "Manager"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5b96c83b4171ec57fdd3d9d2"), 
+    "GameId" : "5b96c7ce4171ec57fdd3d9ce", 
+    "RoundId" : "5b149433a486d3b817aa4e7b", 
+    "ParentRound" : "peopleround", 
+    "ChildRound" : "priorities", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : true, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(1), 
+    "UserJobs" : {
+        "5b1d71d97465471df053e3eb" : "Manager", 
+        "5b3537cbb4ff35579c03e8c5" : "Manager", 
+        "5b4e2f89e8a7626bde67889c" : "Manager"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5b96cb234171ec57fdd3da2a"), 
+    "GameId" : "5b96c7ce4171ec57fdd3d9ce", 
+    "RoundId" : "5b56198d176b81cae6bacaf6", 
+    "ParentRound" : "salesround", 
+    "ChildRound" : "dealstructure", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(1), 
+    "UserJobs" : {
+        "5b4e2f2fe8a7626bde67889a" : "Manager", 
+        "5b4e2f49e8a7626bde67889b" : "Manager", 
+        "5b5a112ed7c05a31b80e6075" : "Manager"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5b96cbe74171ec57fdd3da3c"), 
+    "GameId" : "5b96c7ce4171ec57fdd3d9ce", 
+    "RoundId" : "5b149433a486d3b817aa4e7b", 
+    "ParentRound" : "peopleround", 
+    "ChildRound" : "priorities", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(1), 
+    "UserJobs" : {
+        "5b1d71d97465471df053e3eb" : "Manager", 
+        "5b3537cbb4ff35579c03e8c5" : "Manager", 
+        "5b4e2f89e8a7626bde67889c" : "Manager"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5b96dd66ee307b599c2cd3f7"), 
+    "GameId" : "5b96c7ce4171ec57fdd3d9ce", 
+    "RoundId" : "5b14943da486d3b817aa4e7f", 
+    "ParentRound" : "engineeringround", 
+    "ChildRound" : "engineeringsub", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(1), 
+    "UserJobs" : {
+        "5b1d71d97465471df053e3eb" : "Integrated Systems", 
+        "5b4e2f2fe8a7626bde67889a" : "ChipCo", 
+        "5b5220d8ec184949340cb822" : "Manager", 
+        "5b47886b814bd303e481c286" : "Integrated Systems", 
+        "5b3537cbb4ff35579c03e8c5" : "Integrated Systems", 
+        "5b4e2f49e8a7626bde67889b" : "ChipCo", 
+        "5b5220f1ec184949340cb823" : "Manager", 
+        "5b4d14645a04cd5ea10e0cdc" : "Integrated Systems", 
+        "5b4e2f89e8a7626bde67889c" : "Integrated Systems", 
+        "5b5a112ed7c05a31b80e6075" : "ChipCo", 
+        "5b619c413273d91635b23df8" : "Manager", 
+        "5b5a111fd7c05a31b80e6074" : "Integrated Systems"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5b96dd7dee307b599c2cd3f8"), 
+    "GameId" : "5b96c7ce4171ec57fdd3d9ce", 
+    "RoundId" : "5b5659d7b7fcaf2b7054ef97", 
+    "ParentRound" : "financeround", 
+    "ChildRound" : "pricing", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(1), 
+    "UserJobs" : {
+        "5b47886b814bd303e481c286" : "Manager", 
+        "5b4d14645a04cd5ea10e0cdc" : "Manager", 
+        "5b5a111fd7c05a31b80e6074" : "Manager"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5b97ce6ead1c740786980b21"), 
+    "GameId" : "5b97cd9eee307b599c2cd3f9", 
+    "RoundId" : "5b149433a486d3b817aa4e7b", 
+    "ParentRound" : "peopleround", 
+    "ChildRound" : "hiring", 
+    "ShowRateUsers" : true, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(1), 
+    "UserJobs" : {
+        "5b5220f1ec184949340cb823" : "Manager", 
+        "5b5220d8ec184949340cb822" : "Manager"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5b97d1faad1c740786980bab"), 
+    "GameId" : "5b97cd9eee307b599c2cd3f9", 
+    "RoundId" : "5b56198d176b81cae6bacaf6", 
+    "ParentRound" : "salesround", 
+    "ChildRound" : "dealrenewal", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(1), 
+    "UserJobs" : {
+        "5b74283a8e6bef700a8b8cdf" : "Manager", 
+        "5b1d71d97465471df053e3eb" : "Manager"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5b97d4efad1c740786980bf8"), 
+    "GameId" : "5b97cd9eee307b599c2cd3f9", 
+    "RoundId" : "5b14943da486d3b817aa4e7f", 
+    "ParentRound" : "engineeringround", 
+    "ChildRound" : "engineeringsub", 
+    "ShowRateUsers" : true, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(1), 
+    "UserJobs" : {
+        "5b5220f1ec184949340cb823" : "Integrated Systems", 
+        "5b74283a8e6bef700a8b8cdf" : "ChipCo", 
+        "5b619bf23273d91635b23df5" : "Manager", 
+        "5b619c0e3273d91635b23df6" : "Integrated Systems", 
+        "5b5220d8ec184949340cb822" : "Integrated Systems", 
+        "5b1d71d97465471df053e3eb" : "ChipCo", 
+        "5b47886b814bd303e481c286" : "Manager", 
+        "5b4cfbf668500a4d246d795b" : "Integrated Systems"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5b97d54aad1c740786980bf9"), 
+    "GameId" : "5b97cd9eee307b599c2cd3f9", 
+    "RoundId" : "5b149433a486d3b817aa4e7b", 
+    "ParentRound" : "peopleround", 
+    "ChildRound" : "priorities", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(1), 
+    "UserJobs" : {
+        "5b5220f1ec184949340cb823" : "Manager", 
+        "5b5220d8ec184949340cb822" : "Manager"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5b97e3c3ca058c6cfc2019f5"), 
+    "GameId" : "5b97cd9eee307b599c2cd3f9", 
+    "RoundId" : "5b5659d7b7fcaf2b7054ef97", 
+    "ParentRound" : "financeround", 
+    "ChildRound" : "acquisitionstructure", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : true, 
+    "SlideNumber" : NumberInt(1), 
+    "UserJobs" : {
+        "5b619c0e3273d91635b23df6" : "Manager", 
+        "5b4cfbf668500a4d246d795b" : "Manager"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5b97e49bca058c6cfc2019f7"), 
+    "GameId" : "5b97cd9eee307b599c2cd3f9", 
+    "RoundId" : "5b56890f02491562bcbc4325", 
+    "ParentRound" : "customerround", 
+    "ChildRound" : "customersub", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : true, 
+    "SlideNumber" : NumberInt(1), 
+    "UserJobs" : {
+        "5b619bf23273d91635b23df5" : "Manager", 
+        "5b1d71d97465471df053e3eb" : "Manager"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5b9820cfc44ca93e8cde3d7b"), 
+    "GameId" : "5b96c7ce4171ec57fdd3d9ce", 
+    "RoundId" : "5b56890f02491562bcbc4325", 
+    "ParentRound" : "customerround", 
+    "ChildRound" : "customersub", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(1), 
+    "UserJobs" : {
+        "5b5a111fd7c05a31b80e6074" : "Manager", 
+        "5b3537cbb4ff35579c03e8c5" : "Manager", 
+        "5b1d71d97465471df053e3eb" : "Manager"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5b99144cc2bf30626a7b47f8"), 
+    "GameId" : "5b99140dc2bf30626a7b47f5", 
+    "RoundId" : "5b149433a486d3b817aa4e7b", 
+    "ParentRound" : "peopleround", 
+    "ChildRound" : "hiring", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : true, 
+    "SlideNumber" : NumberInt(20), 
+    "UserJobs" : {
+        "5b5220d8ec184949340cb822" : "Manager", 
+        "5b3537cbb4ff35579c03e8c5" : "Manager"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5b991ff1b8a20512a2e289a6"), 
+    "GameId" : "5b99140dc2bf30626a7b47f5", 
+    "RoundId" : "5b149433a486d3b817aa4e7b", 
+    "ParentRound" : "peopleround", 
+    "ChildRound" : "priorities", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(1), 
+    "UserJobs" : {
+        "5b5220d8ec184949340cb822" : "Manager", 
+        "5b3537cbb4ff35579c03e8c5" : "Manager"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5b9920ffb8a20512a2e289ad"), 
+    "GameId" : "5b9920b5b8a20512a2e289ab", 
+    "RoundId" : "5b149433a486d3b817aa4e7b", 
+    "ParentRound" : "peopleround", 
+    "ChildRound" : "hiring", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : true, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(1), 
+    "UserJobs" : {
+        "5b5220d8ec184949340cb822" : "Manager"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5b99213cb8a20512a2e289c6"), 
+    "GameId" : "5b9920b5b8a20512a2e289ab", 
+    "RoundId" : "5b149433a486d3b817aa4e7b", 
+    "ParentRound" : "peopleround", 
+    "ChildRound" : "priorities", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(1), 
+    "UserJobs" : {
+        "5b5220d8ec184949340cb822" : "Manager"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5b992346b8a20512a2e289ed"), 
+    "GameId" : "5b9920b5b8a20512a2e289ab", 
+    "RoundId" : "5b56198d176b81cae6bacaf6", 
+    "ParentRound" : "salesround", 
+    "ChildRound" : "dealrenewal", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(1), 
+    "UserJobs" : {
+        "5b5220f1ec184949340cb823" : "Manager"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5b9923ecb8a20512a2e28a22"), 
+    "GameId" : "5b9920b5b8a20512a2e289ab", 
+    "RoundId" : "5b14943da486d3b817aa4e7f", 
+    "ParentRound" : "engineeringround", 
+    "ChildRound" : "engineeringsub", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(1), 
+    "UserJobs" : {
+        "5b5220d8ec184949340cb822" : "Integrated Systems", 
+        "5b5220f1ec184949340cb823" : "ChipCo", 
+        "5b74283a8e6bef700a8b8cdf" : "Manager", 
+        "5b1d71d97465471df053e3eb" : "Integrated Systems", 
+        "5b3537cbb4ff35579c03e8c5" : "Integrated Systems", 
+        "5b4d14645a04cd5ea10e0cdc" : "ChipCo", 
+        "5b4e2f2fe8a7626bde67889a" : "Manager", 
+        "5b4e2f89e8a7626bde67889c" : "Integrated Systems"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5b992480b8a20512a2e28a49"), 
+    "GameId" : "5b9920b5b8a20512a2e289ab", 
+    "RoundId" : "5b5659d7b7fcaf2b7054ef97", 
+    "ParentRound" : "financeround", 
+    "ChildRound" : "acquisitionstructure", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : true, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(1), 
+    "UserJobs" : {
+        "5b1d71d97465471df053e3eb" : "Manager", 
+        "5b4e2f89e8a7626bde67889c" : "Manager"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5b9927ecb8a20512a2e28aa4"), 
+    "GameId" : "5b9920b5b8a20512a2e289ab", 
+    "RoundId" : "5b56890f02491562bcbc4325", 
+    "ParentRound" : "customerround", 
+    "ChildRound" : "customersub", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : true, 
+    "SlideNumber" : NumberInt(1), 
+    "UserJobs" : {
+        "5b74283a8e6bef700a8b8cdf" : "Manager", 
+        "5b4e2f2fe8a7626bde67889a" : "Manager"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5b99298eb8a20512a2e28ad2"), 
+    "GameId" : "5b992957b8a20512a2e28ad0", 
+    "RoundId" : "5b149433a486d3b817aa4e7b", 
+    "ParentRound" : "peopleround", 
+    "ChildRound" : "priorities", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(1), 
+    "UserJobs" : {
+        "5b4e2f2fe8a7626bde67889a" : "Manager"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5b993b5d54d1bc3215019774"), 
+    "GameId" : "5b992957b8a20512a2e28ad0", 
+    "RoundId" : "5b56198d176b81cae6bacaf6", 
+    "ParentRound" : "salesround", 
+    "ChildRound" : "dealrenewal", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : true, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(1), 
+    "UserJobs" : {
+        "5b4e2f49e8a7626bde67889b" : "Manager"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5b993b8b54d1bc3215019775"), 
+    "GameId" : "5b992957b8a20512a2e28ad0", 
+    "RoundId" : "5b149433a486d3b817aa4e7b", 
+    "ParentRound" : "peopleround", 
+    "ChildRound" : "priorities", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(1), 
+    "UserJobs" : {
+        "5b4e2f2fe8a7626bde67889a" : "Manager"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5b993c72e387ba4107a25ed1"), 
+    "GameId" : "5b992957b8a20512a2e28ad0", 
+    "RoundId" : "5b14943da486d3b817aa4e7f", 
+    "ParentRound" : "engineeringround", 
+    "ChildRound" : "engineeringsub", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(1), 
+    "UserJobs" : {
+        "5b4e2f2fe8a7626bde67889a" : "Integrated Systems", 
+        "5b4e2f49e8a7626bde67889b" : "ChipCo", 
+        "5b1d71d97465471df053e3eb" : "Manager", 
+        "5b9679d5747efd13ace3266b" : "Integrated Systems"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5b993d6f2dca6f48c024ab14"), 
+    "GameId" : "5b992957b8a20512a2e28ad0", 
+    "RoundId" : "5b5659d7b7fcaf2b7054ef97", 
+    "ParentRound" : "financeround", 
+    "ChildRound" : "pricing", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(1), 
+    "UserJobs" : {
+        "5b9679d5747efd13ace3266b" : "Manager"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5b993d9a2dca6f48c024ab15"), 
+    "GameId" : "5b992957b8a20512a2e28ad0", 
+    "RoundId" : "5b56890f02491562bcbc4325", 
+    "ParentRound" : "customerround", 
+    "ChildRound" : "customersub", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(1), 
+    "UserJobs" : {
+        "5b4e2f49e8a7626bde67889b" : "Manager"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5b997b7060c09a3af71ba340"), 
+    "GameId" : "5b997b1560c09a3af71ba33d", 
+    "RoundId" : "5b149433a486d3b817aa4e7b", 
+    "ParentRound" : "peopleround", 
+    "ChildRound" : "hiring", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : true, 
+    "SlideNumber" : NumberInt(20), 
+    "UserJobs" : {
+        "5b1d71d97465471df053e3eb" : "Manager", 
+        "5b4cfbf668500a4d246d795b" : "Manager"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5b997c9860c09a3af71ba38d"), 
+    "GameId" : "5b997b1560c09a3af71ba33d", 
+    "RoundId" : "5b56198d176b81cae6bacaf6", 
+    "ParentRound" : "salesround", 
+    "ChildRound" : "dealrenewal", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : true, 
+    "SlideNumber" : NumberInt(32), 
+    "UserJobs" : {
+        "5b4d14645a04cd5ea10e0cdc" : "Manager", 
+        "5b5220f1ec184949340cb823" : "Manager"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5b997dce60c09a3af71ba39f"), 
+    "GameId" : "5b997b1560c09a3af71ba33d", 
+    "RoundId" : "5b149433a486d3b817aa4e7b", 
+    "ParentRound" : "peopleround", 
+    "ChildRound" : "priorities", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(1), 
+    "UserJobs" : {
+        "5b1d71d97465471df053e3eb" : "Manager", 
+        "5b4cfbf668500a4d246d795b" : "Manager"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5b997f5060c09a3af71ba3e3"), 
+    "GameId" : "5b997b1560c09a3af71ba33d", 
+    "RoundId" : "5b14943da486d3b817aa4e7f", 
+    "ParentRound" : "engineeringround", 
+    "ChildRound" : "engineeringsub", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : true, 
+    "SlideNumber" : NumberInt(44), 
+    "UserJobs" : {
+        "5b1d71d97465471df053e3eb" : "Integrated Systems", 
+        "5b5220f1ec184949340cb823" : "ChipCo", 
+        "5b74283a8e6bef700a8b8cdf" : "Manager", 
+        "5b4e2f89e8a7626bde67889c" : "Integrated Systems", 
+        "5b4cfbf668500a4d246d795b" : "Integrated Systems", 
+        "5b4d14645a04cd5ea10e0cdc" : "ChipCo", 
+        "5b4e2f49e8a7626bde67889b" : "Manager", 
+        "5b5a1095d7c05a31b80e6071" : "Integrated Systems"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5b997ff560c09a3af71ba40a"), 
+    "GameId" : "5b997b1560c09a3af71ba33d", 
+    "RoundId" : "5b5659d7b7fcaf2b7054ef97", 
+    "ParentRound" : "financeround", 
+    "ChildRound" : "pricing", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(45), 
+    "UserJobs" : {
+        "5b4e2f89e8a7626bde67889c" : "Manager", 
+        "5b5a1095d7c05a31b80e6071" : "Manager"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5b99812860c09a3af71ba45a"), 
+    "GameId" : "5b997b1560c09a3af71ba33d", 
+    "RoundId" : "5b56890f02491562bcbc4325", 
+    "ParentRound" : "customerround", 
+    "ChildRound" : "customersub", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : true, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(1), 
+    "UserJobs" : {
+        "5b4e2f89e8a7626bde67889c" : "Manager", 
+        "5b4e2f49e8a7626bde67889b" : "Manager"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5b99a931de8563246c0dfd1b"), 
+    "GameId" : "5b99a5a5de8563246c0dfce2", 
+    "RoundId" : "5b149433a486d3b817aa4e7b", 
+    "ParentRound" : "peopleround", 
+    "ChildRound" : "hiring", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(14), 
+    "UserJobs" : {
+        "5b99a5cade8563246c0dfce3" : "Manager", 
+        "5b99a613de8563246c0dfce8" : "Manager"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5b9a6a1dde8563246c0dfe6f"), 
+    "GameId" : "5b99a5a5de8563246c0dfce2", 
+    "RoundId" : "5b56198d176b81cae6bacaf6", 
+    "ParentRound" : "salesround", 
+    "ChildRound" : "dealstructure", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(1), 
+    "UserJobs" : {
+        "5b99a5dcde8563246c0dfce4" : "Manager", 
+        "5b99a623de8563246c0dfce9" : "Manager"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5b9a6e23de8563246c0dfef8"), 
+    "GameId" : "5b99a5a5de8563246c0dfce2", 
+    "RoundId" : "5b14943da486d3b817aa4e7f", 
+    "ParentRound" : "engineeringround", 
+    "ChildRound" : "engineeringsub", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : true, 
+    "SlideNumber" : NumberInt(1), 
+    "UserJobs" : {
+        "5b99a5cade8563246c0dfce3" : "Integrated Systems", 
+        "5b99a5dcde8563246c0dfce4" : "ChipCo", 
+        "5b99a5edde8563246c0dfce5" : "Manager", 
+        "5b99a5fbde8563246c0dfce6" : "Integrated Systems", 
+        "5b99a613de8563246c0dfce8" : "Integrated Systems", 
+        "5b99a623de8563246c0dfce9" : "ChipCo", 
+        "5b99a632de8563246c0dfcea" : "Manager", 
+        "5b99a641de8563246c0dfceb" : "Integrated Systems", 
+        "5b99a6b5de8563246c0dfced" : "ChipCo"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5b9a712dde8563246c0dff48"), 
+    "GameId" : "5b99a5a5de8563246c0dfce2", 
+    "RoundId" : "5b5659d7b7fcaf2b7054ef97", 
+    "ParentRound" : "financeround", 
+    "ChildRound" : "pricing", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(1), 
+    "UserJobs" : {
+        "5b99a5fbde8563246c0dfce6" : "Manager", 
+        "5b99a641de8563246c0dfceb" : "Manager"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5b9a74f6de8563246c0dffad"), 
+    "GameId" : "5b99a5a5de8563246c0dfce2", 
+    "RoundId" : "5b56890f02491562bcbc4325", 
+    "ParentRound" : "customerround", 
+    "ChildRound" : "customersub", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : true, 
+    "SlideNumber" : NumberInt(1), 
+    "UserJobs" : {
+        "5b99a5edde8563246c0dfce5" : "Manager", 
+        "5b99a6b5de8563246c0dfced" : "Manager"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5b9a7874de8563246c0e001c"), 
+    "GameId" : "5b9a777dde8563246c0e0019", 
+    "RoundId" : "5b149433a486d3b817aa4e7b", 
+    "ParentRound" : "peopleround", 
+    "ChildRound" : "hiring", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : true, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(1), 
+    "UserJobs" : {
+        "5b99a5cade8563246c0dfce3" : "Manager", 
+        "5b99a613de8563246c0dfce8" : "Manager"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5b9a79fcde8563246c0e005d"), 
+    "GameId" : "5b9a777dde8563246c0e0019", 
+    "RoundId" : "5b56198d176b81cae6bacaf6", 
+    "ParentRound" : "salesround", 
+    "ChildRound" : "dealrenewal", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : true, 
+    "SlideNumber" : NumberInt(1), 
+    "UserJobs" : {
+        "5b99a623de8563246c0dfce9" : "Manager", 
+        "5b99a5dcde8563246c0dfce4" : "Manager"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5b9a7b75de8563246c0e00cf"), 
+    "GameId" : "5b9a777dde8563246c0e0019", 
+    "RoundId" : "5b14943da486d3b817aa4e7f", 
+    "ParentRound" : "engineeringround", 
+    "ChildRound" : "engineeringsub", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : true, 
+    "SlideNumber" : NumberInt(1), 
+    "UserJobs" : {
+        "5b99a613de8563246c0dfce8" : "Integrated Systems", 
+        "5b99a623de8563246c0dfce9" : "ChipCo", 
+        "5b99a632de8563246c0dfcea" : "Manager", 
+        "5b99a641de8563246c0dfceb" : "Integrated Systems", 
+        "5b99a5cade8563246c0dfce3" : "Integrated Systems", 
+        "5b99a5dcde8563246c0dfce4" : "ChipCo", 
+        "5b99a5edde8563246c0dfce5" : "Manager", 
+        "5b99a5fbde8563246c0dfce6" : "Integrated Systems", 
+        "5b99a6b5de8563246c0dfced" : "ChipCo"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5b9a7bebde8563246c0e0109"), 
+    "GameId" : "5b9a777dde8563246c0e0019", 
+    "RoundId" : "5b5659d7b7fcaf2b7054ef97", 
+    "ParentRound" : "financeround", 
+    "ChildRound" : "acquisitionstructure", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : true, 
+    "SlideNumber" : NumberInt(1), 
+    "UserJobs" : {
+        "5b99a641de8563246c0dfceb" : "Manager", 
+        "5b99a5fbde8563246c0dfce6" : "Manager"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5b9a7c36de8563246c0e010c"), 
+    "GameId" : "5b9a777dde8563246c0e0019", 
+    "RoundId" : "5b149433a486d3b817aa4e7b", 
+    "ParentRound" : "peopleround", 
+    "ChildRound" : "priorities", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(1), 
+    "UserJobs" : {
+        "5b99a613de8563246c0dfce8" : "Manager", 
+        "5b99a5cade8563246c0dfce3" : "Manager"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5b9a7f03de8563246c0e0199"), 
+    "GameId" : "5b9a777dde8563246c0e0019", 
+    "RoundId" : "5b56890f02491562bcbc4325", 
+    "ParentRound" : "customerround", 
+    "ChildRound" : "customersub", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : true, 
+    "SlideNumber" : NumberInt(1), 
+    "UserJobs" : {
+        "5b99a632de8563246c0dfcea" : "Manager", 
+        "5b99a6b5de8563246c0dfced" : "Manager"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5b9fb2ad390358483bd1d6e1"), 
+    "GameId" : "5b9fb19231103f3f9d4d96fd", 
+    "RoundId" : "5b149433a486d3b817aa4e7b", 
+    "ParentRound" : "peopleround", 
+    "ChildRound" : "priorities", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(7), 
+    "UserJobs" : {
+        "5b5220f1ec184949340cb823" : "Manager"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5b9fbb05390358483bd1d6e6"), 
+    "GameId" : "5b9fb19231103f3f9d4d96fd", 
+    "RoundId" : "5b56198d176b81cae6bacaf6", 
+    "ParentRound" : "salesround", 
+    "ChildRound" : "dealrenewal", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(3), 
+    "UserJobs" : {
+        "5b5220d8ec184949340cb822" : "Manager"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5b9fbb40390358483bd1d6e9"), 
+    "GameId" : "5b9fb19231103f3f9d4d96fd", 
+    "RoundId" : "5b14943da486d3b817aa4e7f", 
+    "ParentRound" : "engineeringround", 
+    "ChildRound" : "engineeringsub", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(17), 
+    "UserJobs" : {
+        "5b5220f1ec184949340cb823" : "Integrated Systems", 
+        "5b5220d8ec184949340cb822" : "ChipCo", 
+        "5b1d71d97465471df053e3eb" : "Manager", 
+        "5b74283a8e6bef700a8b8cdf" : "Integrated Systems"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5b9fbb61390358483bd1d6eb"), 
+    "GameId" : "5b9fb19231103f3f9d4d96fd", 
+    "RoundId" : "5b5659d7b7fcaf2b7054ef97", 
+    "ParentRound" : "financeround", 
+    "ChildRound" : "pricing", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(21), 
+    "UserJobs" : {
+        "5b74283a8e6bef700a8b8cdf" : "Manager"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5b9fbc5e390358483bd1d6f2"), 
+    "GameId" : "5b9fb19231103f3f9d4d96fd", 
+    "RoundId" : "5b149433a486d3b817aa4e7b", 
+    "ParentRound" : "peopleround", 
+    "ChildRound" : "priorities", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(1), 
+    "UserJobs" : {
+        "5b5220f1ec184949340cb823" : "Manager"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5ba108bcaf9a0a48e632ffbd"), 
+    "GameId" : "5ba10345af9a0a48e632ffa3", 
+    "RoundId" : "5b149433a486d3b817aa4e7b", 
+    "ParentRound" : "peopleround", 
+    "ChildRound" : "priorities", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(2), 
+    "UserJobs" : {
+        "5b1d71d97465471df053e3eb" : "Manager"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5ba10de9af9a0a48e632fff9"), 
+    "GameId" : "5ba10345af9a0a48e632ffa3", 
+    "RoundId" : "5b56198d176b81cae6bacaf6", 
+    "ParentRound" : "salesround", 
+    "ChildRound" : "dealstructure", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(21), 
+    "UserJobs" : {
+        "5b5220d8ec184949340cb822" : "Manager"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5ba10fc3af9a0a48e633001c"), 
+    "GameId" : "5ba10345af9a0a48e632ffa3", 
+    "RoundId" : "5b14943da486d3b817aa4e7f", 
+    "ParentRound" : "engineeringround", 
+    "ChildRound" : "engineeringsub", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(33), 
+    "UserJobs" : {
+        "5b1d71d97465471df053e3eb" : "Integrated Systems", 
+        "5b5220d8ec184949340cb822" : "ChipCo", 
+        "5b5220f1ec184949340cb823" : "Manager", 
+        "5b74283a8e6bef700a8b8cdf" : "Integrated Systems"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5ba111aeaf9a0a48e633004d"), 
+    "GameId" : "5ba10345af9a0a48e632ffa3", 
+    "RoundId" : "5b5659d7b7fcaf2b7054ef97", 
+    "ParentRound" : "financeround", 
+    "ChildRound" : "pricing", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(45), 
+    "UserJobs" : {
+        "5b74283a8e6bef700a8b8cdf" : "Manager"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5ba113f8af9a0a48e63300a6"), 
+    "GameId" : "5ba10345af9a0a48e632ffa3", 
+    "RoundId" : "5b56890f02491562bcbc4325", 
+    "ParentRound" : "customerround", 
+    "ChildRound" : "customersub", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(59), 
+    "UserJobs" : {
+        "5b5220d8ec184949340cb822" : "Manager", 
+        "5b4d14645a04cd5ea10e0cdc" : "Manager"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5ba247b2e0e2e51553d12a1d"), 
+    "GameId" : "5ba24690e0e2e51553d12a19", 
+    "RoundId" : "5b149433a486d3b817aa4e7b", 
+    "ParentRound" : "peopleround", 
+    "ChildRound" : "hiring", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : true, 
+    "SlideNumber" : NumberInt(19), 
+    "UserJobs" : {
+        "5b99a5cade8563246c0dfce3" : "Manager", 
+        "5b99a613de8563246c0dfce8" : "Manager", 
+        "5b7a11be67925d270aef63c2" : "Manager", 
+        "5b99a6b5de8563246c0dfced" : "Manager", 
+        "5b4cfbf668500a4d246d795b" : "Manager"
+    }, 
+    "__v" : NumberInt(0), 
+    "REST_URL" : "", 
+    "CurrentHighestBid" : ""
+}
+{ 
+    "_id" : ObjectId("5ba24b8b826c683c1e949029"), 
+    "GameId" : "5ba24690e0e2e51553d12a19", 
+    "RoundId" : "5b56198d176b81cae6bacaf6", 
+    "ParentRound" : "salesround", 
+    "ChildRound" : "dealstructure", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(23), 
+    "UserJobs" : {
+        "5b99a5dcde8563246c0dfce4" : "Manager", 
+        "5b99a623de8563246c0dfce9" : "Manager"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5ba24bcf826c683c1e94902e"), 
+    "GameId" : "5ba24690e0e2e51553d12a19", 
+    "RoundId" : "5b14943da486d3b817aa4e7f", 
+    "ParentRound" : "engineeringround", 
+    "ChildRound" : "engineeringsub", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(35), 
+    "UserJobs" : {
+        "5b99a5cade8563246c0dfce3" : "Integrated Systems", 
+        "5b99a5dcde8563246c0dfce4" : "ChipCo", 
+        "5b99a5edde8563246c0dfce5" : "Manager", 
+        "5b99a5fbde8563246c0dfce6" : "Integrated Systems", 
+        "5b99a613de8563246c0dfce8" : "Integrated Systems", 
+        "5b99a623de8563246c0dfce9" : "ChipCo", 
+        "5b99a632de8563246c0dfcea" : "Manager", 
+        "5b99a641de8563246c0dfceb" : "Integrated Systems"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5ba3a3738291ea0da775f4a9"), 
+    "GameId" : "5b99140dc2bf30626a7b47f5", 
+    "RoundId" : "5b56198d176b81cae6bacaf6", 
+    "ParentRound" : "salesround", 
+    "ChildRound" : "dealrenewal", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : true, 
+    "SlideNumber" : NumberInt(32), 
+    "UserJobs" : {
+        "5b5220f1ec184949340cb823" : "Manager", 
+        "5b47886b814bd303e481c286" : "Manager"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5ba3a3848291ea0da775f4ae"), 
+    "GameId" : "5b99140dc2bf30626a7b47f5", 
+    "RoundId" : "5b14943da486d3b817aa4e7f", 
+    "ParentRound" : "engineeringround", 
+    "ChildRound" : "engineeringsub", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : true, 
+    "SlideNumber" : NumberInt(44), 
+    "UserJobs" : {
+        "5b5220d8ec184949340cb822" : "Integrated Systems", 
+        "5b5220f1ec184949340cb823" : "ChipCo", 
+        "5b74283a8e6bef700a8b8cdf" : "Manager", 
+        "5b1d71d97465471df053e3eb" : "Integrated Systems", 
+        "5b3537cbb4ff35579c03e8c5" : "Integrated Systems", 
+        "5b47886b814bd303e481c286" : "ChipCo", 
+        "5b4e2f89e8a7626bde67889c" : "Manager", 
+        "5b4d14645a04cd5ea10e0cdc" : "Integrated Systems"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5ba3a38f8291ea0da775f4b1"), 
+    "GameId" : "5b99140dc2bf30626a7b47f5", 
+    "RoundId" : "5b5659d7b7fcaf2b7054ef97", 
+    "ParentRound" : "financeround", 
+    "ChildRound" : "pricing", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(45), 
+    "UserJobs" : {
+        "5b1d71d97465471df053e3eb" : "Manager", 
+        "5b4d14645a04cd5ea10e0cdc" : "Manager"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5ba3a6498291ea0da775f4d5"), 
+    "GameId" : "5ba24690e0e2e51553d12a19", 
+    "RoundId" : "5b5659d7b7fcaf2b7054ef97", 
+    "ParentRound" : "financeround", 
+    "ChildRound" : "pricing", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(48), 
+    "UserJobs" : {
+        "5b99a5fbde8563246c0dfce6" : "Manager", 
+        "5b99a641de8563246c0dfceb" : "Manager", 
+        "5b4e2f2fe8a7626bde67889a" : "Manager", 
+        "5b4e2f89e8a7626bde67889c" : "Manager", 
+        "5b619c0e3273d91635b23df6" : "Manager"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5baa553460d806562f938795"), 
+    "GameId" : "5baa552360d806562f938794", 
+    "RoundId" : "5b56198d176b81cae6bacaf6", 
+    "ParentRound" : "salesround", 
+    "ChildRound" : "dealrenewal", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(1), 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5baa553660d806562f938796"), 
+    "GameId" : "5baa552360d806562f938794", 
+    "RoundId" : "5b149433a486d3b817aa4e7b", 
+    "ParentRound" : "peopleround", 
+    "ChildRound" : "priorities", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(1), 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5baa7eda68121b1fe4cabb8f"), 
+    "GameId" : "5baa552360d806562f938794", 
+    "RoundId" : "5b5659d7b7fcaf2b7054ef97", 
+    "ParentRound" : "financeround", 
+    "ChildRound" : "teamrating", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(1), 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5baa7f8968121b1fe4cabb90"), 
+    "GameId" : "5baa552360d806562f938794", 
+    "RoundId" : "5b14943da486d3b817aa4e7f", 
+    "ParentRound" : "engineeringround", 
+    "ChildRound" : "engineeringsub", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(1), 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5baa8b3668121b1fe4cabb92"), 
+    "GameId" : "5baa7aca68121b1fe4cabb88", 
+    "RoundId" : "5b149433a486d3b817aa4e7b", 
+    "ParentRound" : "peopleround", 
+    "ChildRound" : "hiring", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : true, 
+    "SlideNumber" : NumberInt(22), 
+    "UserJobs" : {
+        "5b7a114667925d270aef63bc" : "Manager", 
+        "5b619bf23273d91635b23df5" : "Manager", 
+        "5b619c233273d91635b23df7" : "Manager", 
+        "5b7a113467925d270aef63bb" : "Manager", 
+        "5b7a11ca67925d270aef63c3" : "Manager"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5baa8cbfd8c5ff1f8d986db4"), 
+    "GameId" : "5baa7aca68121b1fe4cabb88", 
+    "RoundId" : "5b56198d176b81cae6bacaf6", 
+    "ParentRound" : "salesround", 
+    "ChildRound" : "dealrenewal", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : true, 
+    "SlideNumber" : NumberInt(35), 
+    "UserJobs" : {
+        "5b1d71d97465471df053e3eb" : "Manager", 
+        "5baa7bf968121b1fe4cabb8a" : "Manager", 
+        "5b7a112567925d270aef63ba" : "Manager", 
+        "5b7a118967925d270aef63bf" : "Manager", 
+        "5b7a10db67925d270aef63b6" : "Manager"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5baa8cf5d8c5ff1f8d986dbf"), 
+    "GameId" : "5baa7aca68121b1fe4cabb88", 
+    "RoundId" : "5b14943da486d3b817aa4e7f", 
+    "ParentRound" : "engineeringround", 
+    "ChildRound" : "engineeringsub", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : true, 
+    "SlideNumber" : NumberInt(48), 
+    "UserJobs" : {
+        "5b7a114667925d270aef63bc" : "Integrated Systems", 
+        "5b1d71d97465471df053e3eb" : "ChipCo", 
+        "5b4e2f2fe8a7626bde67889a" : "Manager", 
+        "5b619c553273d91635b23df9" : "Integrated Systems", 
+        "5b4e2f49e8a7626bde67889b" : "ChipCo", 
+        "5b619bf23273d91635b23df5" : "Integrated Systems", 
+        "5baa7bf968121b1fe4cabb8a" : "ChipCo", 
+        "5b7a10ba67925d270aef63b5" : "Manager", 
+        "5b619c233273d91635b23df7" : "Integrated Systems", 
+        "5b619c413273d91635b23df8" : "ChipCo", 
+        "5b7a112567925d270aef63ba" : "ChipCo", 
+        "5b7a111067925d270aef63b9" : "Manager", 
+        "5b7a115667925d270aef63bd" : "Integrated Systems", 
+        "5b7a117867925d270aef63be" : "ChipCo", 
+        "5b7a113467925d270aef63bb" : "Integrated Systems", 
+        "5b7a118967925d270aef63bf" : "ChipCo", 
+        "5b7a10e867925d270aef63b7" : "Manager", 
+        "5b7a11b167925d270aef63c1" : "Integrated Systems", 
+        "5b7a11be67925d270aef63c2" : "ChipCo", 
+        "5b7a11ca67925d270aef63c3" : "Integrated Systems", 
+        "5b7a10db67925d270aef63b6" : "ChipCo", 
+        "5b7a11f567925d270aef63c6" : "Manager", 
+        "5b7a11e467925d270aef63c5" : "Integrated Systems", 
+        "5b7a11d667925d270aef63c4" : "ChipCo"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5baa8d0dd8c5ff1f8d986dca"), 
+    "GameId" : "5baa7aca68121b1fe4cabb88", 
+    "RoundId" : "5b5659d7b7fcaf2b7054ef97", 
+    "ParentRound" : "financeround", 
+    "ChildRound" : "acquisitionstructure", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : true, 
+    "SlideNumber" : NumberInt(67), 
+    "UserJobs" : {
+        "5b619c553273d91635b23df9" : "Manager", 
+        "5b619c233273d91635b23df7" : "Manager", 
+        "5b7a115667925d270aef63bd" : "Manager", 
+        "5b7a11b167925d270aef63c1" : "Manager", 
+        "5b7a11e467925d270aef63c5" : "Manager"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5baa8d48d8c5ff1f8d986e11"), 
+    "GameId" : "5baa7aca68121b1fe4cabb88", 
+    "RoundId" : "5b56890f02491562bcbc4325", 
+    "ParentRound" : "customerround", 
+    "ChildRound" : "customersub", 
+    "ShowRateUsers" : true, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(71), 
+    "UserJobs" : {
+        "5b4e2f49e8a7626bde67889b" : "Manager", 
+        "5b619c413273d91635b23df8" : "Manager", 
+        "5b7a117867925d270aef63be" : "Manager", 
+        "5b7a11be67925d270aef63c2" : "Manager", 
+        "5b7a11d667925d270aef63c4" : "Manager"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5baa9f1ed8c5ff1f8d986e19"), 
+    "GameId" : "5baa552360d806562f938794", 
+    "RoundId" : "5b56890f02491562bcbc4325", 
+    "ParentRound" : "customerround", 
+    "ChildRound" : "customersub", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(1), 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5bab29526a9e694b1a59808b"), 
+    "GameId" : "5b619baa3273d91635b23df4", 
+    "RoundId" : "5b56890f02491562bcbc4325", 
+    "ParentRound" : "customerround", 
+    "ChildRound" : "customersub", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : null, 
+    "UserJobs" : {
+        "5b619c413273d91635b23df8" : "Manager", 
+        "5b4d14645a04cd5ea10e0cdc" : "Manager"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5bab29546a9e694b1a59808c"), 
+    "GameId" : "5b619baa3273d91635b23df4", 
+    "RoundId" : "5b149433a486d3b817aa4e7b", 
+    "ParentRound" : "peopleround", 
+    "ChildRound" : "hiring", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : true, 
+    "SlideNumber" : NumberInt(20), 
+    "UserJobs" : {
+        "5b619c553273d91635b23df9" : "Manager", 
+        "5b1d71d97465471df053e3eb" : "Manager"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5bab2cbe6a9e694b1a598095"), 
+    "GameId" : "5b619baa3273d91635b23df4", 
+    "RoundId" : "5b56198d176b81cae6bacaf6", 
+    "ParentRound" : "salesround", 
+    "ChildRound" : "dealrenewal", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : true, 
+    "SlideNumber" : NumberInt(31), 
+    "UserJobs" : {
+        "5b619bf23273d91635b23df5" : "Manager", 
+        "5b4e2f2fe8a7626bde67889a" : "Manager"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5bab813e6a9e694b1a59816d"), 
+    "GameId" : "5bab7f816a9e694b1a59816a", 
+    "RoundId" : "5b149433a486d3b817aa4e7b", 
+    "ParentRound" : "peopleround", 
+    "ChildRound" : "priorities", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(6), 
+    "UserJobs" : {
+        "5b619c413273d91635b23df8" : "Manager", 
+        "5b4e2f49e8a7626bde67889b" : "Manager"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5bab86286a9e694b1a598176"), 
+    "GameId" : "5bab7f816a9e694b1a59816a", 
+    "RoundId" : "5b56198d176b81cae6bacaf6", 
+    "ParentRound" : "salesround", 
+    "ChildRound" : "dealstructure", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(23), 
+    "UserJobs" : {
+        "5b7a10db67925d270aef63b6" : "Manager", 
+        "5b619bf23273d91635b23df5" : "Manager"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5bab98ac8acfba38f7ee19c9"), 
+    "GameId" : "5bab7f816a9e694b1a59816a", 
+    "RoundId" : "5b14943da486d3b817aa4e7f", 
+    "ParentRound" : "engineeringround", 
+    "ChildRound" : "engineeringsub", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(37), 
+    "UserJobs" : {
+        "5b619c0e3273d91635b23df6" : "Integrated Systems", 
+        "5b4e2f49e8a7626bde67889b" : "ChipCo", 
+        "5b619c413273d91635b23df8" : "Manager", 
+        "5b7a118967925d270aef63bf" : "Integrated Systems", 
+        "5b619bf23273d91635b23df5" : "Integrated Systems", 
+        "5b7a10ba67925d270aef63b5" : "ChipCo", 
+        "5b7a111067925d270aef63b9" : "Manager", 
+        "5b7a11d667925d270aef63c4" : "Integrated Systems", 
+        "5b7a112567925d270aef63ba" : "ChipCo"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5bab98ba8acfba38f7ee19ce"), 
+    "GameId" : "5bab7f816a9e694b1a59816a", 
+    "RoundId" : "5b5659d7b7fcaf2b7054ef97", 
+    "ParentRound" : "financeround", 
+    "ChildRound" : "pricing", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(51), 
+    "UserJobs" : {
+        "5b7a118967925d270aef63bf" : "Manager", 
+        "5b7a11d667925d270aef63c4" : "Manager"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5babe0d48acfba38f7ee1a0c"), 
+    "GameId" : "5bab7f816a9e694b1a59816a", 
+    "RoundId" : "5b56890f02491562bcbc4325", 
+    "ParentRound" : "customerround", 
+    "ChildRound" : "customersub", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(68), 
+    "UserJobs" : {
+        "5b7a118967925d270aef63bf" : "Manager", 
+        "5b7a112567925d270aef63ba" : "Manager"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5bac40758acfba38f7ee1a13"), 
+    "GameId" : "5bac3fa78acfba38f7ee1a11", 
+    "RoundId" : "5b149433a486d3b817aa4e7b", 
+    "ParentRound" : "peopleround", 
+    "ChildRound" : "hiring", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : true, 
+    "SlideNumber" : NumberInt(22), 
+    "UserJobs" : {
+        "5b619c553273d91635b23df9" : "Manager"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5bae26158acfba38f7ee1adb"), 
+    "GameId" : "5bac3fa78acfba38f7ee1a11", 
+    "RoundId" : "5b56198d176b81cae6bacaf6", 
+    "ParentRound" : "salesround", 
+    "ChildRound" : "dealrenewal", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : true, 
+    "SlideNumber" : NumberInt(36), 
+    "UserJobs" : {
+        "5b619c413273d91635b23df8" : "Manager"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5bae26308acfba38f7ee1ade"), 
+    "GameId" : "5bac3fa78acfba38f7ee1a11", 
+    "RoundId" : "5b14943da486d3b817aa4e7f", 
+    "ParentRound" : "engineeringround", 
+    "ChildRound" : "engineeringsub", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : true, 
+    "SlideNumber" : NumberInt(45), 
+    "UserJobs" : {
+        "5b619c0e3273d91635b23df6" : "Integrated Systems", 
+        "5b619c413273d91635b23df8" : "ChipCo", 
+        "5b7a11e467925d270aef63c5" : "Manager", 
+        "5bac635b8acfba38f7ee1a16" : "Integrated Systems", 
+        "5b619c553273d91635b23df9" : "ChipCo"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5bae26478acfba38f7ee1ae1"), 
+    "GameId" : "5bac3fa78acfba38f7ee1a11", 
+    "RoundId" : "5b5659d7b7fcaf2b7054ef97", 
+    "ParentRound" : "financeround", 
+    "ChildRound" : "pricing", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(51), 
+    "UserJobs" : {
+        "5bac635b8acfba38f7ee1a16" : "Manager"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5bae26668acfba38f7ee1aea"), 
+    "GameId" : "5bac3fa78acfba38f7ee1a11", 
+    "RoundId" : "5b56890f02491562bcbc4325", 
+    "ParentRound" : "customerround", 
+    "ChildRound" : "customersub", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(65), 
+    "UserJobs" : {
+        "5b619c553273d91635b23df9" : "Manager"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5bae66b38acfba38f7ee1b53"), 
+    "GameId" : "5bae66558acfba38f7ee1b51", 
+    "RoundId" : "5b149433a486d3b817aa4e7b", 
+    "ParentRound" : "peopleround", 
+    "ChildRound" : "priorities", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(7), 
+    "UserJobs" : {
+        "5b99a5cade8563246c0dfce3" : "Manager"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5bae68618acfba38f7ee1b78"), 
+    "GameId" : "5bae66558acfba38f7ee1b51", 
+    "RoundId" : "5b56198d176b81cae6bacaf6", 
+    "ParentRound" : "salesround", 
+    "ChildRound" : "dealstructure", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(23), 
+    "UserJobs" : {
+        "5b99a5dcde8563246c0dfce4" : "Manager"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5bae6a6f1af0e84aea4b6d3a"), 
+    "GameId" : "5bae66558acfba38f7ee1b51", 
+    "RoundId" : "5b14943da486d3b817aa4e7f", 
+    "ParentRound" : "engineeringround", 
+    "ChildRound" : "engineeringsub", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(37), 
+    "UserJobs" : {
+        "5b99a5cade8563246c0dfce3" : "Integrated Systems", 
+        "5b99a5dcde8563246c0dfce4" : "ChipCo", 
+        "5b99a5edde8563246c0dfce5" : "Manager", 
+        "5b99a5fbde8563246c0dfce6" : "Integrated Systems", 
+        "5b99a623de8563246c0dfce9" : "Integrated Systems", 
+        "5b99a641de8563246c0dfceb" : "ChipCo", 
+        "5b99a632de8563246c0dfcea" : "Manager", 
+        "5b9a6553de8563246c0dfdd0" : "Integrated Systems"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5bae6eec60976557f53b8dcf"), 
+    "GameId" : "5bae66558acfba38f7ee1b51", 
+    "RoundId" : "5b5659d7b7fcaf2b7054ef97", 
+    "ParentRound" : "financeround", 
+    "ChildRound" : "pricing", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(51), 
+    "UserJobs" : {
+        "5b99a5fbde8563246c0dfce6" : "Manager", 
+        "5b9a6553de8563246c0dfdd0" : "Manager"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5bae70a760976557f53b8dfb"), 
+    "GameId" : "5bae66558acfba38f7ee1b51", 
+    "RoundId" : "5b56890f02491562bcbc4325", 
+    "ParentRound" : "customerround", 
+    "ChildRound" : "customersub", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(68), 
+    "UserJobs" : {
+        "5b99a5dcde8563246c0dfce4" : "Manager", 
+        "5b99a632de8563246c0dfcea" : "Manager"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5bb0fd8bd55c5e676f261795"), 
+    "GameId" : "5bb0fd8bd55c5e676f261794", 
+    "RoundId" : "5b149433a486d3b817aa4e7b", 
+    "ParentRound" : "peopleround", 
+    "ChildRound" : "hiring", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : true, 
+    "SlideNumber" : NumberInt(22), 
+    "__v" : NumberInt(0), 
+    "REST_URL" : "", 
+    "UserJobs" : {
+        "5b99a5cade8563246c0dfce3" : "Manager"
+    }, 
+    "CurrentHighestBid" : ""
+}
+{ 
+    "_id" : ObjectId("5bb0fdfad55c5e676f261798"), 
+    "GameId" : "5bb0fd8bd55c5e676f261794", 
+    "RoundId" : "", 
+    "ParentRound" : "peopleround", 
+    "ChildRound" : "priorities", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(1), 
+    "UserJobs" : {
+        "5b99a5cade8563246c0dfce3" : "Manager", 
+        "5b99a623de8563246c0dfce9" : "Manager"
+    }, 
+    "REST_URL" : "", 
+    "__v" : NumberInt(0), 
+    "CurrentHighestBid" : ""
+}
+{ 
+    "_id" : ObjectId("5bb0fef2d55c5e676f261809"), 
+    "GameId" : "5bb0fd8bd55c5e676f261794", 
+    "RoundId" : "5b56198d176b81cae6bacaf6", 
+    "ParentRound" : "salesround", 
+    "ChildRound" : "dealrenewal", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : true, 
+    "SlideNumber" : NumberInt(36), 
+    "UserJobs" : {
+        "5b99a5dcde8563246c0dfce4" : "Manager", 
+        "5b99a613de8563246c0dfce8" : "Manager"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5bb0ff8dd55c5e676f261837"), 
+    "GameId" : "5bb0fd8bd55c5e676f261794", 
+    "RoundId" : "5b14943da486d3b817aa4e7f", 
+    "ParentRound" : "engineeringround", 
+    "ChildRound" : "engineeringsub", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(39), 
+    "UserJobs" : {
+        "5b99a5cade8563246c0dfce3" : "Integrated Systems", 
+        "5b99a5dcde8563246c0dfce4" : "ChipCo", 
+        "5b99a5edde8563246c0dfce5" : "Manager", 
+        "5b99a5fbde8563246c0dfce6" : "Integrated Systems", 
+        "5b99a623de8563246c0dfce9" : "Integrated Systems", 
+        "5b99a613de8563246c0dfce8" : "ChipCo", 
+        "5b99a641de8563246c0dfceb" : "Manager", 
+        "5b99a632de8563246c0dfcea" : "Integrated Systems"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5bb0fff3d55c5e676f261854"), 
+    "GameId" : "5bb0fd8bd55c5e676f261794", 
+    "RoundId" : "5b5659d7b7fcaf2b7054ef97", 
+    "ParentRound" : "financeround", 
+    "ChildRound" : "pricing", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(51), 
+    "UserJobs" : {
+        "5b99a5fbde8563246c0dfce6" : "Manager", 
+        "5b99a632de8563246c0dfcea" : "Manager"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5bb100cdd55c5e676f2618ad"), 
+    "GameId" : "5bb0fd8bd55c5e676f261794", 
+    "RoundId" : "5b56890f02491562bcbc4325", 
+    "ParentRound" : "customerround", 
+    "ChildRound" : "customersub", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(68), 
+    "UserJobs" : {
+        "5b99a5edde8563246c0dfce5" : "Manager", 
+        "5b99a632de8563246c0dfcea" : "Manager"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5bb176f02aefd34a357bd27f"), 
+    "GameId" : "5bb176f02aefd34a357bd27e", 
+    "RoundId" : "5b149433a486d3b817aa4e7b", 
+    "ParentRound" : "peopleround", 
+    "ChildRound" : "priorities", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(12), 
+    "__v" : NumberInt(0), 
+    "REST_URL" : "", 
+    "UserJobs" : {
+        "5bb1772a2aefd34a357bd280" : "Manager"
+    }, 
+    "CurrentHighestBid" : ""
+}
+{ 
+    "_id" : ObjectId("5bb1a1b82aefd34a357bd28e"), 
+    "GameId" : "5bb176f02aefd34a357bd27e", 
+    "RoundId" : "", 
+    "ParentRound" : "peopleround", 
+    "ChildRound" : "priorities", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(1), 
+    "UserJobs" : {
+        "5bb1772a2aefd34a357bd280" : "Manager", 
+        "5bb177842aefd34a357bd284" : "Manager", 
+        "5bb177bf2aefd34a357bd287" : "Manager"
+    }, 
+    "REST_URL" : "", 
+    "__v" : NumberInt(0), 
+    "CurrentHighestBid" : ""
+}
+{ 
+    "_id" : ObjectId("5bb1a21e2aefd34a357bd290"), 
+    "GameId" : "5bb176f02aefd34a357bd27e", 
+    "RoundId" : "", 
+    "ParentRound" : "peopleround", 
+    "ChildRound" : "priorities", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(1), 
+    "UserJobs" : {
+        "5bb1772a2aefd34a357bd280" : "Manager", 
+        "5bb177842aefd34a357bd284" : "Manager", 
+        "5bb177bf2aefd34a357bd287" : "Manager"
+    }, 
+    "REST_URL" : "", 
+    "__v" : NumberInt(0), 
+    "CurrentHighestBid" : ""
+}
+{ 
+    "_id" : ObjectId("5bb2d9d362eaeb4a4398c121"), 
+    "GameId" : "5bb176f02aefd34a357bd27e", 
+    "RoundId" : "5b56198d176b81cae6bacaf6", 
+    "ParentRound" : "salesround", 
+    "ChildRound" : "dealstructure", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(23), 
+    "UserJobs" : {
+        "5bb177432aefd34a357bd281" : "Manager", 
+        "5bb177972aefd34a357bd285" : "Manager", 
+        "5bb178852aefd34a357bd289" : "Manager"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5bb3fe9c62eaeb4a4398c212"), 
+    "GameId" : "5bb3fe9c62eaeb4a4398c211", 
+    "RoundId" : "5b149433a486d3b817aa4e7b", 
+    "ParentRound" : "peopleround", 
+    "ChildRound" : "hiring", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : true, 
+    "SlideNumber" : NumberInt(22), 
+    "__v" : NumberInt(0), 
+    "REST_URL" : "", 
+    "UserJobs" : {
+        "5bb4033f62eaeb4a4398c215" : "Manager", 
+        "5bb4054862eaeb4a4398c219" : "Manager", 
+        "5bb4072162eaeb4a4398c21e" : "Manager"
+    }, 
+    "CurrentHighestBid" : ""
+}
+{ 
+    "_id" : ObjectId("5bb404ee62eaeb4a4398c218"), 
+    "GameId" : "5bb3fe9c62eaeb4a4398c211", 
+    "RoundId" : "", 
+    "ParentRound" : "peopleround", 
+    "ChildRound" : "priorities", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(1), 
+    "UserJobs" : {
+        "5bb404ba62eaeb4a4398c216" : "Manager", 
+        "5bb4054862eaeb4a4398c219" : "Manager"
+    }, 
+    "REST_URL" : "", 
+    "__v" : NumberInt(0), 
+    "CurrentHighestBid" : ""
+}
+{ 
+    "_id" : ObjectId("5bb4085962eaeb4a4398c223"), 
+    "GameId" : "5bb3fe9c62eaeb4a4398c211", 
+    "RoundId" : "", 
+    "ParentRound" : "peopleround", 
+    "ChildRound" : "priorities", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(1), 
+    "UserJobs" : {
+        "5bb404ba62eaeb4a4398c216" : "Manager", 
+        "5bb4054862eaeb4a4398c219" : "Manager", 
+        "5bb4072162eaeb4a4398c21e" : "Manager"
+    }, 
+    "REST_URL" : "", 
+    "__v" : NumberInt(0), 
+    "CurrentHighestBid" : ""
+}
+{ 
+    "_id" : ObjectId("5bb4189a62eaeb4a4398c226"), 
+    "GameId" : "5bb176f02aefd34a357bd27e", 
+    "RoundId" : "5b14943da486d3b817aa4e7f", 
+    "ParentRound" : "engineeringround", 
+    "ChildRound" : "engineeringsub", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(37), 
+    "UserJobs" : {
+        "5bb1772a2aefd34a357bd280" : "Integrated Systems", 
+        "5bb177432aefd34a357bd281" : "ChipCo", 
+        "5bac635b8acfba38f7ee1a16" : "Manager", 
+        "5bb177712aefd34a357bd283" : "Integrated Systems", 
+        "5bb177842aefd34a357bd284" : "Integrated Systems", 
+        "5bb177972aefd34a357bd285" : "ChipCo", 
+        "5bb177aa2aefd34a357bd286" : "Manager", 
+        "5bb178032aefd34a357bd288" : "Integrated Systems", 
+        "5bb177bf2aefd34a357bd287" : "Integrated Systems", 
+        "5bb178852aefd34a357bd289" : "ChipCo", 
+        "5bb1789c2aefd34a357bd28a" : "Manager", 
+        "5bb178e82aefd34a357bd28b" : "Integrated Systems"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5bb4753b48a4d445766fb7af"), 
+    "GameId" : "5bb176f02aefd34a357bd27e", 
+    "RoundId" : "5b5659d7b7fcaf2b7054ef97", 
+    "ParentRound" : "financeround", 
+    "ChildRound" : "pricing", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(51), 
+    "UserJobs" : {
+        "5bb177712aefd34a357bd283" : "Manager", 
+        "5bb178032aefd34a357bd288" : "Manager", 
+        "5bb178e82aefd34a357bd28b" : "Manager"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5bb4ca7f48a4d445766fb86d"), 
+    "GameId" : "5bb4ca7f48a4d445766fb86c", 
+    "RoundId" : "5b149433a486d3b817aa4e7b", 
+    "ParentRound" : "peopleround", 
+    "ChildRound" : "hiring", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : true, 
+    "SlideNumber" : NumberInt(22), 
+    "__v" : NumberInt(0), 
+    "REST_URL" : "", 
+    "UserJobs" : {
+        "5b99a5cade8563246c0dfce3" : "Manager"
+    }, 
+    "CurrentHighestBid" : ""
+}
+{ 
+    "_id" : ObjectId("5bb61c2448a4d445766fb99c"), 
+    "GameId" : "5bb61c2448a4d445766fb99b", 
+    "RoundId" : "5b149433a486d3b817aa4e7b", 
+    "ParentRound" : "peopleround", 
+    "ChildRound" : "hiring", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : true, 
+    "SlideNumber" : NumberInt(22), 
+    "__v" : NumberInt(0), 
+    "REST_URL" : "", 
+    "UserJobs" : {
+        "5b99a5cade8563246c0dfce3" : "Manager", 
+        "5b4e2f2fe8a7626bde67889a" : "Manager"
+    }, 
+    "CurrentHighestBid" : ""
+}
+{ 
+    "_id" : ObjectId("5bb6200448a4d445766fb9e4"), 
+    "GameId" : "5bb61c2448a4d445766fb99b", 
+    "RoundId" : "5b56198d176b81cae6bacaf6", 
+    "ParentRound" : "salesround", 
+    "ChildRound" : "dealrenewal", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(24), 
+    "UserJobs" : {
+        "5b99a5dcde8563246c0dfce4" : "Manager"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5bb6bc7d1265f210f112b382"), 
+    "GameId" : "5bb176f02aefd34a357bd27e", 
+    "RoundId" : "5b56890f02491562bcbc4325", 
+    "ParentRound" : "customerround", 
+    "ChildRound" : "customersub", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(68), 
+    "UserJobs" : {
+        "5bac635b8acfba38f7ee1a16" : "Manager", 
+        "5bb178032aefd34a357bd288" : "Manager", 
+        "5bb178852aefd34a357bd289" : "Manager"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5bb777691265f210f112b39f"), 
+    "GameId" : "5bb3fe9c62eaeb4a4398c211", 
+    "RoundId" : "", 
+    "ParentRound" : "peopleround", 
+    "ChildRound" : "priorities", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(1), 
+    "UserJobs" : {
+        "5bb4033f62eaeb4a4398c215" : "Manager", 
+        "5bb4054862eaeb4a4398c219" : "Manager", 
+        "5bb4072162eaeb4a4398c21e" : "Manager"
+    }, 
+    "REST_URL" : "", 
+    "__v" : NumberInt(0), 
+    "CurrentHighestBid" : ""
+}
+{ 
+    "_id" : ObjectId("5bb7787c1265f210f112b3a1"), 
+    "GameId" : "5bb3fe9c62eaeb4a4398c211", 
+    "RoundId" : "", 
+    "ParentRound" : "peopleround", 
+    "ChildRound" : "priorities", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(1), 
+    "UserJobs" : {
+        "5bb4033f62eaeb4a4398c215" : "Manager", 
+        "5bb4054862eaeb4a4398c219" : "Manager", 
+        "5bb4072162eaeb4a4398c21e" : "Manager"
+    }, 
+    "REST_URL" : "", 
+    "__v" : NumberInt(0), 
+    "CurrentHighestBid" : ""
+}
+{ 
+    "_id" : ObjectId("5bbb8add1265f210f112b48b"), 
+    "GameId" : "5bb3fe9c62eaeb4a4398c211", 
+    "RoundId" : "", 
+    "ParentRound" : "peopleround", 
+    "ChildRound" : "priorities", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(1), 
+    "UserJobs" : {
+        "5bb4033f62eaeb4a4398c215" : "Manager", 
+        "5bb4054862eaeb4a4398c219" : "Manager", 
+        "5bb4072162eaeb4a4398c21e" : "Manager"
+    }, 
+    "REST_URL" : "", 
+    "__v" : NumberInt(0), 
+    "CurrentHighestBid" : ""
+}
+{ 
+    "_id" : ObjectId("5bbb8fc91265f210f112b48e"), 
+    "GameId" : "5bb3fe9c62eaeb4a4398c211", 
+    "RoundId" : "", 
+    "ParentRound" : "peopleround", 
+    "ChildRound" : "priorities", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(1), 
+    "UserJobs" : {
+        "5bb4033f62eaeb4a4398c215" : "Manager", 
+        "5bb4054862eaeb4a4398c219" : "Manager", 
+        "5bb4072162eaeb4a4398c21e" : "Manager"
+    }, 
+    "REST_URL" : "", 
+    "__v" : NumberInt(0), 
+    "CurrentHighestBid" : ""
+}
+{ 
+    "_id" : ObjectId("5bbb9ffb1265f210f112b48f"), 
+    "GameId" : "5bb3fe9c62eaeb4a4398c211", 
+    "RoundId" : "5b149433a486d3b817aa4e7b", 
+    "ParentRound" : "peopleround", 
+    "ChildRound" : "priorities", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(10), 
+    "UserJobs" : {
+        "5bb4033f62eaeb4a4398c215" : "Manager", 
+        "5bb4054862eaeb4a4398c219" : "Manager", 
+        "5bb4072162eaeb4a4398c21e" : "Manager"
+    }, 
+    "REST_URL" : "", 
+    "__v" : NumberInt(0), 
+    "CurrentHighestBid" : ""
+}
+{ 
+    "_id" : ObjectId("5bbc130f1265f210f112b5a8"), 
+    "GameId" : "5bbc130f1265f210f112b5a7", 
+    "RoundId" : "5b149433a486d3b817aa4e7b", 
+    "ParentRound" : "peopleround", 
+    "ChildRound" : "hiring", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : true, 
+    "SlideNumber" : NumberInt(22), 
+    "__v" : NumberInt(0), 
+    "REST_URL" : "", 
+    "UserJobs" : {
+        "5b99a5cade8563246c0dfce3" : "Manager"
+    }, 
+    "CurrentHighestBid" : ""
+}
+{ 
+    "_id" : ObjectId("5bbc133b1265f210f112b5ab"), 
+    "GameId" : "5bbc130f1265f210f112b5a7", 
+    "RoundId" : "", 
+    "ParentRound" : "peopleround", 
+    "ChildRound" : "priorities", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(1), 
+    "UserJobs" : {
+        "5b99a5cade8563246c0dfce3" : "Manager", 
+        "5b99a613de8563246c0dfce8" : "Manager", 
+        "5b99a6b5de8563246c0dfced" : "Manager"
+    }, 
+    "REST_URL" : "", 
+    "__v" : NumberInt(0), 
+    "CurrentHighestBid" : ""
+}
+{ 
+    "_id" : ObjectId("5bbc14f91265f210f112b5bb"), 
+    "GameId" : "5bbc130f1265f210f112b5a7", 
+    "RoundId" : "5b56198d176b81cae6bacaf6", 
+    "ParentRound" : "salesround", 
+    "ChildRound" : "dealrenewal", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(24), 
+    "UserJobs" : {
+        "5b99a5dcde8563246c0dfce4" : "Manager", 
+        "5b99a623de8563246c0dfce9" : "Manager", 
+        "5b9a6553de8563246c0dfdd0" : "Manager"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5bbceb363b570e06c640ea80"), 
+    "GameId" : "5bb3fe9c62eaeb4a4398c211", 
+    "RoundId" : "5b56198d176b81cae6bacaf6", 
+    "ParentRound" : "salesround", 
+    "ChildRound" : "dealrenewal", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : true, 
+    "SlideNumber" : NumberInt(36), 
+    "UserJobs" : {
+        "5bb402ea62eaeb4a4398c214" : "Manager", 
+        "5bb4063162eaeb4a4398c21b" : "Manager", 
+        "5bb4075e62eaeb4a4398c21f" : "Manager"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5bbe4282dc85022bb08864cb"), 
+    "GameId" : "5bb3fe9c62eaeb4a4398c211", 
+    "RoundId" : "5b14943da486d3b817aa4e7f", 
+    "ParentRound" : "engineeringround", 
+    "ChildRound" : "engineeringsub", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : true, 
+    "SlideNumber" : NumberInt(50), 
+    "UserJobs" : {
+        "5bb4033f62eaeb4a4398c215" : "Integrated Systems", 
+        "5bb402ea62eaeb4a4398c214" : "ChipCo", 
+        "5bb4027762eaeb4a4398c213" : "Manager", 
+        "5bb777fa1265f210f112b3a0" : "Integrated Systems", 
+        "5bb4054862eaeb4a4398c219" : "Integrated Systems", 
+        "5bb4063162eaeb4a4398c21b" : "ChipCo", 
+        "5bb4067962eaeb4a4398c21c" : "Manager", 
+        "5bbb86a51265f210f112b48a" : "Integrated Systems", 
+        "5bb4072162eaeb4a4398c21e" : "Integrated Systems", 
+        "5bb4075e62eaeb4a4398c21f" : "ChipCo", 
+        "5bb407e962eaeb4a4398c220" : "Manager", 
+        "5bb777411265f210f112b39e" : "Integrated Systems"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5bbf5ba9dc85022bb0886559"), 
+    "GameId" : "5bb3fe9c62eaeb4a4398c211", 
+    "RoundId" : "5b5659d7b7fcaf2b7054ef97", 
+    "ParentRound" : "financeround", 
+    "ChildRound" : "acquisitionstructure", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : true, 
+    "SlideNumber" : NumberInt(67), 
+    "UserJobs" : {
+        "5bb777fa1265f210f112b3a0" : "Manager", 
+        "5bbb86a51265f210f112b48a" : "Manager", 
+        "5bb777411265f210f112b39e" : "Manager"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5bbfb9ed4eec9417d2347df6"), 
+    "GameId" : "5bb3fe9c62eaeb4a4398c211", 
+    "RoundId" : "5b56890f02491562bcbc4325", 
+    "ParentRound" : "customerround", 
+    "ChildRound" : "customersub", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(76), 
+    "UserJobs" : {
+        "5bb4033f62eaeb4a4398c215" : "Manager", 
+        "5bb4054862eaeb4a4398c219" : "Manager", 
+        "5bb4072162eaeb4a4398c21e" : "Manager"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5bc446ffb4f5a930e7ef5557"), 
+    "GameId" : "5bc446ffb4f5a930e7ef5556", 
+    "RoundId" : "5b149433a486d3b817aa4e7b", 
+    "ParentRound" : "peopleround", 
+    "ChildRound" : "hiring", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : true, 
+    "SlideNumber" : NumberInt(22), 
+    "__v" : NumberInt(0), 
+    "REST_URL" : "", 
+    "UserJobs" : {
+        "5bc44273b4f5a930e7ef5545" : "Manager", 
+        "5bc44359b4f5a930e7ef554a" : "Manager", 
+        "5bc443bab4f5a930e7ef554d" : "Manager", 
+        "5bc44447b4f5a930e7ef5551" : "Manager"
+    }, 
+    "CurrentHighestBid" : ""
+}
+{ 
+    "_id" : ObjectId("5bc44782b4f5a930e7ef555b"), 
+    "GameId" : "5bc446ffb4f5a930e7ef5556", 
+    "RoundId" : "", 
+    "ParentRound" : "peopleround", 
+    "ChildRound" : "priorities", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(1), 
+    "UserJobs" : {
+        "5bc44273b4f5a930e7ef5545" : "Manager", 
+        "5bc44359b4f5a930e7ef554a" : "Manager", 
+        "5bc443bab4f5a930e7ef554d" : "Manager"
+    }, 
+    "REST_URL" : "", 
+    "__v" : NumberInt(0), 
+    "CurrentHighestBid" : ""
+}
+{ 
+    "_id" : ObjectId("5bc447d2b4f5a930e7ef555e"), 
+    "GameId" : "5bc446ffb4f5a930e7ef5556", 
+    "RoundId" : "", 
+    "ParentRound" : "peopleround", 
+    "ChildRound" : "priorities", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(1), 
+    "UserJobs" : {
+        "5bc44273b4f5a930e7ef5545" : "Manager", 
+        "5bc44359b4f5a930e7ef554a" : "Manager", 
+        "5bc443bab4f5a930e7ef554d" : "Manager", 
+        "5bc44447b4f5a930e7ef5551" : "Manager"
+    }, 
+    "REST_URL" : "", 
+    "__v" : NumberInt(0), 
+    "CurrentHighestBid" : ""
+}
+{ 
+    "_id" : ObjectId("5bc4a172b4f5a930e7ef55dd"), 
+    "GameId" : "5bc4a172b4f5a930e7ef55dc", 
+    "RoundId" : "5b149433a486d3b817aa4e7b", 
+    "ParentRound" : "peopleround", 
+    "ChildRound" : "hiring", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : true, 
+    "SlideNumber" : NumberInt(19), 
+    "__v" : NumberInt(0), 
+    "REST_URL" : "", 
+    "UserJobs" : {
+        "5bc4985cb4f5a930e7ef5567" : "Manager", 
+        "5bc4976cb4f5a930e7ef5562" : "Manager", 
+        "5bc4991eb4f5a930e7ef556b" : "Manager"
+    }, 
+    "CurrentHighestBid" : ""
+}
+{ 
+    "_id" : ObjectId("5bc4a1ebb4f5a930e7ef55e0"), 
+    "GameId" : "5bc4a172b4f5a930e7ef55dc", 
+    "RoundId" : "", 
+    "ParentRound" : "peopleround", 
+    "ChildRound" : "priorities", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(1), 
+    "UserJobs" : {
+        "5bc4985cb4f5a930e7ef5567" : "Manager", 
+        "5bc4976cb4f5a930e7ef5562" : "Manager", 
+        "5bc4991eb4f5a930e7ef556b" : "Manager"
+    }, 
+    "REST_URL" : "", 
+    "__v" : NumberInt(0), 
+    "CurrentHighestBid" : ""
+}
+{ 
+    "_id" : ObjectId("5bc4d5d8b4f5a930e7ef562a"), 
+    "GameId" : "5bc4a172b4f5a930e7ef55dc", 
+    "RoundId" : "5b149433a486d3b817aa4e7b", 
+    "ParentRound" : "peopleround", 
+    "ChildRound" : "priorities", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(9), 
+    "REST_URL" : "", 
+    "UserJobs" : {
+        "5bc4985cb4f5a930e7ef5567" : "Manager", 
+        "5bc4976cb4f5a930e7ef5562" : "Manager", 
+        "5bc4991eb4f5a930e7ef556b" : "Manager"
+    }, 
+    "__v" : NumberInt(0), 
+    "CurrentHighestBid" : ""
+}
+{ 
+    "_id" : ObjectId("5bc4f88fb4f5a930e7ef573c"), 
+    "GameId" : "5bc4a172b4f5a930e7ef55dc", 
+    "RoundId" : "5b56198d176b81cae6bacaf6", 
+    "ParentRound" : "salesround", 
+    "ChildRound" : "dealstructure", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(23), 
+    "UserJobs" : {
+        "5bc497feb4f5a930e7ef5566" : "Manager", 
+        "5bc4997bb4f5a930e7ef556d" : "Manager", 
+        "5bc497bab4f5a930e7ef5564" : "Manager"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5bc5d2a7b4f5a930e7ef5829"), 
+    "GameId" : "5bc446ffb4f5a930e7ef5556", 
+    "RoundId" : "5b56198d176b81cae6bacaf6", 
+    "ParentRound" : "salesround", 
+    "ChildRound" : "dealrenewal", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : true, 
+    "SlideNumber" : NumberInt(36), 
+    "UserJobs" : {
+        "5bc44291b4f5a930e7ef5546" : "Manager", 
+        "5bc44378b4f5a930e7ef554b" : "Manager", 
+        "5bc4942ab4f5a930e7ef555f" : "Manager", 
+        "5bc44670b4f5a930e7ef5554" : "Manager"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5bc728a3b4f5a930e7ef59df"), 
+    "GameId" : "5bc446ffb4f5a930e7ef5556", 
+    "RoundId" : "5b14943da486d3b817aa4e7f", 
+    "ParentRound" : "engineeringround", 
+    "ChildRound" : "engineeringsub", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : true, 
+    "SlideNumber" : NumberInt(50), 
+    "UserJobs" : {
+        "5bc44273b4f5a930e7ef5545" : "Integrated Systems", 
+        "5bc44291b4f5a930e7ef5546" : "ChipCo", 
+        "5bc442b4b4f5a930e7ef5547" : "Manager", 
+        "5bc442d7b4f5a930e7ef5548" : "Integrated Systems", 
+        "5bc44359b4f5a930e7ef554a" : "Integrated Systems", 
+        "5bc44378b4f5a930e7ef554b" : "ChipCo", 
+        "5bc4476eb4f5a930e7ef5559" : "Manager", 
+        "5bc44396b4f5a930e7ef554c" : "Integrated Systems", 
+        "5bc443bab4f5a930e7ef554d" : "Integrated Systems", 
+        "5bc4942ab4f5a930e7ef555f" : "ChipCo", 
+        "5bc443ffb4f5a930e7ef554f" : "Manager", 
+        "5bc44428b4f5a930e7ef5550" : "Integrated Systems", 
+        "5bc44447b4f5a930e7ef5551" : "Integrated Systems", 
+        "5bc44670b4f5a930e7ef5554" : "ChipCo", 
+        "5bc44467b4f5a930e7ef5552" : "Manager", 
+        "5bc446aab4f5a930e7ef5555" : "Manager", 
+        "5bc44485b4f5a930e7ef5553" : "ChipCo"
+    }, 
+    "__v" : NumberInt(0), 
+    "REST_URL" : "", 
+    "CurrentHighestBid" : ""
+}
+{ 
+    "_id" : ObjectId("5bc746edb4f5a930e7ef5aa9"), 
+    "GameId" : "5bc4a172b4f5a930e7ef55dc", 
+    "RoundId" : "5b14943da486d3b817aa4e7f", 
+    "ParentRound" : "engineeringround", 
+    "ChildRound" : "engineeringsub", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(37), 
+    "UserJobs" : {
+        "5bc4985cb4f5a930e7ef5567" : "Integrated Systems", 
+        "5bc497feb4f5a930e7ef5566" : "ChipCo", 
+        "5bc498f7b4f5a930e7ef556a" : "Manager", 
+        "5bc498c2b4f5a930e7ef5569" : "Integrated Systems", 
+        "5bc4976cb4f5a930e7ef5562" : "Integrated Systems", 
+        "5bc4997bb4f5a930e7ef556d" : "ChipCo", 
+        "5bc49693b4f5a930e7ef5560" : "Manager", 
+        "5b7a10db67925d270aef63b6" : "Integrated Systems", 
+        "5bc4991eb4f5a930e7ef556b" : "Integrated Systems", 
+        "5bc497bab4f5a930e7ef5564" : "ChipCo", 
+        "5bc49947b4f5a930e7ef556c" : "Manager", 
+        "5bc49891b4f5a930e7ef5568" : "Integrated Systems"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5bc8706264f2b36a9793d400"), 
+    "GameId" : "5bc446ffb4f5a930e7ef5556", 
+    "RoundId" : "5b5659d7b7fcaf2b7054ef97", 
+    "ParentRound" : "financeround", 
+    "ChildRound" : "acquisitionstructure", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : true, 
+    "SlideNumber" : NumberInt(67), 
+    "UserJobs" : {
+        "5bc442d7b4f5a930e7ef5548" : "Manager", 
+        "5bc44396b4f5a930e7ef554c" : "Manager", 
+        "5bc44428b4f5a930e7ef5550" : "Manager", 
+        "5bc44485b4f5a930e7ef5553" : "Manager", 
+        "5bc44291b4f5a930e7ef5546" : "Attorney for BlueKite", 
+        "5bc44378b4f5a930e7ef554b" : "Attorney for BlueKite", 
+        "5bc4942ab4f5a930e7ef555f" : "Attorney for BlueKite", 
+        "5bc44467b4f5a930e7ef5552" : "Attorney for BlueKite"
+    }, 
+    "__v" : NumberInt(0), 
+    "REST_URL" : "", 
+    "CurrentHighestBid" : ""
+}
+{ 
+    "_id" : ObjectId("5bc87a7c64f2b36a9793d408"), 
+    "GameId" : "5bb4ca7f48a4d445766fb86c", 
+    "RoundId" : "5b56198d176b81cae6bacaf6", 
+    "ParentRound" : "salesround", 
+    "ChildRound" : "dealrenewal", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : true, 
+    "SlideNumber" : NumberInt(36), 
+    "UserJobs" : {
+        "5b99a5dcde8563246c0dfce4" : "Manager"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5bc87a8664f2b36a9793d409"), 
+    "GameId" : "5bb4ca7f48a4d445766fb86c", 
+    "RoundId" : "5b14943da486d3b817aa4e7f", 
+    "ParentRound" : "engineeringround", 
+    "ChildRound" : "engineeringsub", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : true, 
+    "SlideNumber" : NumberInt(50), 
+    "UserJobs" : {
+        "5b99a5cade8563246c0dfce3" : "Integrated Systems", 
+        "5b99a5dcde8563246c0dfce4" : "ChipCo", 
+        "5b99a5edde8563246c0dfce5" : "Manager", 
+        "5b99a5fbde8563246c0dfce6" : "Integrated Systems"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5bc87a9964f2b36a9793d40a"), 
+    "GameId" : "5bb4ca7f48a4d445766fb86c", 
+    "RoundId" : "5b5659d7b7fcaf2b7054ef97", 
+    "ParentRound" : "financeround", 
+    "ChildRound" : "acquisitionstructure", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(56), 
+    "UserJobs" : {
+        "5b99a5fbde8563246c0dfce6" : "Manager"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5bc8bed864f2b36a9793d527"), 
+    "GameId" : "5bc4a172b4f5a930e7ef55dc", 
+    "RoundId" : "5b5659d7b7fcaf2b7054ef97", 
+    "ParentRound" : "financeround", 
+    "ChildRound" : "pricing", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(51), 
+    "UserJobs" : {
+        "5bc498c2b4f5a930e7ef5569" : "Manager", 
+        "5b7a10db67925d270aef63b6" : "Manager", 
+        "5bc49891b4f5a930e7ef5568" : "Manager"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5bc978c564f2b36a9793d615"), 
+    "GameId" : "5bc978c564f2b36a9793d614", 
+    "RoundId" : "5b149433a486d3b817aa4e7b", 
+    "ParentRound" : "peopleround", 
+    "ChildRound" : "hiring", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : true, 
+    "SlideNumber" : NumberInt(22), 
+    "__v" : NumberInt(0), 
+    "REST_URL" : "", 
+    "UserJobs" : {
+        "5bc978fd64f2b36a9793d616" : "Manager"
+    }, 
+    "CurrentHighestBid" : ""
+}
+{ 
+    "_id" : ObjectId("5bc97a5464f2b36a9793d618"), 
+    "GameId" : "5bc978c564f2b36a9793d614", 
+    "RoundId" : "5b56198d176b81cae6bacaf6", 
+    "ParentRound" : "salesround", 
+    "ChildRound" : "dealrenewal", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : true, 
+    "SlideNumber" : NumberInt(36), 
+    "UserJobs" : {
+        "5b619c0e3273d91635b23df6" : "Manager"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5bc97b4964f2b36a9793d619"), 
+    "GameId" : "5bc978c564f2b36a9793d614", 
+    "RoundId" : "5b14943da486d3b817aa4e7f", 
+    "ParentRound" : "engineeringround", 
+    "ChildRound" : "engineeringsub", 
+    "ShowRateUsers" : true, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(42), 
+    "UserJobs" : {
+        "5bc978fd64f2b36a9793d616" : "Integrated Systems", 
+        "5b619c0e3273d91635b23df6" : "ChipCo", 
+        "5b99a5cade8563246c0dfce3" : "Manager", 
+        "5b99a5dcde8563246c0dfce4" : "Integrated Systems"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5bc9852464f2b36a9793d621"), 
+    "GameId" : "5bc9852464f2b36a9793d620", 
+    "RoundId" : "5b149433a486d3b817aa4e7b", 
+    "ParentRound" : "peopleround", 
+    "ChildRound" : "hiring", 
+    "ShowRateUsers" : true, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(16), 
+    "__v" : NumberInt(0), 
+    "REST_URL" : "", 
+    "UserJobs" : {
+        "5b99a5cade8563246c0dfce3" : "Manager"
+    }, 
+    "CurrentHighestBid" : ""
+}
+{ 
+    "_id" : ObjectId("5bc98c2964f2b36a9793d623"), 
+    "GameId" : "5bc446ffb4f5a930e7ef5556", 
+    "RoundId" : "5b56890f02491562bcbc4325", 
+    "ParentRound" : "customerround", 
+    "ChildRound" : "customersub", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : true, 
+    "SlideNumber" : NumberInt(73), 
+    "UserJobs" : {
+        "5bc44273b4f5a930e7ef5545" : "Manager", 
+        "5bc44396b4f5a930e7ef554c" : "Manager", 
+        "5bc4942ab4f5a930e7ef555f" : "Manager", 
+        "5bc44447b4f5a930e7ef5551" : "Manager"
+    }, 
+    "__v" : NumberInt(0), 
+    "REST_URL" : "", 
+    "CurrentHighestBid" : ""
+}
+{ 
+    "_id" : ObjectId("5bc98cad64f2b36a9793d624"), 
+    "GameId" : "5bc446ffb4f5a930e7ef5556", 
+    "RoundId" : "5b56890f02491562bcbc4325", 
+    "ParentRound" : "customerround", 
+    "ChildRound" : "customersub", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(68), 
+    "UserJobs" : {
+        "5bc44273b4f5a930e7ef5545" : "Manager", 
+        "5bc44396b4f5a930e7ef554c" : "Manager", 
+        "5bc4942ab4f5a930e7ef555f" : "Manager", 
+        "5bc44447b4f5a930e7ef5551" : "Manager"
+    }, 
+    "REST_URL" : "", 
+    "__v" : NumberInt(0), 
+    "CurrentHighestBid" : ""
+}
+{ 
+    "_id" : ObjectId("5bc9912164f2b36a9793d625"), 
+    "GameId" : "5bc9852464f2b36a9793d620", 
+    "RoundId" : "", 
+    "ParentRound" : "peopleround", 
+    "ChildRound" : "priorities", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(1), 
+    "UserJobs" : {
+        "5b99a5cade8563246c0dfce3" : "Manager"
+    }, 
+    "REST_URL" : "", 
+    "__v" : NumberInt(0), 
+    "CurrentHighestBid" : ""
+}
+{ 
+    "_id" : ObjectId("5bc9923b64f2b36a9793d626"), 
+    "GameId" : "5bc9852464f2b36a9793d620", 
+    "RoundId" : "5b56198d176b81cae6bacaf6", 
+    "ParentRound" : "salesround", 
+    "ChildRound" : "dealstructure", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(23), 
+    "UserJobs" : {
+        "5b99a5dcde8563246c0dfce4" : "Manager", 
+        "5b99a5edde8563246c0dfce5" : "Manager"
+    }, 
+    "__v" : NumberInt(0), 
+    "REST_URL" : "", 
+    "CurrentHighestBid" : ""
+}
+{ 
+    "_id" : ObjectId("5bc9ce7e64f2b36a9793d6b2"), 
+    "GameId" : "5bc4a172b4f5a930e7ef55dc", 
+    "RoundId" : "5b56890f02491562bcbc4325", 
+    "ParentRound" : "customerround", 
+    "ChildRound" : "customersub", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(68), 
+    "UserJobs" : {
+        "5bc4985cb4f5a930e7ef5567" : "Manager", 
+        "5bc4976cb4f5a930e7ef5562" : "Manager", 
+        "5bc4991eb4f5a930e7ef556b" : "Manager"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5bd0bbe664f2b36a9793d6da"), 
+    "GameId" : "5bd0bbe664f2b36a9793d6d9", 
+    "RoundId" : "5b149433a486d3b817aa4e7b", 
+    "ParentRound" : "peopleround", 
+    "ChildRound" : "priorities", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(9), 
+    "__v" : NumberInt(0), 
+    "REST_URL" : "", 
+    "UserJobs" : {
+        "5b99a5cade8563246c0dfce3" : "Manager"
+    }, 
+    "CurrentHighestBid" : ""
+}
+{ 
+    "_id" : ObjectId("5bd0bc3c64f2b36a9793d6dd"), 
+    "GameId" : "5bd0bbe664f2b36a9793d6d9", 
+    "RoundId" : "", 
+    "ParentRound" : "peopleround", 
+    "ChildRound" : "priorities", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(1), 
+    "UserJobs" : {
+        "5b99a5cade8563246c0dfce3" : "Manager", 
+        "5b99a613de8563246c0dfce8" : "Manager"
+    }, 
+    "REST_URL" : "", 
+    "__v" : NumberInt(0), 
+    "CurrentHighestBid" : ""
+}
+{ 
+    "_id" : ObjectId("5bd0bd4664f2b36a9793d6ea"), 
+    "GameId" : "5bd0bbe664f2b36a9793d6d9", 
+    "RoundId" : "5b56198d176b81cae6bacaf6", 
+    "ParentRound" : "salesround", 
+    "ChildRound" : "dealstructure", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(23), 
+    "UserJobs" : {
+        "5b99a5dcde8563246c0dfce4" : "Manager", 
+        "5b99a623de8563246c0dfce9" : "Manager"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5bd67ca6ca497259a77ba11a"), 
+    "GameId" : "5bd67ca6ca497259a77ba119", 
+    "RoundId" : "5b149433a486d3b817aa4e7b", 
+    "ParentRound" : "peopleround", 
+    "ChildRound" : "hiring", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : true, 
+    "SlideNumber" : NumberInt(22), 
+    "__v" : NumberInt(0), 
+    "REST_URL" : "", 
+    "UserJobs" : {
+        "5bd67a3fca497259a77ba113" : "Manager", 
+        "5bd67760ca497259a77ba111" : "Manager", 
+        "5bd67685ca497259a77ba10e" : "Manager"
+    }, 
+    "CurrentHighestBid" : ""
+}
+{ 
+    "_id" : ObjectId("5bd67e28ca497259a77ba11d"), 
+    "GameId" : "5bd67ca6ca497259a77ba119", 
+    "RoundId" : "", 
+    "ParentRound" : "peopleround", 
+    "ChildRound" : "priorities", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(1), 
+    "UserJobs" : {
+        "5bd67a3fca497259a77ba113" : "Manager", 
+        "5bd67760ca497259a77ba111" : "Manager"
+    }, 
+    "REST_URL" : "", 
+    "__v" : NumberInt(0), 
+    "CurrentHighestBid" : ""
+}
+{ 
+    "_id" : ObjectId("5bd67eadca497259a77ba120"), 
+    "GameId" : "5bd67ca6ca497259a77ba119", 
+    "RoundId" : "", 
+    "ParentRound" : "peopleround", 
+    "ChildRound" : "priorities", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(1), 
+    "UserJobs" : {
+        "5bd67a3fca497259a77ba113" : "Manager", 
+        "5bd67760ca497259a77ba111" : "Manager", 
+        "5bd675daca497259a77ba10c" : "Manager"
+    }, 
+    "REST_URL" : "", 
+    "__v" : NumberInt(0), 
+    "CurrentHighestBid" : ""
+}
+{ 
+    "_id" : ObjectId("5bd6b53bca497259a77ba21e"), 
+    "GameId" : "5bd67ca6ca497259a77ba119", 
+    "RoundId" : "5b56198d176b81cae6bacaf6", 
+    "ParentRound" : "salesround", 
+    "ChildRound" : "dealrenewal", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : true, 
+    "SlideNumber" : NumberInt(36), 
+    "UserJobs" : {
+        "5bd67ab8ca497259a77ba116" : "Manager", 
+        "5bd67a5bca497259a77ba114" : "Manager", 
+        "5bd676c4ca497259a77ba110" : "Manager"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5bd8faf9ca497259a77ba2fd"), 
+    "GameId" : "5bd67ca6ca497259a77ba119", 
+    "RoundId" : "5b14943da486d3b817aa4e7f", 
+    "ParentRound" : "engineeringround", 
+    "ChildRound" : "engineeringsub", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : true, 
+    "SlideNumber" : NumberInt(50), 
+    "UserJobs" : {
+        "5bd67a3fca497259a77ba113" : "Integrated Systems", 
+        "5bd67ab8ca497259a77ba116" : "ChipCo", 
+        "5bd67a0cca497259a77ba112" : "Manager", 
+        "5bd67a90ca497259a77ba115" : "Integrated Systems", 
+        "5bd67760ca497259a77ba111" : "Integrated Systems", 
+        "5bd67a5bca497259a77ba114" : "ChipCo", 
+        "5bd676a7ca497259a77ba10f" : "Manager", 
+        "5bd67661ca497259a77ba10d" : "Integrated Systems", 
+        "5bd67685ca497259a77ba10e" : "Integrated Systems", 
+        "5bd676c4ca497259a77ba110" : "ChipCo", 
+        "5bd675daca497259a77ba10c" : "Manager"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5bda7472ca497259a77ba37c"), 
+    "GameId" : "5bd67ca6ca497259a77ba119", 
+    "RoundId" : "5b5659d7b7fcaf2b7054ef97", 
+    "ParentRound" : "financeround", 
+    "ChildRound" : "acquisitionstructure", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : true, 
+    "SlideNumber" : NumberInt(67), 
+    "UserJobs" : {
+        "5bd67a90ca497259a77ba115" : "Manager", 
+        "5bd67661ca497259a77ba10d" : "Manager", 
+        "5bd675daca497259a77ba10c" : "Manager"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5bdb907db2ef27798f3bb054"), 
+    "GameId" : "5bd67ca6ca497259a77ba119", 
+    "RoundId" : "5b56890f02491562bcbc4325", 
+    "ParentRound" : "customerround", 
+    "ChildRound" : "customersub", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(76), 
+    "UserJobs" : {
+        "5bd67a90ca497259a77ba115" : "Manager", 
+        "5bd67a5bca497259a77ba114" : "Manager", 
+        "5bd676c4ca497259a77ba110" : "Manager"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5bdca2b1b2ef27798f3bb08b"), 
+    "GameId" : "5bdca2b1b2ef27798f3bb08a", 
+    "RoundId" : "5b149433a486d3b817aa4e7b", 
+    "ParentRound" : "peopleround", 
+    "ChildRound" : "hiring", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : true, 
+    "SlideNumber" : NumberInt(22), 
+    "__v" : NumberInt(0), 
+    "REST_URL" : "", 
+    "UserJobs" : {
+        "5bdca102b2ef27798f3bb07e" : "Manager"
+    }, 
+    "CurrentHighestBid" : ""
+}
+{ 
+    "_id" : ObjectId("5bdca33ab2ef27798f3bb08e"), 
+    "GameId" : "5bdca2b1b2ef27798f3bb08a", 
+    "RoundId" : "", 
+    "ParentRound" : "peopleround", 
+    "ChildRound" : "priorities", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(1), 
+    "UserJobs" : {
+        "5bdca102b2ef27798f3bb07e" : "Manager", 
+        "5bdca17db2ef27798f3bb082" : "Manager"
+    }, 
+    "REST_URL" : "", 
+    "__v" : NumberInt(0), 
+    "CurrentHighestBid" : ""
+}
+{ 
+    "_id" : ObjectId("5bdca360b2ef27798f3bb090"), 
+    "GameId" : "5bdca2b1b2ef27798f3bb08a", 
+    "RoundId" : "", 
+    "ParentRound" : "peopleround", 
+    "ChildRound" : "priorities", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(1), 
+    "UserJobs" : {
+        "5bdca102b2ef27798f3bb07e" : "Manager", 
+        "5bdca17db2ef27798f3bb082" : "Manager", 
+        "5bdca1f4b2ef27798f3bb086" : "Manager"
+    }, 
+    "REST_URL" : "", 
+    "__v" : NumberInt(0), 
+    "CurrentHighestBid" : ""
+}
+{ 
+    "_id" : ObjectId("5be00ace1b377c4faba619cf"), 
+    "GameId" : "5be00ace1b377c4faba619ce", 
+    "RoundId" : "5b149433a486d3b817aa4e7b", 
+    "ParentRound" : "peopleround", 
+    "ChildRound" : "hiring", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : true, 
+    "SlideNumber" : NumberInt(22), 
+    "__v" : NumberInt(0), 
+    "REST_URL" : "", 
+    "UserJobs" : {
+        "5be035331b377c4faba619d0" : "Manager", 
+        "5be038ae1b377c4faba619dd" : "Manager", 
+        "5be039f41b377c4faba619e5" : "Manager", 
+        "5be040421b377c4faba619ef" : "Manager", 
+        "5be035cb1b377c4faba619d4" : "Manager"
+    }, 
+    "CurrentHighestBid" : ""
+}
+{ 
+    "_id" : ObjectId("5be0366f1b377c4faba619da"), 
+    "GameId" : "5be00ace1b377c4faba619ce", 
+    "RoundId" : "", 
+    "ParentRound" : "peopleround", 
+    "ChildRound" : "priorities", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(1), 
+    "UserJobs" : {
+        "5be035331b377c4faba619d0" : "Manager"
+    }, 
+    "REST_URL" : "", 
+    "__v" : NumberInt(0), 
+    "CurrentHighestBid" : ""
+}
+{ 
+    "_id" : ObjectId("5be0391e1b377c4faba619e2"), 
+    "GameId" : "5be00ace1b377c4faba619ce", 
+    "RoundId" : "", 
+    "ParentRound" : "peopleround", 
+    "ChildRound" : "priorities", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(1), 
+    "UserJobs" : {
+        "5be035331b377c4faba619d0" : "Manager", 
+        "5be038ae1b377c4faba619dd" : "Manager", 
+        "5be039f41b377c4faba619e5" : "Manager"
+    }, 
+    "REST_URL" : "", 
+    "__v" : NumberInt(0), 
+    "CurrentHighestBid" : ""
+}
+{ 
+    "_id" : ObjectId("5be03c041b377c4faba619ea"), 
+    "GameId" : "5be00ace1b377c4faba619ce", 
+    "RoundId" : "", 
+    "ParentRound" : "peopleround", 
+    "ChildRound" : "priorities", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(1), 
+    "UserJobs" : {
+        "5be035331b377c4faba619d0" : "Manager", 
+        "5be038ae1b377c4faba619dd" : "Manager", 
+        "5be039f41b377c4faba619e5" : "Manager"
+    }, 
+    "REST_URL" : "", 
+    "__v" : NumberInt(0), 
+    "CurrentHighestBid" : ""
+}
+{ 
+    "_id" : ObjectId("5be040c11b377c4faba619f3"), 
+    "GameId" : "5be00ace1b377c4faba619ce", 
+    "RoundId" : "", 
+    "ParentRound" : "peopleround", 
+    "ChildRound" : "priorities", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(1), 
+    "UserJobs" : {
+        "5be035331b377c4faba619d0" : "Manager", 
+        "5be038ae1b377c4faba619dd" : "Manager", 
+        "5be039f41b377c4faba619e5" : "Manager", 
+        "5be040421b377c4faba619ef" : "Manager"
+    }, 
+    "REST_URL" : "", 
+    "__v" : NumberInt(0), 
+    "CurrentHighestBid" : ""
+}
+{ 
+    "_id" : ObjectId("5be040d01b377c4faba619f4"), 
+    "GameId" : "5be00ace1b377c4faba619ce", 
+    "RoundId" : "", 
+    "ParentRound" : "peopleround", 
+    "ChildRound" : "priorities", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(1), 
+    "UserJobs" : {
+        "5be035331b377c4faba619d0" : "Manager", 
+        "5be038ae1b377c4faba619dd" : "Manager", 
+        "5be039f41b377c4faba619e5" : "Manager", 
+        "5be040421b377c4faba619ef" : "Manager"
+    }, 
+    "REST_URL" : "", 
+    "__v" : NumberInt(0), 
+    "CurrentHighestBid" : ""
+}
+{ 
+    "_id" : ObjectId("5be042db1b377c4faba619f8"), 
+    "GameId" : "5be00ace1b377c4faba619ce", 
+    "RoundId" : "", 
+    "ParentRound" : "peopleround", 
+    "ChildRound" : "priorities", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(1), 
+    "UserJobs" : {
+        "5be035331b377c4faba619d0" : "Manager", 
+        "5be038ae1b377c4faba619dd" : "Manager", 
+        "5be039f41b377c4faba619e5" : "Manager", 
+        "5be040421b377c4faba619ef" : "Manager", 
+        "5be035cb1b377c4faba619d4" : "Manager"
+    }, 
+    "REST_URL" : "", 
+    "__v" : NumberInt(0), 
+    "CurrentHighestBid" : ""
+}
+{ 
+    "_id" : ObjectId("5be044011b377c4faba619fb"), 
+    "GameId" : "5be00ace1b377c4faba619ce", 
+    "RoundId" : "", 
+    "ParentRound" : "peopleround", 
+    "ChildRound" : "priorities", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(1), 
+    "UserJobs" : {
+        "5be035331b377c4faba619d0" : "Manager", 
+        "5be038ae1b377c4faba619dd" : "Manager", 
+        "5be039f41b377c4faba619e5" : "Manager", 
+        "5be040421b377c4faba619ef" : "Manager", 
+        "5be035cb1b377c4faba619d4" : "Manager"
+    }, 
+    "REST_URL" : "", 
+    "__v" : NumberInt(0), 
+    "CurrentHighestBid" : ""
+}
+{ 
+    "_id" : ObjectId("5be0453a1b377c4faba619fc"), 
+    "GameId" : "5be00ace1b377c4faba619ce", 
+    "RoundId" : "", 
+    "ParentRound" : "peopleround", 
+    "ChildRound" : "priorities", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(1), 
+    "UserJobs" : {
+        "5be035331b377c4faba619d0" : "Manager", 
+        "5be038ae1b377c4faba619dd" : "Manager", 
+        "5be039f41b377c4faba619e5" : "Manager", 
+        "5be040421b377c4faba619ef" : "Manager", 
+        "5be035cb1b377c4faba619d4" : "Manager"
+    }, 
+    "REST_URL" : "", 
+    "__v" : NumberInt(0), 
+    "CurrentHighestBid" : ""
+}
+{ 
+    "_id" : ObjectId("5be045401b377c4faba619fd"), 
+    "GameId" : "5be00ace1b377c4faba619ce", 
+    "RoundId" : "", 
+    "ParentRound" : "peopleround", 
+    "ChildRound" : "priorities", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(1), 
+    "UserJobs" : {
+        "5be035331b377c4faba619d0" : "Manager", 
+        "5be038ae1b377c4faba619dd" : "Manager", 
+        "5be039f41b377c4faba619e5" : "Manager", 
+        "5be040421b377c4faba619ef" : "Manager", 
+        "5be035cb1b377c4faba619d4" : "Manager"
+    }, 
+    "REST_URL" : "", 
+    "__v" : NumberInt(0), 
+    "CurrentHighestBid" : ""
+}
+{ 
+    "_id" : ObjectId("5be18c321b377c4faba61c7b"), 
+    "GameId" : "5be00ace1b377c4faba619ce", 
+    "RoundId" : "5b56198d176b81cae6bacaf6", 
+    "ParentRound" : "salesround", 
+    "ChildRound" : "dealrenewal", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : true, 
+    "SlideNumber" : NumberInt(36), 
+    "UserJobs" : {
+        "5be035501b377c4faba619d1" : "Manager", 
+        "5be038d01b377c4faba619de" : "Manager", 
+        "5be03a0b1b377c4faba619e6" : "Manager", 
+        "5be040991b377c4faba619f0" : "Manager", 
+        "5be036061b377c4faba619d6" : "Manager"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5be1de011b377c4faba61da5"), 
+    "GameId" : "5bdca2b1b2ef27798f3bb08a", 
+    "RoundId" : "5b56198d176b81cae6bacaf6", 
+    "ParentRound" : "salesround", 
+    "ChildRound" : "dealrenewal", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : true, 
+    "SlideNumber" : NumberInt(36), 
+    "UserJobs" : {
+        "5bdca126b2ef27798f3bb07f" : "Manager", 
+        "5bdca19eb2ef27798f3bb083" : "Manager", 
+        "5bdca222b2ef27798f3bb087" : "Manager"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5be2d8081b377c4faba61e55"), 
+    "GameId" : "5be00ace1b377c4faba619ce", 
+    "RoundId" : "5b14943da486d3b817aa4e7f", 
+    "ParentRound" : "engineeringround", 
+    "ChildRound" : "engineeringsub", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : true, 
+    "SlideNumber" : NumberInt(50), 
+    "UserJobs" : {
+        "5be035331b377c4faba619d0" : "Integrated Systems", 
+        "5be035501b377c4faba619d1" : "ChipCo", 
+        "5be035781b377c4faba619d2" : "Manager", 
+        "5be035971b377c4faba619d3" : "Integrated Systems", 
+        "5be038ae1b377c4faba619dd" : "Integrated Systems", 
+        "5be038d01b377c4faba619de" : "ChipCo", 
+        "5be038ea1b377c4faba619df" : "Manager", 
+        "5be0390c1b377c4faba619e0" : "Integrated Systems", 
+        "5be039f41b377c4faba619e5" : "Integrated Systems", 
+        "5be03a0b1b377c4faba619e6" : "ChipCo", 
+        "5be03a571b377c4faba619e7" : "Manager", 
+        "5bc443e1b4f5a930e7ef554e" : "Integrated Systems", 
+        "5be040421b377c4faba619ef" : "Integrated Systems", 
+        "5be040991b377c4faba619f0" : "ChipCo", 
+        "5be042d71b377c4faba619f7" : "Manager", 
+        "5be054ed1b377c4faba619fe" : "Integrated Systems", 
+        "5be035cb1b377c4faba619d4" : "Integrated Systems", 
+        "5be036061b377c4faba619d6" : "ChipCo", 
+        "5be035f61b377c4faba619d5" : "Manager", 
+        "5be036691b377c4faba619d8" : "Integrated Systems", 
+        "5be036421b377c4faba619d7" : "ChipCo"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5be2f7141b377c4faba61e74"), 
+    "GameId" : "5bdca2b1b2ef27798f3bb08a", 
+    "RoundId" : "5b14943da486d3b817aa4e7f", 
+    "ParentRound" : "engineeringround", 
+    "ChildRound" : "engineeringsub", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : true, 
+    "SlideNumber" : NumberInt(50), 
+    "UserJobs" : {
+        "5bdca102b2ef27798f3bb07e" : "Integrated Systems", 
+        "5bdca126b2ef27798f3bb07f" : "ChipCo", 
+        "5bdca145b2ef27798f3bb080" : "Manager", 
+        "5bdca166b2ef27798f3bb081" : "Integrated Systems", 
+        "5bdca0e3b2ef27798f3bb07d" : "ChipCo", 
+        "5bdca17db2ef27798f3bb082" : "Integrated Systems", 
+        "5bdca19eb2ef27798f3bb083" : "ChipCo", 
+        "5bdca1b5b2ef27798f3bb084" : "Manager", 
+        "5bdca1d0b2ef27798f3bb085" : "Integrated Systems", 
+        "5bdca1f4b2ef27798f3bb086" : "Integrated Systems", 
+        "5bdca222b2ef27798f3bb087" : "ChipCo", 
+        "5bdca23cb2ef27798f3bb088" : "Manager", 
+        "5bdca277b2ef27798f3bb089" : "Integrated Systems"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5be401891b377c4faba61fe9"), 
+    "GameId" : "5bc9852464f2b36a9793d620", 
+    "RoundId" : "5b14943da486d3b817aa4e7f", 
+    "ParentRound" : "engineeringround", 
+    "ChildRound" : "engineeringsub", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(37), 
+    "UserJobs" : {
+        "5b99a5cade8563246c0dfce3" : "Integrated Systems", 
+        "5b99a5edde8563246c0dfce5" : "ChipCo", 
+        "5b99a5fbde8563246c0dfce6" : "Manager", 
+        "5b99a5dcde8563246c0dfce4" : "Integrated Systems"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5be401b91b377c4faba61fea"), 
+    "GameId" : "5bc9852464f2b36a9793d620", 
+    "RoundId" : "5b5659d7b7fcaf2b7054ef97", 
+    "ParentRound" : "financeround", 
+    "ChildRound" : "pricing", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(51), 
+    "UserJobs" : {
+        "5b99a5dcde8563246c0dfce4" : "Manager", 
+        "5b99a613de8563246c0dfce8" : "Manager", 
+        "5b99a641de8563246c0dfceb" : "Manager"
+    }, 
+    "__v" : NumberInt(0), 
+    "REST_URL" : "", 
+    "CurrentHighestBid" : ""
+}
+{ 
+    "_id" : ObjectId("5be40a631b377c4faba61fef"), 
+    "GameId" : "5bc9852464f2b36a9793d620", 
+    "RoundId" : "5b5659d7b7fcaf2b7054ef97", 
+    "ParentRound" : "financeround", 
+    "ChildRound" : "teamrating", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(53), 
+    "UserJobs" : {
+        "5b99a5dcde8563246c0dfce4" : "Manager", 
+        "5b99a613de8563246c0dfce8" : "Manager", 
+        "5b99a641de8563246c0dfceb" : "Manager"
+    }, 
+    "REST_URL" : "", 
+    "__v" : NumberInt(0), 
+    "CurrentHighestBid" : ""
+}
+{ 
+    "_id" : ObjectId("5be42baa1b377c4faba61ff0"), 
+    "GameId" : "5be00ace1b377c4faba619ce", 
+    "RoundId" : "5b5659d7b7fcaf2b7054ef97", 
+    "ParentRound" : "financeround", 
+    "ChildRound" : "acquisitionstructure", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : true, 
+    "SlideNumber" : NumberInt(67), 
+    "UserJobs" : {
+        "5be035971b377c4faba619d3" : "Manager", 
+        "5be0390c1b377c4faba619e0" : "Manager", 
+        "5bc443e1b4f5a930e7ef554e" : "Manager", 
+        "5be054ed1b377c4faba619fe" : "Manager", 
+        "5be036691b377c4faba619d8" : "Manager"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5be46c26e6385676a7da38ae"), 
+    "GameId" : "5be46c26e6385676a7da38ad", 
+    "RoundId" : "5b149433a486d3b817aa4e7b", 
+    "ParentRound" : "peopleround", 
+    "ChildRound" : "hiring", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : true, 
+    "SlideNumber" : NumberInt(22), 
+    "__v" : NumberInt(0), 
+    "REST_URL" : "", 
+    "UserJobs" : {
+        "5b99a5cade8563246c0dfce3" : "Manager"
+    }, 
+    "CurrentHighestBid" : ""
+}
+{ 
+    "_id" : ObjectId("5be46c48e6385676a7da38b1"), 
+    "GameId" : "5be46c26e6385676a7da38ad", 
+    "RoundId" : "", 
+    "ParentRound" : "peopleround", 
+    "ChildRound" : "priorities", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(1), 
+    "UserJobs" : {
+        "5b99a5cade8563246c0dfce3" : "Manager", 
+        "5b99a5fbde8563246c0dfce6" : "Manager", 
+        "5b99a641de8563246c0dfceb" : "Manager"
+    }, 
+    "REST_URL" : "", 
+    "__v" : NumberInt(0), 
+    "CurrentHighestBid" : ""
+}
+{ 
+    "_id" : ObjectId("5be46cb5e6385676a7da38b3"), 
+    "GameId" : "5be46c26e6385676a7da38ad", 
+    "RoundId" : "5b56198d176b81cae6bacaf6", 
+    "ParentRound" : "salesround", 
+    "ChildRound" : "dealstructure", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(23), 
+    "UserJobs" : {
+        "5b99a5dcde8563246c0dfce4" : "Manager", 
+        "5b99a613de8563246c0dfce8" : "Manager", 
+        "5b99a6b5de8563246c0dfced" : "Manager"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5be46e13e6385676a7da38d9"), 
+    "GameId" : "5be46c26e6385676a7da38ad", 
+    "RoundId" : "5b14943da486d3b817aa4e7f", 
+    "ParentRound" : "engineeringround", 
+    "ChildRound" : "engineeringsub", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(37), 
+    "UserJobs" : {
+        "5b99a5cade8563246c0dfce3" : "Integrated Systems", 
+        "5b99a5dcde8563246c0dfce4" : "ChipCo", 
+        "5b99a5edde8563246c0dfce5" : "Manager", 
+        "5b74283a8e6bef700a8b8cdf" : "Integrated Systems", 
+        "5b99a5fbde8563246c0dfce6" : "Integrated Systems", 
+        "5b99a613de8563246c0dfce8" : "ChipCo", 
+        "5b99a623de8563246c0dfce9" : "Manager", 
+        "5b99a632de8563246c0dfcea" : "Integrated Systems", 
+        "5b99a641de8563246c0dfceb" : "Integrated Systems", 
+        "5b99a6b5de8563246c0dfced" : "ChipCo", 
+        "5b9a6553de8563246c0dfdd0" : "Manager", 
+        "5bbc135b1265f210f112b5ac" : "Integrated Systems"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5be46e32e6385676a7da38da"), 
+    "GameId" : "5be46c26e6385676a7da38ad", 
+    "RoundId" : "5b5659d7b7fcaf2b7054ef97", 
+    "ParentRound" : "financeround", 
+    "ChildRound" : "pricing", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(51), 
+    "UserJobs" : {
+        "5b74283a8e6bef700a8b8cdf" : "Manager", 
+        "5b99a632de8563246c0dfcea" : "Manager", 
+        "5bbc135b1265f210f112b5ac" : "Manager"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5be48494e6385676a7da3906"), 
+    "GameId" : "5bdca2b1b2ef27798f3bb08a", 
+    "RoundId" : "5b5659d7b7fcaf2b7054ef97", 
+    "ParentRound" : "financeround", 
+    "ChildRound" : "teamrating", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(52), 
+    "UserJobs" : {
+        "5bdca166b2ef27798f3bb081" : "Manager", 
+        "5bdca1d0b2ef27798f3bb085" : "Manager", 
+        "5bdca277b2ef27798f3bb089" : "Manager"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5be544d969720d10f7bae080"), 
+    "GameId" : "5be00ace1b377c4faba619ce", 
+    "RoundId" : "5b56890f02491562bcbc4325", 
+    "ParentRound" : "customerround", 
+    "ChildRound" : "customersub", 
+    "ShowRateUsers" : true, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(72), 
+    "UserJobs" : {
+        "5be035971b377c4faba619d3" : "Manager", 
+        "5be0390c1b377c4faba619e0" : "Manager", 
+        "5bc443e1b4f5a930e7ef554e" : "Manager", 
+        "5be042d71b377c4faba619f7" : "Manager", 
+        "5be036421b377c4faba619d7" : "Manager"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5be59b4169720d10f7bae164"), 
+    "GameId" : "5bdca2b1b2ef27798f3bb08a", 
+    "RoundId" : "5b56890f02491562bcbc4325", 
+    "ParentRound" : "customerround", 
+    "ChildRound" : "customersub", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(68), 
+    "UserJobs" : {
+        "5bdca0e3b2ef27798f3bb07d" : "Manager", 
+        "5bdca1d0b2ef27798f3bb085" : "Manager", 
+        "5bdca222b2ef27798f3bb087" : "Manager"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5be92f0d69720d10f7bae1f8"), 
+    "GameId" : "5be92f0d69720d10f7bae1f7", 
+    "RoundId" : "5b149433a486d3b817aa4e7b", 
+    "ParentRound" : "peopleround", 
+    "ChildRound" : "hiring", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : true, 
+    "SlideNumber" : NumberInt(22), 
+    "__v" : NumberInt(0), 
+    "REST_URL" : "", 
+    "UserJobs" : {
+        "5be92c6c69720d10f7bae1ea" : "Manager"
+    }, 
+    "CurrentHighestBid" : ""
+}
+{ 
+    "_id" : ObjectId("5be930d469720d10f7bae1fb"), 
+    "GameId" : "5be92f0d69720d10f7bae1f7", 
+    "RoundId" : "", 
+    "ParentRound" : "peopleround", 
+    "ChildRound" : "priorities", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(1), 
+    "UserJobs" : {
+        "5be92c6c69720d10f7bae1ea" : "Manager", 
+        "5be92d3e69720d10f7bae1eb" : "Manager"
+    }, 
+    "REST_URL" : "", 
+    "__v" : NumberInt(0), 
+    "CurrentHighestBid" : ""
+}
+{ 
+    "_id" : ObjectId("5be9316a69720d10f7bae1fe"), 
+    "GameId" : "5be92f0d69720d10f7bae1f7", 
+    "RoundId" : "", 
+    "ParentRound" : "peopleround", 
+    "ChildRound" : "priorities", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(1), 
+    "UserJobs" : {
+        "5be92c6c69720d10f7bae1ea" : "Manager", 
+        "5be92d3e69720d10f7bae1eb" : "Manager", 
+        "5be92da169720d10f7bae1ec" : "Manager"
+    }, 
+    "REST_URL" : "", 
+    "__v" : NumberInt(0), 
+    "CurrentHighestBid" : ""
+}
+{ 
+    "_id" : ObjectId("5be9b1ca69720d10f7bae304"), 
+    "GameId" : "5be92f0d69720d10f7bae1f7", 
+    "RoundId" : "5b56198d176b81cae6bacaf6", 
+    "ParentRound" : "salesround", 
+    "ChildRound" : "dealrenewal", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : true, 
+    "SlideNumber" : NumberInt(36), 
+    "UserJobs" : {
+        "5be92e0069720d10f7bae1ed" : "Manager", 
+        "5be92ea869720d10f7bae1f4" : "Manager", 
+        "5be92e6969720d10f7bae1f1" : "Manager"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5beaf5dd69720d10f7bae417"), 
+    "GameId" : "5be92f0d69720d10f7bae1f7", 
+    "RoundId" : "5b14943da486d3b817aa4e7f", 
+    "ParentRound" : "engineeringround", 
+    "ChildRound" : "engineeringsub", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : true, 
+    "SlideNumber" : NumberInt(50), 
+    "UserJobs" : {
+        "5be92c6c69720d10f7bae1ea" : "Integrated Systems", 
+        "5be92e0069720d10f7bae1ed" : "ChipCo", 
+        "5be92e3669720d10f7bae1ef" : "Manager", 
+        "5be92e2e69720d10f7bae1ee" : "Integrated Systems", 
+        "5be92d3e69720d10f7bae1eb" : "Integrated Systems", 
+        "5be92ea869720d10f7bae1f4" : "ChipCo", 
+        "5be92ec069720d10f7bae1f5" : "Manager", 
+        "5be92e7969720d10f7bae1f2" : "Integrated Systems", 
+        "5be92da169720d10f7bae1ec" : "Integrated Systems", 
+        "5be92e6969720d10f7bae1f1" : "ChipCo", 
+        "5be92ee069720d10f7bae1f6" : "Manager", 
+        "5be92ea369720d10f7bae1f3" : "Integrated Systems", 
+        "5be92e4f69720d10f7bae1f0" : "ChipCo"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5bec1b9269720d10f7bae480"), 
+    "GameId" : "5bec1b9269720d10f7bae47f", 
+    "RoundId" : "5b149433a486d3b817aa4e7b", 
+    "ParentRound" : "peopleround", 
+    "ChildRound" : "hiring", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : true, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(15), 
+    "__v" : NumberInt(0), 
+    "REST_URL" : "", 
+    "UserJobs" : {
+        "5b99a5cade8563246c0dfce3" : "Manager"
+    }, 
+    "CurrentHighestBid" : ""
+}
+{ 
+    "_id" : ObjectId("5bec1bb669720d10f7bae483"), 
+    "GameId" : "5bec1b9269720d10f7bae47f", 
+    "RoundId" : "", 
+    "ParentRound" : "peopleround", 
+    "ChildRound" : "priorities", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(1), 
+    "UserJobs" : {
+        "5b99a5cade8563246c0dfce3" : "Manager", 
+        "5b99a613de8563246c0dfce8" : "Manager"
+    }, 
+    "REST_URL" : "", 
+    "__v" : NumberInt(0), 
+    "CurrentHighestBid" : ""
+}
+{ 
+    "_id" : ObjectId("5bed316a69720d10f7bae484"), 
+    "GameId" : "5be92f0d69720d10f7bae1f7", 
+    "RoundId" : "5b5659d7b7fcaf2b7054ef97", 
+    "ParentRound" : "financeround", 
+    "ChildRound" : "acquisitionstructure", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : true, 
+    "SlideNumber" : NumberInt(67), 
+    "UserJobs" : {
+        "5be92e2e69720d10f7bae1ee" : "Manager", 
+        "5be92e7969720d10f7bae1f2" : "Manager", 
+        "5be92ea369720d10f7bae1f3" : "Manager"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5beda59569720d10f7bae517"), 
+    "GameId" : "5bec1b9269720d10f7bae47f", 
+    "RoundId" : "5b56198d176b81cae6bacaf6", 
+    "ParentRound" : "salesround", 
+    "ChildRound" : "dealstructure", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(23), 
+    "UserJobs" : {
+        "5b99a5dcde8563246c0dfce4" : "Manager", 
+        "5b99a623de8563246c0dfce9" : "Manager"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5beda5d669720d10f7bae518"), 
+    "GameId" : "5bec1b9269720d10f7bae47f", 
+    "RoundId" : "5b14943da486d3b817aa4e7f", 
+    "ParentRound" : "engineeringround", 
+    "ChildRound" : "engineeringsub", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(37), 
+    "UserJobs" : {
+        "5b99a5cade8563246c0dfce3" : "Integrated Systems", 
+        "5b99a5dcde8563246c0dfce4" : "ChipCo", 
+        "5b99a5edde8563246c0dfce5" : "Manager", 
+        "5b99a5fbde8563246c0dfce6" : "Integrated Systems", 
+        "5b99a613de8563246c0dfce8" : "Integrated Systems", 
+        "5b99a623de8563246c0dfce9" : "ChipCo", 
+        "5b99a632de8563246c0dfcea" : "Manager", 
+        "5b99a641de8563246c0dfceb" : "Integrated Systems"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5bee477b69720d10f7bae51f"), 
+    "GameId" : "5be92f0d69720d10f7bae1f7", 
+    "RoundId" : "5b56890f02491562bcbc4325", 
+    "ParentRound" : "customerround", 
+    "ChildRound" : "customersub", 
+    "ShowRateUsers" : true, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(71), 
+    "UserJobs" : {
+        "5be92e3669720d10f7bae1ef" : "Manager", 
+        "5be92ea869720d10f7bae1f4" : "Manager", 
+        "5be92e4f69720d10f7bae1f0" : "Manager"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5bf2d0fe69720d10f7bae55c"), 
+    "GameId" : "5bf2d0fe69720d10f7bae55b", 
+    "RoundId" : "5b149433a486d3b817aa4e7b", 
+    "ParentRound" : "peopleround", 
+    "ChildRound" : "hiring", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : true, 
+    "SlideNumber" : NumberInt(22), 
+    "__v" : NumberInt(0), 
+    "REST_URL" : "", 
+    "UserJobs" : {
+        "5b99a5cade8563246c0dfce3" : "Manager"
+    }, 
+    "CurrentHighestBid" : ""
+}
+{ 
+    "_id" : ObjectId("5bf2d12169720d10f7bae55f"), 
+    "GameId" : "5bf2d0fe69720d10f7bae55b", 
+    "RoundId" : "", 
+    "ParentRound" : "peopleround", 
+    "ChildRound" : "priorities", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(1), 
+    "UserJobs" : {
+        "5b99a5cade8563246c0dfce3" : "Manager", 
+        "5b99a613de8563246c0dfce8" : "Manager"
+    }, 
+    "REST_URL" : "", 
+    "__v" : NumberInt(0), 
+    "CurrentHighestBid" : ""
+}
+{ 
+    "_id" : ObjectId("5bf76fbb69720d10f7bae583"), 
+    "GameId" : "5bf76fbb69720d10f7bae582", 
+    "RoundId" : "5b149433a486d3b817aa4e7b", 
+    "ParentRound" : "peopleround", 
+    "ChildRound" : "hiring", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : true, 
+    "SlideNumber" : NumberInt(22), 
+    "__v" : NumberInt(0), 
+    "REST_URL" : "", 
+    "UserJobs" : {
+        "5bf7711f69720d10f7bae584" : "Manager"
+    }, 
+    "CurrentHighestBid" : ""
+}
+{ 
+    "_id" : ObjectId("5c0123ab23cada7ae6d6f46c"), 
+    "GameId" : "5c0123ab23cada7ae6d6f46b", 
+    "RoundId" : "5b149433a486d3b817aa4e7b", 
+    "ParentRound" : "peopleround", 
+    "ChildRound" : "hiring", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : true, 
+    "SlideNumber" : NumberInt(22), 
+    "__v" : NumberInt(0), 
+    "REST_URL" : "", 
+    "UserJobs" : {
+        "5c0177c523cada7ae6d6f491" : "Manager", 
+        "5c01785d23cada7ae6d6f494" : "Manager", 
+        "5c0177e823cada7ae6d6f492" : "Manager"
+    }, 
+    "CurrentHighestBid" : ""
+}
+{ 
+    "_id" : ObjectId("5c017a5a23cada7ae6d6f4a8"), 
+    "GameId" : "5bf2d0fe69720d10f7bae55b", 
+    "RoundId" : "5b56198d176b81cae6bacaf6", 
+    "ParentRound" : "salesround", 
+    "ChildRound" : "dealstructure", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(23), 
+    "UserJobs" : {
+        "5b99a5dcde8563246c0dfce4" : "Manager", 
+        "5b99a623de8563246c0dfce9" : "Manager"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c017ac823cada7ae6d6f4aa"), 
+    "GameId" : "5c0123ab23cada7ae6d6f46b", 
+    "RoundId" : "", 
+    "ParentRound" : "peopleround", 
+    "ChildRound" : "priorities", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(1), 
+    "UserJobs" : {
+        "5c01771f23cada7ae6d6f48e" : "Manager", 
+        "5c0177e823cada7ae6d6f492" : "Manager"
+    }, 
+    "REST_URL" : "", 
+    "__v" : NumberInt(0), 
+    "CurrentHighestBid" : ""
+}
+{ 
+    "_id" : ObjectId("5c017b1a23cada7ae6d6f4ad"), 
+    "GameId" : "5c0123ab23cada7ae6d6f46b", 
+    "RoundId" : "", 
+    "ParentRound" : "peopleround", 
+    "ChildRound" : "priorities", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(1), 
+    "UserJobs" : {
+        "5c0177c523cada7ae6d6f491" : "Manager", 
+        "5c0177e823cada7ae6d6f492" : "Manager", 
+        "5c01790323cada7ae6d6f4a5" : "Manager"
+    }, 
+    "REST_URL" : "", 
+    "__v" : NumberInt(0), 
+    "CurrentHighestBid" : ""
+}
+{ 
+    "_id" : ObjectId("5c02160b23cada7ae6d6f4af"), 
+    "GameId" : "5c02160b23cada7ae6d6f4ae", 
+    "RoundId" : "5b149433a486d3b817aa4e7b", 
+    "ParentRound" : "peopleround", 
+    "ChildRound" : "hiring", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : true, 
+    "SlideNumber" : NumberInt(22), 
+    "__v" : NumberInt(0), 
+    "REST_URL" : "", 
+    "UserJobs" : {
+        "5c02190823cada7ae6d6f4b0" : "Manager", 
+        "5c0219ea23cada7ae6d6f4b3" : "Manager", 
+        "5c021a2423cada7ae6d6f4b4" : "Manager", 
+        "5c02198d23cada7ae6d6f4b2" : "Manager"
+    }, 
+    "CurrentHighestBid" : ""
+}
+{ 
+    "_id" : ObjectId("5c0234b023cada7ae6d6f4c9"), 
+    "GameId" : "5c02160b23cada7ae6d6f4ae", 
+    "RoundId" : "", 
+    "ParentRound" : "peopleround", 
+    "ChildRound" : "priorities", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(1), 
+    "UserJobs" : {
+        "5c02190823cada7ae6d6f4b0" : "Manager", 
+        "5c0219ea23cada7ae6d6f4b3" : "Manager"
+    }, 
+    "REST_URL" : "", 
+    "__v" : NumberInt(0), 
+    "CurrentHighestBid" : ""
+}
+{ 
+    "_id" : ObjectId("5c02350d23cada7ae6d6f4cb"), 
+    "GameId" : "5c02160b23cada7ae6d6f4ae", 
+    "RoundId" : "", 
+    "ParentRound" : "peopleround", 
+    "ChildRound" : "priorities", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(1), 
+    "UserJobs" : {
+        "5c02190823cada7ae6d6f4b0" : "Manager", 
+        "5c0219ea23cada7ae6d6f4b3" : "Manager", 
+        "5c021a2423cada7ae6d6f4b4" : "Manager", 
+        "5c02198d23cada7ae6d6f4b2" : "Manager"
+    }, 
+    "REST_URL" : "", 
+    "__v" : NumberInt(0), 
+    "CurrentHighestBid" : ""
+}
+{ 
+    "_id" : ObjectId("5c02362123cada7ae6d6f4cd"), 
+    "GameId" : "5c02160b23cada7ae6d6f4ae", 
+    "RoundId" : "", 
+    "ParentRound" : "peopleround", 
+    "ChildRound" : "priorities", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(1), 
+    "UserJobs" : {
+        "5c02190823cada7ae6d6f4b0" : "Manager", 
+        "5c0219ea23cada7ae6d6f4b3" : "Manager", 
+        "5c021a2423cada7ae6d6f4b4" : "Manager", 
+        "5c02198d23cada7ae6d6f4b2" : "Manager"
+    }, 
+    "REST_URL" : "", 
+    "__v" : NumberInt(0), 
+    "CurrentHighestBid" : ""
+}
+{ 
+    "_id" : ObjectId("5c02366023cada7ae6d6f4ce"), 
+    "GameId" : "5c02160b23cada7ae6d6f4ae", 
+    "RoundId" : "", 
+    "ParentRound" : "peopleround", 
+    "ChildRound" : "priorities", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(1), 
+    "UserJobs" : {
+        "5c02190823cada7ae6d6f4b0" : "Manager", 
+        "5c0219ea23cada7ae6d6f4b3" : "Manager", 
+        "5c021a2423cada7ae6d6f4b4" : "Manager", 
+        "5c02198d23cada7ae6d6f4b2" : "Manager"
+    }, 
+    "REST_URL" : "", 
+    "__v" : NumberInt(0), 
+    "CurrentHighestBid" : ""
+}
+{ 
+    "_id" : ObjectId("5c0236a423cada7ae6d6f4cf"), 
+    "GameId" : "5c02160b23cada7ae6d6f4ae", 
+    "RoundId" : "", 
+    "ParentRound" : "peopleround", 
+    "ChildRound" : "priorities", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(1), 
+    "UserJobs" : {
+        "5c02190823cada7ae6d6f4b0" : "Manager", 
+        "5c0219ea23cada7ae6d6f4b3" : "Manager", 
+        "5c021a2423cada7ae6d6f4b4" : "Manager", 
+        "5c02198d23cada7ae6d6f4b2" : "Manager"
+    }, 
+    "REST_URL" : "", 
+    "__v" : NumberInt(0), 
+    "CurrentHighestBid" : ""
+}
+{ 
+    "_id" : ObjectId("5c0236aa23cada7ae6d6f4d0"), 
+    "GameId" : "5c02160b23cada7ae6d6f4ae", 
+    "RoundId" : "", 
+    "ParentRound" : "peopleround", 
+    "ChildRound" : "priorities", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(1), 
+    "UserJobs" : {
+        "5c02190823cada7ae6d6f4b0" : "Manager", 
+        "5c0219ea23cada7ae6d6f4b3" : "Manager", 
+        "5c021a2423cada7ae6d6f4b4" : "Manager", 
+        "5c02198d23cada7ae6d6f4b2" : "Manager"
+    }, 
+    "REST_URL" : "", 
+    "__v" : NumberInt(0), 
+    "CurrentHighestBid" : ""
+}
+{ 
+    "_id" : ObjectId("5c04486c23cada7ae6d6f4d2"), 
+    "GameId" : "5c04486c23cada7ae6d6f4d1", 
+    "RoundId" : "5b149433a486d3b817aa4e7b", 
+    "ParentRound" : "peopleround", 
+    "ChildRound" : "hiring", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : true, 
+    "SlideNumber" : NumberInt(22), 
+    "__v" : NumberInt(0), 
+    "REST_URL" : "", 
+    "UserJobs" : {
+        "5c052c8223cada7ae6d6f625" : "Manager", 
+        "5c052d6d23cada7ae6d6f62b" : "Manager", 
+        "5c05350923cada7ae6d6f63d" : "Manager", 
+        "5c05369a23cada7ae6d6f645" : "Manager"
+    }, 
+    "CurrentHighestBid" : ""
+}
+{ 
+    "_id" : ObjectId("5c052d3e23cada7ae6d6f62a"), 
+    "GameId" : "5c04486c23cada7ae6d6f4d1", 
+    "RoundId" : "", 
+    "ParentRound" : "peopleround", 
+    "ChildRound" : "priorities", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(1), 
+    "UserJobs" : {
+        "5c052c8223cada7ae6d6f625" : "Manager", 
+        "5c052d6d23cada7ae6d6f62b" : "Manager"
+    }, 
+    "REST_URL" : "", 
+    "__v" : NumberInt(0), 
+    "CurrentHighestBid" : ""
+}
+{ 
+    "_id" : ObjectId("5c052fa023cada7ae6d6f638"), 
+    "GameId" : "5c0123ab23cada7ae6d6f46b", 
+    "RoundId" : "", 
+    "ParentRound" : "peopleround", 
+    "ChildRound" : "priorities", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(1), 
+    "UserJobs" : {
+        "5c0177c523cada7ae6d6f491" : "Manager", 
+        "5c01785d23cada7ae6d6f494" : "Manager", 
+        "5c0177e823cada7ae6d6f492" : "Manager"
+    }, 
+    "REST_URL" : "", 
+    "__v" : NumberInt(0), 
+    "CurrentHighestBid" : ""
+}
+{ 
+    "_id" : ObjectId("5c05364623cada7ae6d6f642"), 
+    "GameId" : "5c04486c23cada7ae6d6f4d1", 
+    "RoundId" : "", 
+    "ParentRound" : "peopleround", 
+    "ChildRound" : "priorities", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(1), 
+    "UserJobs" : {
+        "5c052c8223cada7ae6d6f625" : "Manager", 
+        "5c052d6d23cada7ae6d6f62b" : "Manager", 
+        "5c05350923cada7ae6d6f63d" : "Manager"
+    }, 
+    "REST_URL" : "", 
+    "__v" : NumberInt(0), 
+    "CurrentHighestBid" : ""
+}
+{ 
+    "_id" : ObjectId("5c05366d23cada7ae6d6f644"), 
+    "GameId" : "5c04486c23cada7ae6d6f4d1", 
+    "RoundId" : "", 
+    "ParentRound" : "peopleround", 
+    "ChildRound" : "priorities", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(1), 
+    "UserJobs" : {
+        "5c052c8223cada7ae6d6f625" : "Manager", 
+        "5c052d6d23cada7ae6d6f62b" : "Manager", 
+        "5c05350923cada7ae6d6f63d" : "Manager", 
+        "5c05369a23cada7ae6d6f645" : "Manager"
+    }, 
+    "REST_URL" : "", 
+    "__v" : NumberInt(0), 
+    "CurrentHighestBid" : ""
+}
+{ 
+    "_id" : ObjectId("5c053e6c23cada7ae6d6f64a"), 
+    "GameId" : "5c0123ab23cada7ae6d6f46b", 
+    "RoundId" : "5b149433a486d3b817aa4e7b", 
+    "ParentRound" : "peopleround", 
+    "ChildRound" : "priorities", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(10), 
+    "REST_URL" : "", 
+    "UserJobs" : {
+        "5c0177c523cada7ae6d6f491" : "Manager", 
+        "5c01785d23cada7ae6d6f494" : "Manager", 
+        "5c0177e823cada7ae6d6f492" : "Manager"
+    }, 
+    "__v" : NumberInt(0), 
+    "CurrentHighestBid" : ""
+}
+{ 
+    "_id" : ObjectId("5c054ea923cada7ae6d6f693"), 
+    "GameId" : "5c04486c23cada7ae6d6f4d1", 
+    "RoundId" : "", 
+    "ParentRound" : "peopleround", 
+    "ChildRound" : "priorities", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(1), 
+    "UserJobs" : {
+        "5c052c8223cada7ae6d6f625" : "Manager", 
+        "5c052d6d23cada7ae6d6f62b" : "Manager", 
+        "5c05350923cada7ae6d6f63d" : "Manager", 
+        "5c05369a23cada7ae6d6f645" : "Manager"
+    }, 
+    "REST_URL" : "", 
+    "__v" : NumberInt(0), 
+    "CurrentHighestBid" : ""
+}
+{ 
+    "_id" : ObjectId("5c060efb23cada7ae6d6f88e"), 
+    "GameId" : "5c02160b23cada7ae6d6f4ae", 
+    "RoundId" : "5b56198d176b81cae6bacaf6", 
+    "ParentRound" : "salesround", 
+    "ChildRound" : "dealrenewal", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : true, 
+    "SlideNumber" : NumberInt(36), 
+    "UserJobs" : {
+        "5c02195423cada7ae6d6f4b1" : "Manager", 
+        "5c021b9123cada7ae6d6f4bb" : "Manager", 
+        "5c021c4223cada7ae6d6f4bf" : "Manager", 
+        "5c021a5a23cada7ae6d6f4b5" : "Manager"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c060efc23cada7ae6d6f88f"), 
+    "GameId" : "5c02160b23cada7ae6d6f4ae", 
+    "RoundId" : "5b14943da486d3b817aa4e7f", 
+    "ParentRound" : "engineeringround", 
+    "ChildRound" : "engineeringsub", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : true, 
+    "SlideNumber" : NumberInt(50), 
+    "UserJobs" : {
+        "5c02190823cada7ae6d6f4b0" : "IBM", 
+        "5c02195423cada7ae6d6f4b1" : "Intel", 
+        "5c021b0b23cada7ae6d6f4b9" : "Manager", 
+        "5c021bc723cada7ae6d6f4bc" : "IBM", 
+        "5c021d1023cada7ae6d6f4c1" : "Intel", 
+        "5c0219ea23cada7ae6d6f4b3" : "IBM", 
+        "5c021b9123cada7ae6d6f4bb" : "Intel", 
+        "5c021d9023cada7ae6d6f4c2" : "Manager", 
+        "5c021ade23cada7ae6d6f4b8" : "IBM", 
+        "5c021a2423cada7ae6d6f4b4" : "IBM", 
+        "5c021c4223cada7ae6d6f4bf" : "Intel", 
+        "5c021e0723cada7ae6d6f4c3" : "Manager", 
+        "5c02319223cada7ae6d6f4c5" : "IBM", 
+        "5c0231ba23cada7ae6d6f4c6" : "Intel", 
+        "5c02198d23cada7ae6d6f4b2" : "IBM", 
+        "5c021a5a23cada7ae6d6f4b5" : "Intel", 
+        "5c021a8623cada7ae6d6f4b6" : "Manager", 
+        "5c021bf223cada7ae6d6f4bd" : "IBM", 
+        "5c021b5823cada7ae6d6f4ba" : "Intel"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c06731d23cada7ae6d6f911"), 
+    "GameId" : "5c0123ab23cada7ae6d6f46b", 
+    "RoundId" : "5b56198d176b81cae6bacaf6", 
+    "ParentRound" : "salesround", 
+    "ChildRound" : "dealrenewal", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : true, 
+    "SlideNumber" : NumberInt(36), 
+    "UserJobs" : {
+        "5c01782223cada7ae6d6f493" : "Manager", 
+        "5c01771f23cada7ae6d6f48e" : "Manager", 
+        "5c01788c23cada7ae6d6f495" : "Manager"
+    }, 
+    "__v" : NumberInt(0), 
+    "REST_URL" : "", 
+    "CurrentHighestBid" : ""
+}
+{ 
+    "_id" : ObjectId("5c06cae423cada7ae6d6f9a0"), 
+    "GameId" : "5c04486c23cada7ae6d6f4d1", 
+    "RoundId" : "5b56198d176b81cae6bacaf6", 
+    "ParentRound" : "salesround", 
+    "ChildRound" : "dealrenewal", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : true, 
+    "SlideNumber" : NumberInt(36), 
+    "UserJobs" : {
+        "5c052cb323cada7ae6d6f626" : "Manager", 
+        "5c052d8b23cada7ae6d6f62c" : "Manager", 
+        "5c05358023cada7ae6d6f63f" : "Manager", 
+        "5c0536b923cada7ae6d6f646" : "Manager"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c07c7d323cada7ae6d6fc30"), 
+    "GameId" : "5bf76fbb69720d10f7bae582", 
+    "RoundId" : "5b56198d176b81cae6bacaf6", 
+    "ParentRound" : "salesround", 
+    "ChildRound" : "dealrenewal", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : true, 
+    "SlideNumber" : NumberInt(36), 
+    "UserJobs" : {
+        "5b619c553273d91635b23df9" : "Manager"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c07c84a23cada7ae6d6fc31"), 
+    "GameId" : "5bf76fbb69720d10f7bae582", 
+    "RoundId" : "5b14943da486d3b817aa4e7f", 
+    "ParentRound" : "engineeringround", 
+    "ChildRound" : "engineeringsub", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(37), 
+    "UserJobs" : {
+        "5bf7711f69720d10f7bae584" : "IBM", 
+        "5b619c553273d91635b23df9" : "Intel", 
+        "5bac635b8acfba38f7ee1a16" : "Manager"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c07d5a723cada7ae6d6fc32"), 
+    "GameId" : "5c0123ab23cada7ae6d6f46b", 
+    "RoundId" : "5b14943da486d3b817aa4e7f", 
+    "ParentRound" : "engineeringround", 
+    "ChildRound" : "engineeringsub", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : true, 
+    "SlideNumber" : NumberInt(50), 
+    "UserJobs" : {
+        "5c0177c523cada7ae6d6f491" : "IBM", 
+        "5c01782223cada7ae6d6f493" : "Intel", 
+        "5c0178b623cada7ae6d6f496" : "Manager", 
+        "5c01790323cada7ae6d6f4a5" : "IBM", 
+        "5c01785d23cada7ae6d6f494" : "IBM", 
+        "5c01771f23cada7ae6d6f48e" : "Intel", 
+        "5c0178e023cada7ae6d6f4a4" : "Manager", 
+        "5c01777c23cada7ae6d6f490" : "IBM", 
+        "5c0177e823cada7ae6d6f492" : "IBM", 
+        "5c01788c23cada7ae6d6f495" : "Intel", 
+        "5c01775823cada7ae6d6f48f" : "Manager"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c081ccc23cada7ae6d6fcab"), 
+    "GameId" : "5c04486c23cada7ae6d6f4d1", 
+    "RoundId" : "5b14943da486d3b817aa4e7f", 
+    "ParentRound" : "engineeringround", 
+    "ChildRound" : "engineeringsub", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : true, 
+    "SlideNumber" : NumberInt(50), 
+    "UserJobs" : {
+        "5c052c8223cada7ae6d6f625" : "IBM", 
+        "5c052cb323cada7ae6d6f626" : "Intel", 
+        "5c052cf023cada7ae6d6f627" : "Manager", 
+        "5c052d2d23cada7ae6d6f629" : "IBM", 
+        "5c052d6d23cada7ae6d6f62b" : "IBM", 
+        "5c052d8b23cada7ae6d6f62c" : "Intel", 
+        "5c052da523cada7ae6d6f62d" : "Manager", 
+        "5bb4085662eaeb4a4398c221" : "IBM", 
+        "5c05350923cada7ae6d6f63d" : "IBM", 
+        "5c05358023cada7ae6d6f63f" : "Intel", 
+        "5c0535bc23cada7ae6d6f640" : "Manager", 
+        "5c05366723cada7ae6d6f643" : "IBM", 
+        "5c05369a23cada7ae6d6f645" : "IBM", 
+        "5c0536b923cada7ae6d6f646" : "Intel", 
+        "5c0536f023cada7ae6d6f647" : "Manager", 
+        "5c05371c23cada7ae6d6f648" : "IBM"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c08b5f923cada7ae6d6fd56"), 
+    "GameId" : "5c02160b23cada7ae6d6f4ae", 
+    "RoundId" : "5b5659d7b7fcaf2b7054ef97", 
+    "ParentRound" : "financeround", 
+    "ChildRound" : "acquisitionstructure", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : true, 
+    "SlideNumber" : NumberInt(67), 
+    "UserJobs" : {
+        "5c021bc723cada7ae6d6f4bc" : "Manager", 
+        "5c021ade23cada7ae6d6f4b8" : "Manager", 
+        "5c02319223cada7ae6d6f4c5" : "Manager", 
+        "5c021bf223cada7ae6d6f4bd" : "Manager"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c09113923cada7ae6d6fdef"), 
+    "GameId" : "5c02160b23cada7ae6d6f4ae", 
+    "RoundId" : "5b56890f02491562bcbc4325", 
+    "ParentRound" : "customerround", 
+    "ChildRound" : "customersub", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : true, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(70), 
+    "UserJobs" : {
+        "5c021b0b23cada7ae6d6f4b9" : "Manager", 
+        "5c021ade23cada7ae6d6f4b8" : "Manager", 
+        "5c0231ba23cada7ae6d6f4c6" : "Manager", 
+        "5c021b5823cada7ae6d6f4ba" : "Manager"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c09223d23cada7ae6d6fe18"), 
+    "GameId" : "5c0123ab23cada7ae6d6f46b", 
+    "RoundId" : "5b5659d7b7fcaf2b7054ef97", 
+    "ParentRound" : "financeround", 
+    "ChildRound" : "acquisitionstructure", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : true, 
+    "SlideNumber" : NumberInt(67), 
+    "UserJobs" : {
+        "5c01790323cada7ae6d6f4a5" : "Manager", 
+        "5c01777c23cada7ae6d6f490" : "Manager", 
+        "5c0177e823cada7ae6d6f492" : "Manager"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c09702523cada7ae6d6ff1c"), 
+    "GameId" : "5c04486c23cada7ae6d6f4d1", 
+    "RoundId" : "5b5659d7b7fcaf2b7054ef97", 
+    "ParentRound" : "financeround", 
+    "ChildRound" : "acquisitionstructure", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : true, 
+    "SlideNumber" : NumberInt(65), 
+    "UserJobs" : {
+        "5c052d2d23cada7ae6d6f629" : "Manager", 
+        "5bb4085662eaeb4a4398c221" : "Manager", 
+        "5c05366723cada7ae6d6f643" : "Manager", 
+        "5c05371c23cada7ae6d6f648" : "Manager"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c0a3e9623cada7ae6d70089"), 
+    "GameId" : "5c0123ab23cada7ae6d6f46b", 
+    "RoundId" : "5b56890f02491562bcbc4325", 
+    "ParentRound" : "customerround", 
+    "ChildRound" : "customersub", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : true, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(70), 
+    "UserJobs" : {
+        "5c01782223cada7ae6d6f493" : "Manager", 
+        "5c01771f23cada7ae6d6f48e" : "Manager", 
+        "5c01788c23cada7ae6d6f495" : "Manager"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c0a864d23cada7ae6d700a4"), 
+    "GameId" : "5c04486c23cada7ae6d6f4d1", 
+    "RoundId" : "5b56890f02491562bcbc4325", 
+    "ParentRound" : "customerround", 
+    "ChildRound" : "customersub", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(68), 
+    "UserJobs" : {
+        "5c052cb323cada7ae6d6f626" : "Manager", 
+        "5c052da523cada7ae6d6f62d" : "Manager", 
+        "5c05358023cada7ae6d6f63f" : "Manager", 
+        "5c05369a23cada7ae6d6f645" : "Manager"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c0ff73523cada7ae6d700be"), 
+    "GameId" : "5c0ff73523cada7ae6d700bd", 
+    "RoundId" : "5b149433a486d3b817aa4e7b", 
+    "ParentRound" : "peopleround", 
+    "ChildRound" : "hiring", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : true, 
+    "SlideNumber" : NumberInt(22), 
+    "__v" : NumberInt(0), 
+    "REST_URL" : "", 
+    "UserJobs" : {
+        "5b99a5cade8563246c0dfce3" : "Manager"
+    }, 
+    "CurrentHighestBid" : ""
+}
+{ 
+    "_id" : ObjectId("5c0ff75823cada7ae6d700c1"), 
+    "GameId" : "5c0ff73523cada7ae6d700bd", 
+    "RoundId" : "", 
+    "ParentRound" : "peopleround", 
+    "ChildRound" : "priorities", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(1), 
+    "UserJobs" : {
+        "5b99a5cade8563246c0dfce3" : "Manager", 
+        "5b99a613de8563246c0dfce8" : "Manager"
+    }, 
+    "REST_URL" : "", 
+    "__v" : NumberInt(0), 
+    "CurrentHighestBid" : ""
+}
+{ 
+    "_id" : ObjectId("5c32a3ab23cada7ae6d700c3"), 
+    "GameId" : "5c32a3ab23cada7ae6d700c2", 
+    "RoundId" : "5b149433a486d3b817aa4e7b", 
+    "ParentRound" : "peopleround", 
+    "ChildRound" : "hiring", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : true, 
+    "SlideNumber" : NumberInt(22), 
+    "__v" : NumberInt(0), 
+    "REST_URL" : "", 
+    "UserJobs" : {
+        "5c32a3f823cada7ae6d700c4" : "Manager", 
+        "5c32a46123cada7ae6d700c7" : "Manager"
+    }, 
+    "CurrentHighestBid" : ""
+}
+{ 
+    "_id" : ObjectId("5c32a55623cada7ae6d700cf"), 
+    "GameId" : "5c32a3ab23cada7ae6d700c2", 
+    "RoundId" : "", 
+    "ParentRound" : "peopleround", 
+    "ChildRound" : "priorities", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(1), 
+    "UserJobs" : {
+        "5c32a3f823cada7ae6d700c4" : "Manager", 
+        "5c32a46123cada7ae6d700c7" : "Manager", 
+        "5c32a4bc23cada7ae6d700ca" : "Manager"
+    }, 
+    "REST_URL" : "", 
+    "__v" : NumberInt(0), 
+    "CurrentHighestBid" : ""
+}
+{ 
+    "_id" : ObjectId("5c339cf223cada7ae6d700d2"), 
+    "GameId" : "5c32a3ab23cada7ae6d700c2", 
+    "RoundId" : "5b149433a486d3b817aa4e7b", 
+    "ParentRound" : "peopleround", 
+    "ChildRound" : "priorities", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(1), 
+    "REST_URL" : "", 
+    "UserJobs" : {
+        "5c32a3f823cada7ae6d700c4" : "Manager", 
+        "5c32a46123cada7ae6d700c7" : "Manager"
+    }, 
+    "__v" : NumberInt(0), 
+    "CurrentHighestBid" : ""
+}
+{ 
+    "_id" : ObjectId("5c34dd0523cada7ae6d70183"), 
+    "GameId" : "5c32a3ab23cada7ae6d700c2", 
+    "RoundId" : "5b56198d176b81cae6bacaf6", 
+    "ParentRound" : "salesround", 
+    "ChildRound" : "dealrenewal", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : true, 
+    "SlideNumber" : NumberInt(36), 
+    "UserJobs" : {
+        "5c32a43f23cada7ae6d700c6" : "Manager", 
+        "5c32a48423cada7ae6d700c8" : "Manager"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c36519023cada7ae6d701f6"), 
+    "GameId" : "5c32a3ab23cada7ae6d700c2", 
+    "RoundId" : "5b14943da486d3b817aa4e7f", 
+    "ParentRound" : "engineeringround", 
+    "ChildRound" : "engineeringsub", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : true, 
+    "SlideNumber" : NumberInt(50), 
+    "UserJobs" : {
+        "5c32a3f823cada7ae6d700c4" : "IBM", 
+        "5c32a43f23cada7ae6d700c6" : "Intel", 
+        "5c32a4de23cada7ae6d700cb" : "Manager", 
+        "5c32a50e23cada7ae6d700cc" : "IBM", 
+        "5c32a46123cada7ae6d700c7" : "IBM", 
+        "5c32a48423cada7ae6d700c8" : "Intel", 
+        "5c32a49e23cada7ae6d700c9" : "Manager", 
+        "5c32a4bc23cada7ae6d700ca" : "IBM"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c374a7d23cada7ae6d7027d"), 
+    "GameId" : "5c0ff73523cada7ae6d700bd", 
+    "RoundId" : "5b56198d176b81cae6bacaf6", 
+    "ParentRound" : "salesround", 
+    "ChildRound" : "dealrenewal", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : true, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(26), 
+    "UserJobs" : {
+        "5b99a5dcde8563246c0dfce4" : "Manager", 
+        "5b99a623de8563246c0dfce9" : "Manager"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c378bbd23cada7ae6d7029a"), 
+    "GameId" : "5c32a3ab23cada7ae6d700c2", 
+    "RoundId" : "5b5659d7b7fcaf2b7054ef97", 
+    "ParentRound" : "financeround", 
+    "ChildRound" : "acquisitionstructure", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : true, 
+    "SlideNumber" : NumberInt(67), 
+    "UserJobs" : {
+        "5c32a50e23cada7ae6d700cc" : "Manager", 
+        "5c32a4bc23cada7ae6d700ca" : "Manager"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c389fda23cada7ae6d70317"), 
+    "GameId" : "5c32a3ab23cada7ae6d700c2", 
+    "RoundId" : "5b56890f02491562bcbc4325", 
+    "ParentRound" : "customerround", 
+    "ChildRound" : "customersub", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(79), 
+    "UserJobs" : {
+        "5c32a3f823cada7ae6d700c4" : "Manager", 
+        "5c32a48423cada7ae6d700c8" : "Manager"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c3e0c2b23cada7ae6d7032a"), 
+    "GameId" : "5bd0bbe664f2b36a9793d6d9", 
+    "RoundId" : "5b14943da486d3b817aa4e7f", 
+    "ParentRound" : "engineeringround", 
+    "ChildRound" : "engineeringsub", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(37), 
+    "UserJobs" : {
+        "5b99a5cade8563246c0dfce3" : "IBM", 
+        "5b99a5dcde8563246c0dfce4" : "Intel", 
+        "5b99a5edde8563246c0dfce5" : "Manager", 
+        "5b99a5fbde8563246c0dfce6" : "IBM", 
+        "5b99a613de8563246c0dfce8" : "IBM", 
+        "5b99a623de8563246c0dfce9" : "Intel", 
+        "5b99a632de8563246c0dfcea" : "Manager", 
+        "5b99a641de8563246c0dfceb" : "IBM"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c497b454e807916fcb93b28"), 
+    "GameId" : "5c497b454e807916fcb93b27", 
+    "RoundId" : "5b149433a486d3b817aa4e7b", 
+    "ParentRound" : "peopleround", 
+    "ChildRound" : "hiring", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : true, 
+    "SlideNumber" : NumberInt(19), 
+    "__v" : NumberInt(0), 
+    "REST_URL" : "", 
+    "UserJobs" : {
+        "5c497bab4e807916fcb93b29" : "Manager", 
+        "5c4a49c94e807916fcb93b30" : "Manager"
+    }, 
+    "CurrentHighestBid" : ""
+}
+{ 
+    "_id" : ObjectId("5c4a47754e807916fcb93b2f"), 
+    "GameId" : "5c497b454e807916fcb93b27", 
+    "RoundId" : "", 
+    "ParentRound" : "peopleround", 
+    "ChildRound" : "priorities", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(1), 
+    "UserJobs" : {
+        "5c497bab4e807916fcb93b29" : "Manager", 
+        "5c4a49c94e807916fcb93b30" : "Manager"
+    }, 
+    "REST_URL" : "", 
+    "__v" : NumberInt(0), 
+    "CurrentHighestBid" : ""
+}
+{ 
+    "_id" : ObjectId("5c4a66f54e807916fcb93b35"), 
+    "GameId" : "5c497b454e807916fcb93b27", 
+    "RoundId" : "5b149433a486d3b817aa4e7b", 
+    "ParentRound" : "peopleround", 
+    "ChildRound" : "priorities", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(1), 
+    "REST_URL" : "", 
+    "UserJobs" : {
+        "5c497bab4e807916fcb93b29" : "Manager", 
+        "5c4a49c94e807916fcb93b30" : "Manager"
+    }, 
+    "__v" : NumberInt(0), 
+    "CurrentHighestBid" : ""
+}
+{ 
+    "_id" : ObjectId("5c4ef4f04e807916fcb93ba4"), 
+    "GameId" : "5c4ef4f04e807916fcb93ba3", 
+    "RoundId" : "5b149433a486d3b817aa4e7b", 
+    "ParentRound" : "peopleround", 
+    "ChildRound" : "hiring", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : true, 
+    "SlideNumber" : NumberInt(22), 
+    "__v" : NumberInt(0), 
+    "REST_URL" : "", 
+    "UserJobs" : {
+        "5c4ef2544e807916fcb93b93" : "Manager", 
+        "5c4ef2eb4e807916fcb93b97" : "Manager", 
+        "5c4ef38f4e807916fcb93b9b" : "Manager"
+    }, 
+    "CurrentHighestBid" : ""
+}
+{ 
+    "_id" : ObjectId("5c4ef5404e807916fcb93ba7"), 
+    "GameId" : "5c4ef4f04e807916fcb93ba3", 
+    "RoundId" : "", 
+    "ParentRound" : "peopleround", 
+    "ChildRound" : "priorities", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(1), 
+    "UserJobs" : {
+        "5c4ef2544e807916fcb93b93" : "Manager", 
+        "5c4ef2eb4e807916fcb93b97" : "Manager", 
+        "5c4ef38f4e807916fcb93b9b" : "Manager"
+    }, 
+    "REST_URL" : "", 
+    "__v" : NumberInt(0), 
+    "CurrentHighestBid" : ""
+}
+{ 
+    "_id" : ObjectId("5c4ef57e4e807916fcb93baa"), 
+    "GameId" : "5c4ef4f04e807916fcb93ba3", 
+    "RoundId" : "", 
+    "ParentRound" : "peopleround", 
+    "ChildRound" : "priorities", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(1), 
+    "UserJobs" : {
+        "5c4ef2544e807916fcb93b93" : "Manager", 
+        "5c4ef2eb4e807916fcb93b97" : "Manager", 
+        "5c4ef38f4e807916fcb93b9b" : "Manager", 
+        "5c4ef40a4e807916fcb93b9f" : "Manager"
+    }, 
+    "REST_URL" : "", 
+    "__v" : NumberInt(0), 
+    "CurrentHighestBid" : ""
+}
+{ 
+    "_id" : ObjectId("5c4f41d94e807916fcb93bab"), 
+    "GameId" : "5c4ef4f04e807916fcb93ba3", 
+    "RoundId" : "5b149433a486d3b817aa4e7b", 
+    "ParentRound" : "peopleround", 
+    "ChildRound" : "priorities", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(1), 
+    "REST_URL" : "", 
+    "UserJobs" : {
+        "5c4ef2544e807916fcb93b93" : "Manager", 
+        "5c4ef2eb4e807916fcb93b97" : "Manager", 
+        "5c4ef38f4e807916fcb93b9b" : "Manager"
+    }, 
+    "__v" : NumberInt(0), 
+    "CurrentHighestBid" : ""
+}
+{ 
+    "_id" : ObjectId("5c4f41ff4e807916fcb93bac"), 
+    "GameId" : "5c4ef4f04e807916fcb93ba3", 
+    "RoundId" : "5b149433a486d3b817aa4e7b", 
+    "ParentRound" : "peopleround", 
+    "ChildRound" : "priorities", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(1), 
+    "REST_URL" : "", 
+    "UserJobs" : {
+        "5c4ef2544e807916fcb93b93" : "Manager", 
+        "5c4ef2eb4e807916fcb93b97" : "Manager", 
+        "5c4ef38f4e807916fcb93b9b" : "Manager"
+    }, 
+    "__v" : NumberInt(0), 
+    "CurrentHighestBid" : ""
+}
+{ 
+    "_id" : ObjectId("5c50a5e14e807916fcb93cf6"), 
+    "GameId" : "5c4ef4f04e807916fcb93ba3", 
+    "RoundId" : "5b56198d176b81cae6bacaf6", 
+    "ParentRound" : "salesround", 
+    "ChildRound" : "dealrenewal", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : true, 
+    "SlideNumber" : NumberInt(31), 
+    "UserJobs" : {
+        "5c4ef26d4e807916fcb93b94" : "Manager", 
+        "5c4ef31e4e807916fcb93b98" : "Manager", 
+        "5c4ef3b54e807916fcb93b9c" : "Manager"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c51eef8206f6543f53e7828"), 
+    "GameId" : "5c51eef8206f6543f53e7827", 
+    "RoundId" : "5b149433a486d3b817aa4e7b", 
+    "ParentRound" : "peopleround", 
+    "ChildRound" : "hiring", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(14), 
+    "__v" : NumberInt(0), 
+    "REST_URL" : "", 
+    "UserJobs" : {
+        "5b99a5cade8563246c0dfce3" : "Manager"
+    }, 
+    "CurrentHighestBid" : ""
+}
+{ 
+    "_id" : ObjectId("5c51ef26206f6543f53e782b"), 
+    "GameId" : "5c51eef8206f6543f53e7827", 
+    "RoundId" : "", 
+    "ParentRound" : "peopleround", 
+    "ChildRound" : "priorities", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(1), 
+    "UserJobs" : {
+        "5b99a5cade8563246c0dfce3" : "Manager", 
+        "5b99a5dcde8563246c0dfce4" : "Manager"
+    }, 
+    "REST_URL" : "", 
+    "__v" : NumberInt(0), 
+    "CurrentHighestBid" : ""
+}
+{ 
+    "_id" : ObjectId("5c5334a82210782bb69d3272"), 
+    "GameId" : "5c5334a82210782bb69d3271", 
+    "RoundId" : "5b149433a486d3b817aa4e7b", 
+    "ParentRound" : "peopleround", 
+    "ChildRound" : "hiring", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(13), 
+    "__v" : NumberInt(0), 
+    "REST_URL" : "", 
+    "UserJobs" : {
+        "5b99a5cade8563246c0dfce3" : "Manager", 
+        "5b99a613de8563246c0dfce8" : "Manager", 
+        "5b99a5dcde8563246c0dfce4" : "Manager", 
+        "5b99a5edde8563246c0dfce5" : "Associate", 
+        "5b99a5fbde8563246c0dfce6" : "Associate"
+    }, 
+    "CurrentHighestBid" : ""
+}
+{ 
+    "_id" : ObjectId("5c5335a52210782bb69d3275"), 
+    "GameId" : "5c5334a82210782bb69d3271", 
+    "RoundId" : "", 
+    "ParentRound" : "peopleround", 
+    "ChildRound" : "priorities", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(1), 
+    "UserJobs" : {
+        "5b99a5cade8563246c0dfce3" : "Manager", 
+        "5b99a613de8563246c0dfce8" : "Manager"
+    }, 
+    "REST_URL" : "", 
+    "__v" : NumberInt(0), 
+    "CurrentHighestBid" : ""
+}
+{ 
+    "_id" : ObjectId("5c533bd62210782bb69d32bd"), 
+    "GameId" : "5c5334a82210782bb69d3271", 
+    "RoundId" : "5b149433a486d3b817aa4e7b", 
+    "ParentRound" : "peopleround", 
+    "ChildRound" : "hiring", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(14), 
+    "REST_URL" : "", 
+    "UserJobs" : {
+        "5b99a5cade8563246c0dfce3" : "Manager", 
+        "5b99a613de8563246c0dfce8" : "Manager", 
+        "5b99a5dcde8563246c0dfce4" : "Associate", 
+        "5b99a5edde8563246c0dfce5" : "Associate", 
+        "5b99a5fbde8563246c0dfce6" : "Associate"
+    }, 
+    "__v" : NumberInt(0), 
+    "CurrentHighestBid" : ""
+}
+{ 
+    "_id" : ObjectId("5c533d602210782bb69d32de"), 
+    "GameId" : "5c5334a82210782bb69d3271", 
+    "RoundId" : "5b56198d176b81cae6bacaf6", 
+    "ParentRound" : "salesround", 
+    "ChildRound" : "dealstructure", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(23), 
+    "UserJobs" : {
+        "5b99a5edde8563246c0dfce5" : "Manager", 
+        "5b99a623de8563246c0dfce9" : "Manager"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c5f4ac4b0007e568cd17e72"), 
+    "GameId" : "5c5f4ac4b0007e568cd17e71", 
+    "RoundId" : "5b149433a486d3b817aa4e7b", 
+    "ParentRound" : "peopleround", 
+    "ChildRound" : "hiring", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : true, 
+    "SlideNumber" : NumberInt(22), 
+    "__v" : NumberInt(0), 
+    "REST_URL" : "", 
+    "UserJobs" : {
+        "5b99a5cade8563246c0dfce3" : "Manager"
+    }, 
+    "CurrentHighestBid" : ""
+}
+{ 
+    "_id" : ObjectId("5c5f4b42b0007e568cd17e75"), 
+    "GameId" : "5c5f4ac4b0007e568cd17e71", 
+    "RoundId" : "", 
+    "ParentRound" : "peopleround", 
+    "ChildRound" : "priorities", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(1), 
+    "UserJobs" : {
+        "5b99a5cade8563246c0dfce3" : "Manager", 
+        "5b99a6b5de8563246c0dfced" : "Manager"
+    }, 
+    "REST_URL" : "", 
+    "__v" : NumberInt(0), 
+    "CurrentHighestBid" : ""
+}
+{ 
+    "_id" : ObjectId("5c5f4e65b0007e568cd17edb"), 
+    "GameId" : "5c5f4ac4b0007e568cd17e71", 
+    "RoundId" : "5b56198d176b81cae6bacaf6", 
+    "ParentRound" : "salesround", 
+    "ChildRound" : "dealrenewal", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : true, 
+    "SlideNumber" : NumberInt(36), 
+    "UserJobs" : {
+        "5b99a5dcde8563246c0dfce4" : "Associate", 
+        "5bbc135b1265f210f112b5ac" : "Manager", 
+        "5b99a5cade8563246c0dfce3" : "Manager", 
+        "5b99a5edde8563246c0dfce5" : "Associate"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c7835adf54ab100bb6fd33c"), 
+    "ChildRound" : "TeamRating", 
+    "GameId" : "5b5f6081afa6ad69a1334f7a", 
+    "ParentRound" : "FinanceRound", 
+    "__v" : NumberInt(0), 
+    "UserJobs" : {
+        "5b3537cbb4ff35579c03e8c5" : "Associate", 
+        "5b1d71d97465471df053e3eb" : "Manager", 
+        "5b4d14645a04cd5ea10e0cdc" : "Associate", 
+        "5b47886b814bd303e481c286" : "Associate"
+    }
+}
+{ 
+    "_id" : ObjectId("5c7d6f1ca9a2d00fc4beb859"), 
+    "GameId" : "5c7d6f1ca9a2d00fc4beb858", 
+    "RoundId" : "5b149433a486d3b817aa4e7b", 
+    "ParentRound" : "peopleround", 
+    "ChildRound" : "priorities", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(10), 
+    "__v" : NumberInt(0), 
+    "REST_URL" : "", 
+    "UserJobs" : {
+        "5c7d6d0fa9a2d00fc4beb84a" : "Associate", 
+        "5bb405b262eaeb4a4398c21a" : "Manager", 
+        "5c7d6dc4a9a2d00fc4beb84f" : "Manager", 
+        "5c7d6e7aa9a2d00fc4beb854" : "Manager", 
+        "5c7d6e97a9a2d00fc4beb855" : "Associate", 
+        "5c7d6ee2a9a2d00fc4beb857" : "Associate"
+    }, 
+    "CurrentHighestBid" : ""
+}
+{ 
+    "_id" : ObjectId("5c7d6fd3a9a2d00fc4beb85c"), 
+    "GameId" : "5c7d6f1ca9a2d00fc4beb858", 
+    "RoundId" : "", 
+    "ParentRound" : "peopleround", 
+    "ChildRound" : "priorities", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(1), 
+    "UserJobs" : {
+        "5c7d6d0fa9a2d00fc4beb84a" : "Manager", 
+        "5c7d6dc4a9a2d00fc4beb84f" : "Manager", 
+        "5c7d6e7aa9a2d00fc4beb854" : "Manager"
+    }, 
+    "REST_URL" : "", 
+    "__v" : NumberInt(0), 
+    "CurrentHighestBid" : ""
+}
+{ 
+    "_id" : ObjectId("5c7d7077a9a2d00fc4beb85e"), 
+    "GameId" : "5c7d6f1ca9a2d00fc4beb858", 
+    "RoundId" : "", 
+    "ParentRound" : "peopleround", 
+    "ChildRound" : "priorities", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(1), 
+    "UserJobs" : {
+        "5bb405b262eaeb4a4398c21a" : "Manager", 
+        "5c7d6dc4a9a2d00fc4beb84f" : "Manager", 
+        "5c7d6e7aa9a2d00fc4beb854" : "Manager"
+    }, 
+    "REST_URL" : "", 
+    "__v" : NumberInt(0), 
+    "CurrentHighestBid" : ""
+}
+{ 
+    "_id" : ObjectId("5c7d709ba9a2d00fc4beb85f"), 
+    "GameId" : "5c7d6f1ca9a2d00fc4beb858", 
+    "RoundId" : "", 
+    "ParentRound" : "peopleround", 
+    "ChildRound" : "priorities", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(1), 
+    "UserJobs" : {
+        "5bb405b262eaeb4a4398c21a" : "Manager", 
+        "5c7d6dc4a9a2d00fc4beb84f" : "Manager", 
+        "5c7d6e7aa9a2d00fc4beb854" : "Manager"
+    }, 
+    "REST_URL" : "", 
+    "__v" : NumberInt(0), 
+    "CurrentHighestBid" : ""
+}
+{ 
+    "_id" : ObjectId("5c7ea6fea9a2d00fc4beb9eb"), 
+    "GameId" : "5c7ea6fea9a2d00fc4beb9ea", 
+    "RoundId" : "5b149433a486d3b817aa4e7b", 
+    "ParentRound" : "peopleround", 
+    "ChildRound" : "priorities", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(9), 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c7ec499a9a2d00fc4beb9ec"), 
+    "GameId" : "5c7d6f1ca9a2d00fc4beb858", 
+    "RoundId" : "5b56198d176b81cae6bacaf6", 
+    "ParentRound" : "salesround", 
+    "ChildRound" : "dealstructure", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(23), 
+    "UserJobs" : {
+        "5c7d6d5ba9a2d00fc4beb84c" : "Manager", 
+        "5c7d6de7a9a2d00fc4beb850" : "Manager", 
+        "5c7d6e97a9a2d00fc4beb855" : "Manager"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c7f20d5a9a2d00fc4bebae1"), 
+    "GameId" : "5c7d6f1ca9a2d00fc4beb858", 
+    "RoundId" : "5b14943da486d3b817aa4e7f", 
+    "ParentRound" : "engineeringround", 
+    "ChildRound" : "engineeringsub", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(37), 
+    "UserJobs" : {
+        "5bb405b262eaeb4a4398c21a" : "IBM", 
+        "5c7d6d5ba9a2d00fc4beb84c" : "Intel", 
+        "5c7d6d76a9a2d00fc4beb84d" : "Manager", 
+        "5c7d6d8ea9a2d00fc4beb84e" : "IBM", 
+        "5c7d6eb6a9a2d00fc4beb856" : "Intel", 
+        "5c7d6dc4a9a2d00fc4beb84f" : "IBM", 
+        "5c7d6de7a9a2d00fc4beb850" : "Intel", 
+        "5c7d6dffa9a2d00fc4beb851" : "Manager", 
+        "5c7d6e33a9a2d00fc4beb852" : "IBM", 
+        "5c7d6e5da9a2d00fc4beb853" : "Intel", 
+        "5c7d6e7aa9a2d00fc4beb854" : "IBM", 
+        "5c7d6e97a9a2d00fc4beb855" : "Intel", 
+        "5c7d6ee2a9a2d00fc4beb857" : "Manager", 
+        "5c7d6d0fa9a2d00fc4beb84a" : "IBM"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c8000f1a9a2d00fc4bebaec"), 
+    "GameId" : "5c5f4ac4b0007e568cd17e71", 
+    "RoundId" : "5b14943da486d3b817aa4e7f", 
+    "ParentRound" : "engineeringround", 
+    "ChildRound" : "engineeringsub", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(38), 
+    "UserJobs" : {
+        "5b99a5cade8563246c0dfce3" : "IBM", 
+        "5b99a5dcde8563246c0dfce4" : "Intel", 
+        "5b99a5edde8563246c0dfce5" : "Manager", 
+        "5b99a6b5de8563246c0dfced" : "IBM", 
+        "5bbc135b1265f210f112b5ac" : "Intel", 
+        "5b99a632de8563246c0dfcea" : "Manager"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c816ab7a9a2d00fc4bebbb1"), 
+    "GameId" : "5c7d6f1ca9a2d00fc4beb858", 
+    "RoundId" : "5b5659d7b7fcaf2b7054ef97", 
+    "ParentRound" : "financeround", 
+    "ChildRound" : "pricing", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(51), 
+    "UserJobs" : {
+        "5c7d6d8ea9a2d00fc4beb84e" : "Manager", 
+        "5c7d6e33a9a2d00fc4beb852" : "Associate", 
+        "5c7d6d0fa9a2d00fc4beb84a" : "Manager", 
+        "5c7d6dc4a9a2d00fc4beb84f" : "Associate", 
+        "5c7d6de7a9a2d00fc4beb850" : "Associate", 
+        "5c7d6dffa9a2d00fc4beb851" : "Attorney for BlueKite", 
+        "5c7d6e5da9a2d00fc4beb853" : "Manager", 
+        "5c7d6d5ba9a2d00fc4beb84c" : "Attorney for BlueKite", 
+        "5c7d6e97a9a2d00fc4beb855" : "Attorney for BlueKite"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c82736ca9a2d00fc4bebd12"), 
+    "GameId" : "5c7d6f1ca9a2d00fc4beb858", 
+    "RoundId" : "5b56890f02491562bcbc4325", 
+    "ParentRound" : "customerround", 
+    "ChildRound" : "customersub", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(68), 
+    "UserJobs" : {
+        "5c7d6eb6a9a2d00fc4beb856" : "Manager", 
+        "5c7d6e5da9a2d00fc4beb853" : "Associate", 
+        "5c7d6e7aa9a2d00fc4beb854" : "Manager", 
+        "5c7d6dc4a9a2d00fc4beb84f" : "Associate", 
+        "5c7d6de7a9a2d00fc4beb850" : "Associate", 
+        "5c7d6dffa9a2d00fc4beb851" : "Associate", 
+        "5c7d6e33a9a2d00fc4beb852" : "Manager"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c8527bca9a2d00fc4bebdda"), 
+    "GameId" : "5c7ea6fea9a2d00fc4beb9ea", 
+    "RoundId" : "5b56198d176b81cae6bacaf6", 
+    "ParentRound" : "salesround", 
+    "ChildRound" : "dealstructure", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(14), 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c852898a9a2d00fc4bebddc"), 
+    "GameId" : "5c852898a9a2d00fc4bebddb", 
+    "RoundId" : "5b149433a486d3b817aa4e7b", 
+    "ParentRound" : "peopleround", 
+    "ChildRound" : "hiring", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : true, 
+    "SlideNumber" : NumberInt(22), 
+    "__v" : NumberInt(0), 
+    "REST_URL" : "", 
+    "UserJobs" : {
+        "5b99a5cade8563246c0dfce3" : "Manager"
+    }, 
+    "CurrentHighestBid" : ""
+}
+{ 
+    "_id" : ObjectId("5c8528c4a9a2d00fc4bebddf"), 
+    "GameId" : "5c852898a9a2d00fc4bebddb", 
+    "RoundId" : "", 
+    "ParentRound" : "peopleround", 
+    "ChildRound" : "priorities", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(1), 
+    "UserJobs" : {
+        "5b99a5cade8563246c0dfce3" : "Manager", 
+        "5b99a613de8563246c0dfce8" : "Manager"
+    }, 
+    "REST_URL" : "", 
+    "__v" : NumberInt(0), 
+    "CurrentHighestBid" : ""
+}
+{ 
+    "_id" : ObjectId("5c8528dea9a2d00fc4bebde8"), 
+    "GameId" : "5c852898a9a2d00fc4bebddb", 
+    "RoundId" : "5b56198d176b81cae6bacaf6", 
+    "ParentRound" : "salesround", 
+    "ChildRound" : "dealstructure", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(39), 
+    "UserJobs" : {
+        "5b99a5dcde8563246c0dfce4" : "Manager", 
+        "5b99a623de8563246c0dfce9" : "Manager"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c8528e0a9a2d00fc4bebded"), 
+    "GameId" : "5c852898a9a2d00fc4bebddb", 
+    "RoundId" : "5b14943da486d3b817aa4e7f", 
+    "ParentRound" : "engineeringround", 
+    "ChildRound" : "engineeringsub", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(57), 
+    "UserJobs" : {
+        "5b99a5cade8563246c0dfce3" : "IBM", 
+        "5b99a5dcde8563246c0dfce4" : "Intel", 
+        "5b99a5edde8563246c0dfce5" : "Manager", 
+        "5b99a5fbde8563246c0dfce6" : "IBM", 
+        "5b99a613de8563246c0dfce8" : "IBM", 
+        "5b99a623de8563246c0dfce9" : "Intel", 
+        "5b99a632de8563246c0dfcea" : "Manager", 
+        "5b99a641de8563246c0dfceb" : "IBM"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c8528eaa9a2d00fc4bebdf0"), 
+    "GameId" : "5c852898a9a2d00fc4bebddb", 
+    "RoundId" : "5b5659d7b7fcaf2b7054ef97", 
+    "ParentRound" : "financeround", 
+    "ChildRound" : "acquisitionstructure", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : true, 
+    "SlideNumber" : NumberInt(67), 
+    "UserJobs" : {
+        "5b99a5fbde8563246c0dfce6" : "Manager", 
+        "5b99a641de8563246c0dfceb" : "Manager"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c8528eda9a2d00fc4bebdf9"), 
+    "GameId" : "5c852898a9a2d00fc4bebddb", 
+    "RoundId" : "5b56890f02491562bcbc4325", 
+    "ParentRound" : "customerround", 
+    "ChildRound" : "customersub", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(68), 
+    "UserJobs" : {
+        "5b99a5dcde8563246c0dfce4" : "Manager", 
+        "5b99a623de8563246c0dfce9" : "Manager"
+    }, 
+    "__v" : NumberInt(0), 
+    "REST_URL" : "", 
+    "CurrentHighestBid" : ""
+}
+{ 
+    "_id" : ObjectId("5c85d9d2ab31ac2dd3059470"), 
+    "GameId" : "5c7ea6fea9a2d00fc4beb9ea", 
+    "RoundId" : "", 
+    "ParentRound" : "PEOPLEROUND", 
+    "ChildRound" : "PRIORITIES", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(6), 
+    "UserJobs" : {
+        "5c85d620ab31ac2dd3059469" : "Manager", 
+        "5c85d641ab31ac2dd305946a" : "Manager"
+    }, 
+    "REST_URL" : "", 
+    "__v" : NumberInt(0), 
+    "CurrentHighestBid" : ""
+}
+{ 
+    "_id" : ObjectId("5c85dc91ab31ac2dd3059472"), 
+    "GameId" : "5c7ea6fea9a2d00fc4beb9ea", 
+    "RoundId" : "", 
+    "ParentRound" : "PEOPLEROUND", 
+    "ChildRound" : "PRIORITIES", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(6), 
+    "UserJobs" : {
+        "5c85d620ab31ac2dd3059469" : "Manager", 
+        "5c85d641ab31ac2dd305946a" : "Manager"
+    }, 
+    "REST_URL" : "", 
+    "__v" : NumberInt(0), 
+    "CurrentHighestBid" : ""
+}
+{ 
+    "_id" : ObjectId("5c85ddb8ab31ac2dd3059475"), 
+    "GameId" : "5c7ea6fea9a2d00fc4beb9ea", 
+    "RoundId" : "", 
+    "ParentRound" : "PEOPLEROUND", 
+    "ChildRound" : "PRIORITIES", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(6), 
+    "UserJobs" : {
+        "5c85d620ab31ac2dd3059469" : "Manager", 
+        "5c85d69cab31ac2dd305946c" : "Manager", 
+        "5c85d641ab31ac2dd305946a" : "Manager"
+    }, 
+    "REST_URL" : "", 
+    "__v" : NumberInt(0), 
+    "CurrentHighestBid" : ""
+}
+{ 
+    "_id" : ObjectId("5c85de30ab31ac2dd3059478"), 
+    "GameId" : "5c7ea6fea9a2d00fc4beb9ea", 
+    "RoundId" : "", 
+    "ParentRound" : "PEOPLEROUND", 
+    "ChildRound" : "PRIORITIES", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(6), 
+    "UserJobs" : {
+        "5c85d620ab31ac2dd3059469" : "Manager", 
+        "5c85d69cab31ac2dd305946c" : "Manager", 
+        "5c85d641ab31ac2dd305946a" : "Manager", 
+        "5c85d6c0ab31ac2dd305946d" : "Manager"
+    }, 
+    "REST_URL" : "", 
+    "__v" : NumberInt(0), 
+    "CurrentHighestBid" : ""
+}
+{ 
+    "_id" : ObjectId("5c86c18dab31ac2dd305949a"), 
+    "GameId" : "5c852898a9a2d00fc4bebddb", 
+    "RoundId" : "5b56890f02491562bcbc4325", 
+    "ParentRound" : "customerround", 
+    "ChildRound" : "customersub", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(68), 
+    "UserJobs" : {
+        "5b99a5dcde8563246c0dfce4" : "Manager", 
+        "5b99a623de8563246c0dfce9" : "Manager"
+    }, 
+    "REST_URL" : "", 
+    "__v" : NumberInt(0), 
+    "CurrentHighestBid" : ""
+}
+{ 
+    "_id" : ObjectId("5c86c1acab31ac2dd305949b"), 
+    "GameId" : "5c7ea6fea9a2d00fc4beb9ea", 
+    "RoundId" : "", 
+    "ParentRound" : "PEOPLEROUND", 
+    "ChildRound" : "PRIORITIES", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(9), 
+    "UserJobs" : {
+        "5c85d620ab31ac2dd3059469" : "Manager", 
+        "5c85d69cab31ac2dd305946c" : "Manager", 
+        "5c85d641ab31ac2dd305946a" : "Manager", 
+        "5c85d6c0ab31ac2dd305946d" : "Manager"
+    }, 
+    "REST_URL" : "", 
+    "__v" : NumberInt(0), 
+    "CurrentHighestBid" : ""
+}
+{ 
+    "_id" : ObjectId("5c86c1b0ab31ac2dd305949c"), 
+    "GameId" : "5c7ea6fea9a2d00fc4beb9ea", 
+    "RoundId" : "", 
+    "ParentRound" : "PEOPLEROUND", 
+    "ChildRound" : "PRIORITIES", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(9), 
+    "UserJobs" : {
+        "5c85d620ab31ac2dd3059469" : "Manager", 
+        "5c85d69cab31ac2dd305946c" : "Manager", 
+        "5c85d641ab31ac2dd305946a" : "Manager", 
+        "5c85d6c0ab31ac2dd305946d" : "Manager"
+    }, 
+    "REST_URL" : "", 
+    "__v" : NumberInt(0), 
+    "CurrentHighestBid" : ""
+}
+{ 
+    "_id" : ObjectId("5c87a171ab31ac2dd30594a6"), 
+    "GameId" : "5c87a171ab31ac2dd30594a5", 
+    "RoundId" : "5b149433a486d3b817aa4e7b", 
+    "ParentRound" : "peopleround", 
+    "ChildRound" : "hiring", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : true, 
+    "SlideNumber" : NumberInt(22), 
+    "__v" : NumberInt(0), 
+    "REST_URL" : "", 
+    "UserJobs" : {
+        "5c85d620ab31ac2dd3059469" : "Manager"
+    }, 
+    "CurrentHighestBid" : ""
+}
+{ 
+    "_id" : ObjectId("5c87a1b8ab31ac2dd30594a8"), 
+    "GameId" : "5c87a1b8ab31ac2dd30594a7", 
+    "RoundId" : "", 
+    "ParentRound" : "peopleround", 
+    "ChildRound" : "priorities", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(1), 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c87a1f6ab31ac2dd30594ab"), 
+    "GameId" : "5c87a171ab31ac2dd30594a5", 
+    "RoundId" : "", 
+    "ParentRound" : "peopleround", 
+    "ChildRound" : "priorities", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(1), 
+    "UserJobs" : {
+        "5c85d620ab31ac2dd3059469" : "Manager", 
+        "5c85d69cab31ac2dd305946c" : "Manager", 
+        "5c85d641ab31ac2dd305946a" : "Manager"
+    }, 
+    "REST_URL" : "", 
+    "__v" : NumberInt(0), 
+    "CurrentHighestBid" : ""
+}
+{ 
+    "_id" : ObjectId("5c87a253ab31ac2dd30594ae"), 
+    "GameId" : "5c87a171ab31ac2dd30594a5", 
+    "RoundId" : "", 
+    "ParentRound" : "peopleround", 
+    "ChildRound" : "priorities", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(1), 
+    "UserJobs" : {
+        "5c85d620ab31ac2dd3059469" : "Manager", 
+        "5c85d69cab31ac2dd305946c" : "Manager", 
+        "5c85d641ab31ac2dd305946a" : "Manager", 
+        "5c85d6c0ab31ac2dd305946d" : "Manager"
+    }, 
+    "REST_URL" : "", 
+    "__v" : NumberInt(0), 
+    "CurrentHighestBid" : ""
+}
+{ 
+    "_id" : ObjectId("5c87fba1ab31ac2dd305955e"), 
+    "GameId" : "5c87a171ab31ac2dd30594a5", 
+    "RoundId" : "5b56198d176b81cae6bacaf6", 
+    "ParentRound" : "salesround", 
+    "ChildRound" : "dealrenewal", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : true, 
+    "SlideNumber" : NumberInt(36), 
+    "UserJobs" : {
+        "5c85cea8ab31ac2dd3059467" : "Manager", 
+        "5c85cd1aab31ac2dd3059463" : "Manager", 
+        "5c85cc5dab31ac2dd3059461" : "Manager", 
+        "5c85d675ab31ac2dd305946b" : "Manager"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c891a07ab31ac2dd3059676"), 
+    "GameId" : "5c87a171ab31ac2dd30594a5", 
+    "RoundId" : "5b14943da486d3b817aa4e7f", 
+    "ParentRound" : "engineeringround", 
+    "ChildRound" : "engineeringsub", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : true, 
+    "SlideNumber" : NumberInt(50), 
+    "UserJobs" : {
+        "5c85d620ab31ac2dd3059469" : "IBM", 
+        "5c85cea8ab31ac2dd3059467" : "Intel", 
+        "5c85d6e2ab31ac2dd305946e" : "Manager", 
+        "5c85cd55ab31ac2dd3059464" : "IBM", 
+        "5c85d69cab31ac2dd305946c" : "IBM", 
+        "5c85cd1aab31ac2dd3059463" : "Intel", 
+        "5c85d5f5ab31ac2dd3059468" : "Manager", 
+        "5c85cc2aab31ac2dd3059460" : "IBM", 
+        "5c85d641ab31ac2dd305946a" : "IBM", 
+        "5c85cc5dab31ac2dd3059461" : "Intel", 
+        "5c85cd80ab31ac2dd3059465" : "Manager", 
+        "5c85a945ab31ac2dd305945f" : "IBM", 
+        "5c85d6c0ab31ac2dd305946d" : "IBM", 
+        "5c85d675ab31ac2dd305946b" : "Intel", 
+        "5c85cccbab31ac2dd3059462" : "Manager", 
+        "5c85cda6ab31ac2dd3059466" : "IBM"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c8a92beab31ac2dd305976e"), 
+    "GameId" : "5c87a171ab31ac2dd30594a5", 
+    "RoundId" : "5b5659d7b7fcaf2b7054ef97", 
+    "ParentRound" : "financeround", 
+    "ChildRound" : "acquisitionstructure", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : true, 
+    "SlideNumber" : NumberInt(67), 
+    "UserJobs" : {
+        "5c85cd55ab31ac2dd3059464" : "Manager", 
+        "5c85cc2aab31ac2dd3059460" : "Manager", 
+        "5c85a945ab31ac2dd305945f" : "Manager", 
+        "5c85cda6ab31ac2dd3059466" : "Manager"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c8b9802ab31ac2dd305989e"), 
+    "GameId" : "5c87a171ab31ac2dd30594a5", 
+    "RoundId" : "5b56890f02491562bcbc4325", 
+    "ParentRound" : "customerround", 
+    "ChildRound" : "customersub", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(81), 
+    "UserJobs" : {
+        "5c85d6e2ab31ac2dd305946e" : "Manager", 
+        "5c85cc2aab31ac2dd3059460" : "Manager", 
+        "5c85d641ab31ac2dd305946a" : "Manager", 
+        "5c85d675ab31ac2dd305946b" : "Manager"
+    }, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c94a4f6ab31ac2dd30598f7"), 
+    "GameId" : "5c94a4f6ab31ac2dd30598f6", 
+    "RoundId" : "5b149433a486d3b817aa4e7b", 
+    "ParentRound" : "peopleround", 
+    "ChildRound" : "hiring", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : true, 
+    "SlideNumber" : NumberInt(22), 
+    "__v" : NumberInt(0), 
+    "REST_URL" : "", 
+    "UserJobs" : {
+        "5c949576ab31ac2dd30598e3" : "Manager"
+    }, 
+    "CurrentHighestBid" : ""
+}
+{ 
+    "_id" : ObjectId("5c94a60bab31ac2dd30598fa"), 
+    "GameId" : "5c94a4f6ab31ac2dd30598f6", 
+    "RoundId" : "", 
+    "ParentRound" : "peopleround", 
+    "ChildRound" : "priorities", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(1), 
+    "UserJobs" : {
+        "5c949576ab31ac2dd30598e3" : "Manager", 
+        "5c94961fab31ac2dd30598e7" : "Manager"
+    }, 
+    "REST_URL" : "", 
+    "__v" : NumberInt(0), 
+    "CurrentHighestBid" : ""
+}
+{ 
+    "_id" : ObjectId("5c94a6f6ab31ac2dd30598fd"), 
+    "GameId" : "5c94a4f6ab31ac2dd30598f6", 
+    "RoundId" : "", 
+    "ParentRound" : "peopleround", 
+    "ChildRound" : "priorities", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideNumber" : NumberInt(1), 
+    "UserJobs" : {
+        "5c949576ab31ac2dd30598e3" : "Manager", 
+        "5c94961fab31ac2dd30598e7" : "Manager", 
+        "5c94a37aab31ac2dd30598ec" : "Manager", 
+        "5c94a419ab31ac2dd30598f1" : "Manager"
+    }, 
+    "REST_URL" : "", 
+    "__v" : NumberInt(0), 
+    "CurrentHighestBid" : ""
+}
+{ 
+    "_id" : ObjectId("5c9a2589ab31ac2dd3059aa6"), 
+    "GameId" : "5c94a4f6ab31ac2dd30598f6", 
+    "RoundId" : "5b56198d176b81cae6bacaf6", 
+    "ParentRound" : "salesround", 
+    "ChildRound" : "dealrenewal", 
+    "ShowRateUsers" : false, 
+    "ShowFeedback" : false, 
+    "ShowIndividualFeedback" : true, 
+    "SlideNumber" : NumberInt(31), 
+    "UserJobs" : {
+        "5c949599ab31ac2dd30598e4" : "Manager", 
+        "5c949674ab31ac2dd30598e9" : "Manager", 
+        "5c94a399ab31ac2dd30598ed" : "Manager", 
+        "5c94a435ab31ac2dd30598f2" : "Manager"
+    }, 
+    "__v" : NumberInt(0)
+}

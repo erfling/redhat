@@ -1,0 +1,1029 @@
+{ 
+    "_id" : ObjectId("5b354ebcdd11e8ba50ea964c"), 
+    "Type" : "PRIORITY", 
+    "Text" : "Engineering: Senior Programmer;", 
+    "SubText" : "(Use the arrows to rank criteria for Engineer)", 
+    "PossibleAnswers" : [
+        {
+            "label" : "FSI", 
+            "minPoints" : NumberInt(0), 
+            "maxPoints" : NumberInt(2), 
+            "idealValue" : "6"
+        }, 
+        {
+            "label" : "CORE TECH", 
+            "minPoints" : NumberInt(0), 
+            "maxPoints" : NumberInt(2), 
+            "idealValue" : "2"
+        }, 
+        {
+            "label" : "EMERGING TECH", 
+            "minPoints" : NumberInt(0), 
+            "maxPoints" : NumberInt(2), 
+            "idealValue" : "1"
+        }, 
+        {
+            "label" : "INFLUENCE", 
+            "minPoints" : NumberInt(0), 
+            "maxPoints" : NumberInt(2), 
+            "idealValue" : "0"
+        }, 
+        {
+            "label" : "CULTURAL FIT", 
+            "minPoints" : NumberInt(0), 
+            "maxPoints" : NumberInt(2), 
+            "idealValue" : "4"
+        }, 
+        {
+            "label" : "STRATEGIC THINKING", 
+            "minPoints" : NumberInt(0), 
+            "maxPoints" : NumberInt(2), 
+            "idealValue" : "5"
+        }, 
+        {
+            "label" : "DOMAIN EXPERTISE", 
+            "minPoints" : NumberInt(0), 
+            "maxPoints" : NumberInt(2), 
+            "idealValue" : "3"
+        }
+    ], 
+    "SubRoundId" : "5b32aafe4b1a730e14ee7871"
+}
+{ 
+    "_id" : ObjectId("5b435ca13bb3f8d3b2647fb2"), 
+    "Type" : "PRIORITY", 
+    "Text" : "Sales: Account Executive", 
+    "SubText" : "(Use the arrows to rank criteria for Sales)", 
+    "PossibleAnswers" : [
+        {
+            "label" : "FSI", 
+            "minPoints" : NumberInt(0), 
+            "maxPoints" : NumberInt(2), 
+            "idealValue" : "1"
+        }, 
+        {
+            "label" : "CORE TECH", 
+            "minPoints" : NumberInt(0), 
+            "maxPoints" : NumberInt(2), 
+            "idealValue" : "6"
+        }, 
+        {
+            "label" : "EMERGING TECH", 
+            "minPoints" : NumberInt(0), 
+            "maxPoints" : NumberInt(2), 
+            "idealValue" : "5"
+        }, 
+        {
+            "label" : "INFLUENCE", 
+            "minPoints" : NumberInt(0), 
+            "maxPoints" : NumberInt(2), 
+            "idealValue" : "2"
+        }, 
+        {
+            "label" : "CULTURAL FIT", 
+            "minPoints" : NumberInt(0), 
+            "maxPoints" : NumberInt(2), 
+            "idealValue" : "3"
+        }, 
+        {
+            "label" : "STRATEGIC THINKING", 
+            "minPoints" : NumberInt(0), 
+            "maxPoints" : NumberInt(2), 
+            "idealValue" : "0"
+        }, 
+        {
+            "label" : "DOMAIN EXPERTISE", 
+            "minPoints" : NumberInt(0), 
+            "maxPoints" : NumberInt(2), 
+            "idealValue" : "4"
+        }
+    ], 
+    "SubRoundId" : "5b32aafe4b1a730e14ee7871"
+}
+{ 
+    "_id" : ObjectId("5b435cdb3bb3f8d3b2647fbc"), 
+    "Type" : "PRIORITY", 
+    "Text" : "Services: Consultant", 
+    "SubText" : "(Use the arrows to rank criteria for Services)", 
+    "PossibleAnswers" : [
+        {
+            "label" : "FSI", 
+            "minPoints" : NumberInt(0), 
+            "maxPoints" : NumberInt(2), 
+            "idealValue" : "3"
+        }, 
+        {
+            "label" : "CORE TECH", 
+            "minPoints" : NumberInt(0), 
+            "maxPoints" : NumberInt(2), 
+            "idealValue" : "2"
+        }, 
+        {
+            "label" : "EMERGING TECH", 
+            "minPoints" : NumberInt(0), 
+            "maxPoints" : NumberInt(2), 
+            "idealValue" : "0"
+        }, 
+        {
+            "label" : "INFLUENCE", 
+            "minPoints" : NumberInt(0), 
+            "maxPoints" : NumberInt(2), 
+            "idealValue" : "1"
+        }, 
+        {
+            "label" : "CULTURAL FIT", 
+            "minPoints" : NumberInt(0), 
+            "maxPoints" : NumberInt(2), 
+            "idealValue" : "5"
+        }, 
+        {
+            "label" : "STRATEGIC THINKING", 
+            "minPoints" : NumberInt(0), 
+            "maxPoints" : NumberInt(2), 
+            "idealValue" : "4"
+        }, 
+        {
+            "label" : "DOMAIN EXPERTISE", 
+            "minPoints" : NumberInt(0), 
+            "maxPoints" : NumberInt(2), 
+            "idealValue" : "6"
+        }
+    ], 
+    "SubRoundId" : "5b32aafe4b1a730e14ee7871"
+}
+{ 
+    "_id" : ObjectId("5b4363563bb3f8d3b2648247"), 
+    "Type" : "MULTIPLE_CHOICE", 
+    "Text" : "Engineering: Senior Programmer", 
+    "SiblingQuestionId" : "5b354ebcdd11e8ba50ea964c", 
+    "SubText" : "Select your chosen candidate", 
+    "PossibleAnswers" : [
+        {
+            "label" : "Kashif Hassen", 
+            "minPoints" : NumberInt(0), 
+            "maxPoints" : 0.666666666666667, 
+            "data" : [
+                {
+                    "label" : "FSI", 
+                    "data" : NumberInt(1)
+                }, 
+                {
+                    "label" : "CORE TECH", 
+                    "data" : NumberInt(0)
+                }, 
+                {
+                    "label" : "EMERGING TECH", 
+                    "data" : NumberInt(0)
+                }, 
+                {
+                    "label" : "TRUSTED ADVISOR", 
+                    "data" : NumberInt(0)
+                }, 
+                {
+                    "label" : "CULTURAL FIT", 
+                    "data" : NumberInt(0)
+                }, 
+                {
+                    "label" : "STRATEGIC THINKING", 
+                    "data" : NumberInt(0)
+                }, 
+                {
+                    "label" : "DOMAIN EXPERTISE", 
+                    "data" : NumberInt(1)
+                }
+            ]
+        }, 
+        {
+            "label" : "Jamie Tollman", 
+            "minPoints" : NumberInt(0), 
+            "maxPoints" : 0.666666666666667, 
+            "data" : [
+                {
+                    "label" : "FSI", 
+                    "data" : NumberInt(0)
+                }, 
+                {
+                    "label" : "CORE TECH", 
+                    "data" : NumberInt(0)
+                }, 
+                {
+                    "label" : "EMERGING TECH", 
+                    "data" : NumberInt(0)
+                }, 
+                {
+                    "label" : "TRUSTED ADVISOR", 
+                    "data" : NumberInt(0)
+                }, 
+                {
+                    "label" : "CULTURAL FIT", 
+                    "data" : NumberInt(1)
+                }, 
+                {
+                    "label" : "STRATEGIC THINKING", 
+                    "data" : NumberInt(1)
+                }, 
+                {
+                    "label" : "DOMAIN EXPERTISE", 
+                    "data" : NumberInt(0)
+                }
+            ]
+        }, 
+        {
+            "label" : "Fredrik Arndt", 
+            "minPoints" : NumberInt(0), 
+            "maxPoints" : 0.666666666666667, 
+            "data" : [
+                {
+                    "label" : "FSI", 
+                    "data" : NumberInt(0)
+                }, 
+                {
+                    "label" : "CORE TECH", 
+                    "data" : NumberInt(1)
+                }, 
+                {
+                    "label" : "EMERGING TECH", 
+                    "data" : NumberInt(1)
+                }, 
+                {
+                    "label" : "TRUSTED ADVISOR", 
+                    "data" : NumberInt(1)
+                }, 
+                {
+                    "label" : "CULTURAL FIT", 
+                    "data" : NumberInt(0)
+                }, 
+                {
+                    "label" : "STRATEGIC THINKING", 
+                    "data" : NumberInt(0)
+                }, 
+                {
+                    "label" : "DOMAIN EXPERTISE", 
+                    "data" : NumberInt(0)
+                }
+            ]
+        }
+    ], 
+    "SubRoundId" : "5b3146d10d3e331e8019d5f3"
+}
+{ 
+    "_id" : ObjectId("5b43637b3bb3f8d3b2648255"), 
+    "Type" : "MULTIPLE_CHOICE", 
+    "Text" : "Sales: Account Executive", 
+    "SubText" : "Select your chosen candidate", 
+    "SiblingQuestionId" : "5b435ca13bb3f8d3b2647fb2", 
+    "PossibleAnswers" : [
+        {
+            "label" : "Justin Wong", 
+            "minPoints" : NumberInt(0), 
+            "maxPoints" : 0.666666666666667, 
+            "data" : [
+                {
+                    "label" : "FSI", 
+                    "data" : NumberInt(0)
+                }, 
+                {
+                    "label" : "CORE TECH", 
+                    "data" : NumberInt(1)
+                }, 
+                {
+                    "label" : "EMERGING TECH", 
+                    "data" : NumberInt(0)
+                }, 
+                {
+                    "label" : "TRUSTED ADVISOR", 
+                    "data" : NumberInt(1)
+                }, 
+                {
+                    "label" : "CULTURAL FIT", 
+                    "data" : NumberInt(0)
+                }, 
+                {
+                    "label" : "STRATEGIC THINKING", 
+                    "data" : NumberInt(0)
+                }, 
+                {
+                    "label" : "DOMAIN EXPERTISE", 
+                    "data" : NumberInt(1)
+                }
+            ]
+        }, 
+        {
+            "label" : "Prisha Anand", 
+            "minPoints" : NumberInt(0), 
+            "maxPoints" : 0.666666666666667, 
+            "data" : [
+                {
+                    "label" : "FSI", 
+                    "data" : NumberInt(1)
+                }, 
+                {
+                    "label" : "CORE TECH", 
+                    "data" : NumberInt(0)
+                }, 
+                {
+                    "label" : "EMERGING TECH", 
+                    "data" : NumberInt(1)
+                }, 
+                {
+                    "label" : "TRUSTED ADVISOR", 
+                    "data" : NumberInt(0)
+                }, 
+                {
+                    "label" : "CULTURAL FIT", 
+                    "data" : NumberInt(0)
+                }, 
+                {
+                    "label" : "STRATEGIC THINKING", 
+                    "data" : NumberInt(1)
+                }, 
+                {
+                    "label" : "DOMAIN EXPERTISE", 
+                    "data" : NumberInt(0)
+                }
+            ]
+        }, 
+        {
+            "label" : "Mark Whitman", 
+            "minPoints" : NumberInt(0), 
+            "maxPoints" : 0.666666666666667, 
+            "data" : [
+                {
+                    "label" : "FSI", 
+                    "data" : NumberInt(0)
+                }, 
+                {
+                    "label" : "CORE TECH", 
+                    "data" : NumberInt(0)
+                }, 
+                {
+                    "label" : "EMERGING TECH", 
+                    "data" : NumberInt(0)
+                }, 
+                {
+                    "label" : "TRUSTED ADVISOR", 
+                    "data" : NumberInt(0)
+                }, 
+                {
+                    "label" : "CULTURAL FIT", 
+                    "data" : NumberInt(1)
+                }, 
+                {
+                    "label" : "STRATEGIC THINKING", 
+                    "data" : NumberInt(0)
+                }, 
+                {
+                    "label" : "DOMAIN EXPERTISE", 
+                    "data" : NumberInt(0)
+                }
+            ]
+        }
+    ], 
+    "SubRoundId" : "5b3146d10d3e331e8019d5f3"
+}
+{ 
+    "_id" : ObjectId("5b4363bb3bb3f8d3b264826b"), 
+    "Type" : "MULTIPLE_CHOICE", 
+    "Text" : "Services: Consultant", 
+    "SubText" : "Select your chosen candidate", 
+    "SiblingQuestionId" : "5b435cdb3bb3f8d3b2647fbc", 
+    "PossibleAnswers" : [
+        {
+            "label" : "Melissa Cranston", 
+            "minPoints" : NumberInt(0), 
+            "maxPoints" : 0.666666666666667, 
+            "data" : [
+                {
+                    "label" : "FSI", 
+                    "data" : NumberInt(0)
+                }, 
+                {
+                    "label" : "CORE TECH", 
+                    "data" : NumberInt(0)
+                }, 
+                {
+                    "label" : "EMERGING TECH", 
+                    "data" : NumberInt(0)
+                }, 
+                {
+                    "label" : "TRUSTED ADVISOR", 
+                    "data" : NumberInt(1)
+                }, 
+                {
+                    "label" : "CULTURAL FIT", 
+                    "data" : NumberInt(1)
+                }, 
+                {
+                    "label" : "STRATEGIC THINKING", 
+                    "data" : NumberInt(0)
+                }, 
+                {
+                    "label" : "DOMAIN EXPERTISE", 
+                    "data" : NumberInt(0)
+                }
+            ]
+        }, 
+        {
+            "label" : "Maneesh Purohit", 
+            "minPoints" : NumberInt(0), 
+            "maxPoints" : 0.666666666666667, 
+            "data" : [
+                {
+                    "label" : "FSI", 
+                    "data" : NumberInt(1)
+                }, 
+                {
+                    "label" : "CORE TECH", 
+                    "data" : NumberInt(1)
+                }, 
+                {
+                    "label" : "EMERGING TECH", 
+                    "data" : NumberInt(0)
+                }, 
+                {
+                    "label" : "TRUSTED ADVISOR", 
+                    "data" : NumberInt(0)
+                }, 
+                {
+                    "label" : "CULTURAL FIT", 
+                    "data" : NumberInt(0)
+                }, 
+                {
+                    "label" : "STRATEGIC THINKING", 
+                    "data" : NumberInt(0)
+                }, 
+                {
+                    "label" : "DOMAIN EXPERTISE", 
+                    "data" : NumberInt(0)
+                }
+            ]
+        }, 
+        {
+            "label" : "Jade Shi", 
+            "minPoints" : NumberInt(0), 
+            "maxPoints" : 0.666666666666667, 
+            "data" : [
+                {
+                    "label" : "FSI", 
+                    "data" : NumberInt(0)
+                }, 
+                {
+                    "label" : "CORE TECH", 
+                    "data" : NumberInt(0)
+                }, 
+                {
+                    "label" : "EMERGING TECH", 
+                    "data" : NumberInt(1)
+                }, 
+                {
+                    "label" : "TRUSTED ADVISOR", 
+                    "data" : NumberInt(0)
+                }, 
+                {
+                    "label" : "CULTURAL FIT", 
+                    "data" : NumberInt(0)
+                }, 
+                {
+                    "label" : "STRATEGIC THINKING", 
+                    "data" : NumberInt(1)
+                }, 
+                {
+                    "label" : "DOMAIN EXPERTISE", 
+                    "data" : NumberInt(1)
+                }
+            ]
+        }
+    ], 
+    "SubRoundId" : "5b3146d10d3e331e8019d5f3"
+}
+{ 
+    "_id" : ObjectId("5b4a402410ec537e090c35da"), 
+    "Type" : "TOGGLE", 
+    "Text" : "Feature set", 
+    "SubText" : "Choose which features to deploy", 
+    "PossibleAnswers" : [
+        {
+            "label" : "Integration with Intel Architecture", 
+            "minPoints" : 0.2, 
+            "maxPoints" : 0.25, 
+            "idealValue" : "false"
+        }, 
+        {
+            "label" : "Integration with IBM Architecture", 
+            "minPoints" : 0.2, 
+            "maxPoints" : 0.25, 
+            "idealValue" : "false"
+        }, 
+        {
+            "label" : "Creation of Generic Layer", 
+            "minPoints" : 0.3, 
+            "maxPoints" : 0.5, 
+            "idealValue" : "true"
+        }
+    ], 
+    "SubRoundId" : "5b4a319410ec537e090c26d3"
+}
+{ 
+    "_id" : ObjectId("5b5618fc176b81cae6bacabc"), 
+    "Type" : "SLIDER", 
+    "Text" : "Quantity", 
+    "SubText" : null, 
+    "ComparisonLabel" : "QUANTITY", 
+    "PossibleAnswers" : [
+        {
+            "label" : "", 
+            "data" : "", 
+            "min" : NumberInt(200), 
+            "max" : NumberInt(400), 
+            "interval" : NumberInt(5), 
+            "unit" : "k users"
+        }
+    ], 
+    "SubRoundId" : "5b561976176b81cae6bacaed"
+}
+{ 
+    "_id" : ObjectId("5b563b10e09494dbc165dea3"), 
+    "Type" : "SLIDER", 
+    "Text" : "Price", 
+    "ComparisonLabel" : "PRICE", 
+    "SubText" : "", 
+    "PossibleAnswers" : [
+        {
+            "label" : "", 
+            "data" : "", 
+            "min" : NumberInt(100), 
+            "max" : NumberInt(180), 
+            "interval" : NumberInt(5), 
+            "unit" : "M", 
+            "preunit" : "$"
+        }
+    ], 
+    "SubRoundId" : "5b561976176b81cae6bacaed"
+}
+{ 
+    "_id" : ObjectId("5b564afee09494dbc165e40a"), 
+    "Type" : "MULTIPLE_CHOICE", 
+    "Text" : "Project Management", 
+    "ComparisonLabel" : "PROJECT_MANAGEMENT", 
+    "SubText" : "", 
+    "PossibleAnswers" : [
+        {
+            "label" : "Yes"
+        }, 
+        {
+            "label" : "No"
+        }
+    ], 
+    "SubRoundId" : "5b561976176b81cae6bacaed"
+}
+{ 
+    "_id" : ObjectId("5b564b17e09494dbc165e419"), 
+    "Type" : "MULTIPLE_CHOICE", 
+    "Text" : "Testimonial", 
+    "SubText" : "If the customer provides a testimonial, you can offer a discount on the deal price.", 
+    "PossibleAnswers" : [
+        {
+            "label" : "Yes", 
+            "data" : "1"
+        }, 
+        {
+            "label" : "No", 
+            "data" : "0"
+        }
+    ]
+}
+{ 
+    "_id" : ObjectId("5b565ae1b7fcaf2b7054f00a"), 
+    "Type" : "NUMBER", 
+    "Text" : "Enter your bid", 
+    "SubText" : null, 
+    "PossibleAnswers" : [
+        {
+            "label" : null, 
+            "min" : NumberInt(0), 
+            "max" : NumberInt(6), 
+            "idealValue" : "3", 
+            "maxPoints" : NumberInt(3), 
+            "minPoints" : NumberInt(0), 
+            "unit" : "$", 
+            "preunit" : "Bil."
+        }
+    ], 
+    "SubRoundId" : "5b578c5e49ef01dc027f95f4"
+}
+{ 
+    "_id" : ObjectId("5b56684802491562bcbc3676"), 
+    "Type" : "NUMBER", 
+    "Text" : "Enter the amount you wish to pay for the acquisition of BlueKite.", 
+    "SubText" : null, 
+    "PossibleAnswers" : [
+        {
+            "label" : "PRICING", 
+            "preunit" : "$", 
+            "unit" : "Bil.", 
+            "maxPoints" : NumberInt(1), 
+            "minPoints" : NumberInt(0), 
+            "idealValue" : "3", 
+            "max" : NumberInt(6), 
+            "min" : NumberInt(0)
+        }
+    ], 
+    "SubRoundId" : "5b56644f02491562bcbc3604"
+}
+{ 
+    "_id" : ObjectId("5b56697302491562bcbc3699"), 
+    "Type" : "CHECKBOX", 
+    "Text" : "Keep locations of acquired company open", 
+    "SubText" : null, 
+    "PossibleAnswers" : [
+        {
+            "label" : "London", 
+            "idealValue" : "false", 
+            "maxPoints" : 0.5, 
+            "minPoints" : NumberInt(0)
+        }, 
+        {
+            "label" : "Singapore", 
+            "idealValue" : "true", 
+            "maxPoints" : 0.5, 
+            "minPoints" : NumberInt(0)
+        }
+    ], 
+    "SubRoundId" : "5b56645902491562bcbc3606"
+}
+{ 
+    "_id" : ObjectId("5b56698102491562bcbc369d"), 
+    "Type" : "MULTIPLE_CHOICE", 
+    "Text" : "Brand", 
+    "SubText" : null, 
+    "PossibleAnswers" : [
+        {
+            "label" : "Independent", 
+            "idealValue" : "true", 
+            "maxPoints" : NumberInt(1), 
+            "minPoints" : NumberInt(0)
+        }, 
+        {
+            "label" : "Cobrand", 
+            "idealValue" : "false", 
+            "maxPoints" : NumberInt(0), 
+            "minPoints" : NumberInt(0)
+        }, 
+        {
+            "label" : "Lose brand → SS only", 
+            "idealValue" : "false", 
+            "maxPoints" : NumberInt(0), 
+            "minPoints" : NumberInt(0)
+        }
+    ], 
+    "SubRoundId" : "5b56645902491562bcbc3606"
+}
+{ 
+    "_id" : ObjectId("5b5669bd02491562bcbc36a5"), 
+    "Type" : "MULTIPLE_CHOICE", 
+    "Text" : "HR systems", 
+    "SubText" : null, 
+    "PossibleAnswers" : [
+        {
+            "label" : "Centralized", 
+            "idealValue" : "true", 
+            "maxPoints" : NumberInt(1), 
+            "minPoints" : NumberInt(0)
+        }, 
+        {
+            "label" : "Blended", 
+            "idealValue" : "false", 
+            "maxPoints" : NumberInt(0), 
+            "minPoints" : NumberInt(0)
+        }, 
+        {
+            "label" : "Decentralized", 
+            "idealValue" : "false", 
+            "maxPoints" : NumberInt(0), 
+            "minPoints" : NumberInt(0)
+        }
+    ], 
+    "SubRoundId" : "5b56645902491562bcbc3606"
+}
+{ 
+    "_id" : ObjectId("5b5669c402491562bcbc36a7"), 
+    "Type" : "MULTIPLE_CHOICE", 
+    "Text" : "IT systems", 
+    "SubText" : null, 
+    "PossibleAnswers" : [
+        {
+            "label" : "Centralized", 
+            "idealValue" : "true", 
+            "maxPoints" : NumberInt(1), 
+            "minPoints" : NumberInt(0)
+        }, 
+        {
+            "label" : "Blended", 
+            "idealValue" : "false", 
+            "maxPoints" : NumberInt(0), 
+            "minPoints" : NumberInt(0)
+        }, 
+        {
+            "label" : "Decentralized", 
+            "idealValue" : "false", 
+            "maxPoints" : NumberInt(0), 
+            "minPoints" : NumberInt(0)
+        }
+    ], 
+    "SubRoundId" : "5b56645902491562bcbc3606"
+}
+{ 
+    "_id" : ObjectId("5b56898502491562bcbc4351"), 
+    "Type" : "SLIDER", 
+    "Text" : "Team size to dedicate", 
+    "SubText" : "", 
+    "PossibleAnswers" : [
+        {
+            "label" : "", 
+            "data" : "", 
+            "min" : NumberInt(0), 
+            "max" : NumberInt(5), 
+            "interval" : NumberInt(1), 
+            "unit" : " People", 
+            "maxPoints" : NumberInt(5), 
+            "minPoints" : NumberInt(0), 
+            "idealValue" : "0"
+        }
+    ], 
+    "SubRoundId" : "5b57906549ef01dc027f9699"
+}
+{ 
+    "_id" : ObjectId("5b56898e02491562bcbc4357"), 
+    "Type" : "SLIDER", 
+    "Text" : "Discount to give:", 
+    "SubText" : "", 
+    "PossibleAnswers" : [
+        {
+            "label" : "", 
+            "data" : "", 
+            "min" : NumberInt(0), 
+            "max" : NumberInt(100), 
+            "interval" : NumberInt(1), 
+            "unit" : "%", 
+            "maxPoints" : NumberInt(5), 
+            "minPoints" : NumberInt(0), 
+            "idealValue" : "0"
+        }
+    ], 
+    "SubRoundId" : "5b57906549ef01dc027f9699"
+}
+{ 
+    "_id" : ObjectId("5b58fa85602cc6a9f537797c"), 
+    "SiblingQuestionId" : "5b5618fc176b81cae6bacabc", 
+    "Type" : "SLIDER", 
+    "Text" : "Quantity", 
+    "ComparisonLabel" : "QUANTITY", 
+    "SubText" : null, 
+    "PossibleAnswers" : [
+        {
+            "label" : "", 
+            "data" : "", 
+            "min" : NumberInt(200), 
+            "max" : NumberInt(400), 
+            "interval" : NumberInt(10), 
+            "unit" : "k users"
+        }
+    ], 
+    "SubRoundId" : "5b564f22e09494dbc165e595"
+}
+{ 
+    "_id" : ObjectId("5b58faaf602cc6a9f53779ae"), 
+    "SiblingQuestionId" : "5b563b10e09494dbc165dea3", 
+    "Type" : "SLIDER", 
+    "Text" : "Price", 
+    "SubText" : "", 
+    "ComparisonLabel" : "PRICE", 
+    "PossibleAnswers" : [
+        {
+            "label" : "", 
+            "data" : "", 
+            "min" : NumberInt(103), 
+            "max" : NumberInt(185), 
+            "interval" : NumberInt(1), 
+            "unit" : "M", 
+            "preunit" : "$"
+        }
+    ], 
+    "SubRoundId" : "5b564f22e09494dbc165e595"
+}
+{ 
+    "_id" : ObjectId("5b58fb4b602cc6a9f5377a55"), 
+    "Type" : "MULTIPLE_CHOICE", 
+    "Text" : "Project Management", 
+    "ComparisonLabel" : "PROJECT_MANAGEMENT", 
+    "SubText" : "In order to meet the customer budget, you can choose to omit project management from the given solution.", 
+    "PossibleAnswers" : [
+        {
+            "label" : "Yes", 
+            "data" : "1"
+        }, 
+        {
+            "label" : "No", 
+            "data" : "0"
+        }
+    ], 
+    "SubRoundId" : "5b564f22e09494dbc165e595"
+}
+{ 
+    "_id" : ObjectId("5b5a2b64602cc6a9f53825c9"), 
+    "Type" : "SLIDER", 
+    "Text" : "Rate your manager for this round", 
+    "SubText" : "", 
+    "RatingMarker" : "MANAGER_RATING____", 
+    "PossibleAnswers" : [
+        {
+            "label" : "Inclusive meritocracy", 
+            "min" : NumberInt(0), 
+            "max" : NumberInt(10), 
+            "interval" : NumberInt(1), 
+            "preunit" : "Inclusive meritocracy: "
+        }, 
+        {
+            "label" : "Coaching", 
+            "min" : NumberInt(0), 
+            "max" : NumberInt(10), 
+            "interval" : NumberInt(1), 
+            "preunit" : "Coaching: "
+        }, 
+        {
+            "label" : "Influence", 
+            "min" : NumberInt(0), 
+            "max" : NumberInt(10), 
+            "interval" : NumberInt(1), 
+            "preunit" : "Influence: "
+        }
+    ]
+}
+{ 
+    "_id" : ObjectId("5b5a780c602cc6a9f53851fd"), 
+    "RatingMarker" : "IC_RATING", 
+    "Type" : "PRIORITY", 
+    "Text" : "Negotiation", 
+    "SubText" : "(Use drag and drop interface to rank the ICs)", 
+    "PossibleAnswers" : [
+
+    ]
+}
+{ 
+    "_id" : ObjectId("5b5d401a602cc6a9f539b89a"), 
+    "Type" : "TEXTAREA", 
+    "Text" : "Proposed deal structure", 
+    "SubText" : "(Include price and any other relevant information)", 
+    "PossibleAnswers" : [
+        {
+            "maxWords" : NumberInt(50), 
+            "label" : "explanation"
+        }
+    ], 
+    "SubRoundId" : "5b56644f02491562bcbc3604"
+}
+{ 
+    "_id" : ObjectId("5b5dc52b602cc6a9f539de00"), 
+    "RatingMarker" : "TEAM_RATING", 
+    "Type" : "SLIDER", 
+    "Text" : "Rate Team", 
+    "SubText" : "", 
+    "PossibleAnswers" : [
+        {
+            "label" : "Deal Structure ", 
+            "min" : NumberInt(0), 
+            "max" : NumberInt(10), 
+            "interval" : NumberInt(1), 
+            "idealScore" : "10", 
+            "maxPoints" : NumberInt(5), 
+            "minPoints" : NumberInt(0), 
+            "preunit" : "Deal Structure "
+        }, 
+        {
+            "label" : "Quality of Motivation ", 
+            "min" : NumberInt(0), 
+            "max" : NumberInt(10), 
+            "interval" : NumberInt(1), 
+            "preunit" : "Quality of Motivation ", 
+            "idealScore" : "10", 
+            "maxPoints" : NumberInt(5), 
+            "minPoints" : NumberInt(0)
+        }
+    ]
+}
+{ 
+    "_id" : ObjectId("5b5ea496602cc6a9f53a47c9"), 
+    "RatingMarker" : "IC_RATING", 
+    "Type" : "PRIORITY", 
+    "Text" : "Courage", 
+    "SubText" : "(Use drag and drop interface to rank the ICs)", 
+    "PossibleAnswers" : [
+
+    ]
+}
+{ 
+    "_id" : ObjectId("5b5ea49e602cc6a9f53a47d7"), 
+    "RatingMarker" : "IC_RATING", 
+    "Type" : "PRIORITY", 
+    "Text" : "Collaboration", 
+    "SubText" : "(Use drag and drop interface to rank the ICs)", 
+    "PossibleAnswers" : [
+
+    ]
+}
+{ 
+    "_id" : ObjectId("5b78b7f395ac8315aa3bdef3"), 
+    "Type" : "SLIDER", 
+    "Text" : "Rate your manager for this round", 
+    "SubText" : "", 
+    "RatingMarker" : "MANAGER_RATING", 
+    "PossibleAnswers" : [
+        {
+            "label" : "Red Hat Multiplier", 
+            "min" : NumberInt(0), 
+            "max" : NumberInt(10), 
+            "interval" : NumberInt(1), 
+            "preunit" : "Red Hat Multiplier: "
+        }, 
+        {
+            "label" : "Overcoming Bias", 
+            "min" : NumberInt(0), 
+            "max" : NumberInt(10), 
+            "interval" : NumberInt(1), 
+            "preunit" : "Overcoming Bias: ", 
+            "Round" : "1"
+        }, 
+        {
+            "label" : "Inclusion", 
+            "min" : NumberInt(0), 
+            "max" : NumberInt(10), 
+            "interval" : NumberInt(1), 
+            "preunit" : "Inclusion:", 
+            "Round" : "1"
+        }, 
+        {
+            "label" : "Tilting to Context", 
+            "min" : NumberInt(0), 
+            "max" : NumberInt(10), 
+            "interval" : NumberInt(1), 
+            "preunit" : "Tilting to Context:", 
+            "Round" : "2"
+        }, 
+        {
+            "label" : "Influence", 
+            "min" : NumberInt(0), 
+            "max" : NumberInt(10), 
+            "interval" : NumberInt(1), 
+            "preunit" : "Influence: ", 
+            "Round" : "2"
+        }, 
+        {
+            "label" : "Negotiation", 
+            "min" : NumberInt(0), 
+            "max" : NumberInt(10), 
+            "interval" : NumberInt(1), 
+            "preunit" : "Negotiation:", 
+            "Round" : "3"
+        }, 
+        {
+            "label" : "Master My Stories + Make It Safe", 
+            "min" : NumberInt(0), 
+            "max" : NumberInt(10), 
+            "interval" : NumberInt(1), 
+            "preunit" : "Master My Stories + Make It Safe: ", 
+            "Round" : "3"
+        }, 
+        {
+            "label" : "Make it Motivating", 
+            "min" : NumberInt(0), 
+            "max" : NumberInt(10), 
+            "interval" : NumberInt(1), 
+            "preunit" : "Make it Motivating:", 
+            "Round" : "4"
+        }, 
+        {
+            "label" : "Communication", 
+            "min" : NumberInt(0), 
+            "max" : NumberInt(10), 
+            "interval" : NumberInt(1), 
+            "preunit" : "Communication: ", 
+            "Round" : "4"
+        }, 
+        {
+            "label" : "Judgement", 
+            "min" : NumberInt(0), 
+            "max" : NumberInt(10), 
+            "interval" : NumberInt(1), 
+            "preunit" : "Judgement:", 
+            "Round" : "5"
+        }, 
+        {
+            "label" : "Open Leadership", 
+            "min" : NumberInt(0), 
+            "max" : NumberInt(10), 
+            "interval" : NumberInt(1), 
+            "preunit" : "Open Leadership: ", 
+            "Round" : "5"
+        }
+    ]
+}

@@ -1,0 +1,518 @@
+{ 
+    "_id" : ObjectId("5b3146d10d3e331e8019d5f3"), 
+    "Name" : "HIRING", 
+    "RoundId" : "5b149433a486d3b817aa4e7b", 
+    "ICMessages" : [
+        ObjectId("5b51eb6eab25cf61e4cb3d6b"), 
+        ObjectId("5b51ebf7ab25cf61e4cb3d7b"), 
+        ObjectId("5b51ec0cab25cf61e4cb3d81"), 
+        ObjectId("5b51ec15ab25cf61e4cb3d83")
+    ], 
+    "LeaderMessages" : [
+        ObjectId("5b51ff3eab25cf61e4cb4a14")
+    ], 
+    "ChipCoMessages" : [
+
+    ], 
+    "IntegratedSystemsMessages" : [
+
+    ], 
+    "__v" : NumberInt(0), 
+    "Label" : "1B", 
+    "Questions" : [
+        ObjectId("5b4363563bb3f8d3b2648247"), 
+        ObjectId("5b43637b3bb3f8d3b2648255"), 
+        ObjectId("5b4363bb3bb3f8d3b264826b")
+    ], 
+    "REST_URL" : "rounds", 
+    "RoundIdx" : NumberInt(0), 
+    "Responses" : [
+
+    ], 
+    "FeedBack" : [
+        ObjectId("5b6c4f7cc2fed108d9a97bfe")
+    ], 
+    "NextSubRound" : ObjectId("5b561976176b81cae6bacaed"), 
+    "PrevSubRound" : ObjectId("5b32aafe4b1a730e14ee7871"), 
+    "_FeedBack" : [
+        {
+            "_id" : ObjectId("5b6c4f7cc2fed108d9a97bfe"), 
+            "REST_URL" : "rounds/subround/message", 
+            "RoundId" : "5b3146d10d3e331e8019d5f3", 
+            "SubRoundLabel" : "", 
+            "Title" : "", 
+            "Content" : "<p><span style=\"color: rgb(0, 0, 0);\">You set hiring criteria in Round 1A, and 50% of your score reflects the degree to which you adhered to your criteria when you made your hiring decisions.</span></p><p><br></p><p><span style=\"color: rgb(0, 0, 0);\">50% of your score is based on how appropriately you ranked the criteria. For each role, different criteria are most important. For sales, a long-term strategic view and experience in the financial services vertical are necessary. For engineering, it is important to be able to negotiate both internally and with the upstream community, while also having a strong understanding of emerging technologies. For services, it is most critical that the candidate has grasp of emerging technologies, and can act as a trusted advisor.</span></p>", 
+            "IsDefault" : false, 
+            "Job" : "Individual Contributor", 
+            "ValueDemomination" : "NEUTRAL"
+        }
+    ], 
+    "BlueKiteMessages" : [
+
+    ], 
+    "Description" : "", 
+    "ScoreLabel" : "Selecting Candidate"
+}
+{ 
+    "_id" : ObjectId("5b32aafe4b1a730e14ee7871"), 
+    "Name" : "PRIORITIES", 
+    "RoundId" : "5b149433a486d3b817aa4e7b", 
+    "Questions" : [
+        ObjectId("5b354ebcdd11e8ba50ea964c"), 
+        ObjectId("5b435ca13bb3f8d3b2647fb2"), 
+        ObjectId("5b435cdb3bb3f8d3b2647fbc")
+    ], 
+    "__v" : NumberInt(0), 
+    "Label" : "1A", 
+    "REST_URL" : "rounds", 
+    "RoundIdx" : NumberInt(0), 
+    "ICMessages" : [
+        ObjectId("5b50a33dc754cbb2216711ec"), 
+        ObjectId("5b50a02dc754cbb221671022")
+    ], 
+    "LeaderMessages" : [
+        ObjectId("5b50a02dc754cbb221671022"), 
+        ObjectId("5b50a42ec754cbb221671237")
+    ], 
+    "ChipCoMessages" : [
+
+    ], 
+    "IntegratedSystemsMessages" : [
+
+    ], 
+    "IndividualContributorContent" : "", 
+    "LeaderContent" : "", 
+    "NextSubRound" : ObjectId("5b3146d10d3e331e8019d5f3"), 
+    "PrevSubRound" : ObjectId("5b4288743bb3f8d3b26412d5"), 
+    "Responses" : [
+
+    ], 
+    "_FeedBack" : [
+
+    ], 
+    "ScoreLabel" : "Setting Criteria"
+}
+{ 
+    "_id" : ObjectId("5b3e57c33301a694ddb57126"), 
+    "Name" : "PLAYERLOGIN", 
+    "RoundId" : "5b3e56fc3301a694ddb570b0", 
+    "IndividualContributorContent" : "", 
+    "LeaderContent" : "", 
+    "__v" : NumberInt(0), 
+    "Label" : "A", 
+    "REST_URL" : "rounds", 
+    "RoundIdx" : NumberInt(0), 
+    "Questions" : [
+
+    ], 
+    "NextSubRound" : ObjectId("5b4288743bb3f8d3b26412d5"), 
+    "PrevSubRound" : null, 
+    "Responses" : [
+
+    ], 
+    "IntegratedSystemsMessages" : [
+
+    ], 
+    "ChipCoMessages" : [
+
+    ], 
+    "ICMessages" : [
+
+    ], 
+    "LeaderMessages" : [
+
+    ], 
+    "_FeedBack" : [
+
+    ]
+}
+{ 
+    "_id" : ObjectId("5b4288743bb3f8d3b26412d5"), 
+    "Name" : "INTRO", 
+    "RoundId" : "5b3e56fc3301a694ddb570b0", 
+    "IndividualContributorContent" : "<p>You are about to take over a critical project at one of the world’s most exciting technology companies.</p><p>The business context may be simulated, but the challenges will be real. Your management skills will be put to the test as you work across an entire enterprise<strong>.</strong></p><p><strong>Let’s begin.</strong></p>", 
+    "LeaderContent" : "<p><strong>You are about to take over a critical project at one of the world’s most exciting technology companies.</strong></p>\n<p><strong>The business context may be simulated, but the challenges will be real. Your management skills will be put to the test as you work across an entire enterprise. </strong></p>\n<p><strong>Let’s begin.</strong></p>\n", 
+    "__v" : NumberInt(0), 
+    "Label" : "B", 
+    "REST_URL" : "rounds", 
+    "RoundIdx" : NumberInt(0), 
+    "Questions" : [
+
+    ], 
+    "ICMessages" : [
+        ObjectId("5b4fe9b7c529ce898f9d8ed2")
+    ], 
+    "LeaderMessages" : [
+        ObjectId("5b4fe9b7c529ce898f9d8ed2")
+    ], 
+    "PrevSubRound" : ObjectId("5b3e57c33301a694ddb57126"), 
+    "NextSubRound" : ObjectId("5b32aafe4b1a730e14ee7871"), 
+    "Responses" : [
+
+    ], 
+    "IntegratedSystemsMessages" : [
+
+    ], 
+    "ChipCoMessages" : [
+
+    ], 
+    "_FeedBack" : [
+
+    ]
+}
+{ 
+    "_id" : ObjectId("5b4a319410ec537e090c26d3"), 
+    "Name" : "ENGINEERINGSUB", 
+    "RoundId" : "5b14943da486d3b817aa4e7f", 
+    "__v" : NumberInt(0), 
+    "Label" : "3A", 
+    "Questions" : [
+        ObjectId("5b4a402410ec537e090c35da")
+    ], 
+    "REST_URL" : "rounds", 
+    "RoundIdx" : NumberInt(0), 
+    "ICMessages" : [
+
+    ], 
+    "LeaderMessages" : [
+        ObjectId("5b5789aa49ef01dc027f9598"), 
+        ObjectId("5b51fd29ab25cf61e4cb4968")
+    ], 
+    "ChipCoMessages" : [
+        ObjectId("5b51fe49ab25cf61e4cb49c2"), 
+        ObjectId("5b51fd29ab25cf61e4cb4968")
+    ], 
+    "IntegratedSystemsMessages" : [
+        ObjectId("5b51fe54ab25cf61e4cb49c9"), 
+        ObjectId("5b51fd29ab25cf61e4cb4968")
+    ], 
+    "NextSubRound" : null, 
+    "PrevSubRound" : ObjectId("5b564f22e09494dbc165e595"), 
+    "Responses" : [
+
+    ], 
+    "_FeedBack" : [
+        {
+            "_id" : ObjectId("5b7d94a2f32ab1ec01c6989b"), 
+            "RoundId" : "5b561976176b81cae6bacaed", 
+            "ValueDemomination" : "NEUTRAL", 
+            "Title" : "", 
+            "Job" : "Individual Contributor", 
+            "IsDefault" : false, 
+            "Content" : "<p>Giving in to a single player threatens to undermine the openness of OpenVM. It's good in the short term, perhaps, but in the long term limits participation across the platform. </p>", 
+            "SubRoundLabel" : "", 
+            "REST_URL" : "rounds/subround/message"
+        }
+    ], 
+    "ScoreLabel" : "Feature Selection"
+}
+{ 
+    "_id" : ObjectId("5b561976176b81cae6bacaed"), 
+    "Name" : "DEALSTRUCTURE", 
+    "RoundId" : "5b56198d176b81cae6bacaf6", 
+    "__v" : NumberInt(0), 
+    "Label" : "2A", 
+    "Questions" : [
+        ObjectId("5b5618fc176b81cae6bacabc"), 
+        ObjectId("5b563b10e09494dbc165dea3"), 
+        ObjectId("5b564603e09494dbc165e273"), 
+        ObjectId("5b564afee09494dbc165e40a")
+    ], 
+    "REST_URL" : "rounds", 
+    "RoundIdx" : NumberInt(0), 
+    "ICMessages" : [
+        ObjectId("5b578ae949ef01dc027f95c6")
+    ], 
+    "LeaderMessages" : [
+        ObjectId("5b578aa649ef01dc027f95bb"), 
+        ObjectId("5b578a7749ef01dc027f95b4")
+    ], 
+    "ChipCoMessages" : [
+
+    ], 
+    "IntegratedSystemsMessages" : [
+
+    ], 
+    "NextSubRound" : ObjectId("5b564f22e09494dbc165e595"), 
+    "PrevSubRound" : ObjectId("5b3146d10d3e331e8019d5f3"), 
+    "Responses" : [
+
+    ], 
+    "_FeedBack" : [
+        {
+            "_id" : ObjectId("5ba04d0646e2ef027acdd157"), 
+            "REST_URL" : "rounds/subround/message", 
+            "RoundId" : "5b56645902491562bcbc3606", 
+            "SubRoundLabel" : "", 
+            "Title" : "", 
+            "Content" : "<p>The BlueKite brand is well-known and represents a compelling and unique success story, not unlike Source Stream's. In addition, allowing BlueKite to retain its brand aligns with Source Stream's culture of autonomy and transparency. </p><p>Given Source Stream's ambition to grow in the Asia Pacific region, the Singapore footprint is attractive. The London location would be redundant to Source Stream's current headquarters. </p><p>While concessions around one location and the brand are short-term wins for BlueKite, HR and IT systems must be centralized to enable long-term stability. </p>", 
+            "IsDefault" : false, 
+            "Job" : "Individual Contributor", 
+            "ValueDemomination" : "NEUTRAL"
+        }
+    ], 
+    "BlueKiteMessages" : [
+
+    ], 
+    "Description" : "", 
+    "ScoreLabel" : "Deal Structure"
+}
+{ 
+    "_id" : ObjectId("5b564f22e09494dbc165e595"), 
+    "Name" : "DEALRENEWAL", 
+    "RoundId" : "5b56198d176b81cae6bacaf6", 
+    "__v" : NumberInt(0), 
+    "Label" : "2B", 
+    "Questions" : [
+        ObjectId("5b58fa85602cc6a9f537797c"), 
+        ObjectId("5b58faaf602cc6a9f53779ae"), 
+        ObjectId("5b58fb34602cc6a9f5377a3c"), 
+        ObjectId("5b58fb4b602cc6a9f5377a55")
+    ], 
+    "REST_URL" : "rounds", 
+    "RoundIdx" : NumberInt(0), 
+    "ICMessages" : [
+        ObjectId("5b578b9f49ef01dc027f95dd"), 
+        ObjectId("5b578b6d49ef01dc027f95d5")
+    ], 
+    "LeaderMessages" : [
+        ObjectId("5b578b6d49ef01dc027f95d5")
+    ], 
+    "ChipCoMessages" : [
+
+    ], 
+    "IntegratedSystemsMessages" : [
+
+    ], 
+    "NextSubRound" : ObjectId("5b4a319410ec537e090c26d3"), 
+    "PrevSubRound" : ObjectId("5b561976176b81cae6bacaed"), 
+    "Responses" : [
+
+    ], 
+    "_FeedBack" : [
+        {
+            "_id" : ObjectId("5ba11059af9a0a48e6330024"), 
+            "REST_URL" : "rounds/subround/message", 
+            "RoundId" : "5b564f22e09494dbc165e595", 
+            "SubRoundLabel" : "", 
+            "Title" : "", 
+            "Content" : "<p><span style=\"color: rgb(0, 0, 0);\">Your goal is both to make a lucrative deal for Source Stream, and also to keep RHK Bank happy. Your deal structure must balance the short-term deal payoff with the longer-term satisfaction of the customer. Your Deal Structure score reflects the degree to which you made a deal that benefitted Source Stream without sacrificing a longer-term relationship with RHK. </span></p><p><br></p><p>It is also important that you are able to communicate the value of the deal structure to internal stakeholders, reflected in your Presentation Effectiveness score.</p>", 
+            "IsDefault" : false, 
+            "Job" : "Associate", 
+            "ValueDemomination" : "NEUTRAL"
+        }
+    ], 
+    "ScoreLabel" : "Presentation Effectiveness", 
+    "HasIndividualFeedback" : "false", 
+    "HasUserRatings" : "false", 
+    "HasFeedback" : "true", 
+    "BlueKiteMessages" : [
+
+    ], 
+    "Description" : ""
+}
+{ 
+    "_id" : ObjectId("5b56644f02491562bcbc3604"), 
+    "Name" : "PRICING", 
+    "RoundId" : "5b5659d7b7fcaf2b7054ef97", 
+    "__v" : NumberInt(0), 
+    "Label" : "4A", 
+    "Questions" : [
+        ObjectId("5b5d401a602cc6a9f539b89a")
+    ], 
+    "REST_URL" : "rounds", 
+    "RoundIdx" : NumberInt(0), 
+    "ICMessages" : [
+        ObjectId("5b578cdd49ef01dc027f960f"), 
+        ObjectId("5b578dd049ef01dc027f9633")
+    ], 
+    "LeaderMessages" : [
+        ObjectId("5b578d1649ef01dc027f9619"), 
+        ObjectId("5b578dd049ef01dc027f9633")
+    ], 
+    "ChipCoMessages" : [
+
+    ], 
+    "IntegratedSystemsMessages" : [
+
+    ], 
+    "NextSubRound" : ObjectId("5b5e009e602cc6a9f539fa06"), 
+    "PrevSubRound" : ObjectId("5b4a319410ec537e090c26d3"), 
+    "Responses" : [
+
+    ], 
+    "_FeedBack" : [
+
+    ], 
+    "SkipScoring" : "true"
+}
+{ 
+    "_id" : ObjectId("5b56645902491562bcbc3606"), 
+    "Name" : "ACQUISITIONSTRUCTURE", 
+    "RoundId" : "5b5659d7b7fcaf2b7054ef97", 
+    "__v" : NumberInt(0), 
+    "Label" : "4C", 
+    "Questions" : [
+        ObjectId("5b56697302491562bcbc3699"), 
+        ObjectId("5b56698102491562bcbc369d"), 
+        ObjectId("5b5669bd02491562bcbc36a5"), 
+        ObjectId("5b5669c402491562bcbc36a7")
+    ], 
+    "REST_URL" : "rounds", 
+    "RoundIdx" : NumberInt(0), 
+    "ICMessages" : [
+        ObjectId("5b578fb049ef01dc027f967b")
+    ], 
+    "LeaderMessages" : [
+        ObjectId("5b60a06e176b81cae6be9a8c")
+    ], 
+    "ChipCoMessages" : [
+
+    ], 
+    "BlueKiteMessages" : [
+        ObjectId("5b7898b195ac8315aa3bd183"), 
+        ObjectId("5b7eb902f32ab1ec01c7310e")
+    ], 
+    "IntegratedSystemsMessages" : [
+
+    ], 
+    "NextSubRound" : ObjectId("5b57906549ef01dc027f9699"), 
+    "PrevSubRound" : ObjectId("5b5e009e602cc6a9f539fa06"), 
+    "Responses" : [
+
+    ], 
+    "_FeedBack" : [
+        {
+            "_id" : ObjectId("5b999579de8563246c0dfce0"), 
+            "REST_URL" : "rounds/subround/message", 
+            "RoundId" : "5b56645902491562bcbc3606", 
+            "SubRoundLabel" : "", 
+            "Title" : "", 
+            "Content" : "<p>The BlueKite brand is well-known and represents a compelling and unique success story, not unlike Source Stream's. In addition, allowing BlueKite to retain its brand aligns with Source Stream's culture of autonomy and transparency. </p><p>Given Source Stream's ambition to grow in the Asia Pacific region, the Singapore footprint is attractive. The London location would be redundant to Source Stream's current headquarters. </p><p>While concessions around one location and the brand are short-term wins for BlueKite, HR and IT systems must be centralized to enable long-term stability. </p>", 
+            "IsDefault" : false, 
+            "Job" : "Individual Contributor", 
+            "ValueDemomination" : "NEUTRAL"
+        }
+    ], 
+    "ScoreLabel" : "Integration Strategy"
+}
+{ 
+    "_id" : ObjectId("5b578c5e49ef01dc027f95f4"), 
+    "Name" : "BID", 
+    "RoundId" : "5b5659d7b7fcaf2b7054ef97", 
+    "__v" : NumberInt(0), 
+    "Label" : "4C", 
+    "Questions" : [
+        ObjectId("5b565ae1b7fcaf2b7054f00a")
+    ], 
+    "REST_URL" : "rounds", 
+    "RoundIdx" : NumberInt(0), 
+    "ICMessages" : [
+        ObjectId("5b578e5c49ef01dc027f964b")
+    ], 
+    "LeaderMessages" : [
+        ObjectId("5b60a019176b81cae6be99e9")
+    ], 
+    "ChipCoMessages" : [
+
+    ], 
+    "IntegratedSystemsMessages" : [
+
+    ], 
+    "PrevSubRound" : ObjectId("5b5e009e602cc6a9f539fa06"), 
+    "NextSubRound" : ObjectId("5b56645902491562bcbc3606"), 
+    "Responses" : [
+
+    ], 
+    "_FeedBack" : [
+
+    ], 
+    "SkipScoring" : true, 
+    "ScoreLabel" : "shouldn't show up in score"
+}
+{ 
+    "_id" : ObjectId("5b57906549ef01dc027f9699"), 
+    "Name" : "CUSTOMERSUB", 
+    "RoundId" : "5b56890f02491562bcbc4325", 
+    "__v" : NumberInt(0), 
+    "Label" : "5A", 
+    "Questions" : [
+        ObjectId("5b56898502491562bcbc4351"), 
+        ObjectId("5b56898e02491562bcbc4357")
+    ], 
+    "REST_URL" : "rounds", 
+    "RoundIdx" : NumberInt(0), 
+    "ICMessages" : [
+        ObjectId("5b60a0b3176b81cae6be9b0a"), 
+        ObjectId("5b6b50a0176b81cae6c3009d"), 
+        ObjectId("5b7ffb78f32ab1ec01c7fc67")
+    ], 
+    "LeaderMessages" : [
+        ObjectId("5b5790de49ef01dc027f96ab"), 
+        ObjectId("5b6b50a0176b81cae6c3009d"), 
+        ObjectId("5b6b50c7176b81cae6c300ab"), 
+        ObjectId("5b7ffb78f32ab1ec01c7fc67"), 
+        ObjectId("5b7ffc13f32ab1ec01c7fd09")
+    ], 
+    "ChipCoMessages" : [
+
+    ], 
+    "IntegratedSystemsMessages" : [
+
+    ], 
+    "Responses" : [
+
+    ], 
+    "FeedBack" : [
+        ObjectId("5b6b2975fae478106ab939e3")
+    ], 
+    "NextSubRound" : null, 
+    "PrevSubRound" : ObjectId("5b56645902491562bcbc3606"), 
+    "_FeedBack" : [
+        {
+            "_id" : ObjectId("5b999579de8563246c0dfce1"), 
+            "REST_URL" : "rounds/subround/message", 
+            "RoundId" : "5b56645902491562bcbc3606", 
+            "SubRoundLabel" : "", 
+            "Title" : "", 
+            "Content" : "<p>Six months ago, you made a judgement call to work around the current policy by offering to provide one Technical Account Manager to RHK Bank. In this next decision, you had to make another judgement call that could violate the policy even further. While it is important to keep this client happy, you must also make a decision that doesn't ultimately cost Source Stream valuable resources - both in people and money. The most appropriate decision not to allocate any additional TAMs, and not to offer a discount - as proposed by Tom Carlowe. </p>", 
+            "IsDefault" : false, 
+            "Job" : "Individual Contributor", 
+            "ValueDemomination" : "NEUTRAL"
+        }
+    ], 
+    "ScoreLabel" : "Response to Customer"
+}
+{ 
+    "_id" : ObjectId("5b5e009e602cc6a9f539fa06"), 
+    "Name" : "TEAMRATING", 
+    "RoundId" : "5b5659d7b7fcaf2b7054ef97", 
+    "__v" : NumberInt(0), 
+    "Label" : "4B", 
+    "Questions" : [
+
+    ], 
+    "REST_URL" : "rounds", 
+    "RoundIdx" : NumberInt(0), 
+    "ICMessages" : [
+        ObjectId("5b5e0053602cc6a9f539f9b6")
+    ], 
+    "LeaderMessages" : [
+        ObjectId("5b609f92176b81cae6be98e3")
+    ], 
+    "ChipCoMessages" : [
+
+    ], 
+    "IntegratedSystemsMessages" : [
+
+    ], 
+    "PrevSubRound" : ObjectId("5b56644f02491562bcbc3604"), 
+    "NextSubRound" : ObjectId("5b56645902491562bcbc3606"), 
+    "Responses" : [
+
+    ], 
+    "_FeedBack" : [
+
+    ], 
+    "ScoreLabel" : "Acquisition Presentation Quality"
+}

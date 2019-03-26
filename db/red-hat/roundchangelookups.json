@@ -1,0 +1,374 @@
+{ 
+    "_id" : ObjectId("5b9fb15e31103f3f9d4d96cd"), 
+    "Round" : "PEOPLEROUND", 
+    "SubRound" : "PRIORITIES", 
+    "RoundId" : "5b149433a486d3b817aa4e7b", 
+    "SubRoundId" : "5b32aafe4b1a730e14ee7871", 
+    "ShowFeedback" : false, 
+    "ShowRateUsers" : false, 
+    "ShowIndividualFeedback" : false, 
+    "MinSlideNumber" : NumberInt(1), 
+    "MaxSlideNumber" : NumberInt(12), 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5b9fb15e31103f3f9d4d96d1"), 
+    "Round" : "PEOPLEROUND", 
+    "SubRound" : "HIRING", 
+    "RoundId" : "5b149433a486d3b817aa4e7b", 
+    "SubRoundId" : "5b3146d10d3e331e8019d5f3", 
+    "ShowFeedback" : false, 
+    "ShowRateUsers" : false, 
+    "ShowIndividualFeedback" : false, 
+    "MinSlideNumber" : NumberInt(13), 
+    "MaxSlideNumber" : NumberInt(13), 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5b9fb15e31103f3f9d4d96d2"), 
+    "Round" : "PEOPLEROUND", 
+    "SubRound" : "HIRING", 
+    "RoundId" : "5b149433a486d3b817aa4e7b", 
+    "SubRoundId" : "5b3146d10d3e331e8019d5f3", 
+    "ShowFeedback" : true, 
+    "SlideFeedback" : true, 
+    "ShowRateUsers" : false, 
+    "ShowIndividualFeedback" : false, 
+    "MinSlideNumber" : NumberInt(15), 
+    "MaxSlideNumber" : NumberInt(15), 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5b9fb15e31103f3f9d4d96d3"), 
+    "Round" : "PEOPLEROUND", 
+    "SubRound" : "HIRING", 
+    "RoundId" : "5b149433a486d3b817aa4e7b", 
+    "SubRoundId" : "5b3146d10d3e331e8019d5f3", 
+    "ShowFeedback" : false, 
+    "ShowRateUsers" : true, 
+    "ShowIndividualFeedback" : false, 
+    "MinSlideNumber" : NumberInt(16), 
+    "MaxSlideNumber" : NumberInt(17), 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5b9fb15e31103f3f9d4d96d4"), 
+    "Round" : "PEOPLEROUND", 
+    "SubRound" : "HIRING", 
+    "RoundId" : "5b149433a486d3b817aa4e7b", 
+    "SubRoundId" : "5b3146d10d3e331e8019d5f3", 
+    "ShowFeedback" : false, 
+    "ShowRateUsers" : false, 
+    "ShowIndividualFeedback" : true, 
+    "MinSlideNumber" : NumberInt(18), 
+    "MaxSlideNumber" : NumberInt(22), 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5b9fb15e31103f3f9d4d96d5"), 
+    "Round" : "SALESROUND", 
+    "SubRound" : "DEALSTRUCTURE", 
+    "RoundId" : "5b56198d176b81cae6bacaf6", 
+    "SubRoundId" : "5b561976176b81cae6bacaed", 
+    "ShowFeedback" : false, 
+    "ShowRateUsers" : false, 
+    "ShowIndividualFeedback" : false, 
+    "MinSlideNumber" : NumberInt(23), 
+    "MaxSlideNumber" : NumberInt(23), 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5b9fb15e31103f3f9d4d96d9"), 
+    "Round" : "SALESROUND", 
+    "SubRound" : "DEALRENEWAL", 
+    "RoundId" : "5b56198d176b81cae6bacaf6", 
+    "SubRoundId" : "5b564f22e09494dbc165e595", 
+    "ShowFeedback" : false, 
+    "ShowRateUsers" : false, 
+    "ShowIndividualFeedback" : false, 
+    "MinSlideNumber" : NumberInt(24), 
+    "MaxSlideNumber" : NumberInt(24), 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5b9fb15e31103f3f9d4d96db"), 
+    "Round" : "SALESROUND", 
+    "SubRound" : "DEALRENEWAL", 
+    "RoundId" : "5b56198d176b81cae6bacaf6", 
+    "SubRoundId" : "5b564f22e09494dbc165e595", 
+    "ShowFeedback" : false, 
+    "ShowRateUsers" : true, 
+    "ShowIndividualFeedback" : false, 
+    "MinSlideNumber" : NumberInt(27), 
+    "MaxSlideNumber" : NumberInt(28), 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5b9fb15e31103f3f9d4d96dc"), 
+    "Round" : "SALESROUND", 
+    "SubRound" : "DEALRENEWAL", 
+    "RoundId" : "5b56198d176b81cae6bacaf6", 
+    "SubRoundId" : "5b564f22e09494dbc165e595", 
+    "ShowFeedback" : false, 
+    "ShowRateUsers" : false, 
+    "ShowIndividualFeedback" : true, 
+    "MinSlideNumber" : NumberInt(29), 
+    "MaxSlideNumber" : NumberInt(36), 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5b9fb15e31103f3f9d4d96dd"), 
+    "Round" : "ENGINEERINGROUND", 
+    "SubRound" : "ENGINEERINGSUB", 
+    "RoundId" : "5b14943da486d3b817aa4e7f", 
+    "SubRoundId" : "5b4a319410ec537e090c26d3", 
+    "ShowFeedback" : false, 
+    "ShowRateUsers" : false, 
+    "ShowIndividualFeedback" : false, 
+    "MinSlideNumber" : NumberInt(37), 
+    "MaxSlideNumber" : NumberInt(38), 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5b9fb15e31103f3f9d4d96de"), 
+    "Round" : "ENGINEERINGROUND", 
+    "SubRound" : "ENGINEERINGSUB", 
+    "RoundId" : "5b14943da486d3b817aa4e7f", 
+    "SubRoundId" : "5b4a319410ec537e090c26d3", 
+    "ShowFeedback" : true, 
+    "ShowRateUsers" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideFeedback" : true, 
+    "MinSlideNumber" : NumberInt(40), 
+    "MaxSlideNumber" : NumberInt(40), 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5b9fb15e31103f3f9d4d96df"), 
+    "Round" : "ENGINEERINGROUND", 
+    "SubRound" : "ENGINEERINGSUB", 
+    "RoundId" : "5b14943da486d3b817aa4e7f", 
+    "SubRoundId" : "5b4a319410ec537e090c26d3", 
+    "ShowFeedback" : false, 
+    "ShowRateUsers" : true, 
+    "ShowIndividualFeedback" : false, 
+    "MinSlideNumber" : NumberInt(41), 
+    "MaxSlideNumber" : NumberInt(42), 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5b9fb15e31103f3f9d4d96e0"), 
+    "Round" : "ENGINEERINGROUND", 
+    "SubRound" : "ENGINEERINGSUB", 
+    "RoundId" : "5b14943da486d3b817aa4e7f", 
+    "SubRoundId" : "5b4a319410ec537e090c26d3", 
+    "ShowFeedback" : false, 
+    "ShowRateUsers" : false, 
+    "ShowIndividualFeedback" : true, 
+    "MinSlideNumber" : NumberInt(43), 
+    "MaxSlideNumber" : NumberInt(50), 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5b9fb15e31103f3f9d4d96e1"), 
+    "Round" : "FINANCEROUND", 
+    "SubRound" : "PRICING", 
+    "RoundId" : "5b5659d7b7fcaf2b7054ef97", 
+    "SubRoundId" : "5b56644f02491562bcbc3604", 
+    "ShowFeedback" : false, 
+    "ShowRateUsers" : false, 
+    "ShowIndividualFeedback" : false, 
+    "MinSlideNumber" : NumberInt(51), 
+    "MaxSlideNumber" : NumberInt(51), 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5b9fb15e31103f3f9d4d96e5"), 
+    "Round" : "FINANCEROUND", 
+    "SubRound" : "TEAMRATING", 
+    "RoundId" : "5b5659d7b7fcaf2b7054ef97", 
+    "SubRoundId" : "5b5e009e602cc6a9f539fa06", 
+    "ShowFeedback" : false, 
+    "ShowRateUsers" : false, 
+    "ShowIndividualFeedback" : false, 
+    "MinSlideNumber" : NumberInt(52), 
+    "MaxSlideNumber" : NumberInt(52), 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5b9fb15e31103f3f9d4d96e9"), 
+    "Round" : "FINANCEROUND", 
+    "SubRound" : "ACQUISITIONSTRUCTURE", 
+    "RoundId" : "5b5659d7b7fcaf2b7054ef97", 
+    "SubRoundId" : "5b56645902491562bcbc3606", 
+    "ShowFeedback" : false, 
+    "ShowRateUsers" : false, 
+    "ShowIndividualFeedback" : false, 
+    "MinSlideNumber" : NumberInt(54), 
+    "MaxSlideNumber" : NumberInt(56), 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5b9fb15e31103f3f9d4d96ea"), 
+    "Round" : "FINANCEROUND", 
+    "SubRound" : "ACQUISITIONSTRUCTURE", 
+    "RoundId" : "5b5659d7b7fcaf2b7054ef97", 
+    "SubRoundId" : "5b56645902491562bcbc3606", 
+    "ShowFeedback" : true, 
+    "ShowRateUsers" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideFeedback" : true, 
+    "MinSlideNumber" : NumberInt(58), 
+    "MaxSlideNumber" : NumberInt(58), 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5b9fb15e31103f3f9d4d96eb"), 
+    "Round" : "FINANCEROUND", 
+    "SubRound" : "ACQUISITIONSTRUCTURE", 
+    "RoundId" : "5b5659d7b7fcaf2b7054ef97", 
+    "SubRoundId" : "5b56645902491562bcbc3606", 
+    "ShowFeedback" : false, 
+    "ShowRateUsers" : true, 
+    "ShowIndividualFeedback" : false, 
+    "MinSlideNumber" : NumberInt(59), 
+    "MaxSlideNumber" : NumberInt(60), 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5b9fb15e31103f3f9d4d96ec"), 
+    "Round" : "FINANCEROUND", 
+    "SubRound" : "ACQUISITIONSTRUCTURE", 
+    "RoundId" : "5b5659d7b7fcaf2b7054ef97", 
+    "SubRoundId" : "5b56645902491562bcbc3606", 
+    "ShowFeedback" : false, 
+    "ShowRateUsers" : false, 
+    "ShowIndividualFeedback" : true, 
+    "MinSlideNumber" : NumberInt(60), 
+    "MaxSlideNumber" : NumberInt(67), 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5b9fb15e31103f3f9d4d96f1"), 
+    "Round" : "CUSTOMERROUND", 
+    "SubRound" : "CUSTOMERSUB", 
+    "RoundId" : "5b56890f02491562bcbc4325", 
+    "SubRoundId" : "5b57906549ef01dc027f9699", 
+    "ShowFeedback" : false, 
+    "ShowRateUsers" : false, 
+    "ShowIndividualFeedback" : false, 
+    "MinSlideNumber" : NumberInt(68), 
+    "MaxSlideNumber" : NumberInt(68), 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5b9fb15e31103f3f9d4d96f2"), 
+    "Round" : "CUSTOMERROUND", 
+    "SubRound" : "CUSTOMERSUB", 
+    "RoundId" : "5b56890f02491562bcbc4325", 
+    "SubRoundId" : "5b57906549ef01dc027f9699", 
+    "ShowFeedback" : true, 
+    "ShowRateUsers" : false, 
+    "ShowIndividualFeedback" : false, 
+    "SlideFeedback" : true, 
+    "MinSlideNumber" : NumberInt(70), 
+    "MaxSlideNumber" : NumberInt(70), 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5b9fb15e31103f3f9d4d96f3"), 
+    "Round" : "CUSTOMERROUND", 
+    "SubRound" : "CUSTOMERSUB", 
+    "RoundId" : "5b56890f02491562bcbc4325", 
+    "SubRoundId" : "5b57906549ef01dc027f9699", 
+    "ShowFeedback" : false, 
+    "ShowRateUsers" : true, 
+    "ShowIndividualFeedback" : false, 
+    "MinSlideNumber" : NumberInt(71), 
+    "MaxSlideNumber" : NumberInt(72), 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5b9fb15e31103f3f9d4d96f4"), 
+    "Round" : "CUSTOMERROUND", 
+    "SubRound" : "CUSTOMERSUB", 
+    "RoundId" : "5b56890f02491562bcbc4325", 
+    "SubRoundId" : "5b57906549ef01dc027f9699", 
+    "ShowFeedback" : false, 
+    "ShowRateUsers" : false, 
+    "ShowIndividualFeedback" : true, 
+    "MinSlideNumber" : NumberInt(73), 
+    "MaxSlideNumber" : NumberInt(75), 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5ba28d9aa09fc0d37b36cb6f"), 
+    "Round" : "SALESROUND", 
+    "SubRound" : "DEALRENEWAL", 
+    "RoundId" : "5b56198d176b81cae6bacaf6", 
+    "SubRoundId" : "5b564f22e09494dbc165e595", 
+    "ShowFeedback" : true, 
+    "ShowRateUsers" : false, 
+    "SlideFeedback" : true, 
+    "ShowIndividualFeedback" : false, 
+    "MinSlideNumber" : NumberInt(26), 
+    "MaxSlideNumber" : NumberInt(26), 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5ba298d3a09fc0d37b36cc4c"), 
+    "Round" : "FINANCEROUND", 
+    "SubRound" : "TEAMRATING", 
+    "RoundId" : "5b5659d7b7fcaf2b7054ef97", 
+    "SubRoundId" : "5b5e009e602cc6a9f539fa06", 
+    "ShowFeedback" : false, 
+    "ShowRateUsers" : false, 
+    "ShowIndividualFeedback" : false, 
+    "MinSlideNumber" : NumberInt(53), 
+    "MaxSlideNumber" : NumberInt(53), 
+    "__v" : NumberInt(0), 
+    "SlideFeedback" : true
+}
+{ 
+    "_id" : ObjectId("5ba29afaa09fc0d37b36cc80"), 
+    "Round" : "CUSTOMERROUND", 
+    "SubRound" : "CUSTOMERSUB", 
+    "RoundId" : "5b56890f02491562bcbc4325", 
+    "SubRoundId" : "5b57906549ef01dc027f9699", 
+    "ShowFeedback" : true, 
+    "ShowRateUsers" : false, 
+    "ShowIndividualFeedback" : false, 
+    "MinSlideNumber" : NumberInt(70), 
+    "MaxSlideNumber" : NumberInt(70), 
+    "__v" : NumberInt(0), 
+    "SlideFeedback" : true
+}
+{ 
+    "_id" : ObjectId("5ba29dc3a09fc0d37b3702ce"), 
+    "Round" : "PEOPLEROUND", 
+    "SubRound" : "HIRING", 
+    "RoundId" : "5b149433a486d3b817aa4e7b", 
+    "SubRoundId" : "5b3146d10d3e331e8019d5f3", 
+    "ShowFeedback" : true, 
+    "SlideFeedback" : false, 
+    "ShowRateUsers" : false, 
+    "ShowIndividualFeedback" : false, 
+    "MinSlideNumber" : NumberInt(15), 
+    "MaxSlideNumber" : NumberInt(15), 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5bbfba68f32ab1ec01965b5c"), 
+    "Round" : "CUSTOMERROUND", 
+    "SubRound" : "CUSTOMERSUB", 
+    "RoundId" : "5b56890f02491562bcbc4325", 
+    "SubRoundId" : "5b57906549ef01dc027f9699", 
+    "ShowFeedback" : false, 
+    "ShowRateUsers" : false, 
+    "ShowIndividualFeedback" : false, 
+    "MinSlideNumber" : NumberInt(76), 
+    "MaxSlideNumber" : NumberInt(99999), 
+    "SlideFeedback" : true, 
+    "SkipRoundScore" : true, 
+    "__v" : NumberInt(0)
+}

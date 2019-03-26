@@ -1,0 +1,5699 @@
+{ 
+    "_id" : ObjectId("5b1d71d97465471df053e3eb"), 
+    "Email" : "matt@sapienexperience.com", 
+    "Role" : "ADMIN", 
+    "FirstName" : "Matthew", 
+    "LastName" : "Breeden", 
+    "__v" : NumberInt(0), 
+    "Password" : "$2b$10$EWCQ0yj.PK.5HnsMy2au6O.kQAM4uw.GI3FBX91q4rWZ192ihzVXy", 
+    "REST_URL" : "users", 
+    "IsLeader" : false, 
+    "ReadMessages" : [
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51eb6eab25cf61e4cb3d6b", 
+        "5b50a42ec754cbb221671237", 
+        "5b50a02dc754cbb221671022", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b578b9f49ef01dc027f95dd", 
+        "5b578b6d49ef01dc027f95d5", 
+        "5b578ae949ef01dc027f95c6", 
+        "5b51ff3eab25cf61e4cb4a14", 
+        "5b578a2b49ef01dc027f95aa", 
+        "5b578a7749ef01dc027f95b4", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b561976176b81cae6bacaed", 
+        "5b578dd049ef01dc027f9633", 
+        "5b7ffb78f32ab1ec01c7fc67", 
+        "5b7ffc13f32ab1ec01c7fd09"
+    ]
+}
+{ 
+    "_id" : ObjectId("5b3537cbb4ff35579c03e8c5"), 
+    "Email" : "intoxopox@gmail.com", 
+    "FirstName" : "David", 
+    "LastName" : "Hamiter", 
+    "Role" : "ADMIN", 
+    "__v" : NumberInt(0), 
+    "Password" : "$2b$16$Hc0oVQKnDVWhB15vC8pFSOiClwT2p8yq43RYklnC..Pd47qBWXpXa"
+}
+{ 
+    "_id" : ObjectId("5b47886b814bd303e481c286"), 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "FirstName" : "Matt test", 
+    "LastName" : "Breeden", 
+    "Email" : "matt@test.com", 
+    "__v" : NumberInt(0), 
+    "Job" : "Individual Contributor"
+}
+{ 
+    "_id" : ObjectId("5b4cfbf668500a4d246d795b"), 
+    "REST_URL" : "users", 
+    "Role" : "ADMIN", 
+    "IsLeader" : false, 
+    "Job" : "IC", 
+    "Email" : "breeden@gnuidea.net", 
+    "FirstName" : "Matt", 
+    "LastName" : "Breeden", 
+    "__v" : NumberInt(0), 
+    "Password" : "$2b$16$5XdrKG8.WJ1Mj7x7gIs2MeljGRTQRvxGtAl4isC5AIMhofLn46D3C"
+}
+{ 
+    "_id" : ObjectId("5b4d14645a04cd5ea10e0cdc"), 
+    "REST_URL" : "users", 
+    "Role" : "ADMIN", 
+    "IsLeader" : false, 
+    "Job" : "IC", 
+    "FirstName" : "Tony", 
+    "LastName" : "Evans", 
+    "Email" : "godmama777@gmail.com", 
+    "__v" : NumberInt(0), 
+    "Password" : "$2b$16$8ijyjnhnpmFAti0HfXS2BOoi6CLTxdJwz3uJosGhJN16xPL15SVpy"
+}
+{ 
+    "_id" : ObjectId("5b4e2f2fe8a7626bde67889a"), 
+    "REST_URL" : "users", 
+    "Role" : "ADMIN", 
+    "IsLeader" : false, 
+    "Job" : "IC", 
+    "FirstName" : "Jake", 
+    "LastName" : "Breeden", 
+    "Email" : "jake@sapienexperience.com", 
+    "__v" : NumberInt(0), 
+    "Password" : "$2b$16$X4lGhXt2BIVKY6FX4LcIt.Mj5N.jGyvnrYPsu/gwypXSLX25nsUxu", 
+    "ReadMessages" : [
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b50a33dc754cbb2216711ec", 
+        "5b50a02dc754cbb221671022", 
+        "5b51eb6eab25cf61e4cb3d6b", 
+        "5b578a2b49ef01dc027f95aa", 
+        "5b578a7749ef01dc027f95b4", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b578dd049ef01dc027f9633", 
+        "5b561976176b81cae6bacaed"
+    ]
+}
+{ 
+    "_id" : ObjectId("5b4e2f49e8a7626bde67889b"), 
+    "REST_URL" : "users", 
+    "Role" : "ADMIN", 
+    "IsLeader" : false, 
+    "Job" : "IC", 
+    "FirstName" : "Marion", 
+    "LastName" : "White", 
+    "Email" : "marion@sapienexperience.com", 
+    "__v" : NumberInt(0), 
+    "Password" : "$2b$16$nYD8uohlvD8KqF8JpeBvPeKiU1ryrBMiFcKW8e62YkkWbI6tv1NMm", 
+    "ReadMessages" : [
+        "5b578b6d49ef01dc027f95d5", 
+        "5b51fe49ab25cf61e4cb49c2", 
+        "5b578a2b49ef01dc027f95aa", 
+        "5b578b9f49ef01dc027f95dd", 
+        "5b578ae949ef01dc027f95c6", 
+        "5b50a33dc754cbb2216711ec", 
+        "5b51eb6eab25cf61e4cb3d6b", 
+        "5b50a02dc754cbb221671022", 
+        "5b578a7749ef01dc027f95b4", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b578dd049ef01dc027f9633", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b561976176b81cae6bacaed", 
+        "5b7eb902f32ab1ec01c7310e", 
+        "5b7ffc13f32ab1ec01c7fd09"
+    ]
+}
+{ 
+    "_id" : ObjectId("5b4e2f89e8a7626bde67889c"), 
+    "REST_URL" : "users", 
+    "Role" : "ADMIN", 
+    "IsLeader" : false, 
+    "Job" : "IC", 
+    "FirstName" : "Clara", 
+    "LastName" : "Breeden", 
+    "Email" : "cjbreeden2@gmail.com", 
+    "__v" : NumberInt(0), 
+    "Password" : "$2b$16$57lOf8kktVpaa254dVk7u.h6r1dzG6KAs43dhzUhBkPAUAnWy5/Ay"
+}
+{ 
+    "_id" : ObjectId("5b5220d8ec184949340cb822"), 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Individual Contributor", 
+    "FirstName" : "Jake", 
+    "LastName" : "Test", 
+    "Email" : "test@test.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5b5220f1ec184949340cb823"), 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Individual Contributor", 
+    "FirstName" : "Marion", 
+    "LastName" : "test", 
+    "Email" : "marion@test.com", 
+    "__v" : NumberInt(0), 
+    "ReadMessages" : [
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b561976176b81cae6bacaed", 
+        "5b578a2b49ef01dc027f95aa", 
+        "5b578dd049ef01dc027f9633"
+    ]
+}
+{ 
+    "_id" : ObjectId("5b5a1095d7c05a31b80e6071"), 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Individual Contributor", 
+    "FirstName" : "Clara", 
+    "LastName" : "Test", 
+    "Email" : "clara@test.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5b5a10c2d7c05a31b80e6073"), 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Individual Contributor", 
+    "FirstName" : "asdf", 
+    "LastName" : "asdf", 
+    "Email" : "asdf", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5b5a111fd7c05a31b80e6074"), 
+    "REST_URL" : "users", 
+    "Role" : "ADMIN", 
+    "IsLeader" : false, 
+    "Job" : "Individual Contributor", 
+    "FirstName" : "Marion 2", 
+    "LastName" : "test", 
+    "Email" : "marion2@test.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5b5a112ed7c05a31b80e6075"), 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Individual Contributor", 
+    "FirstName" : "ffffff", 
+    "LastName" : "aaaaaa", 
+    "Email" : "123434234", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5b619bf23273d91635b23df5"), 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Individual Contributor", 
+    "FirstName" : "Andrea", 
+    "LastName" : "Putnam", 
+    "Email" : "aputnam@redhat.com", 
+    "__v" : NumberInt(0), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022"
+    ]
+}
+{ 
+    "_id" : ObjectId("5b619c0e3273d91635b23df6"), 
+    "REST_URL" : "users", 
+    "Role" : "ADMIN", 
+    "IsLeader" : false, 
+    "Job" : "Individual Contributor", 
+    "FirstName" : "Christine", 
+    "LastName" : "Shrader", 
+    "Email" : "bshrader@redhat.com", 
+    "__v" : NumberInt(0), 
+    "ReadMessages" : [
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b51ec15ab25cf61e4cb3d83"
+    ], 
+    "Password" : "$2b$10$k15xpnMNmw9ct5eZc/CnNumQWmAHzr.PgkBtgizHyH7IXVyQX0MMa"
+}
+{ 
+    "_id" : ObjectId("5b619c233273d91635b23df7"), 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Individual Contributor", 
+    "FirstName" : "Heather", 
+    "LastName" : "Burnett", 
+    "Email" : "hburnett@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5b619c413273d91635b23df8"), 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Individual Contributor", 
+    "FirstName" : "Lisa", 
+    "LastName" : "Edgell", 
+    "Email" : "ledgell@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5b619c553273d91635b23df9"), 
+    "REST_URL" : "users", 
+    "Role" : "ADMIN", 
+    "IsLeader" : false, 
+    "Job" : "Individual Contributor", 
+    "FirstName" : "Jennifer ", 
+    "LastName" : "LeBlanc", 
+    "Email" : "jredmon@redhat.com", 
+    "__v" : NumberInt(0), 
+    "ReadMessages" : [
+        "5b7ffb78f32ab1ec01c7fc67", 
+        "5b7ffc13f32ab1ec01c7fd09", 
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b578a7749ef01dc027f95b4", 
+        "5b578dd049ef01dc027f9633"
+    ], 
+    "Password" : "$2b$10$TcFZgmZmaNATBm49fA0R0OR0W1T/azw5p/kO5mWCIhaKEhLGVFJR6"
+}
+{ 
+    "_id" : ObjectId("5b6b240bfae478106ab939c3"), 
+    "REST_URL" : "users", 
+    "Role" : "ADMIN", 
+    "IsLeader" : false, 
+    "Job" : "Individual Contributor", 
+    "FirstName" : "Lee", 
+    "LastName" : "Fowler", 
+    "Email" : "eudaimonia1@gmail.com", 
+    "__v" : NumberInt(0), 
+    "ReadMessages" : [
+        "5b50a33dc754cbb2216711ec", 
+        "5b51eb6eab25cf61e4cb3d6b", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b578a2b49ef01dc027f95aa", 
+        "5b50a02dc754cbb221671022"
+    ], 
+    "Password" : "$2b$16$EAoHQI.j/.7TgTqTvOwbJOOgEWKLLgru2PsoJtV3IHdY/CHI9XNp."
+}
+{ 
+    "_id" : ObjectId("5b74283a8e6bef700a8b8cdf"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b578dd049ef01dc027f9633"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Individual Contributor", 
+    "FirstName" : "Darren", 
+    "LastName" : "Test Player", 
+    "Email" : "darren@test.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5b7a10ba67925d270aef63b5"), 
+    "ReadMessages" : [
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b50a02dc754cbb221671022", 
+        "5b578a2b49ef01dc027f95aa", 
+        "5b578a7749ef01dc027f95b4", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b578dd049ef01dc027f9633"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Individual Contributor", 
+    "FirstName" : "Julie", 
+    "LastName" : "Gilbert", 
+    "Email" : "jgilbert@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5b7a10db67925d270aef63b6"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b578dd049ef01dc027f9633", 
+        "5b7ffb78f32ab1ec01c7fc67"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Individual Contributor", 
+    "FirstName" : "Jeff ", 
+    "LastName" : "Castor", 
+    "Email" : "jcastor@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5b7a10e867925d270aef63b7"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b6b4e9a176b81cae6c2ff8b", 
+        "5b578a2b49ef01dc027f95aa", 
+        "5b578a7749ef01dc027f95b4", 
+        "5b7eb902f32ab1ec01c7310e", 
+        "5b578dd049ef01dc027f9633"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Individual Contributor", 
+    "FirstName" : "Shane ", 
+    "LastName" : "Davis", 
+    "Email" : "shdavis@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5b7a10f667925d270aef63b8"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b578dd049ef01dc027f9633", 
+        "5b7ffb78f32ab1ec01c7fc67"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Individual Contributor", 
+    "FirstName" : "Shawn ", 
+    "LastName" : "Skillman", 
+    "Email" : "sskillma@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5b7a111067925d270aef63b9"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b578a2b49ef01dc027f95aa", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b578dd049ef01dc027f9633", 
+        "5b7ffb78f32ab1ec01c7fc67"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Individual Contributor", 
+    "FirstName" : "Hugh", 
+    "LastName" : "Carpenter", 
+    "Email" : "hcarpent@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5b7a112567925d270aef63ba"), 
+    "ReadMessages" : [
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b50a42ec754cbb221671237", 
+        "5b50a33dc754cbb2216711ec", 
+        "5b50a02dc754cbb221671022", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b578a2b49ef01dc027f95aa", 
+        "5b578a7749ef01dc027f95b4", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b578dd049ef01dc027f9633", 
+        "5b7eb902f32ab1ec01c7310e", 
+        "5b7ffb78f32ab1ec01c7fc67"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Individual Contributor", 
+    "FirstName" : "Anthony", 
+    "LastName" : "Parzanese", 
+    "Email" : "aparzane@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5b7a113467925d270aef63bb"), 
+    "ReadMessages" : [
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b50a02dc754cbb221671022", 
+        "5b561976176b81cae6bacaed", 
+        "5b6b4e9a176b81cae6c2ff8b", 
+        "5b578a7749ef01dc027f95b4", 
+        "5b578a2b49ef01dc027f95aa", 
+        "5b7eb902f32ab1ec01c7310e", 
+        "5b578dd049ef01dc027f9633", 
+        "5b7ffc13f32ab1ec01c7fd09", 
+        "5b7ffb78f32ab1ec01c7fc67"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Individual Contributor", 
+    "FirstName" : "Joe", 
+    "LastName" : "Donohue", 
+    "Email" : "jdonohue@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5b7a114667925d270aef63bc"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b51ec15ab25cf61e4cb3d83"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "ADMIN", 
+    "IsLeader" : false, 
+    "Job" : "Individual Contributor", 
+    "FirstName" : "Paula", 
+    "LastName" : "Reich", 
+    "Email" : "preich@redhat.com", 
+    "__v" : NumberInt(0), 
+    "Password" : "$2b$10$V0ZQ.AxV3cJ0GLkr/Kxamus.sTCGxdhkbrIzzh3YGghnQ3XJ0dv1a"
+}
+{ 
+    "_id" : ObjectId("5b7a115667925d270aef63bd"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b50a33dc754cbb2216711ec", 
+        "5b50a42ec754cbb221671237"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Individual Contributor", 
+    "FirstName" : "Shabnoor", 
+    "Email" : "shabshah@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5b7a117867925d270aef63be"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b578a7749ef01dc027f95b4", 
+        "5b578a2b49ef01dc027f95aa", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b578dd049ef01dc027f9633", 
+        "5b7ffb78f32ab1ec01c7fc67", 
+        "5b7ffc13f32ab1ec01c7fd09"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Individual Contributor", 
+    "FirstName" : "Melissa", 
+    "LastName" : "Mclamb", 
+    "Email" : "mmclamb@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5b7a118967925d270aef63bf"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b6b4e9a176b81cae6c2ff8b"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Individual Contributor", 
+    "FirstName" : "John", 
+    "LastName" : "Chapman", 
+    "Email" : "jchapman@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5b7a119767925d270aef63c0"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b578a2b49ef01dc027f95aa", 
+        "5b578dd049ef01dc027f9633", 
+        "5b7ffb78f32ab1ec01c7fc67"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Individual Contributor", 
+    "FirstName" : "Richard", 
+    "LastName" : "Barry", 
+    "Email" : "ribarry@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5b7a11b167925d270aef63c1"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b578dd049ef01dc027f9633", 
+        "5b7eb902f32ab1ec01c7310e", 
+        "5b7ffb78f32ab1ec01c7fc67"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Individual Contributor", 
+    "FirstName" : "Tony", 
+    "LastName" : "James", 
+    "Email" : "tjames@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5b7a11ca67925d270aef63c3"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b6b4e9a176b81cae6c2ff8b", 
+        "5b578a2b49ef01dc027f95aa", 
+        "5b578dd049ef01dc027f9633", 
+        "5b7ffb78f32ab1ec01c7fc67"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Individual Contributor", 
+    "FirstName" : "Mary", 
+    "LastName" : "Blanks", 
+    "Email" : "mblanks@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5b7a11d667925d270aef63c4"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b578dd049ef01dc027f9633", 
+        "5b7ffb78f32ab1ec01c7fc67"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Individual Contributor", 
+    "FirstName" : "Ash", 
+    "LastName" : "Azzopardi", 
+    "Email" : "aazzopar@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5b7a11e467925d270aef63c5"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b578dd049ef01dc027f9633", 
+        "5b7eb902f32ab1ec01c7310e", 
+        "5b7ffc13f32ab1ec01c7fd09", 
+        "5b7ffb78f32ab1ec01c7fc67"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Individual Contributor", 
+    "FirstName" : "Dan", 
+    "LastName" : "Williams", 
+    "Email" : "dcbw@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5b7a11f567925d270aef63c6"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b578a2b49ef01dc027f95aa", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b578dd049ef01dc027f9633", 
+        "5b7eb902f32ab1ec01c7310e", 
+        "5b7ffc13f32ab1ec01c7fd09", 
+        "5b7ffb78f32ab1ec01c7fc67"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Individual Contributor", 
+    "FirstName" : "Daniel", 
+    "LastName" : "Geoffroy", 
+    "Email" : "dageoffr@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5b7a120267925d270aef63c7"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b578a2b49ef01dc027f95aa", 
+        "5b578a7749ef01dc027f95b4", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b578dd049ef01dc027f9633", 
+        "5b7ffb78f32ab1ec01c7fc67"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Individual Contributor", 
+    "FirstName" : "Megan", 
+    "LastName" : "Jones", 
+    "Email" : "mejones@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5b7a121e67925d270aef63c8"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b6b4e9a176b81cae6c2ff8b", 
+        "5b578a2b49ef01dc027f95aa", 
+        "5b578dd049ef01dc027f9633", 
+        "5b7eb902f32ab1ec01c7310e", 
+        "5b7ffb78f32ab1ec01c7fc67"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Individual Contributor", 
+    "FirstName" : "Veronika", 
+    "LastName" : "Kearns", 
+    "Email" : "vekearns@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5b7a122b67925d270aef63c9"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b51ec0cab25cf61e4cb3d81"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Individual Contributor", 
+    "FirstName" : "Sabina", 
+    "LastName" : "Tump", 
+    "Email" : "stumpach@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5b7a123b67925d270aef63ca"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b578dd049ef01dc027f9633"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Individual Contributor", 
+    "FirstName" : "Susan", 
+    "LastName" : "Carpenter", 
+    "Email" : "scarpent@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5b7a124c67925d270aef63cb"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b578a7749ef01dc027f95b4", 
+        "5b578a2b49ef01dc027f95aa", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b578dd049ef01dc027f9633"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Individual Contributor", 
+    "FirstName" : "Lukas", 
+    "LastName" : "Nykrn", 
+    "Email" : "lnykryn@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5b7a125e67925d270aef63cc"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b6b4e9a176b81cae6c2ff8b", 
+        "5b7eb902f32ab1ec01c7310e", 
+        "5b578dd049ef01dc027f9633", 
+        "5b7ffb78f32ab1ec01c7fc67"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Individual Contributor", 
+    "FirstName" : "Dan", 
+    "LastName" : "McGuan", 
+    "Email" : "dmcguan@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5b7a128667925d270aef63cd"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec15ab25cf61e4cb3d83"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Individual Contributor", 
+    "FirstName" : "Angela", 
+    "LastName" : "Pullen", 
+    "Email" : "apullen@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5b7a129067925d270aef63ce"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b578dd049ef01dc027f9633", 
+        "5b7ffb78f32ab1ec01c7fc67", 
+        "5b7ffc13f32ab1ec01c7fd09"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "ADMIN", 
+    "IsLeader" : false, 
+    "Job" : "Individual Contributor", 
+    "FirstName" : "Lawrence", 
+    "Email" : "ltie@redhat.com", 
+    "__v" : NumberInt(0), 
+    "LastName" : "Tie", 
+    "Password" : "$2b$10$8BhZWCbtWCELc7i14EWXOufJ/vLUHH5UY.3mDWDx0dNvCvQoNzjfG"
+}
+{ 
+    "_id" : ObjectId("5b7a12d967925d270aef63d0"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b578dd049ef01dc027f9633", 
+        "5b7ffc13f32ab1ec01c7fd09", 
+        "5b7ffb78f32ab1ec01c7fc67"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Individual Contributor", 
+    "FirstName" : "Vit", 
+    "LastName" : "Ondruch", 
+    "Email" : "vondruch@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5b916bda89c41f3a85e7d065"), 
+    "ReadMessages" : [
+
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "ADMIN", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Lee", 
+    "LastName" : "Fowler", 
+    "Email" : "lee@sapienexperience.com", 
+    "__v" : NumberInt(0), 
+    "Password" : "$2b$16$k9EzD9uci0xk4de/JKhBgO.b7nbnB6QhDCdhK..0Ev5ppI0MCPyea"
+}
+{ 
+    "_id" : ObjectId("5b9679d5747efd13ace3266b"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b578a7749ef01dc027f95b4", 
+        "5b578a2b49ef01dc027f95aa", 
+        "5b578dd049ef01dc027f9633", 
+        "5b7ffb78f32ab1ec01c7fc67"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "ADMIN", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Darren", 
+    "LastName" : "Keegan", 
+    "Email" : "darren@sapienexperience.com", 
+    "__v" : NumberInt(0), 
+    "Password" : "$2b$16$lEg/mzdjxLdrGZ1cuKAuK.uG82kRb9R94KbD1MfYfGPzJDWiDHd9m"
+}
+{ 
+    "_id" : ObjectId("5b99a5cade8563246c0dfce3"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b7eb902f32ab1ec01c7310e", 
+        "5b7ffb78f32ab1ec01c7fc67", 
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "IGNORE_ME"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Player1", 
+    "Email" : "testplayer1@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5b99a5dcde8563246c0dfce4"), 
+    "ReadMessages" : [
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b7ffb78f32ab1ec01c7fc67", 
+        "IGNORE_ME"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "Email" : "testplayer2@redhat.com", 
+    "FirstName" : "Player2", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5b99a5edde8563246c0dfce5"), 
+    "ReadMessages" : [
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b50a02dc754cbb221671022"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "Email" : "testplayer3@redhat.com", 
+    "FirstName" : "Player3", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5b99a5fbde8563246c0dfce6"), 
+    "ReadMessages" : [
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b50a02dc754cbb221671022", 
+        "5b7ffb78f32ab1ec01c7fc67", 
+        "5b578dd049ef01dc027f9633"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "Email" : "testplayer4@redhat.com", 
+    "FirstName" : "Player4", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5b99a613de8563246c0dfce8"), 
+    "ReadMessages" : [
+        "5b578a7749ef01dc027f95b4", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b50a02dc754cbb221671022", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b578dd049ef01dc027f9633", 
+        "5b7ffb78f32ab1ec01c7fc67"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "Email" : "testplayer5@redhat.com", 
+    "FirstName" : "Player5", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5b99a623de8563246c0dfce9"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b578a7749ef01dc027f95b4", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b578dd049ef01dc027f9633", 
+        "5b7eb902f32ab1ec01c7310e", 
+        "5b7ffb78f32ab1ec01c7fc67"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Player6", 
+    "Email" : "testplayer6@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5b99a632de8563246c0dfcea"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b51ebf7ab25cf61e4cb3d7b"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "Email" : "testplayer7@redhat.com", 
+    "FirstName" : "Player7", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5b99a641de8563246c0dfceb"), 
+    "ReadMessages" : [
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b50a02dc754cbb221671022"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "Email" : "testplayer8@redhat.com", 
+    "FirstName" : "Player8", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5b99a6b5de8563246c0dfced"), 
+    "ReadMessages" : [
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b578dd049ef01dc027f9633", 
+        "5b7ffc13f32ab1ec01c7fd09", 
+        "5b7ffb78f32ab1ec01c7fc67", 
+        "5b50a02dc754cbb221671022", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b51fd29ab25cf61e4cb4968"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Player9", 
+    "Email" : "testplayer9@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5b9a6553de8563246c0dfdd0"), 
+    "ReadMessages" : [
+
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Player10", 
+    "Email" : "testplayer10@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5baa7bf968121b1fe4cabb8a"), 
+    "ReadMessages" : [
+
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Joe", 
+    "LastName" : "Goldston", 
+    "Email" : "jgoldston@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5baa8acf68121b1fe4cabb91"), 
+    "ReadMessages" : [
+
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Michael ", 
+    "LastName" : "Cannon", 
+    "Email" : "mcannon@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5bac635b8acfba38f7ee1a16"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b578a7749ef01dc027f95b4", 
+        "5b578dd049ef01dc027f9633", 
+        "5b7ffc13f32ab1ec01c7fd09", 
+        "5b7ffb78f32ab1ec01c7fc67"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "ADMIN", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Rashmi", 
+    "LastName" : "Patel", 
+    "Email" : "raspatel@redhat.com", 
+    "__v" : NumberInt(0), 
+    "Password" : "$2b$10$JaYA1Gx2W15NwgySwdmavOYiEp6vvuJ69yrboTy.wbawDe6egAGFC"
+}
+{ 
+    "_id" : ObjectId("5bb1772a2aefd34a357bd280"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b578dd049ef01dc027f9633", 
+        "5b7ffb78f32ab1ec01c7fc67"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : " Yee Kee Lee ", 
+    "Email" : "yelee@redhat.com", 
+    "LastName" : "", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5bb177432aefd34a357bd281"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b578a7749ef01dc027f95b4", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b7eb902f32ab1ec01c7310e"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : " Daniel Hand ", 
+    "Email" : "dhand@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5bb1775a2aefd34a357bd282"), 
+    "ReadMessages" : [
+
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : " Sunita Keskar ", 
+    "Email" : "skeskar@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5bb177712aefd34a357bd283"), 
+    "ReadMessages" : [
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b578dd049ef01dc027f9633", 
+        "5b50a02dc754cbb221671022"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : " Sachin Kharsani ", 
+    "Email" : "skharsan@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5bb177842aefd34a357bd284"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b7ffb78f32ab1ec01c7fc67"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : " Chi Man Li ", 
+    "Email" : "chli@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5bb177972aefd34a357bd285"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b578a7749ef01dc027f95b4", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b578dd049ef01dc027f9633", 
+        "5b7eb902f32ab1ec01c7310e", 
+        "5b7ffb78f32ab1ec01c7fc67"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : " Pei Wern Olivia Lee ", 
+    "Email" : "pelee@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5bb177aa2aefd34a357bd286"), 
+    "ReadMessages" : [
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b578dd049ef01dc027f9633", 
+        "5b7ffb78f32ab1ec01c7fc67"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : " Shan Shan Guan ", 
+    "Email" : "sguan@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5bb177bf2aefd34a357bd287"), 
+    "ReadMessages" : [
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b578dd049ef01dc027f9633", 
+        "5b50a02dc754cbb221671022", 
+        "5b578a7749ef01dc027f95b4", 
+        "5b7ffb78f32ab1ec01c7fc67"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : " Anjana Harish ", 
+    "Email" : "aharish@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5bb178032aefd34a357bd288"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b578dd049ef01dc027f9633", 
+        "5b7ffb78f32ab1ec01c7fc67", 
+        "5b7ffc13f32ab1ec01c7fd09"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : " Sivaram Shunmugam ", 
+    "Email" : "sshunmug@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5bb178852aefd34a357bd289"), 
+    "ReadMessages" : [
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b578a7749ef01dc027f95b4", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b578dd049ef01dc027f9633", 
+        "5b7eb902f32ab1ec01c7310e", 
+        "5b7ffc13f32ab1ec01c7fd09", 
+        "5b7ffb78f32ab1ec01c7fc67", 
+        "5b50a02dc754cbb221671022"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : " Vivek Nagpal ", 
+    "Email" : "vnagpal@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5bb1789c2aefd34a357bd28a"), 
+    "ReadMessages" : [
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b50a02dc754cbb221671022", 
+        "5b578dd049ef01dc027f9633", 
+        "5b578a7749ef01dc027f95b4", 
+        "5b51fd29ab25cf61e4cb4968"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : " Christine Tan ", 
+    "Email" : "chrtan@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5bb178e82aefd34a357bd28b"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b578a7749ef01dc027f95b4", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b578dd049ef01dc027f9633", 
+        "5b7ffb78f32ab1ec01c7fc67"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : " Kawinthorn Bhutrakul ", 
+    "Email" : "kbhutrak@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5bb4027762eaeb4a4398c213"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b578dd049ef01dc027f9633"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Babak", 
+    "LastName" : "Mozaffari", 
+    "Email" : "babak@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5bb402ea62eaeb4a4398c214"), 
+    "ReadMessages" : [
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b578a7749ef01dc027f95b4", 
+        "5b578dd049ef01dc027f9633"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Jason", 
+    "LastName" : "Meyer", 
+    "Email" : "jmeyer@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5bb4033f62eaeb4a4398c215"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b578a7749ef01dc027f95b4", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b578dd049ef01dc027f9633"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Barnaby ", 
+    "LastName" : "Court", 
+    "Email" : "bcourt@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5bb404ba62eaeb4a4398c216"), 
+    "ReadMessages" : [
+
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Jennifer ", 
+    "LastName" : "Madriaga", 
+    "Email" : "jmadriag@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5bb4054862eaeb4a4398c219"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b51fd29ab25cf61e4cb4968"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Nathan ", 
+    "LastName" : "Kinder", 
+    "Email" : "nkinder@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5bb405b262eaeb4a4398c21a"), 
+    "ReadMessages" : [
+        "IGNORE_ME", 
+        "5b51ebf7ab25cf61e4cb3d7b"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Brent ", 
+    "LastName" : "Simoneaux", 
+    "Email" : "bsimonea@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5bb4063162eaeb4a4398c21b"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b578a7749ef01dc027f95b4"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Kimberly ", 
+    "LastName" : "Whelan", 
+    "Email" : "klabara@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5bb4067962eaeb4a4398c21c"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b578dd049ef01dc027f9633", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b7ffb78f32ab1ec01c7fc67"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Sandra ", 
+    "LastName" : "Wills", 
+    "Email" : "swills@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5bb4072162eaeb4a4398c21e"), 
+    "ReadMessages" : [
+
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Vikas ", 
+    "LastName" : "Kumar", 
+    "Email" : "vkumar@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5bb4075e62eaeb4a4398c21f"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b578a7749ef01dc027f95b4", 
+        "5b578dd049ef01dc027f9633"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Annie", 
+    "LastName" : "Potvin", 
+    "Email" : "apotvin@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5bb407e962eaeb4a4398c220"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b51ec15ab25cf61e4cb3d83"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "Email" : "smallamp@redhat.com", 
+    "FirstName" : "Sudhir ", 
+    "LastName" : "Mallamprabhakara", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5bb4085662eaeb4a4398c221"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b578a7749ef01dc027f95b4", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b578dd049ef01dc027f9633", 
+        "5b7ffb78f32ab1ec01c7fc67"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "Email" : "jjameson@redhat.com", 
+    "FirstName" : "Jeff", 
+    "LastName" : "Jameson", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5bb776f61265f210f112b39d"), 
+    "ReadMessages" : [
+
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Patti", 
+    "LastName" : "Hudson", 
+    "Email" : "phudson@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5bb777411265f210f112b39e"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b7ffb78f32ab1ec01c7fc67"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Garth", 
+    "LastName" : "McKinney", 
+    "Email" : "gmckinne@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5bb777fa1265f210f112b3a0"), 
+    "ReadMessages" : [
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b578dd049ef01dc027f9633"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "LastName" : " Reyes", 
+    "FirstName" : "Sylvia ", 
+    "Email" : "sreyes@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5bbb86a51265f210f112b48a"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b578dd049ef01dc027f9633"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Phil", 
+    "LastName" : "Smith", 
+    "Email" : "phsmith@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5bbc135b1265f210f112b5ac"), 
+    "ReadMessages" : [
+
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Player11", 
+    "Email" : "testplayer11@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5bbc13711265f210f112b5ad"), 
+    "ReadMessages" : [
+
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Player12", 
+    "Email" : "testplayer12@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5bc44273b4f5a930e7ef5545"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b7ffb78f32ab1ec01c7fc67", 
+        "5b7ffc13f32ab1ec01c7fd09"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Imed", 
+    "LastName" : "Chihi", 
+    "Email" : "ichihi@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5bc44291b4f5a930e7ef5546"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b51ec0cab25cf61e4cb3d81"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Luis", 
+    "LastName" : "Gonzalez Iglesias", 
+    "Email" : "luisgonz@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5bc442b4b4f5a930e7ef5547"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b578dd049ef01dc027f9633", 
+        "5b7ffb78f32ab1ec01c7fc67"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Anna", 
+    "LastName" : "Shumilova", 
+    "Email" : "ashumilo@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5bc442d7b4f5a930e7ef5548"), 
+    "ReadMessages" : [
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b51ec0cab25cf61e4cb3d81"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Ori", 
+    "LastName" : "Rabin", 
+    "Email" : "orabin@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5bc44359b4f5a930e7ef554a"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b578a7749ef01dc027f95b4", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b578dd049ef01dc027f9633", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b7ffb78f32ab1ec01c7fc67"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Lukas", 
+    "LastName" : "Svaty", 
+    "Email" : "lsvaty@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5bc44378b4f5a930e7ef554b"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b578a7749ef01dc027f95b4", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b578dd049ef01dc027f9633", 
+        "5b7eb902f32ab1ec01c7310e", 
+        "5b7ffb78f32ab1ec01c7fc67"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Andrea", 
+    "LastName" : "Leoncini", 
+    "Email" : "aleoncin@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5bc44396b4f5a930e7ef554c"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b578a7749ef01dc027f95b4", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b578dd049ef01dc027f9633", 
+        "5b7ffb78f32ab1ec01c7fc67", 
+        "5b7ffc13f32ab1ec01c7fd09"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Marek", 
+    "LastName" : "Novotny", 
+    "Email" : "mnovotny@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5bc443bab4f5a930e7ef554d"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b578a7749ef01dc027f95b4", 
+        "5b7ffb78f32ab1ec01c7fc67"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Ruediger", 
+    "LastName" : "Laabs", 
+    "Email" : "rlaabs@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5bc443e1b4f5a930e7ef554e"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b7ffb78f32ab1ec01c7fc67", 
+        "5b7ffc13f32ab1ec01c7fd09"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Johnny", 
+    "LastName" : "Bechara", 
+    "Email" : "jbechara@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5bc443ffb4f5a930e7ef554f"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b578dd049ef01dc027f9633", 
+        "5b7ffb78f32ab1ec01c7fc67", 
+        "5b7eb902f32ab1ec01c7310e"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Javier", 
+    "LastName" : "Ramirez", 
+    "Email" : "jaramire@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5bc44428b4f5a930e7ef5550"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b7ffb78f32ab1ec01c7fc67"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Pavol", 
+    "LastName" : "Srna", 
+    "Email" : "psrna@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5bc44447b4f5a930e7ef5551"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b578dd049ef01dc027f9633", 
+        "5b51ec15ab25cf61e4cb3d83"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Eva", 
+    "LastName" : "Kostrejova", 
+    "Email" : "ekostrej@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5bc44467b4f5a930e7ef5552"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b578dd049ef01dc027f9633", 
+        "5b7eb902f32ab1ec01c7310e", 
+        "5b7ffb78f32ab1ec01c7fc67"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Daniel", 
+    "LastName" : "Gur", 
+    "Email" : "dagur@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5bc44485b4f5a930e7ef5553"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b578dd049ef01dc027f9633"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Marek", 
+    "LastName" : "Hulan", 
+    "Email" : "mhulan@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5bc44670b4f5a930e7ef5554"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b578a7749ef01dc027f95b4", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b578dd049ef01dc027f9633", 
+        "5b7ffb78f32ab1ec01c7fc67"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "Email" : "dgilmore@redhat.com", 
+    "FirstName" : "Dennis", 
+    "LastName" : "Gilmore", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5bc446aab4f5a930e7ef5555"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b578dd049ef01dc027f9633", 
+        "5b7ffb78f32ab1ec01c7fc67"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Radek", 
+    "LastName" : "Plachi", 
+    "Email" : "rplachy@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5bc4476eb4f5a930e7ef5559"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b578a7749ef01dc027f95b4", 
+        "5b578dd049ef01dc027f9633", 
+        "5b7ffb78f32ab1ec01c7fc67"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Tomas", 
+    "LastName" : "Jelinek", 
+    "Email" : "tjelinek@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5bc4942ab4f5a930e7ef555f"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b578a7749ef01dc027f95b4", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b578dd049ef01dc027f9633", 
+        "5b7eb902f32ab1ec01c7310e", 
+        "5b7ffb78f32ab1ec01c7fc67", 
+        "5b7ffc13f32ab1ec01c7fd09"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "Email" : "mschmidt@redhat.com", 
+    "FirstName" : "Michal ", 
+    "LastName" : "Schmidt", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5bc49693b4f5a930e7ef5560"), 
+    "ReadMessages" : [
+        "5b578a7749ef01dc027f95b4", 
+        "5b578dd049ef01dc027f9633", 
+        "5b7ffb78f32ab1ec01c7fc67"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "Email" : "taraki@redhat.com", 
+    "FirstName" : "Thiago", 
+    "LastName" : "Araki", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5bc4976cb4f5a930e7ef5562"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b578dd049ef01dc027f9633", 
+        "5b7ffc13f32ab1ec01c7fd09", 
+        "5b7ffb78f32ab1ec01c7fc67"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Frank ", 
+    "LastName" : "Jensen", 
+    "Email" : "fjensen@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5bc497bab4f5a930e7ef5564"), 
+    "ReadMessages" : [
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b578a7749ef01dc027f95b4", 
+        "5b50a02dc754cbb221671022", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b578dd049ef01dc027f9633", 
+        "5b7eb902f32ab1ec01c7310e", 
+        "5b7ffb78f32ab1ec01c7fc67"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Beatriz", 
+    "LastName" : "Dias", 
+    "Email" : "bdias@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5bc497feb4f5a930e7ef5566"), 
+    "ReadMessages" : [
+        "5b578a7749ef01dc027f95b4", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b7eb902f32ab1ec01c7310e", 
+        "5b7ffb78f32ab1ec01c7fc67"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Bob", 
+    "LastName" : "Callaway", 
+    "Email" : "bcallawa@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5bc4985cb4f5a930e7ef5567"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b578dd049ef01dc027f9633", 
+        "5b7ffb78f32ab1ec01c7fc67", 
+        "5b7ffc13f32ab1ec01c7fd09"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Colby", 
+    "LastName" : "Hoke", 
+    "Email" : "choke@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5bc49891b4f5a930e7ef5568"), 
+    "ReadMessages" : [
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b578a7749ef01dc027f95b4", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b578dd049ef01dc027f9633", 
+        "5b7ffb78f32ab1ec01c7fc67"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Hao", 
+    "Email" : "hnguyen@redhat.com", 
+    "LastName" : "Nguyen", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5bc498c2b4f5a930e7ef5569"), 
+    "ReadMessages" : [
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b578dd049ef01dc027f9633"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "Email" : "omaciel@redhat.com", 
+    "FirstName" : "Og", 
+    "LastName" : "Maciel", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5bc498f7b4f5a930e7ef556a"), 
+    "ReadMessages" : [
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b50a02dc754cbb221671022", 
+        "5b7ffb78f32ab1ec01c7fc67"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Eric", 
+    "LastName" : "Wright", 
+    "Email" : "ewright@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5bc4991eb4f5a930e7ef556b"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b578dd049ef01dc027f9633", 
+        "5b7ffb78f32ab1ec01c7fc67", 
+        "5b7ffc13f32ab1ec01c7fd09"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Chris", 
+    "LastName" : "Houseknecht", 
+    "Email" : "chousekn@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5bc49947b4f5a930e7ef556c"), 
+    "ReadMessages" : [
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b578a7749ef01dc027f95b4", 
+        "5b50a02dc754cbb221671022", 
+        "5b578dd049ef01dc027f9633", 
+        "5b7ffb78f32ab1ec01c7fc67"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Jason", 
+    "LastName" : "Brooks", 
+    "Email" : "jbrooks@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5bc4997bb4f5a930e7ef556d"), 
+    "ReadMessages" : [
+        "5b578a7749ef01dc027f95b4", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b578dd049ef01dc027f9633", 
+        "5b7eb902f32ab1ec01c7310e", 
+        "5b7ffb78f32ab1ec01c7fc67"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Ronald", 
+    "LastName" : "Maggiore", 
+    "Email" : "rmaggior@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5bc978fd64f2b36a9793d616"), 
+    "ReadMessages" : [
+
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "ADMIN", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Milko", 
+    "LastName" : "George", 
+    "Email" : "mgeorgie@redhat.com", 
+    "__v" : NumberInt(0), 
+    "Password" : "$2b$10$17kikPjNc1Od0DmME8QVmugAr1o5o1xDWIQxKKrNOVt6.ZHwE5TUi"
+}
+{ 
+    "_id" : ObjectId("5bc97c1a64f2b36a9793d61f"), 
+    "ReadMessages" : [
+
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "ADMIN", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Rebecca", 
+    "LastName" : "Supple", 
+    "Email" : "rsupple@redhat.com", 
+    "__v" : NumberInt(0), 
+    "Password" : "$2b$10$rMRNIP8E26ZsjAKHm4IfQegWECS4e92wgI4w6qLlXTeMrlu7pCEPa"
+}
+{ 
+    "_id" : ObjectId("5bd675daca497259a77ba10c"), 
+    "ReadMessages" : [
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b578dd049ef01dc027f9633", 
+        "5b7ffb78f32ab1ec01c7fc67"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Craig", 
+    "LastName" : "Robinson", 
+    "Email" : "crarobin@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5bd67661ca497259a77ba10d"), 
+    "ReadMessages" : [
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b578dd049ef01dc027f9633", 
+        "5b50a02dc754cbb221671022"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Rob", 
+    "LastName" : "Lowe", 
+    "Email" : "rlowe@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5bd67685ca497259a77ba10e"), 
+    "ReadMessages" : [
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b578dd049ef01dc027f9633", 
+        "5b50a02dc754cbb221671022", 
+        "5b7ffb78f32ab1ec01c7fc67"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Faiaz ", 
+    "LastName" : "Ahmed", 
+    "Email" : "fahmed@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5bd676a7ca497259a77ba10f"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b578dd049ef01dc027f9633", 
+        "5b7ffb78f32ab1ec01c7fc67"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Paul", 
+    "LastName" : "Darling", 
+    "Email" : "pdarling@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5bd676c4ca497259a77ba110"), 
+    "ReadMessages" : [
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b578a7749ef01dc027f95b4", 
+        "5b578dd049ef01dc027f9633", 
+        "5b50a02dc754cbb221671022", 
+        "5b7ffc13f32ab1ec01c7fd09", 
+        "5b7ffb78f32ab1ec01c7fc67"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Jodie", 
+    "LastName" : "Kane", 
+    "Email" : "jkane@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5bd67760ca497259a77ba111"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b578dd049ef01dc027f9633", 
+        "5b7ffb78f32ab1ec01c7fc67"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Julio Jansson <jjansson@redhat.com>,", 
+    "LastName" : "Jansson", 
+    "Email" : "jjansson@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5bd67a0cca497259a77ba112"), 
+    "ReadMessages" : [
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b578dd049ef01dc027f9633", 
+        "5b7ffb78f32ab1ec01c7fc67"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Michael", 
+    "LastName" : "Napolis", 
+    "Email" : "mnapolis@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5bd67a3fca497259a77ba113"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b578dd049ef01dc027f9633", 
+        "5b7ffb78f32ab1ec01c7fc67"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Shane", 
+    "LastName" : "Wallace", 
+    "Email" : "shwallac@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5bd67a5bca497259a77ba114"), 
+    "ReadMessages" : [
+        "5b578dd049ef01dc027f9633", 
+        "5b7eb902f32ab1ec01c7310e", 
+        "5b50a02dc754cbb221671022", 
+        "5b7ffc13f32ab1ec01c7fd09", 
+        "5b7ffb78f32ab1ec01c7fc67"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Fei", 
+    "LastName" : "Zeng", 
+    "Email" : "fzeng@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5bd67a90ca497259a77ba115"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b578dd049ef01dc027f9633", 
+        "5b7ffc13f32ab1ec01c7fd09"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "James", 
+    "LastName" : "Pereira", 
+    "Email" : "japereir@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5bd67ab8ca497259a77ba116"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b578a7749ef01dc027f95b4", 
+        "5b7eb902f32ab1ec01c7310e", 
+        "5b7ffb78f32ab1ec01c7fc67"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Annette", 
+    "LastName" : "Hansen", 
+    "Email" : "ahansen@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5bd67b2cca497259a77ba117"), 
+    "ReadMessages" : [
+
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Sergey", 
+    "LastName" : "Guzenkov", 
+    "Email" : "sguzenko@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5bdca0e3b2ef27798f3bb07d"), 
+    "ReadMessages" : [
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b578dd049ef01dc027f9633", 
+        "5b50a02dc754cbb221671022", 
+        "5b578a7749ef01dc027f95b4", 
+        "5b7ffb78f32ab1ec01c7fc67", 
+        "5b7ffc13f32ab1ec01c7fd09"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Miles", 
+    "LastName" : "Horton", 
+    "Email" : "mhorton@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5bdca102b2ef27798f3bb07e"), 
+    "ReadMessages" : [
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b50a02dc754cbb221671022", 
+        "5b578dd049ef01dc027f9633"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "Email" : "sclewis@redhat.com", 
+    "FirstName" : "Scott", 
+    "LastName" : "Lewis", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5bdca126b2ef27798f3bb07f"), 
+    "ReadMessages" : [
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b578a7749ef01dc027f95b4", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b578dd049ef01dc027f9633", 
+        "5b7ffb78f32ab1ec01c7fc67"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Allie", 
+    "LastName" : "Stevens", 
+    "Email" : "casteven@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5bdca145b2ef27798f3bb080"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b578dd049ef01dc027f9633", 
+        "5b7ffb78f32ab1ec01c7fc67", 
+        "5b7eb902f32ab1ec01c7310e"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Rob", 
+    "LastName" : "Washburn", 
+    "Email" : "rwashbur@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5bdca166b2ef27798f3bb081"), 
+    "ReadMessages" : [
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b51ec15ab25cf61e4cb3d83"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Bascha", 
+    "LastName" : "Harris", 
+    "Email" : "bharris@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5bdca17db2ef27798f3bb082"), 
+    "ReadMessages" : [
+        "5b578a7749ef01dc027f95b4"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Brian", 
+    "LastName" : "Hamrick", 
+    "Email" : "bhamrick@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5bdca19eb2ef27798f3bb083"), 
+    "ReadMessages" : [
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b578a7749ef01dc027f95b4", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b578dd049ef01dc027f9633", 
+        "5b7eb902f32ab1ec01c7310e", 
+        "5b7ffb78f32ab1ec01c7fc67"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Mike", 
+    "Email" : "meovino@redhat.com", 
+    "LastName" : "Eovino", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5bdca1b5b2ef27798f3bb084"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b578a7749ef01dc027f95b4", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b578dd049ef01dc027f9633", 
+        "5b7ffb78f32ab1ec01c7fc67"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "Email" : "mdavis@redhat.com", 
+    "FirstName" : "Matthew", 
+    "LastName" : "Davis", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5bdca1d0b2ef27798f3bb085"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b578a7749ef01dc027f95b4", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b7ffb78f32ab1ec01c7fc67", 
+        "5b7ffc13f32ab1ec01c7fd09"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Omri", 
+    "LastName" : "Hochman", 
+    "Email" : "ohochman@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5bdca1f4b2ef27798f3bb086"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b578a7749ef01dc027f95b4", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b578dd049ef01dc027f9633", 
+        "5b7ffb78f32ab1ec01c7fc67"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "Email" : "tarabi@redhat.com", 
+    "LastName" : "Arabi", 
+    "FirstName" : "Toufic", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5bdca222b2ef27798f3bb087"), 
+    "ReadMessages" : [
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b578a7749ef01dc027f95b4", 
+        "5b50a02dc754cbb221671022", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b578dd049ef01dc027f9633", 
+        "5b7eb902f32ab1ec01c7310e", 
+        "5b7ffb78f32ab1ec01c7fc67", 
+        "5b7ffc13f32ab1ec01c7fd09"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "Email" : "pkilambi@redhat.com", 
+    "FirstName" : "Pradeep", 
+    "LastName" : "Kilambi", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5bdca23cb2ef27798f3bb088"), 
+    "ReadMessages" : [
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b578a7749ef01dc027f95b4", 
+        "5b578dd049ef01dc027f9633", 
+        "5b50a02dc754cbb221671022", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b7ffb78f32ab1ec01c7fc67"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "Email" : "kbraun@redhat.com", 
+    "FirstName" : "Kelly", 
+    "LastName" : "Braun", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5bdca277b2ef27798f3bb089"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b578a7749ef01dc027f95b4", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b578dd049ef01dc027f9633", 
+        "5b7ffb78f32ab1ec01c7fc67"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "Email" : "aassa@redhat.com", 
+    "FirstName" : "Arman", 
+    "LastName" : "Assa", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5be035331b377c4faba619d0"), 
+    "ReadMessages" : [
+        "5b51fd29ab25cf61e4cb4968"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Alessio ", 
+    "LastName" : "Soldano", 
+    "Email" : "asoldano@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5be035501b377c4faba619d1"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b578a7749ef01dc027f95b4", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b578dd049ef01dc027f9633", 
+        "5b7eb902f32ab1ec01c7310e", 
+        "5b7ffb78f32ab1ec01c7fc67"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "LastName" : "Spitzer", 
+    "FirstName" : "Carlos", 
+    "Email" : "cspitzer@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5be035781b377c4faba619d2"), 
+    "ReadMessages" : [
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b7ffb78f32ab1ec01c7fc67"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "LastName" : "Vassileva", 
+    "FirstName" : "Martina", 
+    "Email" : "mvassile@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5be035971b377c4faba619d3"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b578a7749ef01dc027f95b4", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b7ffb78f32ab1ec01c7fc67", 
+        "5b7ffc13f32ab1ec01c7fd09"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "LastName" : "Kuznietsov", 
+    "FirstName" : "Viktor", 
+    "Email" : "vkuzniet@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5be035cb1b377c4faba619d4"), 
+    "ReadMessages" : [
+        "5b578a7749ef01dc027f95b4", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b7ffb78f32ab1ec01c7fc67"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Alissa", 
+    "LastName" : "Bonas", 
+    "Email" : "abonas@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5be035f61b377c4faba619d5"), 
+    "ReadMessages" : [
+        "5b578a7749ef01dc027f95b4", 
+        "5b7ffb78f32ab1ec01c7fc67", 
+        "5b7eb902f32ab1ec01c7310e"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Edith", 
+    "LastName" : "Messerschmidt", 
+    "Email" : "emessers@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5be036061b377c4faba619d6"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b578a7749ef01dc027f95b4", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b578dd049ef01dc027f9633", 
+        "5b7eb902f32ab1ec01c7310e", 
+        "5b7ffb78f32ab1ec01c7fc67"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Ed", 
+    "LastName" : "Rooth", 
+    "Email" : "erooth@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5be036421b377c4faba619d7"), 
+    "ReadMessages" : [
+        "5b578a7749ef01dc027f95b4", 
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b7ffc13f32ab1ec01c7fd09", 
+        "5b7ffb78f32ab1ec01c7fc67"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "LastName" : "Karagioz", 
+    "FirstName" : "Vladimir", 
+    "Email" : "vkaragio@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5be036691b377c4faba619d8"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b578a7749ef01dc027f95b4", 
+        "5b578dd049ef01dc027f9633", 
+        "5b7ffb78f32ab1ec01c7fc67", 
+        "5b7eb902f32ab1ec01c7310e", 
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec15ab25cf61e4cb3d83"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "LastName" : "Gabrie", 
+    "FirstName" : "Vic", 
+    "Email" : "ggabrie@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5be038ae1b377c4faba619dd"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b578dd049ef01dc027f9633", 
+        "5b7ffb78f32ab1ec01c7fc67"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Dominik", 
+    "LastName" : "Perpeet", 
+    "Email" : "dperpeet@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5be038d01b377c4faba619de"), 
+    "ReadMessages" : [
+        "5b578a7749ef01dc027f95b4"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Gennady", 
+    "LastName" : "Azarenkov", 
+    "Email" : "gazarenk@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5be038ea1b377c4faba619df"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Heiko", 
+    "LastName" : "Braun", 
+    "Email" : "hbraun@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5be0390c1b377c4faba619e0"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b578a7749ef01dc027f95b4", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b578dd049ef01dc027f9633", 
+        "5b7ffc13f32ab1ec01c7fd09", 
+        "5b7ffb78f32ab1ec01c7fc67"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Jerome", 
+    "LastName" : "Fenal", 
+    "Email" : "jfenal@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5be039f41b377c4faba619e5"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b578a7749ef01dc027f95b4", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b578dd049ef01dc027f9633", 
+        "5b7ffb78f32ab1ec01c7fc67"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Louisa", 
+    "LastName" : "Maskell", 
+    "Email" : "lmaskell@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5be03a0b1b377c4faba619e6"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b578a7749ef01dc027f95b4", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b7ffb78f32ab1ec01c7fc67"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Marco", 
+    "LastName" : "Metting", 
+    "Email" : "mmetting@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5be03a571b377c4faba619e7"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b578a7749ef01dc027f95b4", 
+        "5b578dd049ef01dc027f9633", 
+        "5b7ffb78f32ab1ec01c7fc67"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Martin", 
+    "LastName" : "Percival", 
+    "Email" : "martin@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5be040421b377c4faba619ef"), 
+    "ReadMessages" : [
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b578dd049ef01dc027f9633", 
+        "5b578a7749ef01dc027f95b4", 
+        "5b50a02dc754cbb221671022", 
+        "5b7eb902f32ab1ec01c7310e", 
+        "5b51ec15ab25cf61e4cb3d83"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Patricia", 
+    "LastName" : "Alvarez", 
+    "Email" : "palvarez@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5be040991b377c4faba619f0"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b578a7749ef01dc027f95b4", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b578dd049ef01dc027f9633", 
+        "5b7ffb78f32ab1ec01c7fc67"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Pedro", 
+    "LastName" : "Navarro Perez", 
+    "Email" : "pnavarro@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5be040be1b377c4faba619f1"), 
+    "ReadMessages" : [
+
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Stefano", 
+    "LastName" : "Maestri", 
+    "Email" : "maestri@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5be042d71b377c4faba619f7"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b578dd049ef01dc027f9633", 
+        "5b7ffc13f32ab1ec01c7fd09", 
+        "5b7ffb78f32ab1ec01c7fc67"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Naomi", 
+    "LastName" : "Chilton", 
+    "Email" : "nchilton@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5be054ed1b377c4faba619fe"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b578dd049ef01dc027f9633", 
+        "5b7ffb78f32ab1ec01c7fc67"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Stefano", 
+    "LastName" : "Maestri", 
+    "Email" : "smaestri@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5be92c6c69720d10f7bae1ea"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b578dd049ef01dc027f9633", 
+        "5b7ffb78f32ab1ec01c7fc67"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Varun", 
+    "LastName" : "Sonie", 
+    "Email" : "vsonie@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5be92d3e69720d10f7bae1eb"), 
+    "ReadMessages" : [
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b578dd049ef01dc027f9633", 
+        "5b7ffb78f32ab1ec01c7fc67"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Karthigeyan", 
+    "LastName" : "Thiyagarajan", 
+    "Email" : "kthiyaga@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5be92da169720d10f7bae1ec"), 
+    "ReadMessages" : [
+        "5b578a7749ef01dc027f95b4", 
+        "5b50a02dc754cbb221671022", 
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b7ffb78f32ab1ec01c7fc67"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Prajakta ", 
+    "LastName" : "Shitole", 
+    "Email" : "ppatanka@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5be92e0069720d10f7bae1ed"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b578a7749ef01dc027f95b4", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b578dd049ef01dc027f9633", 
+        "5b7eb902f32ab1ec01c7310e", 
+        "5b7ffb78f32ab1ec01c7fc67"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Imran", 
+    "LastName" : "Khan", 
+    "Email" : "imkhan@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5be92e2e69720d10f7bae1ee"), 
+    "ReadMessages" : [
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b50a02dc754cbb221671022", 
+        "5b578dd049ef01dc027f9633"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Madhava", 
+    "LastName" : "Kamireddy", 
+    "Email" : "mkamired@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5be92e3669720d10f7bae1ef"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b578dd049ef01dc027f9633", 
+        "5b7ffc13f32ab1ec01c7fd09", 
+        "5b7ffb78f32ab1ec01c7fc67"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Sahina", 
+    "LastName" : "Bose", 
+    "Email" : "sabose@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5be92e4f69720d10f7bae1f0"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b578a7749ef01dc027f95b4", 
+        "5b7ffc13f32ab1ec01c7fd09"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Hemant", 
+    "LastName" : "Wadhwani", 
+    "Email" : "wadhwani@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5be92e6969720d10f7bae1f1"), 
+    "ReadMessages" : [
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b50a02dc754cbb221671022", 
+        "5b578a7749ef01dc027f95b4", 
+        "5b7ffb78f32ab1ec01c7fc67"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Miroslav ", 
+    "LastName" : "Grepl", 
+    "Email" : "mgrepl@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5be92e7969720d10f7bae1f2"), 
+    "ReadMessages" : [
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b578dd049ef01dc027f9633", 
+        "5b50a02dc754cbb221671022"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Binod", 
+    "LastName" : "Bhuyan", 
+    "Email" : "bbhuyan@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5be92ea369720d10f7bae1f3"), 
+    "ReadMessages" : [
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b50a02dc754cbb221671022", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b578dd049ef01dc027f9633", 
+        "5b7ffb78f32ab1ec01c7fc67"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Rushikesh", 
+    "LastName" : "Shinde", 
+    "Email" : "rshinde@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5be92ea869720d10f7bae1f4"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b578a7749ef01dc027f95b4", 
+        "5b7eb902f32ab1ec01c7310e", 
+        "5b7ffb78f32ab1ec01c7fc67", 
+        "5b7ffc13f32ab1ec01c7fd09"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Sachin", 
+    "LastName" : "Ghai", 
+    "Email" : "sghai@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5be92ec069720d10f7bae1f5"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b578dd049ef01dc027f9633", 
+        "5b7ffb78f32ab1ec01c7fc67"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Mayur", 
+    "LastName" : "Gupta", 
+    "Email" : "maygupta@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5be92ee069720d10f7bae1f6"), 
+    "ReadMessages" : [
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b578a7749ef01dc027f95b4", 
+        "5b578dd049ef01dc027f9633", 
+        "5b7ffb78f32ab1ec01c7fc67"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Keyur", 
+    "LastName" : "Gandhi", 
+    "Email" : "kgandhi@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5bec0b9c69720d10f7bae47e"), 
+    "ReadMessages" : [
+
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "ADMIN", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Hamilton", 
+    "Email" : "hamilton@dapperapps.com.au", 
+    "__v" : NumberInt(0), 
+    "LastName" : "Colyer-Long"
+}
+{ 
+    "_id" : ObjectId("5bf7711f69720d10f7bae584"), 
+    "ReadMessages" : [
+
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "yao", 
+    "LastName" : "li", 
+    "Email" : "yaoli@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c01771f23cada7ae6d6f48e"), 
+    "ReadMessages" : [
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b578a7749ef01dc027f95b4", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b578dd049ef01dc027f9633", 
+        "5b7eb902f32ab1ec01c7310e", 
+        "5b7ffb78f32ab1ec01c7fc67", 
+        "5b7ffc13f32ab1ec01c7fd09"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Ross", 
+    "Email" : "roocalla@redhat.com", 
+    "LastName" : "O'Callaghan", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c01775823cada7ae6d6f48f"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b578dd049ef01dc027f9633", 
+        "5b7ffb78f32ab1ec01c7fc67"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "Email" : "ssauvane@redhat.com", 
+    "LastName" : "Sauvanet", 
+    "FirstName" : "Simon", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c01777c23cada7ae6d6f490"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b578dd049ef01dc027f9633", 
+        "5b7ffb78f32ab1ec01c7fc67"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Jiri", 
+    "LastName" : "Folta", 
+    "Email" : "jfolta@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c0177c523cada7ae6d6f491"), 
+    "ReadMessages" : [
+        "5b578a7749ef01dc027f95b4", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b578dd049ef01dc027f9633"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Dushy", 
+    "Email" : "dstevani@redhat.com", 
+    "LastName" : "Stevanic", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c0177e823cada7ae6d6f492"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b578a7749ef01dc027f95b4", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b578dd049ef01dc027f9633"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Ruth", 
+    "Email" : "rhickey@redhat.com", 
+    "LastName" : "Hickey", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c01782223cada7ae6d6f493"), 
+    "ReadMessages" : [
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b578a7749ef01dc027f95b4", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b7eb902f32ab1ec01c7310e", 
+        "5b7ffc13f32ab1ec01c7fd09"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Alf", 
+    "LastName" : "Franklin", 
+    "Email" : "alf@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c01785d23cada7ae6d6f494"), 
+    "ReadMessages" : [
+
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "Email" : "pantinor@redhat.com", 
+    "FirstName" : "Paolo", 
+    "LastName" : "Antinori", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c01788c23cada7ae6d6f495"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b578a7749ef01dc027f95b4", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b578dd049ef01dc027f9633", 
+        "5b7eb902f32ab1ec01c7310e", 
+        "5b7ffc13f32ab1ec01c7fd09", 
+        "5b7ffb78f32ab1ec01c7fc67"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Petr", 
+    "LastName" : "Toman", 
+    "Email" : "ptoman@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c0178b623cada7ae6d6f496"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b578dd049ef01dc027f9633", 
+        "5b7ffb78f32ab1ec01c7fc67"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Franc", 
+    "LastName" : "Pimont", 
+    "Email" : "fpimont@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c0178e023cada7ae6d6f4a4"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Sarah", 
+    "Email" : "sweldong@redhat.com", 
+    "LastName" : "Weldon-Gamble", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c01790323cada7ae6d6f4a5"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b578a7749ef01dc027f95b4", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b578dd049ef01dc027f9633", 
+        "5b7ffb78f32ab1ec01c7fc67"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "Email" : "rgodfrey@redhat.com", 
+    "FirstName" : "Rob", 
+    "LastName" : "Godfrey", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c02190823cada7ae6d6f4b0"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b578a7749ef01dc027f95b4", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b578dd049ef01dc027f9633", 
+        "5b7ffb78f32ab1ec01c7fc67", 
+        "5b7eb902f32ab1ec01c7310e"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Zhou", 
+    "LastName" : "Xiong", 
+    "Email" : "xzhou@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c02195423cada7ae6d6f4b1"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b578a7749ef01dc027f95b4", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b578dd049ef01dc027f9633", 
+        "5b7eb902f32ab1ec01c7310e", 
+        "5b7ffb78f32ab1ec01c7fc67"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "LastName" : "Deng", 
+    "FirstName" : "Qiangang", 
+    "Email" : "qdeng@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c02198d23cada7ae6d6f4b2"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b578a7749ef01dc027f95b4", 
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b578dd049ef01dc027f9633", 
+        "5b7ffb78f32ab1ec01c7fc67"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "LastName" : "Wang", 
+    "FirstName" : "Zijun", 
+    "Email" : "ziwang@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c0219ea23cada7ae6d6f4b3"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b578dd049ef01dc027f9633", 
+        "5b7ffb78f32ab1ec01c7fc67"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "LastName" : "Chang", 
+    "FirstName" : "Yufen", 
+    "Email" : "yufchang@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c021a2423cada7ae6d6f4b4"), 
+    "ReadMessages" : [
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b50a02dc754cbb221671022", 
+        "5b578a7749ef01dc027f95b4", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b578dd049ef01dc027f9633"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "LastName" : "Cui", 
+    "FirstName" : "Ying", 
+    "Email" : "ycui@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c021a5a23cada7ae6d6f4b5"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b578a7749ef01dc027f95b4", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b578dd049ef01dc027f9633", 
+        "5b7eb902f32ab1ec01c7310e", 
+        "5b7ffb78f32ab1ec01c7fc67"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "LastName" : "SUn", 
+    "FirstName" : "WEi", 
+    "Email" : "wsun@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c021a8623cada7ae6d6f4b6"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b578dd049ef01dc027f9633"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Jingming", 
+    "LastName" : "Liu", 
+    "Email" : "jingliu@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c021ade23cada7ae6d6f4b8"), 
+    "ReadMessages" : [
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b578a7749ef01dc027f95b4", 
+        "5b50a02dc754cbb221671022", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b578dd049ef01dc027f9633", 
+        "5b7ffc13f32ab1ec01c7fd09", 
+        "5b7ffb78f32ab1ec01c7fc67"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "LastName" : "Ji", 
+    "FirstName" : "JIanwen", 
+    "Email" : "jiji@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c021b0b23cada7ae6d6f4b9"), 
+    "ReadMessages" : [
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b578a7749ef01dc027f95b4", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b578dd049ef01dc027f9633", 
+        "5b50a02dc754cbb221671022", 
+        "5b7ffc13f32ab1ec01c7fd09", 
+        "5b7ffb78f32ab1ec01c7fc67"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "LastName" : "Dan", 
+    "FirstName" : "YUan", 
+    "Email" : "dyuan@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c021b5823cada7ae6d6f4ba"), 
+    "ReadMessages" : [
+        "5b51ebf7ab25cf61e4cb3d7b"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "LastName" : "Wang", 
+    "FirstName" : "Yanfu", 
+    "Email" : "yanwang@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c021b9123cada7ae6d6f4bb"), 
+    "ReadMessages" : [
+        "5b578a7749ef01dc027f95b4", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b578dd049ef01dc027f9633", 
+        "5b7eb902f32ab1ec01c7310e"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "LastName" : "Meng", 
+    "FirstName" : "Dehuan", 
+    "Email" : "dmeng@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c021bc723cada7ae6d6f4bc"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b578a7749ef01dc027f95b4", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b578dd049ef01dc027f9633", 
+        "5b7ffb78f32ab1ec01c7fc67"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "LastName" : "Qu", 
+    "FirstName" : "Yunyun", 
+    "Email" : "yqu@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c021bf223cada7ae6d6f4bd"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b7ffb78f32ab1ec01c7fc67"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "LastName" : "LI", 
+    "FirstName" : "Winston", 
+    "Email" : "wili@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c021c4223cada7ae6d6f4bf"), 
+    "ReadMessages" : [
+        "5b578a7749ef01dc027f95b4", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b578dd049ef01dc027f9633", 
+        "5b7eb902f32ab1ec01c7310e", 
+        "5b7ffb78f32ab1ec01c7fc67"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "LastName" : "Zhang", 
+    "FirstName" : "QunFang", 
+    "Email" : "12qzhang@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c021d1023cada7ae6d6f4c1"), 
+    "ReadMessages" : [
+
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "Email" : "yanwan@redhat.com", 
+    "LastName" : "Wang", 
+    "FirstName" : "Yan", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c021d9023cada7ae6d6f4c2"), 
+    "ReadMessages" : [
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b578dd049ef01dc027f9633", 
+        "5b50a02dc754cbb221671022", 
+        "5b7ffb78f32ab1ec01c7fc67"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "LastName" : "Law", 
+    "FirstName" : "Albert", 
+    "Email" : "alaw@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c021e0723cada7ae6d6f4c3"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b578a7749ef01dc027f95b4", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b578dd049ef01dc027f9633", 
+        "5b7ffb78f32ab1ec01c7fc67"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Ya Guang", 
+    "LastName" : "Zhang", 
+    "Email" : "yagzhang@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c02319223cada7ae6d6f4c5"), 
+    "ReadMessages" : [
+        "5b578dd049ef01dc027f9633"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "Email" : "wenzhao@redhat.com", 
+    "LastName" : "Zhao", 
+    "FirstName" : "wenbin", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c0231ba23cada7ae6d6f4c6"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b578a7749ef01dc027f95b4", 
+        "5b7ffb78f32ab1ec01c7fc67", 
+        "5b7ffc13f32ab1ec01c7fd09", 
+        "5b578dd049ef01dc027f9633", 
+        "5b7eb902f32ab1ec01c7310e"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "Email" : "12wma@redhat.com", 
+    "LastName" : "Ma", 
+    "FirstName" : "Wei", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c052c8223cada7ae6d6f625"), 
+    "ReadMessages" : [
+        "5b578a7749ef01dc027f95b4", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b578dd049ef01dc027f9633", 
+        "5b7ffb78f32ab1ec01c7fc67"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Bob Madden", 
+    "LastName" : "Madden", 
+    "Email" : "bmadden@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c052cb323cada7ae6d6f626"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b578a7749ef01dc027f95b4", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b578dd049ef01dc027f9633", 
+        "5b7eb902f32ab1ec01c7310e", 
+        "5b7ffb78f32ab1ec01c7fc67", 
+        "5b7ffc13f32ab1ec01c7fd09"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "LastName" : "Durgin", 
+    "FirstName" : "Josh", 
+    "Email" : "jdurgin@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c052cf023cada7ae6d6f627"), 
+    "ReadMessages" : [
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b578a7749ef01dc027f95b4", 
+        "5b50a02dc754cbb221671022"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "LastName" : "Davis", 
+    "FirstName" : "Michelle", 
+    "Email" : "micdavis@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c052d2d23cada7ae6d6f629"), 
+    "ReadMessages" : [
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b578a7749ef01dc027f95b4", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b578dd049ef01dc027f9633", 
+        "5b7ffb78f32ab1ec01c7fc67"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Robin", 
+    "LastName" : "Mehera", 
+    "Email" : "rmehera@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c052d6d23cada7ae6d6f62b"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b578dd049ef01dc027f9633", 
+        "5b7ffb78f32ab1ec01c7fc67"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Robin", 
+    "LastName" : "Chan", 
+    "Email" : "rchan@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c052d8b23cada7ae6d6f62c"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b578a7749ef01dc027f95b4", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b578dd049ef01dc027f9633", 
+        "5b7eb902f32ab1ec01c7310e", 
+        "5b7ffb78f32ab1ec01c7fc67"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "LastName" : "Parrish", 
+    "FirstName" : "Rick ", 
+    "Email" : "rparrish@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c052da523cada7ae6d6f62d"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b578dd049ef01dc027f9633", 
+        "5b7ffc13f32ab1ec01c7fd09", 
+        "5b7ffb78f32ab1ec01c7fc67"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Sandeep ", 
+    "LastName" : "Sehgal", 
+    "Email" : "sasehgal@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c05350923cada7ae6d6f63d"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b578dd049ef01dc027f9633", 
+        "5b7ffb78f32ab1ec01c7fc67"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Russ ", 
+    "LastName" : "Popeil", 
+    "Email" : "rpopeil@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c05352b23cada7ae6d6f63e"), 
+    "ReadMessages" : [
+
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Brian ", 
+    "LastName" : "Harrington", 
+    "Email" : "bharring@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c05358023cada7ae6d6f63f"), 
+    "ReadMessages" : [
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b578a7749ef01dc027f95b4", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b578dd049ef01dc027f9633", 
+        "5b7eb902f32ab1ec01c7310e", 
+        "5b7ffc13f32ab1ec01c7fd09", 
+        "5b7ffb78f32ab1ec01c7fc67"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Jeffrey", 
+    "LastName" : "Hart", 
+    "Email" : "jehart@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c0535bc23cada7ae6d6f640"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b578a7749ef01dc027f95b4", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b578dd049ef01dc027f9633", 
+        "5b7ffb78f32ab1ec01c7fc67"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Jennifer", 
+    "LastName" : "Scalf", 
+    "Email" : "jscalf@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c05366723cada7ae6d6f643"), 
+    "ReadMessages" : [
+        "5b578a7749ef01dc027f95b4", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b578dd049ef01dc027f9633", 
+        "5b7ffb78f32ab1ec01c7fc67"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Christine ", 
+    "LastName" : "Sterne", 
+    "Email" : "csterne@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c05369a23cada7ae6d6f645"), 
+    "ReadMessages" : [
+        "5b578a7749ef01dc027f95b4", 
+        "5b50a02dc754cbb221671022", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b7ffc13f32ab1ec01c7fd09", 
+        "5b7ffb78f32ab1ec01c7fc67"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Troy ", 
+    "LastName" : "Phillips", 
+    "Email" : "tphillip@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c0536b923cada7ae6d6f646"), 
+    "ReadMessages" : [
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b578a7749ef01dc027f95b4", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b578dd049ef01dc027f9633", 
+        "5b7eb902f32ab1ec01c7310e"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Pam ", 
+    "LastName" : "Rubins", 
+    "Email" : "prubins@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c0536f023cada7ae6d6f647"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b578a7749ef01dc027f95b4", 
+        "5b578dd049ef01dc027f9633", 
+        "5b7ffb78f32ab1ec01c7fc67"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Brock ", 
+    "LastName" : "Spradling", 
+    "Email" : "bspradli@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c05371c23cada7ae6d6f648"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b578dd049ef01dc027f9633", 
+        "5b7ffb78f32ab1ec01c7fc67"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Beth", 
+    "LastName" : "Peterson", 
+    "Email" : "elpeters@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c06172c23cada7ae6d6f890"), 
+    "ReadMessages" : [
+
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "QunFang2", 
+    "LastName" : "Zhang", 
+    "Email" : "qzhang@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c0617a823cada7ae6d6f891"), 
+    "ReadMessages" : [
+
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Qunfang", 
+    "LastName" : "Zhang", 
+    "Email" : "1qzhang@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c32a3f823cada7ae6d700c4"), 
+    "ReadMessages" : [
+        "5b578dd049ef01dc027f9633", 
+        "5b7ffc13f32ab1ec01c7fd09", 
+        "5b7ffb78f32ab1ec01c7fc67"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Ondrej", 
+    "LastName" : "Kopacek", 
+    "Email" : "okopacek@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c32a41d23cada7ae6d700c5"), 
+    "ReadMessages" : [
+
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Allen", 
+    "LastName" : "Eastwood", 
+    "Email" : "aeastwoo@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c32a43f23cada7ae6d700c6"), 
+    "ReadMessages" : [
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b578a7749ef01dc027f95b4", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b578dd049ef01dc027f9633", 
+        "5b7eb902f32ab1ec01c7310e", 
+        "5b7ffb78f32ab1ec01c7fc67"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Daniel", 
+    "LastName" : "Thompson", 
+    "Email" : "dthompso@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c32a46123cada7ae6d700c7"), 
+    "ReadMessages" : [
+        "5b578a7749ef01dc027f95b4", 
+        "5b578dd049ef01dc027f9633", 
+        "5b7ffb78f32ab1ec01c7fc67"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Josh", 
+    "LastName" : "Nicolet", 
+    "Email" : "jnicolet@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c32a48423cada7ae6d700c8"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b578a7749ef01dc027f95b4", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b578dd049ef01dc027f9633", 
+        "5b7eb902f32ab1ec01c7310e", 
+        "5b7ffb78f32ab1ec01c7fc67", 
+        "5b7ffc13f32ab1ec01c7fd09"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "John", 
+    "LastName" : "Tietjen", 
+    "Email" : "jtietjen@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c32a49e23cada7ae6d700c9"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b578a7749ef01dc027f95b4", 
+        "5b578dd049ef01dc027f9633", 
+        "5b7ffb78f32ab1ec01c7fc67"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Ryne", 
+    "LastName" : "Fagin", 
+    "Email" : "rfagin@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c32a4bc23cada7ae6d700ca"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b578a7749ef01dc027f95b4", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b578dd049ef01dc027f9633", 
+        "5b7ffb78f32ab1ec01c7fc67"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Jeffrey", 
+    "LastName" : "Burke", 
+    "Email" : "jburke@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c32a4de23cada7ae6d700cb"), 
+    "ReadMessages" : [
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b578a7749ef01dc027f95b4", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b578dd049ef01dc027f9633", 
+        "5b7ffb78f32ab1ec01c7fc67"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Michelle", 
+    "LastName" : "Bearer", 
+    "Email" : "mbearer@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c32a50e23cada7ae6d700cc"), 
+    "ReadMessages" : [
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b578dd049ef01dc027f9633", 
+        "5b7ffb78f32ab1ec01c7fc67"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Richard", 
+    "LastName" : "Simeone", 
+    "Email" : "rsimeone@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c3748e523cada7ae6d70272"), 
+    "ReadMessages" : [
+
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Steve", 
+    "LastName" : "W", 
+    "Email" : "steve@test.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c497bab4e807916fcb93b29"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Mike", 
+    "LastName" : "Yue", 
+    "Email" : "mike@test.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c497bdc4e807916fcb93b2a"), 
+    "ReadMessages" : [
+
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Jo", 
+    "LastName" : "Jo", 
+    "Email" : "jo@test.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c4a49c94e807916fcb93b30"), 
+    "ReadMessages" : [
+
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Jin", 
+    "LastName" : "Shi", 
+    "Email" : "jin@test.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c4a49f94e807916fcb93b31"), 
+    "ReadMessages" : [
+
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Emil", 
+    "LastName" : "DeBlanc", 
+    "Email" : "emil@test.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c4a4a094e807916fcb93b32"), 
+    "ReadMessages" : [
+
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Fran", 
+    "LastName" : "Fleming", 
+    "Email" : "fran@test.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c4a4a264e807916fcb93b33"), 
+    "ReadMessages" : [
+
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Ed", 
+    "LastName" : "Paglia", 
+    "Email" : "ed@test.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c4a66ef4e807916fcb93b34"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b51ebf7ab25cf61e4cb3d7b"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "google", 
+    "LastName" : "test", 
+    "Email" : "google@test.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c4ef2544e807916fcb93b93"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Nick", 
+    "LastName" : "Woerner", 
+    "Email" : "nwoerner@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c4ef26d4e807916fcb93b94"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b578a7749ef01dc027f95b4"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Eugene", 
+    "LastName" : "Cox", 
+    "Email" : "ecox@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c4ef2994e807916fcb93b95"), 
+    "ReadMessages" : [
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec0cab25cf61e4cb3d81"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Jenn", 
+    "LastName" : "Anderson", 
+    "Email" : "jennande@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c4ef2d44e807916fcb93b96"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b51ec0cab25cf61e4cb3d81"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "Email" : "rbolling@redhat.com", 
+    "FirstName" : "Randy", 
+    "LastName" : "Bollinger", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c4ef2eb4e807916fcb93b97"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Mike", 
+    "LastName" : "Clark", 
+    "Email" : "miclark@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c4ef31e4e807916fcb93b98"), 
+    "ReadMessages" : [
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b50a02dc754cbb221671022", 
+        "5b578a7749ef01dc027f95b4"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Elise", 
+    "LastName" : "McMorrow", 
+    "Email" : "eferrari@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c4ef33b4e807916fcb93b99"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b578a7749ef01dc027f95b4"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Chris", 
+    "LastName" : "Rook", 
+    "Email" : "crook@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c4ef3604e807916fcb93b9a"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b51ec0cab25cf61e4cb3d81"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Matthew", 
+    "LastName" : "Witzenman", 
+    "Email" : "mwitzenm@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c4ef38f4e807916fcb93b9b"), 
+    "ReadMessages" : [
+
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Bradford", 
+    "LastName" : "Nichols", 
+    "Email" : "brnichol@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c4ef3b54e807916fcb93b9c"), 
+    "ReadMessages" : [
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b578a7749ef01dc027f95b4"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Brad", 
+    "LastName" : "Buckingham", 
+    "Email" : "bbucking@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c4ef3d44e807916fcb93b9d"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b578a7749ef01dc027f95b4"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Kelly", 
+    "LastName" : "Allard", 
+    "Email" : "kallard@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c4ef3f34e807916fcb93b9e"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b578a7749ef01dc027f95b4"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Eric", 
+    "LastName" : "Braun", 
+    "Email" : "ebraun@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c4ef40a4e807916fcb93b9f"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b51ec0cab25cf61e4cb3d81"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Teryl", 
+    "LastName" : "Mack", 
+    "Email" : "tmack@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c4ef4304e807916fcb93ba0"), 
+    "ReadMessages" : [
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec0cab25cf61e4cb3d81"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Trevor", 
+    "LastName" : "Mishler", 
+    "Email" : "tmishler@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c4ef4564e807916fcb93ba1"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b51ec0cab25cf61e4cb3d81"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Stephen", 
+    "LastName" : "Cuppett", 
+    "Email" : "scuppett@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c4ef4734e807916fcb93ba2"), 
+    "ReadMessages" : [
+
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Thomas", 
+    "LastName" : "Baehr", 
+    "Email" : "tbaehr@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c783424c75cc22bd06271e8"), 
+    "ReadMessages" : [
+
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "ADMIN", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "Email" : "oirohaag@redhat.com", 
+    "FirstName" : "Orieji", 
+    "LastName" : "Iroha agwu", 
+    "__v" : NumberInt(0), 
+    "Password" : "$2b$10$RPh38GBLNwXHlmzswsOohu6G3uVb3XZAHc0bDksXGAmHnzVEBwPs."
+}
+{ 
+    "_id" : ObjectId("5c7834a0c75cc22bd06271e9"), 
+    "ReadMessages" : [
+
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "ADMIN", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Brandi", 
+    "LastName" : "Johnson", 
+    "Email" : "branjohn@redhat.com", 
+    "__v" : NumberInt(0), 
+    "Password" : "$2b$10$n.yznnp1/aA9FpxgPf8uQeoY.7Aw/dM.TVJ7MSaQYWsSi478pG6mq"
+}
+{ 
+    "_id" : ObjectId("5c7d6d0fa9a2d00fc4beb84a"), 
+    "ReadMessages" : [
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "IGNORE_ME", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b578a7749ef01dc027f95b4", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b578dd049ef01dc027f9633", 
+        "5b50a02dc754cbb221671022", 
+        "5b7ffb78f32ab1ec01c7fc67"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Preethi", 
+    "LastName" : "Thomas", 
+    "Email" : "pthomas@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c7d6d5ba9a2d00fc4beb84c"), 
+    "ReadMessages" : [
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "IGNORE_ME", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b578dd049ef01dc027f9633"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Todd", 
+    "LastName" : "Sanders", 
+    "Email" : "tsanders@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c7d6d76a9a2d00fc4beb84d"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "IGNORE_ME", 
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b578dd049ef01dc027f9633", 
+        "5b7ffb78f32ab1ec01c7fc67"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Allison", 
+    "LastName" : "Matlack", 
+    "Email" : "amatlack@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c7d6d8ea9a2d00fc4beb84e"), 
+    "ReadMessages" : [
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b51fd29ab25cf61e4cb4968"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Barb", 
+    "LastName" : "Teeven", 
+    "Email" : "bwilklow@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c7d6dc4a9a2d00fc4beb84f"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "IGNORE_ME", 
+        "5b578a7749ef01dc027f95b4", 
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b578dd049ef01dc027f9633", 
+        "5b7ffb78f32ab1ec01c7fc67"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "Email" : "abhgupta@redhat.com", 
+    "FirstName" : "Abhishek", 
+    "LastName" : "Gupta", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c7d6de7a9a2d00fc4beb850"), 
+    "ReadMessages" : [
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "IGNORE_ME", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b578a7749ef01dc027f95b4", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b578dd049ef01dc027f9633", 
+        "5b50a02dc754cbb221671022", 
+        "5b7ffb78f32ab1ec01c7fc67"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Steve", 
+    "LastName" : "Gasser", 
+    "Email" : "sgasser@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c7d6dffa9a2d00fc4beb851"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "IGNORE_ME", 
+        "5b578a7749ef01dc027f95b4", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b578dd049ef01dc027f9633", 
+        "5b7eb902f32ab1ec01c7310e", 
+        "5b7ffb78f32ab1ec01c7fc67"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "Email" : "degts@redhat.com", 
+    "FirstName" : "Dave", 
+    "LastName" : "Egts", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c7d6e33a9a2d00fc4beb852"), 
+    "ReadMessages" : [
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "IGNORE_ME", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b578a7749ef01dc027f95b4", 
+        "5b578dd049ef01dc027f9633", 
+        "5b7ffb78f32ab1ec01c7fc67", 
+        "5b7ffc13f32ab1ec01c7fd09"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Anna", 
+    "LastName" : "Nathan", 
+    "Email" : "anathan@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c7d6e5da9a2d00fc4beb853"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b578a7749ef01dc027f95b4", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b7ffb78f32ab1ec01c7fc67"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Megs", 
+    "LastName" : "Suratkal", 
+    "Email" : "msuratka@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c7d6e7aa9a2d00fc4beb854"), 
+    "ReadMessages" : [
+        "IGNORE_ME", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b578dd049ef01dc027f9633", 
+        "5b7ffc13f32ab1ec01c7fd09"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Srinivas", 
+    "LastName" : "Saraswatula", 
+    "Email" : "ssaraswa@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c7d6e97a9a2d00fc4beb855"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "IGNORE_ME", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b578a7749ef01dc027f95b4", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b578dd049ef01dc027f9633", 
+        "5b7eb902f32ab1ec01c7310e", 
+        "5b7ffb78f32ab1ec01c7fc67"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Brent", 
+    "LastName" : "Midwood", 
+    "Email" : "bmidwood@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c7d6eb6a9a2d00fc4beb856"), 
+    "ReadMessages" : [
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b578a7749ef01dc027f95b4", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b578dd049ef01dc027f9633"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "Email" : "jdemerch@redhat.com", 
+    "FirstName" : "Jeff", 
+    "LastName" : "DeMerchant", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c7d6ee2a9a2d00fc4beb857"), 
+    "ReadMessages" : [
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "IGNORE_ME", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b578a7749ef01dc027f95b4", 
+        "5b578dd049ef01dc027f9633", 
+        "5b50a02dc754cbb221671022", 
+        "5b7ffb78f32ab1ec01c7fc67"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "Email" : "lmorriso@redhat.com", 
+    "FirstName" : "Leigh", 
+    "LastName" : "Morrison", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c85a945ab31ac2dd305945f"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "IGNORE_ME", 
+        "5b578a7749ef01dc027f95b4", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b578dd049ef01dc027f9633", 
+        "5b7ffb78f32ab1ec01c7fc67"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Leandro ", 
+    "LastName" : "Rosa", 
+    "Email" : "lrosa@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c85cc2aab31ac2dd3059460"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "IGNORE_ME", 
+        "5b578a7749ef01dc027f95b4", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b578dd049ef01dc027f9633", 
+        "5b7ffc13f32ab1ec01c7fd09", 
+        "5b7ffb78f32ab1ec01c7fc67"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Andrea", 
+    "LastName" : "Saccani", 
+    "Email" : "asaccani@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c85cc5dab31ac2dd3059461"), 
+    "ReadMessages" : [
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b578a7749ef01dc027f95b4", 
+        "5b578dd049ef01dc027f9633", 
+        "5b7eb902f32ab1ec01c7310e"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Amana", 
+    "LastName" : "Juricic", 
+    "Email" : "ajuricic@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c85cccbab31ac2dd3059462"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "IGNORE_ME", 
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b578dd049ef01dc027f9633"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Claudio", 
+    "LastName" : "Penasio", 
+    "Email" : "cpenasio@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c85cd1aab31ac2dd3059463"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b578a7749ef01dc027f95b4", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b7eb902f32ab1ec01c7310e", 
+        "5b7ffb78f32ab1ec01c7fc67"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Alessandro", 
+    "LastName" : "Lazarotti", 
+    "Email" : "alazarot@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c85cd55ab31ac2dd3059464"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b578a7749ef01dc027f95b4", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b578dd049ef01dc027f9633", 
+        "5b7ffb78f32ab1ec01c7fc67"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Fabio", 
+    "LastName" : "Leite", 
+    "Email" : "fleite@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c85cd80ab31ac2dd3059465"), 
+    "ReadMessages" : [
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b51fd29ab25cf61e4cb4968"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Ana", 
+    "LastName" : "Camargo", 
+    "Email" : "acamargo@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c85cda6ab31ac2dd3059466"), 
+    "ReadMessages" : [
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b578dd049ef01dc027f9633", 
+        "5b7ffb78f32ab1ec01c7fc67"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Daniela", 
+    "LastName" : "Schaun", 
+    "Email" : "dschaun@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c85cea8ab31ac2dd3059467"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "IGNORE_ME", 
+        "5b578a7749ef01dc027f95b4", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b578dd049ef01dc027f9633", 
+        "5b7eb902f32ab1ec01c7310e", 
+        "5b7ffb78f32ab1ec01c7fc67"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Gabriela", 
+    "LastName" : "Morales ", 
+    "Email" : "amorales@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c85d5f5ab31ac2dd3059468"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "IGNORE_ME", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b578dd049ef01dc027f9633", 
+        "5b7ffb78f32ab1ec01c7fc67"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Guadalupe", 
+    "LastName" : "Sarasate", 
+    "Email" : "gsarasat@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c85d620ab31ac2dd3059469"), 
+    "ReadMessages" : [
+        "IGNORE_ME", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b578dd049ef01dc027f9633"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Alessandra", 
+    "LastName" : "Maganhatto", 
+    "Email" : "amaganha@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c85d641ab31ac2dd305946a"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "IGNORE_ME", 
+        "5b578a7749ef01dc027f95b4", 
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b578dd049ef01dc027f9633", 
+        "5b7ffc13f32ab1ec01c7fd09", 
+        "5b7ffb78f32ab1ec01c7fc67"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Hernan", 
+    "LastName" : "Cortes", 
+    "Email" : "hcortes@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c85d675ab31ac2dd305946b"), 
+    "ReadMessages" : [
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b578a7749ef01dc027f95b4", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b578dd049ef01dc027f9633", 
+        "5b50a02dc754cbb221671022", 
+        "5b7ffc13f32ab1ec01c7fd09"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Magda", 
+    "LastName" : "Rodriguez", 
+    "Email" : "magrodri@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c85d69cab31ac2dd305946c"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "IGNORE_ME", 
+        "5b578a7749ef01dc027f95b4", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b578dd049ef01dc027f9633", 
+        "5b7ffb78f32ab1ec01c7fc67"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Boris", 
+    "LastName" : "Kuszka", 
+    "Email" : "bkuszka@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c85d6c0ab31ac2dd305946d"), 
+    "ReadMessages" : [
+        "IGNORE_ME", 
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b578dd049ef01dc027f9633", 
+        "5b50a02dc754cbb221671022", 
+        "5b7ffb78f32ab1ec01c7fc67"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Jorge", 
+    "LastName" : "Payro", 
+    "Email" : "jpayro@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c85d6e2ab31ac2dd305946e"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51fd29ab25cf61e4cb4968", 
+        "5b578dd049ef01dc027f9633", 
+        "5b578a7749ef01dc027f95b4", 
+        "5b7ffb78f32ab1ec01c7fc67", 
+        "5b7ffc13f32ab1ec01c7fd09"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Alberto", 
+    "LastName" : "Ramundo", 
+    "Email" : "aramundo@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c949576ab31ac2dd30598e3"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Ali ", 
+    "LastName" : "Sogukpinar", 
+    "Email" : "asogukpi@redhat.com", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c949599ab31ac2dd30598e4"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "IGNORE_ME", 
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b578a7749ef01dc027f95b4"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "George ", 
+    "Email" : "gvarsami@redhat.com", 
+    "LastName" : "Varsamis\t", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c9495bdab31ac2dd30598e5"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b51ebf7ab25cf61e4cb3d7b"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Toni ", 
+    "Email" : "tfreger@redhat.com", 
+    "LastName" : "Freger\t", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c9495fbab31ac2dd30598e6"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "IGNORE_ME", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec0cab25cf61e4cb3d81"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Horst", 
+    "Email" : "hthieme@redhat.com", 
+    "LastName" : "Thieme\t", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c94961fab31ac2dd30598e7"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "IGNORE_ME", 
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b578a7749ef01dc027f95b4", 
+        "5b51ec15ab25cf61e4cb3d83"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Tilmann ", 
+    "Email" : "tschelle@redhat.com", 
+    "LastName" : "Scheller\t", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c949674ab31ac2dd30598e9"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b578a7749ef01dc027f95b4"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Lorraine ", 
+    "Email" : "llegros@redhat.com", 
+    "LastName" : "Legros\t", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c94a337ab31ac2dd30598ea"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "IGNORE_ME"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Susana \t", 
+    "Email" : "sdejong@redhat.com", 
+    "LastName" : "de Jong", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c94a355ab31ac2dd30598eb"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b578a7749ef01dc027f95b4"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Rob ", 
+    "Email" : "rmcmahon@redhat.com", 
+    "LastName" : "McMahon", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c94a37aab31ac2dd30598ec"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "IGNORE_ME", 
+        "5b578a7749ef01dc027f95b4"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Pep \t", 
+    "Email" : "jturro@redhat.com", 
+    "LastName" : "Turro Mauri", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c94a399ab31ac2dd30598ed"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b578a7749ef01dc027f95b4"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Lorraine \t", 
+    "Email" : "lbolger@redhat.com", 
+    "LastName" : "Bolger", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c94a3bdab31ac2dd30598ee"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "IGNORE_ME", 
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b51ec0cab25cf61e4cb3d81"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Franck \t", 
+    "Email" : "fgaget@redhat.com", 
+    "LastName" : "Gaget", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c94a3edab31ac2dd30598f0"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "IGNORE_ME", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b578a7749ef01dc027f95b4"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Jens \t", 
+    "Email" : "jkuehner@redhat.com", 
+    "LastName" : "Kuehner", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c94a419ab31ac2dd30598f1"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "IGNORE_ME", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b578a7749ef01dc027f95b4"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Victor \t", 
+    "Email" : "vruizrui@redhat.com", 
+    "LastName" : "Ruiz Ruiz", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c94a435ab31ac2dd30598f2"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b578a7749ef01dc027f95b4"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Federico ", 
+    "Email" : "fsimonce@redhat.com", 
+    "LastName" : "Simoncelli\t", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c94a457ab31ac2dd30598f3"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "IGNORE_ME", 
+        "5b578a7749ef01dc027f95b4"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Jan ", 
+    "Email" : "jwenger@redhat.com", 
+    "LastName" : "Wenger\t", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c94a48dab31ac2dd30598f4"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b578a7749ef01dc027f95b4"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Rainer Alois ", 
+    "Email" : "rschaaf@redhat.com", 
+    "LastName" : "Schaaf\t", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c94a4a8ab31ac2dd30598f5"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec0cab25cf61e4cb3d81", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b578a7749ef01dc027f95b4"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Andrew ", 
+    "Email" : "anbrown@redhat.com", 
+    "LastName" : "Brown\t", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5c94a672ab31ac2dd30598fb"), 
+    "ReadMessages" : [
+        "5b50a02dc754cbb221671022", 
+        "5b51ebf7ab25cf61e4cb3d7b", 
+        "5b51ec15ab25cf61e4cb3d83", 
+        "5b51ec0cab25cf61e4cb3d81"
+    ], 
+    "REST_URL" : "users", 
+    "Role" : "PLAYER", 
+    "IsLeader" : false, 
+    "Job" : "Associate", 
+    "FirstName" : "Meital ", 
+    "Email" : "mavital@redhat.com", 
+    "LastName" : "Avital\t", 
+    "__v" : NumberInt(0)
+}
