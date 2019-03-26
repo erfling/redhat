@@ -649,7 +649,6 @@ export class GamePlayRouter {
                 let answers = response.Answer as SliderValueObj[];
                 for (var i = 0; i < answers.length; i++) {
                     let ans = answers[i];
-                    console.dir("HHHHHHHHHHHEEEEEEEEEEEEEEEEEEEEEEEEEEYYYYYYYYYYYYY", response)
                     let queryObj: any = { UserId: response.UserId, DisplayLabel: ans.label, SubRoundId: response.SubRoundId, GameId: response.GameId, TeamId: response.TeamId, QuestionId: response.QuestionId, targetObjId: (response.Answer as SliderValueObj[])[0].targetObjId }
 
                     const oldResponse = await monResponseModel.findOne(queryObj).then(r => r ? r.toJSON() : null);
@@ -660,15 +659,17 @@ export class GamePlayRouter {
                     r.Answer = (r.Answer as SliderValueObj[]).filter(pa => pa.label == ans.label);
                     if(!ans.OverrideType) r.Score = Number(ans.data || 0);
                     if (!oldResponse) {
-                        delete response._id;
+                        delete r._id;
+                        console.log("WAS NEW")
                         var SaveResponse = await monResponseModel.create(r).then(r => r.toObject() as ResponseModel);
                     } else {
-                        delete response._id;
+                        delete r._id;
+                        console.log("WAS OLD")
                         var SaveResponse = await monResponseModel.findOneAndUpdate(queryObj, r, { new: true }).then(r => r.toObject() as ResponseModel);
                     }
 
                     savedResponses.push(SaveResponse)
-                    console.log(SaveResponse);
+                    console.log("LOOK AT THIS", SaveResponse);
 
                 }
             }
