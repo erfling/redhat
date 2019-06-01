@@ -305,37 +305,34 @@ export default class FacilitatorSlides extends BaseComponent<
                         this.state.FacilitatorState.Game.CurrentRound
                           .SlideNumber != 76 &&
                         this.state.FacilitatorState.SlideScores.RoundScores
-                          .length &&
+                          .length /*&&
                         this.state.FacilitatorState.CurrentLookup
-                          .RoundScoreIdx != -1 && (
-                          <>
-                            <h1>Is this where we get falsey?</h1>
-                            <Segment raised>
-                              <Header textAlign="center" as="h1">
-                                Round Ranking
-                              </Header>
+                          .RoundScoreIdx != -1*/ && (
+                          <Segment raised>
+                            <Header textAlign="center" as="h1">
+                              Round Ranking
+                            </Header>
 
-                              <FacilitatorScoreDisplay
-                                Stepped={true}
-                                SubRoundScores={
-                                  this.state.FacilitatorState.SlideScores
-                                    .SubRoundScores
-                                }
-                                RoundScores={
-                                  this.state.FacilitatorState.SlideScores
-                                    .RoundScores
-                                }
-                                CumulativeScores={
-                                  this.state.FacilitatorState.SlideScores
-                                    .CumulativeScores
-                                }
-                                Game={this.state.FacilitatorState.Game}
-                                CurrentLookup={
-                                  this.state.FacilitatorState.CurrentLookup
-                                }
-                              />
-                            </Segment>
-                          </>
+                            <FacilitatorScoreDisplay
+                              Stepped={true}
+                              SubRoundScores={
+                                this.state.FacilitatorState.SlideScores
+                                  .SubRoundScores
+                              }
+                              RoundScores={
+                                this.state.FacilitatorState.SlideScores
+                                  .RoundScores
+                              }
+                              CumulativeScores={
+                                this.state.FacilitatorState.SlideScores
+                                  .CumulativeScores
+                              }
+                              Game={this.state.FacilitatorState.Game}
+                              CurrentLookup={
+                                this.state.FacilitatorState.CurrentLookup
+                              }
+                            />
+                          </Segment>
                         )}
                     </div>
 
