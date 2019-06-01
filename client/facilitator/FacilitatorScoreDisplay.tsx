@@ -48,6 +48,7 @@ export default class FacilitatorSlides extends React.Component<
     //className={Stepped ? "facilitator-scores" : ""}
     return (
       <>
+      <h1>HEY</h1>
       <pre>{JSON.stringify(CumulativeScores, null, 2)}</pre>
         <div>
           {RoundScores &&
