@@ -91,9 +91,6 @@ export default class FacilitatorSlides extends React.Component<
               </Segment>
             )}
 
-          {CumulativeScores && (
-            <h1>HEY::{CumulativeScores.length.toString()} {Stepped.toString()} {Game.CurrentRound.SlideNumber}</h1>
-          )}
           {CumulativeScores &&
             CumulativeScores.length &&
             (CurrentLookup.RoundScoreIdx == -1 ||
