@@ -73,6 +73,7 @@ export default class FacilitatorSlides extends React.Component<IFacilitatorScore
                     </Segment>
                 }
 
+                {CumulativeScores && <h1>HEY::{CumulativeScores.length.toString()}</h1>}
                 {CumulativeScores && CumulativeScores.length && ((CurrentLookup.RoundScoreIdx == -1 || Game.CurrentRound.SlideNumber == 76) || !Stepped) &&
                     <Segment
                         raised
