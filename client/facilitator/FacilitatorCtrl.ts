@@ -177,7 +177,9 @@ export default class FacilitatorCtrl extends BaseClientCtrl<{
 
         console.log(
           "WHY NOT?",
-          this.dataStore.FacilitatorState.CurrentLookup.RoundScoreIdx
+          this.dataStore.FacilitatorState.CurrentLookup.RoundScoreIdx,
+          this.dataStore.FacilitatorState.CurrentLookup.CumulativeScoreIdx
+
         );
       }
 
