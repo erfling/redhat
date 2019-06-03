@@ -185,15 +185,16 @@ class RoundRouter {
           .then(r => r.toJSON());
 
         const content = await monMessageModel
-          .find({ RoundId: "5b4288743bb3f8d3b26412d5" })
+          .find({ RoundId: subround._id })
           .then(messages =>
             messages
               ? messages.map(m => Object.assign(new MessageModel(), m.toJSON()))
               : null
           );
+          console.log()
       } catch (error) {
         res.status(500);
-        res.json("FAILED TO GET CONTENT");
+        res.json("FAILED TO GET CONTENT FOR INTRO");
       }
     } else {
       try {
