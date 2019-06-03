@@ -191,7 +191,9 @@ class RoundRouter {
               ? messages.map(m => Object.assign(new MessageModel(), m.toJSON()))
               : null
           );
-        res.json(content);
+
+        subround.DisplayMessages = content;
+        res.json(subround);
       } catch (error) {
         res.status(500);
         res.json("FAILED TO GET CONTENT FOR INTRO");
