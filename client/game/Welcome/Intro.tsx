@@ -76,8 +76,7 @@ export default class Intro extends BaseComponent<any, IRoundDataStore>
                         />
                     </Row>
 
-                        <pre>{JSON.stringify(this.state, null, 2)}</pre>
-                    {thisSubRound && thisSubRound.DisplayMessages &&
+                    {thisSubRound && thisSubRound && thisSubRound.DisplayMessages &&
                         <EditableContentBlock
                             IsEditable={this.state.ApplicationState.CurrentUser && this.state.ApplicationState.CurrentUser.Role == RoleName.ADMIN}
                             SubRoundId={thisSubRound._id}
