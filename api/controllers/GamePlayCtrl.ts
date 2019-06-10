@@ -574,16 +574,24 @@ export class GamePlayRouter {
         const response = responses.find(
           r => r.targetObjId == question.PossibleAnswers[0].targetObjId
         );
+        question.PossibleAnswers = question.PossibleAnswers.filter(
+          pa =>
+            round.Label && (pa as any).Round && (pa as any).Round == round.Label
+        );
         if (response) {
           (response.Answer as SliderValueObj[]) = question.PossibleAnswers.map(
             pa => {
               let relevantReponse: ResponseModel = responses.find(r => {
-                return (r.Answer as SliderValueObj[])[0] && pa && (r.Answer as SliderValueObj[])[0].label == pa.label;
+                return (
+                  (r.Answer as SliderValueObj[])[0] &&
+                  pa.label &&
+                  (r.Answer as SliderValueObj[])[0].label == pa.label
+                );
               });
 
               return relevantReponse ? relevantReponse.Answer[0] : pa;
             }
-          ).filter(pa => round.Label && pa.Round && pa.Round == round.Label);
+          );
           return response;
         }
         return new ResponseModel();
