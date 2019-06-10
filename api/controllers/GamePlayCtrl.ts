@@ -675,9 +675,9 @@ export class GamePlayRouter {
 
       res.json(finalQuestions);
     } catch (err) {
-      console.log(err);
+      console.log("ERROR GETTING QUESTIONS", err);
       res.status(500);
-      res.send("couldn't get resposnes");
+      res.send("couldn't get QUESTIONS");
     }
   }
 
