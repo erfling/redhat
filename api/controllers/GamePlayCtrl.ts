@@ -186,20 +186,22 @@ export class GamePlayRouter {
 
       //see if we already have a response for this guy
       let savedResponse: ResponseModel = await monResponseModel
-        .findOneAndUpdate({
-          SubRoundId: responseToSave.SubRoundId,
-          QuestionId: responseToSave.QuestionId,
-          targetObjId: responseToSave.targetObjId,
-          GameId: responseToSave.GameId,
-          TeamId: responseToSave.TeamId
-        }, responseToSave, {upsert: true, new: true})
+        .findOneAndUpdate(
+          {
+            SubRoundId: responseToSave.SubRoundId,
+            QuestionId: responseToSave.QuestionId,
+            targetObjId: responseToSave.targetObjId,
+            GameId: responseToSave.GameId,
+            TeamId: responseToSave.TeamId
+          },
+          responseToSave,
+          { upsert: true, new: true }
+        )
         .then(r => (r ? Object.assign(new ResponseModel(), r.toJSON()) : null));
 
+      //consider using upsert, like so:      let savedResponse: ResponseModel;
 
-
-    //consider using upsert, like so:      let savedResponse: ResponseModel;
-
-    /*
+      /*
     //find the relevant RoundChangeCapping so jobs are preserved if rounds change
     let rcm: RoundChangeMapping = await monMappingModel.findOneAndUpdate(
         {GameId: game._id.toString(), ParentRound: CurrentRound.ParentRound, ChildRound: CurrentRound.ChildRound}, 
@@ -550,6 +552,18 @@ export class GamePlayRouter {
 
   public async GetPlayerRatingsQuestions(req: Request, res: Response) {
     try {
+      const srid = req.params.subroundId;
+
+      const sr: SubRoundModel = await monSubRoundModel
+        .findById(srid)
+        .then(sr => sr.toJSON() as SubRoundModel);
+
+      if (!sr) throw new Error("NO SUBROUND FOUND");
+
+      const round: RoundModel = await monRoundModel
+        .findById(sr.RoundId)
+        .then(r => r.toJSON() as RoundModel);
+      if (!round) throw new Error("NO ROUND FOUND");
       const buildResponse = (
         responses: ResponseModel[],
         question: QuestionModel
@@ -569,7 +583,7 @@ export class GamePlayRouter {
 
               return relevantReponse ? relevantReponse.Answer[0] : pa;
             }
-          );
+          ).filter(pa => round.Label && pa.Round && pa.Round == round.Label);
           return response;
         }
         return new ResponseModel();
@@ -1295,7 +1309,10 @@ export class GamePlayRouter {
       "/readmessage/:messageid/:userid",
       this.ReadMessage.bind(this)
     );
-    this.router.post("/rateplayers", this.GetPlayerRatingsQuestions.bind(this));
+    this.router.post(
+      "/rateplayers/:subroundId",
+      this.GetPlayerRatingsQuestions.bind(this)
+    );
     this.router.get(
       "/getcurrentmapping/:gameid",
       this.getCurrentMapping.bind(this)
