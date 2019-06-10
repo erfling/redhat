@@ -576,7 +576,10 @@ export class GamePlayRouter {
         );
         question.PossibleAnswers = question.PossibleAnswers.filter(
           pa =>
-            round.Label && (pa as any).Round && (pa as any).Round == round.Label
+            !(pa as any).Round ||
+            (round.Label &&
+              (pa as any).Round &&
+              (pa as any).Round == round.Label)
         );
         if (response) {
           (response.Answer as SliderValueObj[]) = question.PossibleAnswers.map(
