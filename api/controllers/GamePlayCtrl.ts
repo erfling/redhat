@@ -553,7 +553,7 @@ export class GamePlayRouter {
   public async GetPlayerRatingsQuestions(req: Request, res: Response) {
     try {
       const srid = req.params.subroundId;
-
+      const userID = req.params.userID
       const sr: SubRoundModel = await monSubRoundModel
         .findById(srid)
         .then(sr => sr.toJSON() as SubRoundModel);
@@ -572,7 +572,7 @@ export class GamePlayRouter {
                     return true
                 }) || new ResponseModel*/
         const response = responses.find(
-          r => r.targetObjId == question.PossibleAnswers[0].targetObjId
+          r => r.targetObjId == question.PossibleAnswers[0].targetObjId && r.UserId == userID
         );
         question.PossibleAnswers = question.PossibleAnswers.filter(
           pa =>
@@ -1350,7 +1350,7 @@ export class GamePlayRouter {
         this.getUserScores.bind(this)
       ),
       this.router.get(
-        "/getsubroundscores/:gameid/:subroundid",
+        "/getsubroundscores/:gameid/:subroundid/:userID",
         GamePlayRouter.getSubRoundScores.bind(this)
       ),
       this.router.post("/response/rating", this.SavePlayerRatings.bind(this)),
