@@ -1321,7 +1321,7 @@ export class GamePlayRouter {
       this.ReadMessage.bind(this)
     );
     this.router.post(
-      "/rateplayers/:subroundId",
+      "/rateplayers/:subroundId/:userID",
       this.GetPlayerRatingsQuestions.bind(this)
     );
     this.router.get(
@@ -1350,7 +1350,7 @@ export class GamePlayRouter {
         this.getUserScores.bind(this)
       ),
       this.router.get(
-        "/getsubroundscores/:gameid/:subroundid/:userID",
+        "/getsubroundscores/:gameid/:subroundid",
         GamePlayRouter.getSubRoundScores.bind(this)
       ),
       this.router.post("/response/rating", this.SavePlayerRatings.bind(this)),
