@@ -62,7 +62,7 @@ export default class CustomerSub extends BaseComponent<any, IRoundDataStore>
         const thisSubRound = this.state.Round.SubRounds.filter(s => s.Name.toUpperCase() == CustomerSub.CLASS_NAME.toUpperCase())[0]
         let userRatingsChart;
         if (this.state.SubRound && this.state.UserRatings) {
-            userRatingsChart = this.controller.getUserRatingsChartShaped(this.state.UserRatings);
+            userRatingsChart = this.controller.getUserRatingsChartShaped(this.state.UserRatings, thisSubRound);
         }
         if (this.state) {
             return <>
