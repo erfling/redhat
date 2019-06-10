@@ -1,8 +1,23 @@
 import * as React from "react";
-import { Grid, Button, TextArea, Input, Label, Form, Header, Icon, Radio, Checkbox, List, Segment, Table, Message, } from 'semantic-ui-react'
+import {
+  Grid,
+  Button,
+  TextArea,
+  Input,
+  Label,
+  Form,
+  Header,
+  Icon,
+  Radio,
+  Checkbox,
+  List,
+  Segment,
+  Table,
+  Message
+} from "semantic-ui-react";
 const { Column, Row } = Grid;
-import FeedBackModel from '../../../shared/models/FeedBackModel';
-import { times, groupBy } from 'lodash';
+import FeedBackModel from "../../../shared/models/FeedBackModel";
+import { times, groupBy } from "lodash";
 import MathUtil from "../../../shared/entity-of-the-state/MathUtil";
 
 import TeamModel from "../../../shared/models/TeamModel";
@@ -26,13 +41,27 @@ class CustomizedDot extends React.Component<any, any> {
   render() {
     const { cx, cy } = this.props;
     return (
-      <circle cx={cx} cy={cy} r={7} stroke="black" strokeWidth={3} fill="none" />
+      <circle
+        cx={cx}
+        cy={cy}
+        r={7}
+        stroke="black"
+        strokeWidth={3}
+        fill="none"
+      />
     );
   }
-};
+}
 
-export default class IndividualLineChart extends React.Component<ChartingProps, { componentWidth: number, showToolTip: boolean; roundScores: any; opacity: any }>
-{
+export default class IndividualLineChart extends React.Component<
+  ChartingProps,
+  {
+    componentWidth: number;
+    showToolTip: boolean;
+    roundScores: any;
+    opacity: any;
+  }
+> {
   constructor(props: ChartingProps) {
     props = props || {
       TeamId: null,
@@ -40,20 +69,25 @@ export default class IndividualLineChart extends React.Component<ChartingProps, 
       SubRoundId: null,
       MessageOnEmpty: null,
       Data: null
-    }
+    };
     super(props);
     const initialWidth = window.innerWidth > 0 ? window.innerWidth : 500;
     //this.state = //Object.assign(this.props, {showToolTip: false, windowWidth: initialWidth - 100})
-    this.state = { showToolTip: false, componentWidth: initialWidth - 100, roundScores: null, opacity: {} };
+    this.state = {
+      showToolTip: false,
+      componentWidth: initialWidth - 100,
+      roundScores: null,
+      opacity: {}
+    };
   }
 
   componentDidMount() {
-    window.addEventListener('resize', this.handleResize.bind(this));
+    window.addEventListener("resize", this.handleResize.bind(this));
     this.handleResize();
   }
 
   componentWillUnmount() {
-    window.removeEventListener('resize', this.handleResize);
+    window.removeEventListener("resize", this.handleResize);
   }
 
   handleResize() {
@@ -63,25 +97,30 @@ export default class IndividualLineChart extends React.Component<ChartingProps, 
   }
 
   static rounds = ["Round 1", "Round 2", "Round 3", "Round 4", "Round 5"];
-  static Colors = ["#499535", "#f29e3c", "#6ad3f1", "#cd4c2d", "#00b5ad", "#3b67c5", "#fff"];
+  static Colors = [
+    "#499535",
+    "#f29e3c",
+    "#6ad3f1",
+    "#cd4c2d",
+    "#00b5ad",
+    "#3b67c5",
+    "#fff"
+  ];
 
   static MockData;
-
 
   mouseOverHandler(d, e) {
     this.setState({ showToolTip: true });
   }
 
-  mouseOutHandler() {
-
-  }
+  mouseOutHandler() {}
 
   handleMouseEnter(o) {
     const { dataKey } = o;
     const { opacity } = this.state;
 
     this.setState({
-      opacity: { ...opacity, [dataKey]: 0.5 },
+      opacity: { ...opacity, [dataKey]: 0.5 }
     });
   }
 
@@ -90,23 +129,21 @@ export default class IndividualLineChart extends React.Component<ChartingProps, 
     const { opacity } = this.state;
 
     this.setState({
-      opacity: { ...opacity, [dataKey]: 1 },
+      opacity: { ...opacity, [dataKey]: 1 }
     });
   }
 
-
-  getShouldShowData(){
-    
-  }
+  getShouldShowData() {}
 
   getScoreSoFar(teamId, rounds: SubRoundScore[], roundNumber) {
     let score = 0;
-    score += rounds.filter((r) => {
-      return r.TeamId == teamId && roundNumber >= r.RoundLabel;
-    })
+    score += rounds
+      .filter(r => {
+        return r.TeamId == teamId && roundNumber >= r.RoundLabel;
+      })
       .reduce((score, r: SubRoundScore) => {
         return r.NormalizedScore + score;
-      }, 0)
+      }, 0);
 
     return score;
   }
@@ -119,51 +156,48 @@ export default class IndividualLineChart extends React.Component<ChartingProps, 
   render() {
     const { TeamId, Data, RawData, MessageOnEmpty } = this.props;
 
-    return <Column
-      width={16}
-      className="feedback chart-wrapper"
-    >
-      {(!Data || !Data.length) && MessageOnEmpty &&
-        <Header
-          as="h1"
-          icon
-        >
-          <Icon name='warning' />
-          {MessageOnEmpty}
-        </Header>
-      }
-      {Data && Data.length > 0 &&
-        <Segment
-          raised
-        >
-          <Header as="h1" style={{ textAlign: "center", paddingTop: '20px' }}>Your Ratings</Header>
+    return (
+      <Column width={16} className="feedback chart-wrapper">
+        {(!Data || !Data.length) && MessageOnEmpty && (
+          <Header as="h1" icon>
+            <Icon name="warning" />
+            {MessageOnEmpty}
+          </Header>
+        )}
+        {Data && Data.length > 0 && (
+          <Segment raised>
+            <Header as="h1" style={{ textAlign: "center", paddingTop: "20px" }}>
+              Your Ratings
+            </Header>
 
-          <Table
-            inverted
-            color="blue"
-            striped
-            celled
-            
-          >
-            <Table.Header>
-              <Table.Row>
-                <Table.HeaderCell>Criteria</Table.HeaderCell>
-                <Table.HeaderCell>Rating</Table.HeaderCell>
-              </Table.Row>
-            </Table.Header>
-            
-            {Object.keys(Data[Data.length - 1]).filter(k => k.toLowerCase().indexOf("name") == -1 && Data[Data.length - 1][k] != undefined).map(
-              (k, i) => <Table.Row key={i}>
-                <Table.Cell>{k}</Table.Cell>
-                <Table.Cell style={{whiteSpace: `pre-wrap`}}>{Data[Data.length - 1][k]} | {MathUtil.roundTo(Number(Data[Data.length - 1][k]), 1)}</Table.Cell>
-              </Table.Row>
-            )}
+            <Table inverted color="blue" striped celled>
+              <Table.Header>
+                <Table.Row>
+                  <Table.HeaderCell>Criteria</Table.HeaderCell>
+                  <Table.HeaderCell>Rating</Table.HeaderCell>
+                </Table.Row>
+              </Table.Header>
 
-          </Table>
-        </Segment>
-      }
-    </Column>
+              {Object.keys(Data[Data.length - 1])
+                .filter(
+                  k =>
+                    k.toLowerCase().indexOf("name") == -1 &&
+                    Data[Data.length - 1][k] != undefined
+                )
+                .map((k, i) => (
+                  <Table.Row key={i}>
+                    <Table.Cell>{k}</Table.Cell>
+                    <Table.Cell style={{ whiteSpace: `pre-wrap` }}>
+                      {isNaN(Number(Data[Data.length - 1][k]))
+                        ? Data[Data.length - 1][k]
+                        : MathUtil.roundTo(Number(Data[Data.length - 1][k]), 1)}
+                    </Table.Cell>
+                  </Table.Row>
+                ))}
+            </Table>
+          </Segment>
+        )}
+      </Column>
+    );
   }
 }
-
-
