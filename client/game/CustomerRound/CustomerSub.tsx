@@ -172,7 +172,7 @@ export default class CustomerSub extends BaseComponent<any, IRoundDataStore>
                             return <Row
                                 key={"question-" + i.toString()}
                             >
-                                {q.targetObjName} | {q.targetObjId}
+                                <pre>{JSON.stringify(q, null, 2)}</pre>
                                 <EditableQuestionBlock
                                     Question={q}
                                     idx={i}
