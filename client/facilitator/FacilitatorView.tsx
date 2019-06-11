@@ -407,7 +407,8 @@ export default class FacilitatorView extends BaseComponent<any, { FacilitatorSta
                                 {t.TeamName}
                                 {t.IsComplete ? <Icon style={{ marginLeft: '8px' }} name="checkmark" color="green" /> : <Icon name="cancel" color="red" />}
                                 <Button
-                                    onClick={() => {
+                                    onClick={e => {
+                                        e.preventDefault();
                                         this.controller.dataStore.FacilitatorState.ModalTeam = t;
                                         this.controller.dataStore.FacilitatorState.ShowRolesModal = true;
                                     }}
@@ -415,7 +416,8 @@ export default class FacilitatorView extends BaseComponent<any, { FacilitatorSta
                                     Set Roles
                                 </Button>
                                 <Button
-                                    onClick={() => {
+                                    onClick={e => {
+                                        e.preventDefault();
                                         this.controller.getTeamResponses(t, this.state.FacilitatorState.Game.CurrentRound.ChildRound)
                                     }}
                                 >
