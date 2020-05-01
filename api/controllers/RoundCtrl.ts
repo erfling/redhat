@@ -11,17 +11,17 @@ import AuthUtils, { PERMISSION_LEVELS } from "../AuthUtils";
 import { monResponseModel } from "./GamePlayCtrl";
 import ResponseModel from "../../shared/models/ResponseModel";
 import ValueObj, {
-  SliderValueObj
+  SliderValueObj,
 } from "../../shared/entity-of-the-state/ValueObj";
 import QuestionModel, {
   QuestionType,
-  ComparisonLabel
+  ComparisonLabel,
 } from "../../shared/models/QuestionModel";
 import { monGameModel, monMappingModel } from "./GameCtrl";
 import TeamModel from "../../shared/models/TeamModel";
 import GameModel from "../../shared/models/GameModel";
 import SubRoundFeedback, {
-  ValueDemomination
+  ValueDemomination,
 } from "../../shared/models/SubRoundFeedback";
 import RoundChangeMapping from "../../shared/models/RoundChangeMapping";
 import * as Passport from "passport";
@@ -56,27 +56,27 @@ export const monQModel = mongoose.model("question", qSubSchema);
 
 const subSchObj = SchemaBuilder.fetchSchema(SubRoundModel);
 subSchObj.Questions = [
-  { type: mongoose.Schema.Types.ObjectId, ref: "question" }
+  { type: mongoose.Schema.Types.ObjectId, ref: "question" },
 ];
 subSchObj.LeaderMessages = [
-  { type: mongoose.Schema.Types.ObjectId, ref: "message" }
+  { type: mongoose.Schema.Types.ObjectId, ref: "message" },
 ];
 subSchObj.ICMessages = [
-  { type: mongoose.Schema.Types.ObjectId, ref: "message" }
+  { type: mongoose.Schema.Types.ObjectId, ref: "message" },
 ];
 subSchObj.ChipCoMessages = [
-  { type: mongoose.Schema.Types.ObjectId, ref: "message" }
+  { type: mongoose.Schema.Types.ObjectId, ref: "message" },
 ];
 subSchObj.IntegratedSystemsMessages = [
-  { type: mongoose.Schema.Types.ObjectId, ref: "message" }
+  { type: mongoose.Schema.Types.ObjectId, ref: "message" },
 ];
 subSchObj.PrevSubRound = {
   type: mongoose.Schema.Types.ObjectId,
-  ref: "subround"
+  ref: "subround",
 };
 subSchObj.NextSubRound = {
   type: mongoose.Schema.Types.ObjectId,
-  ref: "subround"
+  ref: "subround",
 };
 //subSchObj.FeedBack = [{ type: mongoose.Schema.Types.ObjectId, ref: "feedback" }];
 
@@ -123,7 +123,35 @@ class RoundRouter {
     console.log("CALLING GET ROUNDS");
 
     try {
-      let rounds = await monRoundModel.find();
+      let rounds = await monRoundModel
+        .find()
+        .sort((a: RoundModel, b: RoundModel) => {
+          return a.Weight - b.Weight;
+        });
+      if (!rounds) {
+        return res.status(400).json({ error: "No games" });
+      } else {
+        const status = res.status;
+        return res.json(rounds);
+      }
+    } catch (err) {
+      console.log("ERROR", err);
+      (err: any) => res.status(500).json({ error: err });
+    }
+  }
+
+  public async GetRoundsWithSubRounds(
+    req: Request,
+    res: Response
+  ): Promise<any> {
+    console.log("CALLING GET ROUNDS WITH SUBROUNDS");
+
+    try {
+      let rounds = await monRoundModel
+        .find()
+        .populate("SubRounds")
+        .sort({Label: 1})
+        
       if (!rounds) {
         return res.status(400).json({ error: "No games" });
       } else {
@@ -156,10 +184,7 @@ class RoundRouter {
     const job = this._getMessageProp(req.params.job);
     console.log("TRYING TO GET ROUND WITH NAME: ", ID);
     try {
-      let round = await monSubRoundModel
-        .findOne({ Name: ID })
-        .populate("Questions")
-        .populate(job);
+      let round = await monSubRoundModel.findOne({ Name: ID }).populate(job);
       if (!round) {
         res.status(400).json({ error: "No round" });
       } else {
@@ -182,13 +207,15 @@ class RoundRouter {
       try {
         const subround = await monSubRoundModel
           .findOne({ Name })
-          .then(r => r.toJSON());
+          .then((r) => r.toJSON());
 
         const content = await monMessageModel
           .find({ RoundId: subround._id })
-          .then(messages =>
+          .then((messages) =>
             messages
-              ? messages.map(m => Object.assign(new MessageModel(), m.toJSON()))
+              ? messages.map((m) =>
+                  Object.assign(new MessageModel(), m.toJSON())
+                )
               : null
           );
 
@@ -202,18 +229,20 @@ class RoundRouter {
       try {
         const player = (await monUserModel
           .findById(UserId)
-          .then(r => r.toJSON())) as UserModel;
+          .then((r) => r.toJSON())) as UserModel;
         if (!player) throw new Error("no player found");
 
         const teams: TeamModel[] = await monTeamModel
           .find({ GameId })
-          .then(ts =>
-            ts ? ts.map(t => Object.assign(new TeamModel(), t.toJSON())) : null
+          .then((ts) =>
+            ts
+              ? ts.map((t) => Object.assign(new TeamModel(), t.toJSON()))
+              : null
           );
         if (!teams) throw new Error("no teams");
-        const team = teams.find(t => {
+        const team = teams.find((t) => {
           console.log(player._id, t.Players, typeof t.Players[0].toString());
-          return t.Players.some(id => id.toString() == UserId.toString());
+          return t.Players.some((id) => id.toString() == UserId.toString());
         });
 
         //get the team so we can add responses to questions that have already been answered
@@ -224,25 +253,25 @@ class RoundRouter {
           .populate("Questions")
           .populate("PrevSubRound")
           .populate("NextSubRound")
-          .then(r =>
+          .then((r) =>
             r ? Object.assign(new SubRoundModel(), r.toJSON()) : null
           );
 
         //get a small list of responses that could match each question to avoid multiple queries
         const responses: ResponseModel[] = await monResponseModel
           .find({ TeamId: team._id, SubRoundId: subRound._id })
-          .then(rs =>
+          .then((rs) =>
             rs
-              ? rs.map(r => Object.assign(new ResponseModel(), r.toJSON()))
+              ? rs.map((r) => Object.assign(new ResponseModel(), r.toJSON()))
               : null
           );
 
         console.log("responses", responses);
 
-        subRound.Questions = subRound.Questions.map(q => {
+        subRound.Questions = subRound.Questions.map((q) => {
           let qWithR = { ...q } as QuestionModel;
           qWithR.Response =
-            responses.find(r => r.QuestionId == q._id) || q.Response;
+            responses.find((r) => r.QuestionId == q._id) || q.Response;
           return qWithR;
         });
 
@@ -255,9 +284,9 @@ class RoundRouter {
           let messagesIds = subRound[this._getMessageProp(JobName.IC)];
           subRound.DisplayMessages = await monMessageModel
             .find({ _id: { $in: messagesIds } })
-            .then(messages =>
+            .then((messages) =>
               messages
-                ? messages.map(m =>
+                ? messages.map((m) =>
                     Object.assign(new MessageModel(), m.toJSON())
                   )
                 : null
@@ -268,9 +297,9 @@ class RoundRouter {
           console.table("SUBROUNDS SO FAR", subRoundsSoFar);
           const mappings: RoundChangeMapping[] = await monMappingModel
             .find({ GameId })
-            .then(mappings =>
+            .then((mappings) =>
               mappings
-                ? mappings.map(m => m.toJSON() as RoundChangeMapping)
+                ? mappings.map((m) => m.toJSON() as RoundChangeMapping)
                 : null
             );
 
@@ -282,7 +311,7 @@ class RoundRouter {
           subRoundsSoFar.forEach((sr, i) => {
             console.log(sr.Name, " ", sr._id, " ", sr.RoundId, " ");
             let roundMapping =
-              mappings.filter(m => m.RoundId == sr.RoundId)[0] || null;
+              mappings.filter((m) => m.RoundId == sr.RoundId)[0] || null;
 
             if (i == 0) {
               let messages = (currentMessageIds =
@@ -294,7 +323,7 @@ class RoundRouter {
                 ? roundMapping.UserJobs[UserId]
                 : JobName.IC;
               let messages = []; // = sr[this._getMessageProp(userJob)];
-              Object.keys(JobName).forEach(jn => {
+              Object.keys(JobName).forEach((jn) => {
                 messages = messages.concat(
                   sr[this._getMessageProp(JobName[jn])]
                 );
@@ -313,23 +342,23 @@ class RoundRouter {
 
           let populatedMessages = await monMessageModel
             .find({ _id: { $in: messagesIds } })
-            .then(messages =>
+            .then((messages) =>
               messages
-                ? messages.map(m =>
+                ? messages.map((m) =>
                     Object.assign(new MessageModel(), m.toJSON())
                   )
                 : null
             );
 
           populatedMessages = populatedMessages
-            .map(m => {
+            .map((m) => {
               let IsRead = true;
-              currentMessageIds.forEach(mid => {
+              currentMessageIds.forEach((mid) => {
                 //console.log(mid, m._id, typeof mid, typeof m._id, mid.toString() == m._id.toString())
                 if (mid.toString() == m._id.toString()) IsRead = false;
               });
               return Object.assign(m, {
-                IsRead
+                IsRead,
               });
             })
             .sort((a: MessageModel, b: MessageModel) => {
@@ -349,7 +378,7 @@ class RoundRouter {
               console.log("IN HIRING ROUND");
               const round1A: SubRoundModel = await monSubRoundModel
                 .findOne({ Name: "PRIORITIES" })
-                .then(sr =>
+                .then((sr) =>
                   sr ? { ...new SubRoundModel(), ...sr.toJSON() } : null
                 );
               if (round1A) {
@@ -358,9 +387,9 @@ class RoundRouter {
                 console.log(query);
                 const responses: ResponseModel[] = await monResponseModel
                   .find(query)
-                  .then(rs =>
+                  .then((rs) =>
                     rs
-                      ? rs.map(r =>
+                      ? rs.map((r) =>
                           Object.assign(new ResponseModel(), r.toJSON())
                         )
                       : null
@@ -371,7 +400,7 @@ class RoundRouter {
                   const getOrderedAnswers = (answers: SliderValueObj[]) => {
                     if (!answers) return `<></>`;
                     return orderBy(answers)
-                      .map(a => `<p class="push-left">${a.label}</p>`)
+                      .map((a) => `<p class="push-left">${a.label}</p>`)
                       .join(" ");
                   };
 
@@ -384,7 +413,7 @@ class RoundRouter {
                   extraMessage.Content =
                     `<h2 style={{marginTop:"30px"}}>As a reminder, you prioritized your criteria in the following order:</h2>` +
                     responses
-                      .map(r => {
+                      .map((r) => {
                         console.log(r.questionText);
                         return (
                           `<h2 style={{marginTop:"20px"}}>` +
@@ -421,7 +450,7 @@ class RoundRouter {
     if (subRound.PrevSubRound) {
       previousSubround = await monSubRoundModel
         .findById(subRound.PrevSubRound)
-        .then(r => r.toJSON() as SubRoundModel);
+        .then((r) => r.toJSON() as SubRoundModel);
     } else {
       return subRoundsSoFar;
     }
@@ -436,31 +465,33 @@ class RoundRouter {
       //do this a better way.
       const SubRound = await monSubRoundModel
         .findOne({ Name: "DEALRENEWAL" })
-        .then(r => (r ? r.toJSON() : null));
+        .then((r) => (r ? r.toJSON() : null));
       if (!SubRound) throw new Error("No subuound found");
 
       //get all the teams
       let teams: TeamModel[] = await monTeamModel
         .find({ GameId })
-        .then(ts =>
-          ts ? ts.map(t => Object.assign(new TeamModel(), t.toJSON())) : null
+        .then((ts) =>
+          ts ? ts.map((t) => Object.assign(new TeamModel(), t.toJSON())) : null
         );
 
       //get the questions for this round.
       let questions: QuestionModel[] = await monQModel
         .find({ RatingMarker: "TEAM_RATING" })
-        .then(q =>
+        .then((q) =>
           q
-            ? q.map(quest => Object.assign(new QuestionModel(), quest.toJSON()))
+            ? q.map((quest) =>
+                Object.assign(new QuestionModel(), quest.toJSON())
+              )
             : []
         );
 
       //now map over the responses, building out questions for each team.
       let finalQuestions: QuestionModel[] = [];
 
-      teams.map(t => {
+      teams.map((t) => {
         finalQuestions = finalQuestions.concat(
-          questions.map(q => {
+          questions.map((q) => {
             return Object.assign({}, q, {
               Type: QuestionType.NUMBER,
               Text: "Team " + t.Number,
@@ -479,9 +510,9 @@ class RoundRouter {
                   max: 100,
                   min: 0,
                   targetObjId: t._id,
-                  targetObjClass: "TeamModel"
-                }
-              ]
+                  targetObjClass: "TeamModel",
+                },
+              ],
             });
           })
         );
@@ -568,20 +599,20 @@ class RoundRouter {
         console.log("HERE");
         var savedRound = await monSubRoundModel
           .create(subRoundToSave)
-          .then(r => r.toObject() as SubRoundModel);
+          .then((r) => r.toObject() as SubRoundModel);
       } else {
         var savedRound = await monSubRoundModel
           .findOneAndUpdate({ Name: subRoundToSave.Name }, subRoundToSave, {
-            new: true
+            new: true,
           })
-          .then(r => r.toObject() as SubRoundModel);
+          .then((r) => r.toObject() as SubRoundModel);
         console.log(savedRound);
       }
 
       //Make sure parent round contains subround
       const parentRound = await monRoundModel
         .findById(savedRound.RoundId)
-        .then(r => r.toObject() as RoundModel);
+        .then((r) => r.toObject() as RoundModel);
       if (parentRound && parentRound.SubRounds.indexOf(savedRound._id)) {
         parentRound.SubRounds.push(savedRound._id);
         console.log(monRoundModel);
@@ -607,26 +638,26 @@ class RoundRouter {
       const game: GameModel = await monGameModel
         .findById(GameId)
         .populate("Teams")
-        .then(g => (g ? Object.assign(new GameModel(), g.toJSON()) : null));
+        .then((g) => (g ? Object.assign(new GameModel(), g.toJSON()) : null));
       let mapping: RoundChangeMapping = game.CurrentRound;
       let round: RoundModel = await monRoundModel
         .findOne({ Name: mapping.ParentRound.toUpperCase() })
-        .then(r => (r ? Object.assign(new RoundModel(), r.toJSON()) : null));
+        .then((r) => (r ? Object.assign(new RoundModel(), r.toJSON()) : null));
       console.log("FOUDN THIS GAME", game);
       //get all the response for the relevant round in this game
       const responses = await monResponseModel
         .find({ GameId, RoundId: round._id })
-        .then(r =>
+        .then((r) =>
           r
-            ? r.map(resp => Object.assign(new ResponseModel(), resp.toJSON()))
+            ? r.map((resp) => Object.assign(new ResponseModel(), resp.toJSON()))
             : null
         );
       console.log("FOUDN THESE RESPONSES", responses);
 
       let teamsWithResponses: TeamModel[];
       if (responses) {
-        teamsWithResponses = game.Teams.map(t => {
-          t.Responses = responses.filter(r => r.TeamId == t._id.toString());
+        teamsWithResponses = game.Teams.map((t) => {
+          t.Responses = responses.filter((r) => r.TeamId == t._id.toString());
           return t;
         });
       } else {
@@ -649,7 +680,7 @@ class RoundRouter {
       let savedFeedback: SubRoundFeedback[];
       let subRound: SubRoundModel = await monSubRoundModel
         .findById(feedBack.RoundId)
-        .then(sr =>
+        .then((sr) =>
           sr ? Object.assign(new SubRoundModel(), sr.toJSON()) : null
         );
       if (!subRound) throw new Error("Cound't get subround");
@@ -658,7 +689,7 @@ class RoundRouter {
 
       let savedSubRound = await monSubRoundModel
         .findByIdAndUpdate(subRound._id, subRound, { new: true })
-        .then(sr =>
+        .then((sr) =>
           sr ? Object.assign(new SubRoundModel(), sr.toJSON()) : null
         );
 
@@ -678,9 +709,9 @@ class RoundRouter {
       let deletedLookup = await monRoundChangeLookupModel.remove({});
       let allSubRounds: SubRoundModel[] = await monSubRoundModel
         .find()
-        .then(srs =>
+        .then((srs) =>
           srs
-            ? srs.map(sr => Object.assign(new SubRoundModel(), sr.toJSON()))
+            ? srs.map((sr) => Object.assign(new SubRoundModel(), sr.toJSON()))
             : null
         );
       if (!allSubRounds) throw new Error("no subrounds");
@@ -693,7 +724,9 @@ class RoundRouter {
         let sr = srs[i];
         let r: RoundModel = await monRoundModel
           .findById(sr.RoundId)
-          .then(r => (r ? Object.assign(new RoundModel(), r.toJSON()) : null));
+          .then((r) =>
+            r ? Object.assign(new RoundModel(), r.toJSON()) : null
+          );
 
         console.log("CREATING LOOKUP FOR", sr.Label);
 
@@ -725,7 +758,7 @@ class RoundRouter {
           console.log(lookup);
           let savedLookup: RoundChangeLookup = await monRoundChangeLookupModel
             .create(lookup)
-            .then(rcl =>
+            .then((rcl) =>
               rcl ? Object.assign(new RoundChangeLookup(), rcl.toJSON()) : null
             );
 
@@ -762,6 +795,7 @@ class RoundRouter {
   public routes() {
     //this.router.all("*", cors());
     this.router.get("/", this.GetRounds.bind(this));
+    this.router.get("/with-subrounds", this.GetRoundsWithSubRounds.bind(this));
     this.router.get("/:round", this.GetRound.bind(this));
     this.router.get(
       "/subround/:subround/:gameid/:userid/:job",

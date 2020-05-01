@@ -56,6 +56,12 @@ export default class RoundModel extends BaseModel
     @dbProp(String)
     public NextRound: RoundModel;
 
+    @dbProp(Number)
+    public Weight: number;
+
+    @dbProp(Boolean)
+    public enabled: boolean = true;
+
     //----------------------------------------------------------------------
     //
     //  Constructor

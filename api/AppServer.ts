@@ -27,6 +27,7 @@ import MessageModel from '../shared/models/MessageModel';
 import RoundChangeLookup from '../shared/models/RoundChangeLookup';
 import FacilitationCtrl, { monRoundChangeLookupModel } from './controllers/FacilitationCtrl';
 import GamePlayUtilities from './GamePlayUtils'
+import RoundChangeLookupController from './controllers/RoundChangeLookupController';
 
 class SubRoundNormalizationRule
 {
@@ -224,6 +225,7 @@ export class AppServer {
             //.post('*', Passport.authenticate('jwt', { session: false }))
             //Passport.authenticate('jwt', { session: false }),
             .use('/sapien/api/rounds', RoundController)
+            .use('/sapien/api/round-change-lookups', RoundChangeLookupController)
             .use('/sapien/api/' + GameModel.REST_URL, GameCtrl)
             .use('/sapien/api/auth', LoginCtrl)
             .use('/sapien/api/team', TeamCtrl)

@@ -10,6 +10,7 @@ import UserList from "./UserList";
 import GameList from "./GameList";
 import { RoleName } from "../../shared/models/UserModel";
 import GameDetail from "./GameDetail";
+import RoundManagement from "./RoundManagement";
 
 export default class Admin extends BaseComponent<any, IControllerDataStore & {Admin: AdminViewModel} >
 {
@@ -61,8 +62,10 @@ export default class Admin extends BaseComponent<any, IControllerDataStore & {Ad
                         <Redirect to="/login/admin"/>
                     }
                     <Route path="/admin/userlist" component={UserList} />
+                    <Route exact path="/admin/rounds" component={RoundManagement}/>
                     <Route exact path="/admin/gamelist" component={GameList} />
                     <Route exact path="/admin/gamedetail/:gameid" component={GameDetail} />
+
                     <Redirect exact from="/admin" to="/admin/userlist"/>
 
                 </Switch>

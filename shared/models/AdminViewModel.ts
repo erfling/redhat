@@ -2,6 +2,8 @@ import BaseModel from "../base-sapien/models/BaseModel";
 import GameModel from "./GameModel";
 import UserModel from "./UserModel";
 import ApplicationViewModel from './ApplicationViewModel';
+import RoundModel from "./RoundModel";
+import RoundChangeLookup from "./RoundChangeLookup";
 
 export default class AdminViewModel extends BaseModel
 {
@@ -36,6 +38,14 @@ export default class AdminViewModel extends BaseModel
     DeletionUser: UserModel;
 
     DeletionGame: GameModel;
+
+    CurrentPage: number = 0;
+
+    Rounds: RoundModel[];
+
+    RoundChangeLookups: RoundChangeLookup[];
+
+    AccordionIdx: number = 0;
 
     private _CurrentUser: UserModel;
     get CurrentUser(): UserModel {
