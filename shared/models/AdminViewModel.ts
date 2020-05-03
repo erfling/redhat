@@ -45,7 +45,7 @@ export default class AdminViewModel extends BaseModel
 
     RoundChangeLookups: RoundChangeLookup[];
 
-    AccordionIdx: number = 0;
+    AccordionIdx: number = -1;
 
     private _CurrentUser: UserModel;
     get CurrentUser(): UserModel {

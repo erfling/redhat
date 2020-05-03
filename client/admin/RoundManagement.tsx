@@ -13,6 +13,7 @@ import {
   Image,
   Accordion,
   Divider,
+  Container,
 } from "semantic-ui-react";
 const { Row, Column } = Grid;
 import {
@@ -30,6 +31,7 @@ import UserList from "./UserList";
 import GameList from "./GameList";
 import { RoleName } from "../../shared/models/UserModel";
 import GameDetail from "./GameDetail";
+import RoundModel from "../../shared/models/RoundModel";
 
 export default class RoundManagement extends BaseComponent<
   any,
@@ -117,15 +119,40 @@ export default class RoundManagement extends BaseComponent<
                 {rounds.map((round, j) => (
                   <>
                     <Accordion.Title
-                      active={this.state.Admin.AccordionIdx === j}
+                      active={
+                        this.state.Admin.AccordionIdx === j && round.Active
+                      }
                       index={j}
                       onClick={this.handleClick}
                     >
-                      <Icon name="dropdown" />
-                      Round {j + 1}: {round.Name}
+                        <Icon name="dropdown" />
+                        Round {j + 1}: {round.Name}{" "}
+                        <Button
+                          size="mini"
+                          loading={
+                            this.state.Admin.SavingRoundId &&
+                            this.state.Admin.SavingRoundId === round.id
+                          }
+                          color={round.Active ? "red" : "green"}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            this.controller.saveRound({
+                              ...round,
+                              ...{ Active: !round.Active },
+                            } as RoundModel);
+                          }}
+                        >
+                          {round.Active ? "Deactivate" : "Activate"}
+                        </Button>
+                        <Icon
+                          name={!round.Active ? "cancel" : "check"}
+                          color={!round.Active ? "red" : "green"}
+                        />
                     </Accordion.Title>
                     <Accordion.Content
-                      active={this.state.Admin.AccordionIdx === j}
+                      active={
+                        this.state.Admin.AccordionIdx === j && round.Active
+                      }
                     >
                       {this.state.Admin.AccordionIdx === j &&
                         round.SubRounds.map((subRound) => (
