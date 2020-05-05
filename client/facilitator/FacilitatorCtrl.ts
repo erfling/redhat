@@ -96,26 +96,37 @@ export default class FacilitatorCtrl extends BaseClientCtrl<{
 
   public onClickChangeSlide(forwardOrBack: 1 | -1): void {
     let number = this.dataStore.FacilitatorState.SlideNumber + forwardOrBack;
+    console.log("SLIDE NUMBER IS", number);
 
-    let lookup = this.dataStore.FacilitatorState.RoundChangeLookups.filter(
+    let lookup = this.dataStore.FacilitatorState.RoundChangeLookups.find(
       lu => {
         return lu.MinSlideNumber <= number && lu.MaxSlideNumber >= number;
       }
-    )[0];
+    );
+
+    console.log("current round", this.dataStore.FacilitatorState.Game)
 
     if (!lookup && this.dataStore.FacilitatorState.Game) {
+      //return;
       lookup = new RoundChangeLookup();
       let cr = this.dataStore.FacilitatorState.Game.CurrentRound;
       lookup.SlideNumber = number;
       lookup.Round = cr.ParentRound;
       lookup.RoundId = cr.RoundId;
+      lookup.SubRoundId = cr.SubRoundId;
       lookup.SubRound = cr.ChildRound;
+      console.log("DIDN'T FIND A LOOKUP", lookup)
+
+    } else {
+      console.log("FOUND THIS LOOKUP", lookup)
     }
 
     if (lookup) {
       let mapping = new RoundChangeMapping();
       mapping.ParentRound = lookup.Round;
       mapping.ChildRound = lookup.SubRound;
+      mapping.RoundId = lookup.RoundId;
+      mapping.SubRoundId = lookup.SubRoundId;
       mapping.SlideNumber = number;
       mapping.GameId = this.dataStore.FacilitatorState.Game._id;
       mapping.ShowFeedback = lookup.ShowFeedback;
@@ -123,6 +134,7 @@ export default class FacilitatorCtrl extends BaseClientCtrl<{
       mapping.ShowRateUsers = lookup.ShowRateUsers;
       mapping.SlideFeedback = lookup.SlideFeedback;
       mapping.SkipRoundScore = lookup.SkipRoundScore;
+
 
       console.log("LOOKUPS", lookup, mapping);
 
@@ -252,7 +264,7 @@ export default class FacilitatorCtrl extends BaseClientCtrl<{
       null,
       FacilitationRoundResponseMapping,
       SapienServerCom.BASE_REST_URL +
-        "facilitator/getroundstatus/" +
+        "facilitator/round-status/" +
         this.dataStore.FacilitatorState.Game._id
     ).then((rcl: FacilitationRoundResponseMapping[]) => {
       let slideMapping = (rcl[0] as FacilitationRoundResponseMapping)
@@ -298,12 +310,12 @@ export default class FacilitatorCtrl extends BaseClientCtrl<{
     return SapienServerCom.GetData(
       null,
       RoundChangeLookup,
-      SapienServerCom.BASE_REST_URL + "facilitator/getroundchangelookups"
+      SapienServerCom.BASE_REST_URL + "facilitator/lookups"
     ).then(rcl => {
       this.dataStore.FacilitatorState.RoundChangeLookups = rcl as RoundChangeLookup[];
       console.log(
-        this.dataStore.FacilitatorState.SlideNumber,
-        this.dataStore.FacilitatorState.Game.CurrentRound.SlideNumber
+        "LOOKUPS AFTER QUERY",
+        this.dataStore.FacilitatorState.RoundChangeLookups
       );
       return rcl;
     });

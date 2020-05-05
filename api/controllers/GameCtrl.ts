@@ -138,6 +138,8 @@ class GameCtrl {
         const mapping = new RoundChangeMapping();
         mapping.ChildRound = firstSR.Name.toLowerCase();
         mapping.ParentRound = firstRound.Name.toLowerCase();
+        mapping.RoundId = firstRound._id;
+        mapping.SubRoundId = firstSR._id;
         mapping.UserJobs = {};
         mapping.GameId = newGame._id;
         let savedMapping: RoundChangeMapping = await monMappingModel

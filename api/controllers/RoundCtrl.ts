@@ -599,8 +599,11 @@ class RoundRouter {
         .findById(savedRound.RoundId)
         .then((r) => r.toObject() as RoundModel);
 
-
-      if (parentRound && !subRoundToSave._id && parentRound.SubRounds.indexOf(savedRound._id.toString()) === -1) {
+      if (
+        parentRound &&
+        !subRoundToSave._id &&
+        parentRound.SubRounds.indexOf(savedRound._id.toString()) === -1
+      ) {
         console.log("ADDING TO PARENT ROUND", parentRound);
         parentRound.SubRounds.push(savedRound._id);
         const saveParentRound = await monRoundModel.findByIdAndUpdate(
