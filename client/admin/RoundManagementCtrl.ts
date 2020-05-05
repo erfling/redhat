@@ -14,6 +14,8 @@ import DataStore from "../../shared/base-sapien/client/DataStore";
 import ComponentsVO from "../../shared/base-sapien/client/ComponentsVO";
 import AdminCtrl from "./AdminCtrl";
 import RoundModel from "../../shared/models/RoundModel";
+import SubRoundModel from "../../shared/models/SubRoundModel";
+import RoundChangeLookup from "../../shared/models/RoundChangeLookup";
 
 export default class GameManagementCtrl extends BaseClientCtrl<
   IControllerDataStore & {
@@ -30,6 +32,7 @@ export default class GameManagementCtrl extends BaseClientCtrl<
   //----------------------------------------------------------------------
 
   private static _instance: GameManagementCtrl;
+  private savingTimeout;
 
   //----------------------------------------------------------------------
   //
@@ -84,7 +87,6 @@ export default class GameManagementCtrl extends BaseClientCtrl<
       null,
       SapienServerCom.BASE_REST_URL + "rounds/with-subrounds"
     ).then((r) => {
-      console.log("GAMES ARE: ", r);
       this.dataStore.Admin.Rounds = r;
       this.dataStore.ApplicationState.IsLoading = false;
     });
@@ -96,22 +98,91 @@ export default class GameManagementCtrl extends BaseClientCtrl<
       null,
       SapienServerCom.BASE_REST_URL + "round-change-lookups"
     ).then((r) => {
-      console.log("GAMES ARE: ", r);
       this.dataStore.Admin.RoundChangeLookups = r;
       this.dataStore.ApplicationState.IsLoading = false;
     });
   }
 
+  private setDirty() {
+    this.dataStore.Admin.IsSaving = true;
+    if (this.savingTimeout) clearTimeout(this.savingTimeout);
+    this.dataStore.Admin.HasError = false;
+    this.dataStore.Admin.IsDirty = true;
+    this.dataStore.Admin.IsClean = false;
+  }
+  private setClean() {
+    this.dataStore.Admin.IsSaving = false;
+    this.dataStore.Admin.HasError = false;
+    this.dataStore.Admin.IsDirty = false;
+    this.dataStore.Admin.IsClean = true;
+    this.dataStore.Admin.EditedRound = null;
+    this.dataStore.Admin.EditedSubRound = null;
+    this.dataStore.Admin.EditedRCL = null;
+    this.savingTimeout = setTimeout(() => {
+      this.dataStore.Admin.IsClean = false;
+    }, 5000);
+  }
+  private setError() {
+    this.dataStore.Admin.IsSaving = false;
+    this.dataStore.Admin.IsDirty = false;
+    this.dataStore.Admin.IsClean = false;
+    this.dataStore.Admin.HasError = true;
+  }
   public async saveRound(round: RoundModel) {
-    this.dataStore.Admin.SavingRoundId = round.id;
+    this.setDirty();
 
-    const r: RoundModel = await SapienServerCom.SaveData(
-      round,
-      SapienServerCom.BASE_REST_URL + "rounds"
-    );
-    console.log("ROUND", round)
-    await this.getAllRounds();
+    try {
+      this.dataStore.Admin.SavingRoundId = round.id;
+      const r: RoundModel = await SapienServerCom.SaveData(
+        round,
+        SapienServerCom.BASE_REST_URL + "rounds"
+      );
+      await this.getAllRounds();
+      this.setClean();
+    } catch (error) {
+      console.error(error);
+      this.setError();
+    }
+
     this.dataStore.Admin.SavingRoundId = -1;
+  }
+
+  public async saveSubRound(subRound: SubRoundModel) {
+    this.dataStore.Admin.SavingSubRoundId = subRound.id;
+    this.setDirty();
+    try {
+      const r: RoundModel = await SapienServerCom.SaveData(
+        subRound,
+        SapienServerCom.BASE_REST_URL + "rounds/subround"
+      );
+      console.log("ROUND", subRound);
+      await this.getAllRounds();
+      this.setClean();
+    } catch (error) {
+      console.error(error);
+      this.setError();
+    }
+
+    this.dataStore.Admin.SavingSubRoundId = -1;
+  }
+
+  public async saveRoundChangeLookup(lookup: RoundChangeLookup) {
+    console.log("SAVING", lookup);
+    this.dataStore.Admin.SavingLookupId = lookup.id;
+    this.setDirty();
+    try {
+      const r: RoundModel = await SapienServerCom.SaveData(
+        lookup,
+        SapienServerCom.BASE_REST_URL + "rounds/rounchangelookup"
+      );
+      console.log("LOOkup HEY", lookup);
+      await this.getAllRoundChangeLookups();
+      this.setClean();
+    } catch (error) {
+      console.error(error);
+      this.setError();
+    }
+    this.dataStore.Admin.SavingLookupId = -1;
   }
 
   protected _setUpFistma(reactComp: Component) {

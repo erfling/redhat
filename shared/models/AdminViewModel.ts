@@ -1,69 +1,75 @@
 import BaseModel from "../base-sapien/models/BaseModel";
 import GameModel from "./GameModel";
 import UserModel from "./UserModel";
-import ApplicationViewModel from './ApplicationViewModel';
+import ApplicationViewModel from "./ApplicationViewModel";
 import RoundModel from "./RoundModel";
 import RoundChangeLookup from "./RoundChangeLookup";
+import SubRoundModel from "./SubRoundModel";
 
-export default class AdminViewModel extends BaseModel
-{
-    //----------------------------------------------------------------------
-    //
-    //  Properties
-    //
-    //----------------------------------------------------------------------
+export default class AdminViewModel extends BaseModel {
+  //----------------------------------------------------------------------
+  //
+  //  Properties
+  //
+  //----------------------------------------------------------------------
 
-    Games: GameModel[] = [];
+  Games: GameModel[] = [];
 
-    SelectedGame: GameModel;
+  SelectedGame: GameModel;
 
-    Users: UserModel[] = [];
+  Users: UserModel[] = [];
 
-    AdminUsers: UserModel[] = [];
+  AdminUsers: UserModel[] = [];
 
-    PlayerUsers: UserModel[] = [];
+  PlayerUsers: UserModel[] = [];
 
-    FacilitatorUsers: UserModel[] = [];
+  FacilitatorUsers: UserModel[] = [];
 
-    FilteredGames: GameModel[] = [];
+  FilteredGames: GameModel[] = [];
 
-    FilteredUsers: UserModel[] = [];
+  FilteredUsers: UserModel[] = [];
 
-    PlayerFilter: any = {};
-    AdminFilter: any = {};
-    FacilitatorFilter: any = {};
+  PlayerFilter: any = {};
+  AdminFilter: any = {};
+  FacilitatorFilter: any = {};
 
-    GameFilter: any = {};
+  GameFilter: any = {};
 
-    DeletionUser: UserModel;
+  DeletionUser: UserModel;
 
-    DeletionGame: GameModel;
+  DeletionGame: GameModel;
 
-    CurrentPage: number = 0;
+  CurrentPage: number = 0;
 
-    Rounds: RoundModel[];
+  Rounds: RoundModel[];
 
-    RoundChangeLookups: RoundChangeLookup[];
+  RoundChangeLookups: RoundChangeLookup[];
 
-    AccordionIdx: number = -1;
+  AccordionIdx: number = -1;
 
-    private _CurrentUser: UserModel;
-    get CurrentUser(): UserModel {
-        return ApplicationViewModel.CurrentUser;
-    }
+  EditedRound: RoundModel;
+  EditedSubRound: SubRoundModel;
 
-    set CurrentUser(user: UserModel) {
-        this._CurrentUser = user;
-    }
+  IsDirty: boolean = false;
+  IsClean: boolean = false;
+  HasError: boolean = false;
 
-    //----------------------------------------------------------------------
-    //
-    //  Constructor
-    //
-    //----------------------------------------------------------------------
+  private _CurrentUser: UserModel;
+  get CurrentUser(): UserModel {
+    return ApplicationViewModel.CurrentUser;
+  }
 
-    constructor() {
-        super();
-    }
+  set CurrentUser(user: UserModel) {
+    this._CurrentUser = user;
+  }
 
+  //----------------------------------------------------------------------
+  //
+  //  Constructor
+  //
+  //----------------------------------------------------------------------
+
+  constructor() {
+    super();
+  }
 }

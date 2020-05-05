@@ -71,7 +71,6 @@ export default class GameManagementCtrl extends BaseClientCtrl<IControllerDataSt
 
     public getAllGames() {
         return SapienServerCom.GetData(null, null, SapienServerCom.BASE_REST_URL + "games").then(r => {
-            console.log("GAMES ARE: ", r)
             this.dataStore.Admin.Games = r;
             this.dataStore.Admin.FilteredGames = r;
             this.dataStore.ApplicationState.IsLoading = false;

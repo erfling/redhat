@@ -1,3 +1,4 @@
+import { ObjectID } from "bson";
 import { Slider } from "react-semantic-ui-range";
 import { Label } from "semantic-ui-react";
 import { Router, Request, Response, NextFunction } from "express";
@@ -150,8 +151,8 @@ class RoundRouter {
       let rounds = await monRoundModel
         .find()
         .populate("SubRounds")
-        .sort({Label: 1})
-        
+        .sort({ Label: 1 });
+
       if (!rounds) {
         return res.status(400).json({ error: "No games" });
       } else {
@@ -529,19 +530,19 @@ class RoundRouter {
 
   public async SaveRound(req: Request, res: Response): Promise<any> {
     const roundToSave = req.body as RoundModel;
-    console.log(roundToSave, roundToSave.Name, roundToSave.Name.length);
+    console.log("ROUND TO SAVE", roundToSave.Name, roundToSave.Name.length);
 
     try {
       if (!roundToSave.Name || !roundToSave.Name.length || !roundToSave._id) {
         console.log("HERE");
         var savedRound = await monRoundModel.create(roundToSave);
       } else {
-        var savedRound = await monRoundModel.findOneAndUpdate(
-          { Name: roundToSave.Name },
+        var savedRound = await monRoundModel.findByIdAndUpdate(
+          roundToSave._id,
           roundToSave,
           { new: true }
         );
-        console.log(savedRound);
+        console.log("SAVED?", savedRound);
       }
       res.json(savedRound);
     } catch (err) {
@@ -565,28 +566,12 @@ class RoundRouter {
         );
       }
       res.json(savedMessage);
-
-      //do we need to update a SubRound?
-      /*const sr = await monSubRoundModel.findById(message.RoundId).then(r => r ? Object.assign(new SubRoundModel, r) : null);
-
-            if(sr){
-                const prop = this._getMessageProp(message.Job);
-                if(prop && sr[prop]){
-                    sr[prop] = sr[prop].filter(id => id != message._id).concat(message._id);
-                    req.body = sr;
-                    await this.SaveSubRound(req, res);
-                }
-            }*/
     } catch {}
   }
 
   public async SaveSubRound(req: Request, res: Response): Promise<any> {
     const subRoundToSave = req.body as SubRoundModel;
-    console.log(
-      subRoundToSave,
-      subRoundToSave.Name,
-      subRoundToSave.Name.length
-    );
+    console.log("SR SAVE", subRoundToSave.Name, subRoundToSave.Name.length);
 
     //const dbRoundModel = new monRoundModel(roundToSave);
 
@@ -602,20 +587,21 @@ class RoundRouter {
           .then((r) => r.toObject() as SubRoundModel);
       } else {
         var savedRound = await monSubRoundModel
-          .findOneAndUpdate({ Name: subRoundToSave.Name }, subRoundToSave, {
+          .findByIdAndUpdate(subRoundToSave._id, subRoundToSave, {
             new: true,
           })
           .then((r) => r.toObject() as SubRoundModel);
-        console.log(savedRound);
       }
 
       //Make sure parent round contains subround
       const parentRound = await monRoundModel
         .findById(savedRound.RoundId)
         .then((r) => r.toObject() as RoundModel);
-      if (parentRound && parentRound.SubRounds.indexOf(savedRound._id)) {
+
+
+      if (parentRound && !subRoundToSave._id && parentRound.SubRounds.indexOf(savedRound._id.toString()) === -1) {
+        console.log("ADDING TO PARENT ROUND", parentRound);
         parentRound.SubRounds.push(savedRound._id);
-        console.log(monRoundModel);
         const saveParentRound = await monRoundModel.findByIdAndUpdate(
           savedRound.RoundId,
           parentRound
@@ -701,6 +687,33 @@ class RoundRouter {
     } catch (err) {
       console.log(err);
       res.status(500).send("couldn't save the feedback");
+    }
+  }
+
+  public async SaveRoundChangeLookup(req: Request, res: Response) {
+    const lookupToSave = req.body as RoundChangeLookup;
+    let savedLookup;
+    try {
+      if (!lookupToSave._id) {
+        console.log("HERE");
+        savedLookup = await monRoundChangeLookupModel.create(lookupToSave);
+      } else {
+        console.log("LOOKUP ID", lookupToSave._id);
+        //let find = await monRoundChangeLookupModel.findById(lookupToSave._id);
+        //delete find._id;
+        //let find:RoundChangeLookup;
+
+        savedLookup = await monRoundChangeLookupModel.findByIdAndUpdate(
+          lookupToSave._id,
+          lookupToSave,
+          { new: true }
+        );
+        console.log(savedLookup);
+      }
+      res.json(savedLookup);
+    } catch (err) {
+      console.log(err);
+      res.status(500).json("Didn't save lookup");
     }
   }
 
@@ -827,6 +840,13 @@ class RoundRouter {
       (req, res, next) =>
         AuthUtils.IS_USER_AUTHORIZED(req, res, next, PERMISSION_LEVELS.ADMIN),
       this.SaveSubRound.bind(this)
+    );
+    this.router.post(
+      "/rounchangelookup",
+      Passport.authenticate("jwt", { session: false }),
+      (req, res, next) =>
+        AuthUtils.IS_USER_AUTHORIZED(req, res, next, PERMISSION_LEVELS.ADMIN),
+      this.SaveRoundChangeLookup.bind(this)
     );
     this.router.post(
       "/message",
