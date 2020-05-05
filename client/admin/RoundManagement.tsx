@@ -349,26 +349,26 @@ export default class RoundManagement extends BaseComponent<
                               </div>
                             </div>
 
-                            <Header floated="left">
-                              <Header.Content>
+                            <Header>
+                              <Header.Content floated="left">
                                 Slide ranges that affect this subround
                               </Header.Content>
+                              <Button
+                                floated="right"
+                                label="Add Slide Mapping"
+                                color="blue"
+                                icon="plus"
+                                size="mini"
+                                onClick={() => {
+                                  const lu = new RoundChangeLookup();
+                                  lu.RoundId = round._id;
+                                  lu.SubRoundId = subRound._id;
+                                  lu.Round = round.Name.toUpperCase();
+                                  lu.SubRound = subRound.Name;
+                                  this.state.Admin.EditedRCL = lu;
+                                }}
+                              />
                             </Header>
-                            <Button
-                              floated="right"
-                              label="Add Slide Mapping"
-                              color="blue"
-                              icon="plus"
-                              size="mini"
-                              onClick={() => {
-                                const lu = new RoundChangeLookup();
-                                lu.RoundId = round._id;
-                                lu.SubRoundId = subRound._id;
-                                lu.Round = round.Name.toUpperCase();
-                                lu.SubRound = subRound.Name;
-                                this.state.Admin.EditedRCL = lu;
-                              }}
-                            />
 
                             {lookups
                               .filter(
