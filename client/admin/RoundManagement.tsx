@@ -395,7 +395,7 @@ export default class RoundManagement extends BaseComponent<
                                             {
                                               ...lookup,
                                               ...{ IsActive: !lookup.IsActive },
-                                            } as RoundChangeLookup
+                                            } 
                                           );
                                         }}
                                       >
