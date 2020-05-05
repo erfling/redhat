@@ -530,7 +530,7 @@ class RoundRouter {
 
   public async SaveRound(req: Request, res: Response): Promise<any> {
     const roundToSave = req.body as RoundModel;
-    console.log("ROUND TO SAVE", roundToSave.Name, roundToSave.Name.length);
+    console.log("ROUND TO SAVE", roundToSave.Name, roundToSave);
 
     try {
       if (!roundToSave.Name || !roundToSave.Name.length || !roundToSave._id) {
@@ -544,6 +544,7 @@ class RoundRouter {
         );
         console.log("SAVED?", savedRound);
       }
+
       res.json(savedRound);
     } catch (err) {
       console.log(err);

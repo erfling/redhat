@@ -58,7 +58,6 @@ export default abstract class AuthUtils {
                 secretOrKey: 'zigwagytywu',                
             },
             async (jwtPayload, done) => {
-                console.log("FOUND jwtPayload: ", jwtPayload);
                 try {
                     const resp = await monUserModel.findById(jwtPayload).then(r => r.toJSON() as UserModel);
                     if (resp) return done(null, resp);

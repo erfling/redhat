@@ -91,6 +91,7 @@ export default class RoundManagement extends BaseComponent<
 
       return (
         <div>
+
           <Segment clearing style={{ paddingBottom: 0 }}>
             <Header as="h1" floated="left">
               <Header.Content>Manage Rounds</Header.Content>
@@ -131,7 +132,7 @@ export default class RoundManagement extends BaseComponent<
                       <div className="admin-controls">
                         <div>
                           <Icon name="dropdown" />
-                          Round {j + 1}: {round.Name}{" "}
+                          Round {j + 1}: {round.Name}{" "} | {this.state.Admin.AccordionIdx}
                           <Icon
                             name="edit"
                             onClick={() =>
