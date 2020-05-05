@@ -128,7 +128,7 @@ export default class GameManagementCtrl extends BaseClientCtrl<
     this.dataStore.Admin.IsClean = false;
     this.dataStore.Admin.HasError = true;
   }
-  public async saveRound(round: RoundModel) {
+  public async saveRound(round: RoundModel | any) {
     this.setDirty();
 
     try {
@@ -147,7 +147,7 @@ export default class GameManagementCtrl extends BaseClientCtrl<
     this.dataStore.Admin.SavingRoundId = -1;
   }
 
-  public async saveSubRound(subRound: SubRoundModel) {
+  public async saveSubRound(subRound: SubRoundModel | any) {
     this.dataStore.Admin.SavingSubRoundId = subRound.id;
     this.setDirty();
     try {
@@ -166,7 +166,7 @@ export default class GameManagementCtrl extends BaseClientCtrl<
     this.dataStore.Admin.SavingSubRoundId = -1;
   }
 
-  public async saveRoundChangeLookup(lookup: RoundChangeLookup) {
+  public async saveRoundChangeLookup(lookup: RoundChangeLookup | any) {
     console.log("SAVING", lookup);
     this.dataStore.Admin.SavingLookupId = lookup.id;
     this.setDirty();
