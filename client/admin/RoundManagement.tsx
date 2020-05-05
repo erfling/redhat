@@ -91,7 +91,6 @@ export default class RoundManagement extends BaseComponent<
 
       return (
         <div>
-
           <Segment clearing style={{ paddingBottom: 0 }}>
             <Header as="h1" floated="left">
               <Header.Content>Manage Rounds</Header.Content>
@@ -356,8 +355,11 @@ export default class RoundManagement extends BaseComponent<
                               </Header.Content>
                             </Header>
                             <Button
+                              floated="right"
+                              label="Add Slide Mapping"
                               color="blue"
                               icon="plus"
+                              size="mini"
                               onClick={() => {
                                 const lu = new RoundChangeLookup();
                                 lu.RoundId = round._id;
@@ -366,9 +368,7 @@ export default class RoundManagement extends BaseComponent<
                                 lu.SubRound = subRound.Name;
                                 this.state.Admin.EditedRCL = lu;
                               }}
-                            >
-                              Add Slide Mapping
-                            </Button>
+                            />
 
                             {lookups
                               .filter(
@@ -396,7 +396,7 @@ export default class RoundManagement extends BaseComponent<
                                             {
                                               ...lookup,
                                               ...{ IsActive: !lookup.IsActive },
-                                            } 
+                                            }
                                           );
                                         }}
                                       >
@@ -722,7 +722,7 @@ export default class RoundManagement extends BaseComponent<
               <Modal.Header color="red">
                 Create or Edit Slide Mapping
               </Modal.Header>
-              <Modal.Content style={{ overflow: "auto", maxHeight: '72vh' }}>
+              <Modal.Content style={{ overflow: "auto", maxHeight: "72vh" }}>
                 <Modal.Description>
                   <Form>
                     <Form.Field>
