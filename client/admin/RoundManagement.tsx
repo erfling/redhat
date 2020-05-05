@@ -355,7 +355,7 @@ export default class RoundManagement extends BaseComponent<
                               </Header.Content>
                               <Button
                                 floated="right"
-                                label="Add Slide Mapping"
+                                content="Add Slide Mapping"
                                 color="blue"
                                 icon="plus"
                                 size="mini"
