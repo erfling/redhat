@@ -129,6 +129,14 @@ class FacilitationCtrl {
           sr ? Object.assign(new SubRoundModel(), sr.toJSON()) : null
         );
       if (!subRound) throw new Error("Failed to retrieve subround");
+      console.log(game.CurrentRound)
+      let round: RoundModel = await monRoundModel
+        .findOne({ Name: game.CurrentRound.ParentRound.toUpperCase() })
+        .then(sr =>
+          sr ? Object.assign(new RoundModel(), sr.toJSON()) : null
+        );
+        if (!round) throw new Error("Failed to retrieve round");
+
 
       let responses: ResponseModel[] = await monResponseModel
         .find({ GameId, SubRoundId: subRound._id })
@@ -159,6 +167,7 @@ class FacilitationCtrl {
         m.SubRoundId = subRound._id;
         m.SubRoundLabel = subRound.Label;
         m.SubRoundName = subRound.Name;
+        m.RoundName = round.Name;
         m.GameId = game._id.toString();
         m.IsComplete = true;
 
@@ -286,7 +295,8 @@ class FacilitationCtrl {
 
       res.json(mappings);
     } catch (err) {
-      res.status(500).send("Error");
+      console.log(err)
+      res.status(500).send(err);
     }
   }
 

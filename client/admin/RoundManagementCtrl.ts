@@ -20,9 +20,7 @@ import RoundChangeLookup from "../../shared/models/RoundChangeLookup";
 export default class GameManagementCtrl extends BaseClientCtrl<
   IControllerDataStore & {
     Admin: AdminViewModel;
-    ShowUserModal: boolean;
-    ShowGameModal: boolean;
-    ShowTeamDeleteModal: boolean;
+    IsShowingInactiveObjects: boolean
   }
 > {
   //----------------------------------------------------------------------
@@ -197,72 +195,16 @@ export default class GameManagementCtrl extends BaseClientCtrl<
       Admin: DataStore.Admin,
       ApplicationState: DataStore.ApplicationState,
       ComponentFistma: this.ComponentFistma,
-      ShowGameModal: false,
-      ShowTeamDeleteModal: false,
-      ShowUserModal: false,
+      IsShowingInactiveObjects: true
     };
   }
 
-  OpenUserModal(user: UserModel) {
-    this.dataStore.ApplicationState.ModalObject = user;
-    this.dataStore.ShowUserModal = true;
-  }
 
-  OpenGameModal(game: GameModel) {
-    this.dataStore.ApplicationState.ModalObject = game;
-    this.dataStore.ShowGameModal = true;
-  }
-
-  OpenTeamModal(team: TeamModel) {
-    this.dataStore.ApplicationState.ModalObject = team;
-    this.dataStore.ShowTeamDeleteModal = true;
-  }
 
   closeModal() {
     super.closeModal();
-    this.dataStore.ShowTeamDeleteModal = false;
-    this.dataStore.ShowGameModal = false;
-    this.dataStore.ShowUserModal = false;
-  }
-
-  public FilterGames(prop: string, value: string) {
-    value = value.toUpperCase();
-
-    this.dataStore.Admin.GameFilter[prop] = value;
-
-    console.log(value, this.dataStore.Admin.GameFilter);
-    this.dataStore.Admin.FilteredGames = this.dataStore.Admin.Games.filter(
-      (g) => {
-        let match = true;
-        if (prop != "Facilitator") {
-          for (let p in this.dataStore.Admin.GameFilter) {
-            if (
-              g[prop]
-                .toUpperCase()
-                .indexOf(this.dataStore.Admin.GameFilter[prop]) == -1
-            ) {
-              match = false;
-            }
-          }
-        } else {
-          console.log(
-            (
-              g.Facilitator.FirstName +
-              " " +
-              g.Facilitator.LastName
-            ).toUpperCase(),
-            this.dataStore.Admin.GameFilter[prop]
-          );
-          if (
-            (g.Facilitator.FirstName + " " + g.Facilitator.LastName)
-              .toUpperCase()
-              .indexOf(this.dataStore.Admin.GameFilter[prop]) == -1
-          )
-            match = false;
-        }
-
-        return match;
-      }
-    );
+    this.dataStore.Admin.EditedRound = null;
+    this.dataStore.Admin.EditedSubRound = null;
+    this.dataStore.Admin.EditedRCL = null;
   }
 }

@@ -25,6 +25,8 @@ export default class FacilitationRoundResponseMapping extends BaseModel
 
     public SubRoundName: string = "";
 
+    public RoundName: string = "";
+
     public GameId: string = '';
 
     public TeamId: string;

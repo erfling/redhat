@@ -131,7 +131,7 @@ export default class RoundManagement extends BaseComponent<
                       <div className="admin-controls">
                         <div>
                           <Icon name="dropdown" />
-                          Round {j + 1}: {round.Name}{" "}
+                          Round {j + 1}: {round.Name}{" "} {round.Weight}
                           <Icon
                             name="edit"
                             onClick={() =>
@@ -168,7 +168,7 @@ export default class RoundManagement extends BaseComponent<
                                   j - 1
                                 ).map((r, i) => ({
                                   ...r,
-                                  ...{ Label: i + 1 },
+                                  ...{ Label: i + 1, Weight: i },
                                 }));
                                 sortedRounds.forEach((r) =>
                                   this.controller.saveRound(r)
@@ -187,7 +187,7 @@ export default class RoundManagement extends BaseComponent<
                                   j + 1
                                 ).map((r, i) => ({
                                   ...r,
-                                  ...{ Label: i + 1 },
+                                  ...{ Label: i + 1, Weight: i },
                                 }));
                                 sortedRounds.forEach((r) =>
                                   this.controller.saveRound(r)
