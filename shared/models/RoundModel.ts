@@ -59,6 +59,8 @@ export default class RoundModel extends BaseModel
     @dbProp(Number)
     public Weight: number;
 
+    @dbProp(Boolean)
+    IsActive: boolean = false;
 
     //----------------------------------------------------------------------
     //

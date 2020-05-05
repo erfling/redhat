@@ -44,6 +44,9 @@ export default class RoundChangeLookup extends BaseModel
     @dbProp(Boolean)
     SlideFeedback: boolean = false;
 
+    @dbProp(Boolean)
+    IsActive: boolean = false;
+
     NumTeams: number;
 
     RoundScoreIdx: number;

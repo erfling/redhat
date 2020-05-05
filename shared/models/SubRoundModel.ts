@@ -86,6 +86,8 @@ export default class SubRoundModel extends BaseModel
     @Type(() => QuestionModel)
     public Questions: QuestionModel[] = [];
     
+    @dbProp(Boolean)
+    IsActive: boolean = false;
 
     public Responses: ResponseModel[] = [];
     
