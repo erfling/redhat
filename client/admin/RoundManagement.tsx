@@ -543,7 +543,7 @@ export default class RoundManagement extends BaseComponent<
                                         computer={12}
                                       >
                                         <iframe
-                                          src={`https://docs.google.com/presentation/d/e/2PACX-1vQ573FZ-_vIiJs6xrPoAV8Euqkb3FzpkGOH7tIs_Cwc1Cj330WwCStgiSDCwDAiVsqKnuIXBawO4kgG/embed?start=false&loop=false&delayms=60000#slide=${lookup.MinSlideNumber}`}
+                                          src={`https://docs.google.com/presentation/d/e/2PACX-1vSo2IePR5C-3BiWunm9aRvntXpH9ldwZ9EjtXF3UJQGMGxvnDLRtcLe6ReybcSJ1qSTPKSpsWyEKt6i/embed?start=false&loop=false&delayms=60000#slide=${lookup.MinSlideNumber}`}
                                           width="350"
                                           height="228"
                                         ></iframe>
@@ -590,7 +590,7 @@ export default class RoundManagement extends BaseComponent<
                                         computer={12}
                                       >
                                         <iframe
-                                          src={`https://docs.google.com/presentation/d/e/2PACX-1vQ573FZ-_vIiJs6xrPoAV8Euqkb3FzpkGOH7tIs_Cwc1Cj330WwCStgiSDCwDAiVsqKnuIXBawO4kgG/embed?start=false&loop=false&delayms=60000#slide=${lookup.MaxSlideNumber}`}
+                                          src={`https://docs.google.com/presentation/d/e/2PACX-1vSo2IePR5C-3BiWunm9aRvntXpH9ldwZ9EjtXF3UJQGMGxvnDLRtcLe6ReybcSJ1qSTPKSpsWyEKt6i/embed?start=false&loop=false&delayms=60000#slide=${lookup.MaxSlideNumber}`}
                                           width="350"
                                           height="228"
                                         ></iframe>
@@ -621,7 +621,7 @@ export default class RoundManagement extends BaseComponent<
                 <Form>
                   <Form.Field>
                     <Input
-                      label="Name asdf"
+                      label="Name"
                       value={
                         this.state.Admin.EditedRound &&
                         this.state.Admin.EditedRound.Name
@@ -808,7 +808,7 @@ export default class RoundManagement extends BaseComponent<
                       </Grid.Column>
                       <Grid.Column mobile={16} tablet={16} computer={12}>
                         <iframe
-                          src={`https://docs.google.com/presentation/d/e/2PACX-1vQ573FZ-_vIiJs6xrPoAV8Euqkb3FzpkGOH7tIs_Cwc1Cj330WwCStgiSDCwDAiVsqKnuIXBawO4kgG/embed?start=false&loop=false&delayms=60000#slide=${this.state.Admin.EditedRCL.MinSlideNumber}`}
+                          src={`https://docs.google.com/presentation/d/e/2PACX-1vSo2IePR5C-3BiWunm9aRvntXpH9ldwZ9EjtXF3UJQGMGxvnDLRtcLe6ReybcSJ1qSTPKSpsWyEKt6i/embed?start=false&loop=false&delayms=60000#slide=${this.state.Admin.EditedRCL.MinSlideNumber}`}
                           width="350"
                           height="228"
                         ></iframe>
@@ -838,7 +838,7 @@ export default class RoundManagement extends BaseComponent<
                       </Grid.Column>
                       <Grid.Column mobile={16} tablet={16} computer={12}>
                         <iframe
-                          src={`https://docs.google.com/presentation/d/e/2PACX-1vQ573FZ-_vIiJs6xrPoAV8Euqkb3FzpkGOH7tIs_Cwc1Cj330WwCStgiSDCwDAiVsqKnuIXBawO4kgG/embed?start=false&loop=false&delayms=60000#slide=${this.state.Admin.EditedRCL.MaxSlideNumber}`}
+                          src={`https://docs.google.com/presentation/d/e/2PACX-1vSo2IePR5C-3BiWunm9aRvntXpH9ldwZ9EjtXF3UJQGMGxvnDLRtcLe6ReybcSJ1qSTPKSpsWyEKt6i/embed?start=false&loop=false&delayms=60000#slide=${this.state.Admin.EditedRCL.MaxSlideNumber}`}
                           width="350"
                           height="228"
                         ></iframe>
