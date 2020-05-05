@@ -300,7 +300,7 @@ export default class RoundManagement extends BaseComponent<
                                       this.controller.saveSubRound({
                                         ...subRound,
                                         ...{ IsActive: !subRound.IsActive },
-                                      } as SubRoundModel);
+                                      });
                                     }}
                                   >
                                     {subRound.IsActive
