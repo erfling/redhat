@@ -205,7 +205,7 @@ export default class RoundManagement extends BaseComponent<
                             onClick={(e) => {
                               e.stopPropagation();
                               this.controller.saveRound({
-                                ...round,
+                                ...round as RoundModel,
                                 ...{ IsActive: !round.IsActive },
                               } as RoundModel);
                             }}
