@@ -31,15 +31,16 @@ export default class GamePlayUtils {
       ...passedMapping,
     });
 
-    console.log(
-      "Roundchange mapping: as curried, yo",
-      mapping.ShowFeedback,
-      mapping.SlideFeedback,
-      passedMapping.ShowFeedback,
-      passedMapping.SlideFeedback,
-      mapping.RoundId,
-      mapping.SubRoundId
-    );
+    let rounds: RoundModel[] = await monRoundModel
+      .find({ IsActive: true })
+      .populate("SubRounds")
+      .sort({ Weight: 1 })
+      .then((roundDocs) => {
+        return roundDocs.map(
+          (roundDoc) =>
+            ({ ...new RoundModel(), ...roundDoc.toJSON() } as RoundModel)
+        );
+      });
 
     //Pick role for each player on each team
     //TODO: get rid of magic string
@@ -51,11 +52,11 @@ export default class GamePlayUtils {
     const round = await monRoundModel
       .findById(mapping.RoundId)
       .then((r) => r.toJSON());
-      console.log("got here")
+    console.log("got here");
     let srModel: SubRoundModel = await monSubRoundModel
       .findById(mapping.SubRoundId)
       .then((x) => x.toJSON());
-      console.log("then got here")
+    console.log("then got here");
 
     let SubRoundLabel: String = srModel.Label.toString().toUpperCase();
     let newMapping: RoundChangeMapping;
@@ -63,6 +64,16 @@ export default class GamePlayUtils {
     console.log("RELEVANT SUBROUND IS: ", SubRoundLabel);
     let RoundId = round._id;
     mapping.RoundId = round._id;
+
+    console.log(
+      "Roundchange mapping: as curried, yo",
+      mapping.ShowFeedback,
+      mapping.SlideFeedback,
+      passedMapping.ShowFeedback,
+      passedMapping.SlideFeedback,
+      mapping.RoundId,
+      rounds[1]._id
+    );
 
     //make sure the current mapping has the correct child round
     var oldMapping: RoundChangeMapping = await monMappingModel
@@ -92,12 +103,12 @@ export default class GamePlayUtils {
     let advanceGame = true;
     if (
       oldMapping &&
-      oldMapping.ChildRound == mapping.ChildRound &&
+      oldMapping.SubRoundId == mapping.SubRoundId &&
       oldMapping.ShowFeedback == mapping.ShowFeedback &&
       oldMapping.ShowIndividualFeedback == mapping.ShowIndividualFeedback &&
       oldMapping.ShowRateUsers == mapping.ShowRateUsers
     ) {
-      //in cases where only a slide is advanced, and we shouldn't see a gameplay change, all the above props will be unchange.
+      //in cases where only a slide is advanced, and we shouldn't see a gameplay change, all the above props will be unchanged.
       //the only change we expect is to mapping/oldMapping.SlideNumber
       advanceGame = false;
     }
@@ -123,10 +134,26 @@ export default class GamePlayUtils {
             }
           }
         });
+      } 
+      //first real gameplay.
+      else if (JSON.stringify(RoundId) === JSON.stringify(rounds[1]._id)) {
+        game.Teams.forEach((t) => {
+          //we are in the first true round of gameplay. Each teams first player should be manager
+          let managerPlayerId = t.Players[0]._id.toString();
+          mapping.UserJobs[managerPlayerId] = JobName.MANAGER;
+          game.HasBeenManager.push(managerPlayerId);
+        });
       } else {
         //set another manager
         let roundNumber = Number(round.Label);
-        console.log("HAD USER JOBS FOR", roundNumber);
+        console.log(
+          "HAD USER JOBS FOR",
+          roundNumber,
+          RoundId,
+          rounds[1]._id,
+          RoundId !== rounds[1]._id,
+          JSON.stringify(RoundId) !== JSON.stringify(rounds[1]._id)
+        );
         game.Teams.forEach((t) => {
           //   console.log("TEAM ", t)
           for (let i = 0; i < t.Players.length; i++) {
@@ -159,6 +186,13 @@ export default class GamePlayUtils {
       newMapping = await monMappingModel
         .create(mapping)
         .then((r) => Object.assign(new RoundChangeMapping(), r.toJSON()));
+    }
+    //the first round change should not trigger a jobs update if there are already jobs
+    else if (RoundId === rounds[1]._id) {
+      //do nothing?
+      console.log("ADVANCE TO ROUND 2");
+
+      console.log(oldMapping);
     } else if (!oldMapping.UserJobs) {
       let roundNumber = Number(round.Label);
       console.log("HAD NO USER JOBS FOR", roundNumber);

@@ -86,7 +86,6 @@ class GameCtrl {
 
   public async GetGame(req: Request, res: Response): Promise<GameModel | any> {
     const ID = req.params.game;
-    console.log(ID, "YES?");
     try {
       //WHY CAN"T WE CALL POPULATE ON TEAMS?
       let game = await monGameModel

@@ -309,14 +309,14 @@ export class AppServer {
               .then((r) => r.toJSON());
 
             console.log(" %s", req.params.gameid);
-
+/*
             console.log(
               "Roundchange mapping:",
               mapping.ShowFeedback,
               mapping.SlideFeedback,
               req.body.ShowFeedback,
               req.body.SlideFeedback
-            );
+            );*/
 
             //Pick role for each player on each team
             //TODO: get rid of magic string
