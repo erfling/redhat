@@ -63,6 +63,7 @@ export default class Priorities extends BaseComponent<any, IRoundDataStore>
         const thisSubRound = this.state.Round.SubRounds.filter(s => s.Name.toUpperCase() == Priorities.CLASS_NAME.toUpperCase())[0];
 
         if (this.state) {
+
             return <>
                 {this.state.ApplicationState.CurrentUser.Job == JobName.MANAGER && thisSubRound != null && thisSubRound.Questions &&
                     <div

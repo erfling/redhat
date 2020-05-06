@@ -543,6 +543,8 @@ export default class Game extends BaseComponent<any, IControllerDataStore & { Ga
                             <Switch>
                                 <Route path="/game/welcome" component={Welcome} />
                                 <Route path="/game/peopleround" component={PeopleRound} />
+                                <Route path="/game/peopleround1" component={PeopleRound} />
+                                <Route path="/game/peopleround2" component={PeopleRound} />
                                 <Route path="/game/engineeringround" component={EngineeringRound} />
                                 <Route path="/game/salesround" component={SalesRound} />
                                 <Route path="/game/financeround" component={FinanceRound} />
