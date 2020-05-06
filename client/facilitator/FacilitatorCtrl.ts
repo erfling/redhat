@@ -213,6 +213,7 @@ export default class FacilitatorCtrl extends BaseClientCtrl<{
   //----------------------------------------------------------------------
 
   public getRoundInfo() {
+    console.log("CALLED");
     const SpecialSlides = {
       "2": {
         ShowTeams: true
@@ -224,10 +225,10 @@ export default class FacilitatorCtrl extends BaseClientCtrl<{
       "8": {
         ShowPin: true
       },
-      "13": {
+      "14": {
         SlideFeedback: true
       },
-      "26": {
+      "27": {
         SlideFeedback: true
       },
       "36": {
