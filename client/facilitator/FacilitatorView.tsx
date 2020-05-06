@@ -317,7 +317,7 @@ export default class FacilitatorView extends BaseComponent<any, { FacilitatorSta
                     <Header
                         as="h2"
                     >
-                        Round: {this.state.FacilitatorState.RoundResponseMappings[0].SubRoundLabel} ({this.state.FacilitatorState.RoundResponseMappings[0].RoundName} - {this.state.FacilitatorState.RoundResponseMappings[0].SubRoundName})
+                        Round: ({this.state.FacilitatorState.RoundResponseMappings[0].RoundName} - {this.state.FacilitatorState.RoundResponseMappings[0].SubRoundName})
                     </Header>
                     <Header
                         as="h2"
