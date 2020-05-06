@@ -52,11 +52,9 @@ export default class GamePlayUtils {
     const round = await monRoundModel
       .findById(mapping.RoundId)
       .then((r) => r.toJSON());
-    console.log("got here");
     let srModel: SubRoundModel = await monSubRoundModel
       .findById(mapping.SubRoundId)
       .then((x) => x.toJSON());
-    console.log("then got here");
 
     let SubRoundLabel: String = srModel.Label.toString().toUpperCase();
     let newMapping: RoundChangeMapping;
@@ -66,7 +64,7 @@ export default class GamePlayUtils {
     mapping.RoundId = round._id;
 
     console.log(
-      "Roundchange mapping: as curried, yo",
+      "Roundchange mapping: as curried",
       mapping.ShowFeedback,
       mapping.SlideFeedback,
       passedMapping.ShowFeedback,
@@ -78,7 +76,7 @@ export default class GamePlayUtils {
     //make sure the current mapping has the correct child round
     var oldMapping: RoundChangeMapping = await monMappingModel
       .findOneAndUpdate(
-        { GameId: game._id, ParentRound: mapping.ParentRound },
+        { GameId: game._id, RoundId: mapping.SubRoundId },
         {
           ChildRound: mapping.ChildRound,
           ShowRateUsers: mapping.ShowRateUsers, // object where keys are user's _id as string & values are one of JobName enum values
@@ -110,10 +108,12 @@ export default class GamePlayUtils {
     ) {
       //in cases where only a slide is advanced, and we shouldn't see a gameplay change, all the above props will be unchanged.
       //the only change we expect is to mapping/oldMapping.SlideNumber
+      console.log("SKIPPING ADVANCE");
       advanceGame = false;
     }
 
     if (!oldMapping) {
+      console.log("no old mapping")
       if (mapping.ParentRound.toLowerCase() == "engineeringround") {
         game.Teams.forEach((t) => {
           var managerAssigned = false;
@@ -134,9 +134,10 @@ export default class GamePlayUtils {
             }
           }
         });
-      } 
+      }
       //first real gameplay.
       else if (JSON.stringify(RoundId) === JSON.stringify(rounds[1]._id)) {
+        console.log("matched round id to first round of gameplay", RoundId, rounds[1]._id)
         game.Teams.forEach((t) => {
           //we are in the first true round of gameplay. Each teams first player should be manager
           let managerPlayerId = t.Players[0]._id.toString();
@@ -159,7 +160,7 @@ export default class GamePlayUtils {
           for (let i = 0; i < t.Players.length; i++) {
             let pid = t.Players[i].toString();
 
-            if (i == roundNumber - 1) {
+            if (i == roundNumber - 2) {
               game.HasBeenManager.push(pid);
               mapping.UserJobs[pid] = JobName.MANAGER;
             }
@@ -188,14 +189,10 @@ export default class GamePlayUtils {
         .then((r) => Object.assign(new RoundChangeMapping(), r.toJSON()));
     }
     //the first round change should not trigger a jobs update if there are already jobs
-    else if (RoundId === rounds[1]._id) {
-      //do nothing?
-      console.log("ADVANCE TO ROUND 2");
+    else if (!oldMapping.UserJobs) {
+      console.log("old mapping but no jobs")
 
-      console.log(oldMapping);
-    } else if (!oldMapping.UserJobs) {
       let roundNumber = Number(round.Label);
-      console.log("HAD NO USER JOBS FOR", roundNumber);
 
       game.Teams.forEach((t) => {
         for (let i = 0; i < t.Players.length; i++) {
@@ -210,11 +207,9 @@ export default class GamePlayUtils {
         //make sure each team has a manager, even if all the team members have been manager
         if (
           t.Players.every((p) => {
-            //console.log("examing", p, mapping.UserJobs[p._id.toString()])
             return mapping.UserJobs[p._id.toString()] != JobName.MANAGER;
           })
         ) {
-          //console.log("DIDN'T FIND MANAGER FOR ", t)
           mapping.UserJobs[
             t.Players[
               Math.floor(Math.random() * t.Players.length)
@@ -226,25 +221,18 @@ export default class GamePlayUtils {
       console.log("WE ARE LOOKING FOR BLUE_KITES");
       let pindex = 0;
       game.Teams.forEach((t) => {
-        //console.log("\t Blue_kite teams %d:", pindex++);
-        //console.log("\t Blue_kite oldMapping %o:", oldMapping);
-        //let playersEligible: Array<UserModel> = t.Players.filter(p => oldMapping.UserJobs[p._id.toString()] != JobName.MANAGER);
-
-        //console.log("\t Blue_kite players %o:", playersEligible);
-        // let rIndex = Math.floor(Math.random() * playersEligible.length);
-
         oldMapping.UserJobs[t.Players[1].toString()] = JobName.BLUE_KITE;
-        //console.log("Blue_kite winner is: %s, id: %s,  name: %s", rIndex, playersEligible[rIndex]._id, (playersEligible[rIndex].FirstName + " " + playersEligible[rIndex].LastName));
       });
 
       newMapping = oldMapping;
     } else {
+      console.log("old mapping else")
+
       let roundNumber = Number(round.Label);
 
       console.log("HAD MAPPING WITH JOBS");
       game.Teams.forEach((t) => {
         for (let i = 0; i < t.Players.length; i++) {
-          console.log("What up playa", t.Players[i]);
           let pid = t.Players[i].toString();
 
           if (i == roundNumber - 1) {
@@ -256,11 +244,9 @@ export default class GamePlayUtils {
         //make sure each team has a manager, even if all the team members have been manager
         if (
           t.Players.every((p) => {
-            //console.log("examing", p, mapping.UserJobs[p._id.toString()])
             return oldMapping.UserJobs[p._id.toString()] != JobName.MANAGER;
           })
         ) {
-          //console.log("DIDN'T FIND MANAGER FOR ", t)
           oldMapping.UserJobs[
             t.Players[
               Math.floor(Math.random() * t.Players.length)
@@ -271,21 +257,18 @@ export default class GamePlayUtils {
       newMapping = oldMapping;
     }
 
-    // console.log( "blue_kite mapping.UserJobs %o", mapping.UserJobs);
-
     mapping.GameId = game._id;
 
     if ((!newMapping || !newMapping.ParentRound.length) && !oldMapping) {
       throw new Error("Couldn't make mapping");
     }
 
-    console.log(newMapping, passedMapping);
-
     if (!newMapping) newMapping = passedMapping;
 
     newMapping.ShowFeedback = passedMapping.ShowFeedback;
     newMapping.SlideFeedback = passedMapping.SlideFeedback;
 
+    console.log("returning mapping, so we made it here")
     return newMapping;
   }
 

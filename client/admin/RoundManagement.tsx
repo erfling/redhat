@@ -131,7 +131,7 @@ export default class RoundManagement extends BaseComponent<
                       <div className="admin-controls">
                         <div>
                           <Icon name="dropdown" />
-                          Round {j + 1}: {round.Name}{" "} {round.Weight}
+                          Round {j + 1}: {round.Name} | {round._id}
                           <Icon
                             name="edit"
                             onClick={() =>
@@ -427,6 +427,10 @@ export default class RoundManagement extends BaseComponent<
                                               ...{
                                                 ShowRateUsers:
                                                   lookup.ShowRateUsers,
+                                                RoundId: round._id,
+                                                SubRoundId: subRound._id,
+                                                Round: round.Name.toLowerCase(),
+                                                SubRound: subRound.Name.toLocaleUpperCase(),
                                               },
                                             }
                                           );
@@ -448,6 +452,10 @@ export default class RoundManagement extends BaseComponent<
                                               ...{
                                                 ShowFeedback:
                                                   lookup.ShowFeedback,
+                                                RoundId: round._id,
+                                                SubRoundId: subRound._id,
+                                                Round: round.Name.toLowerCase(),
+                                                SubRound: subRound.Name.toLocaleUpperCase(),
                                               },
                                             }
                                           );
@@ -470,6 +478,10 @@ export default class RoundManagement extends BaseComponent<
                                               ...lookup,
                                               ...{
                                                 ShowIndividualFeedback: !lookup.ShowIndividualFeedback,
+                                                RoundId: round._id,
+                                                SubRoundId: subRound._id,
+                                                Round: round.Name.toLowerCase(),
+                                                SubRound: subRound.Name.toLocaleUpperCase(),
                                               },
                                             }
                                           );
@@ -493,6 +505,10 @@ export default class RoundManagement extends BaseComponent<
                                               ...{
                                                 SlideFeedback:
                                                   lookup.SlideFeedback,
+                                                RoundId: round._id,
+                                                SubRoundId: subRound._id,
+                                                Round: round.Name.toLowerCase(),
+                                                SubRound: subRound.Name.toLocaleUpperCase(),
                                               },
                                             }
                                           );
@@ -527,6 +543,11 @@ export default class RoundManagement extends BaseComponent<
                                                       ...lookup,
                                                       ...{
                                                         MinSlideNumber: value,
+                                                        RoundId: round._id,
+                                                        SubRoundId:
+                                                          subRound._id,
+                                                        Round: round.Name.toLowerCase(),
+                                                        SubRound: subRound.Name.toLocaleUpperCase(),
                                                       },
                                                     }
                                                   );
@@ -575,6 +596,10 @@ export default class RoundManagement extends BaseComponent<
                                                       ...lookup,
                                                       ...{
                                                         MaxSlideNumber: value,
+                                                        RoundId: round._id,
+                                                        SubRoundId: subRound._id,
+                                                        Round: round.Name.toLowerCase(),
+                                                        SubRound: subRound.Name.toLocaleUpperCase()
                                                       },
                                                     }
                                                   );
