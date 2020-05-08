@@ -49,6 +49,9 @@ export default class FacilitatorSlides extends React.Component<
     return (
       <>
         <div>
+          {}
+        <pre>{JSON.stringify(RoundScores, null, 2)}</pre>
+        <pre>{JSON.stringify(CumulativeScores, null, 2)}</pre>
           {RoundScores &&
             ((Game.CurrentRound.SlideNumber != 76 &&
               RoundScores.length &&

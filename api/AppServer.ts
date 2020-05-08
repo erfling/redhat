@@ -335,6 +335,7 @@ export class AppServer {
                     Object.assign(new SubRoundModel(), sr.toJSON())
                   )
                 ); //.then()
+                console.log("this many subs", subRounds.length);
 
               //we need the PREVIOUS subround
               let responsesFound = false;
@@ -342,6 +343,7 @@ export class AppServer {
                 let subRound = subRounds[j];
                 //Some subrounds may be unscored
                 if (subRound.SkipScoring) continue;
+                console.log("NOT SKIPPING");
 
                 for (let i = 0; i < game.Teams.length; i++) {
                   let t = game.Teams[i];
@@ -356,7 +358,7 @@ export class AppServer {
                         : null
                     );
                   let questions = subRound.Questions;
-
+                  console.log("THIS MANY QUESTION", subRound.Questions.length);
                   //get TEAM_RATING questions. They will be filtered out by rounds that don't have them, since there is no response
                   let ratingQuestions = await monQModel
                     .find({ RatingMarker: RatingType.TEAM_RATING })
@@ -402,8 +404,6 @@ export class AppServer {
               }
             }
 
-            //var mapperydoo = (newMapping && newMapping.ParentRound.length) ? newMapping : oldMapping;
-            //mapperydoo.SlideNumber = mapping.SlideNumber;
             const gameSave = await monGameModel.findByIdAndUpdate(
               req.params.gameid,
               { CurrentRound: mapping, HasBeenManager: game.HasBeenManager }

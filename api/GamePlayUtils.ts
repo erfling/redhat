@@ -113,8 +113,9 @@ export default class GamePlayUtils {
     }
 
     if (!oldMapping) {
-      console.log("no old mapping")
+      console.log("no old mapping");
       if (mapping.ParentRound.toLowerCase() == "engineeringround") {
+        console.log("ENGINEERING ROUND ADVANCE EDGE CASE");
         game.Teams.forEach((t) => {
           var managerAssigned = false;
           let isChip = false;
@@ -137,7 +138,11 @@ export default class GamePlayUtils {
       }
       //first real gameplay.
       else if (JSON.stringify(RoundId) === JSON.stringify(rounds[1]._id)) {
-        console.log("matched round id to first round of gameplay", RoundId, rounds[1]._id)
+        console.log(
+          "matched round id to first round of gameplay",
+          RoundId,
+          rounds[1]._id
+        );
         game.Teams.forEach((t) => {
           //we are in the first true round of gameplay. Each teams first player should be manager
           let managerPlayerId = t.Players[0]._id.toString();
@@ -145,6 +150,19 @@ export default class GamePlayUtils {
           game.HasBeenManager.push(managerPlayerId);
         });
       } else {
+        console.log("OLD MAPPING ELSE");
+
+        //Get an old mapping for the current round and game
+        //If we've already assigned roles for this round, we should use the old mapping's UserJobs
+        let oldMappingForThisRound = await monMappingModel
+          .findOne({
+            RoundId,
+            GameId: game._id
+          })
+          .then((r) =>
+            r ? Object.assign(new RoundChangeMapping(), r.toJSON()) : null
+          );
+
         //set another manager
         let roundNumber = Number(round.Label);
         console.log(
@@ -157,23 +175,41 @@ export default class GamePlayUtils {
         );
         game.Teams.forEach((t) => {
           //   console.log("TEAM ", t)
+          let teamPids = [];
           for (let i = 0; i < t.Players.length; i++) {
             let pid = t.Players[i].toString();
-
+            teamPids.push(pid);
             if (i == roundNumber - 2) {
-              game.HasBeenManager.push(pid);
-              mapping.UserJobs[pid] = JobName.MANAGER;
+              console.log(
+                `SETTING PLAYER ${pid} (${t.Players[i].Email}) as MANAGER`
+              );
+              if (game.HasBeenManager.indexOf(pid) === -1) {
+                mapping.UserJobs[pid] = JobName.MANAGER;
+                game.HasBeenManager.push(pid);
+              }
             }
           }
 
+          console.log(teamPids, oldMappingForThisRound != null, teamPids.some(
+            (pid) => oldMappingForThisRound.UserJobs[pid] === JobName.MANAGER
+          ))
           //make sure each team has a manager, even if all the team members have been manager
           if (
-            t.Players.every((p) => {
-              //console.log("examing", p, mapping.UserJobs[p._id.toString()])
-              return mapping.UserJobs[p._id.toString()] != JobName.MANAGER;
-            })
+            //If a manager has already been assinged in this round, use the same UserJobs map
+            oldMappingForThisRound &&
+            oldMappingForThisRound.UserJobs &&
+            teamPids.some(
+              (pid) => oldMappingForThisRound.UserJobs[pid] === JobName.MANAGER
+            )
           ) {
-            //console.log("DIDN'T FIND MANAGER FOR ", t)
+            //😂😂😂😂😂😂
+            let managerId = teamPids.find((pid) => oldMappingForThisRound.UserJobs[pid] === JobName.MANAGER);
+            console.log("FOUND A MANAGER IN THE PREVIOUS MAPPING", managerId)
+            mapping.UserJobs[managerId] = JobName.MANAGER;
+          }
+          //Assign a random manager if no manager has been assigned for this round.
+          else {
+            console.log("SETTING RANDOM PLAYER AS MANAGER")
             mapping.UserJobs[
               t.Players[
                 Math.floor(Math.random() * t.Players.length)
@@ -190,7 +226,7 @@ export default class GamePlayUtils {
     }
     //the first round change should not trigger a jobs update if there are already jobs
     else if (!oldMapping.UserJobs) {
-      console.log("old mapping but no jobs")
+      console.log("old mapping but no jobs");
 
       let roundNumber = Number(round.Label);
 
@@ -226,7 +262,7 @@ export default class GamePlayUtils {
 
       newMapping = oldMapping;
     } else {
-      console.log("old mapping else")
+      console.log("OLD MAPPING ELSE");
 
       let roundNumber = Number(round.Label);
 
@@ -268,7 +304,7 @@ export default class GamePlayUtils {
     newMapping.ShowFeedback = passedMapping.ShowFeedback;
     newMapping.SlideFeedback = passedMapping.SlideFeedback;
 
-    console.log("returning mapping, so we made it here")
+    console.log("returning mapping, so we made it here");
     return newMapping;
   }
 
@@ -280,6 +316,8 @@ export default class GamePlayUtils {
     round: RoundModel,
     subRound: SubRoundModel
   ): SubRoundScore {
+    console.log("HANDLING SCORES IN UTILS");
+
     let score = new SubRoundScore();
 
     let MaxRawScore = 0;
@@ -316,6 +354,7 @@ export default class GamePlayUtils {
     });
 
     if (responsesFound) {
+      console.log("FOUND SOME RESPONSES");
       let srs = Object.assign(score, {
         TeamId: t._id,
         RawScore,
@@ -350,6 +389,7 @@ export default class GamePlayUtils {
       }
     }
 
+    console.log(score);
     return score;
   }
 
