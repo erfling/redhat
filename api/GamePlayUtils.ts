@@ -189,10 +189,6 @@ export default class GamePlayUtils {
               }
             }
           }
-
-          console.log(teamPids, oldMappingForThisRound != null, teamPids.some(
-            (pid) => oldMappingForThisRound.UserJobs[pid] === JobName.MANAGER
-          ))
           //make sure each team has a manager, even if all the team members have been manager
           if (
             //If a manager has already been assinged in this round, use the same UserJobs map
