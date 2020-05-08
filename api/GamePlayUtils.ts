@@ -157,7 +157,7 @@ export default class GamePlayUtils {
         let oldMappingForThisRound = await monMappingModel
           .findOne({
             RoundId,
-            GameId: game._id
+            GameId: game._id,
           })
           .then((r) =>
             r ? Object.assign(new RoundChangeMapping(), r.toJSON()) : null
@@ -175,21 +175,8 @@ export default class GamePlayUtils {
         );
         game.Teams.forEach((t) => {
           //   console.log("TEAM ", t)
-          let teamPids = [];
-          for (let i = 0; i < t.Players.length; i++) {
-            let pid = t.Players[i].toString();
-            teamPids.push(pid);
-            if (i == roundNumber - 2) {
-              console.log(
-                `SETTING PLAYER ${pid} (${t.Players[i].Email}) as MANAGER`
-              );
-              if (game.HasBeenManager.indexOf(pid) === -1) {
-                mapping.UserJobs[pid] = JobName.MANAGER;
-                game.HasBeenManager.push(pid);
-              }
-            }
-          }
-          //make sure each team has a manager, even if all the team members have been manager
+          let teamPids = t.Players.map((p) => p._id);
+
           if (
             //If a manager has already been assinged in this round, use the same UserJobs map
             oldMappingForThisRound &&
@@ -198,19 +185,37 @@ export default class GamePlayUtils {
               (pid) => oldMappingForThisRound.UserJobs[pid] === JobName.MANAGER
             )
           ) {
-            //😂😂😂😂😂😂
-            let managerId = teamPids.find((pid) => oldMappingForThisRound.UserJobs[pid] === JobName.MANAGER);
-            console.log("FOUND A MANAGER IN THE PREVIOUS MAPPING", managerId)
+            let managerId = teamPids.find(
+              (pid) => oldMappingForThisRound.UserJobs[pid] === JobName.MANAGER
+            );
+            console.log("FOUND A MANAGER IN THE PREVIOUS MAPPING", managerId);
             mapping.UserJobs[managerId] = JobName.MANAGER;
-          }
-          //Assign a random manager if no manager has been assigned for this round.
-          else {
-            console.log("SETTING RANDOM PLAYER AS MANAGER")
-            mapping.UserJobs[
-              t.Players[
-                Math.floor(Math.random() * t.Players.length)
-              ]._id.toString()
-            ] = JobName.MANAGER;
+          } else {
+            for (let i = 0; i < t.Players.length; i++) {
+              let pid = t.Players[i].toString();
+              if (i == roundNumber - 2 || (i === 0 && roundNumber - 2 < 0)) {
+
+                if (game.HasBeenManager.indexOf(pid) === -1) {
+                  console.log(
+                    `SETTING PLAYER ${pid} (${t.Players[i].Email}) as MANAGER`
+                  );
+                  mapping.UserJobs[pid] = JobName.MANAGER;
+                  game.HasBeenManager.push(pid);
+                }
+              }
+            }
+
+            //Assign a random manager if no manager has been assigned for this round.
+            if (
+              teamPids.every((pid) => mapping.UserJobs[pid] !== JobName.MANAGER)
+            ) {
+              console.log("SETTING RANDOM PLAYER AS MANAGER");
+              mapping.UserJobs[
+                t.Players[
+                  Math.floor(Math.random() * t.Players.length)
+                ]._id.toString()
+              ] = JobName.MANAGER;
+            }
           }
         });
       }
