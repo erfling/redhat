@@ -104,7 +104,6 @@ export default class FacilitatorCtrl extends BaseClientCtrl<{
       }
     );
 
-    console.log("current round", this.dataStore.FacilitatorState.Game)
 
     if (!lookup && this.dataStore.FacilitatorState.Game) {
       //return;
@@ -115,10 +114,7 @@ export default class FacilitatorCtrl extends BaseClientCtrl<{
       lookup.RoundId = cr.RoundId;
       lookup.SubRoundId = cr.SubRoundId;
       lookup.SubRound = cr.ChildRound;
-      console.log("DIDN'T FIND A LOOKUP", lookup)
 
-    } else {
-      console.log("FOUND THIS LOOKUP", lookup)
     }
 
     if (lookup) {
@@ -135,24 +131,19 @@ export default class FacilitatorCtrl extends BaseClientCtrl<{
       mapping.SlideFeedback = lookup.SlideFeedback;
       mapping.SkipRoundScore = lookup.SkipRoundScore;
 
-
-      console.log("LOOKUPS", lookup, mapping);
-
-      console.log(
-        "GOING TO: ",
-        mapping,
-        this.dataStore.FacilitatorState.SlideNumber,
-        this.dataStore.FacilitatorState.CurrentLookup,
-        this.dataStore.FacilitatorState.CurrentLookup.SlideFeedback
-      );
-
-      //are we showing the leaderboard on the slide screen?
+      console.log("is feedback?", this.dataStore.FacilitatorState.CurrentLookup, this.dataStore.FacilitatorState.CurrentLookup.RoundScoreIdx);
+      if (this.dataStore.FacilitatorState.CurrentLookup.RoundScoreIdx === undefined) {
+        this.dataStore.FacilitatorState.CurrentLookup.RoundScoreIdx = this.dataStore.FacilitatorState.Game.Teams.length
+        this.dataStore.FacilitatorState.CurrentLookup.CumulativeScoreIdx = this.dataStore.FacilitatorState.Game.Teams.length
+      }
+        //are we showing the leaderboard on the slide screen?
       let hold = false;
       if (
         this.dataStore.FacilitatorState.CurrentLookup &&
         this.dataStore.FacilitatorState.CurrentLookup.SlideFeedback &&
         !isNaN(this.dataStore.FacilitatorState.CurrentLookup.RoundScoreIdx)
       ) {
+        console.log("here")
         hold = true;
         //see where we should cut off the scores
         if (!this.dataStore.FacilitatorState.CurrentLookup.NumTeamsShown) {
@@ -191,7 +182,6 @@ export default class FacilitatorCtrl extends BaseClientCtrl<{
           "WHY NOT?",
           this.dataStore.FacilitatorState.CurrentLookup.RoundScoreIdx,
           this.dataStore.FacilitatorState.CurrentLookup.CumulativeScoreIdx
-
         );
       }
 
@@ -213,7 +203,6 @@ export default class FacilitatorCtrl extends BaseClientCtrl<{
   //----------------------------------------------------------------------
 
   public getRoundInfo() {
-    console.log("CALLED");
     const SpecialSlides = {
       "2": {
         ShowTeams: true
@@ -265,8 +254,8 @@ export default class FacilitatorCtrl extends BaseClientCtrl<{
       null,
       FacilitationRoundResponseMapping,
       SapienServerCom.BASE_REST_URL +
-        "facilitator/round-status/" +
-        this.dataStore.FacilitatorState.Game._id
+      "facilitator/round-status/" +
+      this.dataStore.FacilitatorState.Game._id
     ).then((rcl: FacilitationRoundResponseMapping[]) => {
       let slideMapping = (rcl[0] as FacilitationRoundResponseMapping)
         .CurrentRound;
@@ -314,10 +303,6 @@ export default class FacilitatorCtrl extends BaseClientCtrl<{
       SapienServerCom.BASE_REST_URL + "facilitator/lookups"
     ).then(rcl => {
       this.dataStore.FacilitatorState.RoundChangeLookups = rcl as RoundChangeLookup[];
-      console.log(
-        "LOOKUPS AFTER QUERY",
-        this.dataStore.FacilitatorState.RoundChangeLookups
-      );
       return rcl;
     });
   }
@@ -336,10 +321,9 @@ export default class FacilitatorCtrl extends BaseClientCtrl<{
       SapienServerCom.SaveData(
         mapping,
         SapienServerCom.BASE_REST_URL +
-          "facilitation/round/" +
-          this.dataStore.FacilitatorState.Game._id
+        "facilitation/round/" +
+        this.dataStore.FacilitatorState.Game._id
       ).then(r => {
-        console.log("RESPONSE FROM SERVER FROM ROUND ADVANCE POST", r);
         const vidSlideNumbers: number[] = [7, 32, 44, 57];
 
         if (
@@ -364,12 +348,7 @@ export default class FacilitatorCtrl extends BaseClientCtrl<{
       this.dataStore.FacilitatorState.Game = g;
       this.dataStore.FacilitatorState.SlideNumber =
         g.CurrentRound.SlideNumber || 1;
-      console.log(
-        "HEY",
-        this.dataStore.FacilitatorState,
-        g.CurrentRound,
-        this.dataStore.FacilitatorState.CurrentLookup
-      );
+
 
       if (
         !this.dataStore.FacilitatorState.CurrentLookup ||
@@ -398,24 +377,23 @@ export default class FacilitatorCtrl extends BaseClientCtrl<{
 
     this.goToMapping(
       this.dataStore.FacilitatorState.RoundChangeLookups[
-        this.dataStore.ApplicationState.CurrentGame.CurrentRound.SlideNumber
+      this.dataStore.ApplicationState.CurrentGame.CurrentRound.SlideNumber
       ]
     );
   }
 
   protected _setUpFistma(reactComp: Component) {
-    console.log("DS, YO", DataStore);
     DataStore.ApplicationState.CurrentUser = localStorage.getItem("RH_USER")
       ? Object.assign(
-          new UserModel(),
-          JSON.parse(localStorage.getItem("RH_USER"))
-        )
+        new UserModel(),
+        JSON.parse(localStorage.getItem("RH_USER"))
+      )
       : new UserModel();
     DataStore.ApplicationState.CurrentTeam = localStorage.getItem("RH_TEAM")
       ? Object.assign(
-          new TeamModel(),
-          JSON.parse(localStorage.getItem("RH_TEAM"))
-        )
+        new TeamModel(),
+        JSON.parse(localStorage.getItem("RH_TEAM"))
+      )
       : new TeamModel();
 
     this.dataStore = {
@@ -424,7 +402,6 @@ export default class FacilitatorCtrl extends BaseClientCtrl<{
     };
     //this.dataStore.ApplicationState.CurrentTeam = null;
 
-    console.log("DATASTORE APPLICATION:", this.dataStore, this.component);
   }
 
   public getChartingScores() {
@@ -442,8 +419,6 @@ export default class FacilitatorCtrl extends BaseClientCtrl<{
           Object.assign(sr, { NormalizedScore: sr.NormalizedScore * 100 })
         )
       );
-      console.log(r);
-
       //Object.assign(this.dataStore.Scores, r);
       this.dataStore.FacilitatorState.SlideScores.SubRoundScores = r;
       this.dataStore.FacilitatorState.SlideScores.RoundScores = this.getRoundRanking(
@@ -492,13 +467,12 @@ export default class FacilitatorCtrl extends BaseClientCtrl<{
 
     return !allScores
       ? selectedRoundScores
-          .reverse()
-          .slice(0, this.dataStore.FacilitatorState.CurrentLookup.RoundScoreIdx)
+        .reverse()
+        .slice(0, this.dataStore.FacilitatorState.CurrentLookup.RoundScoreIdx)
       : selectedRoundScores.reverse();
   }
 
   getCumulativeTeamScores(scores: SubRoundScore[], allScores: boolean = false) {
-    console.log("GETTING CUMULATIVE", scores, allScores);
     let groupedTeamScores = groupBy(scores, "TeamId");
 
     let accumulatedScores = Object.keys(groupedTeamScores).map(k => {
@@ -523,11 +497,11 @@ export default class FacilitatorCtrl extends BaseClientCtrl<{
 
     return !allScores
       ? sortBy(accumulatedScores, "NormalizedScore")
-          .reverse()
-          .slice(
-            0,
-            this.dataStore.FacilitatorState.CurrentLookup.CumulativeScoreIdx
-          )
+        .reverse()
+        .slice(
+          0,
+          this.dataStore.FacilitatorState.CurrentLookup.CumulativeScoreIdx
+        )
       : sortBy(accumulatedScores, "NormalizedScore").reverse();
   }
 
@@ -543,7 +517,6 @@ export default class FacilitatorCtrl extends BaseClientCtrl<{
           Object.assign(sr, { NormalizedScore: sr.NormalizedScore * 100 })
         )
       );
-      console.log(r);
 
       //Object.assign(this.dataStore.Scores, r);
       this.dataStore.FacilitatorState.FacilitatorScores.SubRoundScores = r;
@@ -590,7 +563,7 @@ export default class FacilitatorCtrl extends BaseClientCtrl<{
     this.dataStore.FacilitatorState.SelectedTeamMapping = team;
     const url = `${SapienServerCom.BASE_REST_URL}facilitator/getteamresponses/${
       team.TeamId
-    }`;
+      }`;
     return SapienServerCom.GetData(null, null, url).then(
       (questions: QuestionModel[]) => {
         questions = this.arrange2AResponses(questions);
@@ -613,9 +586,9 @@ export default class FacilitatorCtrl extends BaseClientCtrl<{
     ) => {
       return limitToOne
         ? team.Members.filter(m => m.Job == jobName).length == 1 ||
-            `Teams must have one ${jobName}`
+        `Teams must have one ${jobName}`
         : team.Members.some(m => m.Job == jobName) ||
-            `Teams must have at least one ${jobName}`;
+        `Teams must have at least one ${jobName}`;
     };
 
     const aintGotJob = (
@@ -673,7 +646,6 @@ export default class FacilitatorCtrl extends BaseClientCtrl<{
 
     return questions.map(q => {
       if (q.SubRoundLabel != "2A" || !resp) return q;
-      console.log("over here", resp);
       q.Response = new ResponseModel();
       if (q.Type == QuestionType.SLIDER) {
         let answer = (resp.Answer as SliderValueObj[]).find(
@@ -727,7 +699,6 @@ export default class FacilitatorCtrl extends BaseClientCtrl<{
 
       return groupBy(flats, prop);
     }
-    console.log("RETURNING EMPTY");
     return [];
   }
 
@@ -739,7 +710,6 @@ export default class FacilitatorCtrl extends BaseClientCtrl<{
     let limited = answers.filter(
       a => a.SubRoundLabel && a.SubRoundLabel.indexOf(round) != -1
     );
-    console.log("LIMITED", groupBy(limited, prop));
     return groupBy(limited, prop);
   }
 
