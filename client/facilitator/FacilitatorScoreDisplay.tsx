@@ -11,7 +11,7 @@ import {
   Card,
   Header,
   Segment,
-  Table
+  Table,
 } from "semantic-ui-react";
 const Field = { Form };
 const { Column, Row } = Grid;
@@ -43,15 +43,15 @@ export default class FacilitatorSlides extends React.Component<
       Game,
       CurrentLookup,
       CumulativeScores,
-      Stepped
+      Stepped,
     } = this.props;
     //className={Stepped ? "facilitator-scores" : ""}
     return (
       <>
         <div>
-          {}
+          {/*
         <pre>{JSON.stringify(RoundScores, null, 2)}</pre>
-        <pre>{JSON.stringify(CumulativeScores, null, 2)}</pre>
+          <pre>{JSON.stringify(CumulativeScores, null, 2)}</pre>*/}
           {RoundScores &&
             ((Game.CurrentRound.SlideNumber != 76 &&
               RoundScores.length &&

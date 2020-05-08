@@ -233,7 +233,7 @@ export default class FacilitatorCtrl extends BaseClientCtrl<{
         Video:
           "https://videos.learning.redhat.com/media/MSX+Round+2/1_v166k9tj/101643261",
       },
-      "40": {
+      "39": {
         SlideFeedback: true,
       },
       "50": {
@@ -412,6 +412,7 @@ export default class FacilitatorCtrl extends BaseClientCtrl<{
   }
 
   public getChartingScores() {
+    console.log("GETTING CHARTING SCORES");
     //getsubroundscores
     const url =
       SapienServerCom.BASE_REST_URL +
