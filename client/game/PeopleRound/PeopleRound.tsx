@@ -83,7 +83,12 @@ export default class PeopleRound extends BaseComponent<any, IRoundDataStore> {
                 }}
               >
                 <h1>
-                  ROUND ONE {this.controller.dataStore.Round.Weight === 0 ? "A" : "B"}
+                  ROUND ONE{" "}
+                  {this.controller.dataStore.SubRound &&
+                  this.controller.dataStore.SubRound.Name &&
+                  this.controller.dataStore.SubRound.Name.toUpperCase().indexOf("PRIORITIES") !== -1
+                    ? "A"
+                    : "B"}
                   <br />
                   Build the Team
                 </h1>
