@@ -131,7 +131,7 @@ export default class RoundManagement extends BaseComponent<
                       <div className="admin-controls">
                         <div>
                           <Icon name="dropdown" />
-                          Round {j + 1}: {round.Name} | {round._id}
+                          Round {j + 1}: {round.Name}
                           <Icon
                             name="edit"
                             onClick={() =>
