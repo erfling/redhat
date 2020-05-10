@@ -796,10 +796,10 @@ export default class FacilitatorView extends BaseComponent<
             </Modal.Content>
           </Modal>
         )}
-
+        {/*
         <pre>
           {JSON.stringify(this.state.FacilitatorState.CurrentLookup, null, 2)}
-        </pre>
+        </pre>*/}
       </Grid>
     );
   }
