@@ -124,7 +124,7 @@ class GameCtrl {
                 ({ ...new RoundModel(), ...roundDoc.toJSON() } as RoundModel)
             );
           });
-        const firstRound = rounds[0];
+        const firstRound = rounds[1];
         console.log("FIRST ROUND", firstRound);
 
         const firstSR = firstRound.SubRounds[0];

@@ -145,7 +145,10 @@ export default class GameCtrl<T extends IControllerDataStore & {Game: GameModel,
 
     public async getCurrentMapping(noPoll: boolean = false){
         return SapienServerCom.GetData(null, RoundChangeMapping, SapienServerCom.BASE_REST_URL + 'gameplay/getcurrentmapping/' + this.dataStore.ApplicationState.CurrentTeam.GameId).then(
-            (r: RoundChangeMapping) => this.handleMappingChange(r, noPoll)
+            (r: RoundChangeMapping) => { 
+                console.log("ROUND CHANGE MAPPING ON LOGIN", r)
+                return this.handleMappingChange(r, noPoll)
+            }
         )
     }
 
