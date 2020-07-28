@@ -26,7 +26,7 @@ export default abstract class EmailCtrl {
 
         if (isReset) {
             mailOptions.subject = "Sapien Experience Password Reset"
-            mailOptions.html = "<p>Click the link to reset your Source Stream Experience admin password.</p><a href='http://planetsapientestsite.com/login/join?token=" + token + "'>Reset Password</a><p>If you didn't request a new password, please contact Sapien Experience administrators.</p>"// plain text body
+            mailOptions.html = "<p>Click the link to reset your Source Stream Experience admin password.</p><a href='http://sourcestreamexperience.com/login/join?token=" + token + "'>Reset Password</a><p>If you didn't request a new password, please contact Sapien Experience administrators.</p>"// plain text body
         }
 
         transporter.sendMail(mailOptions, function (err, info) {
