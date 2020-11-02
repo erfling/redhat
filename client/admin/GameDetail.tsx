@@ -254,6 +254,9 @@ class GameDetail extends BaseComponent<
                                                         .SelectedGame
                                                     );
                                                     p.EditMode = false;
+                                                    this.controller.saveTeam(this.state.Admin.SelectedGame.Teams[
+                                                      i
+                                                    ], this.state.ApplicationState.CurrentGame)
                                                   }
                                                 }}
                                                 onAddItem={(e) => {
