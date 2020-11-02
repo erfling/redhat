@@ -201,7 +201,7 @@ class GameDetail extends BaseComponent<
                   {sortBy(this.state.Admin.SelectedGame.Teams, "Number").map(
                     (t, i) => {
                       return (
-                        <Column>
+                        <Column key={i}>
                           <Card fluid key={i} color="blue">
                             <Card.Content>
                               <Card.Header>
@@ -239,10 +239,6 @@ class GameDetail extends BaseComponent<
                                                   var playerToAdd: UserModel =
                                                     this.state.Admin.Users.filter(
                                                       (p) => {
-                                                        console.log(
-                                                          p._id,
-                                                          p._id == output.value
-                                                        );
                                                         return (
                                                           p._id == output.value
                                                         );
@@ -257,16 +253,15 @@ class GameDetail extends BaseComponent<
                                                       this.state.Admin
                                                         .SelectedGame
                                                     );
-                                                    console.log(t.Players);
                                                     p.EditMode = false;
                                                   }
                                                 }}
-                                                onAddItem={(e) =>
+                                                onAddItem={(e) => {
                                                   this.controller.addPlayer(
                                                     this.state.Admin
                                                       .SelectedGame.Teams[i]
-                                                  )
-                                                }
+                                                  );
+                                                }}
                                               />
                                             )}
                                             {!p.EditMode && (

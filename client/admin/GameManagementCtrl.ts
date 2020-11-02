@@ -133,7 +133,6 @@ export default class GameManagementCtrl extends BaseClientCtrl<
             }
           );
         } else {
-          console.log(r, Object.assign(new GameModel(), r));
           this.dataStore.Admin.Games = this.dataStore.Admin.Games.concat(
             Object.assign(new GameModel(), r)
           );
@@ -200,7 +199,6 @@ export default class GameManagementCtrl extends BaseClientCtrl<
 
   public filterUsersByGame(game: GameModel): void {
     const users: UserModel[][] = game.Teams.map((t) => t.Players);
-    console.log("USERS", users);
     //const merged: UserModel[] = [].concat.apply([], users);
     let flatUsers: UserModel[] = [];
     users.forEach((u: UserModel[]) => {
@@ -208,10 +206,8 @@ export default class GameManagementCtrl extends BaseClientCtrl<
         flatUsers.push(iu);
       });
     });
-    console.log("flatUsers", flatUsers);
 
     let userIds: string[] = flatUsers.map((u) => {
-      console.log(u, u._id, u.FirstName, u.Email);
       return u._id;
     });
 
@@ -229,7 +225,6 @@ export default class GameManagementCtrl extends BaseClientCtrl<
   public addPlayer(team: TeamModel): void {
     this.dataStore.ApplicationState.ModalTarget = team;
     this.dataStore.ApplicationState.ModalObject = new UserModel();
-    console.log("team", team, this.dataStore.ApplicationState.ModalObject);
     this.openModal();
   }
 
@@ -241,7 +236,6 @@ export default class GameManagementCtrl extends BaseClientCtrl<
     ).then((r) => {
       var returnedUser: UserModel = Object.assign(new UserModel(), r);
       returnedUser.EditMode = false;
-      console.log(r, Object.assign(new UserModel(), r));
       this.dataStore.Admin.Users = this.dataStore.Admin.Users.concat(
         returnedUser
       );
@@ -250,6 +244,7 @@ export default class GameManagementCtrl extends BaseClientCtrl<
         (p) => p._id != null
       ).concat(returnedUser);
       this.closeModal();
+      this.saveTeam(this.dataStore.ApplicationState.ModalTarget, this.dataStore.ApplicationState.CurrentGame)
       return returnedUser;
     });
   }
@@ -289,7 +284,6 @@ export default class GameManagementCtrl extends BaseClientCtrl<
           (g) => g._id != game._id
         );
 
-        console.log(AdminCtrl.GetInstance().dataStore.Admin.Games);
         this.dataStore.Admin.DeletionGame = null;
         ApplicationCtrl.GetInstance().addToast(
           "The game was successfully removed"
@@ -355,7 +349,6 @@ export default class GameManagementCtrl extends BaseClientCtrl<
 
     this.dataStore.Admin.GameFilter[prop] = value;
 
-    console.log(value, this.dataStore.Admin.GameFilter);
     this.dataStore.Admin.FilteredGames = this.dataStore.Admin.Games.filter(
       (g) => {
         let match = true;
@@ -370,14 +363,7 @@ export default class GameManagementCtrl extends BaseClientCtrl<
             }
           }
         } else {
-          console.log(
-            (
-              g.Facilitator.FirstName +
-              " " +
-              g.Facilitator.LastName
-            ).toUpperCase(),
-            this.dataStore.Admin.GameFilter[prop]
-          );
+          
           if (
             (g.Facilitator.FirstName + " " + g.Facilitator.LastName)
               .toUpperCase()
