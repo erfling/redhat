@@ -12,7 +12,7 @@ export default abstract class EmailCtrl {
                 service: 'gmail',
                 auth: {
                     user: 'breeden@gnuidea.net',
-                    pass: 'Molly717**'
+                    pass: 'Molly7171**'
                 }
             }
         )
