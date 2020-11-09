@@ -123,7 +123,7 @@
     "build": "tsc && ./node_modules/.bin/webpack --config webpack.config.prod.js",
     "dev": "set NODE_ENV=dev && tsc --pretty && ./node_modules/.bin/webpack --progress --config webpack.config.dev.js && node ./build/api/index.js",
     "dev-prod": "set NODE_ENV=prod && tsc && ./node_modules/.bin/webpack --config webpack.config.prod.js && node ./build/api/index.js",
-    "sapien-start": "export NODE_ENV=prod && tsc && ./node_modules/.bin/webpack --config webpack.config.prod.js && node ./build/api/index.js"
+    "sapien-start": "export SENDGRID_API_KEY='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' && export NODE_ENV=prod && tsc && ./node_modules/.bin/webpack --config webpack.config.prod.js && node ./build/api/index.js"
   },
   "repository": {
     "type": "git",
