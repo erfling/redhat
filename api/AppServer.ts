@@ -77,6 +77,7 @@ export class AppServer {
   private static getServer(): http.Server | https.Server {
     try {
       if (AppServer._isProd()) {
+        console.log("ENV VARS ARE:", process.env);
         var privateKey = fs
           .readFileSync(
             "/sapien/certificates/planetsapien.com/privkey.pem",
