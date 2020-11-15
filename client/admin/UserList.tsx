@@ -18,7 +18,7 @@ const { Row, Column } = Grid;
 import UserManagementCtrl from "./UserManagementCtrl";
 import AdminViewModel from "../../shared/models/AdminViewModel";
 import { RoleName } from "../../shared/models/UserModel";
-import UserModal from "./UserModal";
+import UserModalNew from "./UserModalNew";
 import { IControllerDataStore } from "../../shared/base-sapien/client/BaseClientCtrl";
 import BaseComponent from "../../shared/base-sapien/client/shared-components/BaseComponent";
 
@@ -115,8 +115,8 @@ export default class UserList extends BaseComponent<
           </Modal>
         )}
         {this.state.ApplicationState.ModalObject && (
-          <UserModal
-            User={this.state.ApplicationState.ModalObject}
+          <UserModalNew
+            passedUser={this.state.ApplicationState.ModalObject}
             CloseFunction={this.controller.closeModal.bind(this.controller)}
             SaveFunction={this.controller.saveUser.bind(this.controller)}
             Submitting={this.state.ApplicationState.FormIsSubmitting}

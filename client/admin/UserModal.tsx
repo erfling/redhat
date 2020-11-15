@@ -143,7 +143,7 @@ export default class UserModal extends React.Component< UserModalProps, {} >
                         ></Button>
                     </Modal.Actions>
                 </Modal>
-            }
+            
             
         </>;
     }

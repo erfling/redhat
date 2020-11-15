@@ -140,7 +140,7 @@ export default class TeamJobsModal extends React.Component< TeamModalProps,{ tea
             />
           </Modal.Actions>
         </Modal>
-        }
+        
       </>
     );
   }

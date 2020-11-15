@@ -20,7 +20,7 @@ import { withRouter } from "react-router";
 import GameManagementCtrl from "./GameManagementCtrl";
 import AdminViewModel from "../../shared/models/AdminViewModel";
 import UserModel, { RoleName, JobName } from "../../shared/models/UserModel";
-import UserModal from "./UserModal";
+import UserModalNew from "./UserModalNew";
 import { IControllerDataStore } from "../../shared/base-sapien/client/BaseClientCtrl";
 import GameModal from "./GameModal";
 import DeleteTeamModal from "./DeleteTeamModal";
@@ -458,8 +458,8 @@ class GameDetail extends BaseComponent<
             this.state.ApplicationState &&
             this.state.ApplicationState.ModalObject &&
             "Email" in this.state.ApplicationState.ModalObject && (
-              <UserModal
-                User={this.state.ApplicationState.ModalObject}
+              <UserModalNew
+                passedUser={this.state.ApplicationState.ModalObject}
                 CloseFunction={this.controller.closeModal.bind(this.controller)}
                 SaveFunction={this.controller.saveUser.bind(this.controller)}
                 Submitting={this.state.ApplicationState.FormIsSubmitting}
