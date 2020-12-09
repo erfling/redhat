@@ -22,7 +22,10 @@ interface GameModalProps {
   Submitting: boolean;
 }
 
-export default class GameModal extends React.Component<GameModalProps, {}> {
+export default class GameModal extends React.Component<
+  GameModalProps,
+  { Game: GameModel }
+> {
   //----------------------------------------------------------------------
   //
   //  Properties
@@ -37,6 +40,7 @@ export default class GameModal extends React.Component<GameModalProps, {}> {
 
   constructor(props: GameModalProps) {
     super(props);
+    this.state = { Game: props.Game };
   }
 
   //----------------------------------------------------------------------
@@ -50,6 +54,17 @@ export default class GameModal extends React.Component<GameModalProps, {}> {
   //  Methods
   //
   //----------------------------------------------------------------------
+
+  updateGame = (
+    prop: keyof GameModel,
+    value: string | boolean,
+    oldGame: GameModel
+  ) => {
+    const newGame = { ...oldGame, ...{ [prop]: value } } as GameModel;
+    this.setState({
+      Game: newGame,
+    });
+  };
 
   render() {
     return (
@@ -69,10 +84,14 @@ export default class GameModal extends React.Component<GameModalProps, {}> {
                 <Form.Field>
                   <label>Location</label>
                   <Input
-                    value={this.props.Game.Location}
-                    onChange={(e) =>
-                      (this.props.Game.Location = (e.target as HTMLInputElement).value)
-                    }
+                    value={this.state.Game.Location}
+                    onChange={(e) => {
+                      this.updateGame(
+                        "Location",
+                        (e as any).target.value,
+                        this.state.Game
+                      );
+                    }}
                     placeholder="Location"
                   />
                 </Form.Field>
@@ -99,11 +118,15 @@ export default class GameModal extends React.Component<GameModalProps, {}> {
                   <DateInput
                     name="date"
                     placeholder="Date"
-                    value={this.props.Game.DatePlayed}
+                    value={this.state.Game.DatePlayed}
                     iconPosition="left"
                     dateFormat="MM/DD/YYYY"
                     onChange={(e, output) => {
-                      this.props.Game.DatePlayed = output.value;
+                      this.updateGame(
+                        "DatePlayed",
+                        output.value,
+                        this.state.Game
+                      );
                     }}
                   />
                 </Form.Field>
@@ -126,11 +149,10 @@ export default class GameModal extends React.Component<GameModalProps, {}> {
               labelPosition="right"
               content="Save Game"
               loading={this.props.Submitting}
-              onClick={(e) => this.props.SaveFunction(this.props.Game)}
+              onClick={(e) => this.props.SaveFunction(this.state.Game)}
             ></Button>
           </Modal.Actions>
         </Modal>
-        }
       </>
     );
   }

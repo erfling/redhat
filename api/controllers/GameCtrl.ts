@@ -117,14 +117,14 @@ class GameCtrl {
         let rounds: RoundModel[] = await monRoundModel
           .find({ IsActive: true })
           .populate("SubRounds")
-          .sort({ Weight: 1 })
+          .sort({ Weight: "asc" })
           .then((roundDocs) => {
             return roundDocs.map(
               (roundDoc) =>
                 ({ ...new RoundModel(), ...roundDoc.toJSON() } as RoundModel)
             );
           });
-        const firstRound = rounds[1];
+        const firstRound = rounds[0];
         console.log("FIRST ROUND", firstRound);
 
         const firstSR = firstRound.SubRounds[0];

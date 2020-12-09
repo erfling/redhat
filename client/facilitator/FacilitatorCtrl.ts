@@ -354,25 +354,27 @@ export default class FacilitatorCtrl extends BaseClientCtrl<{
       GameModel,
       SapienServerCom.BASE_REST_URL + GameModel.REST_URL + "/" + id
     ).then((g: GameModel) => {
-      this.dataStore.FacilitatorState.Game = g;
-      this.dataStore.FacilitatorState.SlideNumber =
-        g.CurrentRound.SlideNumber || 1;
+      if (g) {
+        this.dataStore.FacilitatorState.Game = g;
+        this.dataStore.FacilitatorState.SlideNumber =
+          g.CurrentRound.SlideNumber || 1;
 
-      if (
-        !this.dataStore.FacilitatorState.CurrentLookup ||
-        !this.dataStore.FacilitatorState.CurrentLookup.MaxSlideNumber
-      ) {
-        let lookups = this.dataStore.FacilitatorState.RoundChangeLookups.filter(
-          (lu) => {
-            return (
-              lu.MinSlideNumber <= g.CurrentRound.SlideNumber &&
-              lu.MaxSlideNumber >= g.CurrentRound.SlideNumber
-            );
-          }
-        );
+        if (
+          !this.dataStore.FacilitatorState.CurrentLookup ||
+          !this.dataStore.FacilitatorState.CurrentLookup.MaxSlideNumber
+        ) {
+          let lookups = this.dataStore.FacilitatorState.RoundChangeLookups.filter(
+            (lu) => {
+              return (
+                lu.MinSlideNumber <= g.CurrentRound.SlideNumber &&
+                lu.MaxSlideNumber >= g.CurrentRound.SlideNumber
+              );
+            }
+          );
 
-        if (lookups.length)
-          this.dataStore.FacilitatorState.CurrentLookup = lookups[0];
+          if (lookups.length)
+            this.dataStore.FacilitatorState.CurrentLookup = lookups[0];
+        }
       }
 
       return this.dataStore.FacilitatorState.Game;

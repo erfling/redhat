@@ -254,9 +254,15 @@ class GameDetail extends BaseComponent<
                                                         .SelectedGame
                                                     );
                                                     p.EditMode = false;
-                                                    this.controller.saveTeam(this.state.Admin.SelectedGame.Teams[
-                                                      i
-                                                    ], this.state.ApplicationState.CurrentGame)
+                                                    this.controller.saveTeam(
+                                                      Object.assign(
+                                                        this.state.Admin.SelectedGame.Teams[
+                                                          i
+                                                        ],
+                                                        { Number: i + 1 }
+                                                      ),
+                                                      this.state.Admin.SelectedGame
+                                                    )
                                                   }
                                                 }}
                                                 onAddItem={(e) => {

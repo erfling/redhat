@@ -171,8 +171,13 @@ export default class FacilitatorView extends BaseComponent<
     }
 
     if (
-      this.state.FacilitatorState.Game.CurrentRound.ShowIndividualFeedback ||
-      this.state.FacilitatorState.Game.CurrentRound.ShowRateUsers
+      this.state &&
+      this.state.FacilitatorState &&
+      this.state.FacilitatorState.Game &&
+      this.state.FacilitatorState.Game &&
+      this.state.FacilitatorState.Game.CurrentRound &&
+      (this.state.FacilitatorState.Game.CurrentRound.ShowIndividualFeedback ||
+      this.state.FacilitatorState.Game.CurrentRound.ShowRateUsers)
     ) {
       //has the manager rated all the other players?
       if (user.Job == JobName.MANAGER) {

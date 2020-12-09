@@ -199,7 +199,7 @@ export default class FacilitatorSlides extends BaseComponent<
       <React.Fragment>
         {this.state &&
           this.state.FacilitatorState.Game &&
-          this.state.FacilitatorState.Game.CurrentRound && (
+          this.state.FacilitatorState.Game.CurrentRound ? (
             <>
               <Fullscreen
                 enabled={this.state.FacilitatorState.FullScreen}
@@ -384,7 +384,7 @@ export default class FacilitatorSlides extends BaseComponent<
                 </>
               </Fullscreen>
             </>
-          )}
+          ) : <></>}
       </React.Fragment>
     );
   }
